@@ -2,11 +2,11 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — 21 games (including expansions/variants), interactive decision trees, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — 23 games (including expansions/variants), interactive decision trees, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **21 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **23 game rules**: web-verified, complete bilingual rules (EN/ZH)
 - **15 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **Game family grouping**: UNO, Dirty Pig, Sanguosha, Exploding Kittens series with stacked card UI
 - **DLC / variant support**: Pig Pageant, Disloyal Minister, Black Box, UNO Flip, UNO No Mercy
@@ -88,7 +88,7 @@ content/games/
 │   ├── meta.json                 # Game metadata
 │   ├── zh/{rules.md, flow.json}  # Chinese rules + optional decision tree
 │   └── en/{rules.md, flow.json}  # English rules + optional decision tree
-└── ...（21 games total）
+└── ...（23 games total）
 
 src/
 ├── app/[locale]/                 # Page routes

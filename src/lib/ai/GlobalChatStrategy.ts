@@ -71,7 +71,7 @@ ${gameLines}
 export class GlobalChatStrategy implements ChatToolStrategy {
   async getSystemPrompt(locale: string): Promise<string> {
     try {
-      const resp = await fetch("/data/games-index.json");
+      const resp = await fetch("/boardgames/data/games-index.json");
       const games = await resp.json();
       return buildPrompt(locale, games);
     } catch {

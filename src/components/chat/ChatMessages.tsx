@@ -1,8 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { useChat } from "@/lib/chat/ChatProvider";
 import { useTranslations } from "next-intl";
+
+// ─── Sub-components ──────────────────────────────────────────────────────
 
 function TypingIndicator() {
   return (
@@ -38,13 +42,102 @@ function EmptyState({ placeholder }: { placeholder: string }) {
   );
 }
 
+/** Renders markdown inside assistant bubbles. Tailwind prose reset isn't used
+ *  because the bubble has its own bg — we define inline styles instead. */
+function MarkdownBubble({ content }: { content: string }) {
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      components={{
+        // Headings — smaller scale since we're in a chat bubble
+        h1: ({ children }) => (
+          <h1 className="mb-1.5 mt-3 text-base font-bold first:mt-0">{children}</h1>
+        ),
+        h2: ({ children }) => (
+          <h2 className="mb-1 mt-2.5 text-sm font-bold first:mt-0">{children}</h2>
+        ),
+        h3: ({ children }) => (
+          <h3 className="mb-1 mt-2 text-sm font-semibold first:mt-0">{children}</h3>
+        ),
+        // Paragraph
+        p: ({ children }) => (
+          <p className="mb-1 last:mb-0">{children}</p>
+        ),
+        // Lists
+        ul: ({ children }) => (
+          <ul className="mb-1 ml-4 list-disc space-y-0.5 last:mb-0">{children}</ul>
+        ),
+        ol: ({ children }) => (
+          <ol className="mb-1 ml-4 list-decimal space-y-0.5 last:mb-0">{children}</ol>
+        ),
+        // Inline
+        strong: ({ children }) => (
+          <strong className="font-semibold text-stone-900">{children}</strong>
+        ),
+        code: ({ children, className }) => {
+          const inline =
+            !className || (!String(className).includes("language") && !String(className).includes("hljs"));
+          return inline ? (
+            <code className="rounded bg-stone-200/70 px-1 py-0.5 text-[12px] text-stone-700">
+              {children}
+            </code>
+          ) : (
+            <pre className="mb-1.5 mt-1 overflow-x-auto rounded-lg bg-stone-200/60 p-2.5 text-[12px] leading-relaxed last:mb-0">
+              <code className={className}>{children}</code>
+            </pre>
+          );
+        },
+        // Table
+        table: ({ children }) => (
+          <div className="mb-1.5 mt-1 overflow-x-auto last:mb-0">
+            <table className="min-w-full border-collapse text-[12px]">
+              {children}
+            </table>
+          </div>
+        ),
+        thead: ({ children }) => (
+          <thead className="border-b border-stone-300">{children}</thead>
+        ),
+        th: ({ children }) => (
+          <th className="px-2 py-1 text-left font-semibold">{children}</th>
+        ),
+        td: ({ children }) => (
+          <td className="px-2 py-1">{children}</td>
+        ),
+        // Blockquote
+        blockquote: ({ children }) => (
+          <blockquote className="mb-1 border-l-2 border-amber-400/60 pl-3 italic text-stone-600 last:mb-0">
+            {children}
+          </blockquote>
+        ),
+        // Horizontal rule
+        hr: () => <hr className="my-2 border-stone-300" />,
+        // Link
+        a: ({ href, children }) => (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"
+          >
+            {children}
+          </a>
+        ),
+      }}
+    >
+      {content}
+    </ReactMarkdown>
+  );
+}
+
+// ─── Main ────────────────────────────────────────────────────────────────
+
 export function ChatMessages() {
   const { messages, isStreaming } = useChat();
   const t = useTranslations("chat");
   const bottomRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Track auto-scroll: only auto-scroll when user is near bottom
   const isNearBottom = () => {
     const el = scrollContainerRef.current;
     if (!el) return true;
@@ -104,7 +197,15 @@ export function ChatMessages() {
                         : "bg-stone-100 text-stone-400"
                   }`}
                 >
-                  {msg.content || <TypingIndicator />}
+                  {msg.content ? (
+                    msg.role === "user" ? (
+                      <p className="whitespace-pre-wrap">{msg.content}</p>
+                    ) : (
+                      <MarkdownBubble content={msg.content} />
+                    )
+                  ) : (
+                    <TypingIndicator />
+                  )}
                 </div>
                 {msg.role === "user" && (
                   <div className="ml-2 mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-stone-200">

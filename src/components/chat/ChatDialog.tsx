@@ -4,17 +4,78 @@ import { useChat } from "@/lib/chat/ChatProvider";
 import { ChatMessages } from "./ChatMessages";
 import { ChatInput } from "./ChatInput";
 import { ApiKeyModal } from "./ApiKeyModal";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 
 interface Props {
   title?: string;
 }
 
+function ClearConfirmDialog({
+  onConfirm,
+  onCancel,
+}: {
+  onConfirm: () => void;
+  onCancel: () => void;
+}) {
+  const t = useTranslations("chat");
+  const cancelRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    cancelRef.current?.focus();
+  }, []);
+
+  return (
+    <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-white/95 backdrop-blur-sm">
+      <div className="w-full max-w-xs px-6 text-center">
+        <div className="mb-4 flex justify-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50">
+            <svg
+              className="h-6 w-6 text-red-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <h4 className="mb-1 text-sm font-semibold text-stone-900">
+          {t("clearHistory")}
+        </h4>
+        <p className="mb-5 text-xs leading-relaxed text-stone-500">
+          {t("clearHistoryConfirm")}
+        </p>
+        <div className="flex gap-2.5">
+          <button
+            ref={cancelRef}
+            onClick={onCancel}
+            className="flex-1 cursor-pointer rounded-xl border border-stone-200 bg-white px-3 py-2.5 text-sm font-medium text-stone-600 hover:bg-stone-50 transition-colors"
+          >
+            {t("close")}
+          </button>
+          <button
+            onClick={onConfirm}
+            className="flex-1 cursor-pointer rounded-xl bg-red-500 px-3 py-2.5 text-sm font-medium text-white shadow-sm shadow-red-200 hover:bg-red-600 transition-colors"
+          >
+            {t("delete")}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ChatDialog({ title }: Props) {
   const { apiKey, clearHistory, setIsOpen } = useChat();
   const t = useTranslations("chat");
   const [showApiModal, setShowApiModal] = useState(!apiKey);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   const hasApiKey = Boolean(apiKey);
 
@@ -66,7 +127,7 @@ export function ChatDialog({ title }: Props) {
             )}
           </button>
           <button
-            onClick={clearHistory}
+            onClick={() => setShowClearConfirm(true)}
             className="cursor-pointer rounded-lg p-1.5 text-stone-400 hover:bg-stone-100 hover:text-stone-600 transition-colors"
             title={t("clearHistory")}
             aria-label={t("clearHistory")}
@@ -96,6 +157,17 @@ export function ChatDialog({ title }: Props) {
       {/* API Key Modal */}
       {showApiModal && (
         <ApiKeyModal onClose={() => setShowApiModal(false)} />
+      )}
+
+      {/* Clear history confirmation */}
+      {showClearConfirm && (
+        <ClearConfirmDialog
+          onConfirm={() => {
+            clearHistory();
+            setShowClearConfirm(false);
+          }}
+          onCancel={() => setShowClearConfirm(false)}
+        />
       )}
     </div>
   );

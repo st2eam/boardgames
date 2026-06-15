@@ -162,6 +162,56 @@ export function useChat() {
   return ctx;
 }
 
+// ─── Batched streaming state ──────────────────────────────────────────────
+
+/**
+ * Accumulates streaming content into assistantMsg, but only calls
+ * setMessages at most once per animation frame. This prevents React
+ * from re-rendering on every single SSE chunk (which can be as frequent
+ * as every few milliseconds), making the stream feel fluid instead of
+ * janky.
+ */
+function createStreamFlusher(
+  assistantMsg: ChatMessage,
+  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>
+) {
+  let rafId: number | null = null;
+
+  function flush() {
+    rafId = null;
+    // Read the latest content ref via closure — it's already up-to-date
+    // because we mutated assistantMsg.content before scheduling.
+    setMessages((prev) => {
+      const idx = prev.findIndex((m) => m.id === assistantMsg.id);
+      if (idx >= 0) {
+        // Replace in-place
+        const updated = [...prev];
+        updated[idx] = { ...assistantMsg };
+        return updated;
+      }
+      return [...prev, { ...assistantMsg }];
+    });
+  }
+
+  return {
+    append(chunk: string) {
+      assistantMsg.content += chunk;
+      if (rafId === null) {
+        rafId = requestAnimationFrame(flush);
+      }
+    },
+    finalize() {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      flush();
+    },
+  };
+}
+
+// ─── Conversation runner ─────────────────────────────────────────────────
+
 async function runConversation(
   apiKey: string,
   systemPrompt: string,
@@ -204,6 +254,8 @@ async function runConversation(
       timestamp: Date.now(),
     };
 
+    const flusher = createStreamFlusher(assistantMsg, setMessages);
+
     const { finishReason, toolCalls: responseToolCalls } =
       await adapter.streamChat(
         {
@@ -212,23 +264,16 @@ async function runConversation(
         },
         (chunk) => {
           if (chunk.content) {
-            assistantMsg.content += chunk.content;
-            setMessages((prev) => {
-              const idx = prev.findIndex((m) => m.id === assistantMsg.id);
-              if (idx >= 0) {
-                const updated = [...prev];
-                updated[idx] = { ...assistantMsg };
-                return updated;
-              }
-              return [...prev, { ...assistantMsg }];
-            });
+            flusher.append(chunk.content);
           }
         }
       );
 
+    // Always flush whatever is left so React state is fully synced
+    flusher.finalize();
+
     // If no tool calls, we're done
     if (finishReason !== "tool_calls" || !responseToolCalls || responseToolCalls.length === 0) {
-      // Finalize assistant message
       if (assistantMsg.content) {
         setMessages((prev) => {
           const idx = prev.findIndex((m) => m.id === assistantMsg.id);
@@ -240,7 +285,6 @@ async function runConversation(
           return [...prev, { ...assistantMsg }];
         });
       } else {
-        // Remove empty assistant message
         setMessages((prev) => prev.filter((m) => m.id !== assistantMsg.id));
       }
       currentMessages.push(assistantMsg);
@@ -260,7 +304,6 @@ async function runConversation(
     });
     currentMessages.push(assistantMsg);
 
-    // Execute each tool call
     for (const tc of responseToolCalls) {
       let args: Record<string, unknown> = {};
       try {

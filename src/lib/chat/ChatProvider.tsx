@@ -93,6 +93,8 @@ export function ChatProvider({ children, scope, locale }: Props) {
         timestamp: Date.now(),
       };
 
+      // Snapshot before any async gap — the ref may sync during await
+      const history = [...messagesRef.current, userMsg];
       setMessages((prev) => [...prev, userMsg]);
 
       // Select strategy
@@ -113,7 +115,7 @@ export function ChatProvider({ children, scope, locale }: Props) {
           apiKey,
           systemPrompt,
           tools,
-          [...messagesRef.current, userMsg],
+          history,
           setMessages
         );
       } catch (err) {

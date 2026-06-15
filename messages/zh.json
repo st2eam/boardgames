@@ -36,7 +36,9 @@
     "thinking": "思考中...",
     "error": "出错了，请重试。",
     "noApiKey": "请先设置 DeepSeek API Key 再开始对话。",
-    "close": "关闭"
+    "close": "关闭",
+    "switchToGlobal": "切换为全局助手",
+    "switchToGame": "切换为当前游戏助手"
   },
   "flow": {
     "back": "返回上一步",

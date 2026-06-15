@@ -93,7 +93,7 @@ export function GameCardGrid({ games }: Props) {
           if (a.family === b.family && a.family) {
             return (a.familyOrder ?? 0) - (b.familyOrder ?? 0);
           }
-          return 0;
+          return a.name.en.localeCompare(b.name.en);
         })
         .map((game) => ({ type: "single" as const, game }));
     }
@@ -134,6 +134,10 @@ export function GameCardGrid({ games }: Props) {
         items.push({ type: "single", game });
       }
     }
+
+    const getSortName = (item: GridItem) =>
+      item.type === "family" ? item.games[0].name.en : item.game.name.en;
+    items.sort((a, b) => getSortName(a).localeCompare(getSortName(b)));
 
     return items;
   }, [filtered, hasSeriesFilter]);

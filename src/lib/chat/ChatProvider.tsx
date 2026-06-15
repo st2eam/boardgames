@@ -6,6 +6,7 @@ import {
   useState,
   useEffect,
   useCallback,
+  useMemo,
   useRef,
   type ReactNode,
 } from "react";
@@ -19,6 +20,8 @@ import { executeToolCall } from "@/lib/ai/tool-handlers";
 
 const MAX_TOOL_CALL_ITERATIONS = 5;
 
+export type ChatMode = "game" | "global";
+
 interface ChatContextValue {
   messages: ChatMessage[];
   isStreaming: boolean;
@@ -28,6 +31,9 @@ interface ChatContextValue {
   sendMessage: (content: string) => Promise<void>;
   clearHistory: () => Promise<void>;
   setApiKey: (key: string) => void;
+  scope: ChatScope;
+  activeMode: ChatMode;
+  toggleMode: () => void;
 }
 
 const ChatContext = createContext<ChatContextValue | null>(null);
@@ -45,6 +51,14 @@ export function ChatProvider({ children, scope, locale }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const messagesRef = useRef<ChatMessage[]>([]);
+  const [activeMode, setActiveMode] = useState<ChatMode>(
+    scope.type === "game" ? "game" : "global"
+  );
+
+  const effectiveScope: ChatScope = useMemo(() => {
+    if (activeMode === "global") return { type: "global" };
+    return scope;
+  }, [activeMode, scope]);
 
   // Keep ref in sync
   useEffect(() => {
@@ -56,21 +70,22 @@ export function ChatProvider({ children, scope, locale }: Props) {
     setApiKeyState(localStorage.getItem("deepseek-api-key"));
   }, []);
 
-  // Load chat history from IndexedDB
+  // Load chat history from IndexedDB (reload when mode switches)
   useEffect(() => {
-    loadMessages(scope, locale).then((msgs) => {
+    setLoaded(false);
+    loadMessages(effectiveScope, locale).then((msgs) => {
       setMessages(msgs);
       setLoaded(true);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scope.type === "game" ? (scope as { type: "game"; slug: string }).slug : "global", locale]);
+  }, [activeMode, scope.type === "game" ? (scope as { type: "game"; slug: string }).slug : "global", locale]);
 
   // Persist messages
   useEffect(() => {
     if (loaded) {
-      saveMessages(scope, locale, messages);
+      saveMessages(effectiveScope, locale, messages);
     }
-  }, [messages, scope, locale, loaded]);
+  }, [messages, effectiveScope, locale, loaded]);
 
   const setApiKey = useCallback((key: string) => {
     localStorage.setItem("deepseek-api-key", key);
@@ -79,8 +94,13 @@ export function ChatProvider({ children, scope, locale }: Props) {
 
   const clearMessages = useCallback(async () => {
     setMessages([]);
-    await clearStoredHistory(scope, locale);
-  }, [scope, locale]);
+    await clearStoredHistory(effectiveScope, locale);
+  }, [effectiveScope, locale]);
+
+  const toggleMode = useCallback(() => {
+    if (scope.type === "global") return;
+    setActiveMode((prev) => (prev === "game" ? "global" : "game"));
+  }, [scope.type]);
 
   const sendMessage = useCallback(
     async (content: string) => {
@@ -93,13 +113,11 @@ export function ChatProvider({ children, scope, locale }: Props) {
         timestamp: Date.now(),
       };
 
-      // Snapshot before any async gap — the ref may sync during await
       const history = [...messagesRef.current, userMsg];
       setMessages((prev) => [...prev, userMsg]);
 
-      // Select strategy
       let strategy: ChatToolStrategy;
-      if (scope.type === "game") {
+      if (activeMode === "game" && scope.type === "game") {
         strategy = new GameChatStrategy(scope.gameName, scope.rules);
       } else {
         strategy = new GlobalChatStrategy();
@@ -137,7 +155,7 @@ export function ChatProvider({ children, scope, locale }: Props) {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [apiKey, isStreaming, scope, locale]
+    [apiKey, isStreaming, scope, locale, activeMode]
   );
 
   return (
@@ -151,6 +169,9 @@ export function ChatProvider({ children, scope, locale }: Props) {
         sendMessage,
         clearHistory: clearMessages,
         setApiKey,
+        scope,
+        activeMode,
+        toggleMode,
       }}
     >
       {children}

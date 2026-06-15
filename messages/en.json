@@ -36,7 +36,9 @@
     "thinking": "Thinking...",
     "error": "Something went wrong. Please try again.",
     "noApiKey": "Please set your DeepSeek API key to start chatting.",
-    "close": "Close"
+    "close": "Close",
+    "switchToGlobal": "Switch to global assistant",
+    "switchToGame": "Switch to game assistant"
   },
   "flow": {
     "back": "Back",

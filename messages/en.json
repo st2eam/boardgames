@@ -1,0 +1,44 @@
+{
+  "home": {
+    "title": "Board Game Rules",
+    "subtitle": "Quick reference for modern board games",
+    "allGames": "All Games",
+    "filterByTags": "Filter by tags",
+    "noGamesFound": "No games found"
+  },
+  "game": {
+    "players": "Players",
+    "duration": "Duration",
+    "difficulty": "Difficulty",
+    "viewFlow": "Decision Tree",
+    "backToGames": "Back to Games",
+    "rules": "Rules"
+  },
+  "chat": {
+    "title": "Rules Assistant",
+    "globalTitle": "Ask about any game",
+    "gameTitle": "Ask about {game}",
+    "placeholder": "Ask about rules...",
+    "setApiKey": "Set API Key",
+    "apiKeyDescription": "Enter your DeepSeek API key to enable the chat assistant. Your key is stored locally and never sent to our servers.",
+    "apiKeyLabel": "API Key",
+    "apiKeyPlaceholder": "sk-...",
+    "save": "Save",
+    "clearHistory": "Clear History",
+    "thinking": "Thinking...",
+    "error": "Something went wrong. Please try again.",
+    "noApiKey": "Please set your DeepSeek API key to start chatting."
+  },
+  "flow": {
+    "back": "Back",
+    "startOver": "Start Over"
+  },
+  "common": {
+    "language": "Language",
+    "english": "English",
+    "chinese": "中文",
+    "difficultyEasy": "Easy",
+    "difficultyMedium": "Medium",
+    "difficultyHard": "Hard"
+  }
+}

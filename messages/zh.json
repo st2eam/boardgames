@@ -1,0 +1,44 @@
+{
+  "home": {
+    "title": "桌游规则",
+    "subtitle": "现代桌游快速参考",
+    "allGames": "全部游戏",
+    "filterByTags": "按标签筛选",
+    "noGamesFound": "未找到游戏"
+  },
+  "game": {
+    "players": "人数",
+    "duration": "时长",
+    "difficulty": "难度",
+    "viewFlow": "交互式流程",
+    "backToGames": "返回游戏列表",
+    "rules": "规则"
+  },
+  "chat": {
+    "title": "规则助手",
+    "globalTitle": "询问任意游戏",
+    "gameTitle": "关于 {game} 的问题",
+    "placeholder": "输入你的问题...",
+    "setApiKey": "设置 API Key",
+    "apiKeyDescription": "请输入你的 DeepSeek API Key 以启用对话助手。Key 仅存储在本地浏览器中，不会发送到我们的服务器。",
+    "apiKeyLabel": "API Key",
+    "apiKeyPlaceholder": "sk-...",
+    "save": "保存",
+    "clearHistory": "清除历史",
+    "thinking": "思考中...",
+    "error": "出错了，请重试。",
+    "noApiKey": "请先设置 DeepSeek API Key 再开始对话。"
+  },
+  "flow": {
+    "back": "返回上一步",
+    "startOver": "重新开始"
+  },
+  "common": {
+    "language": "语言",
+    "english": "English",
+    "chinese": "中文",
+    "difficultyEasy": "简单",
+    "difficultyMedium": "中等",
+    "difficultyHard": "困难"
+  }
+}

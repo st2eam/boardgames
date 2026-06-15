@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Catan",
+    "zh": "卡坦岛"
+  },
+  "players": "3-4",
+  "duration": "60-120 min",
+  "difficulty": "medium",
+  "tags": ["strategy", "board", "family"],
+  "category": "board"
+}

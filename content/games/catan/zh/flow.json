@@ -1,0 +1,38 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "将地形板块放入海洋框架内。在每块地形上放置数字标记（沙漠跳过）。强盗放在沙漠上。\n\n每位玩家选择颜色，拿取 5 个村庄、4 座城市、15 条道路。从最年长玩家开始轮流放置 1 村 1 路，再逆序放置第二套。第二座村庄相邻的地形各给一张起始资源。",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Victory Points", "zh": "胜利点" }, "next": "scoring" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Turn Structure", "zh": "回合流程" },
+      "content": "### 1. 掷骰子\n掷两颗骰子，总和决定产出资源的地形。相邻村庄产1张，相邻城市产2张。掷出7点触发强盗。\n\n### 2. 交易\n与其他玩家交易，或使用海洋贸易（基础4:1，港口更优）。\n\n### 3. 建造\n- **道路**（砖块+木材）\n- **村庄**（砖块+木材+谷物+羊毛）\n- **城市**（3矿石+2谷物）\n- **发展卡**（矿石+谷物+羊毛）",
+      "options": [
+        { "label": { "en": "The Robber", "zh": "强盗规则" }, "next": "robber" },
+        { "label": { "en": "Victory Points", "zh": "胜利点" }, "next": "scoring" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    },
+    "robber": {
+      "title": { "en": "The Robber", "zh": "强盗规则" },
+      "content": "**掷出 7 点时：**\n\n1. 手牌超过 7 张的玩家弃掉一半（向下取整）。\n2. 当前玩家将强盗移至任意地形。\n3. 从该地形相邻有建筑的一名玩家手中随机偷取 1 张资源。\n4. 强盗占据期间该地形不产资源。",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Victory Points", "zh": "胜利点" }, "next": "scoring" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Victory Points", "zh": "胜利点计算" },
+      "content": "**先在自己回合达到 10 分者获胜。**\n\n| 项目 | 分数 |\n|------|------|\n| 村庄 | 1 |\n| 城市 | 2 |\n| 胜利点发展卡 | 1 |\n| 最长道路（至少5段） | 2 |\n| 最大军队（至少3张士兵） | 2 |",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

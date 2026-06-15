@@ -1,0 +1,349 @@
+[
+  {
+    "name": {
+      "en": "Texas Hold'em",
+      "zh": "德州扑克"
+    },
+    "players": "2-10",
+    "duration": "30-120 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "party"
+    ],
+    "category": "card",
+    "slug": "texas-holdem",
+    "rules": {
+      "en": "# Texas Hold'em Rules\n\n## Overview\n\nTexas Hold'em is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 德州扑克 规则\n\n## 游戏概述\n\n德州扑克 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "TACTA",
+      "zh": "TACTA"
+    },
+    "players": "2-8",
+    "duration": "20-40 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family"
+    ],
+    "category": "card",
+    "slug": "tacta",
+    "rules": {
+      "en": "# TACTA Rules\n\n## Overview\n\nTACTA is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# TACTA 规则\n\n## 游戏概述\n\nTACTA 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Stars Twenty-One",
+      "zh": "群星二十一"
+    },
+    "players": "2-6",
+    "duration": "15-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "party"
+    ],
+    "category": "card",
+    "slug": "stars-twenty-one",
+    "rules": {
+      "en": "# Stars Twenty-One Rules\n\n## Overview\n\nStars Twenty-One is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 群星二十一 规则\n\n## 游戏概述\n\n群星二十一 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Skyscraper",
+      "zh": "摩天大楼"
+    },
+    "players": "2-4",
+    "duration": "45-60 min",
+    "difficulty": "medium",
+    "tags": [
+      "board",
+      "strategy"
+    ],
+    "category": "board",
+    "slug": "skyscraper",
+    "rules": {
+      "en": "# Skyscraper Rules\n\n## Overview\n\nSkyscraper is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 摩天大楼 规则\n\n## 游戏概述\n\n摩天大楼 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "King of the Wilderness",
+      "zh": "荒野之王"
+    },
+    "players": "2-6",
+    "duration": "60-90 min",
+    "difficulty": "medium",
+    "tags": [
+      "board",
+      "adventure"
+    ],
+    "category": "board",
+    "slug": "king-of-wilderness",
+    "rules": {
+      "en": "# King of the Wilderness Rules\n\n## Overview\n\nKing of the Wilderness is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 荒野之王 规则\n\n## 游戏概述\n\n荒野之王 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Dirty Pig",
+      "zh": "脏小猪"
+    },
+    "players": "2-6",
+    "duration": "15-20 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "party",
+      "family"
+    ],
+    "category": "card",
+    "slug": "dirty-pig",
+    "rules": {
+      "en": "# Dirty Pig Rules\n\n## Overview\n\nDirty Pig is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 脏小猪 规则\n\n## 游戏概述\n\n脏小猪 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Durian Coach Boxing",
+      "zh": "榴莲教练的大拳馆"
+    },
+    "players": "3-8",
+    "duration": "20-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "party",
+      "card"
+    ],
+    "category": "card",
+    "slug": "durian-coach-boxing",
+    "rules": {
+      "en": "# Durian Coach Boxing Rules\n\n## Overview\n\nDurian Coach Boxing is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 榴莲教练的大拳馆 规则\n\n## 游戏概述\n\n榴莲教练的大拳馆 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Catan",
+      "zh": "卡坦岛"
+    },
+    "players": "3-4",
+    "duration": "60-120 min",
+    "difficulty": "medium",
+    "tags": [
+      "strategy",
+      "board",
+      "family"
+    ],
+    "category": "board",
+    "slug": "catan",
+    "rules": {
+      "en": "# Catan Rules\n\n## Overview\n\nCatan (formerly The Settlers of Catan) is a multiplayer board game designed by Klaus Teuber. Players assume the roles of settlers, each attempting to build and develop holdings while trading and acquiring resources.\n\n## Components\n\n- 19 hexagonal terrain tiles\n- 6 sea frame pieces\n- 9 harbor pieces\n- 18 circular number tokens\n- 95 resource cards (19 each of Brick, Grain, Lumber, Ore, and Wool)\n- 25 development cards (14 Knight, 6 Progress, 5 Victory Point)\n- 4 building cost cards\n- 2 special cards (Longest Road, Largest Army)\n- 16 cities, 20 settlements, 60 roads (in 4 colors)\n- 2 dice\n- 1 robber\n\n## Setup\n\n1. Assemble the board frame using the 6 sea pieces.\n2. Place the 19 terrain tiles randomly inside the frame.\n3. Place the numbered tokens on the terrain tiles in alphabetical order (skip the desert).\n4. The desert gets no number token; place the robber on the desert.\n5. Each player chooses a color and takes 5 settlements, 4 cities, and 15 roads.\n6. Starting with the oldest player, each player places one settlement and one road. Then in reverse order, each player places a second settlement and one road.\n7. Each player receives starting resources: one resource card for each terrain hex adjacent to their second settlement.\n\n## Turn Structure\n\n### 1. Roll the Dice\nRoll both dice. The sum determines which hexes produce resources. Any hex with that number produces one resource card for each adjacent settlement and two for each adjacent city. If a 7 is rolled, the Robber is activated.\n\n### 2. Trade\nYou may trade resources with other players or use maritime trade (4:1 or better with harbors).\n\n### 3. Build\nYou may build roads, settlements, cities, or buy development cards:\n\n- **Road** (Brick + Lumber): Place on a path adjacent to your own road, settlement, or city.\n- **Settlement** (Brick + Lumber + Grain + Wool): Place at an intersection connected to your road.\n- **City** (3 Ore + 2 Grain): Replace one of your settlements. Cities produce 2 resources instead of 1.\n- **Development Card** (Ore + Grain + Wool): Draw the top card of the development deck.\n\n## Ending the Game\n\nThe first player to reach 10 victory points (on their turn) wins. Victory points come from:\n- Settlements: 1 VP each\n- Cities: 2 VP each\n- Victory Point development cards: 1 VP each\n- Longest Road: 2 VP\n- Largest Army: 2 VP\n\n## Special Rules\n\n### The Robber\nOn a roll of 7:\n- Any player with more than 7 resource cards discards half (rounded down).\n- Move the robber to any hex.\n- Steal one random resource card from a player with a settlement/city adjacent to that hex.\n- That hex produces no resources while the robber occupies it.\n",
+      "zh": "# 卡坦岛规则\n\n## 游戏概述\n\n《卡坦岛》（原名《卡坦岛拓荒者》）是由 Klaus Teuber 设计的多人桌游。玩家扮演拓荒者，通过交易和获取资源来建造和发展自己的领地。\n\n## 游戏组件\n\n- 19 块六边形地形板块\n- 6 块海洋框架\n- 9 个港口标记\n- 18 个圆形数字标记\n- 95 张资源卡（砖块、谷物、木材、矿石、羊毛各19张）\n- 25 张发展卡（14 张士兵、6 张进步、5 张胜利点）\n- 4 张建筑费用参考卡\n- 2 张特殊卡（最长道路、最大军队）\n- 16 座城市、20 个村庄、60 条道路（共4种颜色）\n- 2 颗骰子\n- 1 个强盗标记\n\n## 游戏准备\n\n1. 用 6 块海洋框架拼出游戏边界。\n2. 将 19 块地形板块随机放置在框架内。\n3. 按字母顺序将数字标记放在地形板块上（跳过沙漠）。\n4. 沙漠不放数字标记，强盗初始放在沙漠上。\n5. 每位玩家选择一种颜色，拿取 5 个村庄、4 座城市和 15 条道路。\n6. 从最年长的玩家开始，每人放置 1 个村庄和 1 条道路。然后逆序，每人放置第 2 个村庄和 1 条道路。\n7. 玩家获得起始资源：第二个村庄相邻的每个地形产生 1 张对应资源卡。\n\n## 回合流程\n\n### 1. 掷骰子\n掷两颗骰子。点数总和决定哪些地形产出资源。拥有相邻村庄的地形产1张资源，相邻城市的产2张。掷出7点时触发强盗。\n\n### 2. 交易\n可以与其他玩家交易资源，或使用海洋贸易（4:1，港口可降低比例）。\n\n### 3. 建造\n可以建造道路、村庄、城市或购买发展卡：\n\n- **道路**（砖块+木材）：放在已有道路、村庄或城市旁边的路径上。\n- **村庄**（砖块+木材+谷物+羊毛）：放在与你的道路相连的交叉点上。\n- **城市**（3矿石+2谷物）：替换你的一座村庄。城市产出2倍资源。\n- **发展卡**（矿石+谷物+羊毛）：从发展卡堆顶抽取一张。\n\n## 游戏结束\n\n率先在自己回合内达到 10 个胜利点的玩家获胜。胜利点来源：\n- 村庄：1 分\n- 城市：2 分\n- 胜利点发展卡：1 分\n- 最长道路：2 分\n- 最大军队：2 分\n\n## 特殊规则\n\n### 强盗\n掷出 7 点时：\n- 手牌超过 7 张的玩家弃掉一半（向下取整）。\n- 将强盗移到任意地形。\n- 从该地形相邻拥有村庄/城市的玩家中随机偷取一张资源。\n- 强盗所在的地形不产出资源。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Sea Salt Origami",
+      "zh": "海盐折纸"
+    },
+    "players": "2-4",
+    "duration": "30-45 min",
+    "difficulty": "easy",
+    "tags": [
+      "family",
+      "board"
+    ],
+    "category": "board",
+    "slug": "sea-salt-origami",
+    "rules": {
+      "en": "# Sea Salt Origami Rules\n\n## Overview\n\nSea Salt Origami is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 海盐折纸 规则\n\n## 游戏概述\n\n海盐折纸 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Sanguosha",
+      "zh": "三国杀"
+    },
+    "players": "2-10",
+    "duration": "30-60 min",
+    "difficulty": "hard",
+    "tags": [
+      "card",
+      "strategy"
+    ],
+    "category": "card",
+    "slug": "sanguosha",
+    "rules": {
+      "en": "# Sanguosha Rules\n\n## Overview\n\nSanguosha is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 三国杀 规则\n\n## 游戏概述\n\n三国杀 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Modern Art",
+      "zh": "现代艺术"
+    },
+    "players": "3-5",
+    "duration": "45-60 min",
+    "difficulty": "medium",
+    "tags": [
+      "board",
+      "strategy"
+    ],
+    "category": "board",
+    "slug": "modern-art",
+    "rules": {
+      "en": "# Modern Art Rules\n\n## Overview\n\nModern Art is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 现代艺术 规则\n\n## 游戏概述\n\n现代艺术 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "UNO",
+      "zh": "UNO"
+    },
+    "players": "2-10",
+    "duration": "15-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family",
+      "party"
+    ],
+    "category": "card",
+    "slug": "uno",
+    "rules": {
+      "en": "# UNO Rules\n\n## Overview\n\nUNO is a classic card game where players take turns matching a card in their hand with the current card shown on top of the deck.\n\n## Components\n\n- 108 cards total:\n  - 19 Blue cards (0-9)\n  - 19 Green cards (0-9)\n  - 19 Red cards (0-9)\n  - 19 Yellow cards (0-9)\n  - 8 Draw Two cards (2 of each color)\n  - 8 Reverse cards (2 of each color)\n  - 8 Skip cards (2 of each color)\n  - 4 Wild cards\n  - 4 Wild Draw Four cards\n\n## Setup\n\n1. Shuffle the deck.\n2. Deal 7 cards to each player.\n3. Place the remaining deck face down as the draw pile.\n4. Turn over the top card to start the discard pile. If it's a Wild or action card, follow special rules (see below).\n\n## Turn Structure\n\nOn your turn, play one card from your hand by matching the top card of the discard pile by:\n- **Color**: Match the color\n- **Number**: Match the number\n- **Symbol**: Match the action symbol\n\nIf you can't play, draw one card from the draw pile. You may play that card immediately if it matches, otherwise your turn ends.\n\nBefore playing your second-to-last card, you must say \"UNO!\" If caught not saying UNO, draw 2 penalty cards.\n\n## Action Cards\n\n- **Skip**: Next player loses their turn.\n- **Reverse**: Reverses the direction of play.\n- **Draw Two (+2)**: Next player draws 2 cards and loses their turn.\n- **Wild**: Player chooses the color for the next turn.\n- **Wild Draw Four (+4)**: Player chooses the color AND the next player draws 4 cards and loses their turn. Can only be played if you have no cards matching the current color.\n\n## Ending the Game\n\nThe first player to play all their cards wins the round. Points are scored:\n- Number cards: Face value\n- Skip/Reverse/Draw Two: 20 points each\n- Wild/Wild Draw Four: 50 points each\n\nFirst player to 500 points wins the game.\n",
+      "zh": "# UNO 规则\n\n## 游戏概述\n\nUNO 是一款经典的卡牌游戏，玩家轮流出手中的牌，必须与弃牌堆最上面的牌颜色或数字匹配。\n\n## 游戏组件\n\n- 共 108 张牌：\n  - 19 张蓝色（0-9）\n  - 19 张绿色（0-9）\n  - 19 张红色（0-9）\n  - 19 张黄色（0-9）\n  - 8 张 +2 牌（每种颜色 2 张）\n  - 8 张反转牌（每种颜色 2 张）\n  - 8 张跳过牌（每种颜色 2 张）\n  - 4 张万能牌\n  - 4 张万能 +4 牌\n\n## 游戏准备\n\n1. 洗牌。\n2. 每人发 7 张牌。\n3. 剩余牌面朝下作为抽牌堆。\n4. 翻开最上面一张作为弃牌堆。如果是万能牌或功能牌，按特殊规则处理。\n\n## 回合流程\n\n在你的回合中，出一张与弃牌堆最上面匹配的牌：\n- **颜色**：颜色相同\n- **数字**：数字相同\n- **符号**：功能符号相同\n\n如果不能出牌，从抽牌堆抽 1 张。如果抽到的牌可以出则立即打出，否则回合结束。\n\n打出倒数第二张牌时，必须喊 \"UNO！\"。若被发现未喊 UNO，罚抽 2 张。\n\n## 功能牌\n\n- **跳过**：下一位玩家跳过回合。\n- **反转**：改变游戏方向。\n- **+2**：下一位玩家抽 2 张牌并跳过回合。\n- **万能牌**：打出者指定下一个颜色。\n- **万能 +4**：打出者指定颜色，下一位玩家抽 4 张并跳过回合。仅在没有当前颜色牌时才能打出。\n\n## 游戏结束\n\n率先出完所有手牌的玩家赢得本局。计分方式：\n- 数字牌：按面值计分\n- 跳过/反转/+2：每张 20 分\n- 万能/万能+4：每张 50 分\n\n率先累计达到 500 分的玩家赢得整场游戏。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "UNO Flip",
+      "zh": "UNO Flip"
+    },
+    "players": "2-10",
+    "duration": "15-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family",
+      "party"
+    ],
+    "category": "card",
+    "slug": "uno-flip",
+    "rules": {
+      "en": "# UNO Flip Rules\n\n## Overview\n\nUNO Flip is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# UNO Flip 规则\n\n## 游戏概述\n\nUNO Flip 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "UNO No Mercy",
+      "zh": "UNO No Mercy"
+    },
+    "players": "2-10",
+    "duration": "15-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family",
+      "party"
+    ],
+    "category": "card",
+    "slug": "uno-no-mercy",
+    "rules": {
+      "en": "# UNO No Mercy Rules\n\n## Overview\n\nUNO No Mercy is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# UNO No Mercy 规则\n\n## 游戏概述\n\nUNO No Mercy 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Carcassonne",
+      "zh": "卡卡颂"
+    },
+    "players": "2-5",
+    "duration": "35-45 min",
+    "difficulty": "medium",
+    "tags": [
+      "board",
+      "strategy"
+    ],
+    "category": "board",
+    "slug": "carcassonne",
+    "rules": {
+      "en": "# Carcassonne Rules\n\n## Overview\n\nCarcassonne is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 卡卡颂 规则\n\n## 游戏概述\n\n卡卡颂 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Wind Sound Again",
+      "zh": "风声再临"
+    },
+    "players": "3-7",
+    "duration": "30-45 min",
+    "difficulty": "medium",
+    "tags": [
+      "card",
+      "strategy"
+    ],
+    "category": "card",
+    "slug": "wind-sound-again",
+    "rules": {
+      "en": "# Wind Sound Again Rules\n\n## Overview\n\nWind Sound Again is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 风声再临 规则\n\n## 游戏概述\n\n风声再临 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Cabo",
+      "zh": "Cabo"
+    },
+    "players": "2-5",
+    "duration": "20-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family"
+    ],
+    "category": "card",
+    "slug": "cabo",
+    "rules": {
+      "en": "# Cabo Rules\n\n## Overview\n\nCabo is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# Cabo 规则\n\n## 游戏概述\n\nCabo 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  },
+  {
+    "name": {
+      "en": "Exploding Kittens",
+      "zh": "爆炸猫咪"
+    },
+    "players": "2-5",
+    "duration": "15-20 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "party"
+    ],
+    "category": "card",
+    "slug": "exploding-kittens",
+    "rules": {
+      "en": "# Exploding Kittens Rules\n\n## Overview\n\nExploding Kittens is a board game. Detailed rules will be added soon.\n\n## Components\n\n- Game components list coming soon\n\n## Setup\n\nSetup instructions coming soon.\n\n## How to Play\n\nGameplay instructions coming soon.\n\n## Scoring / Winning\n\nVictory conditions coming soon.\n",
+      "zh": "# 爆炸猫咪 规则\n\n## 游戏概述\n\n爆炸猫咪 是一款桌游。详细规则即将补充。\n\n## 游戏组件\n\n- 组件列表即将补充\n\n## 游戏准备\n\n准备步骤即将补充。\n\n## 游戏流程\n\n玩法说明即将补充。\n\n## 计分 / 胜利条件\n\n胜利条件即将补充。\n"
+    }
+  }
+]

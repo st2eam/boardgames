@@ -80,20 +80,32 @@ export function GameCardGrid({ games }: Props) {
     });
   }, [enriched, selectedTags, selectedCategory]);
 
+  const hasSeriesFilter = useMemo(
+    () => Array.from(selectedTags).some((t) => familyTagSet.has(t)),
+    [selectedTags, familyTagSet]
+  );
+
   const gridItems = useMemo((): GridItem[] => {
+    if (hasSeriesFilter) {
+      return filtered
+        .slice()
+        .sort((a, b) => {
+          if (a.family === b.family && a.family) {
+            return (a.familyOrder ?? 0) - (b.familyOrder ?? 0);
+          }
+          return 0;
+        })
+        .map((game) => ({ type: "single" as const, game }));
+    }
+
     const familyMap = new Map<string, GameSummary[]>();
-    const standalone: GameSummary[] = [];
-    const familyInsertOrder: string[] = [];
 
     for (const game of filtered) {
       if (game.family) {
         if (!familyMap.has(game.family)) {
           familyMap.set(game.family, []);
-          familyInsertOrder.push(game.family);
         }
         familyMap.get(game.family)!.push(game);
-      } else {
-        standalone.push(game);
       }
     }
 
@@ -124,7 +136,7 @@ export function GameCardGrid({ games }: Props) {
     }
 
     return items;
-  }, [filtered]);
+  }, [filtered, hasSeriesFilter]);
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) => {

@@ -247,7 +247,7 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 
 ## Key Decisions
 
-1. **Build-time file reads** — `fs.readFileSync` runs only during `next build`; 21 games is trivially fast
+1. **Build-time file reads** — `fs.readFileSync` runs only during `next build`; 23 games is trivially fast
 2. **`dangerouslyAllowBrowser: true`** — API key is user-provided, no server; explicitly enable browser-side calls
 3. **Tool call limit** — Max 5 iterations to prevent infinite loops
 4. **No middleware** — next-intl middleware incompatible with `output: 'export'`
@@ -259,7 +259,12 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 
 ## Adding a New Game
 
+See [`.cursor/skills/add-game/SKILL.md`](.cursor/skills/add-game/SKILL.md) for the complete guide covering standalone games, DLCs, expansions, and variants.
+
+Quick steps:
+
 1. Create directory under `content/games/` with `meta.json`, `en/rules.md`, `zh/rules.md`
 2. Optionally add `en/flow.json` and `zh/flow.json` for decision trees
 3. Register the slug in `content/games/index.json`
 4. If part of a series, add `family`, `familyOrder`, `variantType` to `meta.json`
+5. Run `npm run build` to verify

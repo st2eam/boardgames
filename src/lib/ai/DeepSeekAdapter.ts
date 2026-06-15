@@ -6,6 +6,41 @@ interface StreamCallback {
   (chunk: { content: string; toolCalls?: ToolCall[] }): void;
 }
 
+const DSML_MARKER = "\uFF5C\uFF5CDSML\uFF5C\uFF5C"; // ｜｜DSML｜｜
+
+function parseDsmlToolCalls(raw: string): ToolCall[] | null {
+  const invokeRe = new RegExp(
+    `<${DSML_MARKER}invoke\\s+name="([^"]+)"[^>]*>([\\s\\S]*?)</${DSML_MARKER}invoke>`,
+    "g"
+  );
+  const paramRe = new RegExp(
+    `<${DSML_MARKER}parameter\\s+name="([^"]+)"[^>]*>([\\s\\S]*?)</${DSML_MARKER}parameter>`,
+    "g"
+  );
+
+  const calls: ToolCall[] = [];
+  let match: RegExpExecArray | null;
+
+  while ((match = invokeRe.exec(raw)) !== null) {
+    const name = match[1];
+    const body = match[2];
+    const args: Record<string, string> = {};
+
+    let pm: RegExpExecArray | null;
+    while ((pm = paramRe.exec(body)) !== null) {
+      args[pm[1]] = pm[2].trim();
+    }
+
+    calls.push({
+      id: `dsml_${crypto.randomUUID().slice(0, 8)}`,
+      name,
+      arguments: JSON.stringify(args),
+    });
+  }
+
+  return calls.length > 0 ? calls : null;
+}
+
 export class DeepSeekAdapter {
   private getClient: () => OpenAI;
 
@@ -35,6 +70,8 @@ export class DeepSeekAdapter {
     });
 
     let finishReason = "";
+    let fullContent = "";
+    let dsmlDetected = false;
     const accumulatedToolCalls: Map<number, ToolCall> = new Map();
 
     for await (const event of stream) {
@@ -42,7 +79,15 @@ export class DeepSeekAdapter {
       const finish = event.choices[0]?.finish_reason;
 
       if (delta?.content) {
-        onChunk({ content: delta.content });
+        fullContent += delta.content;
+
+        if (!dsmlDetected && fullContent.includes(`<${DSML_MARKER}`)) {
+          dsmlDetected = true;
+        }
+
+        if (!dsmlDetected) {
+          onChunk({ content: delta.content });
+        }
       }
 
       if (delta?.tool_calls) {
@@ -68,12 +113,20 @@ export class DeepSeekAdapter {
       }
     }
 
-    const toolCalls =
+    let toolCalls =
       accumulatedToolCalls.size > 0
         ? Array.from(accumulatedToolCalls.values())
         : undefined;
 
-    onChunk({ content: "" }); // signal end
+    if (!toolCalls && dsmlDetected) {
+      const parsed = parseDsmlToolCalls(fullContent);
+      if (parsed) {
+        toolCalls = parsed;
+        finishReason = "tool_calls";
+      }
+    }
+
+    onChunk({ content: "" });
     return { finishReason, toolCalls };
   }
 }

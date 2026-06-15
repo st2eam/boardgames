@@ -304,10 +304,15 @@ async function runConversation(
         }
       );
 
-    // Always flush whatever is left so React state is fully synced
+    // Strip DSML artifacts that may have leaked before detection
+    if (assistantMsg.content.includes("\uFF5CDSML\uFF5C")) {
+      assistantMsg.content = assistantMsg.content
+        .replace(/<[\uFF5C|]+DSML[\uFF5C|]+[^>]*>[\s\S]*/g, "")
+        .trim();
+    }
+
     flusher.finalize();
 
-    // If no tool calls, we're done
     if (finishReason !== "tool_calls" || !responseToolCalls || responseToolCalls.length === 0) {
       if (assistantMsg.content) {
         setMessages((prev) => {

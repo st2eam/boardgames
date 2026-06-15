@@ -221,21 +221,33 @@ async function runConversation(
 ) {
   const adapter = new DeepSeekAdapter(apiKey);
 
+  // Convert our flat ToolCall format back to OpenAI-compatible shape
+  const toOpenAIToolCalls = (tcs?: ToolCall[]) => {
+    if (!tcs || tcs.length === 0) return undefined;
+    return tcs.map((tc) => ({
+      id: tc.id,
+      type: "function" as const,
+      function: { name: tc.name, arguments: tc.arguments },
+    }));
+  };
+
   const buildMessages = (msgs: ChatMessage[]) => {
     const result: {
       role: "system" | "user" | "assistant" | "tool";
-      content: string;
+      content: string | null;
       tool_call_id?: string;
-      tool_calls?: ToolCall[];
+      tool_calls?: { id: string; type: "function"; function: { name: string; arguments: string } }[];
     }[] = [{ role: "system", content: systemPrompt }];
 
     for (const msg of msgs) {
       if (msg.role === "system") continue;
+      const hasToolCalls = msg.toolCalls && msg.toolCalls.length > 0;
       result.push({
         role: msg.role,
-        content: msg.content,
+        // Assistant messages with tool_calls must have content: null
+        content: msg.role === "assistant" && hasToolCalls ? null : msg.content,
         tool_call_id: msg.toolCallId,
-        tool_calls: msg.toolCalls,
+        tool_calls: hasToolCalls ? toOpenAIToolCalls(msg.toolCalls) : undefined,
       });
     }
     return result;

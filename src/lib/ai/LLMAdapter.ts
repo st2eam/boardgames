@@ -16,9 +16,13 @@ export interface ToolDefinition {
 export interface ChatParams {
   messages: {
     role: "system" | "user" | "assistant" | "tool";
-    content: string;
+    content: string | null;
     tool_call_id?: string;
-    tool_calls?: ToolCall[];
+    tool_calls?: {
+      id: string;
+      type: "function";
+      function: { name: string; arguments: string };
+    }[];
   }[];
   tools?: ToolDefinition[];
   model?: string;

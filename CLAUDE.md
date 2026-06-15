@@ -18,8 +18,8 @@ npm run lint         # ESLint
 
 - Locales: `en`, `zh` (defined in `src/i18n/routing.ts`)
 - `[locale]` directory routing: every page lives under `src/app/[locale]/`
-- Messages are direct JSON imports (`messages/en.json`, `messages/zh.json`)
-- `@/i18n/request.ts` exists only to satisfy next-intl's config requirement; actual locale is passed via `NextIntlClientProvider` in `[locale]/layout.tsx`
+- Messages: direct JSON imports (`messages/en.json`, `messages/zh.json`)
+- `@/i18n/request.ts` exists only to satisfy next-intl's config requirement; actual locale passed via `NextIntlClientProvider` in `[locale]/layout.tsx`
 - No middleware — static export can't use it
 
 ### Content System (File-Based, No CMS)
@@ -30,24 +30,61 @@ All game data lives in `content/games/<slug>/`:
 content/games/
   index.json              # Array of all game slugs
   <slug>/
-    meta.json             # GameMeta (name, players, duration, difficulty, tags, category)
+    meta.json             # GameMeta (name, players, duration, difficulty, tags, category, family info)
     en/rules.md           # English rules (markdown)
     zh/rules.md           # Chinese rules (markdown)
-    en/flow.json          # Optional decision tree (FlowData)
+    en/flow.json          # Optional interactive decision tree (FlowData)
     zh/flow.json
 ```
 
-- `scripts/generate-game-data.mjs` runs at build time (`prebuild`) to bundle all game data into `public/data/games-index.json`
+- `scripts/generate-game-mdata.mjs` runs at build time (`prebuild`) to bundle all game data into `public/data/games-index.json`
 - `GameRepository` reads from `content/games/` at build time via `fs` (Node filesystem)
 - `GameFactory.createGame(slug, locale)` assembles the full `Game` object
-- `GameFactory.createGameSummary(slug)` creates lightweight summary (no rules content, just meta + hasFlow flag)
+- `GameFactory.createGameSummary(slug)` creates lightweight summary (no rules content, just meta + hasFlow + family info)
 
 ### Design System
 
 - **Tailwind CSS v4** via `@tailwindcss/postcss`
 - Custom theme tokens in `src/app/globals.css` (`@theme` block): warm wood/amber palette
+  - Primary: `#5D4037`, Accent: `#C4952A`, Surface: `#FAFAF5`
 - Fonts: Fredoka (headings), Nunito (body), Noto Sans SC (Chinese) — loaded via Google Fonts `<link>` in root layout
 - No dark mode
+
+### Family / Series System
+
+Games can belong to a family (e.g., UNO, Exploding Kittens, Sanguosha, Dirty Pig). Meta fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `family` | `string` | Identifier shared by all games in the family |
+| `familyOrder` | `number` | Sort order (0 = base, 1+ = variants/expansions) |
+| `variantType` | `"base" \| "expansion" \| "variant"` | Type label shown on card |
+| `requiresBase` | `boolean` | Whether expansion/variant requires the base game |
+
+**Series tags** are auto-derived from the `family` field at render time — no manual tag entry needed. The base game's name + " series" / "系列" suffix becomes a sidebar/mobile tag with purple accent styling.
+
+**Homepage behavior:**
+- No filter active → family games render as a single `GameFamilyCard` (stacked look with +N badge). Single-game families render as regular `GameCard`.
+- Series tag selected → families flatten: each game renders individually, family members side-by-side
+
+### Decision Tree (Interactive Flow)
+
+15 games have `flow.json` decision trees. Each flow defines:
+- `startNode` — entry point key
+- `nodes` — record of `{ title: {en, zh}, content: markdown, options: [{label: {en, zh}, next: nodeId}] }`
+
+`DecisionTree` component:
+- Left sidebar outline showing all nodes with current-node highlight (mobile: slide-out)
+- Breadcrumb trail using chevron separators
+- Markdown content area with related-topic option buttons at bottom
+- Back / Start Over navigation buttons
+
+### Export Feature
+
+`ExportButton` component on game pages:
+- Dropdown with "Export as PDF" and "Download Markdown"
+- PDF: opens a new window, renders markdown to styled HTML via custom inline parser, triggers `window.print()`
+- Markdown: downloads raw `.md` file via Blob URL
 
 ### Key Dependencies
 
@@ -58,21 +95,30 @@ content/games/
 
 ### Chat System
 
-- Chat context managed by `ChatProvider` (`src/lib/chat/ChatProvider.tsx`)
+- `ChatProvider` (`src/lib/chat/ChatProvider.tsx`) manages global chat state
 - API key stored client-side in IndexedDB via `idb-keyval`
-- Chat is scoped: `global` (on homepage) or `game` (on game pages with rule context)
-- Floating FAB button → dialog with messages + input + API key modal
+- Two scopes: `global` (homepage — "Ask about any game") and `game` (game pages with rule context)
+- Floating FAB button + dialog with messages, input, and API key modal
+- `ChatToggle` component placed on game pages; `FloatingChatButton` on homepage
 
-### Homepage Bentō Grid
+### Homepage Layout
 
-- `GameCardGrid` renders a bentō grid with `grid-flow-dense`: card games span 1×2 (tall), board games span 2×1 (wide), others 1×1
-- Tags split into two categories: functional (always visible, accent-styled) and descriptive (truncatable, overflow-hidden)
-- Filtering: sidebar (desktop) / horizontal scroll strips (mobile)
+- `HeroBanner`: site title + subtitle + game count badge with decorative elements
+- `GameCardGrid`: bentō grid with `grid-flow-dense`
+  - card games: 1×2 (tall), board games: 2×1 (wide), others: 1×1
+  - Tags: all rendered, overflow clipped; "Decision Tree" tag styled with accent colors
+- `Sidebar`: desktop sticky panel with category buttons, tag chips (series tags highlighted in purple), game count
+- Mobile: horizontal scroll strip for categories + tag chip strip below
+- `BackToTop`: fixed button at `bottom-20 right-4` (above chat FAB at `bottom-4 right-4`), appears after scrolling >400px
+- Header: site title (`home.title` from i18n) + language switcher only (no nav links)
+- Footer: site title + GitHub link
 
 ### Types
 
 Core types in `src/types/game.ts`:
-- `GameMeta` — slug, name (bilingual), players, duration, difficulty, tags, category
+- `GameMeta` — slug, name (bilingual), players, duration, difficulty, tags, category, family*, variantType*, requiresBase*
 - `Game` — meta + rules (markdown string) + flow (FlowData | null)
-- `GameSummary` — lightweight: meta + hasFlow (no rules content)
-- `FlowData` — startNode + nodes record (decision tree)
+- `GameSummary` — lightweight: meta + hasFlow + family* (no rules content)
+- `FlowData` — startNode + nodes record
+- `FlowNode` — title (bilingual), content (markdown), options array
+- `FlowOption` — label (bilingual), next (node key)

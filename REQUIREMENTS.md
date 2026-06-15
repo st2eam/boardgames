@@ -2,30 +2,31 @@
 
 ## 项目概述
 
-一个可扩展的桌游规则参考网站，覆盖约 20 款现代桌游，支持中英双语，响应式多端适配，集成 LLM 对话查询，纯静态站点部署到 GitHub Pages。
+一个可扩展的桌游规则参考网站，覆盖 21 款现代桌游（含扩展/变体），支持中英双语，响应式多端适配，集成 LLM 对话查询，纯静态站点部署到 GitHub Pages。
 
 ---
 
 ## 游戏清单
 
+### 独立游戏
 - 德州扑克
 - TACTA
 - 群星二十一
-- 摩天大楼
-- 荒野之王
-- 脏小猪（小猪选美 DLC）
+- 摩天大楼 (GoTown)
+- 荒野之王 (Just Wild)
 - 榴莲教练的大拳馆
 - 卡坦岛
 - 海盐折纸
-- 三国杀
 - 现代艺术
-- UNO
-- UNO Flip
-- UNO No Mercy
 - 卡卡颂
 - 风声再临
 - Cabo
-- 爆炸猫咪（红 + 黑）
+
+### 游戏系列（含 DLC / 变体）
+- UNO 系列：UNO（本体）、UNO Flip（变体）、UNO No Mercy（变体）
+- 脏小猪系列：脏小猪（本体）、小猪选美（DLC，需本体）
+- 三国杀系列：三国杀（本体）、不臣之君（DLC，需本体）
+- 爆炸猫系列：爆炸猫（本体/红盒版）、爆炸猫黑盒版（变体，可独立游玩）
 
 ---
 
@@ -35,7 +36,7 @@
 |---|---|---|
 | 框架 | Next.js App Router | 静态导出 + 服务端组件 + 丰富生态 |
 | 导出模式 | `output: 'export'` | GitHub Pages 纯静态托管 |
-| 样式 | Tailwind CSS | 原子化 CSS，响应式友好 |
+| 样式 | Tailwind CSS v4 | 原子化 CSS，响应式友好 |
 | i18n | next-intl（无 middleware） | middleware 与静态导出不兼容，使用 `[locale]` 目录路由 |
 | 内容格式 | Markdown（自由格式） | 灵活撰写，无结构约束 |
 | 内容渲染 | react-markdown + remark-gfm | GFM 表格/任务列表/删除线支持 |
@@ -53,26 +54,42 @@
 content/games/
 ├── index.json                    # 游戏注册表（slug 数组）
 ├── catan/
-│   ├── meta.json                 # { slug, name:{en,zh}, players, duration, difficulty, tags, category }
+│   ├── meta.json                 # 游戏元数据
 │   ├── zh/{rules.md, flow.json}  # 中文规则 + 可选决策树
 │   └── en/{rules.md, flow.json}  # 英文规则 + 可选决策树
 ├── uno/
-└── ...（共 20 款游戏）
+└── ...（共 21 款游戏）
 ```
 
 ### meta.json 字段
 
 ```json
 {
-  "slug": "catan",
   "name": { "en": "Catan", "zh": "卡坦岛" },
   "players": "3-4",
   "duration": "60-120 min",
   "difficulty": "medium",
   "tags": ["strategy", "family", "board"],
-  "category": "board"
+  "category": "board",
+  "family": "catan",
+  "familyOrder": 0,
+  "variantType": "base",
+  "requiresBase": false
 }
 ```
+
+| 字段 | 类型 | 必填 | 说明 |
+|------|------|:----:|------|
+| `name` | `{en, zh}` | ✅ | 游戏名称 |
+| `players` | `string` | ✅ | 玩家人数范围 |
+| `duration` | `string` | ✅ | 游戏时长 |
+| `difficulty` | `"easy" \| "medium" \| "hard"` | ✅ | 难度等级 |
+| `tags` | `string[]` | ✅ | 标签 |
+| `category` | `string` | ✅ | 分类（board/card/party 等） |
+| `family` | `string` | ❌ | 所属系列 ID |
+| `familyOrder` | `number` | ❌ | 系列内排序（0 = 本体） |
+| `variantType` | `"base" \| "expansion" \| "variant"` | ❌ | 本体/扩展/变体 |
+| `requiresBase` | `boolean` | ❌ | 是否需要本体才能游玩 |
 
 ### 决策树数据模型（flow.json）
 
@@ -102,8 +119,45 @@ content/games/
 |---|---|
 | `/` | → 重定向至 `/en` |
 | `/en` `/zh` | 首页：游戏卡片网格 + 全局 AI 对话 |
-| `/en/games/catan` | 卡坦岛规则页（GameHeader + Markdown 内容 + 游戏限定对话） |
+| `/en/games/catan` | 卡坦岛规则页（GameHeader + Markdown 内容 + 导出 + 游戏限定对话） |
 | `/en/games/catan/flow` | 卡坦岛交互式决策树（仅 flow.json 存在时生成） |
+
+---
+
+## 首页展示方式
+
+**卡片网格布局**：
+- 支持按分类（category）和标签（tags）筛选
+- 桌面端左侧 Sidebar + 右侧网格，移动端水平滚动筛选条
+- 卡片根据分类自动适配布局（board → 横向宽卡，card → 纵向高卡）
+- **游戏系列分组**：同系列游戏以堆叠卡片效果展示，右上角显示 `+N` 徽章，点击展开显示所有变体/DLC 列表
+
+---
+
+## 游戏规则页
+
+- GameHeader：标题、人数、时长、难度、标签
+- 操作按钮：交互式决策树（如有）+ 导出（PDF / Markdown）
+- MarkdownRenderer：渲染规则正文
+- RelatedGames：同系列游戏导航（如有 family 分组）
+- ChatToggle：右下角 LLM 对话
+
+### 规则导出
+
+| 格式 | 实现方式 |
+|------|---------|
+| PDF | 新窗口渲染排版优化的 HTML，调用浏览器 `window.print()` |
+| Markdown | 前端 Blob 下载原始 `.md` 文件 |
+
+---
+
+## 交互式流程（决策树）
+
+- 15 款游戏已配备完整的交互式决策树
+- **双栏布局**：左侧侧边栏目录 + 右侧内容区
+- **导航功能**：面包屑、步骤指示器（N / Total）、返回/重新开始
+- **访问追踪**：已访问节点和选项有视觉标记
+- **响应式**：移动端侧边栏自动折叠
 
 ---
 
@@ -142,22 +196,6 @@ content/games/
 
 ---
 
-## 首页展示方式
-
-**卡片网格布局**：支持按标签（tags）筛选，卡片显示游戏名称、人数、时长、难度标签、分类标签。
-
----
-
-## 交互式流程（决策树）
-
-**分阶段实施：**
-- Phase 1-5：先做规则页 + LLM 对话，挑 2-3 款游戏试点 flow
-- Phase 6+：逐步补全其他游戏的决策树
-
-决策树为纯客户端状态管理（useState），不改变 URL。支持前进（点击选项）、后退（history stack）、重新开始。
-
----
-
 ## 多语言
 
 - 当前：中文 + 英文
@@ -175,22 +213,12 @@ content/games/
 
 ---
 
-## 实施阶段概览
-
-1. **项目脚手架 + i18n 基础**：Next.js + Tailwind + next-intl + 静态导出配置
-2. **内容层 + 2 款示例游戏**：GameRepository、GameFactory、类型定义、卡坦岛 + UNO 示例内容
-3. **首页 — 卡片网格**：GameCardGrid + GameCard + 标签筛选
-4. **游戏规则页**：GameHeader + MarkdownRenderer + 游戏限定对话
-5. **交互式决策树**：DecisionTree 客户端组件
-6. **LLM 对话系统**：DeepSeekAdapter、ChatProvider、两种 Strategy、IndexedDB 持久化
-7. **内容填充 + 部署**：补全 20 款游戏内容 + GitHub Actions
-
----
-
 ## 关键技术决策
 
-1. **构建时同步读取文件** — `fs.readFileSync` 仅在 `next build` 时执行，20 款游戏无性能问题
+1. **构建时同步读取文件** — `fs.readFileSync` 仅在 `next build` 时执行，21 款游戏无性能问题
 2. **`dangerouslyAllowBrowser: true`** — OpenAI SDK 默认阻止浏览器端调用，因 API Key 由用户提供且无服务端，显式启用
 3. **Tool call 循环上限** — 最多 5 轮迭代，防止无限循环
 4. **无 middleware** — next-intl middleware 与 `output: 'export'` 不兼容，使用 `[locale]` 目录路由 + `setRequestLocale`
 5. **`trailingSlash: true`** — GitHub Pages 正确服务子目录路由的必要配置
+6. **游戏系列分组** — 通过 `family` 字段实现同系列游戏的逻辑关联，`familyOrder` 控制展示排序，`variantType` 区分本体/扩展/变体
+7. **规则导出** — PDF 使用浏览器原生打印，Markdown 使用 Blob 下载，零外部依赖

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Board Game Rules",
-  description: "Quick reference for modern board games",
+  title: "The Game Shelf",
+  description: "Your curated collection of tabletop game rules",
 };
 
 export default function RootLayout({
@@ -12,7 +13,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-zinc-50">{children}</body>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-surface">{children}</body>
     </html>
   );
 }

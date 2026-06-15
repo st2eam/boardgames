@@ -1,0 +1,92 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "**Players:** 2–6 players\n**Deck:** 168 cards\n\n1. Shuffle the deck thoroughly.\n2. Deal **7 cards** to each player.\n3. Place remaining cards face down as the **draw pile**.\n4. Flip the top card to start the **discard pile**.\n\nThis is the most brutal UNO variant — massive draw penalties, stacking, hand swaps, and elimination await.",
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Action Cards", "zh": "功能牌" }, "next": "action-cards" },
+        { "label": { "en": "Special Rules", "zh": "特殊规则" }, "next": "stacking" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Your Turn", "zh": "你的回合" },
+      "content": "On your turn, play a card matching the top discard by **color**, **number**, or **symbol**.\n\n**Can't play?** Draw **1** card. Play it immediately if it matches.\n\n**UNO rule:** When down to 1 card, yell **\"UNO!\"**. If caught not saying it, draw **4 penalty cards**.\n\nWatch for special number effects: **7's** trigger hand swaps, **0's** pass all hands around the table.",
+      "options": [
+        { "label": { "en": "Action Cards", "zh": "功能牌" }, "next": "action-cards" },
+        { "label": { "en": "Wild Cards", "zh": "万能牌" }, "next": "wild-cards" },
+        { "label": { "en": "Stacking", "zh": "叠加规则" }, "next": "stacking" },
+        { "label": { "en": "7's Swap", "zh": "7 换手" }, "next": "seven-swap" },
+        { "label": { "en": "0's Pass", "zh": "0 传手" }, "next": "zero-pass" },
+        { "label": { "en": "Mercy Rule", "zh": "无情规则" }, "next": "mercy-rule" }
+      ]
+    },
+    "action-cards": {
+      "title": { "en": "Action Cards", "zh": "功能牌" },
+      "content": "| Card | Effect |\n|------|--------|\n| **Skip** | Next player loses their turn |\n| **Reverse** | Reverses direction of play |\n| **Draw Two (+2)** | Next player draws 2 and loses turn. **Stackable.** |\n| **Draw Four (+4)** | Next player draws 4 and loses turn. **Stackable.** |\n| **Discard All** | Discard ALL cards in your hand matching this card's color |\n| **Skip Everyone** | All other players skip; **you play again immediately** |\n\nDraw cards (+2, +4) can be chained — see **Stacking**.",
+      "options": [
+        { "label": { "en": "Wild Cards", "zh": "万能牌" }, "next": "wild-cards" },
+        { "label": { "en": "Stacking", "zh": "叠加规则" }, "next": "stacking" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" }
+      ]
+    },
+    "wild-cards": {
+      "title": { "en": "Wild Cards", "zh": "万能牌" },
+      "content": "| Card | Effect |\n|------|--------|\n| **Wild Color Roulette** | Choose a color. Next player draws from the pile until they reveal that color |\n| **Wild Reverse Draw Four** | Reverses direction; the new next player draws 4 |\n| **Wild Draw Six (+6)** | Choose a color. Next player draws 6 and loses turn. **Stackable.** |\n| **Wild Draw Ten (+10)** | Choose a color. Next player draws 10 and loses turn. **Stackable.** |\n\nWild Draw Six and Wild Draw Ten participate in the **stacking chain** — play equal or higher draw cards to pass the penalty on.",
+      "options": [
+        { "label": { "en": "Stacking", "zh": "叠加规则" }, "next": "stacking" },
+        { "label": { "en": "Action Cards", "zh": "功能牌" }, "next": "action-cards" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Mercy Rule", "zh": "无情规则" }, "next": "mercy-rule" }
+      ]
+    },
+    "stacking": {
+      "title": { "en": "Stacking Rule", "zh": "叠加规则" },
+      "content": "Draw cards **CAN be stacked**. When hit with a Draw card (+2, +4, +6, +10), you may play a Draw card of **equal or higher value** to pass the penalty to the next player.\n\n**Example:** +2 → +4 → +6 → player can't stack → draws **12 total**.\n\nThe total accumulates until someone cannot (or chooses not to) stack — that player draws **all** accumulated cards and loses their turn.\n\nStackable cards: Draw Two, Draw Four, Wild Draw Six, Wild Draw Ten.",
+      "options": [
+        { "label": { "en": "Action Cards", "zh": "功能牌" }, "next": "action-cards" },
+        { "label": { "en": "Wild Cards", "zh": "万能牌" }, "next": "wild-cards" },
+        { "label": { "en": "Mercy Rule", "zh": "无情规则" }, "next": "mercy-rule" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    },
+    "seven-swap": {
+      "title": { "en": "Rule of 7's", "zh": "7 换手" },
+      "content": "When you play a **7** (any color), you **must** swap your **entire hand** with another player of your choice.\n\n- You choose which player to swap with\n- Both players exchange all cards — no partial swaps\n- Happens immediately when the 7 is played\n\n**Strategy tip:** Swap with the player who has the fewest cards when you're holding a large hand!",
+      "options": [
+        { "label": { "en": "Rule of 0's", "zh": "0 传手" }, "next": "zero-pass" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Mercy Rule", "zh": "无情规则" }, "next": "mercy-rule" }
+      ]
+    },
+    "zero-pass": {
+      "title": { "en": "Rule of 0's", "zh": "0 传手" },
+      "content": "When you play a **0** (any color), **all players** must pass their **entire hand** to the next player in the current direction of play.\n\n- Every player simultaneously gives their full hand to the next player\n- Direction follows the current play direction (clockwise or counter-clockwise)\n- Can dramatically shift who is winning or losing\n\n**Chaos alert:** A well-timed 0 can dump a huge hand onto your opponent — or onto you!",
+      "options": [
+        { "label": { "en": "Rule of 7's", "zh": "7 换手" }, "next": "seven-swap" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Mercy Rule", "zh": "无情规则" }, "next": "mercy-rule" }
+      ]
+    },
+    "mercy-rule": {
+      "title": { "en": "Mercy Rule", "zh": "无情规则" },
+      "content": "If a player ever has **25 or more cards** in their hand, they are **immediately eliminated** from the game.\n\n- Eliminated players' cards are set aside\n- When the draw pile runs out, eliminated players' cards are reshuffled back in\n- The game continues with remaining players\n\nThis is the key to the **last player standing** victory condition. Stack chains and Draw Ten cards are the fastest path to elimination.",
+      "options": [
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" },
+        { "label": { "en": "Stacking", "zh": "叠加规则" }, "next": "stacking" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    },
+    "winning": {
+      "title": { "en": "Winning", "zh": "获胜条件" },
+      "content": "### Two Ways to Win\n1. **Empty your hand** — be the first to play all your cards\n2. **Last player standing** — all other players eliminated by the Mercy Rule (25+ cards)\n\n### Optional Scoring\n| Card Type | Points |\n|-----------|--------|\n| Number cards 0–9 | Face value |\n| Draw Two / Reverse / Skip | 20 |\n| Wild Reverse Draw Four / Discard All | 20 |\n| Skip Everyone | 30 |\n| Wild Color Roulette | 40 |\n| Draw Four | 50 |\n| Wild Draw Six | 60 |\n| Wild Draw Ten | 80 |\n\nFirst to **500 points** wins (optional multi-round mode).",
+      "options": [
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "Mercy Rule", "zh": "无情规则" }, "next": "mercy-rule" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "桌游规则",
-    "subtitle": "现代桌游快速参考",
+    "title": "The Game Shelf",
+    "subtitle": "桌面游戏规则，一页即达",
     "allGames": "全部游戏",
     "filterByTags": "按标签筛选",
     "noGamesFound": "未找到游戏"
@@ -12,7 +12,11 @@
     "difficulty": "难度",
     "viewFlow": "交互式流程",
     "backToGames": "返回游戏列表",
-    "rules": "规则"
+    "rules": "规则",
+    "relatedGames": "相关游戏",
+    "export": "导出",
+    "exportPDF": "导出为 PDF",
+    "exportMarkdown": "下载 Markdown"
   },
   "chat": {
     "title": "规则助手",
@@ -27,11 +31,15 @@
     "clearHistory": "清除历史",
     "thinking": "思考中...",
     "error": "出错了，请重试。",
-    "noApiKey": "请先设置 DeepSeek API Key 再开始对话。"
+    "noApiKey": "请先设置 DeepSeek API Key 再开始对话。",
+    "close": "关闭"
   },
   "flow": {
     "back": "返回上一步",
-    "startOver": "重新开始"
+    "startOver": "重新开始",
+    "chooseNext": "相关主题",
+    "nodeNotFound": "节点未找到",
+    "outline": "目录"
   },
   "common": {
     "language": "语言",
@@ -39,6 +47,8 @@
     "chinese": "中文",
     "difficultyEasy": "简单",
     "difficultyMedium": "中等",
-    "difficultyHard": "困难"
+    "difficultyHard": "困难",
+    "cancel": "取消",
+    "clear": "清除"
   }
 }

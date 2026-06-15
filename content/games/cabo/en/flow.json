@@ -1,0 +1,51 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "1. Shuffle all cards and deal **4 cards face down** to each player.\n2. Place the remaining deck as the **draw pile**; flip the top card to start the **discard pile**.\n3. Each player may **peek at 2** of their own face-down cards (remember them!).\n4. Arrange your 4 cards in a row in front of you.\n\n**Goal:** Get the **lowest total** hand value by the end of the round.",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Special Powers (7–Q)", "zh": "特殊能力牌" }, "next": "peek-swap-spy" },
+        { "label": { "en": "Calling Cabo", "zh": "喊 Cabo" }, "next": "calling-cabo" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Turn Structure", "zh": "回合流程" },
+      "content": "On your turn, choose **one** action:\n\n### Draw from Deck\nDraw the top card. Then either:\n- **Keep it** — swap with one of your face-down cards (discard the old card face up), or\n- **Discard it** — place it face up on the discard pile (trigger special powers if applicable).\n\n### Take from Discard\nTake the top discard card. You **must** swap it with one of your face-down cards.\n\n### Call Cabo\nInstead of drawing, announce **\"Cabo!\"** if you believe you have the lowest total. See **Calling Cabo** for details.\n\n**Tip:** Track what others discard — it reveals what they don't want in their hand.",
+      "options": [
+        { "label": { "en": "Special Powers (7–Q)", "zh": "特殊能力牌" }, "next": "peek-swap-spy" },
+        { "label": { "en": "Calling Cabo", "zh": "喊 Cabo" }, "next": "calling-cabo" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    },
+    "peek-swap-spy": {
+      "title": { "en": "Peek, Swap & Spy", "zh": "偷看、交换与间谍" },
+      "content": "When you **discard** a special card face up, use its power **before** your turn ends:\n\n| Card | Power |\n|------|-------|\n| **7 or 8** | **Peek** — Look at one of your own face-down cards |\n| **9 or 10** | **Spy** — Look at one opponent's face-down card |\n| **J or Q** | **Swap** — Blindly swap one of your face-down cards with one opponent's face-down card (neither player may look) |\n\n**Notes:**\n- Powers trigger on **discard**, not when kept in your hand.\n- You may peek at cards you already memorized to confirm.\n- Swap is powerful late-game — use it when you're confident about opponent positions.",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Calling Cabo", "zh": "喊 Cabo" }, "next": "calling-cabo" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "calling-cabo": {
+      "title": { "en": "Calling Cabo", "zh": "喊 Cabo" },
+      "content": "Any player may call **\"Cabo!\"** instead of taking a normal turn when they believe they have the lowest hand.\n\n**What happens next:**\n1. The round continues — every **other** player gets **one final turn**.\n2. After all final turns, all players **reveal** their face-down cards.\n3. Sum face values to determine the round winner.\n\n**When to call:**\n- You have low cards (especially 0s) and believe opponents haven't improved.\n- Calling too early gives opponents one more chance to swap away high cards.\n- Calling with a mediocre hand risks the **+10 penalty**.",
+      "options": [
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Special Powers (7–Q)", "zh": "特殊能力牌" }, "next": "peek-swap-spy" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Scoring", "zh": "计分" },
+      "content": "Sum the face values of all 4 cards in your hand:\n\n| Card | Value |\n|------|-------|\n| Joker (0) | 0 |\n| Ace–9 | Face value |\n| Jack | 11 |\n| Queen | 12 |\n| King | 13 |\n\n**Lowest total wins the round.**\n\n### Cabo Caller Penalties\n- Caller has the **lowest** total → **−5 bonus** (subtract 5 from round score)\n- Caller does **not** have the lowest → **+10 penalty**\n\nRecord cumulative scores across rounds. **Lowest cumulative score wins** the game.",
+      "options": [
+        { "label": { "en": "Calling Cabo", "zh": "喊 Cabo" }, "next": "calling-cabo" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

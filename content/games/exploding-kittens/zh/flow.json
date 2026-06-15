@@ -1,0 +1,123 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "1. 从牌堆中取出全部 **爆炸猫**（4 张）和 **拆弹**（6 张）。\n2. 向每位玩家发 **1 张拆弹牌**。\n3. 将其余拆弹牌洗回牌堆。\n4. 向每位玩家发 **7 张牌**。\n5. 将 **（玩家人数 − 1）** 张爆炸猫洗入牌堆（如 3 人 → 2 张）。\n6. 剩余爆炸猫移出游戏。\n7. 洗匀牌堆并面朝下放置。\n\n**目标：** 成为最后一个未爆炸的玩家。",
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Action Cards", "zh": "功能牌" }, "next": "attack" },
+        { "label": { "en": "Defuse", "zh": "拆弹牌" }, "next": "defuse" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Your Turn", "zh": "你的回合" },
+      "content": "轮到你的回合时：\n\n### 1. 出牌（可选）\n从手牌打出**任意数量**的功能牌——也可以不出。\n\n### 2. 抽牌（必须）\n你**必须**从牌堆顶部抽 **1 张牌** 来结束回合。\n\n### 若抽到爆炸猫\n- 你**爆炸**并**出局**\n- **除非**你有**拆弹牌**——立即打出以存活\n\n**提示：** 尽量保留拆弹牌到别无选择时再用。牌堆较小时先用预知未来。",
+      "options": [
+        { "label": { "en": "Defuse", "zh": "拆弹牌" }, "next": "defuse" },
+        { "label": { "en": "Nope", "zh": "不要牌" }, "next": "nope" },
+        { "label": { "en": "Attack", "zh": "攻击牌" }, "next": "attack" },
+        { "label": { "en": "Skip", "zh": "跳过牌" }, "next": "skip" },
+        { "label": { "en": "Favor", "zh": "索要牌" }, "next": "favor" },
+        { "label": { "en": "Shuffle", "zh": "洗牌牌" }, "next": "shuffle" },
+        { "label": { "en": "See the Future", "zh": "预知未来" }, "next": "see-future" },
+        { "label": { "en": "Cat Cards", "zh": "猫咪牌" }, "next": "cat-cards" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    },
+    "defuse": {
+      "title": { "en": "Defuse", "zh": "拆弹牌" },
+      "content": "抽到**爆炸猫**时，必须打出**拆弹牌**才能存活。\n\n**打出拆弹后：**\n1. 秘密将爆炸猫放回抽牌堆的**任意位置**\n2. 可以放在顶部、底部或中间任何位置\n3. **不要**向其他玩家展示放置位置\n4. 放回后**无需**洗牌\n\n**准备阶段：** 每位玩家起始 1 张拆弹；多余的洗入牌堆。",
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Nope", "zh": "不要牌" }, "next": "nope" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    },
+    "nope": {
+      "title": { "en": "Nope", "zh": "不要牌" },
+      "content": "打出**不要牌**可取消**任意功能牌**——包括其他玩家的不要牌。\n\n**规则：**\n- 可在**任何时候**打出，包括非自己回合\n- 在效果生效**之前**取消该行动\n- 其他玩家可对你的不要牌再出**不要牌**来反制\n- 不要牌链持续至无人再出\n\n**不能不要：** 爆炸猫、拆弹牌，或回合结束时必须进行的抽牌。",
+      "options": [
+        { "label": { "en": "Attack", "zh": "攻击牌" }, "next": "attack" },
+        { "label": { "en": "Skip", "zh": "跳过牌" }, "next": "skip" },
+        { "label": { "en": "Favor", "zh": "索要牌" }, "next": "favor" },
+        { "label": { "en": "See the Future", "zh": "预知未来" }, "next": "see-future" },
+        { "label": { "en": "Cat Cards", "zh": "猫咪牌" }, "next": "cat-cards" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    },
+    "attack": {
+      "title": { "en": "Attack", "zh": "攻击牌" },
+      "content": "打出**攻击牌**可结束回合且**无需抽牌**。\n\n**效果：**\n- **下一位玩家**必须连续进行 **2 个回合**\n- 每个回合仍遵循正常规则（出牌后抽牌）\n- 若该玩家也出攻击牌，回合负担继续传递给更后面的玩家\n\n**策略：** 在牌堆危险时迫使对手抽牌，或在你将爆炸猫放在顶部附近时使用。",
+      "options": [
+        { "label": { "en": "Skip", "zh": "跳过牌" }, "next": "skip" },
+        { "label": { "en": "Nope", "zh": "不要牌" }, "next": "nope" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Defuse", "zh": "拆弹牌" }, "next": "defuse" }
+      ]
+    },
+    "skip": {
+      "title": { "en": "Skip", "zh": "跳过牌" },
+      "content": "打出**跳过牌**可结束回合且**无需抽牌**。\n\n**效果：**\n- 你的回合立即结束\n- 轮到下一位玩家\n- 牌堆看起来危险时安全避抽的方式\n\n**技巧：** 配合预知未来——若顶牌是爆炸猫且没有拆弹，跳过可救你一命。",
+      "options": [
+        { "label": { "en": "Attack", "zh": "攻击牌" }, "next": "attack" },
+        { "label": { "en": "See the Future", "zh": "预知未来" }, "next": "see-future" },
+        { "label": { "en": "Nope", "zh": "不要牌" }, "next": "nope" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    },
+    "favor": {
+      "title": { "en": "Favor", "zh": "索要牌" },
+      "content": "打出**索要牌**可迫使另一名玩家给你 **1 张牌**（由其选择）。\n\n**规则：**\n1. 选择任意其他玩家\n2. 对方必须给你手牌中的**一张牌**\n3. **由对方选择**给哪张——你不能先看其手牌\n\n**技巧：** 针对手牌多的玩家，或刚用过预知未来的玩家（可能握着重要牌）。",
+      "options": [
+        { "label": { "en": "Cat Cards", "zh": "猫咪牌" }, "next": "cat-cards" },
+        { "label": { "en": "Nope", "zh": "不要牌" }, "next": "nope" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Shuffle", "zh": "洗牌牌" }, "next": "shuffle" }
+      ]
+    },
+    "shuffle": {
+      "title": { "en": "Shuffle", "zh": "洗牌牌" },
+      "content": "打出**洗牌牌**可洗匀整个**抽牌堆**。\n\n**效果：**\n- 随机化牌堆顺序\n- 有人用过预知未来后，若怀疑其已知顶牌，洗牌很有用\n- 用拆弹放回爆炸猫后也很适用\n\n**注意：** 不影响弃牌堆。",
+      "options": [
+        { "label": { "en": "See the Future", "zh": "预知未来" }, "next": "see-future" },
+        { "label": { "en": "Defuse", "zh": "拆弹牌" }, "next": "defuse" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Nope", "zh": "不要牌" }, "next": "nope" }
+      ]
+    },
+    "see-future": {
+      "title": { "en": "See the Future", "zh": "预知未来" },
+      "content": "打出**预知未来**可秘密查看抽牌堆**顶部 3 张牌**。\n\n**规则：**\n1. 查看顶部 3 张，不展示给他人\n2. 按**相同顺序**放回\n3. 只有你知道接下来是什么\n\n**策略：**\n- 若前 3 张中有爆炸猫，用跳过或攻击避免抽牌\n- 若安全，放心抽牌\n- 作为行动打出时，对手可用不要牌取消",
+      "options": [
+        { "label": { "en": "Skip", "zh": "跳过牌" }, "next": "skip" },
+        { "label": { "en": "Attack", "zh": "攻击牌" }, "next": "attack" },
+        { "label": { "en": "Shuffle", "zh": "洗牌牌" }, "next": "shuffle" },
+        { "label": { "en": "Defuse", "zh": "拆弹牌" }, "next": "defuse" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    },
+    "cat-cards": {
+      "title": { "en": "Cat Cards", "zh": "猫咪牌" },
+      "content": "共有 **5 种**猫咪牌，可组合使用：\n\n### 两张相同\n打出 **2 张相同**猫咪牌 → 从任意玩家处随机偷 **1 张牌**。\n\n### 三张相同\n打出 **3 张相同**猫咪牌 → **指定一张牌名**，从任意玩家处拿走（若其有该牌）。\n\n### 五种不同\n打出 **5 种不同**猫咪牌 → 从弃牌堆拿 **任意 1 张牌**。\n\n**提示：** 不要单独打出单张猫咪牌——留作组合。所有猫咪组合均可被不要牌取消。",
+      "options": [
+        { "label": { "en": "Favor", "zh": "索要牌" }, "next": "favor" },
+        { "label": { "en": "Nope", "zh": "不要牌" }, "next": "nope" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" }
+      ]
+    },
+    "winning": {
+      "title": { "en": "Winning", "zh": "获胜条件" },
+      "content": "玩家抽到爆炸猫且无法拆弹时**爆炸**并**淘汰**。\n\n**获胜条件：**\n- **最后存活的玩家**获胜\n- 剩 2 人时，先爆炸者输——幸存者立即获胜\n\n**终局技巧：**\n- 尽量保留拆弹牌到万不得已\n- 用攻击迫使最后一名对手连续抽两次\n- 记录剩余爆炸猫数量（开局时始终为玩家人数 − 1）",
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Defuse", "zh": "拆弹牌" }, "next": "defuse" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "1. 按人数选择 **身份牌**，每人发一张面朝下。**保密阵营。**\n2. 每人抽 3 张 **角色牌**，秘密选 1 张，其余收回。\n3. 全体同时亮出所选角色。\n4. 洗混基础牌，每人发 **2 张**。 **手牌上限 6 张。**\n\n### 阵营\n| 阵营 | 颜色 | 胜利条件 |\n|------|------|----------|\n| **潜伏** | 红 | 队友集齐 3 张红色情报 |\n| **军情** | 蓝 | 队友集齐 3 张蓝色情报 |\n| **特工** | 独立 | 完成秘密任务或集齐 6 张真情报 |\n\n**死亡：** 集齐 3 张 **黑色** 情报 → 立即出局。",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Card Actions", "zh": "行动牌" }, "next": "card-actions" },
+        { "label": { "en": "Intelligence", "zh": "情报传递" }, "next": "intelligence" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Turn Structure", "zh": "回合流程" },
+      "content": "每回合按顺序进行 **4 个阶段**：\n\n### 1. 摸牌阶段\n从抽牌堆摸 **2 张**。\n\n### 2. 行动阶段\n从手牌打出行动牌（不限数量），触发牌面文字效果。\n\n### 3. 情报阶段（必须）\n送出 **恰好 1 张** 牌作为情报，按其传递方式传递。接收者面朝上放置（只看颜色，忽略文字）。\n\n### 4. 弃牌阶段\n弃牌至 **6 张** 手牌上限。\n\n**双重用途：** 每张基础牌既是情报（看颜色）也是行动牌（看文字）。",
+      "options": [
+        { "label": { "en": "Card Actions", "zh": "行动牌" }, "next": "card-actions" },
+        { "label": { "en": "Intelligence", "zh": "情报传递" }, "next": "intelligence" },
+        { "label": { "en": "Victory", "zh": "胜利条件" }, "next": "victory" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    },
+    "card-actions": {
+      "title": { "en": "Card Actions", "zh": "行动牌" },
+      "content": "**行动阶段** 可打出牌触发文字效果。常见类型：\n\n| 类型 | 效果 |\n|------|------|\n| **拦截** | 阻断或改道传递中的情报 |\n| **封锁** | 阻止其他玩家的行动生效 |\n| **搜集信息** | 偷看手牌、身份或传递中的牌 |\n| **改变方向** | 反转或改变情报传递顺序 |\n| **保护** | 免受针对性行动影响 |\n\n**提示：**\n- 关键情报传递时保留强力行动牌。\n- 角色能力可能增强或修改行动牌。\n- 打出行动牌 **不算** 传递情报 — 第 3 阶段仍须送 1 张。",
+      "options": [
+        { "label": { "en": "Intelligence", "zh": "情报传递" }, "next": "intelligence" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Victory", "zh": "胜利条件" }, "next": "victory" }
+      ]
+    },
+    "intelligence": {
+      "title": { "en": "Intelligence Passing", "zh": "情报传递" },
+      "content": "每回合 **必须** 送 1 张牌。传递方式（右上角图标）决定流程：\n\n| 类型 | 方式 |\n|------|------|\n| **密电** | 面朝下顺时针传递，每人可收或拒 |\n| **文本** | 面朝上顺时针传递，每人可收或拒 |\n| **直达** | 面朝下直送指定玩家，可收或拒 |\n\n### 接收者选项\n情报到达时，接收者可 **偷看**（若面朝下），然后 **收下**（面朝上放置）或 **继续传递**。\n\n### 全部拒绝\n情报退回发送者，发送者 **必须收下**。\n\n**红方目标：** 将红色情报送到盟友处。**蓝方目标：** 拦截红色或传递蓝色情报。",
+      "options": [
+        { "label": { "en": "Card Actions", "zh": "行动牌" }, "next": "card-actions" },
+        { "label": { "en": "Victory", "zh": "胜利条件" }, "next": "victory" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" }
+      ]
+    },
+    "victory": {
+      "title": { "en": "Victory Conditions", "zh": "胜利条件" },
+      "content": "任一阵营达成条件时 **立即结束**：\n\n### 红方（潜伏）\n任一队友成功集齐 **3 张红色情报**。\n\n### 蓝方（军情）\n以下任一：\n- 拦截 **3 张红色情报**，或\n- 任一队友集齐 **3 张蓝色情报**\n\n### 特工（独立）\n完成 **秘密任务** 或集齐 **6 张真情报**（红或蓝）。\n\n### 其他角色\n部分配置含独立胜利条件 — 查看身份牌。\n\n**切记：** 3 张黑色情报 = **死亡**。除非角色需要，否则避开黑牌！",
+      "options": [
+        { "label": { "en": "Intelligence", "zh": "情报传递" }, "next": "intelligence" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

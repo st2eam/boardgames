@@ -1,0 +1,51 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "1. 洗混 58 张牌。**不发起始手牌** — 牌留在牌堆中。\n2. 牌面朝下组成 **抽牌堆**。\n3. 翻开 **顶 2 张** 面朝上，形成 **两个弃牌堆**。\n4. 随机决定首位玩家。\n\n### 目标分数\n| 人数 | 目标分 |\n|------|--------|\n| 2 人 | 40 分 |\n| 3 人 | 35 分 |\n| 4 人 | 30 分 |\n\n最先达到目标分的玩家获胜。",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Duo Pairs", "zh": "双人组合" }, "next": "duo-pairs" },
+        { "label": { "en": "Ending a Round", "zh": "结束回合" }, "next": "ending-round" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Turn Structure", "zh": "回合流程" },
+      "content": "你的回合按顺序进行：\n\n### 阶段 1：拿牌（必须）\n选择 **一项**：\n- **从牌堆抽** — 抽 2 张，留 1 张，另 1 张放到任一弃牌堆（空堆须优先补满）\n- **从弃牌堆拿** — 从 **其中一个** 弃牌堆拿顶牌\n\n### 阶段 2：打出双人组合（可选）\n若手中有配对的双人牌，可面朝上打出触发特殊效果。一回合可打出多对。\n\n### 阶段 3：结束回合（可选）\n若可见分数合计 **≥ 7 分**，可结束本回合。详见 **结束回合**。\n\n**提示：** 在收集高分组合与打出 Duo 抢节奏之间取得平衡。",
+      "options": [
+        { "label": { "en": "Duo Pairs", "zh": "双人组合" }, "next": "duo-pairs" },
+        { "label": { "en": "Ending a Round", "zh": "结束回合" }, "next": "ending-round" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    },
+    "duo-pairs": {
+      "title": { "en": "Duo Pairs", "zh": "双人组合" },
+      "content": "打出配对牌面朝上触发效果。每对 Duo 另计 **1 分**。\n\n| 组合 | 效果 |\n|------|------|\n| **2 螃蟹** | 浏览一个弃牌堆，从中拿任意一张 |\n| **2 小船** | 立即再行动一回合 |\n| **2 鱼** | 从牌堆抽 1 张 |\n| **游泳者 + 鲨鱼** | 随机偷取一名玩家手牌 1 张 |\n\n### 倍增奖励\n小船、鱼、企鹅、船长（水手）各为每张同类牌 **+1 奖励分**。\n\n### 美人鱼即时胜利\n集齐 **4 张美人鱼** → **立即获胜**！",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Ending a Round", "zh": "结束回合" }, "next": "ending-round" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "ending-round": {
+      "title": { "en": "Ending a Round", "zh": "结束回合" },
+      "content": "当手中 + 面前的牌合计 **≥ 7 可见分** 时，可结束本回合：\n\n### STOP（停）\n回合 **立即结束**。全体亮牌，按牌面分计分。**无颜色奖励**。\n\n### LAST CHANCE（最后机会）\n其他玩家各 **再行动一回合**，然后全体亮牌。\n\n| 结果 | 发起者得分 | 其他人得分 |\n|------|-----------|----------|\n| 发起者 **最高或并列** | 牌面分 + 颜色奖励 | 仅颜色奖励 |\n| 发起者 **不是最高** | 仅颜色奖励 | 牌面分 + 颜色奖励 |\n\n**颜色奖励** = 最多颜色每种牌 +1 分。\n\n**牌堆抽空？** 回合立即结束，**不计分**。",
+      "options": [
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Duo Pairs", "zh": "双人组合" }, "next": "duo-pairs" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Scoring", "zh": "计分" },
+      "content": "### 收集牌（按持有数量）\n\n| 系列 | 张数 | 得分 |\n|------|------|------|\n| **贝壳** | 6 | 0, 2, 4, 6, 8, 10 |\n| **章鱼** | 5 | 0, 3, 6, 9, 12 |\n| **企鹅** | 3 | 1, 3, 5 |\n| **水手** | 2 | 0, 5 |\n\n### 其他分数\n- **打出的 Duo 对**：每对 1 分\n- **倍增牌**：每张同类牌 +1\n- **颜色奖励**（仅 Last Chance）：最多颜色每种 +1\n\n各回合得分累加。**最先达目标分者胜。** 同回合同时达标：分高者胜。",
+      "options": [
+        { "label": { "en": "Ending a Round", "zh": "结束回合" }, "next": "ending-round" },
+        { "label": { "en": "Duo Pairs", "zh": "双人组合" }, "next": "duo-pairs" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

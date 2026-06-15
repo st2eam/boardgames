@@ -6,6 +6,10 @@ export interface GameMeta {
   difficulty: "easy" | "medium" | "hard";
   tags: string[];
   category: string;
+  family?: string;
+  familyOrder?: number;
+  variantType?: "base" | "expansion" | "variant";
+  requiresBase?: boolean;
 }
 
 export interface FlowOption {
@@ -39,4 +43,8 @@ export interface GameSummary {
   tags: string[];
   category: string;
   hasFlow: boolean;
+  family?: string;
+  familyOrder?: number;
+  variantType?: "base" | "expansion" | "variant";
+  requiresBase?: boolean;
 }

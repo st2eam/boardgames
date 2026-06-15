@@ -31,16 +31,31 @@ export default async function FlowPage({ params }: Props) {
   }
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-      <a
-        href={`/${locale}/games/${slug}/`}
-        className="mb-4 inline-block text-sm text-blue-600 hover:text-blue-800 transition-colors"
-      >
-        &larr; {meta.name[locale as "en" | "zh"] ?? meta.name.en}
-      </a>
-      <h1 className="mb-6 text-2xl font-bold text-zinc-900">
-        {meta.name[locale as "en" | "zh"] ?? meta.name.en} —{" "}
-        {locale === "zh" ? "交互式流程" : "Decision Tree"}
+    <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mb-6 flex items-center justify-between">
+        <a
+          href={`/${locale}/games/${slug}/`}
+          className="inline-flex items-center gap-1.5 text-sm text-accent hover:text-accent/80 transition-colors"
+        >
+          <svg
+            className="h-3.5 w-3.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          {meta.name[locale as "en" | "zh"] ?? meta.name.en}
+        </a>
+      </div>
+      <h1 className="mb-6 font-heading text-2xl font-bold tracking-tight text-primary-dark sm:text-3xl">
+        {meta.name[locale as "en" | "zh"] ?? meta.name.en}
       </h1>
       <DecisionTree flowData={flowData} locale={locale} />
     </div>

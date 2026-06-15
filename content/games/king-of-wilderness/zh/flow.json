@@ -1,0 +1,51 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "1. 每位玩家选择物种：**猞猁、狼、岩羊或熊**。\n2. 拿取该物种的 **20 张牌组** 和 **5 枚标记**。\n3. 洗混牌组，抽 **顶牌** **面朝上** 放在中央。\n4. 所有玩家的牌必须 **相邻**，组成共享矩形区域。\n5. 抽 **3 张** 作为起始手牌，其余为 **个人抽牌堆**。\n\n**牌背** 有两个数字，之和等于正面点数 — 可据此推断暗牌。",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Covering Cards", "zh": "覆盖规则" }, "next": "cover-cards" },
+        { "label": { "en": "Baby Tokens", "zh": "幼崽标记" }, "next": "baby-tokens" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Turn Structure", "zh": "回合流程" },
+      "content": "你的回合 **必须打出 1 张牌**，然后从个人抽牌堆 **补牌至 3 张**。\n\n选择一种放置方式：\n\n### 覆盖（面朝上）\n面朝上放置，覆盖 **恰好两张相邻牌的各一半**。你的牌点数须等于 **两个被盖半格点数之和**。\n\n### 扩张（面朝下）\n若无法或选择不覆盖，将一张牌 **面朝下** 放在任意已有牌旁。\n\n打出 **最后一张牌** 后立即计分 — 即使之后被覆盖，得分 **不变**。",
+      "options": [
+        { "label": { "en": "Covering Cards", "zh": "覆盖规则" }, "next": "cover-cards" },
+        { "label": { "en": "Baby Tokens", "zh": "幼崽标记" }, "next": "baby-tokens" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    },
+    "cover-cards": {
+      "title": { "en": "Covering Cards", "zh": "覆盖规则" },
+      "content": "### 基本覆盖规则\n- **面朝上** 覆盖 **两张相邻牌各一半**（不可整牌覆盖）。\n- 正面点数 = **两个被盖半格点数之和**。\n- 可覆盖己方或对手的牌。\n\n### 总和超过 10 时\n须打出 **2 张牌**：\n1. 第一张面朝上覆盖两个半格。\n2. 从抽牌堆顶取一张 **面朝下** 放在任意已有牌旁。暗牌计 **10 点**，与明牌点数相加。\n\n*（抽牌堆空则无法执行此操作。）*\n\n### 推理提示\n看牌背 — 两个数字之和恒等于正面点数。",
+      "options": [
+        { "label": { "en": "Baby Tokens", "zh": "幼崽标记" }, "next": "baby-tokens" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "baby-tokens": {
+      "title": { "en": "Baby Tokens", "zh": "幼崽标记" },
+      "content": "每个物种有 **10 张幼崽牌**（点数 1–10）。\n\n**面朝上** 打出幼崽牌（覆盖两个半格）时，可在其中一个半格上放 **1 枚标记**（共 5 枚）。\n\n### 标记规则\n- 有标记的半格 **此后永不可被覆盖**。\n- 仅 **5 枚** — 优先保护高分区域。\n- 标记 **不可移动或收回**。\n\n**策略：** 早期保护领地角落；对手无法覆盖已计分的半格。",
+      "options": [
+        { "label": { "en": "Covering Cards", "zh": "覆盖规则" }, "next": "cover-cards" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Scoring", "zh": "计分" },
+      "content": "玩家 **不会同时结束**。\n\n打出 **最后一张牌** 时：\n1. 立即计分：每个 **可见的己方物种半格** = **1 分**。\n2. 记录得分 — 即使之后被覆盖也 **不变**。\n\n全部玩家打完 20 张牌后，**分最高者胜**。\n\n### 平局\n**未使用标记最多** 者胜。仍平 → 共享胜利。\n\n**提示：** 先面朝下扩张占域，后期再覆盖对手可见半格。",
+      "options": [
+        { "label": { "en": "Baby Tokens", "zh": "幼崽标记" }, "next": "baby-tokens" },
+        { "label": { "en": "Covering Cards", "zh": "覆盖规则" }, "next": "cover-cards" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

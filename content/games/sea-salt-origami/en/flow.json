@@ -1,0 +1,51 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "1. Shuffle all 58 cards. **No starting hands** — cards stay in the deck.\n2. Place the deck face down as the **draw pile**.\n3. Reveal the **top 2 cards** face up to form **two discard piles**.\n4. Choose first player randomly.\n\n### Target Score\n| Players | Target |\n|---------|--------|\n| 2 | 40 points |\n| 3 | 35 points |\n| 4 | 30 points |\n\nFirst player to reach the target wins the game.",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Duo Pairs", "zh": "双人组合" }, "next": "duo-pairs" },
+        { "label": { "en": "Ending a Round", "zh": "结束回合" }, "next": "ending-round" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Turn Structure", "zh": "回合流程" },
+      "content": "On your turn, perform these phases in order:\n\n### Phase 1: Take a Card (Mandatory)\nChoose **one**:\n- **Draw from deck** — Draw 2 cards, keep 1, place the other on either discard pile (empty pile must be filled first)\n- **Take from discard** — Take the top card from **one** discard pile\n\n### Phase 2: Play Duo Pairs (Optional)\nIf you hold matching Duo pairs, you may play them face-up for their special effects. You may play multiple pairs in one turn.\n\n### Phase 3: End the Round (Optional)\nIf your visible points total **7 or more**, you may end the round. See **Ending a Round**.\n\n**Tip:** Balance collecting high-value sets with playing Duos for tempo.",
+      "options": [
+        { "label": { "en": "Duo Pairs", "zh": "双人组合" }, "next": "duo-pairs" },
+        { "label": { "en": "Ending a Round", "zh": "结束回合" }, "next": "ending-round" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    },
+    "duo-pairs": {
+      "title": { "en": "Duo Pairs", "zh": "双人组合" },
+      "content": "Play matching pairs face-up to trigger effects. Each Duo played is also worth **1 point**.\n\n| Duo Pair | Effect |\n|----------|--------|\n| **2 Crabs** | Browse one discard pile and take any card from it |\n| **2 Boats** | Take another turn immediately |\n| **2 Fish** | Draw 1 card from the draw pile |\n| **Swimmer + Shark** | Steal 1 random card from another player's hand |\n\n### Multiplier Bonuses\nBoat, Fish, Penguin, and Captain (Sailor) cards each add **+1 bonus point** per matching card you hold.\n\n### Mermaid Instant Win\nCollect all **4 Mermaid** cards → **win the game immediately**!",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Ending a Round", "zh": "结束回合" }, "next": "ending-round" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "ending-round": {
+      "title": { "en": "Ending a Round", "zh": "结束回合" },
+      "content": "When your cards (in hand + in front of you) total **7+ visible points**, you may end the round:\n\n### STOP\nRound ends **immediately**. All players reveal hands and score card points. **No color bonus** awarded.\n\n### LAST CHANCE\nEach other player takes **one final turn**, then all reveal.\n\n| Outcome | Caller scores | Others score |\n|---------|---------------|-------------|\n| Caller has **highest or tied** | Full card points + color bonus | Color bonus only |\n| Caller does **not** have highest | Color bonus only | Full card points + color bonus |\n\n**Color bonus** = 1 point per card of your most abundant color.\n\n**Draw pile empty?** Round ends immediately with **no scoring**.",
+      "options": [
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Duo Pairs", "zh": "双人组合" }, "next": "duo-pairs" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Scoring", "zh": "计分" },
+      "content": "### Collection Cards (by quantity held)\n\n| Collection | Cards | Points |\n|-----------|-------|--------|\n| **Shells** | 6 | 0, 2, 4, 6, 8, 10 |\n| **Octopus** | 5 | 0, 3, 6, 9, 12 |\n| **Penguins** | 3 | 1, 3, 5 |\n| **Sailors** | 2 | 0, 5 |\n\n### Other Points\n- **Duo pairs played**: 1 point each\n- **Multiplier cards**: +1 per matching card held\n- **Color bonus** (Last Chance only): 1 per card of most abundant color\n\nAdd round scores to cumulative totals. **First to target score wins.** Ties at threshold: higher score wins.",
+      "options": [
+        { "label": { "en": "Ending a Round", "zh": "结束回合" }, "next": "ending-round" },
+        { "label": { "en": "Duo Pairs", "zh": "双人组合" }, "next": "duo-pairs" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

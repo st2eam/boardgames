@@ -4,13 +4,20 @@ import { useState, useMemo } from "react";
 import type { GameSummary } from "@/types/game";
 import { useTranslations } from "next-intl";
 import { GameCard } from "./GameCard";
+import { GameFamilyCard } from "./GameFamilyCard";
+import { Sidebar } from "./Sidebar";
 
 interface Props {
   games: GameSummary[];
 }
 
+type GridItem =
+  | { type: "single"; game: GameSummary }
+  | { type: "family"; key: string; games: GameSummary[] };
+
 export function GameCardGrid({ games }: Props) {
   const t = useTranslations("home");
+  const tc = useTranslations("common");
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -36,6 +43,52 @@ export function GameCardGrid({ games }: Props) {
     });
   }, [games, selectedTags, selectedCategory]);
 
+  const gridItems = useMemo((): GridItem[] => {
+    const familyMap = new Map<string, GameSummary[]>();
+    const standalone: GameSummary[] = [];
+    const familyInsertOrder: string[] = [];
+
+    for (const game of filtered) {
+      if (game.family) {
+        if (!familyMap.has(game.family)) {
+          familyMap.set(game.family, []);
+          familyInsertOrder.push(game.family);
+        }
+        familyMap.get(game.family)!.push(game);
+      } else {
+        standalone.push(game);
+      }
+    }
+
+    const items: GridItem[] = [];
+    const processedFamilies = new Set<string>();
+
+    for (const game of filtered) {
+      if (game.family) {
+        if (!processedFamilies.has(game.family)) {
+          processedFamilies.add(game.family);
+          const familyGames = familyMap.get(game.family)!;
+          familyGames.sort(
+            (a, b) => (a.familyOrder ?? 0) - (b.familyOrder ?? 0)
+          );
+          if (familyGames.length === 1) {
+            items.push({ type: "single", game: familyGames[0] });
+          } else {
+            items.push({
+              type: "family",
+              key: game.family,
+              games: familyGames,
+            });
+          }
+        }
+      } else {
+        items.push({ type: "single", game });
+      }
+    }
+
+    return items;
+  }, [filtered]);
+
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) => {
       const next = new Set(prev);
@@ -49,68 +102,134 @@ export function GameCardGrid({ games }: Props) {
   };
 
   return (
-    <div>
-      {/* Filters */}
-      <div className="mb-6 space-y-3">
-        {categories.length > 1 && (
-          <div className="flex flex-wrap gap-2">
+    <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
+      {/* Sidebar — desktop: sticky left, mobile: inline */}
+      <div className="lg:sticky lg:top-20 lg:self-start">
+        {/* Mobile: horizontal scroll filter strip */}
+        <div className="flex gap-2 overflow-x-auto pb-2 lg:hidden">
+          <button
+            onClick={() => setSelectedCategory(null)}
+            className={`cursor-pointer shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+              selectedCategory === null
+                ? "bg-primary text-white"
+                : "bg-stone-100 text-stone-600 hover:bg-amber-50"
+            }`}
+          >
+            {t("allGames")}
+          </button>
+          {categories.map((cat) => (
             <button
-              onClick={() => setSelectedCategory(null)}
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
-                !selectedCategory
-                  ? "bg-zinc-800 text-white"
-                  : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+              key={cat}
+              onClick={() =>
+                setSelectedCategory(selectedCategory === cat ? null : cat)
+              }
+              className={`cursor-pointer shrink-0 rounded-full px-3 py-1.5 text-xs font-medium capitalize transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+                selectedCategory === cat
+                  ? "bg-primary text-white"
+                  : "bg-stone-100 text-stone-600 hover:bg-amber-50"
               }`}
             >
-              {t("allGames")}
+              {cat}
             </button>
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() =>
-                  setSelectedCategory(selectedCategory === cat ? null : cat)
-                }
-                className={`rounded-full px-3 py-1 text-xs font-medium capitalize transition-colors ${
-                  selectedCategory === cat
-                    ? "bg-zinc-800 text-white"
-                    : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        )}
-        <div className="flex flex-wrap gap-1.5">
-          <span className="text-xs font-medium text-zinc-400 self-center mr-1">
-            {t("filterByTags")}:
-          </span>
+          ))}
+        </div>
+
+        {/* Desktop: full sidebar */}
+        <div className="hidden lg:block">
+          <Sidebar
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+            allTags={allTags}
+            selectedTags={selectedTags}
+            onToggleTag={toggleTag}
+            onClearTags={() => setSelectedTags(new Set())}
+            totalCount={games.length}
+            filteredCount={filtered.length}
+          />
+        </div>
+
+        {/* Mobile: tag strip */}
+        <div className="mt-3 flex flex-wrap gap-1 lg:hidden">
           {allTags.map((tag) => (
             <button
               key={tag}
               onClick={() => toggleTag(tag)}
-              className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors ${
+              className={`cursor-pointer rounded-full px-2.5 py-1 text-[11px] font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
                 selectedTags.has(tag)
-                  ? "bg-blue-100 text-blue-700 ring-1 ring-blue-300"
-                  : "bg-zinc-100 text-zinc-500 hover:bg-zinc-200"
+                  ? "bg-accent text-white"
+                  : "bg-stone-100 text-stone-500 hover:bg-accent-light"
               }`}
             >
               {tag}
             </button>
           ))}
+          {selectedTags.size > 0 && (
+            <button
+              onClick={() => setSelectedTags(new Set())}
+              className="cursor-pointer rounded-full px-2 py-1 text-[11px] text-stone-400 hover:text-stone-600"
+            >
+              {tc("clear")}
+            </button>
+          )}
         </div>
       </div>
 
       {/* Grid */}
-      {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((game) => (
-            <GameCard key={game.slug} game={game} />
-          ))}
-        </div>
-      ) : (
-        <p className="py-12 text-center text-zinc-500">{t("noGamesFound")}</p>
-      )}
+      <div className="min-w-0 flex-1">
+        {gridItems.length > 0 ? (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 grid-flow-dense">
+            {gridItems.map((item) => {
+              if (item.type === "family") {
+                const base = item.games[0];
+                return (
+                  <div
+                    key={item.key}
+                    className={
+                      base.category === "card"
+                        ? "sm:col-span-1 sm:row-span-2"
+                        : base.category === "board"
+                          ? "sm:col-span-2"
+                          : ""
+                    }
+                  >
+                    <GameFamilyCard games={item.games} />
+                  </div>
+                );
+              }
+              return (
+                <div
+                  key={item.game.slug}
+                  className={
+                    item.game.category === "card"
+                      ? "sm:col-span-1 sm:row-span-2"
+                      : item.game.category === "board"
+                        ? "sm:col-span-2"
+                        : ""
+                  }
+                >
+                  <GameCard game={item.game} />
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center gap-2 py-20 text-center">
+            <p className="text-lg font-medium text-stone-400">
+              {t("noGamesFound")}
+            </p>
+            <button
+              onClick={() => {
+                setSelectedCategory(null);
+                setSelectedTags(new Set());
+              }}
+              className="cursor-pointer text-sm text-accent hover:text-accent/80 transition-colors"
+            >
+              {tc("clear")}
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

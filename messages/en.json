@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "Board Game Rules",
-    "subtitle": "Quick reference for modern board games",
+    "title": "The Game Shelf",
+    "subtitle": "Your curated collection of tabletop game rules",
     "allGames": "All Games",
     "filterByTags": "Filter by tags",
     "noGamesFound": "No games found"
@@ -12,7 +12,11 @@
     "difficulty": "Difficulty",
     "viewFlow": "Decision Tree",
     "backToGames": "Back to Games",
-    "rules": "Rules"
+    "rules": "Rules",
+    "relatedGames": "Related Games",
+    "export": "Export",
+    "exportPDF": "Export as PDF",
+    "exportMarkdown": "Download Markdown"
   },
   "chat": {
     "title": "Rules Assistant",
@@ -27,11 +31,15 @@
     "clearHistory": "Clear History",
     "thinking": "Thinking...",
     "error": "Something went wrong. Please try again.",
-    "noApiKey": "Please set your DeepSeek API key to start chatting."
+    "noApiKey": "Please set your DeepSeek API key to start chatting.",
+    "close": "Close"
   },
   "flow": {
     "back": "Back",
-    "startOver": "Start Over"
+    "startOver": "Start Over",
+    "chooseNext": "Related topics",
+    "nodeNotFound": "Node not found",
+    "outline": "Outline"
   },
   "common": {
     "language": "Language",
@@ -39,6 +47,8 @@
     "chinese": "中文",
     "difficultyEasy": "Easy",
     "difficultyMedium": "Medium",
-    "difficultyHard": "Hard"
+    "difficultyHard": "Hard",
+    "cancel": "Cancel",
+    "clear": "Clear"
   }
 }

@@ -20,7 +20,7 @@ export function ChatInput() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="border-t border-zinc-100 px-4 py-3"
+      className="border-t border-stone-100 px-4 py-3"
     >
       {!apiKey ? (
         <p className="text-center text-xs text-amber-600">{t("noApiKey")}</p>
@@ -32,12 +32,12 @@ export function ChatInput() {
             onChange={(e) => setInput(e.target.value)}
             placeholder={t("placeholder")}
             disabled={isStreaming}
-            className="flex-1 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400 disabled:opacity-50"
+            className="flex-1 rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-900 placeholder:text-stone-400 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent disabled:opacity-50"
           />
           <button
             type="submit"
             disabled={!input.trim() || isStreaming}
-            className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="rounded-lg bg-accent px-3 py-2 text-sm font-medium text-white hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

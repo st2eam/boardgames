@@ -1,0 +1,106 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "1. 每位玩家获得 **100** 起始资金（藏在挡板后）。\n2. 将**市场价值板**放在中央，共有 **5 位画家** 的列。\n3. 洗匀全部 **70 张画作牌**（5 位画家），按人数发起始手牌：\n   - **3 人：** 各 10 张\n   - **4 人：** 各 9 张\n   - **5 人：** 各 8 张\n4. 剩余牌面朝下作为抽牌堆。\n5. 最年轻的玩家担任首位**拍卖师**。\n\n**游戏长度：** 共 **4 轮**。第 4 轮结束后资金最多者获胜。",
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Auction Types", "zh": "拍卖类型" }, "next": "open-auction" },
+        { "label": { "en": "Round End", "zh": "回合结束" }, "next": "round-end" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Your Turn", "zh": "你的回合" },
+      "content": "作为**拍卖师**，从手牌打出 **1 张画作牌** 正面朝上，按牌面指示的拍卖类型进行拍卖。\n\n**拍卖结束后：**\n- 获胜者向拍卖师付款并拿走画作\n- 若无人出价（在允许的情况下），拍卖师可免费保留\n- 顺时针传递——买家成为下一位拍卖师\n\n**牌面拍卖类型：** 公开拍卖、一轮竞价、密封拍卖、固定价格或双重拍卖（详见各类型规则）。",
+      "options": [
+        { "label": { "en": "Open Auction", "zh": "公开拍卖" }, "next": "open-auction" },
+        { "label": { "en": "Once Around", "zh": "一轮竞价" }, "next": "once-around" },
+        { "label": { "en": "Sealed Auction", "zh": "密封拍卖" }, "next": "sealed-auction" },
+        { "label": { "en": "Fixed Price", "zh": "固定价格" }, "next": "fixed-price" },
+        { "label": { "en": "Double Auction", "zh": "双重拍卖" }, "next": "double-auction" },
+        { "label": { "en": "Round End", "zh": "回合结束" }, "next": "round-end" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    },
+    "open-auction": {
+      "title": { "en": "Open Auction", "zh": "公开拍卖" },
+      "content": "从拍卖师**左侧**的玩家开始，按顺序自由竞价。\n\n**规则：**\n- 每次出价必须**高于**前一次\n- 玩家可以**放弃**——一旦放弃不得再参与\n- 持续至只剩一名竞价者\n\n**结果：**\n- **最高出价者**向拍卖师付款并拿走画作\n- 若**无人出价**，拍卖师**免费**保留画作",
+      "options": [
+        { "label": { "en": "Once Around", "zh": "一轮竞价" }, "next": "once-around" },
+        { "label": { "en": "Sealed Auction", "zh": "密封拍卖" }, "next": "sealed-auction" },
+        { "label": { "en": "Fixed Price", "zh": "固定价格" }, "next": "fixed-price" },
+        { "label": { "en": "Double Auction", "zh": "双重拍卖" }, "next": "double-auction" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Round End", "zh": "回合结束" }, "next": "round-end" }
+      ]
+    },
+    "once-around": {
+      "title": { "en": "Once Around Auction", "zh": "一轮竞价" },
+      "content": "从拍卖师左侧开始，每位玩家**恰好一次**机会出价或放弃，顺时针进行。\n\n**规则：**\n- 每次出价必须高于当前最高价\n- **拍卖师最后出价**\n- 所有人行动完毕后竞价结束\n\n**结果：**\n- **最高出价**者获胜并向拍卖师付款\n- 若全部放弃，拍卖师免费保留画作",
+      "options": [
+        { "label": { "en": "Open Auction", "zh": "公开拍卖" }, "next": "open-auction" },
+        { "label": { "en": "Sealed Auction", "zh": "密封拍卖" }, "next": "sealed-auction" },
+        { "label": { "en": "Fixed Price", "zh": "固定价格" }, "next": "fixed-price" },
+        { "label": { "en": "Double Auction", "zh": "双重拍卖" }, "next": "double-auction" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Round End", "zh": "回合结束" }, "next": "round-end" }
+      ]
+    },
+    "sealed-auction": {
+      "title": { "en": "Sealed Auction", "zh": "密封拍卖" },
+      "content": "所有玩家（含拍卖师）在握拳中秘密选择出价金额。\n\n**规则：**\n1. 每人选择出价（可以为 0）\n2. 同时亮出\n3. **最高出价**者获胜\n\n**平局：** **距拍卖师左侧最近**的并列玩家获胜。\n\n**付款：** 获胜者向拍卖师付款。若拍卖师自己获胜，保留画作且无需付款。",
+      "options": [
+        { "label": { "en": "Open Auction", "zh": "公开拍卖" }, "next": "open-auction" },
+        { "label": { "en": "Once Around", "zh": "一轮竞价" }, "next": "once-around" },
+        { "label": { "en": "Fixed Price", "zh": "固定价格" }, "next": "fixed-price" },
+        { "label": { "en": "Double Auction", "zh": "双重拍卖" }, "next": "double-auction" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Round End", "zh": "回合结束" }, "next": "round-end" }
+      ]
+    },
+    "fixed-price": {
+      "title": { "en": "Fixed Price", "zh": "固定价格" },
+      "content": "拍卖师为画作**指定一个价格**。\n\n**规则：**\n1. 从拍卖师左侧开始，每位玩家可以**以该价格购买**或**放弃**\n2. **第一位购买**的玩家（顺时针）拿走画作并向拍卖师付款\n3. 若**全部放弃**，拍卖师**必须**以该价格从银行买下画作\n\n**技巧：** 定价足够低以吸引买家，或足够高以便自己保留。",
+      "options": [
+        { "label": { "en": "Open Auction", "zh": "公开拍卖" }, "next": "open-auction" },
+        { "label": { "en": "Once Around", "zh": "一轮竞价" }, "next": "once-around" },
+        { "label": { "en": "Sealed Auction", "zh": "密封拍卖" }, "next": "sealed-auction" },
+        { "label": { "en": "Double Auction", "zh": "双重拍卖" }, "next": "double-auction" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Round End", "zh": "回合结束" }, "next": "round-end" }
+      ]
+    },
+    "double-auction": {
+      "title": { "en": "Double Auction", "zh": "双重拍卖" },
+      "content": "拍卖师打出一张牌，可配对手牌中**同一位画家的第二张画作**。\n\n**贡献第二张牌：**\n1. 拍卖师可从手牌添加同画家牌\n2. 若不能或不愿，顺时针下一位玩家可贡献\n3. 继续顺时针直至有人添加第二张，或全部放弃\n\n**拍卖：** 两张牌作为**一套**拍卖，使用**第二张牌**上的拍卖类型。\n\n**分账：** 贡献第二张牌的玩家与拍卖师**平分**拍卖所得。",
+      "options": [
+        { "label": { "en": "Open Auction", "zh": "公开拍卖" }, "next": "open-auction" },
+        { "label": { "en": "Once Around", "zh": "一轮竞价" }, "next": "once-around" },
+        { "label": { "en": "Sealed Auction", "zh": "密封拍卖" }, "next": "sealed-auction" },
+        { "label": { "en": "Fixed Price", "zh": "固定价格" }, "next": "fixed-price" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Round End", "zh": "回合结束" }, "next": "round-end" }
+      ]
+    },
+    "round-end": {
+      "title": { "en": "Round End", "zh": "回合结束" },
+      "content": "当某位画家的**第 5 张画作**被打出时，本轮**立即结束**。\n\n**重要：** 第 5 张牌**不进行拍卖**——直接**弃置**。\n\n### 画家排名\n统计本轮每位画家**拍卖成交**的画作数量，取前三名：\n\n| 名次 | 每幅价值 |\n|------|----------|\n| **第 1** | 30 |\n| **第 2** | 20 |\n| **第 3** | 10 |\n| **第 4–5** | 0（无价值） |\n\n将对应价值标记（30/20/10）放在市场板上。**平局**按板上画家顺序裁决。\n\n然后进入**计分**并为下一轮发牌。",
+      "options": [
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Scoring", "zh": "计分" },
+      "content": "### 画家累计价值\n画家的价值是其列中**所有已放置价值标记之和**。\n\n*示例：* 第 1 轮第 1 名（30）+ 第 2 轮第 2 名（20）= 第 2 轮时每幅 **50**。\n\n### 向银行出售\n每轮结束后，将本轮**购入**的所有画作按当前市场价值卖给银行。仍在手牌中的画作**毫无价值**。\n\n### 新一轮发牌\n- **第 2、3 轮：** 3 人各 6 张；4 人各 4 张；5 人各 3 张\n- **第 4 轮：** 不再发牌\n\n### 游戏结束\n**4 轮**结束后，**资金最多**的玩家获胜。",
+      "options": [
+        { "label": { "en": "Round End", "zh": "回合结束" }, "next": "round-end" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

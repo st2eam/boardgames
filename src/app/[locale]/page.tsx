@@ -16,7 +16,7 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <GameCardGrid games={games} />
       </div>
       <ChatToggle scope={{ type: "global" }} locale={locale} />

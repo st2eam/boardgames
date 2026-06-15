@@ -1,0 +1,73 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "1. Choose a **dealer**. Shuffle the 112-card double-sided deck with the **Light Side** facing up.\n2. Deal **7 cards** to each player, Light Side up.\n3. Place the remaining deck in the center as the **draw pile**.\n4. Flip the top card to start the **discard pile**. If it's an action card, follow its effect.\n\nAll cards are **double-sided** — each has a Light Side and a Dark Side. The game always starts on the Light Side.",
+      "options": [
+        { "label": { "en": "Light Side Turn", "zh": "光明面回合" }, "next": "light-side" },
+        { "label": { "en": "Flip Card", "zh": "翻转牌" }, "next": "flip-card" },
+        { "label": { "en": "Light Side Actions", "zh": "光明面功能牌" }, "next": "light-actions" }
+      ]
+    },
+    "light-side": {
+      "title": { "en": "Light Side Turn", "zh": "光明面回合" },
+      "content": "When the **Light Side** is active, on your turn play a card matching the top discard by **color**, **number**, or **symbol**.\n\n**Can't play?** Draw 1 card. You may play it immediately if it matches.\n\n**UNO rule:** When playing your second-to-last card, call **\"UNO!\"** before your next turn. If caught, draw **2 penalty cards**.\n\nLight Side cards are gentler — similar to classic UNO.",
+      "options": [
+        { "label": { "en": "Light Side Actions", "zh": "光明面功能牌" }, "next": "light-actions" },
+        { "label": { "en": "Flip Card", "zh": "翻转牌" }, "next": "flip-card" },
+        { "label": { "en": "Dark Side Turn", "zh": "黑暗面回合" }, "next": "dark-side" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" }
+      ]
+    },
+    "dark-side": {
+      "title": { "en": "Dark Side Turn", "zh": "黑暗面回合" },
+      "content": "When the **Dark Side** is active, play by the same matching rules — **color**, **number**, or **symbol** — but using the Dark Side of your cards.\n\n**Can't play?** Draw 1 card. Play it immediately if it matches.\n\nThe Dark Side has harsher action cards: Draw Five, Skip Everyone, and Wild Draw Color. Watch out!\n\n**UNO rule:** Same as Light Side — call **\"UNO!\"** on your second-to-last card or draw 2 penalty cards.",
+      "options": [
+        { "label": { "en": "Dark Side Actions", "zh": "黑暗面功能牌" }, "next": "dark-actions" },
+        { "label": { "en": "Flip Card", "zh": "翻转牌" }, "next": "flip-card" },
+        { "label": { "en": "Light Side Turn", "zh": "光明面回合" }, "next": "light-side" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" }
+      ]
+    },
+    "flip-card": {
+      "title": { "en": "Flip Card", "zh": "翻转牌" },
+      "content": "The **Flip** card switches the entire game between sides.\n\n**When played:**\n- All players flip their **hands** to the other side\n- The **draw pile** and **discard pile** are flipped\n- The game continues on the new active side\n\n- Light Side **Flip** → switches to **Dark Side**\n- Dark Side **Flip** → switches back to **Light Side**\n\nEvery card in play changes sides instantly — check your new hand carefully!",
+      "options": [
+        { "label": { "en": "Light Side Turn", "zh": "光明面回合" }, "next": "light-side" },
+        { "label": { "en": "Dark Side Turn", "zh": "黑暗面回合" }, "next": "dark-side" },
+        { "label": { "en": "Light Side Actions", "zh": "光明面功能牌" }, "next": "light-actions" },
+        { "label": { "en": "Dark Side Actions", "zh": "黑暗面功能牌" }, "next": "dark-actions" }
+      ]
+    },
+    "light-actions": {
+      "title": { "en": "Light Side Actions", "zh": "光明面功能牌" },
+      "content": "| Card | Effect |\n|------|--------|\n| **Draw One** | Next player draws 1 card and skips their turn |\n| **Reverse** | Reverses direction of play |\n| **Skip** | Next player loses their turn |\n| **Flip** | Everyone flips hands and piles to the **Dark Side** |\n| **Wild** | Choose the next color |\n| **Wild Draw Two** | Choose color; next player draws 2 and loses turn |",
+      "options": [
+        { "label": { "en": "Light Side Turn", "zh": "光明面回合" }, "next": "light-side" },
+        { "label": { "en": "Dark Side Actions", "zh": "黑暗面功能牌" }, "next": "dark-actions" },
+        { "label": { "en": "Flip Card", "zh": "翻转牌" }, "next": "flip-card" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" }
+      ]
+    },
+    "dark-actions": {
+      "title": { "en": "Dark Side Actions", "zh": "黑暗面功能牌" },
+      "content": "| Card | Effect |\n|------|--------|\n| **Draw Five** | Next player draws 5 cards and skips their turn |\n| **Reverse** | Reverses direction of play |\n| **Skip Everyone** | All other players lose their turn |\n| **Flip** | Everyone flips hands and piles to the **Light Side** |\n| **Wild** | Choose the next color |\n| **Wild Draw Color** | Next player draws until they get the chosen color, then loses turn |",
+      "options": [
+        { "label": { "en": "Dark Side Turn", "zh": "黑暗面回合" }, "next": "dark-side" },
+        { "label": { "en": "Light Side Actions", "zh": "光明面功能牌" }, "next": "light-actions" },
+        { "label": { "en": "Flip Card", "zh": "翻转牌" }, "next": "flip-card" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" }
+      ]
+    },
+    "winning": {
+      "title": { "en": "Winning & Scoring", "zh": "获胜与计分" },
+      "content": "First player to **empty their hand** wins the round.\n\nScore points from opponents' remaining cards (both sides use the same values):\n\n| Card Type | Points |\n|-----------|--------|\n| Number cards | Face value |\n| Draw One / Draw Five | 10 |\n| Reverse / Skip / Skip Everyone / Flip | 20 |\n| Wild | 40 |\n| Wild Draw Two / Wild Draw Color | 50 |\n\nFirst to **500 points** wins the game.",
+      "options": [
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "Light Side Turn", "zh": "光明面回合" }, "next": "light-side" },
+        { "label": { "en": "Dark Side Turn", "zh": "黑暗面回合" }, "next": "dark-side" }
+      ]
+    }
+  }
+}

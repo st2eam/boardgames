@@ -1,0 +1,63 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "1. 洗混全部 **54 张牌**：\n   - 32 张楼层牌（1–8 点，各 4 张）\n   - 4 张百搭小丑\n   - 18 张特殊行动牌\n2. 每位玩家发 **5 张牌**。\n3. 剩余牌面朝下组成 **抽牌堆**。\n4. 决定首位玩家，顺时针进行。\n\n**目标：** 率先建成 **5 层** 摩天大楼。",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Build a Floor", "zh": "建造楼层" }, "next": "build-floor" },
+        { "label": { "en": "Special Cards", "zh": "特殊牌" }, "next": "special-cards" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Turn Structure", "zh": "回合流程" },
+      "content": "你的回合：\n\n1. 从抽牌堆 **抽 1 张牌**。\n2. 按 **任意顺序** 执行 **任意数量** 行动：\n   - 建造楼层（2 张牌合计 9）\n   - 偷楼层（1 张牌补全对手顶层单牌）\n   - 打出特殊行动牌\n\n**要点：**\n- 无手牌上限 — 可囤积大牌。\n- 抽牌堆空？洗混弃牌堆重组成新抽牌堆。\n- 一回合可 **建造多层**（若有足够牌）。\n\n**先建满 5 层者立即获胜！**",
+      "options": [
+        { "label": { "en": "Build a Floor", "zh": "建造楼层" }, "next": "build-floor" },
+        { "label": { "en": "Steal a Floor", "zh": "偷楼层" }, "next": "steal-floor" },
+        { "label": { "en": "Special Cards", "zh": "特殊牌" }, "next": "special-cards" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    },
+    "build-floor": {
+      "title": { "en": "Build a Floor", "zh": "建造楼层" },
+      "content": "从手牌打出 **2 张楼层牌**，点数合计恰好 **9**。\n\n**示例：** 3+6、4+5、1+8、2+7\n\n并排放置在面前作为 **一层**，新楼层叠在旧楼层之上。\n\n### 小丑\n小丑为 **百搭**，建造时可任意指定点数。\n\n### 提示\n- 保留互补对（如 3 和 6）以便快速建造。\n- 2 张牌组成的楼层计为 **1 层**。\n- 建好的 2 牌楼层无法被偷。",
+      "options": [
+        { "label": { "en": "Steal a Floor", "zh": "偷楼层" }, "next": "steal-floor" },
+        { "label": { "en": "Special Cards", "zh": "特殊牌" }, "next": "special-cards" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" }
+      ]
+    },
+    "steal-floor": {
+      "title": { "en": "Steal a Floor", "zh": "偷楼层" },
+      "content": "打出 **1 张楼层牌**，与对手 **顶层单牌**（仅 1 张、未凑成对）互补，合计 **9**。\n\n拿走对手那张牌，与你的牌合并，在 **自己塔上** 建成一层。\n\n### 规则\n- 仅对顶层 **单独 1 张牌** 有效（非已完成的 2 牌楼层）。\n- 对手楼层上的小丑可被偷，保留已指定的点数。\n- 手中小丑 **不能** 用于偷楼层。\n- **看门狗** 保护的楼层无法被偷。\n\n**提示：** 留单牌在顶层等于给对手送分！",
+      "options": [
+        { "label": { "en": "Build a Floor", "zh": "建造楼层" }, "next": "build-floor" },
+        { "label": { "en": "Special Cards", "zh": "特殊牌" }, "next": "special-cards" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" }
+      ]
+    },
+    "special-cards": {
+      "title": { "en": "Special Cards", "zh": "特殊牌" },
+      "content": "| 牌 | 效果 |\n|----|------|\n| **看门狗** | 附于任意楼层，防偷防毁 |\n| **骨头** | 移除任意楼层的看门狗（己方或对手） |\n| **电钻** | 摧毁对手 **顶层** 楼层（无保护），两牌入弃牌堆 |\n| **拆楼球** | 摧毁对手 **任意一层** 楼层（无保护），不限顶层 |\n| **小偷** | 随机偷取对手手牌 1 张 |\n| **超级小偷** | 查看对手手牌，自选偷 1 张 |\n| **餐车** | 指定对手 **跳过下一回合** |\n\n**保护链：** 看门狗防偷防毁 → 骨头移除狗 → 电钻/拆楼球可摧毁楼层。",
+      "options": [
+        { "label": { "en": "Build a Floor", "zh": "建造楼层" }, "next": "build-floor" },
+        { "label": { "en": "Steal a Floor", "zh": "偷楼层" }, "next": "steal-floor" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" }
+      ]
+    },
+    "winning": {
+      "title": { "en": "Winning", "zh": "获胜条件" },
+      "content": "**率先** 建成 **5 层** 的玩家 **立即获胜** — 即使在回合中途！\n\n### 速查\n- 1 层 = 2 张合计 9 的楼层牌（并排放置）\n- 偷楼层将对手单牌变成你的新楼层\n- 特殊牌可拖慢对手或保护己方进度\n\n**策略：** 向 5 层冲刺，同时用餐车和破坏牌拖住领先者。",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Build a Floor", "zh": "建造楼层" }, "next": "build-floor" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

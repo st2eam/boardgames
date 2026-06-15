@@ -21,6 +21,10 @@ export class GameFactory {
       tags: meta.tags,
       category: meta.category,
       hasFlow,
+      family: meta.family,
+      familyOrder: meta.familyOrder,
+      variantType: meta.variantType,
+      requiresBase: meta.requiresBase,
     };
   }
 }

@@ -1,0 +1,92 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Game Setup", "zh": "游戏准备" },
+      "content": "## Components\n\n- **Identity cards** — Monarch, Loyalists, Rebels, Traitor\n- **Hero cards** — legendary Three Kingdoms characters with unique skills\n- **Game cards** — Basic, Strategy (Scroll), and Equipment cards\n- **Health cards** — track each hero's remaining health\n\n## Setup Steps\n\n1. **Draw identity** — each player draws one face down. The **Monarch reveals immediately**; all others stay hidden.\n2. **Select hero** — Monarch chooses from **5 heroes**; others choose from **3 each**. Reveal your hero.\n3. **Monarch bonus** — Monarch gets **+1 maximum health**.\n4. **Starting hand** — starting from the Monarch (counterclockwise), each player draws **4 cards**.\n\n## Player Count (Standard 8)\n\n| Role | Count |\n|------|-------|\n| Monarch (主公) | 1 |\n| Loyalist (忠臣) | 2 |\n| Rebel (反贼) | 4 |\n| Traitor (内奸) | 1 |",
+      "options": [
+        { "label": { "en": "Roles & Victory", "zh": "身份与胜利" }, "next": "roles" },
+        { "label": { "en": "Turn Phases", "zh": "回合阶段" }, "next": "turn-phases" },
+        { "label": { "en": "Basic Cards", "zh": "基本牌" }, "next": "basic-cards" }
+      ]
+    },
+    "roles": {
+      "title": { "en": "Roles & Victory", "zh": "身份与胜利" },
+      "content": "## Identity Overview\n\n| Role | Team | Victory Condition |\n|------|------|-------------------|\n| **Monarch (主公)** | Ruler | Eliminate all Rebels and the Traitor |\n| **Loyalist (忠臣)** | Ruler | Protect the Monarch; eliminate Rebels and Traitor |\n| **Rebel (反贼)** | Rebel | Eliminate the Monarch |\n| **Traitor (内奸)** | Solo | Be the **last player standing** (Monarch must die last) |\n\n## Key Rules\n\n- Only the **Monarch** reveals their identity at the start.\n- Loyalists and Traitor are **hidden** — deduce allegiance from actions.\n- **Rebels win immediately** when the Monarch dies, even if all Rebels are also dead.\n- The **Traitor** must survive until they are the sole remaining player; killing the Monarch too early helps Rebels win.\n\n## Team Dynamics\n\n- Monarch + Loyalists share a team but Loyalists are secret allies.\n- Traitor pretends to help the Monarch while eliminating everyone else.",
+      "options": [
+        { "label": { "en": "Death Rules", "zh": "阵亡规则" }, "next": "death-rules" },
+        { "label": { "en": "Turn Phases", "zh": "回合阶段" }, "next": "turn-phases" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    },
+    "turn-phases": {
+      "title": { "en": "Turn Phases", "zh": "回合阶段" },
+      "content": "## Six Phases (in order)\n\n| # | Phase | What Happens |\n|---|-------|--------------|\n| 1 | **Preparation (准备)** | Trigger start-of-turn hero abilities |\n| 2 | **Judgment (判定)** | Resolve delayed strategy cards (see **Judgment Phase**) |\n| 3 | **Draw (摸牌)** | Draw **2 cards** from the deck |\n| 4 | **Play (出牌)** | Use cards and hero abilities (see **Play Phase**) |\n| 5 | **Discard (弃牌)** | Discard down to **current health** (hand limit) |\n| 6 | **End (结束)** | Trigger end-of-turn hero abilities |\n\n## Turn Direction\n\nTurns proceed **counterclockwise**, starting from the Monarch.\n\n## Skipping Phases\n\nSome effects (e.g. **Contentment / 乐不思蜀**) can skip the **Play Phase**.",
+      "options": [
+        { "label": { "en": "Judgment Phase", "zh": "判定阶段" }, "next": "judge-phase" },
+        { "label": { "en": "Play Phase", "zh": "出牌阶段" }, "next": "play-phase" },
+        { "label": { "en": "Basic Cards", "zh": "基本牌" }, "next": "basic-cards" },
+        { "label": { "en": "Roles & Victory", "zh": "身份与胜利" }, "next": "roles" }
+      ]
+    },
+    "judge-phase": {
+      "title": { "en": "Judgment Phase", "zh": "判定阶段" },
+      "content": "## When It Happens\n\nAt the start of your turn, **before drawing cards**, resolve all cards in your **judgment zone**.\n\n## Resolution Order\n\nProcess delayed cards in **reverse order of placement** (last placed = first resolved).\n\n## How to Judge\n\n1. Flip the top card of the deck — this is the **judgment result**.\n2. Apply the effect based on the card's **suit and number**.\n3. The judgment card is then **discarded**.\n\n## Delayed Cards\n\n| Card | Effect |\n|------|--------|\n| **Contentment (乐不思蜀)** | If result is **NOT Hearts** → skip your **Play Phase** |\n| **Lightning (闪电)** | If **Spade 2–9** → take **3 damage**; otherwise pass left |\n\n## Nullification\n\nAny player may play **Nullification (无懈可击)** to cancel a judgment effect before it resolves.",
+      "options": [
+        { "label": { "en": "Strategy Cards", "zh": "锦囊牌" }, "next": "strategy-cards" },
+        { "label": { "en": "Turn Phases", "zh": "回合阶段" }, "next": "turn-phases" },
+        { "label": { "en": "Play Phase", "zh": "出牌阶段" }, "next": "play-phase" }
+      ]
+    },
+    "play-phase": {
+      "title": { "en": "Play Phase", "zh": "出牌阶段" },
+      "content": "## What You Can Do\n\nDuring your Play Phase, you may:\n\n- Play **Basic cards** (Slash, Dodge, Peach)\n- Play **Strategy cards** (scrolls)\n- Equip **Equipment** (weapons, armor, horses)\n- Activate **hero abilities** (as allowed by your character)\n\n## Key Limits\n\n- **1 Slash per turn** (unless a hero ability or weapon removes this limit)\n- **Dodge** is normally played in response, not during your own Play Phase\n- **Distance** determines who you can target (see **Equipment**)\n\n## Playing Cards\n\n1. Declare the card and target(s).\n2. Other players may respond (Dodge, Nullification, etc.).\n3. Resolve the effect.\n\n## End of Play Phase\n\nProceed to **Discard Phase** — hand size cannot exceed current health.",
+      "options": [
+        { "label": { "en": "Basic Cards", "zh": "基本牌" }, "next": "basic-cards" },
+        { "label": { "en": "Strategy Cards", "zh": "锦囊牌" }, "next": "strategy-cards" },
+        { "label": { "en": "Equipment", "zh": "装备牌" }, "next": "equipment" },
+        { "label": { "en": "Turn Phases", "zh": "回合阶段" }, "next": "turn-phases" }
+      ]
+    },
+    "basic-cards": {
+      "title": { "en": "Basic Cards", "zh": "基本牌" },
+      "content": "## Slash (杀) — Attack\n\n- Target **one player within range**\n- Deals **1 damage** if not dodged\n- Limit: **1 per turn** (unless hero ability says otherwise)\n- Cannot be played if no valid target in range\n\n## Dodge (闪) — Defense\n\n- Played **in response** to a Slash targeting you\n- Negates that Slash's damage\n- Also required to respond to **Archery Attack (万箭齐发)**\n- Some heroes can use black cards as Dodge\n\n## Peach (桃) — Heal\n\n- **On your turn**: restore **1 health** to yourself (cannot exceed max)\n- **Any time**: save a player in **dying state** (health = 0)\n- If no one plays a Peach on a dying player, they are **eliminated**",
+      "options": [
+        { "label": { "en": "Play Phase", "zh": "出牌阶段" }, "next": "play-phase" },
+        { "label": { "en": "Strategy Cards", "zh": "锦囊牌" }, "next": "strategy-cards" },
+        { "label": { "en": "Death Rules", "zh": "阵亡规则" }, "next": "death-rules" },
+        { "label": { "en": "Equipment", "zh": "装备牌" }, "next": "equipment" }
+      ]
+    },
+    "strategy-cards": {
+      "title": { "en": "Strategy Cards", "zh": "锦囊牌" },
+      "content": "## Instant Scrolls\n\n| Card | Effect |\n|------|--------|\n| **Something from Nothing (无中生有)** | Draw **2 cards** for yourself |\n| **Dismantle (过河拆桥)** | Discard **1 card** from any player (hand or equipped) |\n| **Snatch (顺手牵羊)** | Take **1 card** from a player within **distance 1** |\n| **Duel (决斗)** | Challenge one player — alternate discarding Slashes; first who cannot takes **1 damage** |\n| **Barbarian Assault (南蛮入侵)** | All other players must play a **Slash** or take **1 damage** |\n| **Archery Attack (万箭齐发)** | All other players must play a **Dodge** or take **1 damage** |\n| **Peach Garden (桃园结义)** | All players recover **1 health** (cannot exceed max) |\n| **Bountiful Harvest (五谷丰登)** | Reveal cards equal to player count; each player picks one in order |\n\n## Delayed Scrolls\n\n| Card | Effect |\n|------|--------|\n| **Contentment (乐不思蜀)** | Place on another player — if judged NOT Hearts, skip their **Play Phase** |\n| **Lightning (闪电)** | Place on yourself — passes left each turn; Spade 2–9 = **3 damage** |\n\n## Nullification (无懈可击)\n\nCancel **any strategy card**. Can be played by anyone at any time (including in response to another Nullification).",
+      "options": [
+        { "label": { "en": "Judgment Phase", "zh": "判定阶段" }, "next": "judge-phase" },
+        { "label": { "en": "Basic Cards", "zh": "基本牌" }, "next": "basic-cards" },
+        { "label": { "en": "Play Phase", "zh": "出牌阶段" }, "next": "play-phase" },
+        { "label": { "en": "Equipment", "zh": "装备牌" }, "next": "equipment" }
+      ]
+    },
+    "equipment": {
+      "title": { "en": "Equipment", "zh": "装备牌" },
+      "content": "## Equipment Slots\n\nEach player has 4 equipment slots (one of each type):\n\n| Slot | Effect |\n|------|--------|\n| **Weapon (武器)** | Increases **attack range**; some grant special effects (e.g. extra Slashes) |\n| **Armor (防具)** | Passive protection (e.g. ignore certain attacks) |\n| **+1 Horse (防御马)** | Other players' **distance to you** is increased by 1 |\n| **-1 Horse (进攻马)** | Your **distance to others** is decreased by 1 |\n\n## Range & Distance\n\n- **Adjacent players** are at distance **1**\n- You can only **Slash** targets within your **attack range**\n- **Snatch (顺手牵羊)** requires distance **1** to target\n- Equipping a new item in the same slot **replaces** the old one (discarded)\n\n## Equipping\n\nPlay an equipment card during your **Play Phase**. It stays in your equipment zone until replaced or discarded.",
+      "options": [
+        { "label": { "en": "Play Phase", "zh": "出牌阶段" }, "next": "play-phase" },
+        { "label": { "en": "Basic Cards", "zh": "基本牌" }, "next": "basic-cards" },
+        { "label": { "en": "Strategy Cards", "zh": "锦囊牌" }, "next": "strategy-cards" },
+        { "label": { "en": "Turn Phases", "zh": "回合阶段" }, "next": "turn-phases" }
+      ]
+    },
+    "death-rules": {
+      "title": { "en": "Death Rules", "zh": "阵亡规则" },
+      "content": "## Dying State\n\nWhen a player's health reaches **0**, they enter the **dying state**:\n\n1. Any player may play a **Peach (桃)** to restore them to **1 health**.\n2. The dying player may play Peaches on themselves if they have any.\n3. If no Peach is played, the player is **eliminated**.\n\n## Rewards & Penalties\n\n| Who Died | Effect |\n|----------|--------|\n| **Rebel (反贼)** killed | The **killer draws 3 cards** |\n| **Loyalist (忠臣)** killed | The **Monarch discards all hand cards and all equipment** |\n| **Traitor (内奸)** killed | Same as Loyalist — **Monarch discards all hand cards and equipment** |\n| **Monarch (主公)** killed | **All identities are revealed**; check victory conditions |\n\n## After Death\n\n- Dead players' cards are **discarded** (unless a hero ability says otherwise).\n- Eliminated players take no further turns but may still win if their team condition is met.\n- **Rebels win** as soon as the Monarch dies, regardless of other survivors.",
+      "options": [
+        { "label": { "en": "Roles & Victory", "zh": "身份与胜利" }, "next": "roles" },
+        { "label": { "en": "Basic Cards", "zh": "基本牌" }, "next": "basic-cards" },
+        { "label": { "en": "Turn Phases", "zh": "回合阶段" }, "next": "turn-phases" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

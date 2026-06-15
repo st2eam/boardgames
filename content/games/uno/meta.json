@@ -1,11 +1,1 @@
-{
-  "name": {
-    "en": "UNO",
-    "zh": "UNO"
-  },
-  "players": "2-10",
-  "duration": "15-30 min",
-  "difficulty": "easy",
-  "tags": ["card", "family", "party"],
-  "category": "card"
-}
+{"name":{"en":"UNO","zh":"UNO"},"players":"2-10","duration":"15-30 min","difficulty":"easy","tags":["card","family","party"],"category":"card","family":"uno","familyOrder":0,"variantType":"base"}

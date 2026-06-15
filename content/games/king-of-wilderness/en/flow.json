@@ -1,0 +1,51 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": "1. Each player chooses a species: **lynx, wolf, ibex, or bear**.\n2. Take that species' **20-card deck** and **5 tokens**.\n3. Shuffle your deck, draw the **top card**, place it **face up** in the center.\n4. All players' cards must be **adjacent**, forming a shared rectangle.\n5. Draw **3 cards** as your starting hand. Rest = your **personal draw pile**.\n\n**Card backs** show two numbers whose sum equals the front value — use this to deduce hidden cards.",
+      "options": [
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Covering Cards", "zh": "覆盖规则" }, "next": "cover-cards" },
+        { "label": { "en": "Baby Tokens", "zh": "幼崽标记" }, "next": "baby-tokens" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Turn Structure", "zh": "回合流程" },
+      "content": "On your turn, you **must play 1 card**, then **refill your hand to 3** from your personal draw pile.\n\nChoose one placement:\n\n### Cover (Face Up)\nPlace a card face up covering **exactly half of two adjacent cards**. Your card's value must equal the **sum of the two covered halves**.\n\n### Expand (Face Down)\nIf you cannot or choose not to cover, play one card **face down** adjacent to any existing card.\n\nAfter playing your **last card**, count your score immediately — it is **final** even if covered later.",
+      "options": [
+        { "label": { "en": "Covering Cards", "zh": "覆盖规则" }, "next": "cover-cards" },
+        { "label": { "en": "Baby Tokens", "zh": "幼崽标记" }, "next": "baby-tokens" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    },
+    "cover-cards": {
+      "title": { "en": "Covering Cards", "zh": "覆盖规则" },
+      "content": "### Basic Cover Rule\n- Place card **face up** over **half of two adjacent cards** (not one full card).\n- Your card's front value = **sum of the two covered half-values**.\n- You may cover your own or opponents' cards.\n\n### When Sum Exceeds 10\nPlay **2 cards**:\n1. First card face up covering the two halves.\n2. Top card from your draw pile played **face down** adjacent to any card. The face-down card counts as value **10**, added to your face-up card's value.\n\n*(If draw pile is empty, you cannot perform this action.)*\n\n### Deduction Tip\nRead card backs — two numbers on the back always sum to the front value.",
+      "options": [
+        { "label": { "en": "Baby Tokens", "zh": "幼崽标记" }, "next": "baby-tokens" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "baby-tokens": {
+      "title": { "en": "Baby Tokens", "zh": "幼崽标记" },
+      "content": "Each species has **10 baby animal cards** (values 1–10).\n\nWhen you play a baby card **face up** (covering two halves), you may place **1 of your 5 tokens** on one of the two half cards it covers.\n\n### Token Rules\n- A token-protected half card **can never be covered** for the rest of the game.\n- You only have **5 tokens total** — use them on high-value territory.\n- Tokens **cannot be moved** or taken back once placed.\n\n**Strategy:** Protect corners of your territory early; opponents cannot overwrite scored halves.",
+      "options": [
+        { "label": { "en": "Covering Cards", "zh": "覆盖规则" }, "next": "cover-cards" },
+        { "label": { "en": "Turn Structure", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Scoring", "zh": "计分" },
+      "content": "Players do **not** finish simultaneously.\n\nWhen you play your **last card**:\n1. Count immediately: each **visible half card** of your species = **1 point**.\n2. Record your score — it stays final even if later covered.\n\nAfter all players have played all 20 cards, **highest score wins**.\n\n### Tiebreaker\nMost **unused tokens** wins. Still tied → shared victory.\n\n**Tip:** Expand face-down to claim territory, then cover opponents' visible halves late-game.",
+      "options": [
+        { "label": { "en": "Baby Tokens", "zh": "幼崽标记" }, "next": "baby-tokens" },
+        { "label": { "en": "Covering Cards", "zh": "覆盖规则" }, "next": "cover-cards" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

@@ -263,7 +263,12 @@ src/
 
 ## 添加新游戏
 
+详细指南请参阅 [`.cursor/skills/add-game/SKILL.md`](.cursor/skills/add-game/SKILL.md)，涵盖独立游戏、DLC、扩展包、变体的完整添加流程。
+
+快速步骤：
+
 1. 在 `content/games/` 下创建目录，包含 `meta.json`、`en/rules.md`、`zh/rules.md`
 2. 可选：添加 `en/flow.json` 和 `zh/flow.json` 提供交互式决策树
 3. 在 `content/games/index.json` 中注册 slug
 4. 如属于某个系列，在 `meta.json` 中添加 `family`、`familyOrder`、`variantType` 字段
+5. 运行 `npm run build` 验证构建通过

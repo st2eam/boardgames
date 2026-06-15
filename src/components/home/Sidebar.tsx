@@ -12,6 +12,7 @@ interface Props {
   onClearTags: () => void;
   totalCount: number;
   filteredCount: number;
+  familyTags?: Set<string>;
 }
 
 export function Sidebar({
@@ -24,9 +25,13 @@ export function Sidebar({
   onClearTags,
   totalCount,
   filteredCount,
+  familyTags,
 }: Props) {
   const t = useTranslations("home");
   const tc = useTranslations("common");
+
+  const regularTags = allTags.filter((t) => !familyTags?.has(t));
+  const seriesTags = allTags.filter((t) => familyTags?.has(t));
 
   return (
     <aside className="flex shrink-0 flex-col gap-6 lg:w-60">
@@ -76,8 +81,32 @@ export function Sidebar({
         </nav>
       )}
 
+      {/* Series tags */}
+      {seriesTags.length > 0 && (
+        <div>
+          <h4 className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-stone-400">
+            {t("series")}
+          </h4>
+          <div className="flex flex-wrap gap-1">
+            {seriesTags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => onToggleTag(tag)}
+                className={`cursor-pointer rounded-md px-2 py-1 text-[11px] font-medium transition-all focus:outline-none focus:ring-2 focus:ring-violet-300/50 ${
+                  selectedTags.has(tag)
+                    ? "bg-violet-500 text-white"
+                    : "bg-violet-50 text-violet-600 hover:bg-violet-100 hover:text-violet-700"
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Tag cloud */}
-      {allTags.length > 0 && (
+      {regularTags.length > 0 && (
         <div>
           <div className="mb-2 flex items-center justify-between">
             <h4 className="text-[11px] font-semibold uppercase tracking-widest text-stone-400">
@@ -93,7 +122,7 @@ export function Sidebar({
             )}
           </div>
           <div className="flex flex-wrap gap-1">
-            {allTags.map((tag) => (
+            {regularTags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => onToggleTag(tag)}

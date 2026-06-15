@@ -4,7 +4,8 @@
     "subtitle": "Your curated collection of tabletop game rules",
     "allGames": "All Games",
     "filterByTags": "Filter by tags",
-    "noGamesFound": "No games found"
+    "noGamesFound": "No games found",
+    "series": "Series"
   },
   "game": {
     "players": "Players",

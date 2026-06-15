@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import type { GameSummary } from "@/types/game";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { GameCard } from "./GameCard";
 import { GameFamilyCard } from "./GameFamilyCard";
 import { Sidebar } from "./Sidebar";
@@ -15,24 +15,61 @@ type GridItem =
   | { type: "single"; game: GameSummary }
   | { type: "family"; key: string; games: GameSummary[] };
 
+function deriveFamilyTags(
+  games: GameSummary[],
+  locale: string
+): { enriched: GameSummary[]; familyTagSet: Set<string> } {
+  const familyNameMap = new Map<string, string>();
+  for (const g of games) {
+    if (g.family && g.familyOrder === 0) {
+      const name = g.name[locale as "en" | "zh"] ?? g.name.en;
+      familyNameMap.set(g.family, name);
+    }
+  }
+
+  const familyTagSet = new Set<string>();
+  const enriched = games.map((g) => {
+    if (!g.family) return g;
+    const seriesName = familyNameMap.get(g.family);
+    if (!seriesName) return g;
+    const seriesTag = `${seriesName}${locale === "zh" ? " 系列" : " series"}`;
+    familyTagSet.add(seriesTag);
+    if (g.tags.includes(seriesTag)) return g;
+    return { ...g, tags: [...g.tags, seriesTag] };
+  });
+
+  return { enriched, familyTagSet };
+}
+
 export function GameCardGrid({ games }: Props) {
   const t = useTranslations("home");
   const tc = useTranslations("common");
+  const locale = useLocale();
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const allTags = useMemo(
-    () => Array.from(new Set(games.flatMap((g) => g.tags))).sort(),
-    [games]
+  const { enriched, familyTagSet } = useMemo(
+    () => deriveFamilyTags(games, locale),
+    [games, locale]
   );
 
+  const allTags = useMemo(() => {
+    const raw = Array.from(new Set(enriched.flatMap((g) => g.tags)));
+    return raw.sort((a, b) => {
+      const aIsSeries = familyTagSet.has(a) ? 1 : 0;
+      const bIsSeries = familyTagSet.has(b) ? 1 : 0;
+      if (aIsSeries !== bIsSeries) return aIsSeries - bIsSeries;
+      return a.localeCompare(b);
+    });
+  }, [enriched, familyTagSet]);
+
   const categories = useMemo(
-    () => Array.from(new Set(games.map((g) => g.category))).sort(),
-    [games]
+    () => Array.from(new Set(enriched.map((g) => g.category))).sort(),
+    [enriched]
   );
 
   const filtered = useMemo(() => {
-    return games.filter((g) => {
+    return enriched.filter((g) => {
       if (selectedTags.size > 0 && !g.tags.some((t) => selectedTags.has(t))) {
         return false;
       }
@@ -41,7 +78,7 @@ export function GameCardGrid({ games }: Props) {
       }
       return true;
     });
-  }, [games, selectedTags, selectedCategory]);
+  }, [enriched, selectedTags, selectedCategory]);
 
   const gridItems = useMemo((): GridItem[] => {
     const familyMap = new Map<string, GameSummary[]>();
@@ -146,24 +183,32 @@ export function GameCardGrid({ games }: Props) {
             onClearTags={() => setSelectedTags(new Set())}
             totalCount={games.length}
             filteredCount={filtered.length}
+            familyTags={familyTagSet}
           />
         </div>
 
         {/* Mobile: tag strip */}
         <div className="mt-3 flex flex-wrap gap-1 lg:hidden">
-          {allTags.map((tag) => (
-            <button
-              key={tag}
-              onClick={() => toggleTag(tag)}
-              className={`cursor-pointer rounded-full px-2.5 py-1 text-[11px] font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
-                selectedTags.has(tag)
-                  ? "bg-accent text-white"
-                  : "bg-stone-100 text-stone-500 hover:bg-accent-light"
-              }`}
-            >
-              {tag}
-            </button>
-          ))}
+          {allTags.map((tag) => {
+            const isSeries = familyTagSet.has(tag);
+            return (
+              <button
+                key={tag}
+                onClick={() => toggleTag(tag)}
+                className={`cursor-pointer rounded-full px-2.5 py-1 text-[11px] font-medium transition-all focus:outline-none focus:ring-2 ${
+                  selectedTags.has(tag)
+                    ? isSeries
+                      ? "bg-violet-500 text-white ring-violet-300/50"
+                      : "bg-accent text-white ring-accent/50"
+                    : isSeries
+                      ? "bg-violet-50 text-violet-600 hover:bg-violet-100 ring-violet-300/50"
+                      : "bg-stone-100 text-stone-500 hover:bg-accent-light ring-accent/50"
+                }`}
+              >
+                {tag}
+              </button>
+            );
+          })}
           {selectedTags.size > 0 && (
             <button
               onClick={() => setSelectedTags(new Set())}

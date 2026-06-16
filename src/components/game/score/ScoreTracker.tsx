@@ -93,47 +93,7 @@ export function ScoreTracker({ slug, config, locale }: Props) {
         </div>
       )}
 
-      {/* Score display */}
-      <ScoreDisplay
-        breakdown={currentBreakdown}
-        rounds={session.rounds}
-        cumulativeTotal={cumulativeTotal}
-        target={target}
-        multiRound={config.multiRound ?? false}
-        direction={config.direction}
-        onConfirmRound={config.multiRound ? confirmRound : undefined}
-        locale={locale}
-      />
-
-      {/* Card/item selector */}
-      {config.features ? (
-        <div className="rounded-xl border border-stone-200 bg-white p-4">
-          <h3 className="mb-3 text-sm font-semibold text-stone-700">
-            {locale === "zh" ? "输入得分项" : "Enter Scoring Items"}
-          </h3>
-          <FeatureInput
-            features={config.features}
-            selections={session.currentSelections}
-            onUpdate={updateSelection}
-            locale={locale}
-          />
-        </div>
-      ) : (
-        <div className="rounded-xl border border-stone-200 bg-white p-4">
-          <h3 className="mb-3 text-sm font-semibold text-stone-700">
-            {locale === "zh" ? "选择你的卡牌" : "Select Your Cards"}
-          </h3>
-          <CardSelector
-            cards={allCards}
-            selections={session.currentSelections}
-            onUpdate={updateSelection}
-            filters={config.filters}
-            locale={locale}
-          />
-        </div>
-      )}
-
-      {/* Round end mode selector (for games with color bonus like Sea Salt) */}
+      {/* Round end mode selector (FIRST for Sea Salt style games) */}
       {config.colorDist && (
         <div className="rounded-xl border border-stone-200 bg-white p-4">
           <h3 className="mb-3 text-sm font-semibold text-stone-700">
@@ -183,12 +143,17 @@ export function ScoreTracker({ slug, config, locale }: Props) {
         </div>
       )}
 
-      {/* Color distribution (for mermaid-style scoring) */}
+      {/* Color distribution (for color bonus + mermaid scoring) */}
       {config.colorDist && (
         <div className="rounded-xl border border-stone-200 bg-white p-4">
           <h3 className="mb-3 text-sm font-semibold text-stone-700">
-            {locale === "zh" ? "颜色分布（美人鱼计分用）" : "Color Distribution (for Mermaid scoring)"}
+            {locale === "zh" ? "颜色分布" : "Color Distribution"}
           </h3>
+          <p className="mb-3 text-xs text-stone-400">
+            {locale === "zh"
+              ? "填入你持有的各颜色卡牌数量，用于颜色奖励和美人鱼计分"
+              : "Enter card counts per color for color bonus and mermaid scoring"}
+          </p>
           <ColorCounter
             colors={config.colorDist}
             selections={session.currentSelections}
@@ -197,6 +162,46 @@ export function ScoreTracker({ slug, config, locale }: Props) {
           />
         </div>
       )}
+
+      {/* Card/item selector */}
+      {config.features ? (
+        <div className="rounded-xl border border-stone-200 bg-white p-4">
+          <h3 className="mb-3 text-sm font-semibold text-stone-700">
+            {locale === "zh" ? "输入得分项" : "Enter Scoring Items"}
+          </h3>
+          <FeatureInput
+            features={config.features}
+            selections={session.currentSelections}
+            onUpdate={updateSelection}
+            locale={locale}
+          />
+        </div>
+      ) : (
+        <div className="rounded-xl border border-stone-200 bg-white p-4">
+          <h3 className="mb-3 text-sm font-semibold text-stone-700">
+            {locale === "zh" ? "选择你的卡牌" : "Select Your Cards"}
+          </h3>
+          <CardSelector
+            cards={allCards}
+            selections={session.currentSelections}
+            onUpdate={updateSelection}
+            filters={config.filters}
+            locale={locale}
+          />
+        </div>
+      )}
+
+      {/* Score display (result at the bottom) */}
+      <ScoreDisplay
+        breakdown={currentBreakdown}
+        rounds={session.rounds}
+        cumulativeTotal={cumulativeTotal}
+        target={target}
+        multiRound={config.multiRound ?? false}
+        direction={config.direction}
+        onConfirmRound={config.multiRound ? confirmRound : undefined}
+        locale={locale}
+      />
 
       {/* Reset */}
       <div className="flex justify-center pt-2">

@@ -42,7 +42,7 @@ export function ScoreDisplay({
               ? locale === "zh" ? "本轮得分" : "This Round"
               : locale === "zh" ? "得分" : "Score"}
           </span>
-          {multiRound && onConfirmRound && breakdown.total > 0 && (
+          {multiRound && onConfirmRound && (breakdown.total > 0 || breakdown.colorBonus > 0) && (
             <button
               onClick={onConfirmRound}
               className="rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-white hover:bg-accent/90 transition-colors"
@@ -57,7 +57,7 @@ export function ScoreDisplay({
             <span className="text-sm font-normal text-stone-400 ml-1">/ {target}</span>
           )}
         </div>
-        {breakdown.details.length > 0 && (
+        {(breakdown.details.length > 0 || breakdown.colorBonus > 0) && (
           <div className="mt-3 space-y-1">
             {breakdown.details.map((d, i) => (
               <div key={i} className="flex items-center justify-between text-sm">
@@ -66,14 +66,14 @@ export function ScoreDisplay({
               </div>
             ))}
             {breakdown.colorBonus > 0 && (
-              <div className="flex items-center justify-between text-sm border-t border-dashed border-stone-200 pt-1 mt-1">
+              <div className={`flex items-center justify-between text-sm ${breakdown.details.length > 0 ? "border-t border-dashed border-stone-200 pt-1 mt-1" : ""}`}>
                 <span className="text-stone-500">
                   {locale === "zh" ? "颜色奖励" : "Color Bonus"}
                 </span>
                 <span className="font-medium tabular-nums text-emerald-600">+{breakdown.colorBonus}</span>
               </div>
             )}
-            {breakdown.cardScore !== breakdown.total && (
+            {breakdown.cardScore > 0 && breakdown.cardScore !== breakdown.total && (
               <div className="flex items-center justify-between text-[11px] text-stone-400 mt-1">
                 <span>{locale === "zh" ? "卡牌原始分" : "Card score"}</span>
                 <span className="tabular-nums">{breakdown.cardScore}</span>

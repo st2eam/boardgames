@@ -53,7 +53,7 @@ export function GameCard({ game }: Props) {
         className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover hover:border-amber-300/60 active:translate-y-0"
       >
         {/* Cover area */}
-        <GameCover name={game.name.en} gradient={gradient} className="flex-1 min-h-64">
+        <GameCover slug={game.slug} gradient={gradient} className="flex-1 min-h-64">
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent p-4 pt-20">
             <h3 className="font-heading text-lg font-bold leading-tight text-white">
               {name}
@@ -98,7 +98,7 @@ export function GameCard({ game }: Props) {
         className="group relative flex overflow-hidden rounded-2xl border border-border bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover hover:border-amber-300/60 active:translate-y-0"
       >
         {/* Cover — left side */}
-        <GameCover name={game.name.en} gradient={gradient} className="w-40 shrink-0 sm:w-56">
+        <GameCover slug={game.slug} gradient={gradient} className="w-40 shrink-0 sm:w-56">
           <span className="absolute bottom-3 left-3 rounded-full bg-white/25 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
             {game.category}
           </span>
@@ -153,7 +153,7 @@ export function GameCard({ game }: Props) {
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover hover:border-amber-300/60 active:translate-y-0"
     >
       {/* Cover image area */}
-      <GameCover name={game.name.en} gradient={gradient} className="h-28 sm:h-32">
+      <GameCover slug={game.slug} gradient={gradient} className="h-28 sm:h-32">
         <span className="absolute bottom-2 left-3 rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/90 backdrop-blur-sm">
           {game.category}
         </span>

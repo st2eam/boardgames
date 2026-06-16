@@ -102,7 +102,7 @@ export function GameFamilyCard({ games }: Props) {
           className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-amber-300/60"
         >
           <GameCover
-            name={base.name.en}
+            slug={base.slug}
             gradient={gradient}
             className={base.category === "card" ? "min-h-56" : "h-28 sm:h-32"}
           >
@@ -194,7 +194,7 @@ export function GameFamilyCard({ games }: Props) {
                 className="flex items-center gap-3 rounded-xl border border-border bg-white p-3 shadow-sm transition-all hover:border-amber-300/60 hover:shadow-md hover:-translate-y-0.5"
               >
                 <GameCover
-                  name={game.name.en}
+                  slug={game.slug}
                   gradient={gradient}
                   className="h-10 w-10 shrink-0 rounded-lg"
                   fallbackIcon={

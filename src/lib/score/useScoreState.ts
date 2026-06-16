@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import type { ScoreConfig } from "@/types/game";
-import type { ScoreBreakdown } from "./engines/types";
+import type { ScoreBreakdown, RoundEndMode } from "./engines/types";
 import { createEngine } from "./engines";
 import {
   type ScoreSession,
@@ -88,10 +88,12 @@ export function useScoreState(slug: string, config: ScoreConfig) {
     [session, config, persist]
   );
 
+  const [roundEndMode, setRoundEndMode] = useState<RoundEndMode>("stop");
+
   const currentBreakdown: ScoreBreakdown = useMemo(() => {
-    if (!session) return { total: 0, details: [] };
-    return engine.calculate(session.currentSelections, config);
-  }, [session?.currentSelections, engine, config]);
+    if (!session) return { total: 0, cardScore: 0, colorBonus: 0, details: [] };
+    return engine.calculate(session.currentSelections, config, roundEndMode);
+  }, [session?.currentSelections, engine, config, roundEndMode]);
 
   const totalScore = useMemo(() => {
     if (!session) return 0;
@@ -149,5 +151,7 @@ export function useScoreState(slug: string, config: ScoreConfig) {
     confirmRound,
     getTarget,
     reset,
+    roundEndMode,
+    setRoundEndMode,
   };
 }

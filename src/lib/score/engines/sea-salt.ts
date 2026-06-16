@@ -1,5 +1,5 @@
 import type { ScoreConfig } from "@/types/game";
-import type { ScoringEngine, ScoreBreakdown } from "./types";
+import type { ScoringEngine, ScoreBreakdown, RoundEndMode } from "./types";
 
 const COLLECTOR_TABLES: Record<string, number[]> = {
   shell: [0, 0, 2, 4, 6, 8, 10],
@@ -28,9 +28,9 @@ const EXTRA_DUO_PAIRS: string[][] = [
 ];
 
 export class SeaSaltEngine implements ScoringEngine {
-  calculate(selections: Record<string, number>, config: ScoreConfig): ScoreBreakdown {
+  calculate(selections: Record<string, number>, config: ScoreConfig, mode?: RoundEndMode): ScoreBreakdown {
     const details: ScoreBreakdown["details"] = [];
-    let total = 0;
+    let cardScore = 0;
 
     const hasExpansion = config.cards?.some((c) => c.id === "jellyfish" || c.id === "lobster");
     const duoPairs = hasExpansion
@@ -51,7 +51,7 @@ export class SeaSaltEngine implements ScoringEngine {
     }
     if (duoCount > 0) {
       details.push({ label: { en: "Duo Pairs", zh: "配对" }, value: duoCount });
-      total += duoCount;
+      cardScore += duoCount;
     }
 
     // Starfish (trio bonus: +2 per starfish used with a duo)
@@ -59,7 +59,7 @@ export class SeaSaltEngine implements ScoringEngine {
     if (starfishCount > 0 && duoCount > 0) {
       const trioBonus = Math.min(starfishCount, duoCount) * 2;
       details.push({ label: { en: "Starfish Trio", zh: "海星三条" }, value: trioBonus });
-      total += trioBonus;
+      cardScore += trioBonus;
     }
 
     // Collectors (with seahorse wild support)
@@ -83,7 +83,7 @@ export class SeaSaltEngine implements ScoringEngine {
           const card = config.cards?.find((c) => c.id === id);
           const name = card?.name ?? { en: id, zh: id };
           details.push({ label: name, value: score });
-          total += score;
+          cardScore += score;
         }
       }
     }
@@ -98,7 +98,7 @@ export class SeaSaltEngine implements ScoringEngine {
           const card = config.cards?.find((c) => c.id === id);
           const name = card?.name ?? { en: id, zh: id };
           details.push({ label: name, value: score });
-          total += score;
+          cardScore += score;
         }
       }
     }
@@ -109,26 +109,45 @@ export class SeaSaltEngine implements ScoringEngine {
       const crabCount = selections["crab"] ?? 0;
       if (crabCount > 0) {
         details.push({ label: { en: "Crab Army", zh: "螃蟹大军" }, value: crabCount });
-        total += crabCount;
+        cardScore += crabCount;
       }
     }
 
-    // Mermaids (use color distribution from selections)
+    // Mermaids
     const mermaidCount = selections["mermaid"] ?? 0;
-    if (mermaidCount > 0) {
-      const colorCounts = this.getColorCounts(selections, config);
-      colorCounts.sort((a, b) => b - a);
+    const colorCounts = this.getColorCounts(selections, config);
+    colorCounts.sort((a, b) => b - a);
+
+    if (mermaidCount > 0 && colorCounts.length > 0) {
       let mermaidTotal = 0;
       for (let i = 0; i < mermaidCount && i < colorCounts.length; i++) {
         mermaidTotal += colorCounts[i];
       }
       if (mermaidTotal > 0) {
         details.push({ label: { en: "Mermaids", zh: "美人鱼" }, value: mermaidTotal });
-        total += mermaidTotal;
+        cardScore += mermaidTotal;
       }
     }
 
-    return { total, details };
+    // Color bonus (max color count, separate from mermaids)
+    const colorBonus = colorCounts[0] ?? 0;
+
+    // Calculate total based on round-end mode
+    let total: number;
+    switch (mode) {
+      case "last-chance-win":
+        total = cardScore + colorBonus;
+        break;
+      case "last-chance-lose":
+        total = colorBonus;
+        break;
+      case "stop":
+      default:
+        total = cardScore;
+        break;
+    }
+
+    return { total, cardScore, colorBonus, details };
   }
 
   private getColorCounts(selections: Record<string, number>, config: ScoreConfig): number[] {

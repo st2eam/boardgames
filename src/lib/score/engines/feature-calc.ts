@@ -15,7 +15,7 @@ export class FeatureCalcEngine implements ScoringEngine {
       }
     }
 
-    return { total, details };
+    return { total, cardScore: total, colorBonus: 0, details };
   }
 
   private evalFormula(formula: string, n: number): number {

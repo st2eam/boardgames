@@ -65,6 +65,20 @@ export function ScoreDisplay({
                 <span className="font-medium tabular-nums text-stone-700">+{d.value}</span>
               </div>
             ))}
+            {breakdown.colorBonus > 0 && (
+              <div className="flex items-center justify-between text-sm border-t border-dashed border-stone-200 pt-1 mt-1">
+                <span className="text-stone-500">
+                  {locale === "zh" ? "颜色奖励" : "Color Bonus"}
+                </span>
+                <span className="font-medium tabular-nums text-emerald-600">+{breakdown.colorBonus}</span>
+              </div>
+            )}
+            {breakdown.cardScore !== breakdown.total && (
+              <div className="flex items-center justify-between text-[11px] text-stone-400 mt-1">
+                <span>{locale === "zh" ? "卡牌原始分" : "Card score"}</span>
+                <span className="tabular-nums">{breakdown.cardScore}</span>
+              </div>
+            )}
           </div>
         )}
       </div>

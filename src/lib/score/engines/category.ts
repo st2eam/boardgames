@@ -15,6 +15,6 @@ export class CategoryEngine implements ScoringEngine {
       }
     }
 
-    return { total, details };
+    return { total, cardScore: total, colorBonus: 0, details };
   }
 }

@@ -24,6 +24,8 @@ export function ScoreTracker({ slug, config, locale }: Props) {
     confirmRound,
     getTarget,
     reset,
+    roundEndMode,
+    setRoundEndMode,
   } = useScoreState(slug, config);
 
   if (!loaded || !session) {
@@ -128,6 +130,56 @@ export function ScoreTracker({ slug, config, locale }: Props) {
             filters={config.filters}
             locale={locale}
           />
+        </div>
+      )}
+
+      {/* Round end mode selector (for games with color bonus like Sea Salt) */}
+      {config.colorDist && (
+        <div className="rounded-xl border border-stone-200 bg-white p-4">
+          <h3 className="mb-3 text-sm font-semibold text-stone-700">
+            {locale === "zh" ? "本轮结算方式" : "Round End Mode"}
+          </h3>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+            <button
+              onClick={() => setRoundEndMode("stop")}
+              className={`rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
+                roundEndMode === "stop"
+                  ? "border-accent bg-accent/10 text-accent"
+                  : "border-stone-200 text-stone-500 hover:bg-stone-50"
+              }`}
+            >
+              <div className="font-semibold">{locale === "zh" ? "停止 (STOP)" : "STOP"}</div>
+              <div className="mt-0.5 text-[10px] opacity-70">
+                {locale === "zh" ? "所有人计算卡牌分数" : "All score card points"}
+              </div>
+            </button>
+            <button
+              onClick={() => setRoundEndMode("last-chance-win")}
+              className={`rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
+                roundEndMode === "last-chance-win"
+                  ? "border-green-500 bg-green-50 text-green-700"
+                  : "border-stone-200 text-stone-500 hover:bg-stone-50"
+              }`}
+            >
+              <div className="font-semibold">{locale === "zh" ? "最后机会 ✓" : "LAST CHANCE ✓"}</div>
+              <div className="mt-0.5 text-[10px] opacity-70">
+                {locale === "zh" ? "卡牌分数 + 颜色奖励" : "Cards + color bonus"}
+              </div>
+            </button>
+            <button
+              onClick={() => setRoundEndMode("last-chance-lose")}
+              className={`rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
+                roundEndMode === "last-chance-lose"
+                  ? "border-red-400 bg-red-50 text-red-600"
+                  : "border-stone-200 text-stone-500 hover:bg-stone-50"
+              }`}
+            >
+              <div className="font-semibold">{locale === "zh" ? "最后机会 ✗" : "LAST CHANCE ✗"}</div>
+              <div className="mt-0.5 text-[10px] opacity-70">
+                {locale === "zh" ? "仅颜色奖励" : "Color bonus only"}
+              </div>
+            </button>
+          </div>
         </div>
       )}
 

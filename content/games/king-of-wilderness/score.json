@@ -1,9 +1,9 @@
 {
-  "type": "victory-points",
+  "type": "category",
+  "engine": "category",
   "direction": "high-wins",
   "players": { "min": 2, "max": 4 },
   "categories": [
-    { "id": "territory", "name": { "en": "Territory", "zh": "领地" }, "value": 1 }
-  ],
-  "unit": { "en": "pts", "zh": "分" }
+    { "id": "territory", "name": { "en": "Territory (visible halves)", "zh": "领地（可见半卡）" }, "value": 1 }
+  ]
 }

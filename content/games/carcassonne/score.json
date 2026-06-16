@@ -1,12 +1,26 @@
 {
-  "type": "cumulative",
+  "type": "feature-calc",
+  "engine": "feature-calc",
   "direction": "high-wins",
   "players": { "min": 2, "max": 5 },
-  "categories": [
-    { "id": "road", "name": { "en": "Road", "zh": "道路" }, "value": 1 },
-    { "id": "city", "name": { "en": "City", "zh": "城市" }, "value": 1 },
-    { "id": "monastery", "name": { "en": "Monastery", "zh": "修道院" }, "value": 1 },
-    { "id": "field", "name": { "en": "Field", "zh": "草地" }, "value": 1 }
+  "features": [
+    { "id": "road", "name": { "en": "Completed Road (tiles)", "zh": "完成的道路（块数）" }, "inputType": "number", "formula": "n", "description": { "en": "1 pt per tile", "zh": "每块 1 分" } },
+    { "id": "city", "name": { "en": "Completed City (tiles)", "zh": "完成的城市（块数）" }, "inputType": "number", "formula": "n*2", "description": { "en": "2 pts per tile", "zh": "每块 2 分" } },
+    { "id": "shield", "name": { "en": "City Shields", "zh": "城市盾牌" }, "inputType": "number", "formula": "n*2", "description": { "en": "2 pts per shield", "zh": "每盾 2 分" } },
+    { "id": "monastery", "name": { "en": "Completed Monastery", "zh": "完成的修道院" }, "inputType": "number", "formula": "9", "description": { "en": "9 pts each", "zh": "每个 9 分" } },
+    { "id": "field", "name": { "en": "Field Cities (adj. completed)", "zh": "草地（邻接完成城市数）" }, "inputType": "number", "formula": "n*3", "description": { "en": "3 pts per adjacent city", "zh": "每邻接城市 3 分" } },
+    { "id": "incomplete-road", "name": { "en": "Incomplete Road (tiles)", "zh": "未完成道路（块数）" }, "inputType": "number", "formula": "n", "description": { "en": "1 pt per tile", "zh": "每块 1 分" } },
+    { "id": "incomplete-city", "name": { "en": "Incomplete City (tiles)", "zh": "未完成城市（块数）" }, "inputType": "number", "formula": "n", "description": { "en": "1 pt per tile (half value)", "zh": "每块 1 分（减半）" } },
+    { "id": "incomplete-monastery", "name": { "en": "Incomplete Monastery (surrounding)", "zh": "未完成修道院（周围块数）" }, "inputType": "number", "formula": "n", "description": { "en": "1 + surrounding tiles", "zh": "1 + 周围块数" } }
   ],
-  "unit": { "en": "pts", "zh": "分" }
+  "filters": [
+    {
+      "id": "type",
+      "name": { "en": "Status", "zh": "状态" },
+      "field": "group",
+      "values": [
+        { "id": "all", "name": { "en": "All", "zh": "全部" } }
+      ]
+    }
+  ]
 }

@@ -127,6 +127,11 @@ export function GameFamilyCard({ games }: Props) {
                   {t("viewFlow")}
                 </span>
               )}
+              {base.hasScore && (
+                <span className="mr-1 inline-block rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
+                  {t("scoreTracker")}
+                </span>
+              )}
               {base.tags.map((tag) => (
                 <span
                   key={tag}

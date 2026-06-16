@@ -11,7 +11,7 @@ Complete guide for adding game content: standalone games, DLCs/expansions, and s
 
 | Game Type | `family` | `familyOrder` | `variantType` | `requiresBase` |
 |-----------|:--------:|:-------------:|:-------------:|:--------------:|
-| Standalone (no series) | ❌ omit | ❌ omit | ❌ omit | ❌ omit |
+| Standalone (no series) | — | — | — | — |
 | Base of a series | `"my-series"` | `0` | `"base"` | `false` |
 | Expansion (needs base) | `"my-series"` | `1+` | `"expansion"` | `true` |
 | Variant (standalone) | `"my-series"` | `1+` | `"variant"` | `false` |
@@ -125,10 +125,10 @@ content/games/{slug}/
 | `difficulty` | `string` | ✅ | `"easy"` / `"medium"` / `"hard"` |
 | `tags` | `string[]` | ✅ | Filter/search tags. Keep lowercase. |
 | `category` | `string` | ✅ | `"board"` / `"card"` / `"party"` / `"strategy"` |
-| `family` | `string` | ❌ | Series slug shared by all games in family |
-| `familyOrder` | `number` | ❌ | Sort order: `0` = base, `1+` = variants |
-| `variantType` | `string` | ❌ | `"base"` / `"expansion"` / `"variant"` |
-| `requiresBase` | `boolean` | ❌ | `true` if expansion, omit otherwise |
+| `family` | `string` |  | Series slug shared by all games in family |
+| `familyOrder` | `number` |  | Sort order: `0` = base, `1+` = variants |
+| `variantType` | `string` |  | `"base"` / `"expansion"` / `"variant"` |
+| `requiresBase` | `boolean` |  | `true` if expansion, omit otherwise |
 
 **Series tags are auto-generated** from `family` — e.g. family `"uno"` produces tags "UNO series" / "UNO 系列". No need to add them manually.
 
@@ -240,44 +240,77 @@ The `prebuild` script (`scripts/generate-game-data.mjs`) auto-generates `public/
 
 ---
 
-## Adding a Score Tracker
+## Adding a Score Tracker (Auto-Calculator)
 
-If the game involves scoring/point tracking, create a `score.json` in the game's root directory:
+If the game involves scoring, create a `score.json` in the game's root directory. The score tracker auto-calculates points based on user selections.
+
+### Engine selection
+
+| Engine | When to use | Key fields |
+|--------|-------------|------------|
+| `sea-salt` | Complex formula-based scoring (Sea Salt & Paper) | `cards` with groups (duo/collector/multiplier/mermaid) |
+| `card-type` | Score by card type × count (UNO, Splendor) | `cardTypes` with value per type |
+| `category` | Score by category × count (Catan, King of Wilderness) | `categories` with value per item |
+| `feature-calc` | Input quantities, apply formula (Carcassonne) | `features` with formula strings |
+| `card-sum` | Select cards from a list, sum their points | `cards` or `cardGroups` with `points` |
+
+### Example: Card Type engine (UNO)
 
 ```json
 {
-  "type": "victory-points",
+  "type": "card-type",
+  "engine": "card-type",
   "direction": "high-wins",
-  "target": 10,
-  "players": { "min": 3, "max": 4 },
-  "categories": [
-    { "id": "village", "name": { "en": "Village", "zh": "村庄" }, "value": 1, "max": 5 },
-    { "id": "city", "name": { "en": "City", "zh": "城市" }, "value": 2, "max": 4 }
+  "target": 500,
+  "multiRound": true,
+  "players": { "min": 2, "max": 10 },
+  "cardTypes": [
+    { "id": "num5", "name": { "en": "Number 5", "zh": "数字 5" }, "value": 5, "group": "number" },
+    { "id": "skip", "name": { "en": "Skip", "zh": "禁止" }, "value": 20, "group": "action" }
+  ],
+  "filters": [
+    { "id": "group", "name": { "en": "Type", "zh": "类型" }, "field": "group",
+      "values": [
+        { "id": "all", "name": { "en": "All", "zh": "全部" } },
+        { "id": "number", "name": { "en": "Numbers", "zh": "数字牌" } },
+        { "id": "action", "name": { "en": "Action", "zh": "功能牌" } }
+      ]
+    }
   ]
 }
 ```
 
-### Score types
+### Example: Feature Calc engine (Carcassonne)
 
-| Type | When to use | Key fields |
-|------|-------------|------------|
-| `victory-points` | Players score by categories (Catan VP, Splendor prestige) | `categories`, `target` |
-| `rounds` | Fixed number of rounds with per-round scoring (Modern Art, Tacta) | `rounds`, `startingScore` |
-| `cumulative` | Open-ended rounds accumulating toward a target (UNO, Cabo) | `target` or `targetByPlayers` |
+```json
+{
+  "type": "feature-calc",
+  "engine": "feature-calc",
+  "direction": "high-wins",
+  "players": { "min": 2, "max": 5 },
+  "features": [
+    { "id": "road", "name": { "en": "Road (tiles)", "zh": "道路（块数）" }, "inputType": "number", "formula": "n", "description": { "en": "1 pt/tile", "zh": "每块1分" } },
+    { "id": "city", "name": { "en": "City (tiles)", "zh": "城市（块数）" }, "inputType": "number", "formula": "n*2", "description": { "en": "2 pts/tile", "zh": "每块2分" } }
+  ]
+}
+```
 
 ### Field reference
 
 | Field | Required | Description |
 |-------|:--------:|-------------|
-| `type` | ✅ | `"victory-points"` / `"rounds"` / `"cumulative"` |
+| `type` | ✅ | UI layout type |
+| `engine` | ✅ | Calculation engine name |
 | `direction` | ✅ | `"high-wins"` or `"low-wins"` |
-| `target` | ❌ | Fixed target score |
-| `targetByPlayers` | ❌ | Target varies by player count: `{"2": 40, "3": 35}` |
+| `multiRound` |  | Enable multi-round with confirm button |
+| `target` |  | Fixed target score |
+| `targetByPlayers` |  | Target varies by player count: `{"2": 40, "3": 35}` |
 | `players` | ✅ | `{ "min": N, "max": N }` |
-| `categories` | ❌ | VP scoring categories with `id`, `name`, `value`, optional `max` |
-| `rounds` | ❌ | Total rounds for round-based scoring |
-| `startingScore` | ❌ | Starting score per player (rounds type) |
-| `unit` | ❌ | Display unit: `{ "en": "pts", "zh": "分" }` |
+| `cards` |  | Card list with `id`, `name`, `color`, `count`, `group`, `points` |
+| `cardTypes` |  | Card type list with `id`, `name`, `value`, `group` |
+| `categories` |  | Category list with `id`, `name`, `value`, optional `max` |
+| `features` |  | Feature inputs with `id`, `name`, `inputType`, `formula`, `description` |
+| `filters` |  | Filter definitions for the card selector UI |
 
 The score tracker page is auto-generated at `/[locale]/games/[slug]/score/` when `score.json` exists.
 

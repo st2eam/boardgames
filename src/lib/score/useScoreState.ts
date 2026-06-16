@@ -1,48 +1,33 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import type { ScoreConfig } from "@/types/game";
+import type { ScoreBreakdown } from "./engines/types";
+import { createEngine } from "./engines";
 import {
   type ScoreSession,
-  type PlayerScore,
+  type RoundRecord,
   saveScoreSession,
   loadScoreSession,
   resetScoreSession,
-} from "@/lib/score/score-storage";
-
-const PLAYER_COLORS = [
-  "#ef4444", "#3b82f6", "#22c55e", "#f59e0b",
-  "#8b5cf6", "#ec4899", "#06b6d4", "#f97316",
-  "#14b8a6", "#6366f1",
-];
-
-function createDefaultPlayer(index: number): PlayerScore {
-  return {
-    name: `P${index + 1}`,
-    color: PLAYER_COLORS[index % PLAYER_COLORS.length],
-    scores: {},
-    roundScores: [],
-  };
-}
+} from "./score-storage";
 
 export function useScoreState(slug: string, config: ScoreConfig) {
   const [session, setSession] = useState<ScoreSession | null>(null);
   const [loaded, setLoaded] = useState(false);
   const saveTimeout = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const engine = useMemo(() => createEngine(config), [config]);
 
   useEffect(() => {
     loadScoreSession(slug).then((s) => {
-      if (s) {
+      if (s && s.currentSelections) {
         setSession(s);
       } else {
-        const players = Array.from({ length: config.players.min }, (_, i) =>
-          createDefaultPlayer(i)
-        );
         setSession({
           slug,
-          players,
-          currentRound: 1,
-          createdAt: Date.now(),
+          playerCount: config.players.min,
+          rounds: [],
+          currentSelections: {},
           updatedAt: Date.now(),
         });
       }
@@ -58,142 +43,111 @@ export function useScoreState(slug: string, config: ScoreConfig) {
     }, 300);
   }, []);
 
-  const addPlayer = useCallback(() => {
-    if (!session) return;
-    if (session.players.length >= config.players.max) return;
-    const updated = {
-      ...session,
-      players: [...session.players, createDefaultPlayer(session.players.length)],
-    };
-    persist(updated);
-  }, [session, config.players.max, persist]);
-
-  const removePlayer = useCallback(
-    (index: number) => {
+  const setPlayerCount = useCallback(
+    (count: number) => {
       if (!session) return;
-      if (session.players.length <= config.players.min) return;
-      const updated = {
-        ...session,
-        players: session.players.filter((_, i) => i !== index),
-      };
-      persist(updated);
-    },
-    [session, config.players.min, persist]
-  );
-
-  const renamePlayer = useCallback(
-    (index: number, name: string) => {
-      if (!session) return;
-      const players = [...session.players];
-      players[index] = { ...players[index], name };
-      persist({ ...session, players });
+      persist({ ...session, playerCount: count });
     },
     [session, persist]
   );
 
-  const updateCategoryScore = useCallback(
-    (playerIndex: number, categoryId: string, delta: number) => {
+  const updateSelection = useCallback(
+    (cardId: string, delta: number) => {
       if (!session) return;
-      const players = [...session.players];
-      const p = { ...players[playerIndex], scores: { ...players[playerIndex].scores } };
-      const current = p.scores[categoryId] ?? 0;
-      const next = current + delta;
-      if (next < 0) return;
-      const cat = config.categories?.find((c) => c.id === categoryId);
-      if (cat?.max && next > cat.max) return;
-      p.scores[categoryId] = next;
-      players[playerIndex] = p;
-      persist({ ...session, players });
-    },
-    [session, config.categories, persist]
-  );
-
-  const addRoundScore = useCallback(
-    (playerIndex: number, score: number) => {
-      if (!session) return;
-      const players = [...session.players];
-      const p = { ...players[playerIndex] };
-      p.roundScores = [...(p.roundScores ?? [])];
-      if (p.roundScores.length < session.currentRound) {
-        p.roundScores.push(score);
+      const current = session.currentSelections[cardId] ?? 0;
+      const next = Math.max(0, current + delta);
+      let maxCount = Infinity;
+      if (cardId.startsWith("color:")) {
+        const colorId = cardId.slice(6);
+        const colorDef = config.colorDist?.find((c) => c.id === colorId);
+        maxCount = colorDef?.count ?? Infinity;
       } else {
-        p.roundScores[session.currentRound - 1] = score;
+        const card = config.cards?.find((c) => c.id === cardId)
+          ?? config.cardGroups?.flatMap((g) => g.cards).find((c) => c.id === cardId);
+        maxCount = card?.count ?? Infinity;
       }
-      players[playerIndex] = p;
-      persist({ ...session, players });
+      const clamped = Math.min(next, maxCount);
+      const selections = { ...session.currentSelections, [cardId]: clamped };
+      if (clamped === 0) delete selections[cardId];
+      persist({ ...session, currentSelections: selections });
     },
-    [session, persist]
+    [session, config, persist]
   );
 
-  const nextRound = useCallback(() => {
+  const setSelection = useCallback(
+    (cardId: string, value: number) => {
+      if (!session) return;
+      const card = config.cards?.find((c) => c.id === cardId)
+        ?? config.cardGroups?.flatMap((g) => g.cards).find((c) => c.id === cardId);
+      const maxCount = card?.count ?? Infinity;
+      const clamped = Math.min(Math.max(0, value), maxCount);
+      const selections = { ...session.currentSelections, [cardId]: clamped };
+      if (clamped === 0) delete selections[cardId];
+      persist({ ...session, currentSelections: selections });
+    },
+    [session, config, persist]
+  );
+
+  const currentBreakdown: ScoreBreakdown = useMemo(() => {
+    if (!session) return { total: 0, details: [] };
+    return engine.calculate(session.currentSelections, config);
+  }, [session?.currentSelections, engine, config]);
+
+  const totalScore = useMemo(() => {
+    if (!session) return 0;
+    const roundsTotal = session.rounds.reduce((sum, r) => sum + r.score, 0);
+    return roundsTotal + (config.multiRound ? 0 : currentBreakdown.total);
+  }, [session?.rounds, currentBreakdown, config.multiRound]);
+
+  const cumulativeTotal = useMemo(() => {
+    if (!session) return 0;
+    return session.rounds.reduce((sum, r) => sum + r.score, 0);
+  }, [session?.rounds]);
+
+  const confirmRound = useCallback(() => {
     if (!session) return;
-    const maxRounds = config.rounds ?? Infinity;
-    if (session.currentRound >= maxRounds) return;
-    persist({ ...session, currentRound: session.currentRound + 1 });
-  }, [session, config.rounds, persist]);
+    if (currentBreakdown.total === 0) return;
+    const round: RoundRecord = {
+      selections: { ...session.currentSelections },
+      score: currentBreakdown.total,
+    };
+    persist({
+      ...session,
+      rounds: [...session.rounds, round],
+      currentSelections: {},
+    });
+  }, [session, currentBreakdown, persist]);
+
+  const getTarget = useCallback((): number | null => {
+    if (config.target) return config.target;
+    if (config.targetByPlayers && session) {
+      return config.targetByPlayers[String(session.playerCount)] ?? null;
+    }
+    return null;
+  }, [config, session]);
 
   const reset = useCallback(async () => {
     await resetScoreSession(slug);
-    const players = Array.from({ length: config.players.min }, (_, i) =>
-      createDefaultPlayer(i)
-    );
-    const fresh: ScoreSession = {
+    setSession({
       slug,
-      players,
-      currentRound: 1,
-      createdAt: Date.now(),
+      playerCount: config.players.min,
+      rounds: [],
+      currentSelections: {},
       updatedAt: Date.now(),
-    };
-    setSession(fresh);
-    await saveScoreSession(fresh);
+    });
   }, [slug, config.players.min]);
-
-  const getPlayerTotal = useCallback(
-    (playerIndex: number): number => {
-      if (!session) return 0;
-      const p = session.players[playerIndex];
-      if (config.type === "victory-points" || config.type === "cumulative") {
-        if (config.categories?.length) {
-          return Object.entries(p.scores).reduce((sum, [catId, count]) => {
-            const cat = config.categories!.find((c) => c.id === catId);
-            return sum + count * (cat?.value ?? 1);
-          }, 0);
-        }
-        return (p.roundScores ?? []).reduce((a, b) => a + b, 0);
-      }
-      if (config.type === "rounds") {
-        return (p.roundScores ?? []).reduce(
-          (a, b) => a + b,
-          config.startingScore ?? 0
-        );
-      }
-      return 0;
-    },
-    [session, config]
-  );
-
-  const getTarget = useCallback(
-    (playerCount?: number): number | null => {
-      if (config.target) return config.target;
-      if (config.targetByPlayers && playerCount) {
-        return config.targetByPlayers[String(playerCount)] ?? null;
-      }
-      return null;
-    },
-    [config]
-  );
 
   return {
     session,
     loaded,
-    addPlayer,
-    removePlayer,
-    renamePlayer,
-    updateCategoryScore,
-    addRoundScore,
-    nextRound,
-    reset,
-    getPlayerTotal,
+    setPlayerCount,
+    updateSelection,
+    setSelection,
+    currentBreakdown,
+    totalScore,
+    cumulativeTotal,
+    confirmRound,
     getTarget,
+    reset,
   };
 }

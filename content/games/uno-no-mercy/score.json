@@ -1,7 +1,32 @@
 {
-  "type": "cumulative",
+  "type": "card-type",
+  "engine": "card-type",
   "direction": "high-wins",
   "target": 500,
+  "multiRound": true,
   "players": { "min": 2, "max": 10 },
-  "unit": { "en": "pts", "zh": "分" }
+  "cardTypes": [
+    { "id": "num1", "name": { "en": "Number 1-9", "zh": "数字 1-9" }, "value": 1, "group": "number" },
+    { "id": "draw2", "name": { "en": "Draw Two", "zh": "+2" }, "value": 20, "group": "action" },
+    { "id": "reverse", "name": { "en": "Reverse", "zh": "反转" }, "value": 20, "group": "action" },
+    { "id": "skip", "name": { "en": "Skip", "zh": "禁止" }, "value": 20, "group": "action" },
+    { "id": "skip-all", "name": { "en": "Skip Everyone", "zh": "全体禁止" }, "value": 30, "group": "action" },
+    { "id": "wild-roulette", "name": { "en": "Color Roulette", "zh": "颜色轮盘" }, "value": 40, "group": "wild" },
+    { "id": "wild-draw4", "name": { "en": "Wild Draw Four", "zh": "万能+4" }, "value": 50, "group": "wild" },
+    { "id": "wild-draw6", "name": { "en": "Wild Draw Six", "zh": "万能+6" }, "value": 60, "group": "wild" },
+    { "id": "wild-draw10", "name": { "en": "Wild Draw Ten", "zh": "万能+10" }, "value": 80, "group": "wild" }
+  ],
+  "filters": [
+    {
+      "id": "group",
+      "name": { "en": "Type", "zh": "类型" },
+      "field": "group",
+      "values": [
+        { "id": "all", "name": { "en": "All", "zh": "全部" } },
+        { "id": "number", "name": { "en": "Numbers", "zh": "数字牌" } },
+        { "id": "action", "name": { "en": "Action", "zh": "功能牌" } },
+        { "id": "wild", "name": { "en": "Wild", "zh": "万能牌" } }
+      ]
+    }
+  ]
 }

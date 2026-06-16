@@ -28,25 +28,82 @@ export interface FlowData {
   nodes: Record<string, FlowNode>;
 }
 
-// --- Score Tracker Types ---
+// --- Score Calculator Types ---
 
-export interface ScoreCategory {
+export interface CardDef {
+  id: string;
+  name: Record<"en" | "zh", string>;
+  color?: string;
+  count?: number;
+  group?: string;
+  points?: number;
+  multiplies?: string;
+  tier?: string;
+}
+
+export interface CardGroup {
+  id: string;
+  name: Record<"en" | "zh", string>;
+  cards: CardDef[];
+}
+
+export interface CardTypeDef {
+  id: string;
+  name: Record<"en" | "zh", string>;
+  value: number;
+  group?: string;
+}
+
+export interface CategoryDef {
   id: string;
   name: Record<"en" | "zh", string>;
   value: number;
   max?: number;
 }
 
+export interface FeatureDef {
+  id: string;
+  name: Record<"en" | "zh", string>;
+  inputType: "number";
+  formula: string;
+  description?: Record<"en" | "zh", string>;
+}
+
+export type ScoreConfigType = "formula" | "card-select" | "card-type" | "category" | "feature-calc" | "rounds";
+
 export interface ScoreConfig {
-  type: "victory-points" | "rounds" | "cumulative";
+  type: ScoreConfigType;
+  engine: string;
   direction: "high-wins" | "low-wins";
   target?: number;
   targetByPlayers?: Record<string, number>;
   players: { min: number; max: number };
-  categories?: ScoreCategory[];
+  multiRound?: boolean;
   rounds?: number;
   startingScore?: number;
   unit?: Record<"en" | "zh", string>;
+  cards?: CardDef[];
+  cardGroups?: CardGroup[];
+  cardTypes?: CardTypeDef[];
+  categories?: CategoryDef[];
+  features?: FeatureDef[];
+  scoringRules?: Record<string, unknown>;
+  filters?: FilterDef[];
+  colorDist?: ColorDef[];
+}
+
+export interface ColorDef {
+  id: string;
+  name: Record<"en" | "zh", string>;
+  hex: string;
+  count: number;
+}
+
+export interface FilterDef {
+  id: string;
+  name: Record<"en" | "zh", string>;
+  field: string;
+  values: { id: string; name: Record<"en" | "zh", string> }[];
 }
 
 // --- Game & Summary ---

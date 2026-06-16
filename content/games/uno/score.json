@@ -1,7 +1,38 @@
 {
-  "type": "cumulative",
+  "type": "card-type",
+  "engine": "card-type",
   "direction": "high-wins",
   "target": 500,
+  "multiRound": true,
   "players": { "min": 2, "max": 10 },
-  "unit": { "en": "pts", "zh": "分" }
+  "cardTypes": [
+    { "id": "num0", "name": { "en": "Number 0", "zh": "数字 0" }, "value": 0, "group": "number" },
+    { "id": "num1", "name": { "en": "Number 1", "zh": "数字 1" }, "value": 1, "group": "number" },
+    { "id": "num2", "name": { "en": "Number 2", "zh": "数字 2" }, "value": 2, "group": "number" },
+    { "id": "num3", "name": { "en": "Number 3", "zh": "数字 3" }, "value": 3, "group": "number" },
+    { "id": "num4", "name": { "en": "Number 4", "zh": "数字 4" }, "value": 4, "group": "number" },
+    { "id": "num5", "name": { "en": "Number 5", "zh": "数字 5" }, "value": 5, "group": "number" },
+    { "id": "num6", "name": { "en": "Number 6", "zh": "数字 6" }, "value": 6, "group": "number" },
+    { "id": "num7", "name": { "en": "Number 7", "zh": "数字 7" }, "value": 7, "group": "number" },
+    { "id": "num8", "name": { "en": "Number 8", "zh": "数字 8" }, "value": 8, "group": "number" },
+    { "id": "num9", "name": { "en": "Number 9", "zh": "数字 9" }, "value": 9, "group": "number" },
+    { "id": "skip", "name": { "en": "Skip", "zh": "禁止" }, "value": 20, "group": "action" },
+    { "id": "reverse", "name": { "en": "Reverse", "zh": "反转" }, "value": 20, "group": "action" },
+    { "id": "draw2", "name": { "en": "Draw Two", "zh": "+2" }, "value": 20, "group": "action" },
+    { "id": "wild", "name": { "en": "Wild", "zh": "万能牌" }, "value": 50, "group": "wild" },
+    { "id": "wild-draw4", "name": { "en": "Wild Draw Four", "zh": "万能+4" }, "value": 50, "group": "wild" }
+  ],
+  "filters": [
+    {
+      "id": "group",
+      "name": { "en": "Type", "zh": "类型" },
+      "field": "group",
+      "values": [
+        { "id": "all", "name": { "en": "All", "zh": "全部" } },
+        { "id": "number", "name": { "en": "Numbers", "zh": "数字牌" } },
+        { "id": "action", "name": { "en": "Action (20pts)", "zh": "功能牌 (20分)" } },
+        { "id": "wild", "name": { "en": "Wild (50pts)", "zh": "万能牌 (50分)" } }
+      ]
+    }
+  ]
 }

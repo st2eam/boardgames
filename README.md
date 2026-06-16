@@ -8,7 +8,7 @@
 
 - **26 款游戏规则**：经过网络验证的中英双语完整规则
 - **15 款交互式决策树**：分步交互流程，含侧边栏目录导航
-- **13 款游戏计分器**：支持 VP 制、回合制、累计制三种计分模式，数据持久化
+- **13 款自动计分器**：5 种引擎（公式 / 卡牌选择 / 卡牌类型 / 分类计数 / 特征计算），单人使用，IndexedDB 持久化
 - **游戏系列分组**：UNO、脏小猪、三国杀、爆炸猫、璀璨宝石、海盐折纸、卡坦岛等系列以堆叠卡片效果展示
 - **DLC / 变体支持**：小猪选美、不臣之君、黑盒版、UNO Flip、UNO No Mercy、璀璨宝石宝可梦版、盐趣倍增、中国版图
 - **规则导出**：支持导出为 PDF 或下载 Markdown 原文
@@ -104,11 +104,12 @@ src/
 ├── components/
 │   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, Sidebar, HeroBanner
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
-│   ├── game/score/               # ScoreTracker, VPTracker, RoundTracker, CumulativeTracker, PlayerSetup
+│   ├── game/score/               # ScoreTracker, CardSelector, FeatureInput, ScoreDisplay
 │   ├── chat/                     # LLM 对话组件
 │   └── layout/                   # Header, Footer, BackToTop
 ├── lib/content/                  # 内容层（Repository + Factory 模式）
-├── lib/score/                    # 计分器（score-storage + useScoreState hook）
+├── lib/score/                    # 计分器（useScoreState hook + IndexedDB 存储）
+├── lib/score/engines/            # 计分引擎工厂（sea-salt / card-select / card-type / category / feature-calc）
 └── types/                        # TypeScript 类型定义
 ```
 
@@ -141,10 +142,10 @@ src/
 | `difficulty` | `"easy" \| "medium" \| "hard"` | ✅ | 难度等级 |
 | `tags` | `string[]` | ✅ | 标签 |
 | `category` | `string` | ✅ | 分类（board / card / party 等） |
-| `family` | `string` | ❌ | 所属系列 ID |
-| `familyOrder` | `number` | ❌ | 系列内排序（0 = 本体） |
-| `variantType` | `"base" \| "expansion" \| "variant"` | ❌ | 本体 / 扩展 / 变体 |
-| `requiresBase` | `boolean` | ❌ | 是否需要本体才能游玩 |
+| `family` | `string` |  | 所属系列 ID |
+| `familyOrder` | `number` |  | 系列内排序（0 = 本体） |
+| `variantType` | `"base" \| "expansion" \| "variant"` |  | 本体 / 扩展 / 变体 |
+| `requiresBase` | `boolean` |  | 是否需要本体才能游玩 |
 
 ### flow.json（决策树）
 
@@ -202,16 +203,23 @@ src/
 
 独立页面 `/[locale]/games/[slug]/score/`，仅有 `score.json` 的游戏会生成此页面。
 
-| 类型 | 适用游戏 | 说明 |
+采用 **引擎策略模式**，根据 `score.json` 中的 `engine` 字段自动匹配引擎，实现自动计分。用户只需选择卡牌/输入数值，系统自动计算得分明细。
+
+| 引擎 | 适用游戏 | 说明 |
 |------|---------|------|
-| `victory-points` | 卡坦岛、璀璨宝石、荒野之王 | 按分类 +/- 计分，显示总和与进度条 |
-| `rounds` | 现代艺术、TACTA | 每轮输入分数，显示历史轮次和累计 |
-| `cumulative` | UNO 系列、海盐折纸、Cabo | 多轮累计，排行榜 + 历史记录 |
+| `sea-salt` | 海盐折纸 | 按配对、收集、倍率、美人鱼四类规则自动计算 |
+| `card-type` | UNO 系列、璀璨宝石系列、Cabo | 按卡牌类型 × 数量计分 |
+| `category` | 卡坦岛、荒野之王、TACTA、现代艺术 | 按分类项 × 数量计分 |
+| `feature-calc` | 卡卡颂 | 按地物类型输入数量，公式自动计算 |
+| `card-sum` | （通用） | 按卡牌列表逐张选择，累加点数 |
 
 功能：
-- 玩家管理：动态添加/删除，自定义名称和颜色
-- 数据持久化：IndexedDB 自动保存，刷新不丢失
-- 到达目标分时高亮胜利者
+- **自动计算**：选择卡牌或输入数量后实时显示得分明细
+- **分类筛选**：按卡牌类型、等级、颜色等快速定位
+- **多轮支持**：海盐折纸、UNO 系列支持逐轮确认并累计总分
+- **目标检测**：到达目标分时高亮提示
+- **个人使用**：单人计分，无多人管理
+- **数据持久化**：IndexedDB 自动保存，刷新不丢失
 
 ### 交互式决策树
 
@@ -251,7 +259,7 @@ src/
 | **Repository** | `GameRepository.ts` | 统一封装文件系统内容访问 |
 | **Factory** | `GameFactory.ts` | 组装 Game 领域对象，分离构造与数据访问 |
 | **Strategy** | `GlobalChatStrategy` / `GameChatStrategy` | 不同对话范围的 prompt 和 tool 定义 |
-| **Strategy** | `VPTracker` / `RoundTracker` / `CumulativeTracker` | 不同计分模式的 UI 实现 |
+| **Strategy** | `ScoringEngine` (sea-salt / card-type / category / feature-calc / card-select) | 不同游戏的自动计分引擎 |
 | **Adapter** | `DeepSeekAdapter.ts` | 隔离 LLM 提供商，方便替换 |
 | **Context+Provider** | `ChatProvider.tsx` | 统一管理消息、流式状态、API Key |
 
@@ -299,32 +307,44 @@ src/
 5. 如属于某个系列，在 `meta.json` 中添加 `family`、`familyOrder`、`variantType` 字段
 6. 运行 `npm run build` 验证构建通过
 
-### score.json（计分器配置）
+### score.json（自动计分器配置）
 
 ```json
 {
-  "type": "victory-points | rounds | cumulative",
+  "type": "formula | card-type | category | feature-calc | card-select",
+  "engine": "sea-salt | card-type | category | feature-calc | card-sum",
   "direction": "high-wins | low-wins",
   "target": 10,
   "targetByPlayers": { "2": 40, "3": 35, "4": 30 },
-  "players": { "min": 3, "max": 4 },
+  "players": { "min": 2, "max": 4 },
+  "multiRound": true,
+  "cards": [
+    { "id": "crab", "name": { "en": "Crab", "zh": "螃蟹" }, "color": "red", "count": 9, "group": "duo", "points": 1 }
+  ],
+  "cardTypes": [
+    { "id": "skip", "name": { "en": "Skip", "zh": "禁止" }, "value": 20, "group": "action" }
+  ],
   "categories": [
     { "id": "village", "name": { "en": "Village", "zh": "村庄" }, "value": 1, "max": 5 }
   ],
-  "rounds": 4,
-  "startingScore": 100,
-  "unit": { "en": "pts", "zh": "分" }
+  "features": [
+    { "id": "road", "name": { "en": "Road", "zh": "道路" }, "inputType": "number", "formula": "n", "description": { "en": "1 pt/tile", "zh": "每块1分" } }
+  ],
+  "filters": [
+    { "id": "group", "name": { "en": "Type", "zh": "类型" }, "field": "group", "values": [...] }
+  ]
 }
 ```
 
 | 字段 | 说明 |
 |------|------|
-| `type` | `victory-points`（按分类加减）/ `rounds`（按轮次记录）/ `cumulative`（多轮累计） |
+| `type` | 计分器类型（决定 UI 布局） |
+| `engine` | 计分引擎名称（决定计算逻辑） |
 | `direction` | `high-wins`（高分赢）/ `low-wins`（低分赢，如 Cabo） |
-| `target` | 目标分数（到达时提示胜利） |
-| `targetByPlayers` | 按人数设定不同目标 |
-| `players` | 支持的人数范围 |
-| `categories` | VP 类型的计分分类（每项含 id、名称、分值、可选上限） |
-| `rounds` | 回合制总轮数 |
-| `startingScore` | 回合制起始分数 |
-| `unit` | 分数单位显示文字 |
+| `multiRound` | 是否支持多轮确认累计 |
+| `target` / `targetByPlayers` | 目标分数或按人数不同目标 |
+| `cards` | 完整卡牌列表（含名称、颜色、数量上限、分组） |
+| `cardTypes` | 卡牌类型列表（含名称、分值、分组） |
+| `categories` | 分类计数项（含名称、单位分值、上限） |
+| `features` | 特征输入项（含名称、公式、描述） |
+| `filters` | 筛选器定义（字段名 + 可选值列表） |

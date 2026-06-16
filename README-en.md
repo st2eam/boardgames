@@ -130,10 +130,10 @@ src/
 | `difficulty` | `"easy" \| "medium" \| "hard"` | ✅ | Difficulty level |
 | `tags` | `string[]` | ✅ | Tags |
 | `category` | `string` | ✅ | Category (board / card / party etc.) |
-| `family` | `string` | ❌ | Series identifier |
-| `familyOrder` | `number` | ❌ | Sort order within series (0 = base) |
-| `variantType` | `"base" \| "expansion" \| "variant"` | ❌ | Base / expansion / variant |
-| `requiresBase` | `boolean` | ❌ | Whether base game is required |
+| `family` | `string` |  | Series identifier |
+| `familyOrder` | `number` |  | Sort order within series (0 = base) |
+| `variantType` | `"base" \| "expansion" \| "variant"` |  | Base / expansion / variant |
+| `requiresBase` | `boolean` |  | Whether base game is required |
 
 ### flow.json (Decision Tree)
 

@@ -1,12 +1,13 @@
 {
-  "type": "victory-points",
+  "type": "category",
+  "engine": "category",
   "direction": "high-wins",
   "target": 10,
   "players": { "min": 3, "max": 4 },
   "categories": [
     { "id": "village", "name": { "en": "Village", "zh": "村庄" }, "value": 1, "max": 5 },
     { "id": "city", "name": { "en": "City", "zh": "城市" }, "value": 2, "max": 4 },
-    { "id": "vp-card", "name": { "en": "VP Card", "zh": "胜利点发展卡" }, "value": 1, "max": 5 },
+    { "id": "vp-card", "name": { "en": "VP Dev Card", "zh": "胜利点发展卡" }, "value": 1, "max": 5 },
     { "id": "longest-road", "name": { "en": "Longest Trade Route", "zh": "最长商路" }, "value": 2, "max": 1 },
     { "id": "largest-army", "name": { "en": "Largest Army", "zh": "最大军队" }, "value": 2, "max": 1 },
     { "id": "landmark", "name": { "en": "Landmark", "zh": "地标" }, "value": 1, "max": 4 },

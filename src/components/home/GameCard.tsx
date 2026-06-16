@@ -27,6 +27,7 @@ function useTags(game: GameSummary, t: ReturnType<typeof useTranslations<"game">
   const descriptive = [...game.tags];
   const functional: string[] = [];
   if (game.hasFlow) functional.push(t("viewFlow"));
+  if (game.hasScore) functional.push(t("scoreTracker"));
   return { descriptive, functional };
 }
 

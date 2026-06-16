@@ -2,11 +2,10 @@
 
 import type { ScoreConfig } from "@/types/game";
 import { useScoreState } from "@/lib/score/useScoreState";
-import { PlayerSetup } from "./PlayerSetup";
-import { VPTracker } from "./VPTracker";
-import { RoundTracker } from "./RoundTracker";
-import { CumulativeTracker } from "./CumulativeTracker";
-import { useTranslations } from "next-intl";
+import { CardSelector } from "./CardSelector";
+import { FeatureInput } from "./FeatureInput";
+import { ColorCounter } from "./ColorCounter";
+import { ScoreDisplay } from "./ScoreDisplay";
 
 interface Props {
   slug: string;
@@ -15,19 +14,16 @@ interface Props {
 }
 
 export function ScoreTracker({ slug, config, locale }: Props) {
-  const t = useTranslations("score");
   const {
     session,
     loaded,
-    addPlayer,
-    removePlayer,
-    renamePlayer,
-    updateCategoryScore,
-    addRoundScore,
-    nextRound,
-    reset,
-    getPlayerTotal,
+    setPlayerCount,
+    updateSelection,
+    currentBreakdown,
+    cumulativeTotal,
+    confirmRound,
     getTarget,
+    reset,
   } = useScoreState(slug, config);
 
   if (!loaded || !session) {
@@ -38,98 +34,127 @@ export function ScoreTracker({ slug, config, locale }: Props) {
     );
   }
 
-  const target = getTarget(session.players.length);
+  const target = getTarget();
+  const allCards = config.cards
+    ?? config.cardGroups?.flatMap((g) => g.cards)
+    ?? config.cardTypes?.map((ct) => ({
+      id: ct.id,
+      name: ct.name,
+      count: 99,
+      group: ct.group,
+      points: ct.value,
+    }))
+    ?? config.categories?.map((c) => ({
+      id: c.id,
+      name: c.name,
+      count: c.max ?? 99,
+      group: undefined,
+      points: c.value,
+    }))
+    ?? [];
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <PlayerSetup
-          players={session.players}
-          config={config}
-          onAdd={addPlayer}
-          onRemove={removePlayer}
-          onRename={renamePlayer}
-          t={t}
-        />
-      </div>
+      {/* Player count selector for targetByPlayers */}
+      {config.targetByPlayers && (
+        <div className="rounded-xl border border-stone-200 bg-white p-4">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-stone-700">
+              {locale === "zh" ? "游戏人数" : "Player Count"}
+            </span>
+            <div className="flex items-center gap-1">
+              {Array.from(
+                { length: config.players.max - config.players.min + 1 },
+                (_, i) => config.players.min + i
+              ).map((n) => (
+                <button
+                  key={n}
+                  onClick={() => setPlayerCount(n)}
+                  className={`h-8 w-8 rounded-lg text-sm font-medium transition-colors ${
+                    session.playerCount === n
+                      ? "bg-accent text-white"
+                      : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                  }`}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
+          </div>
+          {target && (
+            <div className="mt-2 text-xs text-stone-400">
+              {locale === "zh"
+                ? `${session.playerCount} 人局目标：${target} 分`
+                : `Target for ${session.playerCount} players: ${target} pts`}
+            </div>
+          )}
+        </div>
+      )}
 
-      <TrackerStrategy
-        type={config.type}
-        players={session.players}
-        config={config}
-        currentRound={session.currentRound}
-        onUpdate={updateCategoryScore}
-        onAddRoundScore={addRoundScore}
-        onNextRound={nextRound}
-        getTotal={getPlayerTotal}
+      {/* Score display */}
+      <ScoreDisplay
+        breakdown={currentBreakdown}
+        rounds={session.rounds}
+        cumulativeTotal={cumulativeTotal}
         target={target}
+        multiRound={config.multiRound ?? false}
+        direction={config.direction}
+        onConfirmRound={config.multiRound ? confirmRound : undefined}
         locale={locale}
       />
 
+      {/* Card/item selector */}
+      {config.features ? (
+        <div className="rounded-xl border border-stone-200 bg-white p-4">
+          <h3 className="mb-3 text-sm font-semibold text-stone-700">
+            {locale === "zh" ? "输入得分项" : "Enter Scoring Items"}
+          </h3>
+          <FeatureInput
+            features={config.features}
+            selections={session.currentSelections}
+            onUpdate={updateSelection}
+            locale={locale}
+          />
+        </div>
+      ) : (
+        <div className="rounded-xl border border-stone-200 bg-white p-4">
+          <h3 className="mb-3 text-sm font-semibold text-stone-700">
+            {locale === "zh" ? "选择你的卡牌" : "Select Your Cards"}
+          </h3>
+          <CardSelector
+            cards={allCards}
+            selections={session.currentSelections}
+            onUpdate={updateSelection}
+            filters={config.filters}
+            locale={locale}
+          />
+        </div>
+      )}
+
+      {/* Color distribution (for mermaid-style scoring) */}
+      {config.colorDist && (
+        <div className="rounded-xl border border-stone-200 bg-white p-4">
+          <h3 className="mb-3 text-sm font-semibold text-stone-700">
+            {locale === "zh" ? "颜色分布（美人鱼计分用）" : "Color Distribution (for Mermaid scoring)"}
+          </h3>
+          <ColorCounter
+            colors={config.colorDist}
+            selections={session.currentSelections}
+            onUpdate={updateSelection}
+            locale={locale}
+          />
+        </div>
+      )}
+
+      {/* Reset */}
       <div className="flex justify-center pt-2">
         <button
           onClick={reset}
           className="rounded-lg border border-red-200 px-4 py-2 text-xs font-medium text-red-500 hover:bg-red-50 transition-colors"
         >
-          {t("resetAll")}
+          {locale === "zh" ? "重置" : "Reset"}
         </button>
       </div>
     </div>
   );
-}
-
-interface StrategyProps {
-  type: ScoreConfig["type"];
-  players: import("@/lib/score/score-storage").PlayerScore[];
-  config: ScoreConfig;
-  currentRound: number;
-  onUpdate: (playerIndex: number, categoryId: string, delta: number) => void;
-  onAddRoundScore: (playerIndex: number, score: number) => void;
-  onNextRound: () => void;
-  getTotal: (playerIndex: number) => number;
-  target: number | null;
-  locale: string;
-}
-
-function TrackerStrategy({ type, ...props }: StrategyProps) {
-  switch (type) {
-    case "victory-points":
-      return (
-        <VPTracker
-          players={props.players}
-          config={props.config}
-          onUpdate={props.onUpdate}
-          getTotal={props.getTotal}
-          target={props.target}
-          locale={props.locale}
-        />
-      );
-    case "rounds":
-      return (
-        <RoundTracker
-          players={props.players}
-          config={props.config}
-          currentRound={props.currentRound}
-          onAddRoundScore={props.onAddRoundScore}
-          onNextRound={props.onNextRound}
-          getTotal={props.getTotal}
-          locale={props.locale}
-        />
-      );
-    case "cumulative":
-      return (
-        <CumulativeTracker
-          players={props.players}
-          config={props.config}
-          currentRound={props.currentRound}
-          onAddRoundScore={props.onAddRoundScore}
-          onNextRound={props.onNextRound}
-          getTotal={props.getTotal}
-          target={props.target}
-          locale={props.locale}
-        />
-      );
-    default:
-      return null;
-  }
 }

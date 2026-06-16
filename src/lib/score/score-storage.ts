@@ -1,17 +1,15 @@
 import { get, set, del } from "idb-keyval";
 
-export interface PlayerScore {
-  name: string;
-  color: string;
-  scores: Record<string, number>;
-  roundScores?: number[];
+export interface RoundRecord {
+  selections: Record<string, number>;
+  score: number;
 }
 
 export interface ScoreSession {
   slug: string;
-  players: PlayerScore[];
-  currentRound: number;
-  createdAt: number;
+  playerCount: number;
+  rounds: RoundRecord[];
+  currentSelections: Record<string, number>;
   updatedAt: number;
 }
 

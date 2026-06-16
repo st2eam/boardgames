@@ -121,21 +121,21 @@ export function GameFamilyCard({ games }: Props) {
           </div>
 
           <div className="flex items-center gap-2 px-4 py-2.5">
-            <div className="min-w-0 flex-1 overflow-hidden whitespace-nowrap">
+            <div className="min-w-0 flex-1 flex flex-wrap gap-1">
               {base.hasFlow && (
-                <span className="mr-1 inline-block rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
+                <span className="rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
                   {t("viewFlow")}
                 </span>
               )}
               {base.hasScore && (
-                <span className="mr-1 inline-block rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
+                <span className="rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
                   {t("scoreTracker")}
                 </span>
               )}
               {base.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="mr-1 inline-block rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] font-medium text-stone-500"
+                  className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] font-medium text-stone-500"
                 >
                   {tag}
                 </span>

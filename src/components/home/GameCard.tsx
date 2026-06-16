@@ -74,14 +74,14 @@ export function GameCard({ game }: Props) {
 
         {/* Footer */}
         <div className="flex items-center gap-2 px-4 py-2.5 min-h-[36px]">
-          <div className="min-w-0 flex-1 overflow-hidden whitespace-nowrap" title={[...functional, ...descriptive].join(", ")}>
+          <div className="min-w-0 flex-1 flex flex-wrap gap-1" title={[...functional, ...descriptive].join(", ")}>
             {functional.map((tag) => (
-              <span key={tag} className="mr-1 inline-block rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
+              <span key={tag} className="rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
                 {tag}
               </span>
             ))}
             {descriptive.map((tag) => (
-              <span key={tag} className="mr-1 inline-block rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] font-medium text-stone-500">
+              <span key={tag} className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] font-medium text-stone-500">
                 {tag}
               </span>
             ))}
@@ -139,14 +139,14 @@ export function GameCard({ game }: Props) {
               {game.duration}
             </span>
           </p>
-          <div className="mt-2.5 min-h-[24px] overflow-hidden whitespace-nowrap" title={[...functional, ...descriptive].join(", ")}>
+          <div className="mt-2.5 min-h-[24px] flex flex-wrap gap-1" title={[...functional, ...descriptive].join(", ")}>
             {functional.map((tag) => (
-              <span key={tag} className="mr-1.5 inline-block rounded-lg bg-accent-light px-2 py-0.5 text-[11px] font-medium text-accent-dark">
+              <span key={tag} className="rounded-lg bg-accent-light px-2 py-0.5 text-[11px] font-medium text-accent-dark">
                 {tag}
               </span>
             ))}
             {descriptive.map((tag) => (
-              <span key={tag} className="mr-1.5 inline-block rounded-lg bg-stone-100 px-2 py-0.5 text-[11px] font-medium text-stone-500">
+              <span key={tag} className="rounded-lg bg-stone-100 px-2 py-0.5 text-[11px] font-medium text-stone-500">
                 {tag}
               </span>
             ))}
@@ -198,14 +198,14 @@ export function GameCard({ game }: Props) {
             {game.duration}
           </span>
         </div>
-        <div className="mt-auto min-h-[22px] overflow-hidden whitespace-nowrap" title={[...functional, ...descriptive].join(", ")}>
+        <div className="mt-auto min-h-[22px] flex flex-wrap gap-1" title={[...functional, ...descriptive].join(", ")}>
           {functional.map((tag) => (
-            <span key={tag} className="mr-1.5 inline-block rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
+            <span key={tag} className="rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
               {tag}
             </span>
           ))}
           {descriptive.map((tag) => (
-            <span key={tag} className="mr-1.5 inline-block rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] font-medium text-stone-500">
+            <span key={tag} className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] font-medium text-stone-500">
               {tag}
             </span>
           ))}

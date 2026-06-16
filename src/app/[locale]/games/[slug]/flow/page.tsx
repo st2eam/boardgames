@@ -2,6 +2,7 @@ import { GameRepository } from "@/lib/content/GameRepository";
 import { DecisionTree } from "@/components/game/DecisionTree";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import Link from "next/link";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -33,7 +34,7 @@ export default async function FlowPage({ params }: Props) {
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-6 flex items-center justify-between">
-        <a
+        <Link
           href={`/${locale}/games/${slug}/`}
           className="inline-flex items-center gap-1.5 text-sm text-accent hover:text-accent/80 transition-colors"
         >
@@ -52,7 +53,7 @@ export default async function FlowPage({ params }: Props) {
             />
           </svg>
           {meta.name[locale as "en" | "zh"] ?? meta.name.en}
-        </a>
+        </Link>
       </div>
       <h1 className="mb-6 font-heading text-2xl font-bold tracking-tight text-primary-dark sm:text-3xl">
         {meta.name[locale as "en" | "zh"] ?? meta.name.en}

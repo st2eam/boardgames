@@ -102,7 +102,7 @@ export function GameFamilyCard({ games }: Props) {
           className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-amber-300/60"
         >
           <GameCover
-            slug={base.slug}
+            name={base.name.en}
             gradient={gradient}
             className={base.category === "card" ? "min-h-56" : "h-28 sm:h-32"}
           >

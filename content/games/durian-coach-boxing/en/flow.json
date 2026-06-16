@@ -1,0 +1,146 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Game Setup", "zh": "Game Setup" },
+      "content": "1. Place 4 large map tiles at the corners; arrange 5 small tiles between each pair\n2. Player who most recently ate durian goes first, then clockwise\n3. Each player picks a character card + matching pawn color\n4. Each player receives **¥1000** starting bonus\n5. Place pawns at Start\n\n🎯 **Goal: First player to own 10 houses wins!**",
+      "options": [
+        { "label": { "en": "Start My Turn", "zh": "Start My Turn" }, "next": "roll" }
+      ]
+    },
+    "roll": {
+      "title": { "en": "Roll & Move", "zh": "Roll & Move" },
+      "content": "Roll **1 die** and move that many spaces **counter-clockwise**.\n\nCollect ¥200 if you pass Start during movement.\n\nWhat type of space did you land on?",
+      "options": [
+        { "label": { "en": "Start", "zh": "Start" }, "next": "start" },
+        { "label": { "en": "Shower Room", "zh": "Shower Room" }, "next": "shower" },
+        { "label": { "en": "Forgot to Book Class", "zh": "Forgot to Book Class" }, "next": "forgot" },
+        { "label": { "en": "Slacking Off", "zh": "Slacking Off" }, "next": "slack" },
+        { "label": { "en": "Unowned Facility", "zh": "Unowned Facility" }, "next": "buy" },
+        { "label": { "en": "My Own Facility", "zh": "My Own Facility" }, "next": "own-facility" },
+        { "label": { "en": "Other's Facility", "zh": "Other's Facility" }, "next": "pay-fee" },
+        { "label": { "en": "Other / Event", "zh": "Other / Event" }, "next": "event" }
+      ]
+    },
+    "start": {
+      "title": { "en": "Start Space", "zh": "Start Space" },
+      "content": "Hard day's work!\n\n- **Passing** Start: collect **¥200**\n- **Landing exactly** on Start: collect **¥400**",
+      "options": [
+        { "label": { "en": "Check Win → End Turn", "zh": "Check Win → End Turn" }, "next": "endcheck" }
+      ]
+    },
+    "shower": {
+      "title": { "en": "Shower Room", "zh": "Shower Room" },
+      "content": "A nice fragrant shower room 🚿\n\nNo effect — safe space!",
+      "options": [
+        { "label": { "en": "End Turn", "zh": "End Turn" }, "next": "endcheck" }
+      ]
+    },
+    "forgot": {
+      "title": { "en": "Forgot to Book Class", "zh": "Forgot to Book Class" },
+      "content": "You forgot to book your class! Stand outside the shower as punishment!\n\n**Move backward** to the Shower Room (move clockwise).\n\n⚠️ While moving backward:\n- **Cannot** collect Start bonus\n- **Cannot** trigger any space effects",
+      "options": [
+        { "label": { "en": "End Turn", "zh": "End Turn" }, "next": "endcheck" }
+      ]
+    },
+    "slack": {
+      "title": { "en": "Slacking Off", "zh": "Slacking Off" },
+      "content": "Caught slacking! 🐟\n\n**Rest** for one turn — skip your next action.",
+      "options": [
+        { "label": { "en": "End Turn", "zh": "End Turn" }, "next": "endcheck" }
+      ]
+    },
+    "buy": {
+      "title": { "en": "Unowned Facility", "zh": "Unowned Facility" },
+      "content": "This facility has no owner! You may choose to buy it.\n\nWhat type of facility is it?",
+      "options": [
+        { "label": { "en": "Training (¥60~350)", "zh": "Training (¥60~350)" }, "next": "buy-training" },
+        { "label": { "en": "Metro Line", "zh": "Metro Line" }, "next": "buy-metro" },
+        { "label": { "en": "Entertainment", "zh": "Entertainment" }, "next": "buy-entertainment" },
+        { "label": { "en": "Pass (Don't Buy)", "zh": "Pass (Don't Buy)" }, "next": "endcheck" }
+      ]
+    },
+    "buy-training": {
+      "title": { "en": "Buy Training Facility", "zh": "Buy Training Facility" },
+      "content": "Pay the listed price to buy a training facility:\n\n| Facility | Cost |\n|----------|------|\n| Static Stretching | ¥60 |\n| Ladder Climb | ¥150 |\n| Medicine Ball | ¥250 |\n| Target Practice | ¥350 |\n\nPlace **1 house** on the facility.\n\n💡 Owning all training facilities of one color **doubles** their fees!",
+      "options": [
+        { "label": { "en": "Check Win → End Turn", "zh": "Check Win → End Turn" }, "next": "endcheck" }
+      ]
+    },
+    "buy-metro": {
+      "title": { "en": "Buy Metro Line", "zh": "Buy Metro Line" },
+      "content": "Buy a metro line! Place **1 house**.\n\nFees scale with how many you own:\n\n| Owned | Fee |\n|-------|-----|\n| 1 | ¥50 |\n| 2 | ¥100 |\n| 3 | ¥200 |",
+      "options": [
+        { "label": { "en": "Check Win → End Turn", "zh": "Check Win → End Turn" }, "next": "endcheck" }
+      ]
+    },
+    "buy-entertainment": {
+      "title": { "en": "Buy Entertainment Facility", "zh": "Buy Entertainment Facility" },
+      "content": "Buy an entertainment facility! Place **1 house**.\n\nWhen someone lands here, roll **two dice** — they pay **sum × ¥10**.\n\n(Example: Roll 3+5=8, collect ¥80)",
+      "options": [
+        { "label": { "en": "Check Win → End Turn", "zh": "Check Win → End Turn" }, "next": "endcheck" }
+      ]
+    },
+    "own-facility": {
+      "title": { "en": "My Own Facility", "zh": "My Own Facility" },
+      "content": "You landed on your own facility!\n\nIf this is a **training facility**, you may **upgrade** it by paying the same purchase price and placing an additional house.",
+      "options": [
+        { "label": { "en": "Upgrade!", "zh": "Upgrade!" }, "next": "upgrade" },
+        { "label": { "en": "Skip / Not Training", "zh": "Skip / Not Training" }, "next": "endcheck" }
+      ]
+    },
+    "upgrade": {
+      "title": { "en": "Upgrade Training Facility", "zh": "Upgrade Training Facility" },
+      "content": "Pay the **same price as the original purchase** to upgrade!\n\n- Place **1 additional house** on the facility\n- Training fees increase accordingly\n\n💡 Remember: Owning all same-color training facilities **doubles** all their fees!",
+      "options": [
+        { "label": { "en": "Check Win → End Turn", "zh": "Check Win → End Turn" }, "next": "endcheck" }
+      ]
+    },
+    "pay-fee": {
+      "title": { "en": "Other Player's Facility", "zh": "Other Player's Facility" },
+      "content": "You landed on another player's facility — pay up!\n\nFee depends on facility type:\n- **Training**: Fee based on level (doubled if owner has all same-color)\n- **Metro Line**: ¥50/100/200 based on how many the owner has\n- **Entertainment**: Roll two dice, pay sum × ¥10",
+      "options": [
+        { "label": { "en": "Can Pay", "zh": "Can Pay" }, "next": "endcheck" },
+        { "label": { "en": "Can't Pay → Sell/Auction", "zh": "Can't Pay → Sell" }, "next": "sell" },
+        { "label": { "en": "Totally Broke!", "zh": "Bankrupt!" }, "next": "bankrupt" }
+      ]
+    },
+    "sell": {
+      "title": { "en": "Sell Facilities", "zh": "Sell Facilities" },
+      "content": "Need cash? Sell your facilities:\n\n**Sell to Coach Durian:**\nSell at **50%** of total value (including upgrades)\n\n**Auction to other players:**\nPlayers take turns bidding; sell to highest bidder\n\n⚠️ Facilities can only be sold whole — no selling individual houses",
+      "options": [
+        { "label": { "en": "Sold — Continue", "zh": "Sold — Continue" }, "next": "endcheck" },
+        { "label": { "en": "Still Can't Pay", "zh": "Still Can't Pay" }, "next": "bankrupt" }
+      ]
+    },
+    "bankrupt": {
+      "title": { "en": "Bankruptcy!", "zh": "Bankruptcy!" },
+      "content": "💀 No facilities, no cash, and still in debt…\n\n**You are bankrupt and eliminated!**\n\nCoach Durian reclaims your pawn and remaining houses. Other players continue.",
+      "options": [
+        { "label": { "en": "Next Player's Turn", "zh": "Next Player's Turn" }, "next": "roll" }
+      ]
+    },
+    "event": {
+      "title": { "en": "Event / Special Space", "zh": "Event / Special Space" },
+      "content": "You landed on an event or special space!\n\nFollow the instructions on the space.\n\n**Glossary reminder:**\n- **Rest** = Skip your turn\n- **Move Backward** = Move clockwise; no Start bonus, no space effects\n- **Penalty** = Rest, backward moves, or unfavorable events\n- **Check** = Any non-movement dice roll\n- All ¥5 values are **rounded up to ¥10**",
+      "options": [
+        { "label": { "en": "Check Win → End Turn", "zh": "Check Win → End Turn" }, "next": "endcheck" }
+      ]
+    },
+    "endcheck": {
+      "title": { "en": "End of Turn", "zh": "End of Turn" },
+      "content": "Check: Do you now own **10 or more houses**?\n\n(Count all houses from purchases + upgrades)",
+      "options": [
+        { "label": { "en": "Yes! I Win! 🎉", "zh": "Yes! I Win! 🎉" }, "next": "victory" },
+        { "label": { "en": "Not Yet → Next Player", "zh": "Not Yet → Next Player" }, "next": "roll" }
+      ]
+    },
+    "victory": {
+      "title": { "en": "Victory!", "zh": "Victory!" },
+      "content": "🏆 Congratulations! You are the new coach of the Big Boxing Gym!\n\nYou're the first player to own 10 houses!",
+      "options": [
+        { "label": { "en": "New Game", "zh": "New Game" }, "next": "setup" }
+      ]
+    }
+  }
+}

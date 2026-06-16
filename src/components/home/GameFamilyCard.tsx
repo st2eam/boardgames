@@ -4,7 +4,6 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import type { GameSummary } from "@/types/game";
 import { useLocale, useTranslations } from "next-intl";
-import { GameCover } from "./GameCover";
 
 function TruncatedName({ name }: { name: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -101,11 +100,13 @@ export function GameFamilyCard({ games }: Props) {
           href={`/${locale}/games/${base.slug}/`}
           className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-amber-300/60"
         >
-          <GameCover
-            slug={base.slug}
-            gradient={gradient}
-            className={base.category === "card" ? "min-h-56" : "h-28 sm:h-32"}
+          <div
+            className={`relative bg-gradient-to-br ${gradient} ${base.category === "card" ? "min-h-56" : "h-28 sm:h-32"}`}
           >
+            <div className="absolute inset-0 opacity-20" aria-hidden="true">
+              <div className="absolute -top-6 -right-6 h-40 w-40 rounded-full bg-white/40" />
+              <div className="absolute top-1/3 -left-4 h-28 w-28 rounded-full bg-white/25" />
+            </div>
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent p-4 pt-16">
               <h3 className="font-heading text-lg font-bold leading-tight text-white">
                 {baseName}
@@ -117,7 +118,7 @@ export function GameFamilyCard({ games }: Props) {
             <span className="absolute top-3 left-3 rounded-full bg-white/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
               {base.category}
             </span>
-          </GameCover>
+          </div>
 
           <div className="flex items-center gap-2 px-4 py-2.5">
             <div className="min-w-0 flex-1 flex flex-wrap gap-1">

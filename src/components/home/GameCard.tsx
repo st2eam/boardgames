@@ -3,7 +3,6 @@
 import Link from "next/link";
 import type { GameSummary } from "@/types/game";
 import { useTranslations, useLocale } from "next-intl";
-import { GameCover } from "./GameCover";
 
 interface Props {
   game: GameSummary;
@@ -53,7 +52,13 @@ export function GameCard({ game }: Props) {
         className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover hover:border-amber-300/60 active:translate-y-0"
       >
         {/* Cover area */}
-        <GameCover slug={game.slug} gradient={gradient} className="flex-1 min-h-64">
+        <div className={`relative flex-1 bg-gradient-to-br ${gradient} min-h-64`}>
+          <div className="absolute inset-0 opacity-20" aria-hidden="true">
+            <div className="absolute -top-6 -right-6 h-40 w-40 rounded-full bg-white/40" />
+            <div className="absolute top-1/3 -left-4 h-28 w-28 rounded-full bg-white/25" />
+            <div className="absolute bottom-1/4 right-8 h-6 w-6 rounded-full bg-white/50" />
+            <div className="absolute top-1/2 left-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/10" />
+          </div>
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent p-4 pt-20">
             <h3 className="font-heading text-lg font-bold leading-tight text-white">
               {name}
@@ -65,7 +70,7 @@ export function GameCard({ game }: Props) {
           <span className="absolute top-3 left-3 rounded-full bg-white/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
             {game.category}
           </span>
-        </GameCover>
+        </div>
 
         {/* Footer */}
         <div className="flex items-center gap-2 px-4 py-2.5 min-h-[36px]">
@@ -98,11 +103,16 @@ export function GameCard({ game }: Props) {
         className="group relative flex overflow-hidden rounded-2xl border border-border bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover hover:border-amber-300/60 active:translate-y-0"
       >
         {/* Cover — left side */}
-        <GameCover slug={game.slug} gradient={gradient} className="w-40 shrink-0 sm:w-56">
+        <div className={`relative w-40 shrink-0 bg-gradient-to-br ${gradient} sm:w-56`}>
+          <div className="absolute inset-0 opacity-20" aria-hidden="true">
+            <div className="absolute -top-4 -right-4 h-32 w-32 rounded-full bg-white/40" />
+            <div className="absolute -bottom-6 -left-2 h-24 w-24 rounded-full bg-white/30" />
+            <div className="absolute bottom-8 right-6 h-6 w-6 rounded-full bg-white/50" />
+          </div>
           <span className="absolute bottom-3 left-3 rounded-full bg-white/25 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
             {game.category}
           </span>
-        </GameCover>
+        </div>
 
         {/* Content — right side */}
         <div className="flex flex-1 flex-col justify-center p-5 sm:p-6 min-w-0">
@@ -153,11 +163,15 @@ export function GameCard({ game }: Props) {
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover hover:border-amber-300/60 active:translate-y-0"
     >
       {/* Cover image area */}
-      <GameCover slug={game.slug} gradient={gradient} className="h-28 sm:h-32">
+      <div className={`relative h-28 bg-gradient-to-br ${gradient} sm:h-32`}>
+        <div className="absolute inset-0 opacity-20" aria-hidden="true">
+          <div className="absolute -top-3 right-6 h-20 w-20 rounded-full bg-white/50" />
+          <div className="absolute -bottom-4 -left-2 h-16 w-16 rounded-full bg-white/30" />
+        </div>
         <span className="absolute bottom-2 left-3 rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/90 backdrop-blur-sm">
           {game.category}
         </span>
-      </GameCover>
+      </div>
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-4">

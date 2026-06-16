@@ -10,49 +10,48 @@ Shuffle all 8 expansion cards into the base game deck. No other rule changes are
 
 ## New Cards
 
-### Duo Cards (Score Multipliers)
+### Duo Cards
 
 #### Jellyfish + Swimmer (水母 + 泳客)
-- **Score:** 1 point per pair
-- **Effect:** All other players are restricted on their next turn — they may only draw one card from the top of the deck. They cannot play any cards, and they cannot trigger end of round.
+- **Score:** 1 point for each Jellyfish + Swimmer combination
+- **Effect:** On their next turn, opposing players can only draw the first card from the deck. They cannot play any cards or end the round.
 
 #### Lobster + Crab (龙虾 + 螃蟹)
-- **Score:** 1 point per pair
-- **Effect:** Draw the top 5 cards from the deck, keep 1 card of your choice, then shuffle the remaining 4 back into the deck.
+- **Score:** 1 point for each Lobster + Crab combination
+- **Effect:** The player takes the first 5 cards from the deck, adds one of them to their hand, then returns the other 4 to the deck and shuffles it.
 
 ### Special Cards
 
-#### Basket of Crabs (螃蟹大军)
-- **Type:** Score multiplier
-- **Score:** Worth 1 point for each Crab card you have (including Crab cards in Duo pairs)
-- **Note:** This card itself is NOT counted as a Crab card.
-
 #### Starfish (海星)
-- **Type:** Triple combo
-- **Score:** 3 points
-- **How it works:** Play with any Duo pair (two matching cards) to form a "triple". The Starfish is worth 3 points, but **cancels the Duo's special effect** — you only get the points, not the ability.
-- **Note:** The Duo pair still scores its normal point value.
+- **How it works:** If a player has a duo and a Starfish card in their hand, they can form a **trio** and place all three cards in front of them.
+- **Score:** The Starfish adds 2 points to the duo (therefore, the trio is worth **3 points total**).
+- **Effect:** Cancels the effect of the duo cards placed with the Starfish. You only get the points, not the duo's ability.
 
 #### Seahorse (海马)
-- **Type:** Wild collection card
-- **How it works:** Counts as any one type of collection card (Penguin, Octopus, Shell, Fish, Sailor, etc.). Fill in whichever gap you need to complete a collection set.
-- **Note:** Can only represent one type at a time for scoring purposes.
+- **How it works:** The player can use the Seahorse to replace a **missing Collector card** (octopus, shell, penguin, or sailor).
+- **Restrictions:**
+  - You must already have **at least one card** of that collection type in your hand.
+  - You **cannot gain more points** than the maximum indicated on the matching Collector card.
+
+#### Crab Multiplier (螃蟹大军)
+- **Score:** 1 point per Crab card you have
+- **Note:** This card itself does NOT count as a Crab card.
 
 ## Card Count Summary
 
 | Card | Quantity | Type |
 |------|:--------:|------|
 | Jellyfish | 2 | Duo (pairs with Swimmer) |
-| Lobster | 2 | Duo (pairs with Crab) |
-| Basket of Crabs | 1 | Score multiplier |
-| Starfish | 1 | Triple combo |
-| Seahorse | 2 | Wild collection |
+| Lobster | 1 | Duo (pairs with Crab) |
+| Starfish | 3 | Triple combo |
+| Seahorse | 1 | Wild collector |
+| Crab Multiplier | 1 | Score multiplier |
 | **Total** | **8** | |
 
 ## Strategy Tips
 
-- Lobster + Crab combo gives you a huge selection advantage (see 5, keep 1)
-- Jellyfish can be devastating if timed to lock opponents before they declare end of round
-- Basket of Crabs synergizes heavily with multiple Crab pairs
-- Starfish is a trade-off: +3 points but you lose the Duo effect — calculate if it's worth it
-- Seahorse is most valuable late-game to fill collection gaps
+- Lobster + Crab lets you see 5 cards and keep the best one — huge selection advantage
+- Jellyfish is devastating when timed before an opponent plans to declare end of round
+- Crab Multiplier synergizes with collecting multiple Crab pairs
+- Starfish is a trade-off: the trio scores 3 points total but you lose the duo's effect — worth it if the duo effect isn't useful at that moment
+- Seahorse is most valuable late-game to complete a collector set you've already started

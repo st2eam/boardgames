@@ -172,3 +172,88 @@ Players can only bet chips they had at the start of the hand. You cannot add chi
 
 ### String Betting
 A raise must be announced verbally or made in a single motion. Placing chips in multiple installments without announcing a raise is typically not allowed.
+
+---
+
+## Glossary
+
+### Basic Terms
+
+| Term | Description |
+|------|-------------|
+| Pot | Total chips wagered in the current hand |
+| Hole Cards | Your two private face-down cards |
+| Community Cards | The five shared face-up cards on the board |
+| Blind | Forced bet (small + big) ensuring action every hand |
+| Ante | Small forced bet from all players before dealing (common in late tournament stages) |
+| Burn Card | Card discarded face-down before dealing community cards to prevent cheating |
+| Showdown | Revealing hole cards to determine the winner |
+| Muck | Discarding your hand without showing after being beaten |
+| Kicker | Tie-breaking card(s) when players share the same hand type |
+
+### Betting Terms
+
+| Term | Description |
+|------|-------------|
+| Check-Raise | Check first (inducing a bet), then raise when opponent bets |
+| C-bet (Continuation Bet) | Pre-flop raiser bets again on the flop regardless of hand improvement |
+| 3-Bet | Re-raise over an initial raise (blinds → raise → 3-bet) |
+| 4-Bet | Re-raise over a 3-bet |
+| Steal | Raising from late position with a weak hand to win the blinds |
+| Squeeze | Large 3-bet after a raise and one or more callers |
+| Limp | Calling only the big blind pre-flop (without raising) |
+| Fold Equity | The additional win probability gained by making opponents fold |
+
+### Strategy Terms
+
+| Term | Description |
+|------|-------------|
+| Nuts | The best possible hand given the current board |
+| Outs | Number of remaining cards that will complete your hand |
+| Draw | An incomplete hand needing one or two more cards to complete |
+| Bluff | Betting strongly with a weak hand to make opponents fold |
+| Semi-Bluff | Betting with a draw — still has equity even if called |
+| Value Bet | Betting with what you believe is the best hand, hoping for a call |
+| Slow Play | Under-representing a strong hand to trap opponents into betting |
+| Pot Odds | Ratio of call cost to pot size; used to determine profitable calls |
+| Implied Odds | Expected future winnings if you complete your draw |
+| Position | Later position = more information = strategic advantage |
+| TAG (Tight-Aggressive) | Plays few hands but bets/raises aggressively with them |
+| LAG (Loose-Aggressive) | Plays many hands and bets/raises aggressively |
+
+### Board Texture Terms
+
+| Term | Description |
+|------|-------------|
+| Broadway | A-K-Q-J-10 straight (the highest straight) |
+| Wheel | A-2-3-4-5 straight (the lowest straight) |
+| Paired Board | Community cards contain a pair (full house/quads possible) |
+| Wet Board | Board with many draw possibilities (connected/suited cards) |
+| Dry Board | Board with few draw possibilities (scattered, disconnected) |
+| Rainbow | Flop with three different suits (no flush draw possible) |
+| Overpair | Pocket pair higher than all community cards (e.g., KK on J-8-3) |
+| Set | Three of a kind using a pocket pair + one community card |
+| Trips | Three of a kind using one hole card + a pair on the board |
+
+---
+
+## Pot Odds Quick Reference
+
+Flush draw (9 outs) flop-to-river: ~**35%**  
+Open-ended straight draw (8 outs) flop-to-river: ~**31%**  
+Single-street approximation: outs × 2 + 1 = approximate %
+
+| Single Street | Outs | Approx. % |
+|:---:|:---:|:---:|
+| | 1 | 2% |
+| | 2 | 4% |
+| | 4 | 9% |
+| | 6 | 13% |
+| | 8 | 17% |
+| | 9 | 19% |
+| | 12 | 26% |
+| | 15 | 33% |
+
+**Decision formula:** If pot odds > draw odds, calling is profitable long-term.
+
+Example: Pot is 1000, opponent bets 500, you need to call 500 to win 1500. Pot odds = 500/1500 = 33%. With 9 outs (flush draw, ~19% single street), a call isn't directly profitable — but with implied odds (winning more when you hit), it may still be correct.

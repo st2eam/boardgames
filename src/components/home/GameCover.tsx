@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
+
+const EXTS = ["webp", "png", "jpg", "jpeg"] as const;
 
 interface Props {
   slug: string;
@@ -11,24 +13,29 @@ interface Props {
 
 export function GameCover({ slug, gradient, className = "", children }: Props) {
   const [imgLoaded, setImgLoaded] = useState(false);
-  const [imgError, setImgError] = useState(false);
+  const [extIdx, setExtIdx] = useState(0);
   const basePath = process.env.__NEXT_ROUTER_BASEPATH || "/boardgames";
-  const src = `${basePath}/images/games/${slug}.webp`;
+  const allFailed = extIdx >= EXTS.length;
+  const src = allFailed ? "" : `${basePath}/images/games/${slug}.${EXTS[extIdx]}`;
+
+  const handleError = useCallback(() => {
+    setExtIdx((i) => i + 1);
+  }, []);
 
   return (
     <div className={`relative overflow-hidden bg-gradient-to-br ${gradient} ${className}`}>
-      {!imgError && (
+      {!allFailed && (
         <img
           src={src}
           alt=""
           onLoad={() => setImgLoaded(true)}
-          onError={() => setImgError(true)}
+          onError={handleError}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
           loading="lazy"
           draggable={false}
         />
       )}
-      {(imgError || !imgLoaded) && (
+      {(allFailed || !imgLoaded) && (
         <div className="absolute inset-0 opacity-20" aria-hidden="true">
           <div className="absolute -top-6 -right-6 h-40 w-40 rounded-full bg-white/40" />
           <div className="absolute top-1/3 -left-4 h-28 w-28 rounded-full bg-white/25" />

@@ -1,4 +1,4 @@
-import type { GameMeta, FlowData } from "@/types/game";
+import type { GameMeta, FlowData, ScoreConfig } from "@/types/game";
 import { loadJson, loadMarkdown, fileExists } from "./markdown";
 
 export class GameRepository {
@@ -23,6 +23,17 @@ export class GameRepository {
       return null;
     }
     return loadJson<FlowData>(slug, locale, "flow.json");
+  }
+
+  static async getScoreConfig(slug: string): Promise<ScoreConfig | null> {
+    if (!fileExists(slug, "score.json")) {
+      return null;
+    }
+    return loadJson<ScoreConfig>(slug, "score.json");
+  }
+
+  static hasScoreConfig(slug: string): boolean {
+    return fileExists(slug, "score.json");
   }
 
   static async getAllTags(): Promise<string[]> {

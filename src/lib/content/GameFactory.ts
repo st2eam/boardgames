@@ -12,6 +12,7 @@ export class GameFactory {
   static async createGameSummary(slug: string): Promise<GameSummary> {
     const meta = await GameRepository.getGameMeta(slug);
     const hasFlow = (await GameRepository.getFlowData(slug, "en")) !== null;
+    const hasScore = GameRepository.hasScoreConfig(slug);
     return {
       slug: meta.slug,
       name: meta.name,
@@ -21,6 +22,7 @@ export class GameFactory {
       tags: meta.tags,
       category: meta.category,
       hasFlow,
+      hasScore,
       family: meta.family,
       familyOrder: meta.familyOrder,
       variantType: meta.variantType,

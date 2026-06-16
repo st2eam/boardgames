@@ -8,6 +8,7 @@
 
 - **26 款游戏规则**：经过网络验证的中英双语完整规则
 - **15 款交互式决策树**：分步交互流程，含侧边栏目录导航
+- **13 款游戏计分器**：支持 VP 制、回合制、累计制三种计分模式，数据持久化
 - **游戏系列分组**：UNO、脏小猪、三国杀、爆炸猫、璀璨宝石、海盐折纸、卡坦岛等系列以堆叠卡片效果展示
 - **DLC / 变体支持**：小猪选美、不臣之君、黑盒版、UNO Flip、UNO No Mercy、璀璨宝石宝可梦版、盐趣倍增、中国版图
 - **规则导出**：支持导出为 PDF 或下载 Markdown 原文
@@ -49,40 +50,40 @@ npm run build
 
 ### 独立游戏
 
-| 游戏 | 规则 | 决策树 |
-|------|:----:|:------:|
-| 德州扑克 | ✅ | ✅ |
-| TACTA | ✅ | ✅ |
-| 卡坦岛 | ✅ | ✅ |
-| 卡卡颂 | ✅ | ✅ |
-| 现代艺术 | ✅ | ✅ |
-| 海盐折纸 | ✅ | ✅ |
-| 摩天大楼 (GoTown) | ✅ | ✅ |
-| 荒野之王 (Just Wild) | ✅ | ✅ |
-| 风声再临 | ✅ | ✅ |
-| Cabo | ✅ | ✅ |
-| 群星二十一 | ✅ | — |
-| 榴莲教练的大拳馆 | ✅ | — |
+| 游戏 | 规则 | 决策树 | 计分器 |
+|------|:----:|:------:|:------:|
+| 德州扑克 | ✅ | ✅ | — |
+| TACTA | ✅ | ✅ | ✅ |
+| 卡坦岛 | ✅ | ✅ | ✅ |
+| 卡卡颂 | ✅ | ✅ | ✅ |
+| 现代艺术 | ✅ | ✅ | ✅ |
+| 海盐折纸 | ✅ | ✅ | ✅ |
+| 摩天大楼 (GoTown) | ✅ | ✅ | — |
+| 荒野之王 (Just Wild) | ✅ | ✅ | ✅ |
+| 风声再临 | ✅ | ✅ | — |
+| Cabo | ✅ | ✅ | ✅ |
+| 群星二十一 | ✅ | — | — |
+| 榴莲教练的大拳馆 | ✅ | — | — |
 
 ### 游戏系列
 
-| 系列 | 游戏 | 类型 | 规则 | 决策树 |
-|------|------|------|:----:|:------:|
-| UNO | UNO | 本体 | ✅ | ✅ |
-| | UNO Flip | 变体 | ✅ | ✅ |
-| | UNO No Mercy | 变体 | ✅ | ✅ |
-| 脏小猪 | 脏小猪 | 本体 | ✅ | ✅ |
-| | 小猪选美 | DLC（需本体） | ✅ | — |
-| 三国杀 | 三国杀 | 本体 | ✅ | ✅ |
-| | 不臣之君 | DLC（需本体） | ✅ | — |
-| 爆炸猫 | 爆炸猫（红盒版） | 本体 | ✅ | ✅ |
-| | 爆炸猫：黑盒版 | 变体（可独立） | ✅ | — |
-| 璀璨宝石 | 璀璨宝石 | 本体 | ✅ | — |
-| | 璀璨宝石：宝可梦版 | 变体（可独立） | ✅ | — |
-| 海盐折纸 | 海盐折纸 | 本体 | ✅ | ✅ |
-| | 盐趣倍增 | DLC（需本体） | ✅ | — |
-| 卡坦岛 | 卡坦岛 | 本体 | ✅ | ✅ |
-| | 中国版图 | 变体（可独立） | ✅ | — |
+| 系列 | 游戏 | 类型 | 规则 | 决策树 | 计分器 |
+|------|------|------|:----:|:------:|:------:|
+| UNO | UNO | 本体 | ✅ | ✅ | ✅ |
+| | UNO Flip | 变体 | ✅ | ✅ | ✅ |
+| | UNO No Mercy | 变体 | ✅ | ✅ | ✅ |
+| 脏小猪 | 脏小猪 | 本体 | ✅ | ✅ | — |
+| | 小猪选美 | DLC（需本体） | ✅ | — | — |
+| 三国杀 | 三国杀 | 本体 | ✅ | ✅ | — |
+| | 不臣之君 | DLC（需本体） | ✅ | — | — |
+| 爆炸猫 | 爆炸猫（红盒版） | 本体 | ✅ | ✅ | — |
+| | 爆炸猫：黑盒版 | 变体（可独立） | ✅ | — | — |
+| 璀璨宝石 | 璀璨宝石 | 本体 | ✅ | — | ✅ |
+| | 璀璨宝石：宝可梦版 | 变体（可独立） | ✅ | — | ✅ |
+| 海盐折纸 | 海盐折纸 | 本体 | ✅ | ✅ | ✅ |
+| | 盐趣倍增 | DLC（需本体） | ✅ | — | — |
+| 卡坦岛 | 卡坦岛 | 本体 | ✅ | ✅ | ✅ |
+| | 中国版图 | 变体（可独立） | ✅ | — | ✅ |
 
 ---
 
@@ -93,6 +94,7 @@ content/games/
 ├── index.json                    # 游戏注册表（slug 数组）
 ├── catan/
 │   ├── meta.json                 # 游戏元数据
+│   ├── score.json                # 可选：计分器配置
 │   ├── zh/{rules.md, flow.json}  # 中文规则 + 可选决策树
 │   └── en/{rules.md, flow.json}  # 英文规则 + 可选决策树
 └── ...（共 26 款游戏）
@@ -102,9 +104,11 @@ src/
 ├── components/
 │   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, Sidebar, HeroBanner
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
+│   ├── game/score/               # ScoreTracker, VPTracker, RoundTracker, CumulativeTracker, PlayerSetup
 │   ├── chat/                     # LLM 对话组件
 │   └── layout/                   # Header, Footer, BackToTop
 ├── lib/content/                  # 内容层（Repository + Factory 模式）
+├── lib/score/                    # 计分器（score-storage + useScoreState hook）
 └── types/                        # TypeScript 类型定义
 ```
 
@@ -172,6 +176,7 @@ src/
 | `/en` `/zh` | 首页：游戏卡片网格 + 全局 AI 对话 |
 | `/en/games/catan` | 规则页：GameHeader + 规则正文 + 导出 + 相关游戏 + 对话 |
 | `/en/games/catan/flow` | 交互式决策树（仅 flow.json 存在时生成） |
+| `/en/games/catan/score` | 计分器（仅 score.json 存在时生成） |
 
 ---
 
@@ -188,10 +193,25 @@ src/
 ### 游戏规则页
 
 - GameHeader：标题、人数、时长、难度、标签
-- 操作按钮：交互式决策树（如有）+ 导出（PDF / Markdown）
+- 操作按钮：交互式决策树（如有）+ 计分器（如有）+ 导出（PDF / Markdown）
 - MarkdownRenderer：渲染规则正文
 - RelatedGames：同系列游戏导航（如有 family 分组）
 - ChatToggle：右下角 LLM 对话，支持游戏限定 / 全局模式切换
+
+### 计分器
+
+独立页面 `/[locale]/games/[slug]/score/`，仅有 `score.json` 的游戏会生成此页面。
+
+| 类型 | 适用游戏 | 说明 |
+|------|---------|------|
+| `victory-points` | 卡坦岛、璀璨宝石、荒野之王 | 按分类 +/- 计分，显示总和与进度条 |
+| `rounds` | 现代艺术、TACTA | 每轮输入分数，显示历史轮次和累计 |
+| `cumulative` | UNO 系列、海盐折纸、Cabo | 多轮累计，排行榜 + 历史记录 |
+
+功能：
+- 玩家管理：动态添加/删除，自定义名称和颜色
+- 数据持久化：IndexedDB 自动保存，刷新不丢失
+- 到达目标分时高亮胜利者
 
 ### 交互式决策树
 
@@ -231,6 +251,7 @@ src/
 | **Repository** | `GameRepository.ts` | 统一封装文件系统内容访问 |
 | **Factory** | `GameFactory.ts` | 组装 Game 领域对象，分离构造与数据访问 |
 | **Strategy** | `GlobalChatStrategy` / `GameChatStrategy` | 不同对话范围的 prompt 和 tool 定义 |
+| **Strategy** | `VPTracker` / `RoundTracker` / `CumulativeTracker` | 不同计分模式的 UI 实现 |
 | **Adapter** | `DeepSeekAdapter.ts` | 隔离 LLM 提供商，方便替换 |
 | **Context+Provider** | `ChatProvider.tsx` | 统一管理消息、流式状态、API Key |
 
@@ -273,6 +294,37 @@ src/
 
 1. 在 `content/games/` 下创建目录，包含 `meta.json`、`en/rules.md`、`zh/rules.md`
 2. 可选：添加 `en/flow.json` 和 `zh/flow.json` 提供交互式决策树
-3. 在 `content/games/index.json` 中注册 slug
-4. 如属于某个系列，在 `meta.json` 中添加 `family`、`familyOrder`、`variantType` 字段
-5. 运行 `npm run build` 验证构建通过
+3. 可选：添加 `score.json` 提供计分器（见下方格式）
+4. 在 `content/games/index.json` 中注册 slug
+5. 如属于某个系列，在 `meta.json` 中添加 `family`、`familyOrder`、`variantType` 字段
+6. 运行 `npm run build` 验证构建通过
+
+### score.json（计分器配置）
+
+```json
+{
+  "type": "victory-points | rounds | cumulative",
+  "direction": "high-wins | low-wins",
+  "target": 10,
+  "targetByPlayers": { "2": 40, "3": 35, "4": 30 },
+  "players": { "min": 3, "max": 4 },
+  "categories": [
+    { "id": "village", "name": { "en": "Village", "zh": "村庄" }, "value": 1, "max": 5 }
+  ],
+  "rounds": 4,
+  "startingScore": 100,
+  "unit": { "en": "pts", "zh": "分" }
+}
+```
+
+| 字段 | 说明 |
+|------|------|
+| `type` | `victory-points`（按分类加减）/ `rounds`（按轮次记录）/ `cumulative`（多轮累计） |
+| `direction` | `high-wins`（高分赢）/ `low-wins`（低分赢，如 Cabo） |
+| `target` | 目标分数（到达时提示胜利） |
+| `targetByPlayers` | 按人数设定不同目标 |
+| `players` | 支持的人数范围 |
+| `categories` | VP 类型的计分分类（每项含 id、名称、分值、可选上限） |
+| `rounds` | 回合制总轮数 |
+| `startingScore` | 回合制起始分数 |
+| `unit` | 分数单位显示文字 |

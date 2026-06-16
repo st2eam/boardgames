@@ -1,0 +1,7 @@
+{
+  "type": "rounds",
+  "direction": "high-wins",
+  "rounds": 3,
+  "players": { "min": 2, "max": 2 },
+  "unit": { "en": "dots", "zh": "点" }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "cumulative",
+  "direction": "low-wins",
+  "target": 50,
+  "players": { "min": 2, "max": 4 },
+  "unit": { "en": "pts", "zh": "分" }
+}

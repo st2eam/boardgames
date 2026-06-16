@@ -1,0 +1,8 @@
+{
+  "type": "rounds",
+  "direction": "high-wins",
+  "rounds": 4,
+  "startingScore": 100,
+  "players": { "min": 3, "max": 5 },
+  "unit": { "en": "k$", "zh": "千元" }
+}

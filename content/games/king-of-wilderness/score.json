@@ -1,0 +1,9 @@
+{
+  "type": "victory-points",
+  "direction": "high-wins",
+  "players": { "min": 2, "max": 4 },
+  "categories": [
+    { "id": "territory", "name": { "en": "Territory", "zh": "领地" }, "value": 1 }
+  ],
+  "unit": { "en": "pts", "zh": "分" }
+}

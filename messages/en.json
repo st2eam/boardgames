@@ -17,7 +17,8 @@
     "relatedGames": "Related Games",
     "export": "Export",
     "exportPDF": "Export as PDF",
-    "exportMarkdown": "Download Markdown"
+    "exportMarkdown": "Download Markdown",
+    "scoreTracker": "Score Tracker"
   },
   "chat": {
     "title": "Rules Assistant",
@@ -56,5 +57,10 @@
     "difficultyHard": "Hard",
     "cancel": "Cancel",
     "clear": "Clear"
+  },
+  "score": {
+    "players": "Players",
+    "addPlayer": "Add Player",
+    "resetAll": "Reset Scores"
   }
 }

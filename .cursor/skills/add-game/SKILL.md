@@ -240,6 +240,49 @@ The `prebuild` script (`scripts/generate-game-data.mjs`) auto-generates `public/
 
 ---
 
+## Adding a Score Tracker
+
+If the game involves scoring/point tracking, create a `score.json` in the game's root directory:
+
+```json
+{
+  "type": "victory-points",
+  "direction": "high-wins",
+  "target": 10,
+  "players": { "min": 3, "max": 4 },
+  "categories": [
+    { "id": "village", "name": { "en": "Village", "zh": "村庄" }, "value": 1, "max": 5 },
+    { "id": "city", "name": { "en": "City", "zh": "城市" }, "value": 2, "max": 4 }
+  ]
+}
+```
+
+### Score types
+
+| Type | When to use | Key fields |
+|------|-------------|------------|
+| `victory-points` | Players score by categories (Catan VP, Splendor prestige) | `categories`, `target` |
+| `rounds` | Fixed number of rounds with per-round scoring (Modern Art, Tacta) | `rounds`, `startingScore` |
+| `cumulative` | Open-ended rounds accumulating toward a target (UNO, Cabo) | `target` or `targetByPlayers` |
+
+### Field reference
+
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `type` | ✅ | `"victory-points"` / `"rounds"` / `"cumulative"` |
+| `direction` | ✅ | `"high-wins"` or `"low-wins"` |
+| `target` | ❌ | Fixed target score |
+| `targetByPlayers` | ❌ | Target varies by player count: `{"2": 40, "3": 35}` |
+| `players` | ✅ | `{ "min": N, "max": N }` |
+| `categories` | ❌ | VP scoring categories with `id`, `name`, `value`, optional `max` |
+| `rounds` | ❌ | Total rounds for round-based scoring |
+| `startingScore` | ❌ | Starting score per player (rounds type) |
+| `unit` | ❌ | Display unit: `{ "en": "pts", "zh": "分" }` |
+
+The score tracker page is auto-generated at `/[locale]/games/[slug]/score/` when `score.json` exists.
+
+---
+
 ## Adding to an Existing Series
 
 If the base game already has `family` fields (e.g., UNO, Splendor, Dirty Pig):
@@ -271,6 +314,7 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] `en/rules.md` written with standard structure
 - [ ] `zh/rules.md` written (matching English content)
 - [ ] `en/flow.json` and `zh/flow.json` added (optional)
+- [ ] `score.json` added for games with scoring (optional)
 - [ ] Slug registered in `content/games/index.json`
 - [ ] `README.md` and `README-en.md` updated
 - [ ] `npm run build` succeeds

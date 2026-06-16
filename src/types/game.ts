@@ -28,6 +28,29 @@ export interface FlowData {
   nodes: Record<string, FlowNode>;
 }
 
+// --- Score Tracker Types ---
+
+export interface ScoreCategory {
+  id: string;
+  name: Record<"en" | "zh", string>;
+  value: number;
+  max?: number;
+}
+
+export interface ScoreConfig {
+  type: "victory-points" | "rounds" | "cumulative";
+  direction: "high-wins" | "low-wins";
+  target?: number;
+  targetByPlayers?: Record<string, number>;
+  players: { min: number; max: number };
+  categories?: ScoreCategory[];
+  rounds?: number;
+  startingScore?: number;
+  unit?: Record<"en" | "zh", string>;
+}
+
+// --- Game & Summary ---
+
 export interface Game {
   meta: GameMeta;
   rules: string; // raw markdown
@@ -43,6 +66,7 @@ export interface GameSummary {
   tags: string[];
   category: string;
   hasFlow: boolean;
+  hasScore: boolean;
   family?: string;
   familyOrder?: number;
   variantType?: "base" | "expansion" | "variant";

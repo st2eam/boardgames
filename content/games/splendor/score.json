@@ -1,0 +1,10 @@
+{
+  "type": "victory-points",
+  "direction": "high-wins",
+  "target": 15,
+  "players": { "min": 2, "max": 4 },
+  "categories": [
+    { "id": "card", "name": { "en": "Card Prestige", "zh": "宝石卡威望" }, "value": 1 },
+    { "id": "noble", "name": { "en": "Noble", "zh": "贵族" }, "value": 3, "max": 5 }
+  ]
+}

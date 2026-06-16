@@ -17,7 +17,8 @@
     "relatedGames": "相关游戏",
     "export": "导出",
     "exportPDF": "导出为 PDF",
-    "exportMarkdown": "下载 Markdown"
+    "exportMarkdown": "下载 Markdown",
+    "scoreTracker": "计分器"
   },
   "chat": {
     "title": "规则助手",
@@ -56,5 +57,10 @@
     "difficultyHard": "困难",
     "cancel": "取消",
     "clear": "清除"
+  },
+  "score": {
+    "players": "玩家",
+    "addPlayer": "添加玩家",
+    "resetAll": "重置计分"
   }
 }

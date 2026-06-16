@@ -1,0 +1,11 @@
+{
+  "type": "victory-points",
+  "direction": "high-wins",
+  "target": 18,
+  "players": { "min": 2, "max": 4 },
+  "categories": [
+    { "id": "pokemon", "name": { "en": "Pokémon Card", "zh": "宝可梦卡" }, "value": 1 },
+    { "id": "rare", "name": { "en": "Rare Pokémon", "zh": "稀有宝可梦" }, "value": 3, "max": 5 },
+    { "id": "legendary", "name": { "en": "Legendary Pokémon", "zh": "传说宝可梦" }, "value": 5, "max": 3 }
+  ]
+}

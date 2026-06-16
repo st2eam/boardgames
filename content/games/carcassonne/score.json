@@ -1,0 +1,12 @@
+{
+  "type": "cumulative",
+  "direction": "high-wins",
+  "players": { "min": 2, "max": 5 },
+  "categories": [
+    { "id": "road", "name": { "en": "Road", "zh": "道路" }, "value": 1 },
+    { "id": "city", "name": { "en": "City", "zh": "城市" }, "value": 1 },
+    { "id": "monastery", "name": { "en": "Monastery", "zh": "修道院" }, "value": 1 },
+    { "id": "field", "name": { "en": "Field", "zh": "草地" }, "value": 1 }
+  ],
+  "unit": { "en": "pts", "zh": "分" }
+}

@@ -1,8 +1,8 @@
-# Durian Coach Boxing: Haw! Rules
+# Arena Magnate: Haw! Rules
 
 ## Overview
 
-*Durian Coach Boxing: Haw!* is a Monopoly-style board game for 2-4 players, lasting 30-60 minutes. Players take on the role of "Little Know-Nothings" in the world of the "Big Boxing Gym," helping Coach Durian manage the gym by adding various facilities! Don't forget to keep up your daily training! The first player to own **10 houses** becomes the new coach and wins the game!
+*Arena Magnate: Haw!* is a Monopoly-style board game for 2-4 players, lasting 30-60 minutes. Players take on the role of "Little Know-Nothings" in the world of the "Big Boxing Gym," helping Coach Durian manage the gym by adding various facilities! Don't forget to keep up your daily training! The first player to own **10 houses** becomes the new coach and wins the game!
 
 ## Components
 

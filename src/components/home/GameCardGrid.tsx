@@ -47,6 +47,7 @@ export function GameCardGrid({ games }: Props) {
   const locale = useLocale();
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedPlayerCount, setSelectedPlayerCount] = useState<number | null>(null);
 
   const { enriched, familyTagSet } = useMemo(
     () => deriveFamilyTags(games, locale),
@@ -68,6 +69,22 @@ export function GameCardGrid({ games }: Props) {
     [enriched]
   );
 
+  const playerCounts = useMemo(() => {
+    const counts = new Set<number>();
+    for (const g of enriched) {
+      const match = g.players.match(/(\d+)\s*[-–]\s*(\d+)/);
+      if (match) {
+        const min = parseInt(match[1], 10);
+        const max = parseInt(match[2], 10);
+        for (let i = min; i <= max; i++) counts.add(i);
+      } else {
+        const single = parseInt(g.players, 10);
+        if (!isNaN(single)) counts.add(single);
+      }
+    }
+    return Array.from(counts).sort((a, b) => a - b);
+  }, [enriched]);
+
   const filtered = useMemo(() => {
     return enriched.filter((g) => {
       if (selectedTags.size > 0 && !g.tags.some((t) => selectedTags.has(t))) {
@@ -76,9 +93,20 @@ export function GameCardGrid({ games }: Props) {
       if (selectedCategory && g.category !== selectedCategory) {
         return false;
       }
+      if (selectedPlayerCount !== null) {
+        const match = g.players.match(/(\d+)\s*[-–]\s*(\d+)/);
+        if (match) {
+          const min = parseInt(match[1], 10);
+          const max = parseInt(match[2], 10);
+          if (selectedPlayerCount < min || selectedPlayerCount > max) return false;
+        } else {
+          const single = parseInt(g.players, 10);
+          if (isNaN(single) || single !== selectedPlayerCount) return false;
+        }
+      }
       return true;
     });
-  }, [enriched, selectedTags, selectedCategory]);
+  }, [enriched, selectedTags, selectedCategory, selectedPlayerCount]);
 
   const hasSeriesFilter = useMemo(
     () => Array.from(selectedTags).some((t) => familyTagSet.has(t)),
@@ -200,8 +228,43 @@ export function GameCardGrid({ games }: Props) {
             totalCount={games.length}
             filteredCount={filtered.length}
             familyTags={familyTagSet}
+            playerCounts={playerCounts}
+            selectedPlayerCount={selectedPlayerCount}
+            onSelectPlayerCount={setSelectedPlayerCount}
           />
         </div>
+
+        {/* Mobile: player count filter */}
+        {playerCounts.length > 0 && (
+          <div className="mt-2 flex gap-1.5 overflow-x-auto pb-1 lg:hidden">
+            <span className="shrink-0 self-center text-[11px] font-medium text-stone-400">
+              {t("playerCount")}
+            </span>
+            <button
+              onClick={() => setSelectedPlayerCount(null)}
+              className={`cursor-pointer shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+                selectedPlayerCount === null
+                  ? "bg-emerald-500 text-white"
+                  : "bg-stone-100 text-stone-500 hover:bg-emerald-50"
+              }`}
+            >
+              {t("anyPlayerCount")}
+            </button>
+            {playerCounts.map((n) => (
+              <button
+                key={n}
+                onClick={() => setSelectedPlayerCount(selectedPlayerCount === n ? null : n)}
+                className={`cursor-pointer shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium tabular-nums transition-all focus:outline-none focus:ring-2 focus:ring-emerald-300/50 ${
+                  selectedPlayerCount === n
+                    ? "bg-emerald-500 text-white"
+                    : "bg-stone-100 text-stone-500 hover:bg-emerald-50"
+                }`}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Mobile: tag strip */}
         <div className="mt-3 flex flex-wrap gap-1 lg:hidden">
@@ -283,6 +346,7 @@ export function GameCardGrid({ games }: Props) {
               onClick={() => {
                 setSelectedCategory(null);
                 setSelectedTags(new Set());
+                setSelectedPlayerCount(null);
               }}
               className="cursor-pointer text-sm text-accent hover:text-accent/80 transition-colors"
             >

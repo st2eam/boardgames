@@ -5,7 +5,9 @@
     "allGames": "全部游戏",
     "filterByTags": "按标签筛选",
     "noGamesFound": "未找到游戏",
-    "series": "系列"
+    "series": "系列",
+    "playerCount": "游玩人数",
+    "anyPlayerCount": "不限"
   },
   "game": {
     "players": "人数",

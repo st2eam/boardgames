@@ -13,6 +13,9 @@ interface Props {
   totalCount: number;
   filteredCount: number;
   familyTags?: Set<string>;
+  playerCounts: number[];
+  selectedPlayerCount: number | null;
+  onSelectPlayerCount: (n: number | null) => void;
 }
 
 export function Sidebar({
@@ -26,6 +29,9 @@ export function Sidebar({
   totalCount,
   filteredCount,
   familyTags,
+  playerCounts,
+  selectedPlayerCount,
+  onSelectPlayerCount,
 }: Props) {
   const t = useTranslations("home");
   const tc = useTranslations("common");
@@ -79,6 +85,42 @@ export function Sidebar({
             </button>
           ))}
         </nav>
+      )}
+
+      {/* Player count filter */}
+      {playerCounts.length > 0 && (
+        <div>
+          <h4 className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-stone-400">
+            {t("playerCount")}
+          </h4>
+          <div className="flex flex-wrap gap-1">
+            <button
+              onClick={() => onSelectPlayerCount(null)}
+              className={`cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-emerald-300/50 ${
+                selectedPlayerCount === null
+                  ? "bg-emerald-500 text-white"
+                  : "text-stone-600 hover:bg-emerald-50 hover:text-emerald-700"
+              }`}
+            >
+              {t("anyPlayerCount")}
+            </button>
+            {playerCounts.map((n) => (
+              <button
+                key={n}
+                onClick={() =>
+                  onSelectPlayerCount(selectedPlayerCount === n ? null : n)
+                }
+                className={`cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium tabular-nums transition-all focus:outline-none focus:ring-2 focus:ring-emerald-300/50 ${
+                  selectedPlayerCount === n
+                    ? "bg-emerald-500 text-white"
+                    : "text-stone-600 hover:bg-emerald-50 hover:text-emerald-700"
+                }`}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+        </div>
       )}
 
       {/* Series tags */}

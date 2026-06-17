@@ -16,6 +16,7 @@ A curated, bilingual reference website for modern board game rules — 26 games 
 - **Per-game SEO**: individual title / description / OG tags per game page
 - **Self-hosted fonts**: next/font with Fredoka, Nunito, Noto Sans SC (no render blocking)
 - **Bilingual**: full i18n for UI text and game content
+- **Player count filter**: filter games by number of players
 
 ## Quick Start
 
@@ -201,7 +202,7 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 ### Homepage
 
 - Hero banner with site title, subtitle, and game count badge
-- Card grid with category/tag filtering
+- Card grid with category, tag, and **player count** filtering
 - Desktop: left Sidebar + right grid; Mobile: horizontal scroll strips
 - Cards adapt layout by category (board → wide, card → tall)
 - Family-grouped games rendered as stacked cards with `+N` badge, click to expand

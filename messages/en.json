@@ -5,7 +5,9 @@
     "allGames": "All Games",
     "filterByTags": "Filter by tags",
     "noGamesFound": "No games found",
-    "series": "Series"
+    "series": "Series",
+    "playerCount": "Players",
+    "anyPlayerCount": "Any"
   },
   "game": {
     "players": "Players",

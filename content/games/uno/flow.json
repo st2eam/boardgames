@@ -1,0 +1,243 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Setup",
+        "zh": "游戏准备"
+      },
+      "content": {
+        "en": "1. **Shuffle** the 108-card deck.\n2. **Deal 7 cards** to each player.\n3. Place the rest face down as the **draw pile**.\n4. Flip the top card to start the **discard pile**.\n\n**First card special rules:**\n- **Wild** or **Wild Draw Four** → shuffle back, draw again\n- **Skip** → first player (left of dealer) is skipped\n- **Reverse** → dealer goes first\n- **Draw Two** → first player draws 2 and loses their turn",
+        "zh": "1. **洗匀** 108 张牌。\n2. 每位玩家**发 7 张**牌。\n3. 剩余牌面朝下作为**抽牌堆**。\n4. 翻开最上面一张作为**弃牌堆**起点。\n\n**首张牌特殊规则：**\n- **万能牌**或**万能 +4** → 洗回牌堆重新翻\n- **跳过** → 起始玩家（庄家左侧）被跳过\n- **反转** → 庄家先出牌\n- **+2** → 起始玩家抽 2 张并跳过回合"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Action Cards",
+            "zh": "功能牌"
+          },
+          "next": "action-cards"
+        },
+        {
+          "label": {
+            "en": "Wild Cards",
+            "zh": "万能牌"
+          },
+          "next": "wild-cards"
+        }
+      ]
+    },
+    "turn": {
+      "title": {
+        "en": "Your Turn",
+        "zh": "你的回合"
+      },
+      "content": {
+        "en": "On your turn, play **one** card that matches the top discard by:\n- **Color** — same color\n- **Number** — same number\n- **Symbol** — same action symbol\n- **Wild cards** — always playable\n\n**Can't play?** Draw **1** card from the draw pile. If it matches, you may play it immediately; otherwise your turn ends.\n\nPlay continues in the current direction until someone empties their hand.",
+        "zh": "轮到你时，打出**一张**与弃牌堆顶部匹配的牌：\n- **颜色** — 颜色相同\n- **数字** — 数字相同\n- **符号** — 功能符号相同\n- **万能牌** — 随时可打出\n\n**无法出牌？** 从抽牌堆抽**1 张**。若符合条件可立即打出，否则回合结束。\n\n游戏按当前方向继续，直到有人出完手牌。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Action Cards",
+            "zh": "功能牌"
+          },
+          "next": "action-cards"
+        },
+        {
+          "label": {
+            "en": "Wild Cards",
+            "zh": "万能牌"
+          },
+          "next": "wild-cards"
+        },
+        {
+          "label": {
+            "en": "UNO Call",
+            "zh": "UNO 规则"
+          },
+          "next": "uno-call"
+        },
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        }
+      ]
+    },
+    "action-cards": {
+      "title": {
+        "en": "Action Cards",
+        "zh": "功能牌"
+      },
+      "content": {
+        "en": "| Card | Effect |\n|------|--------|\n| **Skip** | Next player loses their turn |\n| **Reverse** | Reverses direction of play (2-player: acts like Skip) |\n| **Draw Two (+2)** | Next player draws 2 cards **and** loses their turn |\n\nEach color (Blue, Green, Red, Yellow) has 2× Skip, 2× Reverse, and 2× Draw Two.\n\nAction cards can be played when they match the top discard by **color** or **symbol**.",
+        "zh": "| 卡牌 | 效果 |\n|------|------|\n| **跳过** | 下一位玩家跳过回合 |\n| **反转** | 改变出牌方向（2 人局效果等同跳过） |\n| **+2** | 下家抽 2 张并跳过回合 |\n\n蓝、绿、红、黄各色各有 2 张跳过、2 张反转、2 张 +2。\n\n功能牌可在与弃牌堆顶部**颜色**或**符号**匹配时打出。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Wild Cards",
+            "zh": "万能牌"
+          },
+          "next": "wild-cards"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        }
+      ]
+    },
+    "wild-cards": {
+      "title": {
+        "en": "Wild Cards",
+        "zh": "万能牌"
+      },
+      "content": {
+        "en": "### Wild\nChoose **any color** to continue play. Can be played on any turn.\n\n### Wild Draw Four (+4)\nChoose any color; next player draws **4** cards and loses their turn.\n\n**Restriction:** You may only play Wild Draw Four if you have **no cards matching the current color**.\n\n### +4 Challenge Rule\nThe next player may **accept** or **challenge**:\n1. If challenged, you must **show your hand**.\n2. If you **do** have a matching color card → **you** draw 4 cards.\n3. If you **don't** have a matching color card → the challenger draws **6** cards.",
+        "zh": "### 万能牌\n指定**任意颜色**继续游戏。随时可打出。\n\n### 万能 +4\n指定颜色，下家抽**4 张**并跳过回合。\n\n**限制：** 万能 +4 只能在你**没有当前颜色牌**时打出。\n\n### +4 质疑规则\n下家可以选择**接受**或**质疑**：\n1. 若被质疑，你必须**展示手牌**。\n2. 如果你**有**当前颜色的牌 → **你**抽 4 张。\n3. 如果你**没有**当前颜色的牌 → 质疑者抽 **6 张**。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Action Cards",
+            "zh": "功能牌"
+          },
+          "next": "action-cards"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "UNO Call",
+            "zh": "UNO 规则"
+          },
+          "next": "uno-call"
+        }
+      ]
+    },
+    "uno-call": {
+      "title": {
+        "en": "UNO Call",
+        "zh": "UNO 规则"
+      },
+      "content": {
+        "en": "When you play your **second-to-last card**, you must call out **\"UNO!\"** before the next player begins their turn.\n\n**Penalty:** If another player catches you failing to say UNO before the next turn starts, you must draw **2 penalty cards**.\n\n**Tip:** Call UNO immediately when you play that card — don't wait!",
+        "zh": "打出**倒数第二张**手牌时，必须在下一位玩家开始回合前大声喊出 **\"UNO!\"**。\n\n**惩罚：** 若其他玩家在你喊出 UNO 之前抢先指出，罚抽 **2 张**。\n\n**提示：** 打出该牌时立即喊 UNO，不要拖延！"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        },
+        {
+          "label": {
+            "en": "Winning",
+            "zh": "获胜条件"
+          },
+          "next": "winning"
+        }
+      ]
+    },
+    "scoring": {
+      "title": {
+        "en": "Scoring",
+        "zh": "计分"
+      },
+      "content": {
+        "en": "When a player empties their hand, they **win the round**. Score points from all cards remaining in opponents' hands:\n\n| Card Type | Points |\n|-----------|--------|\n| Number cards 0–9 | Face value |\n| Skip / Reverse / Draw Two | 20 |\n| Wild / Wild Draw Four | 50 |\n\nThe round winner records the total. Play multiple rounds until someone reaches **500 points**.",
+        "zh": "有玩家出完手牌时，该玩家**赢得该局**。根据所有对手剩余手牌计分：\n\n| 卡牌类型 | 分值 |\n|---------|------|\n| 数字牌 0–9 | 面值 |\n| 跳过 / 反转 / +2 | 20 |\n| 万能牌 / 万能 +4 | 50 |\n\n该局获胜者记录总分。多局累计，先达到 **500 分**者胜。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Winning",
+            "zh": "获胜条件"
+          },
+          "next": "winning"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        }
+      ]
+    },
+    "winning": {
+      "title": {
+        "en": "Winning",
+        "zh": "获胜条件"
+      },
+      "content": {
+        "en": "### Standard Game\nFirst player to reach **500 points** across multiple rounds wins the game.\n\n### Quick Play (Alternative)\nPlay a single round — first player to empty their hand wins immediately. No cumulative scoring needed.\n\n### Round Win\nThe first player to play their last card wins the round and collects points from opponents' remaining hands.",
+        "zh": "### 标准模式\n多局累计，先达到 **500 分**的玩家赢得整场游戏。\n\n### 快速模式（替代玩法）\n只玩一局，率先清空手牌的玩家直接获胜，无需累计计分。\n\n### 单局获胜\n率先打出最后一张牌的玩家赢得该局，并收取对手剩余手牌的分值。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        },
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Game Setup",
+        "zh": "开局布置"
+      },
+      "content": {
+        "en": "## Setup Steps\n\n1. **Separate decks**: Sort into Star Cards and Spell Cards by their backs\n2. **Choose player mode**:\n   - 2P: Single suit Star Cards + remove Spell K/Q ×2\n   - 3P: Full Star Cards, optional Dark Sorcerer\n   - 4P: Full Star Cards, opposite seats are teammates\n3. **Draw starting hands**:\n   - Each player draws 4 Spell Cards\n   - Each player draws 2 Star Cards (1st face-down as hole card, 2nd face-up)\n4. **First player**: Lowest face-up total goes first",
+        "zh": "## 开局步骤\n\n1. **分堆**：根据背面区分「群星卡」与「术卡」\n2. **选择人数模式**：\n   - 2人：单花色群星卡 + 去除术卡K/Q各2\n   - 3人：完整群星卡，可选邪术师\n   - 4人：完整群星卡，对面为队友\n3. **抽牌**：\n   - 每人抽 4 张术卡\n   - 每人抽 2 张群星卡（第1张底牌朝下，第2张朝上）\n4. **确定先手**：明面点数最小者先行动"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Start the game →",
+            "zh": "开始游戏 →"
+          },
+          "next": "turn-start"
+        },
+        {
+          "label": {
+            "en": "What is a hole card?",
+            "zh": "什么是底牌？"
+          },
+          "next": "hole-card"
+        },
+        {
+          "label": {
+            "en": "Dark Sorcerer rules (3P)",
+            "zh": "3人局邪术师规则"
+          },
+          "next": "dark-sorcerer"
+        }
+      ]
+    },
+    "hole-card": {
+      "title": {
+        "en": "Hole Card",
+        "zh": "底牌说明"
+      },
+      "content": {
+        "en": "## Hole Card\n\n- Your **first Star Card** drawn during setup is your hole card\n- Placed **face-down** — only you may look at it\n- Other players don't know its value\n- It's only revealed during Final Scoring\n\n> 💡 Your hole card is your biggest hidden advantage — use it to bluff!",
+        "zh": "## 底牌\n\n- 开局抽到的**第一张群星卡**是你的底牌\n- 背面朝上放置，**只有你自己可以查看**\n- 其他玩家不知道你的底牌点数\n- 在开牌结算时才会揭示\n\n> 💡 底牌是你最大的隐藏信息，善用它来迷惑对手！"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Got it, start the game",
+            "zh": "明白了，开始游戏"
+          },
+          "next": "turn-start"
+        }
+      ]
+    },
+    "dark-sorcerer": {
+      "title": {
+        "en": "Dark Sorcerer (3P)",
+        "zh": "邪术师规则（3人局）"
+      },
+      "content": {
+        "en": "## Dark Sorcerer · 1v2\n\nAfter setup is complete:\n\n1. A player may volunteer to become the **Dark Sorcerer**\n2. The Dark Sorcerer draws **2 extra Spell Cards**\n3. When triggering Star Resonance, the Sorcerer's rewards are **doubled**\n\n> The Dark Sorcerer fights 1v2 against the other players, compensated with extra spell resources.",
+        "zh": "## 邪术师 · 1v2\n\n开局布置完毕后：\n\n1. 玩家可自愿成为**邪术师**\n2. 邪术师额外抽取 **2 张术卡**\n3. 邪术师触发「星之共鸣」时，抽取术卡数量**翻倍**\n\n> 邪术师需要 1v2 对抗另外两位玩家，作为补偿获得更多术卡资源。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Start the game →",
+            "zh": "开始游戏 →"
+          },
+          "next": "turn-start"
+        }
+      ]
+    },
+    "turn-start": {
+      "title": {
+        "en": "Your Turn",
+        "zh": "你的回合"
+      },
+      "content": {
+        "en": "## Turn Actions\n\nOn your turn, choose one of the following:\n\n- **Play Spell Cards** → Activate magical effects\n- **Draw a Star Card** → Add points to your field (turn ends immediately)\n- **Pass (Chant)** → Do nothing\n\n> ⚠️ When ALL players pass in a single round, the game ends!",
+        "zh": "## 回合行动\n\n轮到你时，选择以下操作之一：\n\n- **使用术卡** → 发动魔法效果\n- **抽取群星卡** → 增加场上点数（回合立即结束）\n- **空过（吟唱）** → 不做任何操作\n\n> ⚠️ 当所有玩家连续一轮全部空过时，游戏结束！"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Play Spell Cards",
+            "zh": "使用术卡"
+          },
+          "next": "use-spell"
+        },
+        {
+          "label": {
+            "en": "Draw a Star Card",
+            "zh": "抽取群星卡"
+          },
+          "next": "draw-star"
+        },
+        {
+          "label": {
+            "en": "Pass (Chant)",
+            "zh": "空过（吟唱）"
+          },
+          "next": "pass"
+        },
+        {
+          "label": {
+            "en": "What is Star Resonance?",
+            "zh": "什么是星之共鸣？"
+          },
+          "next": "resonance"
+        }
+      ]
+    },
+    "use-spell": {
+      "title": {
+        "en": "Play Spell Cards",
+        "zh": "使用术卡"
+      },
+      "content": {
+        "en": "## Playing Spell Cards\n\n- You may play **any number** of Spell Cards per turn\n- Execute the effect described on each card\n- Can modify your own or opponents' Star Card values\n- After playing spells, you **may still draw a Star Card**\n\n> 💡 Changing values via spells can also trigger Star Resonance!",
+        "zh": "## 使用术卡\n\n- 每回合可使用**不限数量**的术卡\n- 术卡效果根据卡面描述执行\n- 可以改变自己或对手的群星卡点数\n- 使用术卡后，**仍可选择是否抽取群星卡**\n\n> 💡 通过术卡改变点数也可以触发「星之共鸣」！"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Draw a Star Card after spells",
+            "zh": "用完术卡后抽群星卡"
+          },
+          "next": "draw-star"
+        },
+        {
+          "label": {
+            "en": "End turn without drawing",
+            "zh": "用完术卡后不抽牌（结束回合）"
+          },
+          "next": "turn-end"
+        },
+        {
+          "label": {
+            "en": "Star Resonance triggered?",
+            "zh": "触发了星之共鸣？"
+          },
+          "next": "resonance"
+        }
+      ]
+    },
+    "draw-star": {
+      "title": {
+        "en": "Draw a Star Card",
+        "zh": "抽取群星卡"
+      },
+      "content": {
+        "en": "## Drawing a Star Card\n\n1. Draw **1 card** from the Star Card pile\n2. Place it **face-up** on your field\n3. Your turn **ends immediately**\n\n### Check:\n- Is your face-up total over 21?\n  - Over = Bust risk (-5 points at scoring)\n  - Under = Safe\n- Did you trigger Star Resonance?",
+        "zh": "## 抽取群星卡\n\n1. 从群星卡牌堆抽取 **1 张**\n2. **正面朝上**放入你的场上\n3. 回合**立即结束**\n\n### 检查：\n- 你的明面点数总和是否超过 21？\n  - 超过 = 爆点风险（结算时 -5 分）\n  - 未超过 = 安全\n- 是否触发了「星之共鸣」？"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Star Resonance triggered!",
+            "zh": "触发了星之共鸣！"
+          },
+          "next": "resonance"
+        },
+        {
+          "label": {
+            "en": "No trigger, next player",
+            "zh": "没有触发，下一位玩家"
+          },
+          "next": "turn-end"
+        },
+        {
+          "label": {
+            "en": "What happens if I bust?",
+            "zh": "我爆点了怎么办？"
+          },
+          "next": "bust"
+        }
+      ]
+    },
+    "pass": {
+      "title": {
+        "en": "Pass (Chant)",
+        "zh": "空过（吟唱）"
+      },
+      "content": {
+        "en": "## Pass / Chanting\n\n- No Spell Cards played, no Star Card drawn\n- Your turn ends\n\n### Check for All-Pass:\n- If **all players passed** this round → Proceed to Final Scoring\n- If any player took an action → Continue to next round",
+        "zh": "## 空过 / 吟唱\n\n- 不使用术卡，也不抽群星卡\n- 回合结束\n\n### 检查全员空过：\n- 如果这一轮中**所有玩家都选择了空过**→ 进入开牌结算\n- 如果还有玩家选择了行动 → 继续正常轮次"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Someone acted, continue",
+            "zh": "还有人行动了，继续游戏"
+          },
+          "next": "turn-end"
+        },
+        {
+          "label": {
+            "en": "Everyone passed! Final Scoring",
+            "zh": "全员空过！开牌结算"
+          },
+          "next": "final-scoring"
+        }
+      ]
+    },
+    "resonance": {
+      "title": {
+        "en": "Star Resonance",
+        "zh": "星之共鸣"
+      },
+      "content": {
+        "en": "## Star Resonance\n\nTriggered when your **face-up** Star Cards form specific patterns:\n\n| Pattern | Condition | Reward |\n|---------|-----------|--------|\n| **Pair** | 2 cards with same value | Draw 1 Spell Card |\n| **Sequence** | Consecutively increasing values | Draw 1 Spell Card |\n| **Suited Seq.** | Sequence + same suit (multiplayer) | +1 extra Spell Card |\n\n### Key Rules:\n- Maximum **5 card slots**\n- Same slot **cannot trigger twice**\n- Mark triggered cards by pushing them up\n- Dark Sorcerer's rewards are doubled",
+        "zh": "## 星之共鸣\n\n当你的**明面**群星卡出现以下牌型时触发：\n\n| 牌型 | 条件 | 奖励 |\n|------|------|------|\n| **群组** | 2张相同点数 | 抽 1 张术卡 |\n| **顺组** | 连续递增点数 | 抽 1 张术卡 |\n| **同花顺** | 顺组且花色相同（多人局） | 额外 +1 张术卡 |\n\n### 规则要点：\n- 卡槽位上限 **5 个**\n- 同一卡槽位**不能重复触发**\n- 触发后将该牌向上推起标记\n- 邪术师触发时奖励翻倍"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Continue current turn",
+            "zh": "继续当前回合"
+          },
+          "next": "turn-start"
+        },
+        {
+          "label": {
+            "en": "Turn over, next player",
+            "zh": "回合结束，下一位"
+          },
+          "next": "turn-end"
+        }
+      ]
+    },
+    "bust": {
+      "title": {
+        "en": "Bust Explanation",
+        "zh": "爆点说明"
+      },
+      "content": {
+        "en": "## Bust\n\nWhen your Star Card total **exceeds 21**:\n\n- The game continues — you're not eliminated\n- But at Final Scoring, busted players receive **-5 points**\n- You can try using Spell Cards to reduce your total\n\n> 💡 Your hole card is only revealed at scoring — you might not actually be busted! Manage your risk carefully.",
+        "zh": "## 爆点\n\n当你的群星卡点数总和**超过 21 点**时：\n\n- 游戏继续进行，不会立即出局\n- 但在最终结算时，爆点玩家获得 **-5 点**\n- 你可以尝试使用术卡降低点数来救回来\n\n> 💡 底牌在结算时才揭示，所以暂时不确定是否真的爆点。注意管理风险！"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Try to recover with spells",
+            "zh": "尝试用术卡补救"
+          },
+          "next": "use-spell"
+        },
+        {
+          "label": {
+            "en": "Continue playing",
+            "zh": "继续游戏"
+          },
+          "next": "turn-end"
+        }
+      ]
+    },
+    "turn-end": {
+      "title": {
+        "en": "Turn End",
+        "zh": "回合结束"
+      },
+      "content": {
+        "en": "## Turn Over\n\nYour turn has ended. The next player takes their turn.\n\n### Assess the Situation:\n- Watch opponents' face-up cards to estimate their totals\n- Consider your hole card + face-up total\n- How many Spell Cards do you have left?\n- Should you consider passing to force others to act?",
+        "zh": "## 回合结束\n\n你的回合已结束，轮到下一位玩家行动。\n\n### 当前局势检查：\n- 观察对手的明面牌，推算他们的总点数\n- 考虑自己的底牌 + 明面牌总点数\n- 手中还有多少术卡可用？\n- 是否该考虑空过（逼迫其他人先行动）？"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "It's my turn!",
+            "zh": "轮到我了！"
+          },
+          "next": "turn-start"
+        },
+        {
+          "label": {
+            "en": "Everyone passed",
+            "zh": "所有人都空过了"
+          },
+          "next": "final-scoring"
+        }
+      ]
+    },
+    "final-scoring": {
+      "title": {
+        "en": "Final Scoring",
+        "zh": "开牌结算"
+      },
+      "content": {
+        "en": "## Final Scoring · Power of the Stars\n\n1. All players **reveal their hole cards**\n2. Sum each player's Star Card values\n3. Rank by proximity to 21:\n\n| Rank | Points |\n|------|--------|\n| 1st place | 5 points |\n| 2nd place | 4 points |\n| 3rd place | 1 point |\n| 4th place | 1 point |\n| Bust (over 21) | -5 points |\n\n- **Exactly 21**: +1 bonus point!\n- **2v2 mode**: Team with higher combined score wins",
+        "zh": "## 开牌结算 · 群星之力\n\n1. 所有玩家**揭示底牌**\n2. 统计每位玩家场上群星卡**点数之和**\n3. 按接近 21 点的顺序排名：\n\n| 名次 | 得分 |\n|------|------|\n| 第一名 | 5 点 |\n| 第二名 | 4 点 |\n| 第三名 | 1 点 |\n| 第四名 | 1 点 |\n| 爆点（超过21） | -5 点 |\n\n- **恰好 21 点**：额外 +1 点奖励！\n- **2v2 模式**：队伍合计得分高者获胜"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Play again",
+            "zh": "重新开始"
+          },
+          "next": "setup"
+        },
+        {
+          "label": {
+            "en": "Review turn structure",
+            "zh": "回顾回合流程"
+          },
+          "next": "turn-start"
+        }
+      ]
+    }
+  }
+}

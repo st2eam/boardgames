@@ -24,10 +24,10 @@ export class GameRepository {
     slug: string,
     locale: string
   ): Promise<FlowData | null> {
-    if (!fileExists(slug, locale, "flow.json")) {
+    if (!fileExists(slug, "flow.json")) {
       return null;
     }
-    return loadJson<FlowData>(slug, locale, "flow.json");
+    return loadJson<FlowData>(slug, "flow.json");
   }
 
   static async getScoreConfig(slug: string): Promise<ScoreConfig | null> {

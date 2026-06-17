@@ -1,0 +1,414 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Setup",
+        "zh": "游戏准备"
+      },
+      "content": {
+        "en": "1. Place the **starting tile** (dark back) in the center of the table.\n2. Shuffle the remaining **72 land tiles** face down as the draw pile.\n3. Each player chooses a color and takes **7 meeples** (plus **1 abbot** in editions that include abbots/gardens).\n4. Place one meeple of each color on the scoreboard at **0**.\n\n**Goal:** Score the most points by completing cities, roads, monasteries, and fields.",
+        "zh": "1. 将**起始版图**（深色背面）放在桌面中央。\n2. 将其余 **72 块地形版图** 洗匀后面朝下作为抽牌堆。\n3. 每位玩家选择颜色，拿取 **7 个米宝**（部分版本另有 **1 个修道院长**，用于花园）。\n4. 将每位玩家的一个米宝放在记分板的 **0** 位置。\n\n**目标：** 通过完成城市、道路、修道院和农田获得最高分数。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Turn Structure",
+            "zh": "回合流程"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Placing Tiles",
+            "zh": "放置版图"
+          },
+          "next": "placing-tile"
+        },
+        {
+          "label": {
+            "en": "Final Scoring",
+            "zh": "终局计分"
+          },
+          "next": "final-scoring"
+        }
+      ]
+    },
+    "turn": {
+      "title": {
+        "en": "Turn Structure",
+        "zh": "回合流程"
+      },
+      "content": {
+        "en": "On your turn, perform these steps **in order**:\n\n### 1. Draw & Place a Tile\nDraw one tile and place it adjacent to existing tiles. See **Placing Tiles** for matching rules.\n\n### 2. Optionally Place a Meeple\nYou may place **one** meeple on the tile you just placed. See **Placing Meeples** for valid locations.\n\n### 3. Score Completed Features\nIf your tile completes a road, city, or monastery, score it immediately and return meeples on that feature.\n\n**Tip:** You can skip meeple placement to save followers for later — but you only get one chance per tile.",
+        "zh": "轮到你的回合时，**按顺序**执行以下步骤：\n\n### 1. 抽取并放置版图\n抽取一块版图，与已有版图相邻放置。详见**放置版图**的匹配规则。\n\n### 2. 可选：放置米宝\n你可以在刚刚放置的版图上放置 **1 个米宝**。详见**放置米宝**的合法位置。\n\n### 3. 完成地形计分\n如果你放置的版图完成了道路、城市或修道院，立即计分并归还该地形上的米宝。\n\n**提示：** 可以跳过放置米宝以保留随从，但每块版图只有一次机会。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Placing Tiles",
+            "zh": "放置版图"
+          },
+          "next": "placing-tile"
+        },
+        {
+          "label": {
+            "en": "Placing Meeples",
+            "zh": "放置米宝"
+          },
+          "next": "placing-meeple"
+        },
+        {
+          "label": {
+            "en": "City Scoring",
+            "zh": "城市计分"
+          },
+          "next": "city-scoring"
+        },
+        {
+          "label": {
+            "en": "Road Scoring",
+            "zh": "道路计分"
+          },
+          "next": "road-scoring"
+        },
+        {
+          "label": {
+            "en": "Monastery Scoring",
+            "zh": "修道院计分"
+          },
+          "next": "monastery-scoring"
+        },
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        }
+      ]
+    },
+    "placing-tile": {
+      "title": {
+        "en": "Placing Tiles",
+        "zh": "放置版图"
+      },
+      "content": {
+        "en": "Every new tile must be placed **adjacent** to at least one existing tile.\n\n**Edge matching rules:**\n- **Roads** must connect to roads\n- **City walls** must connect to city walls\n- **Fields** must connect to fields\n\n**Illegal placement?** If a drawn tile cannot be legally placed anywhere on the board, discard it and draw a new one.\n\n**Tips:**\n- Extend features you already control to score sooner\n- Block opponents by closing features before they can place meeples\n- Split or merge cities and roads by how you connect tiles",
+        "zh": "每块新版图必须**相邻**于至少一块已有版图放置。\n\n**边缘匹配规则：**\n- **道路** 必须连接道路\n- **城墙** 必须连接城墙\n- **农田** 必须连接农田\n\n**无法合法放置？** 若抽到的版图无法合法放置，弃置该版图并重新抽取。\n\n**技巧：**\n- 延伸你已控制的地形以更快得分\n- 在对手放置米宝前封闭地形来阻挡对手\n- 通过连接方式拆分或合并城市与道路"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Placing Meeples",
+            "zh": "放置米宝"
+          },
+          "next": "placing-meeple"
+        },
+        {
+          "label": {
+            "en": "Turn Structure",
+            "zh": "回合流程"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "City Scoring",
+            "zh": "城市计分"
+          },
+          "next": "city-scoring"
+        },
+        {
+          "label": {
+            "en": "Road Scoring",
+            "zh": "道路计分"
+          },
+          "next": "road-scoring"
+        }
+      ]
+    },
+    "placing-meeple": {
+      "title": {
+        "en": "Placing Meeples",
+        "zh": "放置米宝"
+      },
+      "content": {
+        "en": "After placing a tile, you may deploy **one meeple** on that tile:\n\n| Feature | Role | Notes |\n|---------|------|-------|\n| **Road** | Highwayman | Scored when road is closed at both ends |\n| **City** | Knight | Scored when city walls fully enclose the city |\n| **Monastery** | Monk | Scored when monastery is fully surrounded |\n| **Field** | Farmer | Laid on its side; scored only at game end |\n\n**Cannot place if:**\n- The feature is already claimed by any player (even on a different tile)\n- You have no meeples left in your supply\n\n**Shared features:** Two separately claimed features that later connect become one feature. Majority rules apply at scoring.",
+        "zh": "放置版图后，你可以在该版图上派遣 **1 个米宝**：\n\n| 地形 | 角色 | 说明 |\n|------|------|------|\n| **道路** | 强盗 | 道路两端封闭时计分 |\n| **城市** | 骑士 | 城墙完全围合城市时计分 |\n| **修道院** | 修士 | 四周完全被版图包围时计分 |\n| **农田** | 农夫 | 米宝平放；仅在游戏结束时计分 |\n\n**不能放置的情况：**\n- 该地形已被任何玩家占领（即使在其他版图上）\n- 你的米宝已全部用完\n\n**共享地形：** 两个分开占领的地形后来连接后合并为一个地形，计分时按多数规则处理。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "City Scoring",
+            "zh": "城市计分"
+          },
+          "next": "city-scoring"
+        },
+        {
+          "label": {
+            "en": "Road Scoring",
+            "zh": "道路计分"
+          },
+          "next": "road-scoring"
+        },
+        {
+          "label": {
+            "en": "Monastery Scoring",
+            "zh": "修道院计分"
+          },
+          "next": "monastery-scoring"
+        },
+        {
+          "label": {
+            "en": "Field Scoring",
+            "zh": "农田计分"
+          },
+          "next": "field-scoring"
+        },
+        {
+          "label": {
+            "en": "Turn Structure",
+            "zh": "回合流程"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Placing Tiles",
+            "zh": "放置版图"
+          },
+          "next": "placing-tile"
+        }
+      ]
+    },
+    "city-scoring": {
+      "title": {
+        "en": "City Scoring",
+        "zh": "城市计分"
+      },
+      "content": {
+        "en": "A city is **completed** when it is fully enclosed by city walls with no open edges.\n\n### Completed City (during game)\n- **2 points** per tile in the city\n- **+2 points** per coat of arms (pennant/shield)\n- Meeples are returned immediately\n\n### Incomplete City (end of game)\n- **1 point** per tile\n- **+1 point** per coat of arms\n\n### Majority\nThe player with the **most knights** in the city scores. If tied, **all tied players** score the full amount.",
+        "zh": "城市在城墙**完全围合**、没有开放边缘时视为**完成**。\n\n### 已完成城市（游戏中）\n- 城市中每块版图 **2 分**\n- 每个盾牌（纹章） **+2 分**\n- 米宝立即归还\n\n### 未完成城市（终局）\n- 每块版图 **1 分**\n- 每个盾牌 **+1 分**\n\n### 多数规则\n城市中**骑士最多**的玩家得分。若平局，**所有并列玩家**均获得全部分数。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Road Scoring",
+            "zh": "道路计分"
+          },
+          "next": "road-scoring"
+        },
+        {
+          "label": {
+            "en": "Monastery Scoring",
+            "zh": "修道院计分"
+          },
+          "next": "monastery-scoring"
+        },
+        {
+          "label": {
+            "en": "Field Scoring",
+            "zh": "农田计分"
+          },
+          "next": "field-scoring"
+        },
+        {
+          "label": {
+            "en": "Final Scoring",
+            "zh": "终局计分"
+          },
+          "next": "final-scoring"
+        },
+        {
+          "label": {
+            "en": "Turn Structure",
+            "zh": "回合流程"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "road-scoring": {
+      "title": {
+        "en": "Road Scoring",
+        "zh": "道路计分"
+      },
+      "content": {
+        "en": "A road is **completed** when both ends terminate at a city, monastery, crossing, or dead end (no open road edges).\n\n### Completed Road (during game)\n- **1 point** per tile in the road\n- Meeples are returned immediately\n\n### Incomplete Road (end of game)\n- **1 point** per tile\n\n### Majority\nThe player with the **most highwaymen** on the road scores. If tied, **all tied players** score the full amount.",
+        "zh": "道路在**两端封闭**时视为完成——端点可以是城市、修道院、交叉路口或死胡同（无开放道路边缘）。\n\n### 已完成道路（游戏中）\n- 道路中每块版图 **1 分**\n- 米宝立即归还\n\n### 未完成道路（终局）\n- 每块版图 **1 分**\n\n### 多数规则\n道路上**强盗最多**的玩家得分。若平局，**所有并列玩家**均获得全部分数。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "City Scoring",
+            "zh": "城市计分"
+          },
+          "next": "city-scoring"
+        },
+        {
+          "label": {
+            "en": "Monastery Scoring",
+            "zh": "修道院计分"
+          },
+          "next": "monastery-scoring"
+        },
+        {
+          "label": {
+            "en": "Field Scoring",
+            "zh": "农田计分"
+          },
+          "next": "field-scoring"
+        },
+        {
+          "label": {
+            "en": "Final Scoring",
+            "zh": "终局计分"
+          },
+          "next": "final-scoring"
+        },
+        {
+          "label": {
+            "en": "Turn Structure",
+            "zh": "回合流程"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "monastery-scoring": {
+      "title": {
+        "en": "Monastery Scoring",
+        "zh": "修道院计分"
+      },
+      "content": {
+        "en": "A monastery is **completed** when it is surrounded on all **8 sides** by tiles (including diagonals).\n\n### Completed Monastery (during game)\n- **9 points** total (1 for the monastery + 1 per surrounding tile)\n- Meeple is returned immediately\n\n### Incomplete Monastery (end of game)\n- **1 point** for the monastery tile\n- **+1 point** per tile placed adjacent to it (including diagonals)\n\nOnly the player who placed the monk on that monastery scores — there is no sharing.",
+        "zh": "修道院在**8 个方向**（含对角线）均被版图包围时视为完成。\n\n### 已完成修道院（游戏中）\n- 共 **9 分**（修道院本身 1 分 + 周围每块版图 1 分）\n- 米宝立即归还\n\n### 未完成修道院（终局）\n- 修道院版图 **1 分**\n- 相邻（含对角线）每块版图 **+1 分**\n\n只有放置修士的玩家得分，不存在共享。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "City Scoring",
+            "zh": "城市计分"
+          },
+          "next": "city-scoring"
+        },
+        {
+          "label": {
+            "en": "Road Scoring",
+            "zh": "道路计分"
+          },
+          "next": "road-scoring"
+        },
+        {
+          "label": {
+            "en": "Field Scoring",
+            "zh": "农田计分"
+          },
+          "next": "field-scoring"
+        },
+        {
+          "label": {
+            "en": "Final Scoring",
+            "zh": "终局计分"
+          },
+          "next": "final-scoring"
+        },
+        {
+          "label": {
+            "en": "Turn Structure",
+            "zh": "回合流程"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "field-scoring": {
+      "title": {
+        "en": "Field Scoring",
+        "zh": "农田计分"
+      },
+      "content": {
+        "en": "Farmers are placed **on their side** and are **never returned** during the game. They score **only at game end**.\n\n### How Fields Score\n- Each **completed city** touching a field is worth **3 points** to that field\n- A city touching multiple fields gives **3 points to each field** separately\n\n### Majority\nThe player with the **most farmers** in a field scores that field's points. If tied, **all tied players** score the full amount.\n\n**Strategy:** Farmers are a long-term investment — place them early on large fields adjacent to many cities.",
+        "zh": "农夫**平放**放置，游戏过程中**永不归还**，**仅在游戏结束时**计分。\n\n### 农田计分方式\n- 每座与农田相邻的**已完成城市**为该农田贡献 **3 分**\n- 一座城市若与多片农田相邻，**每片农田各得 3 分**\n\n### 多数规则\n农田中**农夫最多**的玩家获得该农田的分数。若平局，**所有并列玩家**均获得全部分数。\n\n**策略：** 农夫是长期投资——尽早在大片、邻接多座城市的农田上放置。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "City Scoring",
+            "zh": "城市计分"
+          },
+          "next": "city-scoring"
+        },
+        {
+          "label": {
+            "en": "Final Scoring",
+            "zh": "终局计分"
+          },
+          "next": "final-scoring"
+        },
+        {
+          "label": {
+            "en": "Placing Meeples",
+            "zh": "放置米宝"
+          },
+          "next": "placing-meeple"
+        },
+        {
+          "label": {
+            "en": "Turn Structure",
+            "zh": "回合流程"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "final-scoring": {
+      "title": {
+        "en": "Final Scoring",
+        "zh": "终局计分"
+      },
+      "content": {
+        "en": "The game ends when the **last tile** is placed. Score all **incomplete** features, then score **fields**.\n\n### End-of-Game Summary\n\n| Feature | Points |\n|---------|--------|\n| **Road** (incomplete) | 1 per tile |\n| **City** (incomplete) | 1 per tile + 1 per coat of arms |\n| **Monastery** (incomplete) | 1 + surrounding tiles |\n| **Field** | 3 per completed city touching the field |\n\n**Winning:** The player with the **highest total score** wins. In case of a tie, the player with the most meeples on the board wins (then shared victory).",
+        "zh": "当**最后一块版图**放置后游戏结束。先计分所有**未完成**地形，再计分**农田**。\n\n### 终局计分汇总\n\n| 地形 | 分数 |\n|------|------|\n| **道路**（未完成） | 每块版图 1 分 |\n| **城市**（未完成） | 每块版图 1 分 + 每个盾牌 1 分 |\n| **修道院**（未完成） | 1 分 + 周围版图 |\n| **农田** | 每座相邻已完成城市 3 分 |\n\n**获胜：** **总分最高**的玩家获胜。若平局，棋盘上米宝最多的玩家获胜（仍平则共同获胜）。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "City Scoring",
+            "zh": "城市计分"
+          },
+          "next": "city-scoring"
+        },
+        {
+          "label": {
+            "en": "Road Scoring",
+            "zh": "道路计分"
+          },
+          "next": "road-scoring"
+        },
+        {
+          "label": {
+            "en": "Monastery Scoring",
+            "zh": "修道院计分"
+          },
+          "next": "monastery-scoring"
+        },
+        {
+          "label": {
+            "en": "Field Scoring",
+            "zh": "农田计分"
+          },
+          "next": "field-scoring"
+        },
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        }
+      ]
+    }
+  }
+}

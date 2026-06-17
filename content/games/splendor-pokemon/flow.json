@@ -1,0 +1,256 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Game Setup",
+        "zh": "游戏准备"
+      },
+      "content": {
+        "en": "**Components:** 90 Pokémon cards (3 levels), 5 Rare Pokémon, 5 Legendary Pokémon, Poké Ball tokens (5 colors + Master Balls), Trainer markers\n\n1. Shuffle each level separately; reveal 4 cards per level\n2. Shuffle Rare deck, reveal 1; shuffle Legendary deck, reveal 1\n3. Poké Ball tokens: 2p = 4 each | 3p = 5 each | 4p = all 7 (Master Balls always 5)\n4. Each player takes a Trainer marker\n5. Target: **18 points** to win",
+        "zh": "**组件：** 90张宝可梦牌(3个等级)、5张稀有宝可梦、5张传说宝可梦、精灵球筹码(5色+大师球)、训练家标记\n\n1. 3个等级各自洗牌，每级翻开4张\n2. 洗混稀有牌堆，翻开1张；洗混传说牌堆，翻开1张\n3. 精灵球筹码：2人=每色4枚｜3人=5枚｜4人=7枚（大师球始终5枚）\n4. 每人拿一个训练家标记\n5. 目标：**18 分**获胜"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Start My Turn",
+            "zh": "开始我的回合"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "turn": {
+      "title": {
+        "en": "Your Turn – Choose ONE Action",
+        "zh": "你的回合 — 选择一个行动"
+      },
+      "content": {
+        "en": "You must perform exactly **one** of these actions, then check for evolution:",
+        "zh": "每回合必须执行以下 **四选一**，然后检查进化："
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Collect 3 Different Poké Balls",
+            "zh": "收集 3 枚不同精灵球"
+          },
+          "next": "take3"
+        },
+        {
+          "label": {
+            "en": "Collect 2 Same Poké Balls",
+            "zh": "收集 2 枚同色精灵球"
+          },
+          "next": "take2"
+        },
+        {
+          "label": {
+            "en": "Reserve a Pokémon",
+            "zh": "保留 1 只宝可梦"
+          },
+          "next": "reserve"
+        },
+        {
+          "label": {
+            "en": "Catch a Pokémon",
+            "zh": "捕捉 1 只宝可梦"
+          },
+          "next": "catch"
+        },
+        {
+          "label": {
+            "en": "Catch Rare/Legendary",
+            "zh": "捕捉稀有/传说宝可梦"
+          },
+          "next": "catch-special"
+        }
+      ]
+    },
+    "take3": {
+      "title": {
+        "en": "Collect 3 Different Poké Balls",
+        "zh": "收集 3 枚不同精灵球"
+      },
+      "content": {
+        "en": "Take **3 Poké Ball tokens of different colors** from the supply.\n\n- If fewer than 3 colors available, take as many different as you can\n- **Cannot** take Master Balls (only gained by reserving)\n- Token limit: **10 tokens** max at end of turn",
+        "zh": "从供应区拿 **3 枚不同颜色** 的精灵球筹码。\n\n- 不足 3 种颜色时尽可能拿不同色\n- **不能**拿大师球（大师球只通过保留获得）\n- 回合结束筹码上限 **10 枚**"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Check Evolution",
+            "zh": "检查进化"
+          },
+          "next": "evolve-check"
+        }
+      ]
+    },
+    "take2": {
+      "title": {
+        "en": "Collect 2 Same Poké Balls",
+        "zh": "收集 2 枚同色精灵球"
+      },
+      "content": {
+        "en": "Take 2 Poké Ball tokens of the **same color**.\n\n⚠️ That color must have **≥ 4 tokens** remaining in supply.\n\n- Token limit: **10 tokens** max at end of turn",
+        "zh": "拿 2 枚 **相同颜色** 的精灵球筹码。\n\n⚠️ 该颜色供应区须剩余 **≥ 4 枚**。\n\n- 回合结束筹码上限 **10 枚**"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Check Evolution",
+            "zh": "检查进化"
+          },
+          "next": "evolve-check"
+        }
+      ]
+    },
+    "reserve": {
+      "title": {
+        "en": "Reserve a Pokémon",
+        "zh": "保留 1 只宝可梦"
+      },
+      "content": {
+        "en": "Take a card and keep it face-down in front of you:\n\n1. Choose from any of the 12 face-up cards **or** blind-draw from any level deck\n2. Gain **1 Master Ball** token (if available)\n3. Only you can catch this reserved Pokémon\n\n⚠️ Maximum **3 reserved cards**\n\n⚠️ **Rare and Legendary Pokémon CANNOT be reserved!**\n\n💡 Reserving is the only way to get Master Balls — needed for Legendaries",
+        "zh": "将一张牌保留到面前（面朝下）：\n\n1. 从场上翻开的牌中选一张 **或** 从任意等级牌堆盲抽\n2. 获得 **1 枚大师球**（如有）\n3. 只有你可以捕捉保留的牌\n\n⚠️ 最多保留 **3 张**\n\n⚠️ **稀有和传说宝可梦不能被保留！**\n\n💡 保留是获取大师球的唯一途径——捕捉传说宝可梦需要大师球"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Check Evolution",
+            "zh": "检查进化"
+          },
+          "next": "evolve-check"
+        }
+      ]
+    },
+    "catch": {
+      "title": {
+        "en": "Catch a Pokémon",
+        "zh": "捕捉普通宝可梦"
+      },
+      "content": {
+        "en": "Pay the cost to catch a Pokémon:\n\n**Eligible:** any of the 12 face-up cards **or** your reserved cards\n\n**Payment steps:**\n1. Apply **Poké Ball bonuses** from owned Pokémon (permanent discounts)\n2. Pay remaining with **tokens** (returned to supply)\n3. **Master Balls** substitute for any color\n\nThe caught Pokémon goes face-up in front of you — gain its points and bonus.\n\n💡 Even 0-point Level 1 Pokémon are valuable — they provide bonuses AND can evolve!",
+        "zh": "支付费用捕捉一只宝可梦：\n\n**可捕捉：** 场上翻开的 12 张 **或** 你保留的牌\n\n**支付步骤：**\n1. 先用已有宝可梦的 **精灵球奖励** 抵扣\n2. 用筹码支付剩余费用（归还供应区）\n3. **大师球** 可替代任意颜色\n\n捕捉后宝可梦放在面前，获得其分数和精灵球奖励。\n\n💡 等级1的0分牌也很有价值——它提供永久奖励且可以进化！"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Check Evolution",
+            "zh": "检查进化"
+          },
+          "next": "evolve-check"
+        }
+      ]
+    },
+    "catch-special": {
+      "title": {
+        "en": "Catch Rare / Legendary Pokémon",
+        "zh": "捕捉稀有 / 传说宝可梦"
+      },
+      "content": {
+        "en": "### Rare Pokémon\n- Pay Poké Ball cost like normal cards\n- Provides **2 permanent bonuses** (instead of 1)\n- **Cannot be reserved** — catch directly only\n\n### Legendary Pokémon\n- Pay Poké Ball cost **+ 1 Master Ball**\n- Provides **2 permanent bonuses**\n- **Cannot be reserved**\n- Usually higher point values\n\nAfter catching, immediately reveal the next one from its deck.",
+        "zh": "### 稀有宝可梦\n- 像普通牌一样支付精灵球费用\n- 提供 **2 个永久精灵球奖励**（比普通的1个多）\n- **不能保留**，只能直接捕捉\n\n### 传说宝可梦\n- 支付精灵球费用 **+ 额外 1 枚大师球**\n- 提供 **2 个永久精灵球奖励**\n- **不能保留**\n- 分数通常更高\n\n捕捉后立即从对应牌堆翻开下一只。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Check Evolution",
+            "zh": "检查进化"
+          },
+          "next": "evolve-check"
+        }
+      ]
+    },
+    "evolve-check": {
+      "title": {
+        "en": "Evolution Phase",
+        "zh": "进化阶段"
+      },
+      "content": {
+        "en": "After your action (and checking token limit), you may evolve **1** of your caught Pokémon.\n\n**Evolution is optional** — you can skip even if conditions are met.\n\nDo you have a Pokémon that can evolve?",
+        "zh": "行动结束后（检查筹码上限后），你可以让 **1 只** 已捕捉的宝可梦进化。\n\n**进化是可选的** — 即使满足条件也可以跳过。\n\n你有可以进化的宝可梦吗？"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Yes, I want to evolve!",
+            "zh": "有，我要进化！"
+          },
+          "next": "evolve"
+        },
+        {
+          "label": {
+            "en": "Skip → Check Game End",
+            "zh": "跳过 → 检查结束"
+          },
+          "next": "endcheck"
+        }
+      ]
+    },
+    "evolve": {
+      "title": {
+        "en": "How to Evolve",
+        "zh": "如何进化"
+      },
+      "content": {
+        "en": "### Evolution Conditions\n1. The evolved form must be available — in the **face-up display** or your **reserved cards**\n2. You have enough **Poké Ball bonuses** to pay the evolution cost\n\n⚠️ **Key: Evolution can ONLY be paid with permanent bonuses, NOT tokens!**\n\n### Evolution Process\n1. Take the evolved Pokémon card and place it in front of you (new points + bonus)\n2. Place the pre-evolution card under your **Trainer marker** (removed from play — no longer provides points or bonus)\n3. If the evolved form came from the display, replace it\n\n### Rules\n- Level 1 → Level 2, Level 2 → Level 3\n- Maximum **1 evolution** per turn\n- Bonuses are NOT consumed (they remain permanent)\n\n💡 **Strategy:** Evolution is the most efficient scoring path — catch cheap Level 1s, then evolve into high-scoring forms",
+        "zh": "### 进化条件\n1. 该宝可梦的进化形态在 **场上翻开的牌** 或 **你的保留牌** 中\n2. 你拥有足够的 **精灵球奖励** 支付进化费用\n\n⚠️ **关键：进化只能用永久奖励支付，不能用筹码！**\n\n### 进化流程\n1. 拿取进化形态的牌放在面前（获得新分数和奖励）\n2. 将进化前的牌放到 **训练家标记下方**（移出游戏，不再提供分数和奖励）\n3. 如果进化形态来自展示区，补充新牌\n\n### 规则要点\n- 等级 1 → 等级 2，等级 2 → 等级 3\n- 每回合最多进化 **1 只**\n- 奖励不会被消耗（永久有效）\n\n💡 **策略：** 进化是高效得分路径——低费捕捉等级1宝可梦，然后逐步进化为高分形态"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Check Game End",
+            "zh": "检查游戏结束"
+          },
+          "next": "endcheck"
+        }
+      ]
+    },
+    "endcheck": {
+      "title": {
+        "en": "Game End Check",
+        "zh": "检查游戏结束"
+      },
+      "content": {
+        "en": "Does any player have **18 or more points**?",
+        "zh": "是否有玩家达到 **18 分或以上**？"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Yes → Final Round",
+            "zh": "是 → 最后一轮"
+          },
+          "next": "final"
+        },
+        {
+          "label": {
+            "en": "No → Next Player",
+            "zh": "否 → 下一位玩家"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "final": {
+      "title": {
+        "en": "Final Round & Scoring",
+        "zh": "最后一轮与计分"
+      },
+      "content": {
+        "en": "Complete the current round (all players get equal turns).\n\n**Scoring:** Sum of all Pokémon card points in front of you (cards under Trainer marker don't count)\n\n**Winner:** Highest points.\n\n**Tiebreakers (in order):**\n1. Player with more Pokémon cards wins (including those under Trainer marker)\n2. Player who evolved more times wins",
+        "zh": "完成当前轮次（所有玩家回合数相同）。\n\n**计分：** 面前所有宝可梦牌的分数总和（训练家标记下的不算）\n\n**获胜：** 分数最高者\n\n**平局判定：**\n1. 拥有更多宝可梦牌的玩家胜出（含训练家标记下的）\n2. 进行更多次进化的玩家胜出"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "New Game",
+            "zh": "新游戏"
+          },
+          "next": "setup"
+        }
+      ]
+    }
+  }
+}

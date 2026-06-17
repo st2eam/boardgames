@@ -96,18 +96,30 @@ content/games/
 ├── index.json                    # Game registry (slug array)
 ├── catan/
 │   ├── meta.json                 # Game metadata
-│   ├── zh/{rules.md, flow.json}  # Chinese rules + optional decision tree
-│   └── en/{rules.md, flow.json}  # English rules + optional decision tree
-└── ...（23 games total）
+│   ├── flow.json                 # Optional: bilingual decision tree
+│   ├── score.json                # Optional: score tracker config
+│   ├── zh/rules.md               # Chinese rules
+│   └── en/rules.md               # English rules
+└── ... (25 games total)
+
+public/data/
+├── games-index.json              # Full game data (with rules, for chat tools)
+├── games-meta.json               # Lightweight index (metadata only, for system prompt)
+└── rules/{slug}.json             # Per-game rules (on-demand loading)
 
 src/
 ├── app/[locale]/                 # Page routes
 ├── components/
-│   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, Sidebar, HeroBanner
+│   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
-│   ├── chat/                     # LLM chat components
+│   ├── game/score/               # ScoreTracker, CardSelector, FeatureInput, ScoreDisplay
+│   ├── chat/                     # ChatToggle, ChatIsland (lazy-loaded), ChatDialog, ChatMessages
 │   └── layout/                   # Header, Footer, BackToTop
-├── lib/content/                  # Content layer (Repository + Factory pattern)
+├── lib/constants.ts              # Shared constants (categoryGradients, difficultyColors, variantBadge)
+├── lib/content/                  # Content layer (Repository + Factory pattern, with memory cache)
+├── lib/score/                    # Score tracker (useScoreState hook + IndexedDB storage)
+├── lib/score/engines/            # Scoring engine factory (sea-salt / card-select / card-type / category / feature-calc)
+├── lib/ai/                       # DeepSeekAdapter, ChatStrategies, tool-handlers
 └── types/                        # TypeScript type definitions
 ```
 
@@ -147,13 +159,18 @@ src/
 
 ### flow.json (Decision Tree)
 
+Single bilingual file at the game root. `title`, `content`, and `label` are all `{ "en": "...", "zh": "..." }` objects:
+
 ```json
 {
   "startNode": "setup",
   "nodes": {
     "setup": {
       "title": { "en": "Game Setup", "zh": "游戏准备" },
-      "content": "Place the board in the center... (Markdown)",
+      "content": {
+        "en": "Place the board in the center... (Markdown)",
+        "zh": "将棋盘放在桌子中央...（Markdown）"
+      },
       "options": [
         { "label": { "en": "Your Turn", "zh": "轮到你了" }, "next": "turn" },
         { "label": { "en": "Scoring", "zh": "计分方式" }, "next": "scoring" }
@@ -274,7 +291,8 @@ See [`.cursor/skills/add-game/SKILL.md`](.cursor/skills/add-game/SKILL.md) for t
 Quick steps:
 
 1. Create directory under `content/games/` with `meta.json`, `en/rules.md`, `zh/rules.md`
-2. Optionally add `en/flow.json` and `zh/flow.json` for decision trees
-3. Register the slug in `content/games/index.json`
-4. If part of a series, add `family`, `familyOrder`, `variantType` to `meta.json`
-5. Run `npm run build` to verify
+2. Optionally add `flow.json` at the game root (bilingual title/content/label)
+3. Optionally add `score.json` for score tracking
+4. Register the slug in `content/games/index.json`
+5. If part of a series, add `family`, `familyOrder`, `variantType` to `meta.json`
+6. Run `npm run build` to verify

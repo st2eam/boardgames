@@ -16,7 +16,8 @@ function getNodeTitle(
   locale: string
 ): string {
   const node = flowData.nodes[nodeId];
-  return node?.title[locale as "en" | "zh"] ?? node?.title.en ?? nodeId;
+  if (!node) return nodeId;
+  return node.title[locale as "en" | "zh"] ?? node.title.en;
 }
 
 function ChevronIcon({ className }: { className?: string }) {
@@ -271,7 +272,7 @@ export function DecisionTree({ flowData, locale }: Props) {
           {/* Content body */}
           <div className="px-5 py-5 sm:px-6">
             <div className="rounded-xl border border-border bg-stone-50/50 p-4 sm:p-5">
-              <MarkdownRenderer content={node.content} />
+              <MarkdownRenderer content={node.content[locale as "en" | "zh"] ?? node.content.en} />
             </div>
           </div>
 
@@ -283,8 +284,7 @@ export function DecisionTree({ flowData, locale }: Props) {
               </p>
               <div className="grid gap-2 sm:grid-cols-2">
                 {node.options.map((opt) => {
-                  const targetTitle =
-                    opt.label[locale as "en" | "zh"] ?? opt.label.en;
+                  const targetTitle = opt.label[locale as "en" | "zh"] ?? opt.label.en;
                   const isVisited = history.includes(opt.next);
                   return (
                     <button

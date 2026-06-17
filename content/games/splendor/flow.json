@@ -1,0 +1,204 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Game Setup",
+        "zh": "游戏准备"
+      },
+      "content": {
+        "en": "**Components:** 90 development cards (3 levels), 40 gem tokens (7 each of 5 colors + 5 gold), 10 noble tiles\n\n1. Shuffle each level separately; level 1 at bottom, level 3 on top; reveal 4 cards per level\n2. Reveal nobles: **player count + 1** tiles\n3. Gem tokens: 2p = 4 each | 3p = 5 each | 4p = all 7 (gold always 5)\n4. Choose starting player randomly",
+        "zh": "**组件：** 90张发展牌(3个等级)、40枚宝石筹码(5色各7+5黄金)、10张贵族板块\n\n1. 每个等级洗牌，等级1在下，等级3在上，每叠翻开4张\n2. 翻开贵族：**玩家数+1** 张\n3. 宝石筹码：2人=每色4枚｜3人=5枚｜4人=7枚（黄金始终5枚）\n4. 随机选择起始玩家"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Start My Turn",
+            "zh": "开始我的回合"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "turn": {
+      "title": {
+        "en": "Your Turn – Choose ONE Action",
+        "zh": "你的回合 — 选择一个行动"
+      },
+      "content": {
+        "en": "You must perform exactly **one** of these four actions:",
+        "zh": "每回合必须执行以下 **四选一**："
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Take 3 Different Gems",
+            "zh": "拿 3 枚不同宝石"
+          },
+          "next": "take3"
+        },
+        {
+          "label": {
+            "en": "Take 2 Same Gems",
+            "zh": "拿 2 枚同色宝石"
+          },
+          "next": "take2"
+        },
+        {
+          "label": {
+            "en": "Reserve a Card",
+            "zh": "保留 1 张牌"
+          },
+          "next": "reserve"
+        },
+        {
+          "label": {
+            "en": "Buy a Card",
+            "zh": "购买 1 张牌"
+          },
+          "next": "buy"
+        }
+      ]
+    },
+    "take3": {
+      "title": {
+        "en": "Take 3 Different Gems",
+        "zh": "拿 3 枚不同颜色宝石"
+      },
+      "content": {
+        "en": "Take **3 gem tokens of different colors** from the supply.\n\n- If fewer than 3 colors are available, take as many different colors as you can\n- You **cannot** take gold tokens (gold is only gained by reserving)\n- Token limit: **10 tokens** max at end of turn (return excess)",
+        "zh": "从供应区选取 **3 枚不同颜色** 的宝石筹码。\n\n- 如果可选颜色不足 3 种，尽可能拿不同颜色\n- **不能** 拿黄金筹码（黄金只通过保留牌获得）\n- 回合结束时筹码总数不得超过 **10 枚**（超出须退回）"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Check Noble Visit",
+            "zh": "检查贵族来访"
+          },
+          "next": "noble"
+        }
+      ]
+    },
+    "take2": {
+      "title": {
+        "en": "Take 2 Same Color Gems",
+        "zh": "拿 2 枚同色宝石"
+      },
+      "content": {
+        "en": "Take 2 gem tokens of the **same color**.\n\n⚠️ **Condition:** That color must have **at least 4 tokens** remaining in the supply.\n\n- Token limit: **10 tokens** max at end of turn",
+        "zh": "拿取 2 枚 **相同颜色** 的宝石筹码。\n\n⚠️ **条件：** 该颜色在供应区必须剩余 **至少 4 枚** 才可执行此行动。\n\n- 回合结束时筹码总数不得超过 **10 枚**"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Check Noble Visit",
+            "zh": "检查贵族来访"
+          },
+          "next": "noble"
+        }
+      ]
+    },
+    "reserve": {
+      "title": {
+        "en": "Reserve a Card",
+        "zh": "保留 1 张牌"
+      },
+      "content": {
+        "en": "Take a card and place it face-down in front of you:\n\n1. **Choose from:** any of the 12 face-up cards **or** blind-draw from any level deck\n2. **Gain gold:** Take 1 gold token (if available)\n3. Only you can buy this card; it cannot be discarded\n\n⚠️ Maximum **3 reserved cards** at a time\n\n💡 **Strategy:** Reserving locks key cards AND is the only way to get gold",
+        "zh": "将一张牌保留到自己面前（面朝下）：\n\n1. **选择来源：** 场上翻开的12张牌之一 **或** 任意等级牌堆顶部盲抽\n2. **获得黄金：** 同时拿 1 枚黄金筹码（如有剩余）\n3. 该牌只有你可以购买，不可丢弃\n\n⚠️ 最多同时持有 **3 张** 保留牌\n\n💡 **策略：** 保留既可以锁定关键牌，也是获取黄金的唯一途径"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Check Noble Visit",
+            "zh": "检查贵族来访"
+          },
+          "next": "noble"
+        }
+      ]
+    },
+    "buy": {
+      "title": {
+        "en": "Buy a Card",
+        "zh": "购买 1 张牌"
+      },
+      "content": {
+        "en": "Pay the cost to buy a card:\n\n**Eligible cards:** any of the 12 face-up cards **or** your reserved cards\n\n**Payment steps:**\n1. Apply **gem bonuses** from owned cards (permanent discounts)\n2. Pay remaining cost with **gem tokens** (returned to supply)\n3. **Gold tokens** substitute for any color\n\nPlace the bought card face-up; its gem icon becomes your permanent bonus.\n\n**A bought face-up card is immediately replaced from its level deck.**",
+        "zh": "支付费用购买一张牌：\n\n**可购买的牌：** 场上翻开的 12 张 **或** 你保留的牌\n\n**支付步骤：**\n1. 先用已购牌的 **宝石奖励** 抵扣（免费永久减免）\n2. 用手中 **宝石筹码** 支付剩余费用（归还供应区）\n3. **黄金筹码** 可替代任意颜色\n\n购买后牌面朝上放在面前，右上角宝石图标成为你的永久奖励。\n\n**场上的牌被购买后，立即从对应牌堆补充。**"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Check Noble Visit",
+            "zh": "检查贵族来访"
+          },
+          "next": "noble"
+        }
+      ]
+    },
+    "noble": {
+      "title": {
+        "en": "Noble Visit (Automatic)",
+        "zh": "贵族来访（自动触发）"
+      },
+      "content": {
+        "en": "After your action, check if you meet any noble's requirements:\n\n- Nobles require specific **gem bonuses** (from owned cards, NOT tokens)\n- When met, the noble **automatically visits** — gain **3 prestige points**\n- Maximum **1 noble** per turn\n- You **cannot refuse** a noble visit",
+        "zh": "行动结束后，检查是否满足任一贵族的需求：\n\n- 贵族要求特定数量的 **宝石奖励**（不是筹码！是已购牌提供的永久奖励）\n- 满足条件时贵族 **自动来访**，获得 **3 声望分**\n- 每回合最多接待 **1 位** 贵族\n- **不可拒绝** 贵族来访"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Check Game End",
+            "zh": "检查游戏结束"
+          },
+          "next": "endcheck"
+        }
+      ]
+    },
+    "endcheck": {
+      "title": {
+        "en": "Game End Check",
+        "zh": "检查游戏结束"
+      },
+      "content": {
+        "en": "Does any player have **15 or more prestige points**?",
+        "zh": "是否有玩家达到 **15 分或以上**？"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Yes → Final Round",
+            "zh": "是 → 最后一轮"
+          },
+          "next": "final"
+        },
+        {
+          "label": {
+            "en": "No → Next Player",
+            "zh": "否 → 下一位玩家"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "final": {
+      "title": {
+        "en": "Final Round & Scoring",
+        "zh": "最后一轮与计分"
+      },
+      "content": {
+        "en": "Once someone reaches 15 points, **complete the current round** (all players get equal turns).\n\n**Scoring:** Development card points + Noble points (3 each)\n\n**Winner:** Highest prestige points.\n\n**Tiebreaker:** The player with **fewer** development cards wins (more efficient engine).",
+        "zh": "当有人达到 15 分后，**完成当前轮次**（确保所有玩家回合数相同）。\n\n**计分：** 发展牌上的分数 + 贵族的 3 分\n\n**获胜：** 声望分最高者胜出。\n\n**平局：** 拥有发展牌 **数量更少** 的玩家获胜（引擎效率更高）。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "New Game",
+            "zh": "新游戏"
+          },
+          "next": "setup"
+        }
+      ]
+    }
+  }
+}

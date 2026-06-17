@@ -34,12 +34,12 @@ If rules can't be found, leave `rules.md` with only the heading — don't guess.
 ```
 content/games/{slug}/
 ├── meta.json
+├── flow.json      # optional — single bilingual decision tree
+├── score.json     # optional — score tracker config
 ├── en/
-│   ├── rules.md       # required
-│   └── flow.json      # optional — interactive decision tree
+│   └── rules.md   # required
 └── zh/
-    ├── rules.md       # required
-    └── flow.json      # optional
+    └── rules.md   # required
 ```
 
 **Slug rules:** lowercase, hyphens only, no special characters. Match existing conventions.
@@ -179,13 +179,26 @@ The order in this file determines display order on the homepage (sorted alphabet
 
 Only if the game benefits from step-by-step interactive guidance. A flow is a **directed graph** — each node is a rule snippet with jump options.
 
+Place `flow.json` in the game's root directory (not inside locale folders):
+
+```
+content/games/{slug}/
+├── meta.json
+├── flow.json       # optional — single bilingual file
+├── en/rules.md
+└── zh/rules.md
+```
+
 ```json
 {
   "startNode": "setup",
   "nodes": {
     "setup": {
       "title": { "en": "Game Setup", "zh": "游戏准备" },
-      "content": "**Markdown** content for this step...",
+      "content": {
+        "en": "**Markdown** content in English...",
+        "zh": "**Markdown** 中文内容..."
+      },
       "options": [
         {
           "label": { "en": "Your Turn", "zh": "轮到你了" },
@@ -199,16 +212,20 @@ Only if the game benefits from step-by-step interactive guidance. A flow is a **
     },
     "turn": {
       "title": { "en": "On Your Turn", "zh": "你的回合" },
-      "content": "Describe turn actions here...",
+      "content": {
+        "en": "Describe turn actions here...",
+        "zh": "在此描述回合操作..."
+      },
       "options": []
     }
   }
 }
 ```
 
-- Both `en/flow.json` and `zh/flow.json` must exist if adding a flow
+- Single `flow.json` per game at the root level (NOT per locale)
+- `title`, `content`, and `label` are all bilingual objects `{ "en": "...", "zh": "..." }`
 - Node keys are arbitrary strings (use descriptive names)
-- Content supports full GFM markdown (tables, lists, bold, etc.)
+- Content values support full GFM markdown (tables, lists, bold, etc.)
 - Keep each node focused on one topic — don't cram too much into one node
 
 ### Step 7: Update documentation
@@ -346,7 +363,7 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] Series fields set correctly (if applicable)
 - [ ] `en/rules.md` written with standard structure
 - [ ] `zh/rules.md` written (matching English content)
-- [ ] `en/flow.json` and `zh/flow.json` added (optional)
+- [ ] `flow.json` added at game root with bilingual title/content/label (optional)
 - [ ] `score.json` added for games with scoring (optional)
 - [ ] Slug registered in `content/games/index.json`
 - [ ] `README.md` and `README-en.md` updated

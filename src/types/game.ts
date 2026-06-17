@@ -19,7 +19,7 @@ export interface FlowOption {
 
 export interface FlowNode {
   title: Record<"en" | "zh", string>;
-  content: string; // markdown
+  content: Record<"en" | "zh", string>;
   options: FlowOption[];
 }
 

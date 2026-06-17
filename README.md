@@ -96,9 +96,10 @@ content/games/
 ├── index.json                    # 游戏注册表（slug = 英文名 slugified）
 ├── catan/
 │   ├── meta.json                 # 游戏元数据
+│   ├── flow.json                 # 可选：交互式决策树（双语）
 │   ├── score.json                # 可选：计分器配置
-│   ├── zh/{rules.md, flow.json}  # 中文规则 + 可选决策树
-│   └── en/{rules.md, flow.json}  # 英文规则 + 可选决策树
+│   ├── zh/rules.md               # 中文规则
+│   └── en/rules.md               # 英文规则
 └── ...（共 25 款游戏）
 
 public/data/
@@ -158,13 +159,18 @@ src/
 
 ### flow.json（决策树）
 
+单文件放在游戏根目录，`title`、`content`、`label` 均为双语对象：
+
 ```json
 {
   "startNode": "setup",
   "nodes": {
     "setup": {
       "title": { "en": "Game Setup", "zh": "游戏准备" },
-      "content": "将棋盘放在桌子中央...（Markdown）",
+      "content": {
+        "en": "Place the board in the center... (Markdown)",
+        "zh": "将棋盘放在桌子中央...（Markdown）"
+      },
       "options": [
         { "label": { "en": "Your Turn", "zh": "轮到你了" }, "next": "turn" },
         { "label": { "en": "Scoring", "zh": "计分方式" }, "next": "scoring" }
@@ -315,8 +321,8 @@ src/
 快速步骤：
 
 1. 在 `content/games/` 下创建目录，包含 `meta.json`、`en/rules.md`、`zh/rules.md`
-2. 可选：添加 `en/flow.json` 和 `zh/flow.json` 提供交互式决策树
-3. 可选：添加 `score.json` 提供计分器（见下方格式）
+2. 可选：添加 `flow.json`（放在游戏根目录，双语 title/content/label）
+3. 可选：添加 `score.json` 提供计分器
 4. 在 `content/games/index.json` 中注册 slug
 5. 如属于某个系列，在 `meta.json` 中添加 `family`、`familyOrder`、`variantType` 字段
 6. 运行 `npm run build` 验证构建通过

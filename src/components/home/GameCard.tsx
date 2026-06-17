@@ -4,25 +4,13 @@ import Link from "next/link";
 import type { GameSummary } from "@/types/game";
 import { useTranslations, useLocale } from "next-intl";
 import { GameCover } from "./GameCover";
+import { categoryGradients, difficultyColors } from "@/lib/constants";
 
 interface Props {
   game: GameSummary;
 }
 
-const categoryGradients: Record<string, string> = {
-  board: "from-amber-500 to-orange-500",
-  card: "from-emerald-500 to-teal-500",
-  party: "from-rose-500 to-pink-500",
-  strategy: "from-indigo-500 to-violet-500",
-  family: "from-lime-500 to-green-500",
-  adventure: "from-violet-500 to-fuchsia-500",
-};
-
-const difficultyColor: Record<string, string> = {
-  easy: "bg-emerald-500",
-  medium: "bg-amber-500",
-  hard: "bg-rose-500",
-};
+const difficultyColor: Record<string, string> = difficultyColors;
 
 function useTags(game: GameSummary, t: ReturnType<typeof useTranslations<"game">>) {
   const descriptive = [...game.tags];

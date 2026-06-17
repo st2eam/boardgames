@@ -1,0 +1,437 @@
+[
+  {
+    "name": {
+      "en": "Texas Hold'em",
+      "zh": "德州扑克"
+    },
+    "players": "2-10",
+    "duration": "30-120 min",
+    "difficulty": "medium",
+    "tags": [
+      "card",
+      "strategy"
+    ],
+    "category": "card",
+    "slug": "texas-hold-em"
+  },
+  {
+    "name": {
+      "en": "TACTA",
+      "zh": "TACTA"
+    },
+    "players": "2-6",
+    "duration": "20-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "strategy"
+    ],
+    "category": "card",
+    "slug": "tacta"
+  },
+  {
+    "name": {
+      "en": "The 21st Constellation",
+      "zh": "群星二十一"
+    },
+    "players": "2-6",
+    "duration": "15-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "party"
+    ],
+    "category": "card",
+    "slug": "the-21st-constellation"
+  },
+  {
+    "name": {
+      "en": "GoTown",
+      "zh": "摩天大楼"
+    },
+    "players": "2-4",
+    "duration": "15-20 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family"
+    ],
+    "category": "card",
+    "slug": "gotown"
+  },
+  {
+    "name": {
+      "en": "Just Wild",
+      "zh": "荒野之王"
+    },
+    "players": "2-4",
+    "duration": "15-20 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "strategy",
+      "family"
+    ],
+    "category": "card",
+    "slug": "just-wild"
+  },
+  {
+    "name": {
+      "en": "Drecksau",
+      "zh": "脏小猪"
+    },
+    "players": "2-4",
+    "duration": "10-15 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family"
+    ],
+    "category": "card",
+    "family": "drecksau",
+    "familyOrder": 0,
+    "variantType": "base",
+    "slug": "drecksau"
+  },
+  {
+    "name": {
+      "en": "Drecksau: Sauschön",
+      "zh": "小猪选美"
+    },
+    "players": "2-4",
+    "duration": "10-15 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family"
+    ],
+    "category": "card",
+    "family": "drecksau",
+    "familyOrder": 1,
+    "variantType": "expansion",
+    "requiresBase": true,
+    "slug": "drecksau-sauschon"
+  },
+  {
+    "name": {
+      "en": "Arena Magnate: Haw!",
+      "zh": "榴莲教练的大拳馆：Haw！"
+    },
+    "players": "2-4",
+    "duration": "30-60 min",
+    "difficulty": "medium",
+    "tags": [
+      "board",
+      "strategy",
+      "dice"
+    ],
+    "category": "board",
+    "slug": "arena-magnate-haw"
+  },
+  {
+    "name": {
+      "en": "Catan",
+      "zh": "卡坦岛"
+    },
+    "players": "3-4",
+    "duration": "60-120 min",
+    "difficulty": "medium",
+    "tags": [
+      "strategy",
+      "board",
+      "family"
+    ],
+    "category": "board",
+    "family": "catan",
+    "familyOrder": 0,
+    "variantType": "base",
+    "slug": "catan"
+  },
+  {
+    "name": {
+      "en": "Catan: China Map",
+      "zh": "卡坦岛：中国版图"
+    },
+    "players": "3-4",
+    "duration": "100-150 min",
+    "difficulty": "medium",
+    "tags": [
+      "strategy",
+      "board",
+      "family"
+    ],
+    "category": "board",
+    "family": "catan",
+    "familyOrder": 1,
+    "variantType": "variant",
+    "requiresBase": false,
+    "slug": "catan-china-map"
+  },
+  {
+    "name": {
+      "en": "Sea Salt & Paper",
+      "zh": "海盐折纸"
+    },
+    "players": "2-4",
+    "duration": "30-45 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family"
+    ],
+    "category": "card",
+    "family": "sea-salt-paper",
+    "familyOrder": 0,
+    "variantType": "base",
+    "slug": "sea-salt-paper"
+  },
+  {
+    "name": {
+      "en": "Sea Salt & Paper: Extra Salt",
+      "zh": "海盐折纸：盐趣倍增"
+    },
+    "players": "2-4",
+    "duration": "30-45 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family"
+    ],
+    "category": "card",
+    "family": "sea-salt-paper",
+    "familyOrder": 1,
+    "variantType": "expansion",
+    "requiresBase": true,
+    "slug": "sea-salt-paper-extra-salt"
+  },
+  {
+    "name": {
+      "en": "Legends of the Three Kingdoms",
+      "zh": "三国杀"
+    },
+    "players": "2-10",
+    "duration": "30-60 min",
+    "difficulty": "hard",
+    "tags": [
+      "card",
+      "strategy"
+    ],
+    "category": "card",
+    "family": "legends-of-the-three-kingdoms",
+    "familyOrder": 0,
+    "variantType": "base",
+    "slug": "legends-of-the-three-kingdoms"
+  },
+  {
+    "name": {
+      "en": "Legends of the Three Kingdoms: Disloyal Minister",
+      "zh": "三国杀：不臣之君"
+    },
+    "players": "4-8",
+    "duration": "30-60 min",
+    "difficulty": "hard",
+    "tags": [
+      "card",
+      "strategy",
+      "deduction"
+    ],
+    "category": "card",
+    "family": "legends-of-the-three-kingdoms",
+    "familyOrder": 1,
+    "variantType": "expansion",
+    "requiresBase": true,
+    "slug": "legends-of-the-three-kingdoms-disloyal-minister"
+  },
+  {
+    "name": {
+      "en": "Modern Art",
+      "zh": "现代艺术"
+    },
+    "players": "3-5",
+    "duration": "45-60 min",
+    "difficulty": "medium",
+    "tags": [
+      "card",
+      "strategy"
+    ],
+    "category": "card",
+    "slug": "modern-art"
+  },
+  {
+    "name": {
+      "en": "UNO",
+      "zh": "UNO"
+    },
+    "players": "2-10",
+    "duration": "15-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family",
+      "party"
+    ],
+    "category": "card",
+    "family": "uno",
+    "familyOrder": 0,
+    "variantType": "base",
+    "slug": "uno"
+  },
+  {
+    "name": {
+      "en": "UNO Flip",
+      "zh": "UNO Flip"
+    },
+    "players": "2-10",
+    "duration": "15-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family",
+      "party"
+    ],
+    "category": "card",
+    "family": "uno",
+    "familyOrder": 1,
+    "variantType": "variant",
+    "slug": "uno-flip"
+  },
+  {
+    "name": {
+      "en": "UNO Show 'Em No Mercy",
+      "zh": "UNO 无情出击"
+    },
+    "players": "2-6",
+    "duration": "20-40 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family",
+      "party"
+    ],
+    "category": "card",
+    "family": "uno",
+    "familyOrder": 2,
+    "variantType": "variant",
+    "slug": "uno-show-em-no-mercy"
+  },
+  {
+    "name": {
+      "en": "Carcassonne",
+      "zh": "卡卡颂"
+    },
+    "players": "2-5",
+    "duration": "35-45 min",
+    "difficulty": "medium",
+    "tags": [
+      "board",
+      "strategy"
+    ],
+    "category": "board",
+    "slug": "carcassonne"
+  },
+  {
+    "name": {
+      "en": "The Message: Attack by Stratagem",
+      "zh": "风声再临"
+    },
+    "players": "3-7",
+    "duration": "30-60 min",
+    "difficulty": "medium",
+    "tags": [
+      "card",
+      "strategy",
+      "deduction"
+    ],
+    "category": "card",
+    "slug": "the-message-attack-by-stratagem"
+  },
+  {
+    "name": {
+      "en": "CABO",
+      "zh": "CABO"
+    },
+    "players": "2-4",
+    "duration": "20-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family"
+    ],
+    "category": "card",
+    "slug": "cabo"
+  },
+  {
+    "name": {
+      "en": "Exploding Kittens",
+      "zh": "爆炸猫"
+    },
+    "players": "2-5",
+    "duration": "15-20 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "party"
+    ],
+    "category": "card",
+    "family": "exploding-kittens",
+    "familyOrder": 0,
+    "variantType": "base",
+    "slug": "exploding-kittens"
+  },
+  {
+    "name": {
+      "en": "Exploding Kittens: NSFW Edition",
+      "zh": "爆炸猫：黑盒版"
+    },
+    "players": "2-5",
+    "duration": "15-20 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "party"
+    ],
+    "category": "card",
+    "family": "exploding-kittens",
+    "familyOrder": 1,
+    "variantType": "variant",
+    "requiresBase": false,
+    "slug": "exploding-kittens-nsfw-edition"
+  },
+  {
+    "name": {
+      "en": "Splendor",
+      "zh": "璀璨宝石"
+    },
+    "players": "2-4",
+    "duration": "30 min",
+    "difficulty": "medium",
+    "tags": [
+      "card",
+      "strategy"
+    ],
+    "category": "card",
+    "family": "splendor",
+    "familyOrder": 0,
+    "variantType": "base",
+    "slug": "splendor"
+  },
+  {
+    "name": {
+      "en": "Splendor: Pokémon",
+      "zh": "璀璨宝石：宝可梦版"
+    },
+    "players": "2-4",
+    "duration": "30 min",
+    "difficulty": "medium",
+    "tags": [
+      "card",
+      "strategy"
+    ],
+    "category": "card",
+    "family": "splendor",
+    "familyOrder": 1,
+    "variantType": "variant",
+    "requiresBase": false,
+    "slug": "splendor-pokemon"
+  }
+]

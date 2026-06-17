@@ -61,6 +61,16 @@
   "score": {
     "players": "玩家",
     "addPlayer": "添加玩家",
-    "resetAll": "重置计分"
+    "resetAll": "重置计分",
+    "thisRound": "本轮得分",
+    "totalScore": "累计总分",
+    "score": "得分",
+    "confirmRound": "确认本轮",
+    "colorBonus": "颜色奖励",
+    "cardScore": "卡牌原始分",
+    "round": "第 {n} 轮",
+    "targetReached": "已达目标分！游戏结束",
+    "limitExceeded": "已超出限制！出局",
+    "reqBase": "需本体"
   }
 }

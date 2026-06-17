@@ -1,14 +1,19 @@
 import type { GameMeta, FlowData, ScoreConfig } from "@/types/game";
 import { loadJson, loadMarkdown, fileExists } from "./markdown";
 
+const metaCache = new Map<string, GameMeta>();
+
 export class GameRepository {
   static async getAllGameSlugs(): Promise<string[]> {
     return loadJson<string[]>("index.json");
   }
 
   static async getGameMeta(slug: string): Promise<GameMeta> {
+    if (metaCache.has(slug)) return metaCache.get(slug)!;
     const raw = loadJson<Omit<GameMeta, "slug">>(slug, "meta.json");
-    return { ...raw, slug };
+    const meta = { ...raw, slug };
+    metaCache.set(slug, meta);
+    return meta;
   }
 
   static async getGameRules(slug: string, locale: string): Promise<string> {
@@ -34,6 +39,26 @@ export class GameRepository {
 
   static hasScoreConfig(slug: string): boolean {
     return fileExists(slug, "score.json");
+  }
+
+  static hasFlowData(slug: string, locale: string): boolean {
+    return fileExists(slug, locale, "flow.json");
+  }
+
+  static async getFamilyGames(family: string): Promise<GameMeta[]> {
+    const slugs = await this.getAllGameSlugs();
+    const result: GameMeta[] = [];
+    for (const slug of slugs) {
+      try {
+        const meta = await this.getGameMeta(slug);
+        if (meta.family === family) {
+          result.push(meta);
+        }
+      } catch {
+        // skip
+      }
+    }
+    return result;
   }
 
   static async getAllTags(): Promise<string[]> {

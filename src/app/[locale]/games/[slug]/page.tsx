@@ -6,9 +6,29 @@ import { RelatedGames } from "@/components/game/RelatedGames";
 import { ChatToggle } from "@/components/chat/ChatToggle";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import type { Metadata } from "next";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const meta = await GameRepository.getGameMeta(slug);
+  const name = meta.name[locale as "en" | "zh"] ?? meta.name.en;
+  const description = locale === "zh"
+    ? `${name} 完整规则说明 - ${meta.players}人, 时长${meta.duration}`
+    : `Complete rules for ${name} - ${meta.players} players, ${meta.duration}`;
+
+  return {
+    title: `${name} - The Game Shelf`,
+    description,
+    openGraph: {
+      title: name,
+      description,
+      type: "article",
+    },
+  };
 }
 
 export async function generateStaticParams() {
@@ -22,23 +42,6 @@ export async function generateStaticParams() {
   return params;
 }
 
-async function getFamilyGames(currentMeta: Awaited<ReturnType<typeof GameRepository.getGameMeta>>) {
-  if (!currentMeta.family) return [];
-  const allSlugs = await GameRepository.getAllGameSlugs();
-  const familyMetas = [];
-  for (const slug of allSlugs) {
-    try {
-      const meta = await GameRepository.getGameMeta(slug);
-      if (meta.family === currentMeta.family) {
-        familyMetas.push(meta);
-      }
-    } catch {
-      // skip
-    }
-  }
-  return familyMetas;
-}
-
 export default async function GamePage({ params }: Props) {
   const { locale, slug } = await params;
   const game = await GameFactory.createGame(slug, locale);
@@ -47,7 +50,9 @@ export default async function GamePage({ params }: Props) {
     notFound();
   }
 
-  const familyGames = await getFamilyGames(game.meta);
+  const familyGames = game.meta.family
+    ? await GameRepository.getFamilyGames(game.meta.family)
+    : [];
   const gameName = game.meta.name[locale as "en" | "zh"] ?? game.meta.name.en;
 
   return (
@@ -62,7 +67,7 @@ export default async function GamePage({ params }: Props) {
         )}
       </div>
       <ChatToggle
-        scope={{ type: "game", slug, gameName, rules: game.rules }}
+        scope={{ type: "game", slug, gameName }}
         locale={locale}
       />
     </>

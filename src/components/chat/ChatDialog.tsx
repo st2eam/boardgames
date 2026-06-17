@@ -102,7 +102,7 @@ function ClearConfirmDialog({
 }
 
 export function ChatDialog({ title }: Props) {
-  const { apiKey, clearHistory, setIsOpen, scope, activeMode, toggleMode } = useChat();
+  const { apiKey, clearHistory, close, scope, activeMode, toggleMode } = useChat();
   const t = useTranslations("chat");
   const locale = useLocale();
   const [showApiModal, setShowApiModal] = useState(!apiKey);
@@ -119,8 +119,21 @@ export function ChatDialog({ title }: Props) {
     ? (locale === "zh" ? `${gameName} 助手` : `${gameName} Assistant`)
     : t("globalTitle");
 
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") close();
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [close]);
+
   return (
-    <div className="flex h-[520px] flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-white shadow-2xl shadow-stone-400/15">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={headerTitle}
+      className="flex h-[520px] flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-white shadow-2xl shadow-stone-400/15"
+    >
       {/* Header */}
       <div className="flex shrink-0 items-center justify-between border-b border-stone-100 bg-gradient-to-b from-stone-50/80 to-white px-4 py-3.5">
         <div className="flex items-center gap-2.5 min-w-0">
@@ -205,7 +218,7 @@ export function ChatDialog({ title }: Props) {
             </svg>
           </IconButton>
           <IconButton
-            onClick={() => setIsOpen(false)}
+            onClick={() => close()}
             tooltip={t("close")}
             className="ml-1"
           >

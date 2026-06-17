@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { GameSummary } from "@/types/game";
 import { useLocale, useTranslations } from "next-intl";
 import { GameCover } from "./GameCover";
+import { categoryGradients, difficultyColors, variantBadge } from "@/lib/constants";
 
 function TruncatedName({ name }: { name: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -35,32 +36,6 @@ function TruncatedName({ name }: { name: string }) {
 interface Props {
   games: GameSummary[];
 }
-
-const categoryGradients: Record<string, string> = {
-  board: "from-amber-500 to-orange-500",
-  card: "from-emerald-500 to-teal-500",
-  party: "from-rose-500 to-pink-500",
-  strategy: "from-indigo-500 to-violet-500",
-};
-
-const difficultyColor: Record<string, string> = {
-  easy: "bg-emerald-500",
-  medium: "bg-amber-500",
-  hard: "bg-rose-500",
-};
-
-const variantBadge: Record<string, { en: string; zh: string; cls: string }> = {
-  expansion: {
-    en: "DLC",
-    zh: "DLC",
-    cls: "bg-violet-100 text-violet-700",
-  },
-  variant: {
-    en: "Variant",
-    zh: "变体",
-    cls: "bg-sky-100 text-sky-700",
-  },
-};
 
 export function GameFamilyCard({ games }: Props) {
   const locale = useLocale();
@@ -141,7 +116,7 @@ export function GameFamilyCard({ games }: Props) {
               ))}
             </div>
             <span
-              className={`h-2 w-2 shrink-0 rounded-full ${difficultyColor[base.difficulty]}`}
+              className={`h-2 w-2 shrink-0 rounded-full ${difficultyColors[base.difficulty]}`}
             />
           </div>
         </Link>
@@ -153,6 +128,8 @@ export function GameFamilyCard({ games }: Props) {
               e.preventDefault();
               setExpanded(!expanded);
             }}
+            aria-expanded={expanded}
+            aria-label={expanded ? "Collapse variants" : "Show variants"}
             className={`absolute -top-2 -right-2 z-10 flex cursor-pointer items-center gap-1 rounded-full border-2 border-white px-2.5 py-1 text-[11px] font-bold shadow-md transition-all hover:scale-105 ${
               expanded
                 ? "bg-primary text-white"
@@ -178,8 +155,13 @@ export function GameFamilyCard({ games }: Props) {
       </div>
 
       {/* Expanded variant/expansion cards */}
-      {expanded && variants.length > 0 && (
-        <div className="mt-2 space-y-2">
+      <div
+        className={`overflow-hidden transition-all duration-300 motion-reduce:transition-none ${
+          expanded ? "mt-2 max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        {variants.length > 0 && (
+        <div className="space-y-2">
           {variants.map((game) => {
             const name = game.name[locale as "en" | "zh"] ?? game.name.en;
             const badge = game.variantType
@@ -246,7 +228,8 @@ export function GameFamilyCard({ games }: Props) {
             );
           })}
         </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

@@ -100,8 +100,9 @@ export function ExportButton({ markdown, gameName, slug }: Props) {
         {t("export")}
       </button>
 
-      {open && (
-        <div className="absolute right-0 z-20 mt-1.5 w-44 rounded-xl border border-border bg-white py-1.5 shadow-lg">
+      <div className={`absolute right-0 z-20 mt-1.5 w-44 rounded-xl border border-border bg-white py-1.5 shadow-lg transition-all duration-200 origin-top-right motion-reduce:transition-none ${
+        open ? "scale-100 opacity-100" : "scale-95 opacity-0 pointer-events-none"
+      }`}>
           <button
             onClick={exportPDF}
             className="flex w-full cursor-pointer items-center gap-2.5 px-4 py-2 text-left text-sm text-stone-700 transition-colors hover:bg-stone-50"
@@ -141,7 +142,6 @@ export function ExportButton({ markdown, gameName, slug }: Props) {
             {t("exportMarkdown")}
           </button>
         </div>
-      )}
     </div>
   );
 }

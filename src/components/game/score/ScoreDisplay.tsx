@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import type { ScoreBreakdown } from "@/lib/score/engines/types";
 import type { RoundRecord } from "@/lib/score/score-storage";
 
@@ -24,13 +25,10 @@ export function ScoreDisplay({
   onConfirmRound,
   locale,
 }: Props) {
+  const t = useTranslations("score");
   const lang = locale as "en" | "zh";
   const displayTotal = multiRound ? cumulativeTotal : breakdown.total;
-  const isGameOver = target
-    ? direction === "low-wins"
-      ? displayTotal >= target
-      : displayTotal >= target
-    : false;
+  const isGameOver = target ? displayTotal >= target : false;
 
   return (
     <div className="space-y-3">
@@ -38,16 +36,14 @@ export function ScoreDisplay({
       <div className={`rounded-xl border p-4 ${isGameOver ? "border-amber-300 bg-amber-50" : "border-stone-200 bg-white"}`}>
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-medium text-stone-500 uppercase tracking-wide">
-            {multiRound
-              ? locale === "zh" ? "本轮得分" : "This Round"
-              : locale === "zh" ? "得分" : "Score"}
+            {multiRound ? t("thisRound") : t("score")}
           </span>
           {multiRound && onConfirmRound && (breakdown.total > 0 || breakdown.colorBonus > 0) && (
             <button
               onClick={onConfirmRound}
               className="rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-white hover:bg-accent/90 transition-colors"
             >
-              {locale === "zh" ? "确认本轮" : "Confirm Round"}
+              {t("confirmRound")}
             </button>
           )}
         </div>
@@ -67,15 +63,13 @@ export function ScoreDisplay({
             ))}
             {breakdown.colorBonus > 0 && (
               <div className={`flex items-center justify-between text-sm ${breakdown.details.length > 0 ? "border-t border-dashed border-stone-200 pt-1 mt-1" : ""}`}>
-                <span className="text-stone-500">
-                  {locale === "zh" ? "颜色奖励" : "Color Bonus"}
-                </span>
+                <span className="text-stone-500">{t("colorBonus")}</span>
                 <span className="font-medium tabular-nums text-emerald-600">+{breakdown.colorBonus}</span>
               </div>
             )}
             {breakdown.cardScore > 0 && breakdown.cardScore !== breakdown.total && (
               <div className="flex items-center justify-between text-[11px] text-stone-400 mt-1">
-                <span>{locale === "zh" ? "卡牌原始分" : "Card score"}</span>
+                <span>{t("cardScore")}</span>
                 <span className="tabular-nums">{breakdown.cardScore}</span>
               </div>
             )}
@@ -88,7 +82,7 @@ export function ScoreDisplay({
         <div className="rounded-xl border border-stone-200 bg-white p-4">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-medium text-stone-500 uppercase tracking-wide">
-              {locale === "zh" ? "累计总分" : "Total Score"}
+              {t("totalScore")}
             </span>
             <div>
               <span className="text-2xl font-bold tabular-nums text-stone-800">
@@ -111,7 +105,7 @@ export function ScoreDisplay({
             {rounds.map((r, i) => (
               <div key={i} className="flex items-center justify-between text-sm">
                 <span className="text-stone-400">
-                  {locale === "zh" ? `第 ${i + 1} 轮` : `Round ${i + 1}`}
+                  {t("round", { n: i + 1 })}
                 </span>
                 <span className="font-medium tabular-nums text-stone-600">+{r.score}</span>
               </div>
@@ -119,9 +113,7 @@ export function ScoreDisplay({
           </div>
           {isGameOver && (
             <div className="mt-3 rounded-lg bg-amber-100 px-3 py-2 text-center text-sm font-medium text-amber-800">
-              {direction === "high-wins"
-                ? locale === "zh" ? "已达目标分！游戏结束" : "Target reached! Game over"
-                : locale === "zh" ? "已超出限制！出局" : "Limit exceeded! Eliminated"}
+              {direction === "high-wins" ? t("targetReached") : t("limitExceeded")}
             </div>
           )}
         </div>

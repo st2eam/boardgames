@@ -26,8 +26,7 @@ interface ChatContextValue {
   messages: ChatMessage[];
   isStreaming: boolean;
   apiKey: string | null;
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  close: () => void;
   sendMessage: (content: string) => Promise<void>;
   clearHistory: () => Promise<void>;
   setApiKey: (key: string) => void;
@@ -42,13 +41,13 @@ interface Props {
   children: ReactNode;
   scope: ChatScope;
   locale: string;
+  onClose?: () => void;
 }
 
-export function ChatProvider({ children, scope, locale }: Props) {
+export function ChatProvider({ children, scope, locale, onClose }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [apiKey, setApiKeyState] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const messagesRef = useRef<ChatMessage[]>([]);
   const [activeMode, setActiveMode] = useState<ChatMode>(
@@ -87,6 +86,10 @@ export function ChatProvider({ children, scope, locale }: Props) {
     }
   }, [messages, effectiveScope, locale, loaded]);
 
+  const close = useCallback(() => {
+    onClose?.();
+  }, [onClose]);
+
   const setApiKey = useCallback((key: string) => {
     localStorage.setItem("deepseek-api-key", key);
     setApiKeyState(key);
@@ -118,7 +121,7 @@ export function ChatProvider({ children, scope, locale }: Props) {
 
       let strategy: ChatToolStrategy;
       if (activeMode === "game" && scope.type === "game") {
-        strategy = new GameChatStrategy(scope.gameName, scope.rules);
+        strategy = new GameChatStrategy(scope.gameName, scope.slug);
       } else {
         strategy = new GlobalChatStrategy();
       }
@@ -164,8 +167,7 @@ export function ChatProvider({ children, scope, locale }: Props) {
         messages,
         isStreaming,
         apiKey,
-        isOpen,
-        setIsOpen,
+        close,
         sendMessage,
         clearHistory: clearMessages,
         setApiKey,

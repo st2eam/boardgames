@@ -15,4 +15,4 @@ export interface ToolCall {
 
 export type ChatScope =
   | { type: "global" }
-  | { type: "game"; slug: string; gameName: string; rules: string };
+  | { type: "game"; slug: string; gameName: string };

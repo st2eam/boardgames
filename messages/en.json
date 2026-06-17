@@ -61,6 +61,16 @@
   "score": {
     "players": "Players",
     "addPlayer": "Add Player",
-    "resetAll": "Reset Scores"
+    "resetAll": "Reset Scores",
+    "thisRound": "This Round",
+    "totalScore": "Total Score",
+    "score": "Score",
+    "confirmRound": "Confirm Round",
+    "colorBonus": "Color Bonus",
+    "cardScore": "Card score",
+    "round": "Round {n}",
+    "targetReached": "Target reached! Game over",
+    "limitExceeded": "Limit exceeded! Eliminated",
+    "reqBase": "Req. Base"
   }
 }

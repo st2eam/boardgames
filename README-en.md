@@ -2,16 +2,19 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — 23 games (including expansions/variants), interactive decision trees, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — 25 games (including expansions/variants), interactive decision trees, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **23 game rules**: web-verified, complete bilingual rules (EN/ZH)
-- **15 interactive decision trees**: step-by-step flow with sidebar outline navigation
-- **Game family grouping**: UNO, Dirty Pig, Sanguosha, Exploding Kittens series with stacked card UI
-- **DLC / variant support**: Pig Pageant, Disloyal Minister, Black Box, UNO Flip, UNO No Mercy
+- **25 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **20 interactive decision trees**: step-by-step flow with sidebar outline navigation
+- **12 automatic score trackers**: 5 engine types for automatic scoring
+- **Game family grouping**: UNO, Drecksau, Legends of the Three Kingdoms, Exploding Kittens, Splendor, Sea Salt & Paper, Catan series
+- **DLC / variant support**: expansions and standalone variants with stacked card UI
 - **Export**: PDF (browser print) or Markdown download
-- **LLM chat**: DeepSeek-powered Q&A assistant (global + per-game scope)
+- **LLM chat**: DeepSeek-powered Q&A assistant (global + per-game scope), lazy-loaded on click
+- **Per-game SEO**: individual title / description / OG tags per game page
+- **Self-hosted fonts**: next/font with Fredoka, Nunito, Noto Sans SC (no render blocking)
 - **Bilingual**: full i18n for UI text and game content
 
 ## Quick Start
@@ -38,8 +41,9 @@ npm run build
 | Styling | Tailwind CSS v4 | Utility-first, responsive-friendly |
 | i18n | next-intl (no middleware) | Middleware incompatible with static export; `[locale]` directory routing |
 | Content | Markdown (free-form) | Flexible authoring, no schema constraints |
-| Rendering | react-markdown + remark-gfm | GFM tables, task lists, strikethrough |
-| LLM SDK | OpenAI SDK → DeepSeek | DeepSeek is OpenAI-API compatible |
+| Rendering | react-markdown + remark-gfm (Server Component) | GFM tables, task lists; zero client JS |
+| Fonts | `next/font` (Google) | Self-hosted, subset, no render blocking |
+| LLM SDK | OpenAI SDK → DeepSeek (lazy-loaded) | Loaded on click, saves ~100KB initial JS |
 | Chat storage | idb-keyval (IndexedDB) | Persistent chat history, simple API |
 
 ---
@@ -48,34 +52,40 @@ npm run build
 
 ### Standalone
 
-| Game | Rules | Decision Tree |
-|------|:-----:|:-------------:|
-| Texas Hold'em | ✅ | ✅ |
-| TACTA | ✅ | ✅ |
-| Catan | ✅ | ✅ |
-| Carcassonne | ✅ | ✅ |
-| Modern Art | ✅ | ✅ |
-| Sea Salt & Paper | ✅ | ✅ |
-| GoTown | ✅ | ✅ |
-| Just Wild | ✅ | ✅ |
-| Attack by Stratagem | ✅ | ✅ |
-| Cabo | ✅ | ✅ |
-| Stars Twenty-One | ✅ | — |
-| Durian Coach Boxing | ✅ | — |
+| Game | Rules | Decision Tree | Score |
+|------|:-----:|:-------------:|:-----:|
+| Texas Hold'em | ✅ | ✅ | — |
+| TACTA | ✅ | ✅ | ✅ |
+| Catan | ✅ | ✅ | ✅ |
+| Carcassonne | ✅ | ✅ | ✅ |
+| Modern Art | ✅ | ✅ | ✅ |
+| Sea Salt & Paper | ✅ | ✅ | ✅ |
+| GoTown | ✅ | ✅ | — |
+| Just Wild | ✅ | ✅ | ✅ |
+| The Message: Attack by Stratagem | ✅ | ✅ | — |
+| Cabo | ✅ | ✅ | ✅ |
+| The 21st Constellation | ✅ | ✅ | — |
+| Arena Magnate: Haw! | ✅ | ✅ | — |
 
 ### Series
 
-| Series | Game | Type | Rules | Decision Tree |
-|--------|------|------|:-----:|:-------------:|
-| UNO | UNO | Base | ✅ | ✅ |
-| | UNO Flip | Variant | ✅ | ✅ |
-| | UNO Show 'Em No Mercy | Variant | ✅ | ✅ |
-| Dirty Pig | Dirty Pig | Base | ✅ | ✅ |
-| | Pig Pageant | DLC (req. base) | ✅ | — |
-| Sanguosha | Sanguosha | Base | ✅ | ✅ |
-| | Disloyal Minister | DLC (req. base) | ✅ | — |
-| Exploding Kittens | Exploding Kittens | Base | ✅ | ✅ |
-| | Black Box | Variant (standalone) | ✅ | — |
+| Series | Game | Type | Rules | Decision Tree | Score |
+|--------|------|------|:-----:|:-------------:|:-----:|
+| UNO | UNO | Base | ✅ | ✅ | ✅ |
+| | UNO Flip | Variant | ✅ | ✅ | ✅ |
+| | UNO Show 'Em No Mercy | Variant | ✅ | ✅ | ✅ |
+| Drecksau | Drecksau | Base | ✅ | ✅ | — |
+| | Drecksau: Sauschön | DLC (req. base) | ✅ | — | — |
+| Legends of the Three Kingdoms | LotTK | Base | ✅ | ✅ | — |
+| | Disloyal Minister | DLC (req. base) | ✅ | — | — |
+| Exploding Kittens | Exploding Kittens | Base | ✅ | ✅ | — |
+| | NSFW Edition | Variant (standalone) | ✅ | — | — |
+| Splendor | Splendor | Base | ✅ | ✅ | — |
+| | Splendor: Pokémon | Variant (standalone) | ✅ | ✅ | — |
+| Sea Salt & Paper | Sea Salt & Paper | Base | ✅ | ✅ | ✅ |
+| | Extra Salt | DLC (req. base) | ✅ | — | ✅ |
+| Catan | Catan | Base | ✅ | ✅ | ✅ |
+| | China Map | Variant (standalone) | ✅ | — | ✅ |
 
 ---
 

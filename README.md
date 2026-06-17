@@ -2,17 +2,18 @@
 
 > [English version / 英文版](README-en.md)
 
-一个精心整理的现代桌游规则参考网站，覆盖 26 款游戏（含扩展/变体），支持中英双语、交互式决策树、LLM 对话查询，纯静态站点部署到 GitHub Pages。
+一个精心整理的现代桌游规则参考网站，覆盖 25 款游戏（含扩展/变体），支持中英双语、交互式决策树、LLM 对话查询，纯静态站点部署到 GitHub Pages。
 
 ## 功能特性
 
-- **26 款游戏规则**：经过网络验证的中英双语完整规则
-- **15 款交互式决策树**：分步交互流程，含侧边栏目录导航
-- **13 款自动计分器**：5 种引擎（公式 / 卡牌选择 / 卡牌类型 / 分类计数 / 特征计算），单人使用，IndexedDB 持久化
+- **25 款游戏规则**：经过网络验证的中英双语完整规则
+- **20 款交互式决策树**：分步交互流程，含侧边栏目录导航
+- **12 款自动计分器**：5 种引擎（公式 / 卡牌选择 / 卡牌类型 / 分类计数 / 特征计算），单人使用，IndexedDB 持久化
 - **游戏系列分组**：UNO、脏小猪、三国杀、爆炸猫、璀璨宝石、海盐折纸、卡坦岛等系列以堆叠卡片效果展示
 - **DLC / 变体支持**：小猪选美、不臣之君、黑盒版、UNO Flip、UNO No Mercy、璀璨宝石宝可梦版、盐趣倍增、中国版图
 - **规则导出**：支持导出为 PDF 或下载 Markdown 原文
-- **LLM 对话**：基于 DeepSeek API 的规则问答助手，支持游戏限定 / 全局模式切换
+- **LLM 对话**：基于 DeepSeek API 的规则问答助手，支持游戏限定 / 全局模式切换，懒加载（点击时才加载）
+- **Per-game SEO**：每个游戏页面有独立 title / description / OG 标签
 - **首页排序**：游戏卡片按英文名字母顺序排列
 - **中英双语**：完整的 i18n 支持，含 UI 文案和游戏内容
 
@@ -35,13 +36,14 @@ npm run build
 
 | 项 | 决定 | 原因 |
 |---|---|---|
-| 框架 | Next.js App Router | 静态导出 + 服务端组件 + 丰富生态 |
+| 框架 | Next.js 16 App Router | 静态导出 + 服务端组件 + 丰富生态 |
 | 导出模式 | `output: 'export'` | GitHub Pages 纯静态托管 |
 | 样式 | Tailwind CSS v4 | 原子化 CSS，响应式友好 |
+| 字体 | `next/font` (Google) | 自托管、子集化、无渲染阻塞 |
 | i18n | next-intl（无 middleware） | middleware 与静态导出不兼容，使用 `[locale]` 目录路由 |
 | 内容格式 | Markdown（自由格式） | 灵活撰写，无结构约束 |
-| 内容渲染 | react-markdown + remark-gfm | GFM 表格/任务列表/删除线支持 |
-| LLM SDK | OpenAI SDK → DeepSeek | DeepSeek 兼容 OpenAI API 格式 |
+| 内容渲染 | react-markdown + remark-gfm（Server Component） | GFM 表格/任务列表/删除线，不增加客户端包 |
+| LLM SDK | OpenAI SDK → DeepSeek（懒加载） | 用户点击时才加载，节省 ~100KB 首屏 JS |
 | 对话存储 | idb-keyval（IndexedDB） | 持久化对话历史，API 简单 |
 
 ---
@@ -62,8 +64,8 @@ npm run build
 | 荒野之王 (Just Wild) | ✅ | ✅ | ✅ |
 | 风声再临 | ✅ | ✅ | — |
 | Cabo | ✅ | ✅ | ✅ |
-| 群星二十一 | ✅ | — | — |
-| 榴莲教练的大拳馆 | ✅ | — | — |
+| 群星二十一 | ✅ | ✅ | — |
+| 榴莲教练的大拳馆 | ✅ | ✅ | — |
 
 ### 游戏系列
 
@@ -91,25 +93,32 @@ npm run build
 
 ```
 content/games/
-├── index.json                    # 游戏注册表（slug 数组）
+├── index.json                    # 游戏注册表（slug = 英文名 slugified）
 ├── catan/
 │   ├── meta.json                 # 游戏元数据
 │   ├── score.json                # 可选：计分器配置
 │   ├── zh/{rules.md, flow.json}  # 中文规则 + 可选决策树
 │   └── en/{rules.md, flow.json}  # 英文规则 + 可选决策树
-└── ...（共 26 款游戏）
+└── ...（共 25 款游戏）
+
+public/data/
+├── games-index.json              # 完整游戏数据（含规则，chat tool 用）
+├── games-meta.json               # 轻量索引（仅元数据，system prompt 用）
+└── rules/{slug}.json             # 按游戏拆分的规则（按需加载）
 
 src/
 ├── app/[locale]/                 # 页面路由
 ├── components/
-│   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, Sidebar, HeroBanner
+│   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
 │   ├── game/score/               # ScoreTracker, CardSelector, FeatureInput, ScoreDisplay
-│   ├── chat/                     # LLM 对话组件
+│   ├── chat/                     # ChatToggle, ChatIsland（懒加载）, ChatDialog, ChatMessages
 │   └── layout/                   # Header, Footer, BackToTop
-├── lib/content/                  # 内容层（Repository + Factory 模式）
+├── lib/constants.ts              # 共享常量（categoryGradients, difficultyColors, variantBadge）
+├── lib/content/                  # 内容层（Repository + Factory 模式，带内存缓存）
 ├── lib/score/                    # 计分器（useScoreState hook + IndexedDB 存储）
 ├── lib/score/engines/            # 计分引擎工厂（sea-salt / card-select / card-type / category / feature-calc）
+├── lib/ai/                       # DeepSeekAdapter, ChatStrategies, tool-handlers
 └── types/                        # TypeScript 类型定义
 ```
 
@@ -284,13 +293,18 @@ src/
 
 ## 关键技术决策
 
-1. **构建时同步读取文件** — `fs.readFileSync` 仅在 `next build` 时执行，21 款游戏无性能问题
-2. **`dangerouslyAllowBrowser: true`** — API Key 由用户提供且无服务端，显式启用浏览器端调用
-3. **Tool call 循环上限** — 最多 5 轮迭代，防止无限循环
-4. **无 middleware** — next-intl middleware 与 `output: 'export'` 不兼容，使用 `[locale]` 目录路由
-5. **`trailingSlash: true`** — GitHub Pages 子目录路由兼容的必要配置
-6. **游戏系列分组** — `family` 字段实现逻辑关联，`familyOrder` 控制排序，`variantType` 区分类型
-7. **规则导出** — PDF 走浏览器原生打印，Markdown 走 Blob 下载，零外部依赖
+1. **构建时同步读取文件** — `fs.readFileSync` 仅在 `next build` 时执行，带内存缓存避免重复读取
+2. **Chat 懒加载** — `openai` SDK + 整个 chat 栈通过 `dynamic()` 延迟到用户点击 FAB 时加载
+3. **MarkdownRenderer 为 Server Component** — `react-markdown` 不进入客户端包，规则页面零额外 JS
+4. **数据拆分** — `games-meta.json`（轻量索引）+ `rules/{slug}.json`（按需加载），chat 不再一次性加载全部规则
+5. **Per-game SEO** — `generateMetadata` 为每个游戏页生成独立 title / description / OG tags
+6. **`next/font` 自托管** — Fredoka + Nunito + Noto Sans SC 自托管子集化，无外部 CSS 阻塞
+7. **`dangerouslyAllowBrowser: true`** — API Key 由用户提供且无服务端，显式启用浏览器端调用
+8. **Tool call 循环上限** — 最多 5 轮迭代，防止无限循环
+9. **无 middleware** — next-intl middleware 与 `output: 'export'` 不兼容，使用 `[locale]` 目录路由
+10. **`trailingSlash: true`** — GitHub Pages 子目录路由兼容的必要配置
+11. **slug = 英文名** — 目录名即 slugified 英文名，无额外映射层
+12. **游戏系列分组** — `family` 字段实现逻辑关联，`familyOrder` 控制排序，`variantType` 区分类型
 
 ---
 

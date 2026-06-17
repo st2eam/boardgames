@@ -1,0 +1,108 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Game Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "## Setup\n\n1. Place all 106 tiles **face-down** on the table and mix them\n2. Each player draws **14 tiles** onto their rack\n3. Remaining tiles form the **pool**\n4. Each player draws 1 tile — **highest number** goes first (return tiles)\n\n> Tiles: 1–13 in 4 colors (×2 each) + 2 Jokers = 106 total",
+        "zh": "## 准备\n\n1. 将全部 106 块牌**面朝下**放在桌面，充分混合\n2. 每人抽取 **14 块牌**放在牌架上\n3. 剩余牌组成**公共牌池**\n4. 各抽 1 块牌比大小，**最大者**先手（抽完放回）\n\n> 牌面：1–13 四种颜色（×2 套）+ 2 张百搭 = 共 106 块"
+      },
+      "options": [
+        { "label": { "en": "What are valid combinations?", "zh": "什么是合法组合？" }, "next": "valid-sets" },
+        { "label": { "en": "Start playing →", "zh": "开始游戏 →" }, "next": "initial-meld" }
+      ]
+    },
+    "valid-sets": {
+      "title": { "en": "Valid Combinations", "zh": "合法组合" },
+      "content": {
+        "en": "## Groups & Runs\n\nEvery set on the table must have **at least 3 tiles**.\n\n### Group\n3 or 4 tiles of the **same number, different colors**:\n- 🔴7 🔵7 ⚫7 ✅\n- 🔴7 🔵7 ✖️ (only 2 tiles)\n\n### Run\n3+ tiles of the **same color, consecutive numbers**:\n- 🔴3 🔴4 🔴5 ✅\n- 🔵8 🔵9 🔵10 🔵11 🔵12 ✅\n\n> ⚠️ 1 cannot follow 13 — no wrapping (12-13-1 is invalid).",
+        "zh": "## 群组与顺组\n\n桌面上每个组合**至少 3 块牌**。\n\n### 群组（Group）\n3 或 4 块**相同数字、不同颜色**：\n- 🔴7 🔵7 ⚫7 ✅\n- 🔴7 🔵7 ✖️（只有 2 块不行）\n\n### 顺组（Run）\n3 块或更多**相同颜色、连续数字**：\n- 🔴3 🔴4 🔴5 ✅\n- 🔵8 🔵9 🔵10 🔵11 🔵12 ✅\n\n> ⚠️ 1 不能接在 13 后面，不可环绕（12-13-1 无效）。"
+      },
+      "options": [
+        { "label": { "en": "How to make the initial meld?", "zh": "首次出牌怎么打？" }, "next": "initial-meld" },
+        { "label": { "en": "Joker rules", "zh": "百搭牌规则" }, "next": "joker" }
+      ]
+    },
+    "initial-meld": {
+      "title": { "en": "Initial Meld", "zh": "首次出牌（破冰）" },
+      "content": {
+        "en": "## Initial Meld (≥ 30 points)\n\nYour very first play must meet these requirements:\n\n1. Place sets from your rack with a **total face value ≥ 30**\n2. You may play **multiple sets** to reach 30\n3. **Cannot** use or manipulate tiles already on the table\n4. Jokers count as the value of the tile they represent\n\n### Can't reach 30?\n→ Draw **1 tile** from the pool. Turn over.\n\n> 💡 Common opening: 10+10+10 = 30, or 9+10+11 = 30",
+        "zh": "## 首次出牌（≥ 30 点）\n\n你的第一次出牌必须满足：\n\n1. 从牌架打出的组合**面值总和 ≥ 30**\n2. 可以一次打出**多组组合**来凑够 30\n3. **不能**使用或重组桌面上已有的牌\n4. 百搭牌按其替代的数字计算点数\n\n### 凑不够 30？\n→ 从牌池**抽 1 块牌**，回合结束。\n\n> 💡 常见开局：10+10+10 = 30，或 9+10+11 = 30"
+      },
+      "options": [
+        { "label": { "en": "Done! What next? →", "zh": "搞定！接下来？ →" }, "next": "regular-turn" },
+        { "label": { "en": "What are valid combinations?", "zh": "什么是合法组合？" }, "next": "valid-sets" }
+      ]
+    },
+    "regular-turn": {
+      "title": { "en": "Regular Turn", "zh": "常规回合" },
+      "content": {
+        "en": "## Your Turn\n\nAfter completing your initial meld, each turn you may:\n\n- **Play new sets** from your rack\n- **Add tiles** to existing sets on the table\n- **Manipulate** tiles on the table (rearrange, split, combine)\n- **Any combination** of the above — no limit!\n\n### Can't or don't want to play?\n→ Draw **1 tile** from the pool. Turn ends.\n\n> ⏱️ Time limit: **1 minute** per turn. Exceeding it = draw 1 penalty tile.",
+        "zh": "## 你的回合\n\n完成首次出牌后，每回合可以：\n\n- 从牌架**打出新组合**\n- 向桌面组合**添加牌**\n- **重组**桌面上的牌（拆分、合并、重排）\n- 以上操作**可混合使用**，不限次数！\n\n### 不能或不想出牌？\n→ 从牌池**抽 1 块牌**，回合结束。\n\n> ⏱️ 每回合限时 **1 分钟**，超时罚抽 1 块牌。"
+      },
+      "options": [
+        { "label": { "en": "How to manipulate tiles?", "zh": "怎么重组桌面牌？" }, "next": "manipulation" },
+        { "label": { "en": "Joker rules", "zh": "百搭牌规则" }, "next": "joker" },
+        { "label": { "en": "Someone emptied their rack!", "zh": "有人清空牌架了！" }, "next": "game-end" },
+        { "label": { "en": "Time limit & penalties", "zh": "时间限制和罚则" }, "next": "penalties" }
+      ]
+    },
+    "manipulation": {
+      "title": { "en": "Manipulation Rules", "zh": "重组规则" },
+      "content": {
+        "en": "## Manipulation — The Core Strategy\n\nYou can freely rearrange **any tiles on the table**, as long as all tiles end up in valid sets when your turn ends.\n\n| Action | Example |\n|--------|---------|\n| **Split a run** | 🔴3-4-5-6-7 → 🔴3-4-5 + 🔴5-6-7 (add 🔴5 from rack) |\n| **Take 4th tile** | ⚫8🔵8🔴8🟠8 → take 🟠8 for new set |\n| **Combine sets** | Break apart + reassemble into new valid sets |\n| **Extend a run** | 🔵4-5-6 → 🔵3-4-5-6 (add 🔵3 from rack) |\n\n> ⚠️ **Golden Rule**: At the end of your turn, every tile on the table must belong to a valid group or run. No orphans!\n\n> ❌ If you can't complete the manipulation: restore everything to its original state, take back your tiles, and draw **3 penalty tiles**.",
+        "zh": "## 重组 — 核心策略\n\n你可以自由重新排列**桌面上的任何牌**，只要回合结束时所有牌都属于合法组合。\n\n| 操作 | 示例 |\n|------|------|\n| **拆分顺组** | 🔴3-4-5-6-7 → 🔴3-4-5 + 🔴5-6-7（加入手中 🔴5） |\n| **取出第四块** | ⚫8🔵8🔴8🟠8 → 取出 🟠8 用于新组合 |\n| **合并组合** | 拆开多组 + 重新组合成新的合法组合 |\n| **延伸顺组** | 🔵4-5-6 → 🔵3-4-5-6（加入手中 🔵3） |\n\n> ⚠️ **黄金法则**：回合结束时，桌面上每一块牌都必须属于合法群组或顺组，不能有「孤立」牌！\n\n> ❌ 重组失败：恢复原状，收回本回合打出的牌，罚抽 **3 块牌**。"
+      },
+      "options": [
+        { "label": { "en": "Back to my turn", "zh": "回到回合" }, "next": "regular-turn" },
+        { "label": { "en": "Joker rules", "zh": "百搭牌规则" }, "next": "joker" },
+        { "label": { "en": "Strategy tips", "zh": "策略提示" }, "next": "strategy" }
+      ]
+    },
+    "joker": {
+      "title": { "en": "Joker Rules", "zh": "百搭牌规则" },
+      "content": {
+        "en": "## Joker\n\nA joker can **substitute for any tile** in a group or run.\n\n### Replacing a Joker\n- If you hold the **exact tile** a joker represents, you may swap it out\n- The freed joker **must be used immediately** in a new set on the table\n- You **cannot** take a joker back to your rack\n\n### Scoring\n- In initial meld: counts as the value of the tile it represents\n- Left on rack at game end: **30-point penalty**\n\n> 💡 Use jokers early — holding them is risky!",
+        "zh": "## 百搭牌\n\n百搭牌可以**替代任意一块牌**加入群组或顺组。\n\n### 替换百搭\n- 如果你手中有百搭牌所替代的**那块真实牌**，可以将其换出\n- 换出的百搭牌**必须立即**用在当前回合的新组合中\n- **不能**将百搭牌收回牌架\n\n### 计分\n- 首次出牌时：按其替代的数字计算点数\n- 游戏结束时留在手中：罚 **30 点**\n\n> 💡 百搭牌尽早用掉，留到最后罚分很重！"
+      },
+      "options": [
+        { "label": { "en": "Back to my turn", "zh": "回到回合" }, "next": "regular-turn" },
+        { "label": { "en": "How does scoring work?", "zh": "怎么计分？" }, "next": "game-end" }
+      ]
+    },
+    "penalties": {
+      "title": { "en": "Time Limit & Penalties", "zh": "时间限制与罚则" },
+      "content": {
+        "en": "## Time Limit & Penalties\n\n| Situation | Penalty |\n|-----------|----------|\n| Turn exceeds **1 minute** | Draw 1 tile, turn ends |\n| Failed manipulation | Restore all tiles, take back yours, draw **3 penalty tiles** |\n\n### Failed Manipulation\nIf you rearrange tiles on the table but **can't form all valid sets** before time runs out:\n1. Put all table tiles back to their original positions\n2. Take back any tiles you played from your rack\n3. Draw **3 tiles** from the pool as penalty\n4. Your turn ends immediately",
+        "zh": "## 时间限制与罚则\n\n| 情况 | 罚则 |\n|------|------|\n| 回合超过 **1 分钟** | 抽 1 块牌，回合结束 |\n| 重组失败 | 恢复原状，收回打出的牌，罚抽 **3 块牌** |\n\n### 重组失败\n如果你重组了桌面牌但**无法在时限内恢复合法状态**：\n1. 将所有桌面牌恢复原来的位置\n2. 收回本回合从牌架打出的牌\n3. 从牌池罚抽 **3 块牌**\n4. 回合立即结束"
+      },
+      "options": [
+        { "label": { "en": "Back to my turn", "zh": "回到回合" }, "next": "regular-turn" },
+        { "label": { "en": "Game end & scoring", "zh": "游戏结束和计分" }, "next": "game-end" }
+      ]
+    },
+    "game-end": {
+      "title": { "en": "Game End & Scoring", "zh": "游戏结束与计分" },
+      "content": {
+        "en": "## Game End\n\n### Normal End\nA player plays their last tile and calls **\"Rummikub!\"**\n\n### Pool Depleted\nIf the pool runs out and no one can play, the player with the **lowest rack total** wins.\n\n## Scoring\n\n| Player | Score |\n|--------|-------|\n| Winner | **+** sum of all losers' tile values |\n| Losers | **−** face value of tiles on rack |\n| Joker on rack | counts as **30 points** |\n\n### Multi-Round\n- Play as many rounds as players (4 players = 4 rounds)\n- Highest **cumulative score** wins\n- Tiebreaker: most rounds won",
+        "zh": "## 游戏结束\n\n### 正常结束\n一位玩家打出最后一块牌，喊出 **\"Rummikub!\"**\n\n### 牌池耗尽\n牌池抽完且无人能出牌时，手中牌面值**最低者**获胜。\n\n## 计分\n\n| 玩家 | 得分 |\n|------|------|\n| 赢家 | **+** 所有输家的牌面值总和 |\n| 输家 | **−** 手中剩余牌的面值 |\n| 手中百搭牌 | 计 **30 点** |\n\n### 多局制\n- 建议玩局数 = 玩家人数（4 人玩 4 局）\n- **累计得分最高者**获胜\n- 平局：赢得**局数最多者**胜"
+      },
+      "options": [
+        { "label": { "en": "Play again!", "zh": "再来一局！" }, "next": "setup" },
+        { "label": { "en": "Strategy tips", "zh": "策略提示" }, "next": "strategy" },
+        { "label": { "en": "Review turn rules", "zh": "回顾回合规则" }, "next": "regular-turn" }
+      ]
+    },
+    "strategy": {
+      "title": { "en": "Strategy Tips", "zh": "策略提示" },
+      "content": {
+        "en": "## Strategy Tips\n\n1. **Complete your initial meld ASAP** — you can't manipulate until you do\n2. **Watch opponents** — frequent draws = weak hand, few draws = close to winning\n3. **Mind the clock** — practice manipulation to avoid the 3-tile penalty\n4. **Use jokers early** — 30-point penalty for holding them is devastating\n5. **Keep versatile tiles** — tiles like 6, 7, 8 in popular colors connect to more combinations\n6. **Don't hoard** — playing tiles gives you more manipulation options\n7. **Plan before you touch** — visualize the full manipulation chain before moving tiles",
+        "zh": "## 策略提示\n\n1. **尽快完成首次出牌** — 不破冰就不能重组桌面牌\n2. **观察对手** — 频繁抽牌 = 手牌差，很少抽牌 = 快赢了\n3. **注意计时** — 重组前先想好，避免超时罚 3 块\n4. **百搭牌早用** — 留到最后罚 30 点代价太大\n5. **保留灵活牌** — 6、7、8 等中间数字可组合方向多\n6. **别囤牌** — 打出越多牌，重组的空间越大\n7. **动手前先想好** — 重组前在脑中规划好整个操作链路"
+      },
+      "options": [
+        { "label": { "en": "Back to setup", "zh": "回到准备" }, "next": "setup" },
+        { "label": { "en": "Review turn rules", "zh": "回顾回合规则" }, "next": "regular-turn" }
+      ]
+    }
+  }
+}

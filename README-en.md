@@ -2,12 +2,12 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — 25 games (including expansions/variants), interactive decision trees, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — 26 games (including expansions/variants), interactive decision trees, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **25 game rules**: web-verified, complete bilingual rules (EN/ZH)
-- **20 interactive decision trees**: step-by-step flow with sidebar outline navigation
+- **26 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **21 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **12 automatic score trackers**: 5 engine types for automatic scoring
 - **Game family grouping**: UNO, Drecksau, Legends of the Three Kingdoms, Exploding Kittens, Splendor, Sea Salt & Paper, Catan series
 - **DLC / variant support**: expansions and standalone variants with stacked card UI
@@ -66,6 +66,7 @@ npm run build
 | Cabo | ✅ | ✅ | ✅ |
 | The 21st Constellation | ✅ | ✅ | — |
 | Arena Magnate: Haw! | ✅ | ✅ | — |
+|| Rummikub | ✅ | ✅ | — |
 
 ### Series
 
@@ -100,7 +101,7 @@ content/games/
 │   ├── score.json                # Optional: score tracker config
 │   ├── zh/rules.md               # Chinese rules
 │   └── en/rules.md               # English rules
-└── ... (25 games total)
+└── ... (26 games total)
 
 public/data/
 ├── games-index.json              # Full game data (with rules, for chat tools)

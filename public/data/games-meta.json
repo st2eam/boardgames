@@ -434,5 +434,22 @@
     "variantType": "variant",
     "requiresBase": false,
     "slug": "splendor-pokemon"
+  },
+  {
+    "name": {
+      "en": "Rummikub",
+      "zh": "拉密"
+    },
+    "players": "2-4",
+    "duration": "30-60 min",
+    "difficulty": "medium",
+    "tags": [
+      "tile",
+      "strategy",
+      "family",
+      "classic"
+    ],
+    "category": "board",
+    "slug": "rummikub"
   }
 ]

@@ -1,1 +1,17 @@
-{"name":{"en":"UNO Show 'Em No Mercy","zh":"UNO 无情出击"},"players":"2-6","duration":"20-40 min","difficulty":"easy","tags":["card","family","party"],"category":"card","family":"uno","familyOrder":2,"variantType":"variant"}
+{
+  "name": {
+    "en": "UNO Show 'Em No Mercy",
+    "zh": "UNO 无情出击"
+  },
+  "players": "2-6",
+  "duration": "20-40 min",
+  "difficulty": "easy",
+  "tags": [
+    "family",
+    "party"
+  ],
+  "category": "card",
+  "family": "uno",
+  "familyOrder": 2,
+  "variantType": "variant"
+}

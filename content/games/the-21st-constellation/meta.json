@@ -1,1 +1,14 @@
-{"name":{"en":"The 21st Constellation","zh":"群星二十一"},"players":"2-4","duration":"15-30 min","difficulty":"medium","tags":["card","strategy","party"],"category":"card"}
+{
+  "name": {
+    "en": "The 21st Constellation",
+    "zh": "群星二十一"
+  },
+  "players": "2-4",
+  "duration": "15-30 min",
+  "difficulty": "medium",
+  "tags": [
+    "strategy",
+    "party"
+  ],
+  "category": "card"
+}

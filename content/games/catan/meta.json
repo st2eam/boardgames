@@ -6,7 +6,10 @@
   "players": "3-4",
   "duration": "60-120 min",
   "difficulty": "medium",
-  "tags": ["strategy", "board", "family"],
+  "tags": [
+    "strategy",
+    "family"
+  ],
   "category": "board",
   "family": "catan",
   "familyOrder": 0,

@@ -1,1 +1,16 @@
-{"name":{"en":"Splendor","zh":"璀璨宝石"},"players":"2-4","duration":"30 min","difficulty":"medium","tags":["card","strategy"],"category":"card","family":"splendor","familyOrder":0,"variantType":"base"}
+{
+  "name": {
+    "en": "Splendor",
+    "zh": "璀璨宝石"
+  },
+  "players": "2-4",
+  "duration": "30 min",
+  "difficulty": "medium",
+  "tags": [
+    "strategy"
+  ],
+  "category": "card",
+  "family": "splendor",
+  "familyOrder": 0,
+  "variantType": "base"
+}

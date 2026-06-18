@@ -1,1 +1,18 @@
-{"name":{"en":"Catan: China Map","zh":"卡坦岛：中国版图"},"players":"3-4","duration":"100-150 min","difficulty":"medium","tags":["strategy","board","family"],"category":"board","family":"catan","familyOrder":1,"variantType":"variant","requiresBase":false}
+{
+  "name": {
+    "en": "Catan: China Map",
+    "zh": "卡坦岛：中国版图"
+  },
+  "players": "3-4",
+  "duration": "100-150 min",
+  "difficulty": "medium",
+  "tags": [
+    "strategy",
+    "family"
+  ],
+  "category": "board",
+  "family": "catan",
+  "familyOrder": 1,
+  "variantType": "variant",
+  "requiresBase": false
+}

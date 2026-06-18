@@ -1,1 +1,13 @@
-{"name":{"en":"CABO","zh":"CABO"},"players":"2-4","duration":"20-30 min","difficulty":"easy","tags":["card","family"],"category":"card"}
+{
+  "name": {
+    "en": "CABO",
+    "zh": "CABO"
+  },
+  "players": "2-4",
+  "duration": "20-30 min",
+  "difficulty": "easy",
+  "tags": [
+    "family"
+  ],
+  "category": "card"
+}

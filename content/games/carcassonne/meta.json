@@ -1,1 +1,13 @@
-{"name":{"en":"Carcassonne","zh":"卡卡颂"},"players":"2-5","duration":"35-45 min","difficulty":"medium","tags":["board","strategy"],"category":"board"}
+{
+  "name": {
+    "en": "Carcassonne",
+    "zh": "卡卡颂"
+  },
+  "players": "2-5",
+  "duration": "35-45 min",
+  "difficulty": "medium",
+  "tags": [
+    "strategy"
+  ],
+  "category": "board"
+}

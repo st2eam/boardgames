@@ -1,1 +1,13 @@
-{"name":{"en":"Texas Hold'em","zh":"德州扑克"},"players":"2-10","duration":"30-120 min","difficulty":"medium","tags":["card","strategy"],"category":"card"}
+{
+  "name": {
+    "en": "Texas Hold'em",
+    "zh": "德州扑克"
+  },
+  "players": "2-10",
+  "duration": "30-120 min",
+  "difficulty": "medium",
+  "tags": [
+    "strategy"
+  ],
+  "category": "card"
+}

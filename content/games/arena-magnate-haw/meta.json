@@ -1,1 +1,14 @@
-{"name":{"en":"Arena Magnate: Haw!","zh":"榴莲教练的大拳馆：Haw！"},"players":"2-4","duration":"30-60 min","difficulty":"medium","tags":["board","strategy","dice"],"category":"board"}
+{
+  "name": {
+    "en": "Arena Magnate: Haw!",
+    "zh": "榴莲教练的大拳馆：Haw！"
+  },
+  "players": "2-4",
+  "duration": "30-60 min",
+  "difficulty": "medium",
+  "tags": [
+    "strategy",
+    "dice"
+  ],
+  "category": "board"
+}

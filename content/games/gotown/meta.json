@@ -1,1 +1,13 @@
-{"name":{"en":"GoTown","zh":"摩天大楼"},"players":"2-4","duration":"15-20 min","difficulty":"easy","tags":["card","family"],"category":"card"}
+{
+  "name": {
+    "en": "GoTown",
+    "zh": "摩天大楼"
+  },
+  "players": "2-4",
+  "duration": "15-20 min",
+  "difficulty": "easy",
+  "tags": [
+    "family"
+  ],
+  "category": "card"
+}

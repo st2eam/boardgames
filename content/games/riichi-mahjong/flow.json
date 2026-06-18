@@ -58,7 +58,7 @@
     },
     "dora": {
       "title": { "en": "Dora System", "zh": "宝牌系统" },
-      "content": { "en": "Dora add bonus han but are NOT yaku themselves.\n\n**Types:**\n- **Omote Dora**: Indicator tile on wall → next tile is dora\n- **Ura Dora**: Under indicator, revealed only after Riichi win\n- **Kan Dora**: New indicator per kong declared\n- **Aka Dora**: Red fives (automatic dora)\n\n**Cycling:**\n- Numbers: 1→2→...→9→1\n- Winds: E→S→W→N→E\n- Dragons: White→Green→Red→White\n\n**Example**: Indicator shows 🀌 (6 man) → Dora is 🀍 (7 man)", "zh": "宝牌增加番数但本身不算役。\n\n**种类：**\n- **表宝牌**：牌墙上指示牌的下一张即为宝牌\n- **里宝牌**：指示牌下方，立直和牌后才翻开\n- **杠宝牌**：每开一杠翻一张新指示牌\n- **赤宝牌**：红色的五（自动计为宝牌）\n\n**循环规则：**\n- 数牌：1→2→...→9→1\n- 风牌：东→南→西→北→东\n- 三元牌：白→发→中→白\n\n**例子**：指示牌为 🀌（六万）→ 宝牌为 🀍（七万）" },
+      "content": { "en": "Dora add bonus han but are NOT yaku themselves.\n\n**Types:**\n- **Omote Dora**: Indicator tile on wall → next tile is dora\n- **Ura Dora**: Under indicator, revealed only after Riichi win\n- **Kan Dora**: New indicator per kong declared\n- **Aka Dora**: Red fives (automatic dora)\n\n**Cycling:**\n- Numbers: 1→2→...→9→1\n- Winds: E→S→W→N→E\n- Dragons: White→Green→Red→White\n\n**Example**: Indicator shows [6m] → Dora is [7m]", "zh": "宝牌增加番数但本身不算役。\n\n**种类：**\n- **表宝牌**：牌墙上指示牌的下一张即为宝牌\n- **里宝牌**：指示牌下方，立直和牌后才翻开\n- **杠宝牌**：每开一杠翻一张新指示牌\n- **赤宝牌**：红色的五（自动计为宝牌）\n\n**循环规则：**\n- 数牌：1→2→...→9→1\n- 风牌：东→南→西→北→东\n- 三元牌：白→发→中→白\n\n**例子**：指示牌为 [6m]（六万）→ 宝牌为 [7m]（七万）" },
       "options": [
         { "label": { "en": "Scoring System", "zh": "计分系统" }, "next": "scoring" },
         { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }

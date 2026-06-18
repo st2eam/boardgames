@@ -23,6 +23,8 @@
     "scoreTracker": "Score Tracker",
     "tenpaiTrainer": "Tenpai Trainer",
     "openTrainer": "Tenpai Trainer",
+    "strategyTrainer": "Strategy Trainer",
+    "openStrategyTrainer": "Strategy Trainer",
     "scoreCalculator": "Score Calculator",
     "openCalculator": "Score Calculator"
   },

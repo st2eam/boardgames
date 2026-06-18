@@ -8,6 +8,7 @@
     "duration": "30-120 min",
     "difficulty": "medium",
     "tags": [
+      "poker",
       "strategy"
     ],
     "category": "card",
@@ -468,5 +469,21 @@
     "variantType": "variant",
     "requiresBase": false,
     "slug": "riichi-mahjong"
+  },
+  {
+    "name": {
+      "en": "Blackjack",
+      "zh": "21点"
+    },
+    "players": "2-8",
+    "duration": "15-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "poker",
+      "strategy",
+      "classic"
+    ],
+    "category": "card",
+    "slug": "blackjack"
   }
 ]

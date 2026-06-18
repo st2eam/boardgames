@@ -23,6 +23,8 @@
     "scoreTracker": "计分器",
     "tenpaiTrainer": "听牌训练",
     "openTrainer": "听牌训练",
+    "strategyTrainer": "策略训练",
+    "openStrategyTrainer": "策略训练",
     "scoreCalculator": "番符计算器",
     "openCalculator": "番符计算器"
   },

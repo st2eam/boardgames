@@ -15,6 +15,7 @@ export class GameFactory {
     const hasScore = GameRepository.hasScoreConfig(slug);
     const hasTrainer = GameRepository.hasTrainerConfig(slug);
     const hasCalculator = GameRepository.hasCalculatorConfig(slug);
+    const trainerConfig = hasTrainer ? await GameRepository.getTrainerConfig(slug) : null;
     return {
       slug: meta.slug,
       name: meta.name,
@@ -27,6 +28,7 @@ export class GameFactory {
       hasScore,
       hasTrainer,
       hasCalculator,
+      trainerType: trainerConfig?.type,
       family: meta.family,
       familyOrder: meta.familyOrder,
       variantType: meta.variantType,

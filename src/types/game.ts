@@ -147,6 +147,7 @@ export interface GameSummary {
   hasScore: boolean;
   hasTrainer: boolean;
   hasCalculator: boolean;
+  trainerType?: string;
   family?: string;
   familyOrder?: number;
   variantType?: "base" | "expansion" | "variant";

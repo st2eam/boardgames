@@ -55,10 +55,12 @@ export default async function GamePage({ params }: Props) {
     : [];
   const gameName = game.meta.name[locale as "en" | "zh"] ?? game.meta.name.en;
 
+  const trainerConfig = await GameRepository.getTrainerConfig(slug);
+
   return (
     <>
       <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-        <GameHeader meta={game.meta} hasFlow={game.flow !== null} hasScore={GameRepository.hasScoreConfig(slug)} hasTrainer={GameRepository.hasTrainerConfig(slug)} hasCalculator={GameRepository.hasCalculatorConfig(slug)} rules={game.rules} />
+        <GameHeader meta={game.meta} hasFlow={game.flow !== null} hasScore={GameRepository.hasScoreConfig(slug)} hasTrainer={GameRepository.hasTrainerConfig(slug)} hasCalculator={GameRepository.hasCalculatorConfig(slug)} trainerType={trainerConfig?.type} rules={game.rules} />
         <div className="rounded-xl border border-border bg-white p-6 sm:p-8">
           <MarkdownRenderer content={game.rules} />
         </div>

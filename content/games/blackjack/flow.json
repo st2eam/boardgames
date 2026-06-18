@@ -1,0 +1,333 @@
+{
+  "startNode": "hand-type",
+  "nodes": {
+    "hand-type": {
+      "title": { "en": "What type of hand do you have?", "zh": "你的手牌类型是？" },
+      "content": { "en": "Determine your hand type first to find the optimal play.", "zh": "先确定手牌类型，再查找最优操作。" },
+      "options": [
+        { "label": { "en": "Hard Hand (no Ace as 11)", "zh": "硬牌（无A计为11）" }, "next": "hard-total" },
+        { "label": { "en": "Soft Hand (Ace counts as 11)", "zh": "软牌（A计为11）" }, "next": "soft-total" },
+        { "label": { "en": "Pair (two same-value cards)", "zh": "对子（两张同点数牌）" }, "next": "pair-type" }
+      ]
+    },
+    "hard-total": {
+      "title": { "en": "Hard Hand — Your Total?", "zh": "硬牌 — 你的点数？" },
+      "content": { "en": "Select your hard hand total range.", "zh": "选择你的硬牌点数范围。" },
+      "options": [
+        { "label": { "en": "Hard 8 or less", "zh": "硬8及以下" }, "next": "hard-8-less" },
+        { "label": { "en": "Hard 9", "zh": "硬9" }, "next": "hard-9" },
+        { "label": { "en": "Hard 10", "zh": "硬10" }, "next": "hard-10" },
+        { "label": { "en": "Hard 11", "zh": "硬11" }, "next": "hard-11" },
+        { "label": { "en": "Hard 12", "zh": "硬12" }, "next": "hard-12" },
+        { "label": { "en": "Hard 13-16", "zh": "硬13-16" }, "next": "hard-13-16" },
+        { "label": { "en": "Hard 17+", "zh": "硬17及以上" }, "next": "hard-17-plus" }
+      ]
+    },
+    "hard-8-less": {
+      "title": { "en": "Hard 8 or Less", "zh": "硬8及以下" },
+      "content": { "en": "**Always Hit.**\n\nWith hard 8 or less, you cannot bust by taking one card, and any card improves your hand.", "zh": "**永远要牌。**\n\n硬8及以下时，再要一张牌不可能爆牌，任何牌都能改善手牌。" },
+      "options": []
+    },
+    "hard-9": {
+      "title": { "en": "Hard 9 — Dealer's Upcard?", "zh": "硬9 — 庄家明牌？" },
+      "content": { "en": "Your action depends on the dealer's upcard.", "zh": "操作取决于庄家的明牌。" },
+      "options": [
+        { "label": { "en": "Dealer 3-6", "zh": "庄家3-6" }, "next": "hard-9-double" },
+        { "label": { "en": "Dealer 2, 7-A", "zh": "庄家2、7-A" }, "next": "hard-9-hit" }
+      ]
+    },
+    "hard-9-double": {
+      "title": { "en": "Hard 9 vs Dealer 3-6", "zh": "硬9 vs 庄家3-6" },
+      "content": { "en": "**Double Down** (or Hit if doubling is not allowed).\n\nThe dealer is likely to bust with a weak upcard, making this a profitable doubling opportunity.", "zh": "**加倍**（不允许加倍则要牌）。\n\n庄家明牌较弱，大概率爆牌，此时加倍有利可图。" },
+      "options": []
+    },
+    "hard-9-hit": {
+      "title": { "en": "Hard 9 vs Dealer 2, 7-A", "zh": "硬9 vs 庄家2、7-A" },
+      "content": { "en": "**Hit.**\n\nThe dealer's strong upcard makes doubling too risky.", "zh": "**要牌。**\n\n庄家明牌较强，加倍风险过大。" },
+      "options": []
+    },
+    "hard-10": {
+      "title": { "en": "Hard 10 — Dealer's Upcard?", "zh": "硬10 — 庄家明牌？" },
+      "content": { "en": "Hard 10 is a strong doubling hand.", "zh": "硬10是很好的加倍手牌。" },
+      "options": [
+        { "label": { "en": "Dealer 2-9", "zh": "庄家2-9" }, "next": "hard-10-double" },
+        { "label": { "en": "Dealer 10 or A", "zh": "庄家10或A" }, "next": "hard-10-hit" }
+      ]
+    },
+    "hard-10-double": {
+      "title": { "en": "Hard 10 vs Dealer 2-9", "zh": "硬10 vs 庄家2-9" },
+      "content": { "en": "**Double Down.**\n\nYou have a great chance of hitting 20 or 21, and the dealer is in a weak position.", "zh": "**加倍。**\n\n你很可能摸到20或21点，而庄家处于弱势。" },
+      "options": []
+    },
+    "hard-10-hit": {
+      "title": { "en": "Hard 10 vs Dealer 10/A", "zh": "硬10 vs 庄家10/A" },
+      "content": { "en": "**Hit.**\n\nThe dealer likely has a strong hand too — don't risk doubling.", "zh": "**要牌。**\n\n庄家可能也有强牌，不宜冒险加倍。" },
+      "options": []
+    },
+    "hard-11": {
+      "title": { "en": "Hard 11", "zh": "硬11" },
+      "content": { "en": "**Always Double Down** (Hit if not allowed).\n\nHard 11 is the best doubling hand — any 10-value card gives you 21.", "zh": "**永远加倍**（不允许则要牌）。\n\n硬11是最佳加倍手牌——任何10点牌都能让你到21点。" },
+      "options": []
+    },
+    "hard-12": {
+      "title": { "en": "Hard 12 — Dealer's Upcard?", "zh": "硬12 — 庄家明牌？" },
+      "content": { "en": "Hard 12 is the first hand where busting is possible.", "zh": "硬12是首次可能爆牌的点数。" },
+      "options": [
+        { "label": { "en": "Dealer 4-6", "zh": "庄家4-6" }, "next": "hard-12-stand" },
+        { "label": { "en": "Dealer 2-3, 7-A", "zh": "庄家2-3、7-A" }, "next": "hard-12-hit" }
+      ]
+    },
+    "hard-12-stand": {
+      "title": { "en": "Hard 12 vs Dealer 4-6", "zh": "硬12 vs 庄家4-6" },
+      "content": { "en": "**Stand.**\n\nDealer 4-6 are the weakest upcards with high bust rates. Don't risk busting yourself.", "zh": "**停牌。**\n\n庄家4-6是最弱的明牌，爆牌率极高。不要冒爆牌的风险。" },
+      "options": []
+    },
+    "hard-12-hit": {
+      "title": { "en": "Hard 12 vs Dealer 2-3, 7-A", "zh": "硬12 vs 庄家2-3、7-A" },
+      "content": { "en": "**Hit.**\n\nDealer 2-3 have moderate bust rates, and dealer 7-A likely makes 17+. You need to improve.", "zh": "**要牌。**\n\n庄家2-3的爆牌率中等，庄家7-A大概率达到17+。你需要提升手牌。" },
+      "options": []
+    },
+    "hard-13-16": {
+      "title": { "en": "Hard 13-16 — Dealer's Upcard?", "zh": "硬13-16 — 庄家明牌？" },
+      "content": { "en": "The \"stiff hands\" — high bust risk either way.", "zh": "「僵硬手牌」——无论如何都有较高爆牌风险。" },
+      "options": [
+        { "label": { "en": "Dealer 2-6", "zh": "庄家2-6" }, "next": "hard-13-16-stand" },
+        { "label": { "en": "Dealer 7-A", "zh": "庄家7-A" }, "next": "hard-13-16-hit" }
+      ]
+    },
+    "hard-13-16-stand": {
+      "title": { "en": "Hard 13-16 vs Dealer 2-6", "zh": "硬13-16 vs 庄家2-6" },
+      "content": { "en": "**Stand.**\n\nLet the dealer bust. With a weak upcard (2-6), the dealer must hit and risks busting.", "zh": "**停牌。**\n\n让庄家爆牌。弱明牌（2-6）下庄家必须要牌，爆牌风险很高。" },
+      "options": []
+    },
+    "hard-13-16-hit": {
+      "title": { "en": "Hard 13-16 vs Dealer 7-A", "zh": "硬13-16 vs 庄家7-A" },
+      "content": { "en": "**Hit** (or Surrender hard 16 vs 9/10/A if available).\n\nDealer likely has 17-21. Standing loses more often than hitting.", "zh": "**要牌**（若可投降，硬16面对9/10/A时投降）。\n\n庄家大概率有17-21点。停牌的输面比要牌更大。" },
+      "options": []
+    },
+    "hard-17-plus": {
+      "title": { "en": "Hard 17+", "zh": "硬17及以上" },
+      "content": { "en": "**Always Stand.**\n\nWith hard 17 or above, the risk of busting is too high. Even hard 17 against a dealer Ace should stand.", "zh": "**永远停牌。**\n\n硬17及以上时，要牌爆牌风险过高。即使面对庄家A也应停牌。" },
+      "options": []
+    },
+    "soft-total": {
+      "title": { "en": "Soft Hand — Your Total?", "zh": "软牌 — 你的点数？" },
+      "content": { "en": "A soft hand contains an Ace counted as 11. Select your total.", "zh": "软牌含有一张计为11的A。选择你的点数。" },
+      "options": [
+        { "label": { "en": "Soft 13-14 (A+2, A+3)", "zh": "软13-14（A+2、A+3）" }, "next": "soft-13-14" },
+        { "label": { "en": "Soft 15-16 (A+4, A+5)", "zh": "软15-16（A+4、A+5）" }, "next": "soft-15-16" },
+        { "label": { "en": "Soft 17 (A+6)", "zh": "软17（A+6）" }, "next": "soft-17" },
+        { "label": { "en": "Soft 18 (A+7)", "zh": "软18（A+7）" }, "next": "soft-18" },
+        { "label": { "en": "Soft 19-20 (A+8, A+9)", "zh": "软19-20（A+8、A+9）" }, "next": "soft-19-20" }
+      ]
+    },
+    "soft-13-14": {
+      "title": { "en": "Soft 13-14 — Dealer's Upcard?", "zh": "软13-14 — 庄家明牌？" },
+      "content": { "en": "Soft 13-14 can improve significantly without bust risk.", "zh": "软13-14可以大幅改善且无爆牌风险。" },
+      "options": [
+        { "label": { "en": "Dealer 5-6", "zh": "庄家5-6" }, "next": "soft-13-14-double" },
+        { "label": { "en": "Dealer 2-4, 7-A", "zh": "庄家2-4、7-A" }, "next": "soft-13-14-hit" }
+      ]
+    },
+    "soft-13-14-double": {
+      "title": { "en": "Soft 13-14 vs Dealer 5-6", "zh": "软13-14 vs 庄家5-6" },
+      "content": { "en": "**Double Down** (Hit if not allowed).\n\nDealer is very likely to bust; maximize your profit.", "zh": "**加倍**（不允许则要牌）。\n\n庄家非常可能爆牌，最大化收益。" },
+      "options": []
+    },
+    "soft-13-14-hit": {
+      "title": { "en": "Soft 13-14 vs Others", "zh": "软13-14 vs 其他" },
+      "content": { "en": "**Hit.**\n\nYou can't bust and need to improve this weak hand.", "zh": "**要牌。**\n\n不会爆牌，且需要改善这副弱牌。" },
+      "options": []
+    },
+    "soft-15-16": {
+      "title": { "en": "Soft 15-16 — Dealer's Upcard?", "zh": "软15-16 — 庄家明牌？" },
+      "content": { "en": "Similar to soft 13-14 but slightly stronger.", "zh": "类似软13-14但稍强。" },
+      "options": [
+        { "label": { "en": "Dealer 4-6", "zh": "庄家4-6" }, "next": "soft-15-16-double" },
+        { "label": { "en": "Dealer 2-3, 7-A", "zh": "庄家2-3、7-A" }, "next": "soft-15-16-hit" }
+      ]
+    },
+    "soft-15-16-double": {
+      "title": { "en": "Soft 15-16 vs Dealer 4-6", "zh": "软15-16 vs 庄家4-6" },
+      "content": { "en": "**Double Down** (Hit if not allowed).\n\nWeak dealer upcard gives you an edge to double.", "zh": "**加倍**（不允许则要牌）。\n\n庄家弱牌让你有加倍优势。" },
+      "options": []
+    },
+    "soft-15-16-hit": {
+      "title": { "en": "Soft 15-16 vs Others", "zh": "软15-16 vs 其他" },
+      "content": { "en": "**Hit.**\n\nNeed improvement against stronger dealer positions.", "zh": "**要牌。**\n\n面对庄家强牌需要改善手牌。" },
+      "options": []
+    },
+    "soft-17": {
+      "title": { "en": "Soft 17 — Dealer's Upcard?", "zh": "软17 — 庄家明牌？" },
+      "content": { "en": "Soft 17 should never stand — it's too weak despite being 17.", "zh": "软17不应停牌——虽然是17但太弱。" },
+      "options": [
+        { "label": { "en": "Dealer 3-6", "zh": "庄家3-6" }, "next": "soft-17-double" },
+        { "label": { "en": "Dealer 2, 7-A", "zh": "庄家2、7-A" }, "next": "soft-17-hit" }
+      ]
+    },
+    "soft-17-double": {
+      "title": { "en": "Soft 17 vs Dealer 3-6", "zh": "软17 vs 庄家3-6" },
+      "content": { "en": "**Double Down** (Hit if not allowed).\n\nDealer weakness + your flexible Ace makes doubling correct.", "zh": "**加倍**（不允许则要牌）。\n\n庄家弱势 + 你的灵活A使加倍正确。" },
+      "options": []
+    },
+    "soft-17-hit": {
+      "title": { "en": "Soft 17 vs Dealer 2, 7-A", "zh": "软17 vs 庄家2、7-A" },
+      "content": { "en": "**Hit.**\n\nSoft 17 loses to most dealer outcomes. Hit to improve — you can't bust.", "zh": "**要牌。**\n\n软17输给大多数庄家结果。要牌改善——不会爆牌。" },
+      "options": []
+    },
+    "soft-18": {
+      "title": { "en": "Soft 18 — Dealer's Upcard?", "zh": "软18 — 庄家明牌？" },
+      "content": { "en": "Soft 18 is a complex hand with different plays depending on dealer.", "zh": "软18是一手复杂的牌，操作取决于庄家明牌。" },
+      "options": [
+        { "label": { "en": "Dealer 2-6", "zh": "庄家2-6" }, "next": "soft-18-ds" },
+        { "label": { "en": "Dealer 7-8", "zh": "庄家7-8" }, "next": "soft-18-stand" },
+        { "label": { "en": "Dealer 9-A", "zh": "庄家9-A" }, "next": "soft-18-hit" }
+      ]
+    },
+    "soft-18-ds": {
+      "title": { "en": "Soft 18 vs Dealer 2-6", "zh": "软18 vs 庄家2-6" },
+      "content": { "en": "**Double Down** vs 3-6, **Stand** vs 2 (if double not allowed, stand).\n\nDealer is weak — press the advantage.", "zh": "面对3-6**加倍**，面对2**停牌**（不能加倍则停牌）。\n\n庄家弱势——扩大优势。" },
+      "options": []
+    },
+    "soft-18-stand": {
+      "title": { "en": "Soft 18 vs Dealer 7-8", "zh": "软18 vs 庄家7-8" },
+      "content": { "en": "**Stand.**\n\n18 is likely to tie or win against dealer 7-8.", "zh": "**停牌。**\n\n18点面对庄家7-8大概率平局或赢。" },
+      "options": []
+    },
+    "soft-18-hit": {
+      "title": { "en": "Soft 18 vs Dealer 9-A", "zh": "软18 vs 庄家9-A" },
+      "content": { "en": "**Hit.**\n\n18 is an underdog against dealer 9-A. Try to improve without bust risk.", "zh": "**要牌。**\n\n18点面对庄家9-A处于劣势。尝试改善且不会爆牌。" },
+      "options": []
+    },
+    "soft-19-20": {
+      "title": { "en": "Soft 19-20", "zh": "软19-20" },
+      "content": { "en": "**Always Stand.**\n\nSoft 19 and 20 are very strong hands. Never risk them.", "zh": "**永远停牌。**\n\n软19和20是非常强的手牌，不要冒险。" },
+      "options": []
+    },
+    "pair-type": {
+      "title": { "en": "Pair — Which Pair?", "zh": "对子 — 哪种对子？" },
+      "content": { "en": "Splitting decisions depend on which pair you have.", "zh": "分牌决策取决于你手中的对子。" },
+      "options": [
+        { "label": { "en": "Pair of A's", "zh": "一对A" }, "next": "pair-aa" },
+        { "label": { "en": "Pair of 10/J/Q/K", "zh": "一对10/J/Q/K" }, "next": "pair-10" },
+        { "label": { "en": "Pair of 9's", "zh": "一对9" }, "next": "pair-9" },
+        { "label": { "en": "Pair of 8's", "zh": "一对8" }, "next": "pair-8" },
+        { "label": { "en": "Pair of 7's", "zh": "一对7" }, "next": "pair-7" },
+        { "label": { "en": "Pair of 6's", "zh": "一对6" }, "next": "pair-6" },
+        { "label": { "en": "Pair of 5's", "zh": "一对5" }, "next": "pair-5" },
+        { "label": { "en": "Pair of 4's", "zh": "一对4" }, "next": "pair-4" },
+        { "label": { "en": "Pair of 2's or 3's", "zh": "一对2或3" }, "next": "pair-23" }
+      ]
+    },
+    "pair-aa": {
+      "title": { "en": "Pair of Aces", "zh": "一对A" },
+      "content": { "en": "**Always Split.**\n\nTwo Aces as one hand = soft 12 (weak). Split gives two chances at 21.", "zh": "**永远分牌。**\n\n两张A作为一手 = 软12（弱牌）。分牌给你两次机会拿21点。" },
+      "options": []
+    },
+    "pair-10": {
+      "title": { "en": "Pair of 10s", "zh": "一对10" },
+      "content": { "en": "**Never Split. Always Stand.**\n\n20 is one of the strongest hands. Don't break it up.", "zh": "**永远不分。永远停牌。**\n\n20点是最强手牌之一，不要拆开。" },
+      "options": []
+    },
+    "pair-9": {
+      "title": { "en": "Pair of 9's — Dealer's Upcard?", "zh": "一对9 — 庄家明牌？" },
+      "content": { "en": "Pair of 9's (18 total) — split or stand based on dealer.", "zh": "一对9（总计18）——根据庄家决定分牌或停牌。" },
+      "options": [
+        { "label": { "en": "Dealer 2-6, 8-9", "zh": "庄家2-6、8-9" }, "next": "pair-9-split" },
+        { "label": { "en": "Dealer 7, 10, A", "zh": "庄家7、10、A" }, "next": "pair-9-stand" }
+      ]
+    },
+    "pair-9-split": {
+      "title": { "en": "Split 9's", "zh": "分9" },
+      "content": { "en": "**Split.**\n\nAgainst weak dealers or matching 8-9, two 9-start hands outperform standing on 18.", "zh": "**分牌。**\n\n面对弱庄家或8-9，两手以9开始的牌优于停在18。" },
+      "options": []
+    },
+    "pair-9-stand": {
+      "title": { "en": "Stand on 9's", "zh": "不分9" },
+      "content": { "en": "**Stand.**\n\n18 is strong enough against dealer 7 (likely 17). Against 10/A, splitting is too risky.", "zh": "**停牌。**\n\n18点面对庄家7够强（庄家大概率17）。面对10/A分牌风险过大。" },
+      "options": []
+    },
+    "pair-8": {
+      "title": { "en": "Pair of 8's", "zh": "一对8" },
+      "content": { "en": "**Always Split.**\n\n16 is the worst hand in blackjack. Split to get two fresh starts from 8.", "zh": "**永远分牌。**\n\n16是21点中最差的手牌。分牌从8重新开始两手。" },
+      "options": []
+    },
+    "pair-7": {
+      "title": { "en": "Pair of 7's — Dealer's Upcard?", "zh": "一对7 — 庄家明牌？" },
+      "content": { "en": "14 is weak; splitting can help against weak dealers.", "zh": "14很弱；面对弱庄家时分牌有利。" },
+      "options": [
+        { "label": { "en": "Dealer 2-7", "zh": "庄家2-7" }, "next": "pair-7-split" },
+        { "label": { "en": "Dealer 8-A", "zh": "庄家8-A" }, "next": "pair-7-hit" }
+      ]
+    },
+    "pair-7-split": {
+      "title": { "en": "Split 7's", "zh": "分7" },
+      "content": { "en": "**Split.**\n\nTwo chances at 17+ beats standing on 14 against weak dealers.", "zh": "**分牌。**\n\n面对弱庄家，两次机会达到17+胜过停在14。" },
+      "options": []
+    },
+    "pair-7-hit": {
+      "title": { "en": "Hit on 7's", "zh": "不分7要牌" },
+      "content": { "en": "**Hit.**\n\nDealer is too strong to split into 7-start hands. Treat as hard 14.", "zh": "**要牌。**\n\n庄家太强，不宜分成以7开始的两手。当作硬14处理。" },
+      "options": []
+    },
+    "pair-6": {
+      "title": { "en": "Pair of 6's — Dealer's Upcard?", "zh": "一对6 — 庄家明牌？" },
+      "content": { "en": "12 total — splitting is only worthwhile against very weak dealers.", "zh": "总共12——只有面对很弱的庄家时分牌才值得。" },
+      "options": [
+        { "label": { "en": "Dealer 2-6", "zh": "庄家2-6" }, "next": "pair-6-split" },
+        { "label": { "en": "Dealer 7-A", "zh": "庄家7-A" }, "next": "pair-6-hit" }
+      ]
+    },
+    "pair-6-split": {
+      "title": { "en": "Split 6's", "zh": "分6" },
+      "content": { "en": "**Split.**\n\nDealer is likely to bust; give yourself two hands starting from 6.", "zh": "**分牌。**\n\n庄家大概率爆牌；给自己两手从6开始的牌。" },
+      "options": []
+    },
+    "pair-6-hit": {
+      "title": { "en": "Hit on 6's", "zh": "不分6要牌" },
+      "content": { "en": "**Hit.**\n\nTreat as hard 12. Dealer too strong to split.", "zh": "**要牌。**\n\n当作硬12处理。庄家太强不宜分牌。" },
+      "options": []
+    },
+    "pair-5": {
+      "title": { "en": "Pair of 5's", "zh": "一对5" },
+      "content": { "en": "**Never Split.** Treat as hard 10.\n\n- Dealer 2-9: **Double Down**\n- Dealer 10/A: **Hit**\n\nTwo 5's = hard 10, one of the best doubling hands. Splitting gives two terrible 5-start hands.", "zh": "**永远不分。** 当作硬10处理。\n\n- 庄家2-9：**加倍**\n- 庄家10/A：**要牌**\n\n两张5 = 硬10，最佳加倍手牌之一。分牌只会得到两手以5开始的烂牌。" },
+      "options": []
+    },
+    "pair-4": {
+      "title": { "en": "Pair of 4's — Dealer's Upcard?", "zh": "一对4 — 庄家明牌？" },
+      "content": { "en": "8 total — splitting is rarely correct.", "zh": "总共8——分牌很少正确。" },
+      "options": [
+        { "label": { "en": "Dealer 5-6", "zh": "庄家5-6" }, "next": "pair-4-split" },
+        { "label": { "en": "Dealer 2-4, 7-A", "zh": "庄家2-4、7-A" }, "next": "pair-4-hit" }
+      ]
+    },
+    "pair-4-split": {
+      "title": { "en": "Split 4's vs Dealer 5-6", "zh": "分4 vs 庄家5-6" },
+      "content": { "en": "**Split** (or Hit if preferred).\n\nOnly against the weakest dealer cards is splitting 4's marginally better.", "zh": "**分牌**（或要牌均可）。\n\n仅面对最弱庄家时分4略有优势。" },
+      "options": []
+    },
+    "pair-4-hit": {
+      "title": { "en": "Hit on 4's", "zh": "不分4要牌" },
+      "content": { "en": "**Hit.**\n\nTreat as hard 8. Hit to improve.", "zh": "**要牌。**\n\n当作硬8处理，要牌改善。" },
+      "options": []
+    },
+    "pair-23": {
+      "title": { "en": "Pair of 2's/3's — Dealer's Upcard?", "zh": "一对2或3 — 庄家明牌？" },
+      "content": { "en": "Low pairs — split against weak dealers.", "zh": "小对子——面对弱庄家时分牌。" },
+      "options": [
+        { "label": { "en": "Dealer 2-7", "zh": "庄家2-7" }, "next": "pair-23-split" },
+        { "label": { "en": "Dealer 8-A", "zh": "庄家8-A" }, "next": "pair-23-hit" }
+      ]
+    },
+    "pair-23-split": {
+      "title": { "en": "Split 2's/3's", "zh": "分2/3" },
+      "content": { "en": "**Split.**\n\nWeak dealer cards make splitting profitable — two fresh hands from low cards.", "zh": "**分牌。**\n\n弱庄家让分牌有利——从小牌开始两手新牌。" },
+      "options": []
+    },
+    "pair-23-hit": {
+      "title": { "en": "Hit on 2's/3's", "zh": "不分2/3要牌" },
+      "content": { "en": "**Hit.**\n\nTreat as hard 4/6. Dealer too strong to split.", "zh": "**要牌。**\n\n当作硬4/6处理。庄家太强不宜分牌。" },
+      "options": []
+    }
+  }
+}

@@ -205,7 +205,7 @@ function renderMarkdownToHTML(
       i++;
       continue;
     }
-    if (line.startsWith("| ")) {
+    if (line.startsWith("|")) {
       if (!inTable) {
         tableEl = doc.createElement("table");
         inTable = true;

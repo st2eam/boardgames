@@ -22,7 +22,9 @@
     "exportMarkdown": "下载 Markdown",
     "scoreTracker": "计分器",
     "tenpaiTrainer": "听牌训练",
-    "openTrainer": "听牌训练"
+    "openTrainer": "听牌训练",
+    "scoreCalculator": "番符计算器",
+    "openCalculator": "番符计算器"
   },
   "chat": {
     "title": "规则助手",

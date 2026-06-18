@@ -1,4 +1,4 @@
-import type { GameMeta, FlowData, ScoreConfig, TrainerConfig } from "@/types/game";
+import type { GameMeta, FlowData, ScoreConfig, TrainerConfig, CalculatorConfig } from "@/types/game";
 import { loadJson, loadMarkdown, fileExists } from "./markdown";
 
 const metaCache = new Map<string, GameMeta>();
@@ -54,6 +54,17 @@ export class GameRepository {
 
   static hasFlowData(slug: string): boolean {
     return fileExists(slug, "flow.json");
+  }
+
+  static async getCalculatorConfig(slug: string): Promise<CalculatorConfig | null> {
+    if (!fileExists(slug, "calculator.json")) {
+      return null;
+    }
+    return loadJson<CalculatorConfig>(slug, "calculator.json");
+  }
+
+  static hasCalculatorConfig(slug: string): boolean {
+    return fileExists(slug, "calculator.json");
   }
 
   static async getFamilyGames(family: string): Promise<GameMeta[]> {

@@ -5,3 +5,5 @@ export { findWaits, isTenpai } from "./tenpai";
 export { generateTenpaiHand } from "./hand";
 export { parseShortcode, shortcodeToInlineHTML, replaceShortcodesHTML, shortcodeToText, replaceShortcodesText, SHORTCODE_REGEX } from "./shortcode";
 export type { ParsedTile } from "./shortcode";
+export { YAKU_LIST, getYakuGroups, calculateFu, calculateHan, calculateScore, getScoreLevel, LEVEL_NAMES } from "./scoring";
+export type { YakuDef, WinMethod, MeldType, WaitType, PairType, MeldInput, FuInput, CalcInput, ScoreBreakdown, ScoreLevel } from "./scoring";

@@ -14,6 +14,7 @@ export class GameFactory {
     const hasFlow = (await GameRepository.getFlowData(slug, "en")) !== null;
     const hasScore = GameRepository.hasScoreConfig(slug);
     const hasTrainer = GameRepository.hasTrainerConfig(slug);
+    const hasCalculator = GameRepository.hasCalculatorConfig(slug);
     return {
       slug: meta.slug,
       name: meta.name,
@@ -25,6 +26,7 @@ export class GameFactory {
       hasFlow,
       hasScore,
       hasTrainer,
+      hasCalculator,
       family: meta.family,
       familyOrder: meta.familyOrder,
       variantType: meta.variantType,

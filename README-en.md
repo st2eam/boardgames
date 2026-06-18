@@ -10,6 +10,7 @@ A curated, bilingual reference website for modern board game rules — 29 games 
 - **21 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **12 automatic score trackers**: 5 engine types for automatic scoring
 - **Tenpai Trainer**: Mahjong/Riichi tenpai practice with 4 difficulty levels (4/7/10/13 tiles), Unicode tile rendering
+- **Score Calculator**: Riichi Mahjong han/fu/points auto calculator — select yaku and melds to compute dealer/non-dealer payments
 - **Game family grouping**: UNO, Drecksau, Legends of the Three Kingdoms, Exploding Kittens, Splendor, Sea Salt & Paper, Catan, Mahjong series
 - **DLC / variant support**: expansions and standalone variants with stacked card UI
 - **Export**: PDF (browser print) or Markdown download
@@ -117,6 +118,7 @@ src/
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
 │   ├── game/score/               # ScoreTracker, CardSelector, FeatureInput, ScoreDisplay
 │   ├── game/trainer/             # TenpaiTrainer, MahjongTile, TileSelector, TrainerStats, InlineTile
+│   ├── game/calculator/          # ScoreCalculator, YakuSelector, FuInput, ScoreResult
 │   ├── chat/                     # ChatToggle, ChatIsland (lazy-loaded), ChatDialog, ChatMessages
 │   └── layout/                   # Header, Footer, BackToTop
 ├── lib/constants.ts              # Shared constants (categoryGradients, difficultyColors, variantBadge)

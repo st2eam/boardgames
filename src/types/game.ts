@@ -120,6 +120,13 @@ export interface TrainerConfig {
   difficulties: TrainerDifficulty[];
 }
 
+// --- Calculator Config ---
+
+export interface CalculatorConfig {
+  type: string;
+  name: Record<"en" | "zh", string>;
+}
+
 // --- Game & Summary ---
 
 export interface Game {
@@ -139,6 +146,7 @@ export interface GameSummary {
   hasFlow: boolean;
   hasScore: boolean;
   hasTrainer: boolean;
+  hasCalculator: boolean;
   family?: string;
   familyOrder?: number;
   variantType?: "base" | "expansion" | "variant";

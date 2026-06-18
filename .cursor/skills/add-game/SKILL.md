@@ -37,6 +37,7 @@ content/games/{slug}/
 ├── flow.json      # optional — single bilingual decision tree
 ├── score.json     # optional — score tracker config
 ├── trainer.json   # optional — tenpai trainer config
+├── calculator.json # optional — score calculator config (e.g., riichi fan/fu)
 ├── en/
 │   └── rules.md   # required
 └── zh/
@@ -380,6 +381,32 @@ The core mahjong library is at `src/lib/mahjong/` and includes:
 - `winCheck.ts` — winning hand validation (standard, seven pairs, thirteen orphans)
 - `tenpai.ts` — tenpai detection and wait calculation
 - `hand.ts` — random tenpai hand generation for training
+- `scoring.ts` — riichi scoring (yaku table, fu/han/points calculation)
+
+---
+
+## Step 6c: Create calculator.json (Optional — Score Calculator)
+
+For games that benefit from a score calculator (e.g., Riichi Mahjong fan/fu calculation), add a `calculator.json`:
+
+```json
+{
+  "type": "riichi-scoring",
+  "name": { "en": "Score Calculator", "zh": "番符计算器" }
+}
+```
+
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `type` | ✅ | Calculator type (`"riichi-scoring"` for Japanese Mahjong) |
+| `name` | ✅ | Display name (bilingual) |
+
+The calculator page is auto-generated at `/[locale]/games/[slug]/calculator/` when `calculator.json` exists.
+
+The scoring logic lives in `src/lib/mahjong/scoring.ts` and includes:
+- Yaku definitions (all standard yaku with han values for closed/open hands)
+- Fu calculation (melds, pair, wait type, win method)
+- Points calculation (base points, score levels, dealer/non-dealer payments)
 
 ---
 
@@ -416,6 +443,7 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] `flow.json` added at game root with bilingual title/content/label (optional)
 - [ ] `score.json` added for games with scoring (optional)
 - [ ] `trainer.json` added for games with tenpai training (optional)
+- [ ] `calculator.json` added for games with score calculators (optional)
 - [ ] Slug registered in `content/games/index.json`
 - [ ] `README.md` and `README-en.md` updated
 - [ ] `npm run build` succeeds

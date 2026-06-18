@@ -22,7 +22,9 @@
     "exportMarkdown": "Download Markdown",
     "scoreTracker": "Score Tracker",
     "tenpaiTrainer": "Tenpai Trainer",
-    "openTrainer": "Tenpai Trainer"
+    "openTrainer": "Tenpai Trainer",
+    "scoreCalculator": "Score Calculator",
+    "openCalculator": "Score Calculator"
   },
   "chat": {
     "title": "Rules Assistant",

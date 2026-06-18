@@ -10,6 +10,7 @@ interface Props {
   hasFlow: boolean;
   hasScore: boolean;
   hasTrainer: boolean;
+  hasCalculator: boolean;
   rules?: string;
 }
 
@@ -19,7 +20,7 @@ const difficultyColors: Record<string, string> = {
   hard: "bg-red-100 text-red-800",
 };
 
-export function GameHeader({ meta, hasFlow, hasScore, hasTrainer, rules }: Props) {
+export function GameHeader({ meta, hasFlow, hasScore, hasTrainer, hasCalculator, rules }: Props) {
   const locale = useLocale();
   const t = useTranslations("game");
   const tc = useTranslations("common");
@@ -75,6 +76,17 @@ export function GameHeader({ meta, hasFlow, hasScore, hasTrainer, rules }: Props
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
               </svg>
               {t("openTrainer")}
+            </Link>
+          )}
+          {hasCalculator && (
+            <Link
+              href={`/${locale}/games/${meta.slug}/calculator/`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-violet-300/60 bg-violet-50 px-4 py-2 text-sm font-medium text-violet-700 shadow-sm hover:bg-violet-100 transition-all"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25v-.008Zm2.25-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H12.75v-.008Zm0 2.25h.008v.008H12.75v-.008Zm2.25-4.5h.008v.008H15v-.008Zm0 2.25h.008v.008H15v-.008ZM3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
+              </svg>
+              {t("openCalculator")}
             </Link>
           )}
           {rules && (

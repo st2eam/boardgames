@@ -7,3 +7,5 @@ export { parseShortcode, shortcodeToInlineHTML, replaceShortcodesHTML, shortcode
 export type { ParsedTile } from "./shortcode";
 export { YAKU_LIST, getYakuGroups, calculateFu, calculateHan, calculateScore, getScoreLevel, LEVEL_NAMES } from "./scoring";
 export type { YakuDef, WinMethod, MeldType, WaitType, PairType, MeldInput, FuInput, CalcInput, ScoreBreakdown, ScoreLevel } from "./scoring";
+export { decomposeHand, detectYaku, getWaitTypeForTile, analyzeHand } from "./handAnalyzer";
+export type { Meld, Decomposition, AnalysisContext, AnalysisResult } from "./handAnalyzer";

@@ -403,10 +403,19 @@ For games that benefit from a score calculator (e.g., Riichi Mahjong fan/fu calc
 
 The calculator page is auto-generated at `/[locale]/games/[slug]/calculator/` when `calculator.json` exists.
 
-The scoring logic lives in `src/lib/mahjong/scoring.ts` and includes:
-- Yaku definitions (all standard yaku with han values for closed/open hands)
-- Fu calculation (melds, pair, wait type, win method)
-- Points calculation (base points, score levels, dealer/non-dealer payments)
+The calculator uses a tile-picker UI (not manual yaku checkboxes):
+1. User selects 14 tiles visually via `HandPicker`
+2. Marks one tile as the winning tile via `AgariSelector`
+3. Marks open melds via `MeldMarker`
+4. Sets round/seat wind, tsumo/ron, dealer/non-dealer
+5. Checks special conditions (riichi, ippatsu, etc.)
+
+The system auto-detects yaku and calculates fu/points via `src/lib/mahjong/handAnalyzer.ts`:
+- `decomposeHand()`: enumerates all valid hand decompositions (standard/chiitoitsu/kokushi)
+- `detectYaku()`: auto-detects ~25 yaku from tile patterns
+- `analyzeHand()`: selects the highest-scoring decomposition
+
+Scoring logic lives in `src/lib/mahjong/scoring.ts` (yaku definitions, fu calculation, points calculation).
 
 ---
 

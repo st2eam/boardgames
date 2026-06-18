@@ -1,4 +1,4 @@
-import type { GameMeta, FlowData, ScoreConfig } from "@/types/game";
+import type { GameMeta, FlowData, ScoreConfig, TrainerConfig } from "@/types/game";
 import { loadJson, loadMarkdown, fileExists } from "./markdown";
 
 const metaCache = new Map<string, GameMeta>();
@@ -41,8 +41,19 @@ export class GameRepository {
     return fileExists(slug, "score.json");
   }
 
-  static hasFlowData(slug: string, locale: string): boolean {
-    return fileExists(slug, locale, "flow.json");
+  static async getTrainerConfig(slug: string): Promise<TrainerConfig | null> {
+    if (!fileExists(slug, "trainer.json")) {
+      return null;
+    }
+    return loadJson<TrainerConfig>(slug, "trainer.json");
+  }
+
+  static hasTrainerConfig(slug: string): boolean {
+    return fileExists(slug, "trainer.json");
+  }
+
+  static hasFlowData(slug: string): boolean {
+    return fileExists(slug, "flow.json");
   }
 
   static async getFamilyGames(family: string): Promise<GameMeta[]> {

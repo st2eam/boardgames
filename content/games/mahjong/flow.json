@@ -1,0 +1,83 @@
+{
+  "startNode": "welcome",
+  "nodes": {
+    "welcome": {
+      "title": { "en": "Welcome to Mahjong", "zh": "欢迎来到麻将" },
+      "content": { "en": "This guide will walk you through the basics of Mahjong. What would you like to learn?", "zh": "本指南将带你了解麻将的基础知识。你想了解哪方面？" },
+      "options": [
+        { "label": { "en": "Tile Types", "zh": "牌型介绍" }, "next": "tiles" },
+        { "label": { "en": "Game Setup", "zh": "开局准备" }, "next": "setup" },
+        { "label": { "en": "Basic Turn Actions", "zh": "基本操作" }, "next": "turns" },
+        { "label": { "en": "Winning Conditions", "zh": "胡牌条件" }, "next": "winning" },
+        { "label": { "en": "Special Actions", "zh": "特殊操作" }, "next": "special" },
+        { "label": { "en": "Strategy Tips", "zh": "策略技巧" }, "next": "strategy" }
+      ]
+    },
+    "tiles": {
+      "title": { "en": "Tile Types", "zh": "牌型介绍" },
+      "content": { "en": "Mahjong uses 144 tiles in total:\n\n**Suited tiles (108):**\n- Characters (万) [1m]-[9m]: 1-9, four of each\n- Circles (筒) [1p]-[9p]: 1-9, four of each\n- Bamboo (条) [1s]-[9s]: 1-9, four of each\n\n**Honor tiles (28):**\n- Winds: [E][S][W][N] (4 each)\n- Dragons: [C][F][B] (4 each)\n\n**Flowers (8, optional):** seasonal and plant tiles", "zh": "麻将共 144 张牌：\n\n**序数牌（108 张）：**\n- 万子 [1m]-[9m]：一万到九万，各 4 张\n- 筒子 [1p]-[9p]：一筒到九筒，各 4 张\n- 条子 [1s]-[9s]：一条到九条，各 4 张\n\n**字牌（28 张）：**\n- 风牌：[E][S][W][N]（各 4 张）\n- 箭牌：[C][F][B]（各 4 张）\n\n**花牌（8 张，可选）：** 春夏秋冬梅兰竹菊" },
+      "options": [
+        { "label": { "en": "Game Setup", "zh": "开局准备" }, "next": "setup" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "setup": {
+      "title": { "en": "Game Setup", "zh": "开局准备" },
+      "content": { "en": "1. **Shuffle** all tiles face-down\n2. **Build walls**: Each player stacks 34 tiles into 17 pairs (2 high)\n3. **Determine dealer**: Roll dice → highest is East (dealer)\n4. **Deal**: Dealer takes 14 tiles, others take 13\n\nDealer goes first and already has 14 tiles, so they start by discarding.", "zh": "1. **洗牌**：所有牌面朝下充分混合\n2. **砌牌**：每人取 34 张叠成 17 墩（每墩 2 张）\n3. **定庄**：掷骰子 → 点数最大为庄家（东风位）\n4. **发牌**：庄家摸 14 张，其余各摸 13 张\n\n庄家先行，因为已有 14 张牌，所以直接从打牌开始。" },
+      "options": [
+        { "label": { "en": "Basic Turn Actions", "zh": "基本操作" }, "next": "turns" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "turns": {
+      "title": { "en": "Basic Turn Actions", "zh": "基本操作" },
+      "content": { "en": "Each turn follows this pattern:\n\n1. **Draw** 1 tile from the wall\n2. **Evaluate** your hand — can you win? Should you adjust strategy?\n3. **Discard** 1 tile face-up\n\nPlay proceeds counter-clockwise. After you discard, other players may claim it.", "zh": "每个回合的基本流程：\n\n1. **摸牌**：从牌墙取 1 张\n2. **思考**：检查手牌 — 能否胡牌？是否需要调整策略？\n3. **打牌**：选 1 张不需要的牌面朝上打出\n\n游戏按逆时针进行。你打出的牌，其他玩家可能会吃/碰/杠/胡。" },
+      "options": [
+        { "label": { "en": "Special Actions (Chi/Peng/Gang)", "zh": "特殊操作（吃/碰/杠）" }, "next": "special" },
+        { "label": { "en": "Winning Conditions", "zh": "胡牌条件" }, "next": "winning" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "special": {
+      "title": { "en": "Special Actions", "zh": "特殊操作" },
+      "content": { "en": "When someone discards a tile, you may claim it:\n\n| Action | Need | Who Can |\n|--------|------|--------|\n| **Win (Hu)** | Completes your hand | Anyone |\n| **Kong** | You have 3 of it | Anyone |\n| **Pung** | You have 2 of it | Anyone |\n| **Chow** | You have 2 adjacent | Left player only |\n\n**Priority**: Win > Kong > Pung > Chow\n\nAfter claiming, reveal the meld and discard a tile (except for Win).", "zh": "当别人打出一张牌时，你可以抢牌：\n\n| 操作 | 条件 | 谁能用 |\n|------|------|--------|\n| **胡** | 凑成胡牌型 | 任何人 |\n| **杠** | 手中有 3 张相同 | 任何人 |\n| **碰** | 手中有 2 张相同 | 任何人 |\n| **吃** | 有相邻 2 张序数牌 | 仅上家 |\n\n**优先级**：胡 > 杠 > 碰 > 吃\n\n吃/碰/杠后需亮出该组合并打出一张牌（胡牌除外）。" },
+      "options": [
+        { "label": { "en": "Kong in Detail", "zh": "杠的详解" }, "next": "kong" },
+        { "label": { "en": "Winning Conditions", "zh": "胡牌条件" }, "next": "winning" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "kong": {
+      "title": { "en": "Types of Kong", "zh": "杠的分类" },
+      "content": { "en": "Three ways to form a Kong (4 identical tiles):\n\n1. **Concealed Kong**: Draw 4th tile yourself → declare, place face-down\n2. **Open Kong**: Hold 3, claim discarded 4th tile\n3. **Extended Kong**: Already have a Pung meld, draw 4th → add to it\n\nAfter any Kong, draw a replacement tile from the wall's end.", "zh": "杠有三种方式（凑齐 4 张相同的牌）：\n\n1. **暗杠**：自摸凑齐 4 张 → 宣告，牌面朝下放出\n2. **明杠**：手中 3 张 + 别人打出第 4 张\n3. **加杠**：已碰出的 3 张 + 自摸第 4 张 → 加到碰牌上\n\n杠后从牌墙尾部补摸 1 张牌。" },
+      "options": [
+        { "label": { "en": "Winning Conditions", "zh": "胡牌条件" }, "next": "winning" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "winning": {
+      "title": { "en": "Winning Conditions", "zh": "胡牌条件" },
+      "content": { "en": "Standard winning hand = **4 sets + 1 pair** (14 tiles)\n\n**Sets (3 tiles):**\n- Sequence: e.g. [1m][2m][3m] (consecutive same-suit)\n- Triplet: e.g. [C][C][C] (3 identical)\n\n**Pair**: e.g. [E][E] (2 identical)\n\n**Special hands:**\n- Seven Pairs: 7 pairs = 14 tiles\n- Thirteen Orphans: all terminals + honors + one duplicate", "zh": "标准胡牌 = **4 个面子 + 1 个雀头**（共 14 张）\n\n**面子（3 张）：**\n- 顺子：如 [1m][2m][3m]（同花色连续 3 张）\n- 刻子：如 [C][C][C]（相同 3 张）\n\n**雀头**：如 [E][E]（相同 2 张）\n\n**特殊牌型：**\n- 七对：7 组对子 = 14 张\n- 十三幺：所有幺九字牌各一张 + 其中一张配对" },
+      "options": [
+        { "label": { "en": "Scoring Basics", "zh": "计分入门" }, "next": "scoring" },
+        { "label": { "en": "Strategy Tips", "zh": "策略技巧" }, "next": "strategy" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Scoring Basics", "zh": "计分入门" },
+      "content": { "en": "Scoring varies by region. General concepts:\n\n- **Base points**: Fixed value per round\n- **Fan (doubles)**: Multiplier based on hand quality\n- **Self-draw bonus**: Self-drawn wins score more\n- **Dealer bonus**: Dealer pays/receives extra\n\nCommon fan values:\n- Pinfu (all sequences): 1 fan\n- Tanyao (no terminals): 1 fan\n- Half Flush: 3 fan\n- Full Flush: 6 fan\n- Seven Pairs: 4 fan\n- Thirteen Orphans: Maximum", "zh": "计分因地区而异，通用概念：\n\n- **底分**：每局固定基础分\n- **番**：根据牌型质量的倍数\n- **自摸加倍**：自摸胡牌得分更高\n- **庄家加倍**：庄家收付更多\n\n常见番数参考：\n- 平胡（全顺子）：1 番\n- 断幺（无幺九）：1 番\n- 混一色：3 番\n- 清一色：6 番\n- 七对：4 番\n- 十三幺：满贯" },
+      "options": [
+        { "label": { "en": "Strategy Tips", "zh": "策略技巧" }, "next": "strategy" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "strategy": {
+      "title": { "en": "Strategy Tips", "zh": "策略技巧" },
+      "content": { "en": "1. **Track discards**: Memorize what's been played to identify safe tiles\n2. **Stay flexible**: Don't commit to one hand too early\n3. **Wide waits**: Aim for tenpai with multiple possible winning tiles\n4. **Defense**: In late game, prioritize safe discards over pushing for a win\n5. **Read opponents**: Their claims (chi/peng) reveal their hand direction\n6. **Tile efficiency**: Keep tiles that work with more combinations", "zh": "1. **记牌**：记住已打出的牌，判断安全牌\n2. **灵活应变**：不要过早锁定目标牌型\n3. **多面听**：尽量让听牌有多种胡牌可能\n4. **防守优先**：牌局后期优先打安全牌，避免点炮\n5. **读牌**：观察对手的吃碰来推断其手牌方向\n6. **牌效率**：保留能参与更多组合的牌" },
+      "options": [
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    }
+  }
+}

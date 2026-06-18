@@ -1,0 +1,26 @@
+{
+  "type": "tenpai",
+  "tileSet": "standard",
+  "difficulties": [
+    {
+      "id": "beginner",
+      "name": { "en": "Beginner (4 tiles)", "zh": "入门（4 张）" },
+      "handSize": 4
+    },
+    {
+      "id": "easy",
+      "name": { "en": "Easy (7 tiles)", "zh": "简单（7 张）" },
+      "handSize": 7
+    },
+    {
+      "id": "normal",
+      "name": { "en": "Normal (10 tiles)", "zh": "普通（10 张）" },
+      "handSize": 10
+    },
+    {
+      "id": "hard",
+      "name": { "en": "Hard (13 tiles)", "zh": "困难（13 张）" },
+      "handSize": 13
+    }
+  ]
+}

@@ -451,5 +451,47 @@
     ],
     "category": "board",
     "slug": "rummikub"
+  },
+  {
+    "name": {
+      "en": "Mahjong",
+      "zh": "麻将"
+    },
+    "players": "3-4",
+    "duration": "60-120 min",
+    "difficulty": "hard",
+    "tags": [
+      "tile",
+      "strategy",
+      "classic",
+      "traditional"
+    ],
+    "category": "board",
+    "family": "mahjong",
+    "familyOrder": 1,
+    "variantType": "base",
+    "slug": "mahjong"
+  },
+  {
+    "name": {
+      "en": "Riichi Mahjong",
+      "zh": "日本麻将"
+    },
+    "players": "4",
+    "duration": "90-120 min",
+    "difficulty": "hard",
+    "tags": [
+      "tile",
+      "strategy",
+      "classic",
+      "traditional",
+      "japanese"
+    ],
+    "category": "board",
+    "family": "mahjong",
+    "familyOrder": 2,
+    "variantType": "variant",
+    "requiresBase": false,
+    "slug": "riichi-mahjong"
   }
 ]

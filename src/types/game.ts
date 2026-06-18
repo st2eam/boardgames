@@ -106,6 +106,20 @@ export interface FilterDef {
   values: { id: string; name: Record<"en" | "zh", string> }[];
 }
 
+// --- Trainer Config ---
+
+export interface TrainerDifficulty {
+  id: string;
+  name: Record<"en" | "zh", string>;
+  handSize: number;
+}
+
+export interface TrainerConfig {
+  type: string;
+  tileSet: string;
+  difficulties: TrainerDifficulty[];
+}
+
 // --- Game & Summary ---
 
 export interface Game {
@@ -124,6 +138,7 @@ export interface GameSummary {
   category: string;
   hasFlow: boolean;
   hasScore: boolean;
+  hasTrainer: boolean;
   family?: string;
   familyOrder?: number;
   variantType?: "base" | "expansion" | "variant";

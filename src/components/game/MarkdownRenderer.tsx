@@ -1,5 +1,8 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { remarkMahjongTiles } from "@/lib/remark-mahjong-tiles";
+import { parseShortcode } from "@/lib/mahjong/shortcode";
+import { InlineTile } from "./trainer/InlineTile";
 
 interface Props {
   content: string;
@@ -8,7 +11,7 @@ interface Props {
 export function MarkdownRenderer({ content }: Props) {
   return (
     <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
+      remarkPlugins={[remarkGfm, remarkMahjongTiles]}
       components={{
         h1: ({ children }) => (
           <h1 className="mb-4 mt-8 text-2xl font-bold text-stone-900 first:mt-0">
@@ -75,6 +78,12 @@ export function MarkdownRenderer({ content }: Props) {
         code: ({ children, className }) => {
           const isInline = !className;
           if (isInline) {
+            const text = typeof children === "string" ? children : String(children ?? "");
+            if (text.startsWith("mj:")) {
+              const code = text.slice(3);
+              const tile = parseShortcode(code);
+              if (tile) return <InlineTile tile={tile} />;
+            }
             return (
               <code className="rounded-md bg-amber-50 px-1.5 py-0.5 text-sm font-mono text-primary-dark">
                 {children}

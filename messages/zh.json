@@ -20,7 +20,9 @@
     "export": "导出",
     "exportPDF": "导出为 PDF",
     "exportMarkdown": "下载 Markdown",
-    "scoreTracker": "计分器"
+    "scoreTracker": "计分器",
+    "tenpaiTrainer": "听牌训练",
+    "openTrainer": "听牌训练"
   },
   "chat": {
     "title": "规则助手",

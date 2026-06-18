@@ -2,14 +2,15 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — 26 games (including expansions/variants), interactive decision trees, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — 29 games (including expansions/variants), interactive decision trees, tenpai trainer, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **26 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **29 game rules**: web-verified, complete bilingual rules (EN/ZH)
 - **21 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **12 automatic score trackers**: 5 engine types for automatic scoring
-- **Game family grouping**: UNO, Drecksau, Legends of the Three Kingdoms, Exploding Kittens, Splendor, Sea Salt & Paper, Catan series
+- **Tenpai Trainer**: Mahjong/Riichi tenpai practice with 4 difficulty levels (4/7/10/13 tiles), Unicode tile rendering
+- **Game family grouping**: UNO, Drecksau, Legends of the Three Kingdoms, Exploding Kittens, Splendor, Sea Salt & Paper, Catan, Mahjong series
 - **DLC / variant support**: expansions and standalone variants with stacked card UI
 - **Export**: PDF (browser print) or Markdown download
 - **LLM chat**: DeepSeek-powered Q&A assistant (global + per-game scope), lazy-loaded on click
@@ -115,10 +116,13 @@ src/
 │   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
 │   ├── game/score/               # ScoreTracker, CardSelector, FeatureInput, ScoreDisplay
+│   ├── game/trainer/             # TenpaiTrainer, MahjongTile, TileSelector, TrainerStats, InlineTile
 │   ├── chat/                     # ChatToggle, ChatIsland (lazy-loaded), ChatDialog, ChatMessages
 │   └── layout/                   # Header, Footer, BackToTop
 ├── lib/constants.ts              # Shared constants (categoryGradients, difficultyColors, variantBadge)
 ├── lib/content/                  # Content layer (Repository + Factory pattern, with memory cache)
+├── lib/mahjong/                  # Mahjong core library (tiles, winCheck, tenpai, hand generation, shortcode)
+├── lib/remark-mahjong-tiles.ts   # Remark plugin: parses [3m] shortcodes into inline tile components
 ├── lib/score/                    # Score tracker (useScoreState hook + IndexedDB storage)
 ├── lib/score/engines/            # Scoring engine factory (sea-salt / card-select / card-type / category / feature-calc)
 ├── lib/ai/                       # DeepSeekAdapter, ChatStrategies, tool-handlers

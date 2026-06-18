@@ -1,0 +1,12 @@
+{
+  "name": { "en": "Riichi Mahjong", "zh": "日本麻将" },
+  "players": "4",
+  "duration": "90-120 min",
+  "difficulty": "hard",
+  "tags": ["tile", "strategy", "classic", "traditional", "japanese"],
+  "category": "board",
+  "family": "mahjong",
+  "familyOrder": 2,
+  "variantType": "variant",
+  "requiresBase": false
+}

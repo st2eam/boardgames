@@ -36,6 +36,7 @@ content/games/{slug}/
 ├── meta.json
 ├── flow.json      # optional — single bilingual decision tree
 ├── score.json     # optional — score tracker config
+├── trainer.json   # optional — tenpai trainer config
 ├── en/
 │   └── rules.md   # required
 └── zh/
@@ -333,6 +334,55 @@ The score tracker page is auto-generated at `/[locale]/games/[slug]/score/` when
 
 ---
 
+## Step 6b: Create trainer.json (Optional — Tenpai Trainer)
+
+For games that benefit from a tenpai (waiting tile) training mode (e.g., Mahjong, Riichi Mahjong), add a `trainer.json`:
+
+```json
+{
+  "type": "tenpai",
+  "tileSet": "standard",
+  "difficulties": [
+    {
+      "id": "beginner",
+      "name": { "en": "Beginner (4 tiles)", "zh": "入门（4 张）" },
+      "handSize": 4
+    },
+    {
+      "id": "easy",
+      "name": { "en": "Easy (7 tiles)", "zh": "简单（7 张）" },
+      "handSize": 7
+    },
+    {
+      "id": "normal",
+      "name": { "en": "Normal (10 tiles)", "zh": "普通（10 张）" },
+      "handSize": 10
+    },
+    {
+      "id": "hard",
+      "name": { "en": "Hard (13 tiles)", "zh": "困难（13 张）" },
+      "handSize": 13
+    }
+  ]
+}
+```
+
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `type` | ✅ | Trainer type (`"tenpai"` for Mahjong-based training) |
+| `tileSet` | ✅ | Tile set to use (`"standard"` = 34 tile types) |
+| `difficulties` | ✅ | Array of difficulty levels with `id`, `name` (bilingual), and `handSize` |
+
+The trainer page is auto-generated at `/[locale]/games/[slug]/trainer/` when `trainer.json` exists.
+
+The core mahjong library is at `src/lib/mahjong/` and includes:
+- `tiles.ts` — tile definitions and Unicode mappings
+- `winCheck.ts` — winning hand validation (standard, seven pairs, thirteen orphans)
+- `tenpai.ts` — tenpai detection and wait calculation
+- `hand.ts` — random tenpai hand generation for training
+
+---
+
 ## Adding to an Existing Series
 
 If the base game already has `family` fields (e.g., UNO, Splendor, Dirty Pig):
@@ -365,7 +415,58 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] `zh/rules.md` written (matching English content)
 - [ ] `flow.json` added at game root with bilingual title/content/label (optional)
 - [ ] `score.json` added for games with scoring (optional)
+- [ ] `trainer.json` added for games with tenpai training (optional)
 - [ ] Slug registered in `content/games/index.json`
 - [ ] `README.md` and `README-en.md` updated
 - [ ] `npm run build` succeeds
 - [ ] Visual check: card renders, links work, AI chat works
+
+---
+
+## Common Pitfalls (Lessons Learned)
+
+### flow.json: Use `startNode` NOT `start`
+
+The `FlowData` type expects `startNode` as the field name. Using `"start"` will cause the DecisionTree component to show "node not found".
+
+```json
+// CORRECT
+{ "startNode": "welcome", "nodes": { ... } }
+
+// WRONG — will silently fail
+{ "start": "welcome", "nodes": { ... } }
+```
+
+### winCheck: Dynamic set count for small hands
+
+The `isWinningHand()` function supports variable hand sizes (5, 8, 11, 14 tiles). It dynamically calculates the number of sets needed: `(total - 2) / 3`. This was fixed from a hardcoded `4` that only worked for 14-tile hands.
+
+### Mahjong tile shortcodes in Markdown
+
+Use `[3m]` notation instead of Unicode Mahjong symbols (which render inconsistently across platforms):
+
+| Shortcode | Meaning |
+|-----------|---------|
+| `[1m]`-`[9m]` | Characters (万) |
+| `[1p]`-`[9p]` | Circles (筒) |
+| `[1s]`-`[9s]` | Bamboo (条) |
+| `[E][S][W][N]` | Wind tiles |
+| `[C][F][B]` | Dragon tiles (中发白) |
+
+These are rendered as styled inline tile elements in the web UI, converted to inline-styled HTML in PDF export, and converted to plain text (e.g. "三万") in Markdown download.
+
+### Export compatibility
+
+When adding custom inline rendering (like mahjong tiles), ensure three paths work:
+1. **Web**: `MarkdownRenderer` with remark plugin + custom `code` component
+2. **PDF export**: `inlineFormat()` in `ExportButton.tsx` must handle the shortcode BEFORE markdown link processing (order matters — `[3m]` looks like a markdown link)
+3. **Markdown download**: `replaceShortcodesText()` converts shortcodes to readable text
+
+### Trainer hand generation
+
+The tenpai trainer generates hands by:
+1. Building a valid winning hand (random pair + random sets)
+2. Removing one tile to create a tenpai state
+3. Using `findWaits()` to compute the correct answer
+
+If adding new trainer types, ensure the generation algorithm always produces a solvable puzzle with at least one valid answer.

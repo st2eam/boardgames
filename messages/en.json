@@ -20,7 +20,9 @@
     "export": "Export",
     "exportPDF": "Export as PDF",
     "exportMarkdown": "Download Markdown",
-    "scoreTracker": "Score Tracker"
+    "scoreTracker": "Score Tracker",
+    "tenpaiTrainer": "Tenpai Trainer",
+    "openTrainer": "Tenpai Trainer"
   },
   "chat": {
     "title": "Rules Assistant",

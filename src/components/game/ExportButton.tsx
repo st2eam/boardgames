@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { shortcodeToInlineHTML, replaceShortcodesText } from "@/lib/mahjong/shortcode";
 
 interface Props {
   markdown: string;
@@ -25,7 +26,8 @@ export function ExportButton({ markdown, gameName, slug }: Props) {
   }, [open]);
 
   function downloadMarkdown() {
-    const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" });
+    const converted = replaceShortcodesText(markdown);
+    const blob = new Blob([converted], { type: "text/markdown;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -296,6 +298,9 @@ function renderMarkdownToHTML(
 
 function inlineFormat(text: string): string {
   return text
+    .replace(/\[([1-9][mps]|[ESWN]|[CFB])\]/g, (_, code) => {
+      return shortcodeToInlineHTML(code);
+    })
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
     .replace(/`(.+?)`/g, "<code>$1</code>")

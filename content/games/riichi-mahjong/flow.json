@@ -1,0 +1,84 @@
+{
+  "startNode": "welcome",
+  "nodes": {
+    "welcome": {
+      "title": { "en": "Riichi Mahjong Guide", "zh": "日本麻将指南" },
+      "content": { "en": "Welcome to the Riichi Mahjong interactive guide. What would you like to learn?", "zh": "欢迎来到日本麻将互动指南。你想了解哪方面？" },
+      "options": [
+        { "label": { "en": "Riichi Declaration", "zh": "立直规则" }, "next": "riichi" },
+        { "label": { "en": "Yaku Overview", "zh": "役种概览" }, "next": "yaku" },
+        { "label": { "en": "Furiten Rule", "zh": "振听规则" }, "next": "furiten" },
+        { "label": { "en": "Dora System", "zh": "宝牌系统" }, "next": "dora" },
+        { "label": { "en": "Scoring", "zh": "计分系统" }, "next": "scoring" },
+        { "label": { "en": "Strategy", "zh": "策略指导" }, "next": "strategy" }
+      ]
+    },
+    "riichi": {
+      "title": { "en": "Riichi Declaration", "zh": "立直规则" },
+      "content": { "en": "**Riichi** is the signature mechanic of Japanese Mahjong.\n\n**Requirements:**\n- Hand is fully concealed (no open melds)\n- Hand is tenpai (one tile from winning)\n- You have at least 1000 points\n\n**Process:**\n1. Declare \"Riichi\"\n2. Place discard sideways\n3. Pay 1000 points (Riichi stick)\n\n**After declaring:**\n- Cannot change hand (auto draw-discard)\n- Win = also flip ura-dora for bonus\n- Win within 1 turn = Ippatsu (+1 han)", "zh": "**立直**是日本麻将的标志性机制。\n\n**条件：**\n- 门清状态（无吃碰杠）\n- 已经听牌\n- 至少有 1000 点\n\n**流程：**\n1. 宣言「立直」\n2. 将打出的牌横放\n3. 支付 1000 点（立直棒）\n\n**宣言后：**\n- 不能换牌（自动摸打）\n- 和牌后翻里宝牌加番\n- 一巡内和牌 = 一发（+1 番）" },
+      "options": [
+        { "label": { "en": "Furiten Rule", "zh": "振听规则" }, "next": "furiten" },
+        { "label": { "en": "Yaku Overview", "zh": "役种概览" }, "next": "yaku" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "yaku": {
+      "title": { "en": "Yaku (Hand Patterns)", "zh": "役种概览" },
+      "content": { "en": "Yaku are scoring patterns required to win. Key categories:\n\n**Common 1-han:**\n- Riichi, Tsumo, Pinfu, Tanyao, Yakuhai\n\n**2-han (powerful):**\n- Chiitoitsu (7 pairs), Toitoi (all triplets)\n- Sanshoku (same sequence in 3 suits)\n\n**High value:**\n- Honitsu (3 han): one suit + honors\n- Chinitsu (6 han): pure one suit\n\n**Yakuman (limit):**\n- Kokushi, Suu Ankou, Daisangen, Tsuuiisou...\n\nYou need at least 1 yaku to win (dora alone is not enough).", "zh": "役是和牌必须满足的牌型条件。主要分类：\n\n**常见一番：**\n- 立直、自摸、平和、断幺、役牌\n\n**二番（强力）：**\n- 七对子、对对和\n- 三色同顺（三种花色同数字顺子）\n\n**高番：**\n- 混一色（3 番）：一种花色 + 字牌\n- 清一色（6 番）：纯一种花色\n\n**役满（封顶）：**\n- 国士无双、四暗刻、大三元、字一色...\n\n和牌必须有至少 1 个役（仅有宝牌不算）。" },
+      "options": [
+        { "label": { "en": "Beginner Yaku", "zh": "新手常用役" }, "next": "yaku-beginner" },
+        { "label": { "en": "Yakuman Details", "zh": "役满详解" }, "next": "yakuman" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "yaku-beginner": {
+      "title": { "en": "Beginner-Friendly Yaku", "zh": "新手常用役" },
+      "content": { "en": "Start with these easy-to-achieve yaku:\n\n1. **Riichi** (1 han): Just declare when concealed & tenpai\n2. **Tanyao** (1 han): No 1s, 9s, or honor tiles\n3. **Yakuhai** (1 han): Triplet of dragon/round wind/seat wind\n4. **Pinfu** (1 han): All sequences + good wait\n5. **Tsumo** (1 han): Self-draw win while concealed\n\n**Tip**: Riichi + Tsumo + Ippatsu + Dora can easily reach Mangan (8000 pts)!", "zh": "新手先记住这些容易达成的役：\n\n1. **立直**（1 番）：门清听牌就能宣言\n2. **断幺**（1 番）：不用 1、9 和字牌\n3. **役牌**（1 番）：三元牌/场风/自风的刻子\n4. **平和**（1 番）：全顺子 + 好型听牌\n5. **门前清自摸**（1 番）：门清状态自摸\n\n**小技巧**：立直 + 自摸 + 一发 + 宝牌 = 轻松满贯（8000 点）！" },
+      "options": [
+        { "label": { "en": "Scoring System", "zh": "计分系统" }, "next": "scoring" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "yakuman": {
+      "title": { "en": "Yakuman (Limit Hands)", "zh": "役满详解" },
+      "content": { "en": "Yakuman are the rarest, most valuable hands (32000+ pts):\n\n- **Kokushi Musou**: One of each terminal & honor + 1 duplicate\n- **Suu Ankou**: 4 concealed triplets (hardest common yakuman)\n- **Daisangen**: Triplet of all 3 dragons\n- **Tsuuiisou**: All honor tiles only\n- **Ryuuiisou**: All green tiles (2,3,4,6,8 bamboo + Green Dragon)\n- **Chinroutou**: Only 1s and 9s\n- **Chuuren Poutou**: 1112345678999 + any same suit\n- **Tenhou/Chiihou**: Win on first draw (dealer/non-dealer)\n\nDouble yakuman: Daisuushii (4 wind triplets), Pure Chuuren", "zh": "役满是最稀有、最高分的牌型（32000+ 点）：\n\n- **国士无双**：13 种幺九字各一 + 任一配对\n- **四暗刻**：4 组暗刻（最常见的役满）\n- **大三元**：三元牌各一刻子\n- **字一色**：全部字牌\n- **绿一色**：全绿色牌（23468 索 + 发）\n- **清老头**：全部 1 和 9\n- **九莲宝灯**：1112345678999 + 同花色任一\n- **天和/地和**：第一次摸牌即和（庄/闲）\n\n双倍役满：大四喜（四风全刻）、纯正九莲" },
+      "options": [
+        { "label": { "en": "Scoring System", "zh": "计分系统" }, "next": "scoring" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "furiten": {
+      "title": { "en": "Furiten Rule", "zh": "振听规则" },
+      "content": { "en": "Furiten prevents you from winning by ron (discard):\n\n**You are in furiten if:**\n1. Any tile you're waiting on is in your own discard pile\n2. Someone discarded your winning tile this turn (temporary)\n3. After Riichi, you passed on any winning tile\n\n**Key points:**\n- Furiten applies to ALL your waits, not just one\n- You can still win by tsumo (self-draw) while furiten\n- Temporary furiten clears on your next turn\n- Riichi furiten is permanent until the hand ends", "zh": "振听规则限制你不能荣和（吃别人打出的牌）：\n\n**振听状态触发条件：**\n1. 听牌中有任何一张在自己的牌河中\n2. 本巡有人打出你的听牌但你没和（临时振听）\n3. 立直后错过了和牌机会\n\n**关键要点：**\n- 振听针对所有听牌，不是只针对一张\n- 振听状态下仍可自摸和\n- 临时振听在你下次摸牌时解除\n- 立直后的振听持续到本局结束" },
+      "options": [
+        { "label": { "en": "Riichi Declaration", "zh": "立直规则" }, "next": "riichi" },
+        { "label": { "en": "Strategy", "zh": "策略指导" }, "next": "strategy" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "dora": {
+      "title": { "en": "Dora System", "zh": "宝牌系统" },
+      "content": { "en": "Dora add bonus han but are NOT yaku themselves.\n\n**Types:**\n- **Omote Dora**: Indicator tile on wall → next tile is dora\n- **Ura Dora**: Under indicator, revealed only after Riichi win\n- **Kan Dora**: New indicator per kong declared\n- **Aka Dora**: Red fives (automatic dora)\n\n**Cycling:**\n- Numbers: 1→2→...→9→1\n- Winds: E→S→W→N→E\n- Dragons: White→Green→Red→White\n\n**Example**: Indicator shows 🀌 (6 man) → Dora is 🀍 (7 man)", "zh": "宝牌增加番数但本身不算役。\n\n**种类：**\n- **表宝牌**：牌墙上指示牌的下一张即为宝牌\n- **里宝牌**：指示牌下方，立直和牌后才翻开\n- **杠宝牌**：每开一杠翻一张新指示牌\n- **赤宝牌**：红色的五（自动计为宝牌）\n\n**循环规则：**\n- 数牌：1→2→...→9→1\n- 风牌：东→南→西→北→东\n- 三元牌：白→发→中→白\n\n**例子**：指示牌为 🀌（六万）→ 宝牌为 🀍（七万）" },
+      "options": [
+        { "label": { "en": "Scoring System", "zh": "计分系统" }, "next": "scoring" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Scoring System", "zh": "计分系统" },
+      "content": { "en": "**Formula**: Points = Fu × 2^(han+2)\n\n**Quick reference (non-dealer ron):**\n- 1 han 30 fu = 1000 pts\n- 2 han 30 fu = 2000 pts\n- 3 han 30 fu = 3900 pts\n- Mangan (5 han) = 8000 pts\n- Haneman (6-7 han) = 12000 pts\n- Baiman (8-10 han) = 16000 pts\n- Sanbaiman (11-12 han) = 24000 pts\n- Yakuman (13+ han) = 32000 pts\n\n**Payment:**\n- Ron: loser pays all\n- Tsumo (dealer): others each pay 1/3\n- Tsumo (non-dealer): dealer 1/2, others 1/4", "zh": "**公式**：点数 = 符 × 2^(番数+2)\n\n**速查表（闲家荣和）：**\n- 1 番 30 符 = 1000 点\n- 2 番 30 符 = 2000 点\n- 3 番 30 符 = 3900 点\n- 满贯（5 番）= 8000 点\n- 跳满（6-7 番）= 12000 点\n- 倍满（8-10 番）= 16000 点\n- 三倍满（11-12 番）= 24000 点\n- 役满（13+ 番）= 32000 点\n\n**支付规则：**\n- 荣和：放铳者全额支付\n- 自摸（庄家）：三家各付 1/3\n- 自摸（闲家）：庄家付 1/2，另两闲各付 1/4" },
+      "options": [
+        { "label": { "en": "Strategy", "zh": "策略指导" }, "next": "strategy" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    },
+    "strategy": {
+      "title": { "en": "Strategy Guide", "zh": "策略指导" },
+      "content": { "en": "**Offense vs Defense decision:**\n\nPush (attack) when:\n- Your hand has high value potential\n- You have a good wait (ryanmen/two-sided)\n- It's early in the hand\n\nFold (defend) when:\n- Others declared Riichi\n- Your hand is cheap (1-2 han)\n- It's late in the hand\n\n**Safe tile priority:**\n1. Genbutsu (their discards) = 100% safe\n2. Suji tiles = mostly safe\n3. Kabe (walled tiles) = likely safe\n4. Guest winds = usually safe early\n\n**Tile efficiency**: Keep tiles that give you more useful draws.", "zh": "**攻防判断：**\n\n进攻条件：\n- 手牌价值高（番数多）\n- 听牌形好（两面听）\n- 牌局前期\n\n防守条件：\n- 有人立直\n- 手牌价值低（1-2 番）\n- 牌局后期\n\n**安全牌优先级：**\n1. 现物（对手牌河中的牌）= 100% 安全\n2. 筋牌 = 大概率安全\n3. 壁（已见 3-4 张的邻牌）= 较安全\n4. 客风牌 = 前期通常安全\n\n**牌效率**：保留能带来更多有效进张的牌。" },
+      "options": [
+        { "label": { "en": "Riichi Declaration", "zh": "立直规则" }, "next": "riichi" },
+        { "label": { "en": "Back to Menu", "zh": "返回主菜单" }, "next": "welcome" }
+      ]
+    }
+  }
+}

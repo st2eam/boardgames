@@ -2,14 +2,15 @@
 
 > [English version / 英文版](README-en.md)
 
-一个精心整理的现代桌游规则参考网站，覆盖 26 款游戏（含扩展/变体），支持中英双语、交互式决策树、LLM 对话查询，纯静态站点部署到 GitHub Pages。
+一个精心整理的现代桌游规则参考网站，覆盖 29 款游戏（含扩展/变体），支持中英双语、交互式决策树、听牌训练器、LLM 对话查询，纯静态站点部署到 GitHub Pages。
 
 ## 功能特性
 
-- **26 款游戏规则**：经过网络验证的中英双语完整规则
+- **29 款游戏规则**：经过网络验证的中英双语完整规则
 - **21 款交互式决策树**：分步交互流程，含侧边栏目录导航
 - **12 款自动计分器**：5 种引擎（公式 / 卡牌选择 / 卡牌类型 / 分类计数 / 特征计算），单人使用，IndexedDB 持久化
-- **游戏系列分组**：UNO、脏小猪、三国杀、爆炸猫、璀璨宝石、海盐折纸、卡坦岛等系列以堆叠卡片效果展示
+- **听牌训练器**：麻将/日麻通用训练器，支持 4 级难度（4/7/10/13 张），Unicode 牌面显示
+- **游戏系列分组**：UNO、脏小猪、三国杀、爆炸猫、璀璨宝石、海盐折纸、卡坦岛、麻将等系列以堆叠卡片效果展示
 - **DLC / 变体支持**：小猪选美、不臣之君、黑盒版、UNO Flip、UNO No Mercy、璀璨宝石宝可梦版、盐趣倍增、中国版图
 - **规则导出**：支持导出为 PDF 或下载 Markdown 原文
 - **LLM 对话**：基于 DeepSeek API 的规则问答助手，支持游戏限定 / 全局模式切换，懒加载（点击时才加载）
@@ -68,6 +69,7 @@ npm run build
 | 群星二十一 | ✅ | ✅ | — |
 | 榴莲教练的大拳馆 | ✅ | ✅ | — |
 || 拉密 (Rummikub) | ✅ | ✅ | — |
+|| 麻将 | ✅ | ✅ | 🎯 训练器 |
 
 ### 游戏系列
 
@@ -88,6 +90,8 @@ npm run build
 | | 盐趣倍增 | DLC（需本体） | ✅ | — | — |
 | 卡坦岛 | 卡坦岛 | 本体 | ✅ | ✅ | ✅ |
 | | 中国版图 | 变体（可独立） | ✅ | — | ✅ |
+| 麻将 | 麻将 | 本体 | ✅ | ✅ | 🎯 训练器 |
+| | 日本麻将 | 变体（可独立） | ✅ | ✅ | 🎯 训练器 |
 
 ---
 
@@ -100,9 +104,10 @@ content/games/
 │   ├── meta.json                 # 游戏元数据
 │   ├── flow.json                 # 可选：交互式决策树（双语）
 │   ├── score.json                # 可选：计分器配置
+│   ├── trainer.json              # 可选：训练器配置
 │   ├── zh/rules.md               # 中文规则
 │   └── en/rules.md               # 英文规则
-└── ...（共 26 款游戏）
+└── ...（共 29 款游戏）
 
 public/data/
 ├── games-index.json              # 完整游戏数据（含规则，chat tool 用）
@@ -115,10 +120,13 @@ src/
 │   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
 │   ├── game/score/               # ScoreTracker, CardSelector, FeatureInput, ScoreDisplay
+│   ├── game/trainer/             # TenpaiTrainer, MahjongTile, TileSelector, TrainerStats, InlineTile
 │   ├── chat/                     # ChatToggle, ChatIsland（懒加载）, ChatDialog, ChatMessages
 │   └── layout/                   # Header, Footer, BackToTop
 ├── lib/constants.ts              # 共享常量（categoryGradients, difficultyColors, variantBadge）
 ├── lib/content/                  # 内容层（Repository + Factory 模式，带内存缓存）
+├── lib/mahjong/                  # 麻将核心库（tiles 牌定义、winCheck 和牌判定、tenpai 听牌计算、hand 手牌生成、shortcode 简写标记）
+├── lib/remark-mahjong-tiles.ts   # remark 插件：解析 [3m] 简写标记为内联牌面组件
 ├── lib/score/                    # 计分器（useScoreState hook + IndexedDB 存储）
 ├── lib/score/engines/            # 计分引擎工厂（sea-salt / card-select / card-type / category / feature-calc）
 ├── lib/ai/                       # DeepSeekAdapter, ChatStrategies, tool-handlers

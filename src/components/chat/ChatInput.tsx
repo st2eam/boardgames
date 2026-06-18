@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useChat } from "@/lib/chat/ChatProvider";
 import { useTranslations } from "next-intl";
 
@@ -8,17 +8,42 @@ export function ChatInput() {
   const { sendMessage, isStreaming, apiKey } = useChat();
   const t = useTranslations("chat");
   const [input, setInput] = useState("");
+  const [isOffline, setIsOffline] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setIsOffline(!navigator.onLine);
+    const goOffline = () => setIsOffline(true);
+    const goOnline = () => setIsOffline(false);
+    window.addEventListener("offline", goOffline);
+    window.addEventListener("online", goOnline);
+    return () => {
+      window.removeEventListener("offline", goOffline);
+      window.removeEventListener("online", goOnline);
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isStreaming || !apiKey) return;
+    if (!input.trim() || isStreaming || !apiKey || isOffline) return;
     const msg = input.trim();
     setInput("");
     await sendMessage(msg);
-    // Refocus after send
     setTimeout(() => inputRef.current?.focus(), 50);
   };
+
+  if (isOffline) {
+    return (
+      <div className="shrink-0 border-t border-stone-100 bg-stone-50/80 px-4 py-3">
+        <div className="flex items-center justify-center gap-2 text-xs text-stone-500">
+          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l8.735 8.735m0 0a.374.374 0 11.53.53m-.53-.53l.53.53m0 0L21 21M14.652 9.348a3.75 3.75 0 010 5.304m2.121-7.425a6.75 6.75 0 010 9.546m2.121-11.667C21.004 7.21 22.5 9.515 22.5 12s-1.496 4.79-3.606 6.894" />
+          </svg>
+          <span>{t("offlineMode")}</span>
+        </div>
+      </div>
+    );
+  }
 
   if (!apiKey) {
     return (

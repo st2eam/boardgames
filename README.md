@@ -19,6 +19,7 @@
 - **首页排序**：游戏卡片按英文名字母顺序排列
 - **按人数筛选**：支持按游玩人数精确筛选游戏
 - **中英双语**：完整的 i18n 支持，含 UI 文案和游戏内容
+- **PWA 离线支持**：添加到主屏幕即可离线使用全部功能（规则、决策树、计分器、训练器），AI 助手离线时自动降级提示
 
 ## 快速开始
 
@@ -116,6 +117,10 @@ public/data/
 ├── games-index.json              # 完整游戏数据（含规则，chat tool 用）
 ├── games-meta.json               # 轻量索引（仅元数据，system prompt 用）
 └── rules/{slug}.json             # 按游戏拆分的规则（按需加载）
+
+public/icons/                      # PWA 图标（180/192/512/maskable-512）
+public/manifest.json               # Web App Manifest
+public/sw.js                       # Service Worker 模板（postbuild 注入预缓存列表）
 
 src/
 ├── app/[locale]/                 # 页面路由

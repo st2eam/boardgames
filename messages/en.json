@@ -47,7 +47,8 @@
     "noApiKey": "Please set your DeepSeek API key to start chatting.",
     "close": "Close",
     "switchToGlobal": "Switch to global assistant",
-    "switchToGame": "Switch to game assistant"
+    "switchToGame": "Switch to game assistant",
+    "offlineMode": "Offline — AI assistant requires network"
   },
   "flow": {
     "back": "Back",

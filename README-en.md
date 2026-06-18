@@ -19,6 +19,7 @@ A curated, bilingual reference website for modern board game rules — 29 games 
 - **Self-hosted fonts**: next/font with Fredoka, Nunito, Noto Sans SC (no render blocking)
 - **Bilingual**: full i18n for UI text and game content
 - **Player count filter**: filter games by number of players
+- **PWA offline support**: add to home screen for full offline access (rules, decision trees, score trackers, trainers); AI chat gracefully degrades offline
 
 ## Quick Start
 

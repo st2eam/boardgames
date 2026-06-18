@@ -1,0 +1,31 @@
+{
+  "name": "The Game Shelf - 桌游规则",
+  "short_name": "Game Shelf",
+  "description": "Your curated collection of tabletop game rules",
+  "start_url": "/boardgames/",
+  "scope": "/boardgames/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fafaf9",
+  "theme_color": "#d97706",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/boardgames/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/boardgames/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/boardgames/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["games", "entertainment", "education"]
+}

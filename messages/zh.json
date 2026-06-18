@@ -47,7 +47,8 @@
     "noApiKey": "请先设置 DeepSeek API Key 再开始对话。",
     "close": "关闭",
     "switchToGlobal": "切换为全局助手",
-    "switchToGame": "切换为当前游戏助手"
+    "switchToGame": "切换为当前游戏助手",
+    "offlineMode": "离线模式 — AI 助手需要网络连接"
   },
   "flow": {
     "back": "返回上一步",

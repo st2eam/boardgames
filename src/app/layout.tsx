@@ -26,6 +26,15 @@ const notoSansSC = Noto_Sans_SC({
 export const metadata: Metadata = {
   title: "The Game Shelf",
   description: "Your curated collection of tabletop game rules",
+  manifest: "/boardgames/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Game Shelf",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
 };
 
 export default function RootLayout({
@@ -39,7 +48,18 @@ export default function RootLayout({
       className={`h-full antialiased ${fredoka.variable} ${nunito.variable} ${notoSansSC.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-surface">{children}</body>
+      <head>
+        <link rel="apple-touch-icon" href="/boardgames/icons/icon-180.png" />
+        <meta name="theme-color" content="#d97706" />
+      </head>
+      <body className="min-h-full flex flex-col bg-surface">
+        {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if("serviceWorker"in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/boardgames/sw.js")})}`,
+          }}
+        />
+      </body>
     </html>
   );
 }

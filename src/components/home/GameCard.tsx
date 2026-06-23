@@ -20,7 +20,9 @@ function useTags(game: GameSummary, t: ReturnType<typeof useTranslations<"game">
   if (game.hasTrainer) {
     const label = game.trainerType === "blackjack-basic-strategy"
       ? t("strategyTrainer")
-      : t("tenpaiTrainer");
+      : game.trainerType === "texas-holdem-preflop"
+        ? t("preflopTrainer")
+        : t("tenpaiTrainer");
     functional.push(label);
   }
   if (game.hasCalculator) functional.push(t("scoreCalculator"));

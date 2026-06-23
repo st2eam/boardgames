@@ -108,7 +108,7 @@ export function GameFamilyCard({ games }: Props) {
               )}
               {base.hasTrainer && (
                 <span className="rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
-                  {base.trainerType === "blackjack-basic-strategy" ? t("strategyTrainer") : t("tenpaiTrainer")}
+                  {base.trainerType === "blackjack-basic-strategy" ? t("strategyTrainer") : base.trainerType === "texas-holdem-preflop" ? t("preflopTrainer") : t("tenpaiTrainer")}
                 </span>
               )}
               {base.hasCalculator && (

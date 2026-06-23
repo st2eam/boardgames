@@ -25,6 +25,8 @@
     "openTrainer": "Tenpai Trainer",
     "strategyTrainer": "Strategy Trainer",
     "openStrategyTrainer": "Strategy Trainer",
+    "preflopTrainer": "Preflop Trainer",
+    "openPreflopTrainer": "Preflop Trainer",
     "scoreCalculator": "Score Calculator",
     "openCalculator": "Score Calculator"
   },

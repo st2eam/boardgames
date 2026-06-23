@@ -310,7 +310,29 @@
       "strategy"
     ],
     "category": "board",
+    "family": "carcassonne",
+    "familyOrder": 0,
+    "variantType": "base",
+    "requiresBase": false,
     "slug": "carcassonne"
+  },
+  {
+    "name": {
+      "en": "Carcassonne: The River",
+      "zh": "卡卡颂：河流"
+    },
+    "players": "2-5",
+    "duration": "35-45 min",
+    "difficulty": "medium",
+    "tags": [
+      "strategy"
+    ],
+    "category": "board",
+    "family": "carcassonne",
+    "familyOrder": 1,
+    "variantType": "expansion",
+    "requiresBase": true,
+    "slug": "carcassonne-the-river"
   },
   {
     "name": {

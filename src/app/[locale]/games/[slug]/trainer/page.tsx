@@ -1,6 +1,7 @@
 import { GameRepository } from "@/lib/content/GameRepository";
 import { TenpaiTrainer } from "@/components/game/trainer/TenpaiTrainer";
 import { BasicStrategyTrainer } from "@/components/game/trainer/blackjack/BasicStrategyTrainer";
+import { PreflopTrainer } from "@/components/game/trainer/texas-holdem/PreflopTrainer";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";
@@ -13,6 +14,7 @@ interface Props {
 const TRAINER_TITLES: Record<string, { en: string; zh: string }> = {
   tenpai: { en: "Tenpai Trainer", zh: "听牌训练" },
   "blackjack-basic-strategy": { en: "Basic Strategy Trainer", zh: "基本策略训练" },
+  "texas-holdem-preflop": { en: "Preflop Trainer", zh: "翻前训练" },
 };
 
 const TRAINER_DESCRIPTIONS: Record<string, { en: string; zh: string }> = {
@@ -23,6 +25,10 @@ const TRAINER_DESCRIPTIONS: Record<string, { en: string; zh: string }> = {
   "blackjack-basic-strategy": {
     en: "practice optimal blackjack decisions",
     zh: "练习最优21点决策",
+  },
+  "texas-holdem-preflop": {
+    en: "practice GTO preflop open-raise decisions",
+    zh: "练习GTO翻前起手牌决策",
   },
 };
 
@@ -96,6 +102,7 @@ export default async function TrainerPage({ params }: Props) {
       </h1>
       {type === "tenpai" && <TenpaiTrainer config={config} locale={locale} />}
       {type === "blackjack-basic-strategy" && <BasicStrategyTrainer locale={locale} />}
+      {type === "texas-holdem-preflop" && <PreflopTrainer locale={locale} />}
     </div>
   );
 }

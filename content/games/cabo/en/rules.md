@@ -7,6 +7,8 @@ Race to get as close to Cabo as possible and find the legendary unicorn. The num
 ## Components
 
 - 52 number cards (0-13)
+  - **0 and 13**: **2 copies** each
+  - **1-12**: **4 copies** each
 - Numbers 7-8: Peek ability
 - Numbers 9-10: Spy ability
 - Numbers 11-12: Swap ability
@@ -78,6 +80,8 @@ All players reveal their cards and sum the values.
 ## Kamikaze
 
 After CABO is called, if any player has exactly **2× thirteen + 2× twelve** (and no other cards), that player scores **0 points** and all other players score **50 points**.
+
+> Since there are only 2 copies of 13 in the entire deck, pulling off Kamikaze requires that neither 13 has been discarded.
 
 ## Game End
 

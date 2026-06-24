@@ -2,17 +2,17 @@
 
 > [English version / 英文版](README-en.md)
 
-一个精心整理的现代桌游规则参考网站，覆盖 29 款游戏（含扩展/变体），支持中英双语、交互式决策树、听牌训练器、LLM 对话查询，纯静态站点部署到 GitHub Pages。
+一个精心整理的现代桌游规则参考网站，覆盖 31 款游戏（含扩展/变体），支持中英双语、交互式决策树、训练器、LLM 对话查询，纯静态站点部署到 GitHub Pages。
 
 ## 功能特性
 
-- **29 款游戏规则**：经过网络验证的中英双语完整规则
-- **21 款交互式决策树**：分步交互流程，含侧边栏目录导航
-- **12 款自动计分器**：5 种引擎（公式 / 卡牌选择 / 卡牌类型 / 分类计数 / 特征计算），单人使用，IndexedDB 持久化
-- **听牌训练器**：麻将/日麻通用训练器，支持 4 级难度（4/7/10/13 张），Unicode 牌面显示
+- **31 款游戏规则**：经过网络验证的中英双语完整规则
+- **24 款交互式决策树**：分步交互流程，含侧边栏目录导航
+- **12 款自动计分器**：6 种引擎（公式 / 卡牌选择 / 卡牌类型 / 分类计数 / 特征计算 / 多人回合），支持单人与多人，IndexedDB 持久化
+- **训练器**：麻将/日麻听牌训练器（4 级难度）、21 点基本策略训练、德州扑克 GTO 翻前训练器
 - **番符计算器**：日麻番数/符数/点数自动计算器，可视化选牌（14 张）→ 指定和牌 → 标记副露 → 系统自动拆解牌型、检测役种、计算符数与点数
-- **游戏系列分组**：UNO、脏小猪、三国杀、爆炸猫、璀璨宝石、海盐折纸、卡坦岛、麻将等系列以堆叠卡片效果展示
-- **DLC / 变体支持**：小猪选美、不臣之君、黑盒版、UNO Flip、UNO No Mercy、璀璨宝石宝可梦版、盐趣倍增、中国版图
+- **游戏系列分组**：UNO、脏小猪、三国杀、爆炸猫、璀璨宝石、海盐折纸、卡坦岛、卡卡颂、麻将等系列以堆叠卡片效果展示
+- **DLC / 变体支持**：小猪选美、不臣之君、黑盒版、UNO Flip、UNO No Mercy、UNO DOS、璀璨宝石宝可梦版、盐趣倍增、中国版图、卡卡颂河流
 - **规则导出**：支持导出为 PDF 或下载 Markdown 原文
 - **LLM 对话**：基于 DeepSeek API 的规则问答助手，支持游戏限定 / 全局模式切换，懒加载（点击时才加载）
 - **Per-game SEO**：每个游戏页面有独立 title / description / OG 标签
@@ -58,20 +58,16 @@ npm run build
 
 | 游戏 | 规则 | 决策树 | 计分器 |
 |------|:----:|:------:|:------:|
-| 德州扑克 | ✅ | ✅ | — |
+| 德州扑克 | ✅ | ✅ | 🎯 GTO翻前训练 |
 | TACTA | ✅ | ✅ | ✅ |
-| 卡坦岛 | ✅ | ✅ | ✅ |
-| 卡卡颂 | ✅ | ✅ | ✅ |
 | 现代艺术 | ✅ | ✅ | ✅ |
-| 海盐折纸 | ✅ | ✅ | ✅ |
 | 摩天大楼 (GoTown) | ✅ | ✅ | — |
 | 荒野之王 (Just Wild) | ✅ | ✅ | ✅ |
 | 风声再临 | ✅ | ✅ | — |
-| Cabo | ✅ | ✅ | ✅ |
+| Cabo | ✅ | ✅ | ✅（多人回合制） |
 | 群星二十一 | ✅ | ✅ | — |
 | 榴莲教练的大拳馆 | ✅ | ✅ | — |
 | 拉密 (Rummikub) | ✅ | ✅ | — |
-| 麻将 | ✅ | ✅ | 🎯 训练器 |
 | 21点 (Blackjack) | ✅ | ✅ | 🎯 策略训练 |
 
 ### 游戏系列
@@ -81,18 +77,21 @@ npm run build
 | UNO | UNO | 本体 | ✅ | ✅ | ✅ |
 | | UNO Flip | 变体 | ✅ | ✅ | ✅ |
 | | UNO No Mercy | 变体 | ✅ | ✅ | ✅ |
+| | UNO DOS | 变体 | ✅ | — | — |
 | 脏小猪 | 脏小猪 | 本体 | ✅ | ✅ | — |
 | | 小猪选美 | DLC（需本体） | ✅ | — | — |
 | 三国杀 | 三国杀 | 本体 | ✅ | ✅ | — |
 | | 不臣之君 | DLC（需本体） | ✅ | — | — |
 | 爆炸猫 | 爆炸猫（红盒版） | 本体 | ✅ | ✅ | — |
 | | 爆炸猫：黑盒版 | 变体（可独立） | ✅ | — | — |
-| 璀璨宝石 | 璀璨宝石 | 本体 | ✅ | — | ✅ |
-| | 璀璨宝石：宝可梦版 | 变体（可独立） | ✅ | — | ✅ |
+| 璀璨宝石 | 璀璨宝石 | 本体 | ✅ | ✅ | — |
+| | 璀璨宝石：宝可梦版 | 变体（可独立） | ✅ | ✅ | — |
 | 海盐折纸 | 海盐折纸 | 本体 | ✅ | ✅ | ✅ |
-| | 盐趣倍增 | DLC（需本体） | ✅ | — | — |
+| | 盐趣倍增 | DLC（需本体） | ✅ | — | ✅ |
 | 卡坦岛 | 卡坦岛 | 本体 | ✅ | ✅ | ✅ |
 | | 中国版图 | 变体（可独立） | ✅ | — | ✅ |
+| 卡卡颂 | 卡卡颂 | 本体 | ✅ | ✅ | ✅ |
+| | 卡卡颂：河流 | DLC（需本体） | ✅ | — | — |
 | 麻将 | 麻将 | 本体 | ✅ | ✅ | 🎯 训练器 |
 | | 日本麻将 | 变体（可独立） | ✅ | ✅ | 🎯 训练器 |
 
@@ -111,7 +110,7 @@ content/games/
 │   ├── calculator.json           # 可选：计算器配置（如日麻番符）
 │   ├── zh/rules.md               # 中文规则
 │   └── en/rules.md               # 英文规则
-└── ...（共 29 款游戏）
+└── ...（共 31 款游戏）
 
 public/data/
 ├── games-index.json              # 完整游戏数据（含规则，chat tool 用）
@@ -127,8 +126,8 @@ src/
 ├── components/
 │   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
-│   ├── game/score/               # ScoreTracker, CardSelector, FeatureInput, ScoreDisplay
-│   ├── game/trainer/             # TenpaiTrainer, MahjongTile, TileSelector, TrainerStats, InlineTile
+│   ├── game/score/               # ScoreTracker, CaboScoreTracker, CardSelector, FeatureInput, ScoreDisplay
+│   ├── game/trainer/             # TenpaiTrainer, PreflopTrainer, PreflopChart, MahjongTile, TileSelector, TrainerStats, InlineTile
 │   ├── game/calculator/          # ScoreCalculator, HandPicker, AgariSelector, MeldMarker, ScoreResult
 │   ├── chat/                     # ChatToggle, ChatIsland（懒加载）, ChatDialog, ChatMessages
 │   └── layout/                   # Header, Footer, BackToTop
@@ -138,6 +137,7 @@ src/
 ├── lib/remark-mahjong-tiles.ts   # remark 插件：解析 [3m] 简写标记为内联牌面组件
 ├── lib/score/                    # 计分器（useScoreState hook + IndexedDB 存储）
 ├── lib/score/engines/            # 计分引擎工厂（sea-salt / card-select / card-type / category / feature-calc）
+├── lib/texas-holdem/             # 德州扑克核心库（GTO 翻前策略表、场景生成）
 ├── lib/ai/                       # DeepSeekAdapter, ChatStrategies, tool-handlers
 └── types/                        # TypeScript 类型定义
 ```
@@ -242,7 +242,8 @@ src/
 | 引擎 | 适用游戏 | 说明 |
 |------|---------|------|
 | `sea-salt` | 海盐折纸 | 按配对、收集、倍率、美人鱼四类规则自动计算 |
-| `card-type` | UNO 系列、璀璨宝石系列、Cabo | 按卡牌类型 × 数量计分 |
+| `card-type` | UNO 系列 | 按卡牌类型 × 数量计分 |
+| `cabo-multi` | Cabo | 多人回合制计分（2-4 人，含 -50 重置） |
 | `category` | 卡坦岛、荒野之王、TACTA、现代艺术 | 按分类项 × 数量计分 |
 | `feature-calc` | 卡卡颂 | 按地物类型输入数量，公式自动计算 |
 | `card-sum` | （通用） | 按卡牌列表逐张选择，累加点数 |
@@ -251,9 +252,9 @@ src/
 - **自动计算**：选择卡牌或输入数量后实时显示得分明细
 - **分类筛选**：按卡牌类型、等级、颜色等快速定位
 - **多轮支持**：海盐折纸、UNO 系列支持逐轮确认并累计总分
+- **多人计分**：Cabo 支持 2-4 人同时记分，含一次性 -50 重置机会
 - **目标检测**：到达目标分时高亮提示
-- **个人使用**：单人计分，无多人管理
-- **数据持久化**：IndexedDB 自动保存，刷新不丢失
+- **数据持久化**：IndexedDB / localStorage 自动保存，刷新不丢失
 
 ### 交互式决策树
 
@@ -293,7 +294,7 @@ src/
 | **Repository** | `GameRepository.ts` | 统一封装文件系统内容访问 |
 | **Factory** | `GameFactory.ts` | 组装 Game 领域对象，分离构造与数据访问 |
 | **Strategy** | `GlobalChatStrategy` / `GameChatStrategy` | 不同对话范围的 prompt 和 tool 定义 |
-| **Strategy** | `ScoringEngine` (sea-salt / card-type / category / feature-calc / card-select) | 不同游戏的自动计分引擎 |
+| **Strategy** | `ScoringEngine` (sea-salt / card-type / category / feature-calc / card-select / cabo-multi) | 不同游戏的自动计分引擎 |
 | **Adapter** | `DeepSeekAdapter.ts` | 隔离 LLM 提供商，方便替换 |
 | **Context+Provider** | `ChatProvider.tsx` | 统一管理消息、流式状态、API Key |
 
@@ -350,8 +351,8 @@ src/
 
 ```json
 {
-  "type": "formula | card-type | category | feature-calc | card-select",
-  "engine": "sea-salt | card-type | category | feature-calc | card-sum",
+  "type": "formula | card-type | category | feature-calc | card-select | cabo-multi",
+  "engine": "sea-salt | card-type | category | feature-calc | card-sum | cabo-multi",
   "direction": "high-wins | low-wins",
   "target": 10,
   "targetByPlayers": { "2": 40, "3": 35, "4": 30 },

@@ -2,17 +2,17 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — 29 games (including expansions/variants), interactive decision trees, tenpai trainer, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — 31 games (including expansions/variants), interactive decision trees, trainers, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **29 game rules**: web-verified, complete bilingual rules (EN/ZH)
-- **21 interactive decision trees**: step-by-step flow with sidebar outline navigation
-- **12 automatic score trackers**: 5 engine types for automatic scoring
-- **Tenpai Trainer**: Mahjong/Riichi tenpai practice with 4 difficulty levels (4/7/10/13 tiles), Unicode tile rendering
+- **31 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **24 interactive decision trees**: step-by-step flow with sidebar outline navigation
+- **12 automatic score trackers**: 6 engine types (formula / card-select / card-type / category / feature-calc / multi-player rounds), IndexedDB persistence
+- **Trainers**: Mahjong/Riichi tenpai trainer (4 difficulty levels), Blackjack basic strategy trainer, Texas Hold'em GTO preflop trainer
 - **Score Calculator**: Riichi Mahjong han/fu/points auto calculator — visual tile picker (14 tiles) → mark winning tile → mark open melds → auto hand decomposition, yaku detection, fu & points calculation
-- **Game family grouping**: UNO, Drecksau, Legends of the Three Kingdoms, Exploding Kittens, Splendor, Sea Salt & Paper, Catan, Mahjong series
-- **DLC / variant support**: expansions and standalone variants with stacked card UI
+- **Game family grouping**: UNO, Drecksau, Legends of the Three Kingdoms, Exploding Kittens, Splendor, Sea Salt & Paper, Catan, Carcassonne, Mahjong series
+- **DLC / variant support**: expansions and standalone variants with stacked card UI (UNO DOS, Carcassonne: The River, etc.)
 - **Export**: PDF (browser print) or Markdown download
 - **LLM chat**: DeepSeek-powered Q&A assistant (global + per-game scope), lazy-loaded on click
 - **Per-game SEO**: individual title / description / OG tags per game page
@@ -58,19 +58,17 @@ npm run build
 
 | Game | Rules | Decision Tree | Score |
 |------|:-----:|:-------------:|:-----:|
-| Texas Hold'em | ✅ | ✅ | — |
+| Texas Hold'em | ✅ | ✅ | 🎯 GTO Preflop |
 | TACTA | ✅ | ✅ | ✅ |
-| Catan | ✅ | ✅ | ✅ |
-| Carcassonne | ✅ | ✅ | ✅ |
 | Modern Art | ✅ | ✅ | ✅ |
-| Sea Salt & Paper | ✅ | ✅ | ✅ |
 | GoTown | ✅ | ✅ | — |
 | Just Wild | ✅ | ✅ | ✅ |
 | The Message: Attack by Stratagem | ✅ | ✅ | — |
-| Cabo | ✅ | ✅ | ✅ |
+| Cabo | ✅ | ✅ | ✅ (Multi-player) |
 | The 21st Constellation | ✅ | ✅ | — |
 | Arena Magnate: Haw! | ✅ | ✅ | — |
-|| Rummikub | ✅ | ✅ | — |
+| Rummikub | ✅ | ✅ | — |
+| Blackjack | ✅ | ✅ | 🎯 Strategy Trainer |
 
 ### Series
 
@@ -79,6 +77,7 @@ npm run build
 | UNO | UNO | Base | ✅ | ✅ | ✅ |
 | | UNO Flip | Variant | ✅ | ✅ | ✅ |
 | | UNO Show 'Em No Mercy | Variant | ✅ | ✅ | ✅ |
+| | UNO DOS | Variant | ✅ | — | — |
 | Drecksau | Drecksau | Base | ✅ | ✅ | — |
 | | Drecksau: Sauschön | DLC (req. base) | ✅ | — | — |
 | Legends of the Three Kingdoms | LotTK | Base | ✅ | ✅ | — |
@@ -91,6 +90,10 @@ npm run build
 | | Extra Salt | DLC (req. base) | ✅ | — | ✅ |
 | Catan | Catan | Base | ✅ | ✅ | ✅ |
 | | China Map | Variant (standalone) | ✅ | — | ✅ |
+| Carcassonne | Carcassonne | Base | ✅ | ✅ | ✅ |
+| | The River | DLC (req. base) | ✅ | — | — |
+| Mahjong | Mahjong | Base | ✅ | ✅ | 🎯 Trainer |
+| | Riichi Mahjong | Variant (standalone) | ✅ | ✅ | 🎯 Trainer |
 
 ---
 
@@ -105,7 +108,7 @@ content/games/
 │   ├── score.json                # Optional: score tracker config
 │   ├── zh/rules.md               # Chinese rules
 │   └── en/rules.md               # English rules
-└── ... (26 games total)
+└── ... (31 games total)
 
 public/data/
 ├── games-index.json              # Full game data (with rules, for chat tools)
@@ -117,8 +120,8 @@ src/
 ├── components/
 │   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
-│   ├── game/score/               # ScoreTracker, CardSelector, FeatureInput, ScoreDisplay
-│   ├── game/trainer/             # TenpaiTrainer, MahjongTile, TileSelector, TrainerStats, InlineTile
+│   ├── game/score/               # ScoreTracker, CaboScoreTracker, CardSelector, FeatureInput, ScoreDisplay
+│   ├── game/trainer/             # TenpaiTrainer, PreflopTrainer, PreflopChart, MahjongTile, TileSelector, TrainerStats, InlineTile
 │   ├── game/calculator/          # ScoreCalculator, HandPicker, AgariSelector, MeldMarker, ScoreResult
 │   ├── chat/                     # ChatToggle, ChatIsland (lazy-loaded), ChatDialog, ChatMessages
 │   └── layout/                   # Header, Footer, BackToTop
@@ -128,6 +131,7 @@ src/
 ├── lib/remark-mahjong-tiles.ts   # Remark plugin: parses [3m] shortcodes into inline tile components
 ├── lib/score/                    # Score tracker (useScoreState hook + IndexedDB storage)
 ├── lib/score/engines/            # Scoring engine factory (sea-salt / card-select / card-type / category / feature-calc)
+├── lib/texas-holdem/             # Texas Hold'em core library (GTO preflop strategy tables, scenario generation)
 ├── lib/ai/                       # DeepSeekAdapter, ChatStrategies, tool-handlers
 └── types/                        # TypeScript type definitions
 ```
@@ -283,7 +287,7 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 
 ## Key Decisions
 
-1. **Build-time file reads** — `fs.readFileSync` runs only during `next build`; 23 games is trivially fast
+1. **Build-time file reads** — `fs.readFileSync` runs only during `next build`; 31 games is trivially fast
 2. **`dangerouslyAllowBrowser: true`** — API key is user-provided, no server; explicitly enable browser-side calls
 3. **Tool call limit** — Max 5 iterations to prevent infinite loops
 4. **No middleware** — next-intl middleware incompatible with `output: 'export'`

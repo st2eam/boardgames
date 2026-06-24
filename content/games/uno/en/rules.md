@@ -6,7 +6,7 @@ UNO is the classic family card game where players take turns matching a card in 
 
 ## Components
 
-108 cards total:
+112 cards (classic 108 + 4 new Wild cards):
 
 | Color | Number cards | Action cards |
 |-------|-------------|--------------|
@@ -14,20 +14,21 @@ UNO is the classic family card game where players take turns matching a card in 
 | Green | 1× 0, 2× each 1-9 | 2× Skip, 2× Reverse, 2× Draw Two |
 | Red | 1× 0, 2× each 1-9 | 2× Skip, 2× Reverse, 2× Draw Two |
 | Yellow | 1× 0, 2× each 1-9 | 2× Skip, 2× Reverse, 2× Draw Two |
-| Wild | — | 4× Wild, 4× Wild Draw Four |
+| Wild | — | 4× Wild, 4× Wild Draw Four, 1× Wild Swap Hands OR Wild Shuffle Hands, 3× Wild Customizable |
 
 ## Setup
 
 1. Shuffle the deck.
-2. Deal 7 cards to each player.
-3. Place the remaining deck face down as the draw pile.
-4. Turn over the top card to start the discard pile.
+2. Deal **7 cards** to each player.
+3. Place the remaining deck face down as the Draw Pile.
+4. Turn over the top card to start the Discard Pile.
 
 **Special first card rules:**
-- If the first card is a **Wild** or **Wild Draw Four** — shuffle it back and draw again.
-- If it's a **Skip** — the first player (left of dealer) is skipped.
-- If it's a **Reverse** — the dealer goes first instead.
-- If it's a **Draw Two** — the first player draws 2 cards and loses their turn.
+- **Wild** — First player chooses the color to begin play.
+- **Wild Draw Four** — Shuffle it back and draw a new card.
+- **Skip** — First player (left of dealer) is skipped.
+- **Reverse** — Dealer goes first; play direction reverses.
+- **Draw Two** — First player draws 2 cards and loses their turn.
 
 ## How to Play
 
@@ -37,31 +38,49 @@ On your turn, play **one** card from your hand that matches the top discard by:
 - **Symbol** — Same action symbol
 - **Wild cards** — Can always be played
 
-If you cannot play, draw **one** card from the draw pile. You may play it immediately if it matches; otherwise your turn ends.
+If you cannot (or choose not to) play, draw **one** card from the Draw Pile. You may play it immediately if it matches; otherwise your turn ends.
 
-### UNO! Rule
-When playing your **second-to-last card**, you must call out **"UNO!"** before the next player begins their turn. If another player catches you failing to say UNO, you must draw **2 penalty cards**.
+> You may only play **one** card per turn. You cannot stack multiple action cards in the same turn.
+
+### Calling UNO!
+
+When playing your **second-to-last card** (leaving one card in hand), you must call out **"UNO!"** If caught by another player before the next player takes their turn, you must draw **2 penalty cards**. You must call UNO every time you return to having just one card.
 
 ## Action Cards
 
 | Card | Effect |
 |------|--------|
 | **Skip** | Next player loses their turn |
-| **Reverse** | Reverses the direction of play (2-player game: acts like Skip) |
+| **Reverse** | Reverses direction of play (2-player: acts like Skip) |
 | **Draw Two (+2)** | Next player draws 2 cards AND loses their turn |
-| **Wild** | Choose any color to continue play |
-| **Wild Draw Four (+4)** | Choose any color; next player draws 4 cards AND loses their turn |
+| **Wild** | Choose any color; can be played at any time |
+| **Wild Draw Four (+4)** | Choose any color; next player draws 4 AND loses their turn |
+| **Wild Swap Hands** | Choose any color; swap your entire hand with any player |
+| **Wild Shuffle Hands** | Choose any color; collect all hands, shuffle, redeal evenly |
+| **Wild Customizable** | Choose any color; effect agreed upon by players before the game |
 
 ### The +4 Challenge Rule
-You may ONLY play a Wild Draw Four if you have **no cards matching the current color**. If you are challenged:
+
+You may ONLY play a Wild Draw Four if you have **no cards matching the current color**. If challenged:
 1. The next player may accept or challenge.
 2. If challenged, you must show your hand.
-3. If you **are** holding a matching color card: **you** draw 4 cards instead.
-4. If you **are not** holding a matching color card: the challenger draws **6 cards** instead.
+3. You **are** holding a matching color card → **you** draw 4 cards instead.
+4. You **are not** holding a matching color card → the challenger draws **6 cards** instead.
 
-## Winning a Round
+### Wild Swap Hands
 
-The first player to empty their hand wins the round.
+Swap your entire hand with any player of your choice. If this is your last card, treat it as a normal Wild to end the game (no swap occurs).
+
+### Wild Shuffle Hands
+
+Collect **all players'** hands, shuffle them together, and deal one-by-one starting from your left clockwise until no cards remain. Some players may end up with more/fewer cards. If this is your last card, treat it as a normal Wild to end the game.
+
+## Two-Player Rules
+
+When playing with only 2 players:
+- **Reverse** → Acts like Skip (opponent loses their turn)
+- **Skip** → You may immediately play another card
+- **Draw Two / Wild Draw Four** → After opponent draws, play immediately resumes on your turn
 
 ## Scoring
 
@@ -72,9 +91,10 @@ Points are scored from all cards remaining in opponents' hands:
 | Number cards 0-9 | Face value |
 | Skip / Reverse / Draw Two | 20 |
 | Wild / Wild Draw Four | 50 |
+| Wild Swap Hands / Wild Customizable | 40 |
 
 First player to reach **500 points** wins the game.
 
-## Alternative: Quick Play
+## Draw Pile Depletion
 
-Simply play one round. The first player to empty their hand wins immediately — no cumulative scoring needed.
+If the Draw Pile runs out and no one has won, take the Discard Pile (keeping the top card), shuffle it, and flip it over to form a new Draw Pile.

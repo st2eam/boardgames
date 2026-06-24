@@ -1,34 +1,8 @@
 {
-  "type": "card-type",
-  "engine": "card-type",
+  "type": "cabo-multi",
+  "engine": "cabo-multi",
   "direction": "low-wins",
-  "target": 50,
+  "target": 100,
   "multiRound": true,
-  "players": { "min": 2, "max": 4 },
-  "cardTypes": [
-    { "id": "val0", "name": { "en": "Value 0-1", "zh": "数值 0-1" }, "value": 1, "group": "low" },
-    { "id": "val2", "name": { "en": "Value 2", "zh": "数值 2" }, "value": 2, "group": "low" },
-    { "id": "val3", "name": { "en": "Value 3", "zh": "数值 3" }, "value": 3, "group": "low" },
-    { "id": "val4", "name": { "en": "Value 4", "zh": "数值 4" }, "value": 4, "group": "mid" },
-    { "id": "val5", "name": { "en": "Value 5", "zh": "数值 5" }, "value": 5, "group": "mid" },
-    { "id": "val6", "name": { "en": "Value 6", "zh": "数值 6" }, "value": 6, "group": "mid" },
-    { "id": "val7", "name": { "en": "Value 7", "zh": "数值 7" }, "value": 7, "group": "mid" },
-    { "id": "val8", "name": { "en": "Value 8", "zh": "数值 8" }, "value": 8, "group": "high" },
-    { "id": "val9", "name": { "en": "Value 9", "zh": "数值 9" }, "value": 9, "group": "high" },
-    { "id": "val10", "name": { "en": "Value 10-12 (=10pts)", "zh": "数值 10-12（=10分）" }, "value": 10, "group": "high" },
-    { "id": "val13", "name": { "en": "Value 13", "zh": "数值 13" }, "value": 13, "group": "high" }
-  ],
-  "filters": [
-    {
-      "id": "group",
-      "name": { "en": "Range", "zh": "范围" },
-      "field": "group",
-      "values": [
-        { "id": "all", "name": { "en": "All", "zh": "全部" } },
-        { "id": "low", "name": { "en": "Low (0-3)", "zh": "低 (0-3)" } },
-        { "id": "mid", "name": { "en": "Mid (4-7)", "zh": "中 (4-7)" } },
-        { "id": "high", "name": { "en": "High (8-13)", "zh": "高 (8-13)" } }
-      ]
-    }
-  ]
+  "players": { "min": 2, "max": 4 }
 }

@@ -1,5 +1,6 @@
 import { GameRepository } from "@/lib/content/GameRepository";
 import { ScoreTracker } from "@/components/game/score/ScoreTracker";
+import { CaboScoreTracker } from "@/components/game/score/CaboScoreTracker";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";
@@ -59,7 +60,15 @@ export default async function ScorePage({ params }: Props) {
           {locale === "zh" ? `${gameName} 计分器` : `${gameName} Score Tracker`}
         </h1>
       </div>
-      <ScoreTracker slug={slug} config={scoreConfig} locale={locale} />
+      <ScoreContent slug={slug} config={scoreConfig} locale={locale} />
     </div>
   );
+}
+
+function ScoreContent({ slug, config, locale }: { slug: string; config: Awaited<ReturnType<typeof GameRepository.getScoreConfig>>; locale: string }) {
+  if (!config) return null;
+  if (config.type === "cabo-multi") {
+    return <CaboScoreTracker locale={locale} />;
+  }
+  return <ScoreTracker slug={slug} config={config} locale={locale} />;
 }

@@ -1,66 +1,88 @@
-# Cabo Rules
+# CABO Rules
 
 ## Overview
 
-Cabo is a memory and deduction card game where players try to get the lowest possible total score. Each player has face-down cards they can peek at, swap, or replace. When you think you have the lowest score, call "Cabo!" to end the round. But be careful — if someone else has a lower score, you'll pay the price.
+Race to get as close to Cabo as possible and find the legendary unicorn. The numbers on cards represent your distance from it. The player closest to Cabo (lowest total score) at game end wins.
 
 ## Components
 
-- 56 number cards (0-13, multiple copies of each)
-- 4 spy cards (peek ability)
-- 4 swap cards
+- 52 number cards (0-13)
+- Numbers 7-8: Peek ability
+- Numbers 9-10: Spy ability
+- Numbers 11-12: Swap ability
 
 ## Setup
 
-1. Shuffle all cards and deal 4 cards **face down** to each player.
-2. Place remaining cards as the draw pile, flip top card to start the discard pile.
-3. Players may peek at **two** of their own face-down cards (remember them!).
-4. Players arrange their 4 cards in a row in front of them.
+1. Shuffle all cards. Deal **4 cards face down** to each player, arranged in a row.
+2. Place remaining cards face down in the center as the **Draw Pile**. Flip the top card face up to form the **Discard Pile**.
+3. All players **secretly peek** at any **2** of their own cards and memorize them (this is the last free peek).
+4. Players may not change card order. Choose a starting player randomly.
 
 ## How to Play
 
-On your turn, choose ONE action:
+Play proceeds clockwise. On your turn, choose **one** action:
 
-### Draw from Deck
-Draw the top card of the draw pile. You may:
-- **Replace** one of your face-down cards with it (discard the old card face up)
-- **Discard** it immediately (reveal to all)
+### 1. Draw from Draw Pile
 
-### Take from Discard
-Take the top card of the discard pile. You **must** replace one of your face-down cards with it.
+Draw the top card and secretly look at it. Then choose:
 
-### Use Special Cards
-If you draw a Spy or Swap card:
-- **Spy** — Peek at one of your own face-down cards OR one opponent's face-down card
-- **Swap** — Swap one of your face-down cards with one opponent's face-down card (without looking at either)
+- **Discard** — Place face up on Discard Pile. If it has a special ability, you may choose to activate it.
+- **Swap** — Replace 1 or more of your face-down cards (see "Multi-Card Swap"). Replaced cards go face up to the Discard Pile.
 
-### Call Cabo
-When you believe you have the lowest total, announce **"Cabo!"**. The round continues for one more turn per player, then everyone reveals their cards.
+### 2. Draw from Discard Pile
 
-## Card Values
+Take the top card of the Discard Pile. You **must** use it to replace 1 or more of your face-down cards. Replaced cards go face up to the Discard Pile.
 
-| Card | Value |
-|------|-------|
-| 0 | 0 points (best!) |
-| 1-9 | Face value |
-| 10-12 | 10 points |
-| 13 | 13 points (worst!) |
+### 3. Call CABO
+
+Skip your action. All other players each take **one more turn**, then the round ends.
+
+## Multi-Card Swap
+
+When swapping a drawn card with 2+ of your cards, the selected cards **must have the same value**:
+
+1. Reveal the face-down cards you want to swap
+2. If all revealed cards have the **same value** → swap succeeds; old cards go to Discard Pile
+3. If values **don't match** → swap fails:
+   - Revealed cards return to their positions (now face up)
+   - The drawn card is also added to your tableau
+   - If 3+ cards were attempted, draw 1 additional card face down from the Draw Pile
+
+## Card Special Abilities
+
+When you draw from the Draw Pile and choose to discard, these numbers grant abilities:
+
+| Number | Ability | Effect |
+|--------|---------|--------|
+| **7-8** | Peek | Look at 1 of your own face-down cards |
+| **9-10** | Spy | Look at 1 of another player's face-down cards |
+| **11-12** | Swap | Exchange 1 of your cards with 1 of another player's (no peeking, don't change positions) |
+
+> Special abilities only trigger when discarding a card drawn from the Draw Pile. Cards taken from the Discard Pile do not trigger abilities.
 
 ## End of Round
 
-When Cabo is called, each remaining player gets one final turn. Then all players reveal their face-down cards and sum their values.
+A round ends when either:
+- A player **calls CABO** and all others take one final turn
+- The **Draw Pile is depleted**
 
-### Penalties
-- If the player who called Cabo does NOT have the lowest total: **+10 penalty points**
-- If the player who called Cabo has the lowest: **-5 bonus points** (subtract 5 from their round total)
+All players reveal their cards and sum the values.
 
 ## Scoring
 
-Record each player's round total (after bonuses/penalties). Cumulative scores carry over.
+- Your round score = **sum of all card values** in front of you
+- If you called CABO:
+  - You have the lowest (or tied lowest) total → you score **0 points**
+  - Someone else has a lower total → your score is **your total + 10 penalty**
 
-## Winning
+## Kamikaze
 
-After multiple rounds, the player with the **lowest cumulative score** wins. Play to a target (e.g., first to 100 loses, or set a round limit).
+After CABO is called, if any player has exactly **2× thirteen + 2× twelve** (and no other cards), that player scores **0 points** and all other players score **50 points**.
 
-### Quick Variant
-Play until one player reaches 50 cumulative points. That player loses, and the player with the lowest score wins.
+## Game End
+
+Record each round's score and add to cumulative totals. When any player reaches **100 points or more**, the game ends. The player with the **lowest cumulative score** wins. If tied, the player with the lower score in the final round wins.
+
+### Score Reset
+
+If a player's cumulative score lands on **exactly 100**, it resets to **50**. Each player can only trigger this once per game.

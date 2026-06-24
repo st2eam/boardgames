@@ -372,6 +372,28 @@
   },
   {
     "name": {
+      "en": "UNO DOS",
+      "zh": "UNO DOS"
+    },
+    "players": "2-4",
+    "duration": "15-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "family",
+      "party"
+    ],
+    "category": "card",
+    "family": "uno",
+    "familyOrder": 3,
+    "variantType": "variant",
+    "slug": "uno-dos",
+    "rules": {
+      "en": "# UNO DOS Rules (Second Edition 2022)\n\n## Overview\n\nUNO DOS is a standalone variant of the UNO family. Its key feature is **two discard piles** — each turn you can play one card to either or both piles. It retains classic UNO action cards (Skip, Reverse, Draw Two) and introduces Wild DOS and Wild Play Two cards.\n\n## Components\n\n- **108 cards**\n  - Number cards 1, 3-10 (2 each in red/yellow/green/blue)\n  - Wild DOS cards (wild version of number 2)\n  - Skip\n  - Reverse\n  - Draw Two\n  - Wild Play Two\n\n## Setup\n\n1. Choose a dealer. Shuffle all cards and deal **7 cards** face down to each player.\n2. Place the remaining cards face down as the **Draw Pile**.\n3. Flip the top **two cards** from the Draw Pile to create two **Discard Piles**. If either card is an Action Card, flip another until a number card appears.\n\n## How to Play\n\nThe player to the dealer's left goes first. Play proceeds clockwise.\n\n### Playing Cards\n\nOn your turn, you may play a card to **one or both** Discard Piles (maximum one card per pile). A card must match the top card of a Discard Pile in one of these ways:\n\n| Match Type | Description |\n|-----------|-------------|\n| **Number match** | Same number as the top card |\n| **Color match** | Same color as the top card |\n| **Symbol match** | Same action card type as the top card |\n| **Sum match** | Play two **same-colored** cards whose numbers add up to the top card's number (both cards go to the same pile) |\n\n### Unable to Play\n\nIf you cannot (or choose not to) play any cards, draw one card from the Draw Pile:\n- You may immediately play the drawn card if it matches\n- If you can't or don't want to play it, add it to your hand and your turn ends\n\n### Action Cards\n\n| Card | Effect |\n|------|--------|\n| **Skip** | Next player loses their turn |\n| **Reverse** | Reverses direction of play (clockwise ↔ counterclockwise) |\n| **Draw Two** | Next player draws 2 cards and loses their turn |\n| **Wild DOS** | Counts as a \"2\" of any color you choose; can be played alone or combined with another card for a sum match |\n| **Wild Play Two** | Wild card (you choose the color); the next player must play at least 2 cards on their turn — if they can't, they draw 2 cards and skip their turn |\n\n### Double Action Rule\n\nIf you play an Action Card to **both** Discard Piles on the same turn, **both effects apply to the next player**.\n\nExample: You play Skip on the left pile and Draw Two on the right → the next player draws 2 cards AND skips their turn.\n\n## Calling DOS!\n\nWhen you have **exactly 2 cards** remaining in your hand, you must shout **\"DOS!\"**\n\n- If you forget and another player calls it out, you must **draw 2 cards** as a penalty.\n- Penalty cards drawn during your turn are added to your hand at the end of your turn.\n\n## Winning\n\nThe first player to play all their cards wins the round.\n\n## Optional Scoring\n\nThe winner scores points based on cards remaining in opponents' hands:\n\n| Card | Point Value |\n|------|-------------|\n| Number cards (1, 3-10) | Face value |\n| Action cards (Skip / Reverse / Draw Two) | 20 points |\n| Wild cards (Wild DOS / Wild Play Two) | 50 points |\n\nThe first player to reach **500 points** wins the game.\n",
+      "zh": "# UNO DOS 规则（第二版 2022）\n\n## 概述\n\nUNO DOS 是 UNO 系列的独立变体，最大特色是拥有**两个弃牌堆**，每回合可以向一个或两个弃牌堆各出一张牌。保留了 UNO 经典的功能牌（跳过、反转、+2），并新增了 Wild DOS 和 Wild Play Two 两种万能牌。\n\n## 组件\n\n- **108 张牌**\n  - 数字牌 1、3-10（红/黄/绿/蓝各 2 张）\n  - Wild DOS 牌（数字 2 的万能版本）\n  - Skip（跳过）\n  - Reverse（反转）\n  - Draw Two（+2）\n  - Wild Play Two（万能强制出两张）\n\n## 准备\n\n1. 选一名玩家为发牌员，洗牌后每人发 **7 张**手牌。\n2. 将剩余牌面朝下放置为**抽牌堆**。\n3. 从抽牌堆翻开**两张牌**，分别作为两个**弃牌堆**的起始牌。如果翻到功能牌，则继续翻直到出现数字牌。\n\n## 游戏流程\n\n从发牌员左手边的玩家开始，按顺时针方向轮流出牌。\n\n### 出牌规则\n\n每回合你可以向**一个或两个**弃牌堆各出一张牌（即最多出两张）。出牌必须匹配该弃牌堆顶牌的以下任一条件：\n\n| 匹配方式 | 说明 |\n|---------|------|\n| **数字匹配** | 出的牌与顶牌数字相同 |\n| **颜色匹配** | 出的牌与顶牌颜色相同 |\n| **符号匹配** | 出的功能牌与顶牌功能相同 |\n| **加和匹配** | 出两张**同色**牌，数字之和等于顶牌数字（两张牌出到同一堆） |\n\n### 无法出牌\n\n如果手中没有可出的牌（或不想出），从抽牌堆抽一张：\n- 抽到的牌可以立即出\n- 如果不能或不想出，则加入手牌，回合结束\n\n### 功能牌\n\n| 牌 | 效果 |\n|----|------|\n| **Skip（跳过）** | 下一位玩家跳过回合 |\n| **Reverse（反转）** | 出牌方向反转（顺时针↔逆时针） |\n| **Draw Two（+2）** | 下一位玩家抽 2 张牌并跳过回合 |\n| **Wild DOS** | 作为任意颜色的 \"2\" 使用，可单独出或与另一张牌加和匹配 |\n| **Wild Play Two** | 万能牌（你选颜色）；下一位玩家必须出至少 2 张牌，否则抽 2 张并跳过回合 |\n\n### 双功能牌规则\n\n如果你在同一回合向两个弃牌堆各出了一张功能牌，**两个效果都会作用于下一位玩家**。\n\n例如：你向左堆出 Skip，向右堆出 Draw Two → 下一位玩家抽 2 张 + 跳过回合。\n\n## 喊 DOS!\n\n当你手中**恰好剩 2 张牌**时，必须喊 **\"DOS!\"**。\n\n- 如果忘了喊，其他玩家可以指出，你需要**罚抽 2 张牌**作为惩罚。\n- 在你的回合中被指出的罚牌在回合结束后加入手牌。\n\n## 获胜\n\n第一个出完所有手牌的玩家获胜。\n\n## 可选计分规则\n\n赢家根据其他玩家手中剩余的牌获得分数：\n\n| 牌 | 分值 |\n|----|------|\n| 数字牌（1, 3-10） | 面值 |\n| 功能牌（Skip / Reverse / Draw Two） | 20 分 |\n| 万能牌（Wild DOS / Wild Play Two） | 50 分 |\n\n先到 **500 分**的玩家赢得整场比赛。\n"
+    }
+  },
+  {
+    "name": {
       "en": "Carcassonne",
       "zh": "卡卡颂"
     },

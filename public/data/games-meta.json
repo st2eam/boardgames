@@ -300,6 +300,24 @@
   },
   {
     "name": {
+      "en": "UNO DOS",
+      "zh": "UNO DOS"
+    },
+    "players": "2-4",
+    "duration": "15-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "family",
+      "party"
+    ],
+    "category": "card",
+    "family": "uno",
+    "familyOrder": 3,
+    "variantType": "variant",
+    "slug": "uno-dos"
+  },
+  {
+    "name": {
       "en": "Carcassonne",
       "zh": "卡卡颂"
     },

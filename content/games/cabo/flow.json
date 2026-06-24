@@ -7,8 +7,8 @@
         "zh": "游戏准备"
       },
       "content": {
-        "en": "1. Shuffle all cards and deal **4 cards face down** to each player.\n2. Place the remaining deck as the **draw pile**; flip the top card to start the **discard pile**.\n3. Each player may **peek at 2** of their own face-down cards (remember them!).\n4. Arrange your 4 cards in a row in front of you.\n\n**Goal:** Get the **lowest total** hand value by the end of the round.",
-        "zh": "1. 洗混所有牌，每位玩家发 **4 张暗牌**（面朝下）。\n2. 剩余牌组成 **抽牌堆**；翻开顶牌作为 **弃牌堆** 起始牌。\n3. 每位玩家可 **偷看 2 张** 自己的暗牌（记住它们！）。\n4. 将 4 张牌在面前排成一行。\n\n**目标：** 在回合结束时拥有 **最低总分** 的手牌。"
+        "en": "1. Shuffle all cards. Deal **4 cards face down** to each player, arranged in a row.\n2. Place remaining cards face down in the center as the **Draw Pile**; flip the top card face up to start the **Discard Pile**.\n3. All players **secretly peek** at any **2** of their own cards and memorize them (this is the last free peek).\n4. Players may not change card order. Choose a starting player randomly.\n\n**Goal:** Get the **lowest total** card value by the end of the round.",
+        "zh": "1. 洗混全部卡牌，每位玩家抽 **4 张**牌**面朝下**放在面前排成一行。\n2. 剩余牌面朝下放置中央形成**牌堆**，翻开顶部 1 张形成**弃牌堆**。\n3. 全部玩家**秘密查看**自己的任意 **2 张**牌并记住（这是最后一次免费查看机会）。\n4. 玩家不能改变卡牌顺序。随机选择起始玩家。\n\n**目标：** 在回合结束时拥有 **最低总分** 的手牌。"
       },
       "options": [
         {
@@ -20,17 +20,24 @@
         },
         {
           "label": {
-            "en": "Special Powers (7–Q)",
-            "zh": "特殊能力牌"
+            "en": "Special Abilities (7–12)",
+            "zh": "特殊能力 (7–12)"
           },
           "next": "peek-swap-spy"
         },
         {
           "label": {
-            "en": "Calling Cabo",
-            "zh": "喊 Cabo"
+            "en": "Calling CABO",
+            "zh": "呼唤 CABO"
           },
           "next": "calling-cabo"
+        },
+        {
+          "label": {
+            "en": "Game End",
+            "zh": "游戏结束"
+          },
+          "next": "game-end"
         }
       ]
     },
@@ -40,21 +47,28 @@
         "zh": "回合流程"
       },
       "content": {
-        "en": "On your turn, choose **one** action:\n\n### Draw from Deck\nDraw the top card. Then either:\n- **Keep it** — swap with one of your face-down cards (discard the old card face up), or\n- **Discard it** — place it face up on the discard pile (trigger special powers if applicable).\n\n### Take from Discard\nTake the top discard card. You **must** swap it with one of your face-down cards.\n\n### Call Cabo\nInstead of drawing, announce **\"Cabo!\"** if you believe you have the lowest total. See **Calling Cabo** for details.\n\n**Tip:** Track what others discard — it reveals what they don't want in their hand.",
-        "zh": "你的回合选择 **一项** 行动：\n\n### 从牌堆抽牌\n抽取顶牌，然后：\n- **保留** — 与一张暗牌交换（旧牌面朝上弃掉），或\n- **直接弃掉** — 放到弃牌堆（可能触发特殊能力）。\n\n### 从弃牌堆拿牌\n拿取弃牌堆顶牌，**必须** 与一张暗牌交换。\n\n### 喊 Cabo\n不抽牌，直接喊 **「Cabo!」**（当你认为手牌最低时）。详见 **喊 Cabo** 节点。\n\n**提示：** 留意他人弃掉的牌 — 那往往是他不想要的。"
+        "en": "On your turn, choose **one** action:\n\n### 1. Draw from Draw Pile\nDraw the top card and secretly look at it. Then choose:\n- **Discard** — Place face up on the Discard Pile. If it has a special ability (7–12), you may choose to activate it.\n- **Swap** — Replace 1 or more of your face-down cards (see **Multi-Card Swap**). Replaced cards go face up to the Discard Pile.\n\n### 2. Draw from Discard Pile\nTake the top card of the Discard Pile. You **must** use it to replace 1 or more of your face-down cards. Replaced cards go face up to the Discard Pile.\n\n### 3. Call CABO\nSkip your action. All other players each take **one more turn**, then the round ends.\n\n> **Note:** Special abilities only trigger when discarding a card drawn from the Draw Pile. Cards taken from the Discard Pile do not trigger abilities.\n\n**Tip:** Track what others discard — it reveals what they don't want.",
+        "zh": "你的回合选择 **一项** 行动：\n\n### 1. 从牌堆抽取\n抽取牌堆顶 1 张牌秘密查看，选择：\n- **弃掉** — 正面朝上放入弃牌堆。若该牌有特殊能力（7–12），可选择是否执行。\n- **交换** — 替换自己面前的 1 张或多张牌（见**交换多张卡牌**），被替换的牌正面朝上放入弃牌堆。\n\n### 2. 从弃牌堆抽取\n抽取弃牌堆顶 1 张牌，**必须**用它替换自己面前的 1 张或多张牌。被替换的牌正面朝上放入弃牌堆。\n\n### 3. 呼唤 CABO\n跳过本次行动。其他所有玩家各再进行**一次**行动，然后本轮结束。\n\n> **注意：** 特殊能力仅在从牌堆抽取后弃掉时可用。从弃牌堆抽取不触发能力。\n\n**提示：** 留意他人弃掉的牌 — 那往往是他不想要的。"
       },
       "options": [
         {
           "label": {
-            "en": "Special Powers (7–Q)",
-            "zh": "特殊能力牌"
+            "en": "Special Abilities (7–12)",
+            "zh": "特殊能力 (7–12)"
           },
           "next": "peek-swap-spy"
         },
         {
           "label": {
-            "en": "Calling Cabo",
-            "zh": "喊 Cabo"
+            "en": "Multi-Card Swap",
+            "zh": "交换多张卡牌"
+          },
+          "next": "multi-card-swap"
+        },
+        {
+          "label": {
+            "en": "Calling CABO",
+            "zh": "呼唤 CABO"
           },
           "next": "calling-cabo"
         },
@@ -64,24 +78,17 @@
             "zh": "计分"
           },
           "next": "scoring"
-        },
-        {
-          "label": {
-            "en": "Back to Setup",
-            "zh": "回到准备"
-          },
-          "next": "setup"
         }
       ]
     },
     "peek-swap-spy": {
       "title": {
-        "en": "Peek, Swap & Spy",
-        "zh": "偷看、交换与间谍"
+        "en": "Special Abilities (Peek, Swap & Spy)",
+        "zh": "特殊能力（偷看、交换与间谍）"
       },
       "content": {
-        "en": "When you **discard** a special card face up, use its power **before** your turn ends:\n\n| Card | Power |\n|------|-------|\n| **7 or 8** | **Peek** — Look at one of your own face-down cards |\n| **9 or 10** | **Spy** — Look at one opponent's face-down card |\n| **J or Q** | **Swap** — Blindly swap one of your face-down cards with one opponent's face-down card (neither player may look) |\n\n**Notes:**\n- Powers trigger on **discard**, not when kept in your hand.\n- You may peek at cards you already memorized to confirm.\n- Swap is powerful late-game — use it when you're confident about opponent positions.",
-        "zh": "当你 **弃掉** 特殊牌（面朝上）时，在回合结束前使用其能力：\n\n| 牌 | 能力 |\n|----|------|\n| **7 或 8** | **偷看** — 查看自己的一张暗牌 |\n| **9 或 10** | **间谍** — 查看对手的一张暗牌 |\n| **J 或 Q** | **交换** — 盲换：你的一张暗牌与对手的一张暗牌互换（双方均不可看） |\n\n**注意：**\n- 能力在 **弃牌时** 触发，保留在手牌中不触发。\n- 可再次偷看已记住的牌以确认。\n- 交换在后期很强大 — 对对手牌位有把握时再使用。"
+        "en": "When you draw from the **Draw Pile** and choose to **discard**, these numbers grant special abilities:\n\n| Number | Ability | Effect |\n|--------|---------|--------|\n| **7 or 8** | **Peek** | Look at 1 of your own face-down cards |\n| **9 or 10** | **Spy** | Look at 1 of another player's face-down cards |\n| **11 or 12** | **Swap** | Exchange 1 of your cards with 1 of another player's cards (no peeking, don't change positions) |\n\n**Important:**\n- Abilities **only** trigger when discarding a card drawn from the **Draw Pile**. Cards taken from the Discard Pile do **not** trigger abilities.\n- You may peek at cards you already memorized to confirm.\n- Swap is powerful late-game — use it when you're confident about opponent positions.",
+        "zh": "从**牌堆**抽牌后选择**弃掉**时，若该牌为以下数字，可执行特殊能力：\n\n| 数字 | 能力 | 效果 |\n|------|------|------|\n| **7 或 8** | **偷看** | 查看自己的 1 张面朝下牌 |\n| **9 或 10** | **间谍** | 查看其他玩家的 1 张面朝下牌 |\n| **11 或 12** | **交换** | 将你的 1 张牌与另一位玩家的 1 张牌交换（不能查看，不改变位置） |\n\n**重要：**\n- 特殊能力仅在从**牌堆**抽取后弃掉时可用。从弃牌堆抽取**不触发**能力。\n- 可再次偷看已记住的牌以确认。\n- 交换在后期很强大 — 对对手牌位有把握时再使用。"
       },
       "options": [
         {
@@ -93,10 +100,43 @@
         },
         {
           "label": {
-            "en": "Calling Cabo",
-            "zh": "喊 Cabo"
+            "en": "Multi-Card Swap",
+            "zh": "交换多张卡牌"
+          },
+          "next": "multi-card-swap"
+        },
+        {
+          "label": {
+            "en": "Calling CABO",
+            "zh": "呼唤 CABO"
           },
           "next": "calling-cabo"
+        }
+      ]
+    },
+    "multi-card-swap": {
+      "title": {
+        "en": "Multi-Card Swap",
+        "zh": "交换多张卡牌"
+      },
+      "content": {
+        "en": "When swapping a drawn card with 2 or more of your cards, the selected cards **must have the same value**:\n\n1. Reveal the face-down cards you want to swap.\n2. If all revealed cards have the **same value** → swap succeeds; old cards all go to the Discard Pile.\n3. If values **don't match** → swap fails:\n   - Revealed cards return to their original positions (now face up)\n   - The drawn card is also added to your tableau\n   - If 3+ cards were attempted, draw 1 additional card face down from the Draw Pile\n\n**Example:** You draw a 5 and want to swap it with two of your cards. You reveal them — both are 5s. Success! All old 5s go to the Discard Pile and the new 5 takes one position.\n\n**Risk:** Failed multi-card swaps leave your cards face up (visible to opponents) and may increase your hand size.",
+        "zh": "用一张牌交换自己面前 2 张或更多的牌时，**所选的牌必须数值相同**：\n\n1. 翻开你选择交换的面朝下牌。\n2. 如果翻开的牌**数值相同** → 交换成功，旧牌全部放入弃牌堆。\n3. 如果翻开的牌**数值不同** → 交换失败：\n   - 翻开的牌返回原位（现在面朝上）\n   - 抽取的牌也加入你的牌库\n   - 若尝试交换 3 张及以上失败，还需从牌堆顶额外抽 1 张面朝下加入牌库\n\n**示例：** 你抽到 5，想与面前两张牌交换。翻开后都是 5 — 成功！旧的 5 全部弃掉，新 5 占据一个位置。\n\n**风险：** 多张交换失败会让你的牌面朝上（被对手看见）并可能增加手牌数量。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Turn Structure",
+            "zh": "回合流程"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Special Abilities (7–12)",
+            "zh": "特殊能力 (7–12)"
+          },
+          "next": "peek-swap-spy"
         },
         {
           "label": {
@@ -109,12 +149,12 @@
     },
     "calling-cabo": {
       "title": {
-        "en": "Calling Cabo",
-        "zh": "喊 Cabo"
+        "en": "Calling CABO",
+        "zh": "呼唤 CABO"
       },
       "content": {
-        "en": "Any player may call **\"Cabo!\"** instead of taking a normal turn when they believe they have the lowest hand.\n\n**What happens next:**\n1. The round continues — every **other** player gets **one final turn**.\n2. After all final turns, all players **reveal** their face-down cards.\n3. Sum face values to determine the round winner.\n\n**When to call:**\n- You have low cards (especially 0s) and believe opponents haven't improved.\n- Calling too early gives opponents one more chance to swap away high cards.\n- Calling with a mediocre hand risks the **+10 penalty**.",
-        "zh": "任何玩家可在认为手牌最低时，用喊 **「Cabo!」** 代替正常回合行动。\n\n**接下来：**\n1. 回合继续 — 每位 **其他** 玩家获得 **最后一次行动**。\n2. 所有最终回合结束后，全体 **亮牌**。\n3. 加总点数，确定本回合胜者。\n\n**何时喊：**\n- 手牌点数低（尤其有 0），且认为对手难以改善。\n- 喊太早会给对手最后一次换牌机会。\n- 手牌一般却喊 Cabo 可能吃到 **+10 惩罚**。"
+        "en": "Any player may call **\"CABO!\"** instead of taking a normal turn when they believe they have the lowest hand.\n\n**What happens next:**\n1. Every **other** player gets **one final turn**.\n2. After all final turns, all players **reveal** their cards.\n3. Sum card values to determine the round scores.\n\n**A round also ends when:**\n- The **Draw Pile is depleted** — all players reveal cards immediately.\n\n**When to call:**\n- You have low cards (especially 0s) and believe opponents haven't improved.\n- Calling too early gives opponents one more chance to swap away high cards.\n- Calling with a mediocre hand risks the **+10 penalty**.",
+        "zh": "任何玩家可在认为手牌最低时，**呼唤 CABO** 代替正常回合行动。\n\n**接下来：**\n1. 每位**其他**玩家获得**最后一次行动**。\n2. 所有最终行动结束后，全体**翻开**面前的牌。\n3. 加总点数，确定本回合得分。\n\n**本轮也会因以下情况结束：**\n- **牌堆耗尽** — 所有玩家立即翻开卡牌。\n\n**何时呼唤：**\n- 手牌点数低（尤其有 0），且认为对手难以改善。\n- 太早呼唤会给对手最后一次换牌机会。\n- 手牌一般却呼唤 CABO 可能吃到 **+10 罚分**。"
       },
       "options": [
         {
@@ -126,6 +166,13 @@
         },
         {
           "label": {
+            "en": "Kamikaze",
+            "zh": "神风特攻队"
+          },
+          "next": "kamikaze"
+        },
+        {
+          "label": {
             "en": "Turn Structure",
             "zh": "回合流程"
           },
@@ -133,8 +180,8 @@
         },
         {
           "label": {
-            "en": "Special Powers (7–Q)",
-            "zh": "特殊能力牌"
+            "en": "Special Abilities (7–12)",
+            "zh": "特殊能力 (7–12)"
           },
           "next": "peek-swap-spy"
         }
@@ -146,14 +193,28 @@
         "zh": "计分"
       },
       "content": {
-        "en": "Sum the face values of all 4 cards in your hand:\n\n| Card | Value |\n|------|-------|\n| Joker (0) | 0 |\n| Ace–9 | Face value |\n| Jack | 11 |\n| Queen | 12 |\n| King | 13 |\n\n**Lowest total wins the round.**\n\n### Cabo Caller Penalties\n- Caller has the **lowest** total → **−5 bonus** (subtract 5 from round score)\n- Caller does **not** have the lowest → **+10 penalty**\n\nRecord cumulative scores across rounds. **Lowest cumulative score wins** the game.",
-        "zh": "加总手中 4 张牌的点数：\n\n| 牌 | 点数 |\n|----|------|\n| 小丑 (0) | 0 |\n| A–9 | 面值 |\n| J | 11 |\n| Q | 12 |\n| K | 13 |\n\n**总分最低者赢得本回合。**\n\n### Cabo 喊牌奖惩\n- 喊牌者 **最低** → **−5 奖励**（从本回合得分中减去 5）\n- 喊牌者 **不是最低** → **+10 惩罚**\n\n记录各回合累计分。**累计分最低者获胜**。"
+        "en": "Sum the values of all cards in front of you. Each card is worth its **face value** (0 through 13).\n\n### CABO Caller Scoring\n- Caller has the **lowest or tied lowest** total → scores **0 points**\n- Someone else has a **lower** total → caller scores **their total + 10 penalty**\n\nNon-callers simply score their card total.\n\nRecord cumulative scores across rounds. **Lowest cumulative score wins** the game.",
+        "zh": "加总面前所有牌的数值。每张牌的分值即其**面值**（0 至 13）。\n\n### 呼唤者计分\n- 呼唤者是**最低分或并列最低** → 得 **0 分**\n- 有其他玩家比呼唤者**更低** → 呼唤者得分为**自身总和 + 10 罚分**\n\n未呼唤者的得分即其卡牌总和。\n\n记录各回合累计分。**累计分最低者获胜**。"
       },
       "options": [
         {
           "label": {
-            "en": "Calling Cabo",
-            "zh": "喊 Cabo"
+            "en": "Kamikaze",
+            "zh": "神风特攻队"
+          },
+          "next": "kamikaze"
+        },
+        {
+          "label": {
+            "en": "Game End",
+            "zh": "游戏结束"
+          },
+          "next": "game-end"
+        },
+        {
+          "label": {
+            "en": "Calling CABO",
+            "zh": "呼唤 CABO"
           },
           "next": "calling-cabo"
         },
@@ -163,6 +224,58 @@
             "zh": "回合流程"
           },
           "next": "turn"
+        }
+      ]
+    },
+    "kamikaze": {
+      "title": {
+        "en": "Kamikaze",
+        "zh": "神风特攻队"
+      },
+      "content": {
+        "en": "After CABO is called, if any player has exactly **2 thirteens (13) + 2 twelves (12)** and no other cards, that player scores **0 points** and all other players score **50 points**.\n\nThis is an extremely rare but devastating play — if you manage to collect the right cards, it can completely turn the game around.",
+        "zh": "呼唤 CABO 后，如果有玩家面前恰好是 **2 张 13 + 2 张 12**（无其他牌），该玩家得 **0 分**，其他所有玩家得 **50 分**。\n\n这是极其稀有但毁灭性的打法 — 如果你收集到了正确的牌，可以彻底扭转局势。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        },
+        {
+          "label": {
+            "en": "Game End",
+            "zh": "游戏结束"
+          },
+          "next": "game-end"
+        },
+        {
+          "label": {
+            "en": "Calling CABO",
+            "zh": "呼唤 CABO"
+          },
+          "next": "calling-cabo"
+        }
+      ]
+    },
+    "game-end": {
+      "title": {
+        "en": "Game End",
+        "zh": "游戏结束"
+      },
+      "content": {
+        "en": "Record each round's score and add to cumulative totals. When any player reaches **100 points or more**, the game ends.\n\nThe player with the **lowest cumulative score** wins. If tied, the player with the lower score in the final round wins.\n\n### Score Reset\nIf a player's cumulative score lands on **exactly 100**, it resets to **50**. Each player can only trigger this **once** per game.\n\n**Strategy:** Being at exactly 100 lets you survive one more round — but you can only use this lifeline once!",
+        "zh": "记录每轮得分并累加。当有玩家累计达到 **100 分及以上**时，游戏结束。\n\n**累计最低分**的玩家获胜。平局则最后一轮得分更低者胜。\n\n### 得分满减\n如果玩家的累计分数**恰好等于 100 分**，该分数重置为 **50 分**。每位玩家整局游戏只能触发**一次**。\n\n**策略：** 恰好 100 分可以续命一轮 — 但这条生命线每人只有一次！"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
         },
         {
           "label": {

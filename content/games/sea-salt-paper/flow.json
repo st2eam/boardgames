@@ -28,7 +28,7 @@
         {
           "label": {
             "en": "Ending a Round",
-            "zh": "结束回合"
+            "zh": "结束本轮"
           },
           "next": "ending-round"
         }
@@ -141,7 +141,7 @@
         {
           "label": {
             "en": "End Round",
-            "zh": "结束回合"
+            "zh": "结束本轮"
           },
           "next": "ending-round"
         },
@@ -190,7 +190,7 @@
     "ending-round": {
       "title": {
         "en": "Ending a Round",
-        "zh": "结束回合"
+        "zh": "结束本轮"
       },
       "content": {
         "en": "When your total points (hand + played cards) reach **7 or more**, you may end the round by declaring:\n\n### Option A: \"STOP\"\nThe round ends **immediately**. All players reveal hands and score their full card points.\n\n### Option B: \"LAST CHANCE\"\nEach other player takes **one final turn**, then all reveal.\n\n| Outcome | Caller Scores | Others Score |\n|---------|---------------|-------------|\n| Caller is **highest or tied** | Card points **+ color bonus** | Color bonus only |\n| Caller is **NOT highest** | Color bonus only | Full card points |\n\n**Color Bonus** = 1 point per card of your most abundant color (same mechanic as Mermaid scoring, but only 1 color counts).\n\n### Deck Runs Out\nIf the draw pile is exhausted during any player's turn, the round ends immediately — **no one scores** for that round.\n\n### Between Rounds\nShuffle all cards, reform deck and discard piles, new round begins. Player left of last round's ender goes first.",
@@ -240,7 +240,7 @@
         {
           "label": {
             "en": "End Round",
-            "zh": "结束回合"
+            "zh": "结束本轮"
           },
           "next": "ending-round"
         },

@@ -8,7 +8,7 @@
       },
       "content": {
         "en": "1. Each player receives **100** in starting money (hidden behind their screen).\n2. Place the **market value board** in the center with **5 artist columns**.\n3. Shuffle all **70 painting cards** (5 artists) and deal starting hands:\n   - **3 players:** 10 cards each\n   - **4 players:** 9 cards each\n   - **5 players:** 8 cards each\n4. Remaining cards form the face-down draw pile.\n5. The youngest player is the first **Auctioneer**.\n\n**Game length:** **4 rounds**. Most money after round 4 wins.",
-        "zh": "1. 每位玩家获得 **100** 起始资金（藏在挡板后）。\n2. 将**市场价值板**放在中央，共有 **5 位画家** 的列。\n3. 洗匀全部 **70 张画作牌**（5 位画家），按人数发起始手牌：\n   - **3 人：** 各 10 张\n   - **4 人：** 各 9 张\n   - **5 人：** 各 8 张\n4. 剩余牌面朝下作为抽牌堆。\n5. 最年轻的玩家担任首位**拍卖师**。\n\n**游戏长度：** 共 **4 轮**。第 4 轮结束后资金最多者获胜。"
+        "zh": "1. 每位玩家获得 **100** 起始资金（藏在挡板后）。\n2. 将**市场价值板**放在中央，共有 **5 位画家** 的列。\n3. 洗匀全部 **70 张画作卡**（5 位画家），按人数发起始手牌：\n   - **3 人：** 各 10 张\n   - **4 人：** 各 9 张\n   - **5 人：** 各 8 张\n4. 剩余牌面朝下作为抽牌堆。\n5. 最年轻的玩家担任首位**拍卖师**。\n\n**游戏长度：** 共 **4 轮**。第 4 轮结束后资金最多者获胜。"
       },
       "options": [
         {
@@ -48,7 +48,7 @@
       },
       "content": {
         "en": "As **Auctioneer**, play **one painting card** from your hand face up. Conduct the auction type shown on that card.\n\n**After the auction:**\n- Winner pays the Auctioneer and takes the painting\n- If no one bids (where allowed), the Auctioneer may keep it for free\n- Play passes clockwise — the buyer becomes the next Auctioneer\n\n**Auction types on cards:** Open, Once Around, Sealed, Fixed Price, or Double (see individual rules).",
-        "zh": "作为**拍卖师**，从手牌打出 **1 张画作牌** 正面朝上，按牌面指示的拍卖类型进行拍卖。\n\n**拍卖结束后：**\n- 获胜者向拍卖师付款并拿走画作\n- 若无人出价（在允许的情况下），拍卖师可免费保留\n- 顺时针传递——买家成为下一位拍卖师\n\n**牌面拍卖类型：** 公开拍卖、一轮竞价、密封拍卖、固定价格或双重拍卖（详见各类型规则）。"
+        "zh": "作为**拍卖师**，从手牌打出 **1 张画作卡** 正面朝上，按牌面指示的拍卖类型进行拍卖。\n\n**拍卖结束后：**\n- 获胜者向拍卖师付款并拿走画作\n- 若无人出价（在允许的情况下），拍卖师可免费保留\n- 顺时针传递——买家成为下一位拍卖师\n\n**牌面拍卖类型：** 公开拍卖、一轮拍卖、暗标拍卖、一口价拍卖或双画拍卖（详见各类型规则）。"
       },
       "options": [
         {
@@ -61,28 +61,28 @@
         {
           "label": {
             "en": "Once Around",
-            "zh": "一轮竞价"
+            "zh": "一轮拍卖"
           },
           "next": "once-around"
         },
         {
           "label": {
             "en": "Sealed Auction",
-            "zh": "密封拍卖"
+            "zh": "暗标拍卖"
           },
           "next": "sealed-auction"
         },
         {
           "label": {
             "en": "Fixed Price",
-            "zh": "固定价格"
+            "zh": "一口价拍卖"
           },
           "next": "fixed-price"
         },
         {
           "label": {
             "en": "Double Auction",
-            "zh": "双重拍卖"
+            "zh": "双画拍卖"
           },
           "next": "double-auction"
         },
@@ -115,28 +115,28 @@
         {
           "label": {
             "en": "Once Around",
-            "zh": "一轮竞价"
+            "zh": "一轮拍卖"
           },
           "next": "once-around"
         },
         {
           "label": {
             "en": "Sealed Auction",
-            "zh": "密封拍卖"
+            "zh": "暗标拍卖"
           },
           "next": "sealed-auction"
         },
         {
           "label": {
             "en": "Fixed Price",
-            "zh": "固定价格"
+            "zh": "一口价拍卖"
           },
           "next": "fixed-price"
         },
         {
           "label": {
             "en": "Double Auction",
-            "zh": "双重拍卖"
+            "zh": "双画拍卖"
           },
           "next": "double-auction"
         },
@@ -159,7 +159,7 @@
     "once-around": {
       "title": {
         "en": "Once Around Auction",
-        "zh": "一轮竞价"
+        "zh": "一轮拍卖"
       },
       "content": {
         "en": "Starting left of the Auctioneer, each player gets **exactly one** chance to bid or pass, going clockwise.\n\n**Rules:**\n- Each bid must exceed the current high bid\n- The **Auctioneer bids last**\n- After everyone has acted once, bidding ends\n\n**Result:**\n- **Highest bid** wins and pays the Auctioneer\n- If all pass, the Auctioneer keeps the painting for free",
@@ -176,21 +176,21 @@
         {
           "label": {
             "en": "Sealed Auction",
-            "zh": "密封拍卖"
+            "zh": "暗标拍卖"
           },
           "next": "sealed-auction"
         },
         {
           "label": {
             "en": "Fixed Price",
-            "zh": "固定价格"
+            "zh": "一口价拍卖"
           },
           "next": "fixed-price"
         },
         {
           "label": {
             "en": "Double Auction",
-            "zh": "双重拍卖"
+            "zh": "双画拍卖"
           },
           "next": "double-auction"
         },
@@ -213,7 +213,7 @@
     "sealed-auction": {
       "title": {
         "en": "Sealed Auction",
-        "zh": "密封拍卖"
+        "zh": "暗标拍卖"
       },
       "content": {
         "en": "All players (including the Auctioneer) secretly hold money in their closed fist.\n\n**Rules:**\n1. Everyone chooses a bid amount (0 is allowed)\n2. Reveal simultaneously on count\n3. **Highest bid** wins\n\n**Tiebreaker:** The tied player **closest to the Auctioneer's left** wins.\n\n**Payment:** Winner pays the Auctioneer. If the Auctioneer wins, they keep the painting and pay nothing.",
@@ -230,21 +230,21 @@
         {
           "label": {
             "en": "Once Around",
-            "zh": "一轮竞价"
+            "zh": "一轮拍卖"
           },
           "next": "once-around"
         },
         {
           "label": {
             "en": "Fixed Price",
-            "zh": "固定价格"
+            "zh": "一口价拍卖"
           },
           "next": "fixed-price"
         },
         {
           "label": {
             "en": "Double Auction",
-            "zh": "双重拍卖"
+            "zh": "双画拍卖"
           },
           "next": "double-auction"
         },
@@ -267,7 +267,7 @@
     "fixed-price": {
       "title": {
         "en": "Fixed Price",
-        "zh": "固定价格"
+        "zh": "一口价拍卖"
       },
       "content": {
         "en": "The Auctioneer **names a price** for the painting.\n\n**Rules:**\n1. Starting left of the Auctioneer, each player may **buy at that price** or **pass**\n2. The **first player to buy** (clockwise) takes the painting and pays the Auctioneer\n3. If **everyone passes**, the Auctioneer **must buy** the painting from the bank at that price\n\n**Tip:** Set a price low enough to attract buyers, or high enough that you want to keep it yourself.",
@@ -284,21 +284,21 @@
         {
           "label": {
             "en": "Once Around",
-            "zh": "一轮竞价"
+            "zh": "一轮拍卖"
           },
           "next": "once-around"
         },
         {
           "label": {
             "en": "Sealed Auction",
-            "zh": "密封拍卖"
+            "zh": "暗标拍卖"
           },
           "next": "sealed-auction"
         },
         {
           "label": {
             "en": "Double Auction",
-            "zh": "双重拍卖"
+            "zh": "双画拍卖"
           },
           "next": "double-auction"
         },
@@ -321,11 +321,11 @@
     "double-auction": {
       "title": {
         "en": "Double Auction",
-        "zh": "双重拍卖"
+        "zh": "双画拍卖"
       },
       "content": {
         "en": "The Auctioneer plays a card and may pair it with a **second painting from the same artist** in their hand.\n\n**Contributing the second card:**\n1. Auctioneer may add a matching-artist card from hand\n2. If they cannot or choose not to, the next player clockwise may contribute one\n3. Continue clockwise until someone adds a second card, or all pass\n\n**Auction:** The pair is sold as **one lot** using the auction type on the **second card**.\n\n**Payment split:** The player who contributed the second card **splits the payment** with the Auctioneer.",
-        "zh": "拍卖师打出一张牌，可配对手牌中**同一位画家的第二张画作**。\n\n**贡献第二张牌：**\n1. 拍卖师可从手牌添加同画家牌\n2. 若不能或不愿，顺时针下一位玩家可贡献\n3. 继续顺时针直至有人添加第二张，或全部放弃\n\n**拍卖：** 两张牌作为**一套**拍卖，使用**第二张牌**上的拍卖类型。\n\n**分账：** 贡献第二张牌的玩家与拍卖师**平分**拍卖所得。"
+        "zh": "拍卖师打出一张牌，可配对手牌中**同一位画家的第二张画作**。\n\n**贡献第二张牌：**\n1. 拍卖师可从手牌添加同画家牌\n2. 若不能或不愿，顺时针下一位玩家可贡献\n3. 继续顺时针直至有人添加第二张，或全部放弃\n\n**拍卖：** 两张牌作为**一套**，一律按**公开拍卖**规则拍卖。\n\n**分账：** 贡献第二张牌的玩家与拍卖师**平分**拍卖所得。"
       },
       "options": [
         {
@@ -338,21 +338,21 @@
         {
           "label": {
             "en": "Once Around",
-            "zh": "一轮竞价"
+            "zh": "一轮拍卖"
           },
           "next": "once-around"
         },
         {
           "label": {
             "en": "Sealed Auction",
-            "zh": "密封拍卖"
+            "zh": "暗标拍卖"
           },
           "next": "sealed-auction"
         },
         {
           "label": {
             "en": "Fixed Price",
-            "zh": "固定价格"
+            "zh": "一口价拍卖"
           },
           "next": "fixed-price"
         },

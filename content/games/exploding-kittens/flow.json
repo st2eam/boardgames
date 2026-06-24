@@ -48,7 +48,7 @@
       },
       "content": {
         "en": "On your turn:\n\n### 1. Play Cards (Optional)\nPlay **any number** of action cards from your hand — or play none.\n\n### 2. Draw a Card (Required)\nYou **must** draw **1 card** from the top of the deck to end your turn.\n\n### If You Draw an Exploding Kitten\n- You **explode** and are **out of the game**\n- **UNLESS** you have a **Defuse** card — play it immediately to survive\n\n**Tip:** Save Defuse cards for when you have no other choice. Use See the Future before drawing when the deck is small.",
-        "zh": "轮到你的回合时：\n\n### 1. 出牌（可选）\n从手牌打出**任意数量**的功能牌——也可以不出。\n\n### 2. 抽牌（必须）\n你**必须**从牌堆顶部抽 **1 张牌** 来结束回合。\n\n### 若抽到爆炸猫\n- 你**爆炸**并**出局**\n- **除非**你有**拆弹牌**——立即打出以存活\n\n**提示：** 尽量保留拆弹牌到别无选择时再用。牌堆较小时先用预知未来。"
+        "zh": "轮到你的回合时：\n\n### 1. 出牌（可选）\n从手牌打出**任意数量**的功能牌——也可以不出。\n\n### 2. 抽牌（必须）\n你**必须**从牌堆顶部抽 **1 张牌** 来结束回合。\n\n### 若抽到爆炸猫\n- 你**爆炸**并**出局**\n- **除非**你有**拆弹牌**——立即打出以存活\n\n**提示：** 尽量保留拆弹牌到别无选择时再用。牌堆较小时先用预见未来。"
       },
       "options": [
         {
@@ -61,7 +61,7 @@
         {
           "label": {
             "en": "Nope",
-            "zh": "不要牌"
+            "zh": "否决牌"
           },
           "next": "nope"
         },
@@ -96,7 +96,7 @@
         {
           "label": {
             "en": "See the Future",
-            "zh": "预知未来"
+            "zh": "预见未来"
           },
           "next": "see-future"
         },
@@ -143,7 +143,7 @@
         {
           "label": {
             "en": "Nope",
-            "zh": "不要牌"
+            "zh": "否决牌"
           },
           "next": "nope"
         },
@@ -166,11 +166,11 @@
     "nope": {
       "title": {
         "en": "Nope",
-        "zh": "不要牌"
+        "zh": "否决牌"
       },
       "content": {
         "en": "Play **Nope** to cancel **any action card** — including another player's Nope.\n\n**Rules:**\n- Can be played **at any time**, even out of turn\n- Cancels the action **before** it resolves\n- Another player may play **Nope on your Nope** to cancel your cancellation\n- Nope chains continue until no one plays another Nope\n\n**Cannot Nope:** Exploding Kittens, Defuse cards, or card draws at end of turn.",
-        "zh": "打出**不要牌**可取消**任意功能牌**——包括其他玩家的不要牌。\n\n**规则：**\n- 可在**任何时候**打出，包括非自己回合\n- 在效果生效**之前**取消该行动\n- 其他玩家可对你的不要牌再出**不要牌**来反制\n- 不要牌链持续至无人再出\n\n**不能不要：** 爆炸猫、拆弹牌，或回合结束时必须进行的抽牌。"
+        "zh": "打出**否决牌**可取消**任意功能牌**——包括其他玩家的否决牌。\n\n**规则：**\n- 可在**任何时候**打出，包括非自己回合\n- 在效果生效**之前**取消该行动\n- 其他玩家可对你的否决牌再出**否决牌**来反制\n- 否决牌链持续至无人再出\n\n**不能不要：** 爆炸猫、拆弹牌，或回合结束时必须进行的抽牌。"
       },
       "options": [
         {
@@ -197,7 +197,7 @@
         {
           "label": {
             "en": "See the Future",
-            "zh": "预知未来"
+            "zh": "预见未来"
           },
           "next": "see-future"
         },
@@ -237,7 +237,7 @@
         {
           "label": {
             "en": "Nope",
-            "zh": "不要牌"
+            "zh": "否决牌"
           },
           "next": "nope"
         },
@@ -264,7 +264,7 @@
       },
       "content": {
         "en": "Play **Skip** to end your turn **without drawing** a card.\n\n**Effect:**\n- Your turn ends immediately\n- Play passes to the next player\n- Safe way to avoid drawing when the deck looks dangerous\n\n**Tip:** Combine with See the Future — if the top card is an Exploding Kitten and you have no Defuse, Skip saves you.",
-        "zh": "打出**跳过牌**可结束回合且**无需抽牌**。\n\n**效果：**\n- 你的回合立即结束\n- 轮到下一位玩家\n- 牌堆看起来危险时安全避抽的方式\n\n**技巧：** 配合预知未来——若顶牌是爆炸猫且没有拆弹，跳过可救你一命。"
+        "zh": "打出**跳过牌**可结束回合且**无需抽牌**。\n\n**效果：**\n- 你的回合立即结束\n- 轮到下一位玩家\n- 牌堆看起来危险时安全避抽的方式\n\n**技巧：** 配合预见未来——若顶牌是爆炸猫且没有拆弹，跳过可救你一命。"
       },
       "options": [
         {
@@ -277,14 +277,14 @@
         {
           "label": {
             "en": "See the Future",
-            "zh": "预知未来"
+            "zh": "预见未来"
           },
           "next": "see-future"
         },
         {
           "label": {
             "en": "Nope",
-            "zh": "不要牌"
+            "zh": "否决牌"
           },
           "next": "nope"
         },
@@ -304,7 +304,7 @@
       },
       "content": {
         "en": "Play **Favor** to force another player to give you **1 card** of their choice.\n\n**Rules:**\n1. Choose any other player\n2. They must give you **one card** from their hand\n3. **They choose** which card to give — you cannot see their hand first\n\n**Tip:** Target players with large hands or after they've used See the Future (they may be holding something valuable).",
-        "zh": "打出**索要牌**可迫使另一名玩家给你 **1 张牌**（由其选择）。\n\n**规则：**\n1. 选择任意其他玩家\n2. 对方必须给你手牌中的**一张牌**\n3. **由对方选择**给哪张——你不能先看其手牌\n\n**技巧：** 针对手牌多的玩家，或刚用过预知未来的玩家（可能握着重要牌）。"
+        "zh": "打出**索要牌**可迫使另一名玩家给你 **1 张牌**（由其选择）。\n\n**规则：**\n1. 选择任意其他玩家\n2. 对方必须给你手牌中的**一张牌**\n3. **由对方选择**给哪张——你不能先看其手牌\n\n**技巧：** 针对手牌多的玩家，或刚用过预见未来的玩家（可能握着重要牌）。"
       },
       "options": [
         {
@@ -317,7 +317,7 @@
         {
           "label": {
             "en": "Nope",
-            "zh": "不要牌"
+            "zh": "否决牌"
           },
           "next": "nope"
         },
@@ -344,13 +344,13 @@
       },
       "content": {
         "en": "Play **Shuffle** to shuffle the entire **draw pile**.\n\n**Effect:**\n- Randomizes the deck order\n- Useful after someone used See the Future and you suspect they know the top cards\n- Also good after reinserting an Exploding Kitten with Defuse\n\n**Note:** Does not affect the discard pile.",
-        "zh": "打出**洗牌牌**可洗匀整个**抽牌堆**。\n\n**效果：**\n- 随机化牌堆顺序\n- 有人用过预知未来后，若怀疑其已知顶牌，洗牌很有用\n- 用拆弹放回爆炸猫后也很适用\n\n**注意：** 不影响弃牌堆。"
+        "zh": "打出**洗牌牌**可洗匀整个**抽牌堆**。\n\n**效果：**\n- 随机化牌堆顺序\n- 有人用过预见未来后，若怀疑其已知顶牌，洗牌很有用\n- 用拆弹放回爆炸猫后也很适用\n\n**注意：** 不影响弃牌堆。"
       },
       "options": [
         {
           "label": {
             "en": "See the Future",
-            "zh": "预知未来"
+            "zh": "预见未来"
           },
           "next": "see-future"
         },
@@ -371,7 +371,7 @@
         {
           "label": {
             "en": "Nope",
-            "zh": "不要牌"
+            "zh": "否决牌"
           },
           "next": "nope"
         }
@@ -380,11 +380,11 @@
     "see-future": {
       "title": {
         "en": "See the Future",
-        "zh": "预知未来"
+        "zh": "预见未来"
       },
       "content": {
         "en": "Play **See the Future** to secretly look at the **top 3 cards** of the draw pile.\n\n**Rules:**\n1. Peek at the top 3 cards without showing others\n2. Return them in the **same order**\n3. Only you know what's coming\n\n**Strategy:**\n- If an Exploding Kitten is in the top 3, use Skip or Attack to avoid drawing\n- If safe, draw confidently\n- Can be Noped by opponents if played as an action",
-        "zh": "打出**预知未来**可秘密查看抽牌堆**顶部 3 张牌**。\n\n**规则：**\n1. 查看顶部 3 张，不展示给他人\n2. 按**相同顺序**放回\n3. 只有你知道接下来是什么\n\n**策略：**\n- 若前 3 张中有爆炸猫，用跳过或攻击避免抽牌\n- 若安全，放心抽牌\n- 作为行动打出时，对手可用不要牌取消"
+        "zh": "打出**预见未来**可秘密查看抽牌堆**顶部 3 张牌**。\n\n**规则：**\n1. 查看顶部 3 张，不展示给他人\n2. 按**相同顺序**放回\n3. 只有你知道接下来是什么\n\n**策略：**\n- 若前 3 张中有爆炸猫，用跳过或攻击避免抽牌\n- 若安全，放心抽牌\n- 作为行动打出时，对手可用否决牌取消"
       },
       "options": [
         {
@@ -431,7 +431,7 @@
       },
       "content": {
         "en": "There are **5 types** of cat cards. Use them in combos:\n\n### Two of a Kind\nPlay **2 matching** cat cards → steal **1 random card** from any player.\n\n### Three of a Kind\nPlay **3 matching** cat cards → **name a specific card** and take it from any player (if they have it).\n\n### Five Different Cats\nPlay **5 different** cat types → take **any 1 card** from the discard pile.\n\n**Tip:** Don't play single cat cards alone — save them for combos. All cat combos can be Noped.",
-        "zh": "共有 **5 种**猫咪牌，可组合使用：\n\n### 两张相同\n打出 **2 张相同**猫咪牌 → 从任意玩家处随机偷 **1 张牌**。\n\n### 三张相同\n打出 **3 张相同**猫咪牌 → **指定一张牌名**，从任意玩家处拿走（若其有该牌）。\n\n### 五种不同\n打出 **5 种不同**猫咪牌 → 从弃牌堆拿 **任意 1 张牌**。\n\n**提示：** 不要单独打出单张猫咪牌——留作组合。所有猫咪组合均可被不要牌取消。"
+        "zh": "共有 **5 种**猫咪牌，可组合使用：\n\n### 两张相同\n打出 **2 张相同**猫咪牌 → 从任意玩家处随机偷 **1 张牌**。\n\n### 三张相同\n打出 **3 张相同**猫咪牌 → **指定一张牌名**，从任意玩家处拿走（若其有该牌）。\n\n### 五种不同\n打出 **5 种不同**猫咪牌 → 从弃牌堆拿 **任意 1 张牌**。\n\n**提示：** 不要单独打出单张猫咪牌——留作组合。所有猫咪组合均可被否决牌取消。"
       },
       "options": [
         {
@@ -444,7 +444,7 @@
         {
           "label": {
             "en": "Nope",
-            "zh": "不要牌"
+            "zh": "否决牌"
           },
           "next": "nope"
         },

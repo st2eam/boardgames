@@ -8,7 +8,7 @@
       },
       "content": {
         "en": "1. Shuffle all **54 cards** together:\n   - 32 Floor cards (values 1–8, four of each)\n   - 4 Jokers (wild)\n   - 18 Special action cards\n2. Deal **5 cards** to each player.\n3. Remaining cards form the **draw pile** face down.\n4. Choose a starting player. Play proceeds clockwise.\n\n**Goal:** Be the first to build a **5-floor tower**.",
-        "zh": "1. 洗混全部 **54 张牌**：\n   - 32 张楼层牌（1–8 点，各 4 张）\n   - 4 张百搭小丑\n   - 18 张特殊行动牌\n2. 每位玩家发 **5 张牌**。\n3. 剩余牌面朝下组成 **抽牌堆**。\n4. 决定首位玩家，顺时针进行。\n\n**目标：** 率先建成 **5 层** 摩天大楼。"
+        "zh": "1. 洗混全部 **54 张牌**：\n   - 32 张楼层牌（1–8 点，各 4 张）\n   - 4 张百搭卡\n   - 18 张特殊卡\n2. 每位玩家发 **5 张牌**。\n3. 剩余牌面朝下组成 **抽牌堆**。\n4. 决定首位玩家，顺时针进行。\n\n**目标：** 率先建成 **5 层** 摩天大楼。"
       },
       "options": [
         {
@@ -41,7 +41,7 @@
       },
       "content": {
         "en": "On your turn:\n\n1. **Draw 1 card** from the draw pile.\n2. Perform **any number of actions** in **any order**:\n   - Build a floor (2 cards summing to 9)\n   - Steal a floor (1 card complementing opponent's solo top card)\n   - Play special action cards\n\n**Key rules:**\n- No hand limit — hoard cards for big turns.\n- Draw pile empty? Shuffle discard pile to form a new draw pile.\n- You can build **multiple floors** in one turn if you have the cards.\n\n**First to 5 floors wins immediately!**",
-        "zh": "你的回合：\n\n1. 从抽牌堆 **抽 1 张牌**。\n2. 按 **任意顺序** 执行 **任意数量** 行动：\n   - 建造楼层（2 张牌合计 9）\n   - 偷楼层（1 张牌补全对手顶层单牌）\n   - 打出特殊行动牌\n\n**要点：**\n- 无手牌上限 — 可囤积大牌。\n- 抽牌堆空？洗混弃牌堆重组成新抽牌堆。\n- 一回合可 **建造多层**（若有足够牌）。\n\n**先建满 5 层者立即获胜！**"
+        "zh": "你的回合：\n\n1. 从抽牌堆 **抽 1 张牌**。\n2. 按 **任意顺序** 执行 **任意数量** 行动：\n   - 建造楼层（2 张牌合计 9）\n   - 偷楼层（1 张牌补全对手顶层单牌）\n   - 打出特殊卡\n\n**要点：**\n- 无手牌上限 — 可囤积大牌。\n- 抽牌堆空？洗混弃牌堆重组成新抽牌堆。\n- 一回合可 **建造多层**（若有足够牌）。\n\n**先建满 5 层者立即获胜！**"
       },
       "options": [
         {
@@ -88,7 +88,7 @@
       },
       "content": {
         "en": "Play **2 floor cards** from your hand that sum to exactly **9**.\n\n**Examples:** 3+6, 4+5, 1+8, 2+7\n\nPlace them side by side in front of you as **one floor**. Stack new floors on top of previous ones.\n\n### Jokers\nJokers are **wild** — choose any value when building.\n\n### Tips\n- Save complementary pairs (e.g., 3 and 6) for quick building.\n- A floor with 2 cards counts as **1 floor** toward your 5-floor goal.\n- Build fast early; opponents can't steal completed 2-card floors.",
-        "zh": "从手牌打出 **2 张楼层牌**，点数合计恰好 **9**。\n\n**示例：** 3+6、4+5、1+8、2+7\n\n并排放置在面前作为 **一层**，新楼层叠在旧楼层之上。\n\n### 小丑\n小丑为 **百搭**，建造时可任意指定点数。\n\n### 提示\n- 保留互补对（如 3 和 6）以便快速建造。\n- 2 张牌组成的楼层计为 **1 层**。\n- 建好的 2 牌楼层无法被偷。"
+        "zh": "从手牌打出 **2 张楼层牌**，点数合计恰好 **9**。\n\n**示例：** 3+6、4+5、1+8、2+7\n\n并排放置在面前作为 **一层**，新楼层叠在旧楼层之上。\n\n### 百搭卡\n百搭卡建造时可任意指定点数。\n\n### 提示\n- 保留互补对（如 3 和 6）以便快速建造。\n- 2 张牌组成的楼层计为 **1 层**。\n- 建好的 2 牌楼层无法被偷。"
       },
       "options": [
         {
@@ -128,7 +128,7 @@
       },
       "content": {
         "en": "Play **1 floor card** that complements a **solitary card** on an opponent's **top floor** (the two must sum to **9**).\n\nTake their card and combine it with yours to build a floor on **your own tower**.\n\n### Rules\n- Only works on a **single card** sitting alone on top (not a completed 2-card floor).\n- Jokers on opponent's floors can be stolen — they keep their assigned value.\n- Jokers in **your hand cannot** be used to steal.\n- Floors protected by a **Guard Dog** cannot be stolen.\n\n**Tip:** Leave incomplete top cards vulnerable at your own risk!",
-        "zh": "打出 **1 张楼层牌**，与对手 **顶层单牌**（仅 1 张、未凑成对）互补，合计 **9**。\n\n拿走对手那张牌，与你的牌合并，在 **自己塔上** 建成一层。\n\n### 规则\n- 仅对顶层 **单独 1 张牌** 有效（非已完成的 2 牌楼层）。\n- 对手楼层上的小丑可被偷，保留已指定的点数。\n- 手中小丑 **不能** 用于偷楼层。\n- **看门狗** 保护的楼层无法被偷。\n\n**提示：** 留单牌在顶层等于给对手送分！"
+        "zh": "打出 **1 张楼层牌**，与对手 **顶层单牌**（仅 1 张、未凑成对）互补，合计 **9**。\n\n拿走对手那张牌，与你的牌合并，在 **自己塔上** 建成一层。\n\n### 规则\n- 仅对顶层 **单独 1 张牌** 有效（非已完成的 2 牌楼层）。\n- 对手楼层上的百搭卡可被偷，保留已指定的点数。\n- 手中百搭卡 **不能** 用于偷楼层。\n- **看门狗** 保护的楼层无法被偷。\n\n**提示：** 留单牌在顶层等于给对手送分！"
       },
       "options": [
         {

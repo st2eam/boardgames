@@ -7,8 +7,8 @@
         "zh": "游戏准备"
       },
       "content": {
-        "en": "1. **Shuffle** the 108-card deck.\n2. **Deal 7 cards** to each player.\n3. Place the rest face down as the **draw pile**.\n4. Flip the top card to start the **discard pile**.\n\n**First card special rules:**\n- **Wild** or **Wild Draw Four** → shuffle back, draw again\n- **Skip** → first player (left of dealer) is skipped\n- **Reverse** → dealer goes first\n- **Draw Two** → first player draws 2 and loses their turn",
-        "zh": "1. **洗匀** 108 张牌。\n2. 每位玩家**发 7 张**牌。\n3. 剩余牌面朝下作为**抽牌堆**。\n4. 翻开最上面一张作为**弃牌堆**起点。\n\n**首张牌特殊规则：**\n- **万能牌**或**万能 +4** → 洗回牌堆重新翻\n- **跳过** → 起始玩家（庄家左侧）被跳过\n- **反转** → 庄家先出牌\n- **+2** → 起始玩家抽 2 张并跳过回合"
+        "en": "1. **Shuffle** the 112-card deck (classic 108 + 4 new Wild cards).\n2. **Deal 7 cards** to each player.\n3. Place the rest face down as the **draw pile**.\n4. Flip the top card to start the **discard pile**.\n\n**First card special rules:**\n- **Wild** → first player chooses the color to begin play\n- **Wild Draw Four** → shuffle back, draw again\n- **Skip** → first player (left of dealer) is skipped\n- **Reverse** → dealer goes first; play direction reverses\n- **Draw Two** → first player draws 2 and loses their turn",
+        "zh": "1. **洗匀** 112 张牌（经典 108 张 + 4 张新万能牌）。\n2. 每位玩家**发 7 张**牌。\n3. 剩余牌面朝下作为**抽牌堆**。\n4. 翻开最上面一张作为**弃牌堆**起点。\n\n**首张牌特殊规则：**\n- **万能牌** → 起始玩家选择颜色开始游戏\n- **万能 +4** → 洗回牌堆重新翻\n- **跳过** → 起始玩家（庄家左侧）被跳过\n- **反转** → 庄家先出牌，方向变为逆时针\n- **+2** → 起始玩家抽 2 张并跳过回合"
       },
       "options": [
         {
@@ -113,8 +113,8 @@
         "zh": "万能牌"
       },
       "content": {
-        "en": "### Wild\nChoose **any color** to continue play. Can be played on any turn.\n\n### Wild Draw Four (+4)\nChoose any color; next player draws **4** cards and loses their turn.\n\n**Restriction:** You may only play Wild Draw Four if you have **no cards matching the current color**.\n\n### +4 Challenge Rule\nThe next player may **accept** or **challenge**:\n1. If challenged, you must **show your hand**.\n2. If you **do** have a matching color card → **you** draw 4 cards.\n3. If you **don't** have a matching color card → the challenger draws **6** cards.",
-        "zh": "### 万能牌\n指定**任意颜色**继续游戏。随时可打出。\n\n### 万能 +4\n指定颜色，下家抽**4 张**并跳过回合。\n\n**限制：** 万能 +4 只能在你**没有当前颜色牌**时打出。\n\n### +4 质疑规则\n下家可以选择**接受**或**质疑**：\n1. 若被质疑，你必须**展示手牌**。\n2. 如果你**有**当前颜色的牌 → **你**抽 4 张。\n3. 如果你**没有**当前颜色的牌 → 质疑者抽 **6 张**。"
+        "en": "### Wild\nChoose **any color** to continue play. Can be played on any turn.\n\n### Wild Draw Four (+4)\nChoose any color; next player draws **4** cards and loses their turn.\n\n**Restriction:** You may only play Wild Draw Four if you have **no cards matching the current color**.\n\n### +4 Challenge Rule\nThe next player may **accept** or **challenge**:\n1. If challenged, you must **show your hand**.\n2. If you **do** have a matching color card → **you** draw 4 cards.\n3. If you **don't** have a matching color card → the challenger draws **6** cards.\n\n### Wild Swap Hands\nChoose any color; swap your entire hand with any player of your choice. If this is your last card, treat it as a normal Wild to end the game (no swap occurs).\n\n### Wild Shuffle Hands\nChoose any color; collect **all players'** hands, shuffle them together, and redeal evenly starting from your left. If this is your last card, treat it as a normal Wild to end the game.\n\n### Wild Customizable\nChoose any color; the effect is agreed upon by all players before the game begins.",
+        "zh": "### 万能牌\n指定**任意颜色**继续游戏。随时可打出。\n\n### 万能 +4\n指定颜色，下家抽**4 张**并跳过回合。\n\n**限制：** 万能 +4 只能在你**没有当前颜色牌**时打出。\n\n### +4 质疑规则\n下家可以选择**接受**或**质疑**：\n1. 若被质疑，你必须**展示手牌**。\n2. 如果你**有**当前颜色的牌 → **你**抽 4 张。\n3. 如果你**没有**当前颜色的牌 → 质疑者抽 **6 张**。\n\n### 万能交换手牌\n指定颜色，并与任一玩家交换全部手牌。如果这是你的最后一张牌，当作普通万能牌打出即可结束游戏（不执行交换）。\n\n### 万能重洗手牌\n指定颜色，收集**所有玩家**的手牌，洗匀后从左侧开始逐张重新分配。如果是最后一张牌，当作普通万能牌结束游戏。\n\n### 万能自定义牌\n指定颜色，效果由玩家开局前协商决定。"
       },
       "options": [
         {
@@ -179,8 +179,8 @@
         "zh": "计分"
       },
       "content": {
-        "en": "When a player empties their hand, they **win the round**. Score points from all cards remaining in opponents' hands:\n\n| Card Type | Points |\n|-----------|--------|\n| Number cards 0–9 | Face value |\n| Skip / Reverse / Draw Two | 20 |\n| Wild / Wild Draw Four | 50 |\n\nThe round winner records the total. Play multiple rounds until someone reaches **500 points**.",
-        "zh": "有玩家出完手牌时，该玩家**赢得该局**。根据所有对手剩余手牌计分：\n\n| 卡牌类型 | 分值 |\n|---------|------|\n| 数字牌 0–9 | 面值 |\n| 跳过 / 反转 / +2 | 20 |\n| 万能牌 / 万能 +4 | 50 |\n\n该局获胜者记录总分。多局累计，先达到 **500 分**者胜。"
+        "en": "When a player empties their hand, they **win the round**. Score points from all cards remaining in opponents' hands:\n\n| Card Type | Points |\n|-----------|--------|\n| Number cards 0–9 | Face value |\n| Skip / Reverse / Draw Two | 20 |\n| Wild / Wild Draw Four | 50 |\n| Wild Swap Hands / Wild Customizable | 40 |\n\nThe round winner records the total. Play multiple rounds until someone reaches **500 points**.",
+        "zh": "有玩家出完手牌时，该玩家**赢得该局**。根据所有对手剩余手牌计分：\n\n| 卡牌类型 | 分值 |\n|---------|------|\n| 数字牌 0–9 | 面值 |\n| 跳过 / 反转 / +2 | 20 |\n| 万能牌 / 万能 +4 | 50 |\n| 万能交换手牌 / 万能自定义牌 | 40 |\n\n该局获胜者记录总分。多局累计，先达到 **500 分**者胜。"
       },
       "options": [
         {

@@ -41,7 +41,7 @@
       },
       "content": {
         "en": "On your turn:\n\n1. **Play 1 card** from your hand (mandatory).\n2. **Draw 1 card** from the draw pile.\n\nYou may play cards on **your own pigs** or **opponents' pigs** (Rain, Lightning, Farmer target opponents).\n\n### Can't Play?\nIf none of your 3 cards can be played, reveal your hand, discard all 3, and draw 3 new cards.\n\n### Draw Pile Empty?\nShuffle the discard pile to form a new draw pile.",
-        "zh": "你的回合：\n\n1. 从手牌 **打出 1 张**（必须）。\n2. 从抽牌堆 **抽 1 张**。\n\n可作用于 **自己的猪** 或 **对手的猪**（雨、闪电、农夫针对对手）。\n\n### 无法出牌？\n若 3 张牌均无法打出，亮牌给全体看，弃掉 3 张，重抽 3 张。\n\n### 抽牌堆空？\n洗混弃牌堆组成新抽牌堆。"
+        "zh": "你的回合：\n\n1. 从手牌 **打出 1 张**（必须）。\n2. 从抽牌堆 **抽 1 张**。\n\n可作用于 **自己的猪** 或 **对手的猪**（雨水、闪电、农夫针对对手）。\n\n### 无法出牌？\n若 3 张牌均无法打出，亮牌给全体看，弃掉 3 张，重抽 3 张。\n\n### 抽牌堆空？\n洗混弃牌堆组成新抽牌堆。"
       },
       "options": [
         {
@@ -74,7 +74,7 @@
       },
       "content": {
         "en": "| Card | Effect |\n|------|--------|\n| **Mud** | Flip one of **your clean** pigs to dirty |\n| **Rain** | ALL unprotected dirty pigs (all players) are washed **clean** |\n| **Barn** | Place on one of your pigs. Protects from Rain |\n| **Lightning** | Destroy one opponent's Barn (remove from game) |\n| **Lightning Rod** | Attach to your Barn. Permanent protection from Lightning |\n| **Farmer** | Scrub one dirty pig clean — even inside a Barn! |\n| **Barn Door** | Attach to Barn (must contain dirty pig). Blocks Farmer |\n\n### Full Protection\nBarn + Door + Lightning Rod on one pig = **immune to everything**.\n\n**Strategy:** Mud your pigs fast, Barn the dirty ones before Rain hits.",
-        "zh": "| 牌 | 效果 |\n|----|------|\n| **泥巴** | 将 **自己的一头干净猪** 翻为脏 |\n| **雨** | 所有 **无保护** 的脏猪（全体玩家）被洗 **干净** |\n| **猪圈** | 放在自己的猪上，防雨 |\n| **闪电** | 摧毁对手一个猪圈（移出游戏） |\n| **避雷针** | 附于自己的猪圈，永久防闪电 |\n| **农夫** | 洗净一头脏猪 — 即使在猪圈里！ |\n| **猪圈门** | 附于猪圈（须已有脏猪），防农夫 |\n\n### 完全保护\n猪圈 + 门 + 避雷针 = **免疫一切**。\n\n**策略：** 快速泥巴化，在下雨前给脏猪盖猪圈。"
+        "zh": "| 牌 | 效果 |\n|----|------|\n| **泥巴** | 将 **自己的一头干净猪** 翻为脏 |\n| **雨水** | 所有 **无保护** 的脏猪（全体玩家）被洗 **干净** |\n| **谷仓** | 放在自己的猪上，防雨水 |\n| **闪电** | 摧毁对手一个谷仓（移出游戏） |\n| **避雷针** | 附于自己的谷仓，永久防闪电 |\n| **农夫** | 洗净一头脏猪 — 即使在谷仓里！ |\n| **谷仓门** | 附于谷仓（须已有脏猪），防农夫 |\n\n### 完全保护\n谷仓 + 门 + 避雷针 = **免疫一切**。\n\n**策略：** 快速泥巴化，在下雨前给脏猪盖谷仓。"
       },
       "options": [
         {
@@ -107,7 +107,7 @@
       },
       "content": {
         "en": "The **first player** to have **ALL** their pigs showing the **dirty side** wins **immediately**!\n\n### If Draw Pile Runs Out\nIf no one has won when the deck is exhausted and reshuffled multiple times, the player with the **most dirty pigs** wins.\n\n**Quick tips:**\n- Play Rain when opponents have many unprotected dirty pigs.\n- Save Lightning for opponents who just built Barns.\n- Farmer is devastating — use Barn Door on your best protected pigs.",
-        "zh": "**率先** 让 **全部** 猪同时显示 **脏面** 的玩家 **立即获胜**！\n\n### 牌堆耗尽时\n若多次洗混后仍无人获胜，**脏猪最多** 的玩家胜。\n\n**速查：**\n- 对手有多头无保护脏猪时打 **雨**\n- 对手刚建猪圈时用 **闪电**\n- **农夫** 杀伤力强 — 给重要猪圈加 **猪圈门**"
+        "zh": "**率先** 让 **全部** 猪同时显示 **脏面** 的玩家 **立即获胜**！\n\n### 牌堆耗尽时\n若多次洗混后仍无人获胜，**脏猪最多** 的玩家胜。\n\n**速查：**\n- 对手有多头无保护脏猪时打 **雨水**\n- 对手刚建谷仓时用 **闪电**\n- **农夫** 杀伤力强 — 给重要谷仓加 **谷仓门**"
       },
       "options": [
         {

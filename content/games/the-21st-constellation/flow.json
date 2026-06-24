@@ -211,7 +211,7 @@
       },
       "content": {
         "en": "## Star Resonance\n\nTriggered when your **face-up** Star Cards form specific patterns:\n\n| Pattern | Condition | Reward |\n|---------|-----------|--------|\n| **Pair** | 2 cards with same value | Draw 1 Spell Card |\n| **Sequence** | Consecutively increasing values | Draw 1 Spell Card |\n| **Suited Seq.** | Sequence + same suit (multiplayer) | +1 extra Spell Card |\n\n### Key Rules:\n- Maximum **5 card slots**\n- Same slot **cannot trigger twice**\n- Mark triggered cards by pushing them up\n- Dark Sorcerer's rewards are doubled",
-        "zh": "## 星之共鸣\n\n当你的**明面**群星卡出现以下牌型时触发：\n\n| 牌型 | 条件 | 奖励 |\n|------|------|------|\n| **群组** | 2张相同点数 | 抽 1 张术卡 |\n| **顺组** | 连续递增点数 | 抽 1 张术卡 |\n| **同花顺** | 顺组且花色相同（多人局） | 额外 +1 张术卡 |\n\n### 规则要点：\n- 卡槽位上限 **5 个**\n- 同一卡槽位**不能重复触发**\n- 触发后将该牌向上推起标记\n- 邪术师触发时奖励翻倍"
+        "zh": "## 星之共鸣\n\n当你的**明面**群星卡出现以下牌型时触发：\n\n| 牌型 | 条件 | 奖励 |\n|------|------|------|\n| **群组** | 2张相同点数 | 抽 1 张术卡 |\n| **顺组** | 连续递增点数 | 抽 1 张术卡 |\n| **顺组（同花色）** | 顺组且花色相同（多人局） | 额外 +1 张术卡 |\n\n### 规则要点：\n- 卡槽位上限 **5 个**\n- 同一卡槽位**不能重复触发**\n- 触发后将该牌向上推起标记\n- 邪术师触发时奖励翻倍"
       },
       "options": [
         {
@@ -237,7 +237,7 @@
       },
       "content": {
         "en": "## Bust\n\nWhen your Star Card total **exceeds 21**:\n\n- The game continues — you're not eliminated\n- But at Final Scoring, busted players receive **-5 points**\n- You can try using Spell Cards to reduce your total\n\n> 💡 Your hole card is only revealed at scoring — you might not actually be busted! Manage your risk carefully.",
-        "zh": "## 爆点\n\n当你的群星卡点数总和**超过 21 点**时：\n\n- 游戏继续进行，不会立即出局\n- 但在最终结算时，爆点玩家获得 **-5 点**\n- 你可以尝试使用术卡降低点数来救回来\n\n> 💡 底牌在结算时才揭示，所以暂时不确定是否真的爆点。注意管理风险！"
+        "zh": "## 爆点\n\n当你的群星卡点数总和**超过 21 点**时：\n\n- 游戏继续进行，不会立即出局\n- 但在开牌结算时，爆点玩家获得 **-5 点**\n- 你可以尝试使用术卡降低点数来救回来\n\n> 💡 底牌在结算时才揭示，所以暂时不确定是否真的爆点。注意管理风险！"
       },
       "options": [
         {

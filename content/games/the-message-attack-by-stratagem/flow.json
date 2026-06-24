@@ -8,7 +8,7 @@
       },
       "content": {
         "en": "1. Select **identity cards** based on player count; deal one face-down to each player. **Keep your faction secret.**\n2. Each player draws 3 **character cards**, secretly chooses 1, returns the rest.\n3. All reveal chosen characters simultaneously.\n4. Shuffle base cards, deal **2** to each player. **Hand limit: 6 cards.**\n\n### Factions\n| Faction | Color | Win Condition |\n|---------|-------|---------------|\n| **Latent (潜伏)** | Red | Teammate collects 3 red intelligence |\n| **Military Intel (军情)** | Blue | Teammate collects 3 blue intelligence |\n| **Agent (特工)** | Solo | Complete secret mission OR collect 6 true intelligence |\n\n**Death:** Collect 3 **black** intelligence → eliminated immediately.",
-        "zh": "1. 按人数选择 **身份牌**，每人发一张面朝下。**保密阵营。**\n2. 每人抽 3 张 **角色牌**，秘密选 1 张，其余收回。\n3. 全体同时亮出所选角色。\n4. 洗混基础牌，每人发 **2 张**。 **手牌上限 6 张。**\n\n### 阵营\n| 阵营 | 颜色 | 胜利条件 |\n|------|------|----------|\n| **潜伏** | 红 | 队友集齐 3 张红色情报 |\n| **军情** | 蓝 | 队友集齐 3 张蓝色情报 |\n| **特工** | 独立 | 完成秘密任务或集齐 6 张真情报 |\n\n**死亡：** 集齐 3 张 **黑色** 情报 → 立即出局。"
+        "zh": "1. 按人数选择 **身份牌**，每人发一张面朝下。**保密阵营。**\n2. 每人抽 3 张 **角色牌**，秘密选 1 张，其余收回。\n3. 全体同时亮出所选角色。\n4. 洗混基础牌，每人发 **2 张**。 **手牌上限 6 张。**\n\n### 阵营\n| 阵营 | 颜色 | 胜利条件 |\n|------|------|----------|\n| **潜伏** | 红 | 队友集齐 3 张红色情报 |\n| **军情** | 蓝 | 队友集齐 3 张蓝色情报 |\n| **特工** | 独立 | 完成机密任务或集齐 6 张真情报 |\n\n**死亡：** 集齐 3 张 **黑色** 情报 → 立即出局。"
       },
       "options": [
         {
@@ -21,7 +21,7 @@
         {
           "label": {
             "en": "Card Actions",
-            "zh": "行动牌"
+            "zh": "功能牌"
           },
           "next": "card-actions"
         },
@@ -41,13 +41,13 @@
       },
       "content": {
         "en": "Each turn has **4 phases** in order:\n\n### 1. Draw Phase\nDraw **2 cards** from the draw pile.\n\n### 2. Action Phase\nPlay action cards from your hand (no limit). Each triggers its text effect.\n\n### 3. Intelligence Phase (Mandatory)\nSend **exactly 1 card** as intelligence using its transmission type. Receiver places it face-up (color only matters, ignore text).\n\n### 4. Discard Phase\nDiscard down to the **6-card hand limit**.\n\n**Dual use:** Every base card works as both intelligence (by color) and action (by text).",
-        "zh": "每回合按顺序进行 **4 个阶段**：\n\n### 1. 摸牌阶段\n从抽牌堆摸 **2 张**。\n\n### 2. 行动阶段\n从手牌打出行动牌（不限数量），触发牌面文字效果。\n\n### 3. 情报阶段（必须）\n送出 **恰好 1 张** 牌作为情报，按其传递方式传递。接收者面朝上放置（只看颜色，忽略文字）。\n\n### 4. 弃牌阶段\n弃牌至 **6 张** 手牌上限。\n\n**双重用途：** 每张基础牌既是情报（看颜色）也是行动牌（看文字）。"
+        "zh": "每回合按顺序进行 **4 个阶段**：\n\n### 1. 摸牌阶段\n从抽牌堆摸 **2 张**。\n\n### 2. 出牌阶段\n从手牌打出功能牌（不限数量），触发牌面文字效果。\n\n### 3. 情报传递阶段（必须）\n送出 **恰好 1 张** 牌作为情报，按其传递方式传递。接收者面朝上放置（只看颜色，忽略文字）。\n\n### 4. 弃牌阶段\n弃牌至 **6 张** 手牌上限。\n\n**双重用途：** 每张基础牌既是情报（看颜色）也是功能牌（看文字）。"
       },
       "options": [
         {
           "label": {
             "en": "Card Actions",
-            "zh": "行动牌"
+            "zh": "功能牌"
           },
           "next": "card-actions"
         },
@@ -77,11 +77,11 @@
     "card-actions": {
       "title": {
         "en": "Card Actions",
-        "zh": "行动牌"
+        "zh": "功能牌"
       },
       "content": {
         "en": "During the **Action Phase**, play cards for their text effects. Common action types:\n\n| Action Type | Effect |\n|-------------|--------|\n| **Intercept** | Block or redirect intelligence in transit |\n| **Block** | Prevent another player's action from resolving |\n| **Gather Info** | Peek at hands, identities, or passed cards |\n| **Change Direction** | Reverse or alter intelligence passing order |\n| **Protection** | Shield yourself from targeted actions |\n\n**Tips:**\n- Save powerful actions for critical intelligence passes.\n- Character abilities may modify or enhance action cards.\n- Playing an action card does **not** count as passing intelligence — you still must pass 1 card in Phase 3.",
-        "zh": "**行动阶段** 可打出牌触发文字效果。常见类型：\n\n| 类型 | 效果 |\n|------|------|\n| **拦截** | 阻断或改道传递中的情报 |\n| **封锁** | 阻止其他玩家的行动生效 |\n| **搜集信息** | 偷看手牌、身份或传递中的牌 |\n| **改变方向** | 反转或改变情报传递顺序 |\n| **保护** | 免受针对性行动影响 |\n\n**提示：**\n- 关键情报传递时保留强力行动牌。\n- 角色能力可能增强或修改行动牌。\n- 打出行动牌 **不算** 传递情报 — 第 3 阶段仍须送 1 张。"
+        "zh": "**出牌阶段** 可打出牌触发文字效果。常见类型：\n\n| 类型 | 效果 |\n|------|------|\n| **拦截** | 阻断或改道传递中的情报 |\n| **封锁** | 阻止其他玩家的行动生效 |\n| **搜集信息** | 偷看手牌、身份或传递中的牌 |\n| **改变方向** | 反转或改变情报传递顺序 |\n| **保护** | 免受针对性行动影响 |\n\n**提示：**\n- 关键情报传递时保留强力功能牌。\n- 角色能力可能增强或修改功能牌。\n- 打出功能牌 **不算** 传递情报 — 第 3 阶段仍须送 1 张。"
       },
       "options": [
         {
@@ -120,7 +120,7 @@
         {
           "label": {
             "en": "Card Actions",
-            "zh": "行动牌"
+            "zh": "功能牌"
           },
           "next": "card-actions"
         },
@@ -147,7 +147,7 @@
       },
       "content": {
         "en": "Game ends **immediately** when any faction's condition is met:\n\n### Red Team (Latent)\nAny teammate successfully collects **3 red intelligence** cards.\n\n### Blue Team (Military Intel)\nWin by either:\n- Intercepting **3 red intelligence**, OR\n- Any teammate collecting **3 blue intelligence**\n\n### Agent (Solo)\nComplete your **secret mission** OR collect **6 true intelligence** (red or blue).\n\n### Bystanders / Other Roles\nSome setups include individual win conditions — check your identity card.\n\n**Remember:** 3 black intelligence = **death**. Avoid black cards unless your role requires them!",
-        "zh": "任一阵营达成条件时 **立即结束**：\n\n### 红方（潜伏）\n任一队友成功集齐 **3 张红色情报**。\n\n### 蓝方（军情）\n以下任一：\n- 拦截 **3 张红色情报**，或\n- 任一队友集齐 **3 张蓝色情报**\n\n### 特工（独立）\n完成 **秘密任务** 或集齐 **6 张真情报**（红或蓝）。\n\n### 其他角色\n部分配置含独立胜利条件 — 查看身份牌。\n\n**切记：** 3 张黑色情报 = **死亡**。除非角色需要，否则避开黑牌！"
+        "zh": "任一阵营达成条件时 **立即结束**：\n\n### 红方（潜伏）\n任一队友成功集齐 **3 张红色情报**。\n\n### 蓝方（军情）\n以下任一：\n- 拦截 **3 张红色情报**，或\n- 任一队友集齐 **3 张蓝色情报**\n\n### 特工（独立）\n完成 **机密任务** 或集齐 **6 张真情报**（红或蓝）。\n\n### 其他角色\n部分配置含独立胜利条件 — 查看身份牌。\n\n**切记：** 3 张黑色情报 = **死亡**。除非角色需要，否则避开黑牌！"
       },
       "options": [
         {

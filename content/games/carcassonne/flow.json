@@ -41,7 +41,7 @@
       },
       "content": {
         "en": "On your turn, perform these steps **in order**:\n\n### 1. Draw & Place a Tile\nDraw one tile and place it adjacent to existing tiles. See **Placing Tiles** for matching rules.\n\n### 2. Optionally Place a Meeple\nYou may place **one** meeple on the tile you just placed. See **Placing Meeples** for valid locations.\n\n### 3. Score Completed Features\nIf your tile completes a road, city, or monastery, score it immediately and return meeples on that feature.\n\n**Tip:** You can skip meeple placement to save followers for later — but you only get one chance per tile.",
-        "zh": "轮到你的回合时，**按顺序**执行以下步骤：\n\n### 1. 抽取并放置版图\n抽取一块版图，与已有版图相邻放置。详见**放置版图**的匹配规则。\n\n### 2. 可选：放置米宝\n你可以在刚刚放置的版图上放置 **1 个米宝**。详见**放置米宝**的合法位置。\n\n### 3. 完成地形计分\n如果你放置的版图完成了道路、城市或修道院，立即计分并归还该地形上的米宝。\n\n**提示：** 可以跳过放置米宝以保留随从，但每块版图只有一次机会。"
+        "zh": "轮到你的回合时，**按顺序**执行以下步骤：\n\n### 1. 抽取并放置版图\n抽取一块版图，与已有版图相邻放置。详见**放置版图**的匹配规则。\n\n### 2. 可选：放置米宝\n你可以在刚刚放置的版图上放置 **1 个米宝**。详见**放置米宝**的合法位置。\n\n### 3. 完成地形计分\n如果你放置的版图完成了道路、城市或修道院，立即计分并归还该地形上的米宝。\n\n**提示：** 可以跳过放置米宝以保留米宝，但每块版图只有一次机会。"
       },
       "options": [
         {

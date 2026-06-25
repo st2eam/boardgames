@@ -13,5 +13,6 @@
   "family": "sea-salt-paper",
   "familyOrder": 1,
   "variantType": "expansion",
-  "requiresBase": true
+  "requiresBase": true,
+  "price": 0
 }

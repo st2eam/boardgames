@@ -69,6 +69,23 @@
     "cancel": "Cancel",
     "clear": "Clear"
   },
+  "costs": {
+    "title": "Cost Tracker",
+    "totalSpent": "Total Spent",
+    "gamesWithPrice": "Games with Price",
+    "averagePrice": "Average Price",
+    "spendingByCategory": "Spending by Category",
+    "categoryComparison": "Category Comparison",
+    "byCategory": "By Category",
+    "game": "Game",
+    "category": "Category",
+    "price": "Price",
+    "noData": "No price data available",
+    "currency": "¥",
+    "gameCount": "{count} games",
+    "detailedList": "Detailed List",
+    "free": "Free"
+  },
   "score": {
     "players": "Players",
     "addPlayer": "Add Player",

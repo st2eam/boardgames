@@ -69,6 +69,23 @@
     "cancel": "取消",
     "clear": "清除"
   },
+  "costs": {
+    "title": "花费统计",
+    "totalSpent": "总花费",
+    "gamesWithPrice": "已记录价格",
+    "averagePrice": "平均单价",
+    "spendingByCategory": "分类花费占比",
+    "categoryComparison": "分类花费对比",
+    "byCategory": "按分类",
+    "game": "游戏",
+    "category": "分类",
+    "price": "价格",
+    "noData": "暂无价格数据",
+    "currency": "¥",
+    "gameCount": "{count} 款",
+    "detailedList": "明细列表",
+    "free": "免费"
+  },
   "score": {
     "players": "玩家",
     "addPlayer": "添加玩家",

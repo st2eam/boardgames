@@ -1,0 +1,34 @@
+---
+description: Automatically use OpenSpec skills for feature requests, changes, and bug fixes
+alwaysApply: true
+---
+
+# Auto OpenSpec Workflow
+
+When the user describes a **new feature**, **change request**, or **bug fix** (without explicitly using `/opsx-*` commands), automatically follow the OpenSpec workflow:
+
+## Detection
+
+Trigger when the user's message matches any of these intents:
+- Requesting a new feature or functionality ("加一个...", "我想要...", "添加...", "能不能做...")
+- Reporting or fixing a bug ("有个 bug", "这里有问题", "修复...", "fix...")
+- Requesting a change to existing behavior ("改一下...", "调整...", "优化...", "重构...")
+
+Do NOT trigger for:
+- Questions or exploration ("这个怎么用", "为什么...")
+- Content-only changes ("添加一款新游戏" — use the add-game skill instead)
+- Simple one-line fixes that don't warrant a full workflow
+
+## Workflow
+
+1. **Check active changes first**: Run `openspec list --json` to see if a relevant change already exists
+2. **Small changes (< 3 files, < 30 min)**: Skip OpenSpec, implement directly
+3. **Medium/large changes**: Use the openspec-propose skill to create a change with all artifacts, then use openspec-apply-change skill to implement
+4. **After implementation**: Offer to archive with openspec-archive-change skill
+
+## Key Skills
+
+- `openspec-propose` → create change + artifacts
+- `openspec-apply-change` → implement tasks
+- `openspec-archive-change` → archive completed change
+- `openspec-explore` → when the idea is vague and needs exploration first

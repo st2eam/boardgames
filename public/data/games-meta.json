@@ -12,6 +12,7 @@
       "strategy"
     ],
     "category": "card",
+    "price": 0,
     "slug": "texas-hold-em"
   },
   {
@@ -26,6 +27,7 @@
       "strategy"
     ],
     "category": "card",
+    "price": 10,
     "slug": "tacta"
   },
   {
@@ -41,6 +43,7 @@
       "party"
     ],
     "category": "card",
+    "price": 36,
     "slug": "the-21st-constellation"
   },
   {
@@ -55,6 +58,7 @@
       "family"
     ],
     "category": "card",
+    "price": 46,
     "slug": "gotown"
   },
   {
@@ -70,6 +74,7 @@
       "family"
     ],
     "category": "card",
+    "price": 46,
     "slug": "just-wild"
   },
   {
@@ -87,6 +92,7 @@
     "family": "drecksau",
     "familyOrder": 0,
     "variantType": "base",
+    "price": 40,
     "slug": "drecksau"
   },
   {
@@ -105,6 +111,7 @@
     "familyOrder": 1,
     "variantType": "expansion",
     "requiresBase": true,
+    "price": 37,
     "slug": "drecksau-sauschon"
   },
   {
@@ -120,6 +127,7 @@
       "dice"
     ],
     "category": "board",
+    "price": 49,
     "slug": "arena-magnate-haw"
   },
   {
@@ -138,6 +146,7 @@
     "family": "catan",
     "familyOrder": 0,
     "variantType": "base",
+    "price": 209,
     "slug": "catan"
   },
   {
@@ -157,6 +166,7 @@
     "familyOrder": 1,
     "variantType": "variant",
     "requiresBase": false,
+    "price": 0,
     "slug": "catan-china-map"
   },
   {
@@ -174,6 +184,7 @@
     "family": "sea-salt-paper",
     "familyOrder": 0,
     "variantType": "base",
+    "price": 83,
     "slug": "sea-salt-paper"
   },
   {
@@ -192,6 +203,7 @@
     "familyOrder": 1,
     "variantType": "expansion",
     "requiresBase": true,
+    "price": 0,
     "slug": "sea-salt-paper-extra-salt"
   },
   {
@@ -209,6 +221,7 @@
     "family": "legends-of-the-three-kingdoms",
     "familyOrder": 0,
     "variantType": "base",
+    "price": 148,
     "slug": "legends-of-the-three-kingdoms"
   },
   {
@@ -228,6 +241,7 @@
     "familyOrder": 1,
     "variantType": "expansion",
     "requiresBase": true,
+    "price": 0,
     "slug": "legends-of-the-three-kingdoms-disloyal-minister"
   },
   {
@@ -242,6 +256,7 @@
       "strategy"
     ],
     "category": "card",
+    "price": 59,
     "slug": "modern-art"
   },
   {
@@ -260,6 +275,7 @@
     "family": "uno",
     "familyOrder": 0,
     "variantType": "base",
+    "price": 0,
     "slug": "uno"
   },
   {
@@ -278,6 +294,7 @@
     "family": "uno",
     "familyOrder": 1,
     "variantType": "variant",
+    "price": 24,
     "slug": "uno-flip"
   },
   {
@@ -296,6 +313,7 @@
     "family": "uno",
     "familyOrder": 2,
     "variantType": "variant",
+    "price": 38,
     "slug": "uno-show-em-no-mercy"
   },
   {
@@ -314,6 +332,7 @@
     "family": "uno",
     "familyOrder": 3,
     "variantType": "variant",
+    "price": 29,
     "slug": "uno-dos"
   },
   {
@@ -332,6 +351,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "requiresBase": false,
+    "price": 28,
     "slug": "carcassonne"
   },
   {
@@ -350,6 +370,7 @@
     "familyOrder": 1,
     "variantType": "expansion",
     "requiresBase": true,
+    "price": 0,
     "slug": "carcassonne-the-river"
   },
   {
@@ -365,6 +386,7 @@
       "deduction"
     ],
     "category": "card",
+    "price": 38,
     "slug": "the-message-attack-by-stratagem"
   },
   {
@@ -379,6 +401,7 @@
       "family"
     ],
     "category": "card",
+    "price": 24,
     "slug": "cabo"
   },
   {
@@ -396,6 +419,7 @@
     "family": "exploding-kittens",
     "familyOrder": 0,
     "variantType": "base",
+    "price": 14,
     "slug": "exploding-kittens"
   },
   {
@@ -414,6 +438,7 @@
     "familyOrder": 1,
     "variantType": "variant",
     "requiresBase": false,
+    "price": 14,
     "slug": "exploding-kittens-nsfw-edition"
   },
   {
@@ -431,6 +456,7 @@
     "family": "splendor",
     "familyOrder": 0,
     "variantType": "base",
+    "price": 0,
     "slug": "splendor"
   },
   {
@@ -449,6 +475,7 @@
     "familyOrder": 1,
     "variantType": "variant",
     "requiresBase": false,
+    "price": 261,
     "slug": "splendor-pokemon"
   },
   {
@@ -466,6 +493,7 @@
       "classic"
     ],
     "category": "board",
+    "price": 0,
     "slug": "rummikub"
   },
   {
@@ -486,6 +514,7 @@
     "family": "mahjong",
     "familyOrder": 1,
     "variantType": "base",
+    "price": 0,
     "slug": "mahjong"
   },
   {
@@ -508,6 +537,7 @@
     "familyOrder": 2,
     "variantType": "variant",
     "requiresBase": false,
+    "price": 0,
     "slug": "riichi-mahjong"
   },
   {
@@ -524,6 +554,7 @@
       "classic"
     ],
     "category": "card",
+    "price": 0,
     "slug": "blackjack"
   }
 ]

@@ -14,5 +14,6 @@
   "family": "catan",
   "familyOrder": 1,
   "variantType": "variant",
-  "requiresBase": false
+  "requiresBase": false,
+  "price": 0
 }

@@ -10,6 +10,7 @@ export interface GameMeta {
   familyOrder?: number;
   variantType?: "base" | "expansion" | "variant";
   requiresBase?: boolean;
+  price?: number;
 }
 
 export interface FlowOption {
@@ -152,4 +153,5 @@ export interface GameSummary {
   familyOrder?: number;
   variantType?: "base" | "expansion" | "variant";
   requiresBase?: boolean;
+  price?: number;
 }

@@ -13,5 +13,6 @@
   "family": "carcassonne",
   "familyOrder": 0,
   "variantType": "base",
-  "requiresBase": false
+  "requiresBase": false,
+  "price": 28
 }

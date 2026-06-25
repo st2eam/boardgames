@@ -13,5 +13,6 @@
   "family": "splendor",
   "familyOrder": 1,
   "variantType": "variant",
-  "requiresBase": false
+  "requiresBase": false,
+  "price": 261
 }

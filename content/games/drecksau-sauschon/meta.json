@@ -13,5 +13,6 @@
   "family": "drecksau",
   "familyOrder": 1,
   "variantType": "expansion",
-  "requiresBase": true
+  "requiresBase": true,
+  "price": 37
 }

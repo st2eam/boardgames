@@ -8,5 +8,6 @@
   "family": "mahjong",
   "familyOrder": 2,
   "variantType": "variant",
-  "requiresBase": false
+  "requiresBase": false,
+  "price": 0
 }

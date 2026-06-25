@@ -13,5 +13,6 @@
   "family": "exploding-kittens",
   "familyOrder": 1,
   "variantType": "variant",
-  "requiresBase": false
+  "requiresBase": false,
+  "price": 14
 }

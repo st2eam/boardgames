@@ -13,5 +13,6 @@
   "category": "board",
   "family": "catan",
   "familyOrder": 0,
-  "variantType": "base"
+  "variantType": "base",
+  "price": 209
 }

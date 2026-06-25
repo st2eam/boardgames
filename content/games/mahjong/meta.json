@@ -7,5 +7,6 @@
   "category": "board",
   "family": "mahjong",
   "familyOrder": 1,
-  "variantType": "base"
+  "variantType": "base",
+  "price": 0
 }

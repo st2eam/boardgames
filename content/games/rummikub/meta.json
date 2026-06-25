@@ -4,5 +4,6 @@
   "duration": "30-60 min",
   "difficulty": "medium",
   "tags": ["tile", "strategy", "family", "classic"],
-  "category": "board"
+  "category": "board",
+  "price": 0
 }

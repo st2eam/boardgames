@@ -12,5 +12,6 @@
   "category": "card",
   "family": "exploding-kittens",
   "familyOrder": 0,
-  "variantType": "base"
+  "variantType": "base",
+  "price": 14
 }

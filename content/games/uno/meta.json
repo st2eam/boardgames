@@ -13,5 +13,6 @@
   "category": "card",
   "family": "uno",
   "familyOrder": 0,
-  "variantType": "base"
+  "variantType": "base",
+  "price": 0
 }

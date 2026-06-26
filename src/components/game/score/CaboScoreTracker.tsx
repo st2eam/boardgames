@@ -37,6 +37,7 @@ export function CaboScoreTracker({ locale }: Props) {
   const [inputs, setInputs] = useState<string[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [playerCount, setPlayerCount] = useState(4);
+  const [roundError, setRoundError] = useState("");
 
   function createPlayers(count: number): PlayerData[] {
     return Array.from({ length: count }, (_, i) => ({
@@ -86,8 +87,18 @@ export function CaboScoreTracker({ locale }: Props) {
       const n = parseInt(v, 10);
       return isNaN(n) ? 0 : n;
     });
-    if (scores.every((s) => s === 0)) return;
+    if (scores.every((s) => s === 0)) {
+      setRoundError(zh ? "至少一位玩家需要有得分" : "At least one player must have a score");
+      return;
+    }
 
+    const zeroCount = scores.filter((s) => s === 0).length;
+    if (zeroCount > 1) {
+      setRoundError(zh ? "每轮最多只能有一位玩家得 0 分（CABO 宣告者）" : "Only one player can score 0 per round (the CABO caller)");
+      return;
+    }
+
+    setRoundError("");
     setPlayers((prev) =>
       prev.map((p, i) => ({
         ...p,
@@ -95,7 +106,7 @@ export function CaboScoreTracker({ locale }: Props) {
       }))
     );
     setInputs(Array(playerCount).fill(""));
-  }, [inputs, playerCount]);
+  }, [inputs, playerCount, zh]);
 
   const useReset = useCallback((idx: number) => {
     setPlayers((prev) =>
@@ -173,7 +184,7 @@ export function CaboScoreTracker({ locale }: Props) {
                 prev.map((pl, idx) => (idx === i ? { ...pl, name: e.target.value } : pl))
               )
             }
-            className="rounded-lg border border-stone-200 bg-white px-2 py-1.5 text-center text-sm font-medium text-stone-700 focus:border-accent focus:outline-none"
+            className="min-w-0 rounded-lg border border-stone-200 bg-white px-1.5 py-1.5 text-center text-sm font-medium text-stone-700 focus:border-accent focus:outline-none"
           />
         ))}
       </div>
@@ -187,7 +198,7 @@ export function CaboScoreTracker({ locale }: Props) {
                 {zh ? "回合" : "Round"}
               </th>
               {players.map((p, i) => (
-                <th key={i} className="px-3 py-2 text-center text-xs font-medium text-stone-500">
+                <th key={i} className="max-w-[80px] truncate px-2 py-2 text-center text-xs font-medium text-stone-500">
                   {p.name}
                 </th>
               ))}
@@ -290,20 +301,26 @@ export function CaboScoreTracker({ locale }: Props) {
           </h3>
           <div className="grid gap-2 mb-3" style={{ gridTemplateColumns: `repeat(${playerCount}, 1fr)` }}>
             {players.map((p, i) => (
-              <div key={i} className="text-center">
-                <div className="text-[10px] text-stone-400 mb-1">{p.name}</div>
+              <div key={i} className="min-w-0 text-center">
+                <div className="truncate text-[10px] text-stone-400 mb-1">{p.name}</div>
                 <input
                   type="number"
                   value={inputs[i]}
-                  onChange={(e) =>
-                    setInputs((prev) => prev.map((v, idx) => (idx === i ? e.target.value : v)))
-                  }
+                  onChange={(e) => {
+                    setInputs((prev) => prev.map((v, idx) => (idx === i ? e.target.value : v)));
+                    setRoundError("");
+                  }}
                   placeholder="0"
-                  className="w-full rounded-lg border border-stone-200 px-2 py-2 text-center text-sm tabular-nums text-stone-800 focus:border-accent focus:outline-none"
+                  className="w-full min-w-0 rounded-lg border border-stone-200 px-1.5 py-2 text-center text-sm tabular-nums text-stone-800 focus:border-accent focus:outline-none"
                 />
               </div>
             ))}
           </div>
+          {roundError && (
+            <div className="mb-3 rounded-lg bg-red-50 border border-red-200 px-3 py-2 text-xs text-red-600">
+              {roundError}
+            </div>
+          )}
           <button
             onClick={addRound}
             className="w-full rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent/90 transition-colors"

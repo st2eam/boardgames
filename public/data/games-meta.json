@@ -12,7 +12,7 @@
       "strategy"
     ],
     "category": "card",
-    "price": 0,
+    "price": 354,
     "slug": "texas-hold-em"
   },
   {
@@ -146,7 +146,7 @@
     "family": "catan",
     "familyOrder": 0,
     "variantType": "base",
-    "price": 209,
+    "price": 0,
     "slug": "catan"
   },
   {
@@ -166,7 +166,7 @@
     "familyOrder": 1,
     "variantType": "variant",
     "requiresBase": false,
-    "price": 0,
+    "price": 209,
     "slug": "catan-china-map"
   },
   {
@@ -221,7 +221,7 @@
     "family": "legends-of-the-three-kingdoms",
     "familyOrder": 0,
     "variantType": "base",
-    "price": 148,
+    "price": 84,
     "slug": "legends-of-the-three-kingdoms"
   },
   {
@@ -241,7 +241,7 @@
     "familyOrder": 1,
     "variantType": "expansion",
     "requiresBase": true,
-    "price": 0,
+    "price": 64,
     "slug": "legends-of-the-three-kingdoms-disloyal-minister"
   },
   {

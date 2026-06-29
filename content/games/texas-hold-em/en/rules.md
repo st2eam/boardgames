@@ -1,259 +1,181 @@
 # Texas Hold'em Rules
 
-## Overview
+## Basic Setup
 
-Texas Hold'em is the most popular variant of poker, played with a standard 52-card deck (no jokers). Each player is dealt two private cards (hole cards), and five community cards are dealt face-up on the table. Players make the best five-card hand using any combination of their two hole cards and the five community cards.
-
-## Components
-
-- 1 standard 52-card deck (no jokers)
-- Poker chips for betting
-- Dealer button to track the dealing position
-
-## Positions
-
-| Position | Abbreviation | Description |
-|----------|-------------|-------------|
-| Dealer / Button | BTN | Deals cards (or marked by button); acts last post-flop |
-| Small Blind | SB | Immediately left of dealer; posts half the big blind |
-| Big Blind | BB | Left of SB; posts the minimum forced bet |
-| Under the Gun | UTG | Left of BB; first to act pre-flop |
-| Middle Position | MP | Between UTG and cutoff |
-| Cutoff | CO | Right of dealer; second-best position |
-
-In **heads-up** (2 players): the dealer posts the small blind and acts first pre-flop; the other player posts the big blind.
-
-## Setup
-
-1. Choose a dealer. The dealer button rotates clockwise each hand.
-2. The two players to the left of the dealer post forced bets (blinds):
-   - **Small Blind**: typically half the big blind
-   - **Big Blind**: the minimum bet for the hand
-3. Each player receives 2 hole cards face down.
-
-## Card Rankings
-
-Individual cards rank from highest to lowest: **A, K, Q, J, 10, 9, 8, 7, 6, 5, 4, 3, 2**. Ace can also serve as low in the straight A-2-3-4-5 (the "wheel"). Suits have **no ranking** in Texas Hold'em.
-
-## Hand Rankings (highest to lowest)
-
-| Rank | Hand | Description | Example |
-|------|------|-------------|---------|
-| 1 | **Royal Flush** | A-K-Q-J-10 of the same suit | A♠ K♠ Q♠ J♠ 10♠ |
-| 2 | **Straight Flush** | Five consecutive cards of the same suit | 9♥ 8♥ 7♥ 6♥ 5♥ |
-| 3 | **Four of a Kind** | Four cards of the same rank + 1 kicker | K♣ K♦ K♥ K♠ A♣ |
-| 4 | **Full House** | Three of a kind + a pair | Q♦ Q♣ Q♠ 8♥ 8♦ |
-| 5 | **Flush** | Five cards of the same suit (not sequential) | A♦ J♦ 8♦ 6♦ 2♦ |
-| 6 | **Straight** | Five consecutive cards of mixed suits | 10♣ 9♦ 8♠ 7♥ 6♣ |
-| 7 | **Three of a Kind** | Three cards of the same rank + 2 kickers | 7♠ 7♥ 7♦ K♣ 3♠ |
-| 8 | **Two Pair** | Two different pairs + 1 kicker | J♣ J♦ 4♠ 4♥ A♣ |
-| 9 | **One Pair** | Two cards of the same rank + 3 kickers | 9♠ 9♣ K♦ 7♥ 3♠ |
-| 10 | **High Card** | No combination; ranked by highest cards | A♦ J♣ 8♠ 5♥ 2♣ |
-
-## Hand Comparison & Kickers
-
-When two or more players have the **same hand type**, detailed comparison rules apply:
-
-### Royal Flush
-Always ties (split pot) — suits do not matter.
-
-### Straight Flush
-Compare the **highest card**. Example: 9-8-7-6-5 beats 8-7-6-5-4. The lowest straight flush is A-2-3-4-5 (ace counts as low).
-
-### Four of a Kind
-Compare the **quad rank** first. If equal (possible with community cards), compare the **kicker** (the 5th card).
-
-Example: K-K-K-K-A beats Q-Q-Q-Q-A. If both have K-K-K-K, the player with the higher kicker wins.
-
-### Full House
-Compare the **three-of-a-kind rank** first, then the **pair rank**.
-
-Example: Q-Q-Q-3-3 beats J-J-J-A-A (queens beat jacks). If trips are the same, higher pair wins: 8-8-8-K-K beats 8-8-8-7-7.
-
-### Flush
-Compare cards **from highest to lowest**, one at a time.
-
-Example: A♦-J♦-8♦-6♦-2♦ vs A♣-J♣-8♣-5♣-2♣ — the first player wins because 6 > 5 (the 4th card breaks the tie). If all five cards match in rank, it's a split pot.
-
-### Straight
-Compare the **highest card**. A-K-Q-J-10 (broadway) is the highest; A-2-3-4-5 (wheel) is the lowest. 
-
-Example: 10-9-8-7-6 beats 9-8-7-6-5. If the top card is the same, it's always a tie (e.g., both have Q-J-10-9-8).
-
-### Three of a Kind
-Compare the **trip rank**, then **kickers** from highest to lowest.
-
-Example: 7-7-7-A-K beats 7-7-7-A-Q (second kicker K > Q).
-
-### Two Pair
-Compare the **higher pair** first, then the **lower pair**, then the **kicker**.
-
-Example: K-K-5-5-A beats K-K-4-4-A (second pair 5s > 4s). If both pairs match: K-K-5-5-J beats K-K-5-5-8 (kicker J > 8).
-
-### One Pair
-Compare the **pair rank**, then **kickers** from highest to lowest (up to 3 kickers).
-
-Example: 9-9-A-K-7 beats 9-9-A-Q-J (second kicker K > Q).
-
-### High Card
-Compare cards from **highest to lowest** until a difference is found.
-
-Example: A-K-8-5-2 beats A-K-7-5-2 (third card 8 > 7).
-
-### Split Pot
-If all five cards in the best hand are identical in rank, the pot is split equally. Suits never break ties.
+| Item | Description |
+|------|-------------|
+| **Players** | 2–10 players; standard cash games use 6-max or 9-max tables |
+| **Deck** | Standard 52-card deck, no jokers |
+| **Objective** | Make the best 5-card hand from your 2 hole cards + 5 community cards |
+| **Blinds** | First player left of dealer posts Small Blind (SB), second posts Big Blind (BB). BB = base betting unit, SB = half of BB |
 
 ## How to Play
 
-A hand consists of up to four betting rounds. Before each round (except pre-flop), the dealer **burns** one card face down, then deals community cards.
+### ① Pre-Deal — Blinds
 
-### 1. Pre-Flop
-After receiving hole cards, the player left of the big blind (UTG) acts first. Options: fold, call (match the big blind), or raise. Action continues clockwise. The big blind acts last and may check if no raise was made, or raise.
+SB and BB post forced bets. Each player is dealt 2 hole cards face down.
 
-### 2. The Flop
-Burn 1 card, then deal **3 community cards** face up. Betting starts with the first active player left of the dealer. Players may now check (since no forced bet exists post-flop).
+### ② First Round — Pre-flop
 
-### 3. The Turn
-Burn 1 card, then deal the **4th community card**. Another betting round follows.
+Action starts with UTG (left of BB), going clockwise to BB. Options: call / raise / fold.
 
-### 4. The River
-Burn 1 card, then deal the **5th and final community card**. The last betting round occurs.
+### ③ The Flop
 
-### 5. Showdown
-If two or more players remain, they reveal their hole cards. The player with the best five-card hand (from any combination of 2 hole cards + 5 community cards) wins.
+Burn 1 card, deal 3 community cards face up. New betting round starts from SB.
 
-**Showdown order:** The last player to bet or raise shows first. If the river was checked through, the first player left of the button shows first. A player who is beaten may **muck** (fold without showing).
+### ④ The Turn
 
-## Betting Rules
+Burn 1 card, deal 1 more community card (4 total). Another betting round.
 
-### Actions
+### ⑤ The River
+
+Burn 1 card, deal the final community card (5 total). Last betting round.
+
+### ⑥ Showdown
+
+Last bettor shows first. Best 5-card combination wins the pot.
+
+## Action Order
+
+**Pre-flop:** UTG → UTG+1 → HJ → CO → BTN → SB → BB
+
+**Post-flop:** SB → BB → UTG → ... → BTN. **BTN always acts last** — the most advantageous seat at the table.
+
+## Available Actions
+
 | Action | When Available | Description |
 |--------|---------------|-------------|
 | **Check** | No bet this round | Pass without wagering; action moves to next player |
 | **Bet** | No bet this round | Open with a wager (minimum = big blind) |
-| **Call** | Facing a bet | Match the current highest bet |
-| **Raise** | Facing a bet | Increase the bet (minimum raise = previous bet/raise size) |
-| **Fold** | Any time | Discard hand; forfeit all chips in the pot |
+| **Call** | Facing a bet | Match the current highest bet to stay in the hand |
+| **Raise** | Facing a bet | Increase the bet; minimum raise = previous bet/raise size |
+| **Fold** | Any time | Discard hand and forfeit all chips in the pot |
+| **All-in** | Any time | Push all remaining chips in; creates side pot(s) if short |
 
-### Minimum Raise
-In no-limit Hold'em, the minimum raise must be at least the size of the previous bet or raise in that round. Example: if the big blind is 100 and a player raises to 300 (a raise of 200), the next raise must be at least 500 (300 + 200).
+## Hand Rankings (Highest to Lowest)
 
-### Betting Round Ends
-When all active players have either matched the highest bet or folded. If only one player remains, they win immediately.
+| Rank | Hand | Example |
+|:---:|------|---------|
+| 1 | **Royal Flush** 🏆 | A♠ K♠ Q♠ J♠ 10♠ same suit |
+| 2 | **Straight Flush** | 5♣ 6♣ 7♣ 8♣ 9♣ sequential same suit |
+| 3 | **Four of a Kind** | K♠ K♥ K♦ K♣ 2 |
+| 4 | **Full House** | Q Q Q 7 7 (three of a kind + pair) |
+| 5 | **Flush** | A♥ J♥ 8♥ 5♥ 2♥ same suit, not sequential |
+| 6 | **Straight** | 4 5 6 7 8 sequential, mixed suits |
+| 7 | **Three of a Kind** | J J J 4 9 |
+| 8 | **Two Pair** | A A 8 8 3 |
+| 9 | **One Pair** | K K 7 4 2 |
+| 10 | **High Card** | A J 8 5 2 no combination |
+
+> Ace can be low in A-2-3-4-5 (the "wheel"). When hands tie, compare card ranks, then kickers. Suits never break ties.
+
+## Hand Comparison Rules
+
+When two or more players have the **same hand type**:
+
+| Hand | How to Compare |
+|------|---------------|
+| Royal Flush | Always a tie — split the pot |
+| Straight Flush / Straight | Compare the highest card. A-2-3-4-5 is the lowest |
+| Four of a Kind | Compare quad rank, then kicker |
+| Full House | Compare trips rank, then pair rank |
+| Flush | Compare cards from highest to lowest |
+| Three of a Kind | Compare trips rank, then kickers |
+| Two Pair | Compare higher pair → lower pair → kicker |
+| One Pair | Compare pair rank, then kickers |
+| High Card | Compare cards from highest to lowest |
+
+If all five best cards are identical in rank, the pot is split equally.
+
+## Positions (6-Max Table)
+
+| Position | Description |
+|----------|-------------|
+| **BTN (Button)** | Best position — always acts last post-flop, maximum information |
+| **CO (Cutoff)** | Left of BTN; strong position, good for wide opening ranges |
+| **HJ (Hijack)** | Middle-late position; flexible strategy |
+| **UTG (Under the Gun)** | Worst position — first to act pre-flop, least information |
+| **SB (Small Blind)** | First to act post-flop; worst position, but has chips invested |
+| **BB (Big Blind)** | Last to act pre-flop with Option; poor position post-flop |
+
+In **heads-up** (2 players): the dealer posts SB and acts first pre-flop; the other player posts BB.
 
 ## All-In & Side Pots
 
-A player may go **all-in** by betting all remaining chips at any time.
+A player may go all-in by pushing all remaining chips at any time. When an all-in player has fewer chips than the full bet:
 
-### Side Pot Rules
-When an all-in player has fewer chips than the full bet:
-1. A **main pot** is created with the all-in player's contribution (matched by others).
-2. A **side pot** is created for additional chips only between players who can cover the bet.
-3. All-in players can only win pots they contributed to.
-4. Multiple side pots can form if multiple players go all-in for different amounts.
+1. A **main pot** is created with the all-in player's contribution (matched by others)
+2. Excess chips form a **side pot** — only players who can cover compete for it
+3. All-in players can only win pots they contributed to
 
-### Example
-Player A (500 chips) goes all-in. Player B (1500) calls. Player C (1500) calls.
-- Main pot: 500 × 3 = 1500 (A, B, C compete)
-- Side pot: 1000 × 2 = 2000 (B and C compete only)
+> **Example:** Player A (500 chips) goes all-in, B (1500) calls, C (1500) calls. Main pot = 500 × 3 = 1500 (A/B/C compete). Side pot = 1000 × 2 = 2000 (only B/C compete).
 
-## Special Rules
-
-### The Ace
-- **High**: part of A-K-Q-J-10 (broadway straight, royal flush)
-- **Low**: part of A-2-3-4-5 (wheel straight, steel wheel straight flush)
-- A-2-3-4-5 is the **lowest** straight; it does NOT wrap around (Q-K-A-2-3 is invalid)
-
-### Using Hole Cards
-You may use **both, one, or neither** of your hole cards combined with community cards. Your best 5 cards out of the 7 available are selected automatically. If the 5 community cards form the best hand for all remaining players, the pot is split ("playing the board").
-
-### Table Stakes
-Players can only bet chips they had at the start of the hand. You cannot add chips mid-hand.
-
-### String Betting
-A raise must be announced verbally or made in a single motion. Placing chips in multiple installments without announcing a raise is typically not allowed.
-
----
-
-## Glossary
-
-### Basic Terms
+## Common Terms
 
 | Term | Description |
 |------|-------------|
-| Pot | Total chips wagered in the current hand |
-| Hole Cards | Your two private face-down cards |
-| Community Cards | The five shared face-up cards on the board |
-| Blind | Forced bet (small + big) ensuring action every hand |
-| Ante | Small forced bet from all players before dealing (common in late tournament stages) |
-| Burn Card | Card discarded face-down before dealing community cards to prevent cheating |
-| Showdown | Revealing hole cards to determine the winner |
-| Muck | Discarding your hand without showing after being beaten |
-| Kicker | Tie-breaking card(s) when players share the same hand type |
+| **3-bet** | The third raise pre-flop — represents a strong hand or a polarized bluff |
+| **C-bet** | Continuation bet — pre-flop raiser bets again on the flop to maintain initiative |
+| **Nuts** | The best possible hand on the current board |
+| **Kicker** | Tie-breaking card when players share the same hand type |
+| **Bluff** | Betting with a weak hand to make opponents fold |
+| **Value bet** | Betting with a strong hand, hoping weaker hands call |
+| **Pot odds** | Ratio of call cost to pot size — the math behind calling decisions |
+| **Run it twice** | After an all-in, both parties agree to deal remaining cards twice, splitting the pot |
+| **100BB** | Standard buy-in depth — 100 big blinds, the most common cash game stack |
+
+## More Terms
 
 ### Betting Terms
 
 | Term | Description |
 |------|-------------|
-| Check-Raise | Check first (inducing a bet), then raise when opponent bets |
-| C-bet (Continuation Bet) | Pre-flop raiser bets again on the flop regardless of hand improvement |
-| 3-Bet | Re-raise over an initial raise (blinds → raise → 3-bet) |
-| 4-Bet | Re-raise over a 3-bet |
-| Steal | Raising from late position with a weak hand to win the blinds |
-| Squeeze | Large 3-bet after a raise and one or more callers |
-| Limp | Calling only the big blind pre-flop (without raising) |
-| Fold Equity | The additional win probability gained by making opponents fold |
+| **Check-Raise** | Check first to induce a bet, then raise when opponent bets |
+| **4-bet** | Re-raise over a 3-bet |
+| **Steal** | Raising from late position with a weak hand to win the blinds |
+| **Squeeze** | Large 3-bet after a raise and one or more callers |
+| **Limp** | Calling only the big blind pre-flop without raising |
+| **Fold Equity** | Additional win probability gained by making opponents fold |
 
 ### Strategy Terms
 
 | Term | Description |
 |------|-------------|
-| Nuts | The best possible hand given the current board |
-| Outs | Number of remaining cards that will complete your hand |
-| Draw | An incomplete hand needing one or two more cards to complete |
-| Bluff | Betting strongly with a weak hand to make opponents fold |
-| Semi-Bluff | Betting with a draw — still has equity even if called |
-| Value Bet | Betting with what you believe is the best hand, hoping for a call |
-| Slow Play | Under-representing a strong hand to trap opponents into betting |
-| Pot Odds | Ratio of call cost to pot size; used to determine profitable calls |
-| Implied Odds | Expected future winnings if you complete your draw |
-| Position | Later position = more information = strategic advantage |
-| TAG (Tight-Aggressive) | Plays few hands but bets/raises aggressively with them |
-| LAG (Loose-Aggressive) | Plays many hands and bets/raises aggressively |
+| **Outs** | Number of remaining cards that complete your hand |
+| **Draw** | An incomplete hand needing one or two more cards |
+| **Semi-Bluff** | Betting with a draw — still has equity even if called |
+| **Slow Play** | Under-representing a strong hand to trap opponents |
+| **Implied Odds** | Expected future winnings if you complete your draw |
+| **TAG** | Tight-Aggressive — plays few hands but bets aggressively |
+| **LAG** | Loose-Aggressive — plays many hands and bets aggressively |
 
 ### Board Texture Terms
 
 | Term | Description |
 |------|-------------|
-| Broadway | A-K-Q-J-10 straight (the highest straight) |
-| Wheel | A-2-3-4-5 straight (the lowest straight) |
-| Paired Board | Community cards contain a pair (full house/quads possible) |
-| Wet Board | Board with many draw possibilities (connected/suited cards) |
-| Dry Board | Board with few draw possibilities (scattered, disconnected) |
-| Rainbow | Flop with three different suits (no flush draw possible) |
-| Overpair | Pocket pair higher than all community cards (e.g., KK on J-8-3) |
-| Set | Three of a kind using a pocket pair + one community card |
-| Trips | Three of a kind using one hole card + a pair on the board |
-
----
+| **Broadway** | A-K-Q-J-10 straight (the highest straight) |
+| **Wheel** | A-2-3-4-5 straight (the lowest straight) |
+| **Wet Board** | Board with many draw possibilities (connected/suited cards) |
+| **Dry Board** | Board with few draws (scattered, disconnected cards) |
+| **Rainbow** | Flop with three different suits (no flush draw possible) |
+| **Set** | Three of a kind using a pocket pair + one community card |
+| **Trips** | Three of a kind using one hole card + a board pair |
 
 ## Pot Odds Quick Reference
 
-Flush draw (9 outs) flop-to-river: ~**35%**  
-Open-ended straight draw (8 outs) flop-to-river: ~**31%**  
-Single-street approximation: outs × 2 + 1 = approximate %
-
-| Single Street | Outs | Approx. % |
+| Outs | Single Street | Two Streets |
 |:---:|:---:|:---:|
-| | 1 | 2% |
-| | 2 | 4% |
-| | 4 | 9% |
-| | 6 | 13% |
-| | 8 | 17% |
-| | 9 | 19% |
-| | 12 | 26% |
-| | 15 | 33% |
+| 1 | 2% | — |
+| 2 | 4% | — |
+| 4 | 9% | 16% |
+| 6 | 13% | 24% |
+| 8 | 17% | 31% |
+| 9 | 19% | 35% |
+| 12 | 26% | 45% |
+| 15 | 33% | 54% |
 
-**Decision formula:** If pot odds > draw odds, calling is profitable long-term.
+**Quick math:** Single street ≈ outs × 2 + 1; two streets ≈ outs × 4
 
-Example: Pot is 1000, opponent bets 500, you need to call 500 to win 1500. Pot odds = 500/1500 = 33%. With 9 outs (flush draw, ~19% single street), a call isn't directly profitable — but with implied odds (winning more when you hit), it may still be correct.
+**Decision formula:** If draw odds > call-to-pot ratio, calling is profitable long-term.
+
+> **Example:** Pot is 1000, opponent bets 500, you need 500 to win 1500. Call ratio = 500 / 1500 = 33%. With 9 outs (flush draw, ~19% single street), a direct call isn't profitable — but implied odds may make it correct.

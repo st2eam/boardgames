@@ -27,6 +27,7 @@ interface ChatContextValue {
   messages: ChatMessage[];
   isStreaming: boolean;
   apiKey: string | null;
+  apiKeyLoaded: boolean;
   close: () => void;
   sendMessage: (content: string) => Promise<void>;
   clearHistory: () => Promise<void>;
@@ -49,6 +50,7 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [apiKey, setApiKeyState] = useState<string | null>(null);
+  const [apiKeyLoaded, setApiKeyLoaded] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const messagesRef = useRef<ChatMessage[]>([]);
   const [activeMode, setActiveMode] = useState<ChatMode>(
@@ -66,7 +68,10 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
   }, [messages]);
 
   useEffect(() => {
-    loadApiKey().then(setApiKeyState);
+    loadApiKey().then((key) => {
+      setApiKeyState(key);
+      setApiKeyLoaded(true);
+    });
   }, []);
 
   // Load chat history from IndexedDB (reload when mode switches)
@@ -167,6 +172,7 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
         messages,
         isStreaming,
         apiKey,
+        apiKeyLoaded,
         close,
         sendMessage,
         clearHistory: clearMessages,

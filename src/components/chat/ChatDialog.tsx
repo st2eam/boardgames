@@ -102,11 +102,17 @@ function ClearConfirmDialog({
 }
 
 export function ChatDialog({ title }: Props) {
-  const { apiKey, clearHistory, close, scope, activeMode, toggleMode } = useChat();
+  const { apiKey, apiKeyLoaded, clearHistory, close, scope, activeMode, toggleMode } = useChat();
   const t = useTranslations("chat");
   const locale = useLocale();
-  const [showApiModal, setShowApiModal] = useState(!apiKey);
+  const [showApiModal, setShowApiModal] = useState(false);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
+
+  useEffect(() => {
+    if (apiKeyLoaded && !apiKey) {
+      setShowApiModal(true);
+    }
+  }, [apiKeyLoaded, apiKey]);
 
   const hasApiKey = Boolean(apiKey);
   const isGamePage = scope.type === "game";

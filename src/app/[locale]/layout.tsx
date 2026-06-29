@@ -25,7 +25,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages} locale={locale}>
       <script
         dangerouslySetInnerHTML={{
-          __html: `document.documentElement.lang="${locale}";`,
+          __html: `document.documentElement.lang="${locale}";try{localStorage.setItem("preferred-locale","${locale}")}catch(e){}`,
         }}
       />
       <div className="flex min-h-full flex-col">

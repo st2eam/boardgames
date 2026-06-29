@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
+import { saveLocalePreference } from "@/lib/locale-storage";
 
 export function Header() {
   const t = useTranslations();
@@ -24,6 +25,7 @@ export function Header() {
         <nav className="flex items-center gap-3">
           <Link
             href={otherPath}
+            onClick={() => saveLocalePreference(otherLocale)}
             className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-primary hover:border-amber-300 transition-colors"
             aria-label={t("common.language")}
           >

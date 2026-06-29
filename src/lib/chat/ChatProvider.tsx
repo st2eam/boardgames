@@ -12,6 +12,7 @@ import {
 } from "react";
 import type { ChatMessage, ChatScope, ToolCall } from "./types";
 import { saveMessages, loadMessages, clearHistory as clearStoredHistory } from "./chat-storage";
+import { loadApiKey, saveApiKey } from "./api-key-storage";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 import { GlobalChatStrategy } from "@/lib/ai/GlobalChatStrategy";
 import { GameChatStrategy } from "@/lib/ai/GameChatStrategy";
@@ -64,9 +65,8 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
     messagesRef.current = messages;
   }, [messages]);
 
-  // Load API key from localStorage
   useEffect(() => {
-    setApiKeyState(localStorage.getItem("deepseek-api-key"));
+    loadApiKey().then(setApiKeyState);
   }, []);
 
   // Load chat history from IndexedDB (reload when mode switches)
@@ -91,7 +91,7 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
   }, [onClose]);
 
   const setApiKey = useCallback((key: string) => {
-    localStorage.setItem("deepseek-api-key", key);
+    saveApiKey(key);
     setApiKeyState(key);
   }, []);
 

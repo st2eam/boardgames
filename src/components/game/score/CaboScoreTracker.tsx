@@ -92,12 +92,6 @@ export function CaboScoreTracker({ locale }: Props) {
       return;
     }
 
-    const zeroCount = scores.filter((s) => s === 0).length;
-    if (zeroCount > 1) {
-      setRoundError(zh ? "每轮最多只能有一位玩家得 0 分（CABO 宣告者）" : "Only one player can score 0 per round (the CABO caller)");
-      return;
-    }
-
     setRoundError("");
     setPlayers((prev) =>
       prev.map((p, i) => ({

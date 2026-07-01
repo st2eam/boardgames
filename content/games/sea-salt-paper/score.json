@@ -1,5 +1,5 @@
 {
-  "type": "formula",
+  "type": "sea-salt-multi",
   "engine": "sea-salt",
   "direction": "high-wins",
   "multiRound": true,

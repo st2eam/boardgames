@@ -73,7 +73,7 @@ export default async function FlowPage({ params }: Props) {
       <h1 className="mb-6 font-heading text-2xl font-bold tracking-tight text-primary-dark sm:text-3xl">
         {meta.name[locale as "en" | "zh"] ?? meta.name.en}
       </h1>
-      <DecisionTree flowData={flowData} locale={locale} />
+      <DecisionTree flowData={flowData} locale={locale} slug={slug} />
     </div>
   );
 }

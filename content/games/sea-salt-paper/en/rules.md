@@ -121,3 +121,4 @@ Each Mermaid scores **1 point per card of your most abundant color** (counting c
 | The Captain | 3 × Sailors |
 | Each Mermaid | 1 × cards of most common color |
 | Color Bonus (Last Chance) | 1 × cards of most common color |
+

@@ -1,13 +1,20 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, lazy, Suspense } from "react";
 import type { FlowData } from "@/types/game";
 import { MarkdownRenderer } from "./MarkdownRenderer";
 import { useTranslations } from "next-intl";
 
+const SeaSaltCardReference = lazy(() =>
+  import("./sea-salt/SeaSaltCardReference").then((m) => ({
+    default: m.SeaSaltCardReference,
+  }))
+);
+
 interface Props {
   flowData: FlowData;
   locale: string;
+  slug?: string;
 }
 
 function getNodeTitle(
@@ -38,7 +45,7 @@ function ChevronIcon({ className }: { className?: string }) {
   );
 }
 
-export function DecisionTree({ flowData, locale }: Props) {
+export function DecisionTree({ flowData, locale, slug }: Props) {
   const t = useTranslations("flow");
   const [currentNodeId, setCurrentNodeId] = useState(flowData.startNode);
   const [history, setHistory] = useState<string[]>([]);
@@ -274,6 +281,13 @@ export function DecisionTree({ flowData, locale }: Props) {
             <div className="rounded-xl border border-border bg-stone-50/50 p-4 sm:p-5">
               <MarkdownRenderer content={node.content[locale as "en" | "zh"] ?? node.content.en} />
             </div>
+            {slug?.startsWith("sea-salt-paper") && currentNodeId === "card-types" && (
+              <div className="mt-4">
+                <Suspense fallback={<div className="py-8 text-center text-stone-400">Loading...</div>}>
+                  <SeaSaltCardReference locale={locale} />
+                </Suspense>
+              </div>
+            )}
           </div>
 
           {/* Navigation options */}

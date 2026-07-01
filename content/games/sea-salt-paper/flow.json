@@ -20,8 +20,8 @@
         },
         {
           "label": {
-            "en": "Card Types",
-            "zh": "卡牌类型"
+            "en": "Cards & Scoring",
+            "zh": "卡牌与计分"
           },
           "next": "card-types"
         },
@@ -46,10 +46,10 @@
       "options": [
         {
           "label": {
-            "en": "Duo Effects",
-            "zh": "配对效果"
+            "en": "Cards & Scoring",
+            "zh": "卡牌与计分"
           },
-          "next": "duo-pairs"
+          "next": "card-types"
         },
         {
           "label": {
@@ -57,13 +57,6 @@
             "zh": "结束选项"
           },
           "next": "ending-round"
-        },
-        {
-          "label": {
-            "en": "Scoring Details",
-            "zh": "计分详情"
-          },
-          "next": "scoring"
         },
         {
           "label": {
@@ -76,114 +69,34 @@
     },
     "card-types": {
       "title": {
-        "en": "Card Types",
-        "zh": "卡牌类型"
+        "en": "Cards & Scoring",
+        "zh": "卡牌与计分"
       },
       "content": {
-        "en": "The 58-card deck contains these types:\n\n### Duo Cards (pairs for effects + 1pt each)\n| Card | Quantity | Pairs with |\n|------|:--------:|------|\n| Crab | 9 | Crab |\n| Boat | 8 | Boat |\n| Fish | 7 | Fish |\n| Swimmer | 5 | Shark |\n| Shark | 5 | Swimmer |\n\n### Collector Cards (score by quantity)\n| Card | Quantity |\n|------|:--------:|\n| Shell | 6 |\n| Octopus | 5 |\n| Penguin | 3 |\n| Sailor | 2 |\n\n### Multiplier Cards (1 of each)\nLighthouse, Shoal of Fish, Penguin Colony, The Captain\n\n### Mermaid Cards: 4\n\nAll cards score whether in your hand or played in front of you.",
-        "zh": "58 张牌包含以下类型：\n\n### 配对牌 Duo（配对触发效果 + 每对 1 分）\n| 卡牌 | 数量 | 配对对象 |\n|------|:----:|------|\n| 螃蟹 | 9 | 螃蟹 |\n| 小船 | 8 | 小船 |\n| 鱼 | 7 | 鱼 |\n| 游泳者 | 5 | 鲨鱼 |\n| 鲨鱼 | 5 | 游泳者 |\n\n### 收集牌（按数量计分）\n| 卡牌 | 数量 |\n|------|:----:|\n| 贝壳 | 6 |\n| 章鱼 | 5 |\n| 企鹅 | 3 |\n| 水手 | 2 |\n\n### 倍率牌（各 1 张）\n灯塔、鱼群、企鹅群、船长\n\n### 美人鱼：4 张\n\n所有卡牌无论在手中还是打在面前，都参与计分。"
+        "en": "### Duo Pairs\nEach pair = **1 point** (played or in hand). Play face-up to trigger effect.\n- You may play multiple pairs in the same turn.\n- Swimmer and Shark pair with each other (not themselves).\n\n### Collector Scoring\n| Type | Points by count (1/2/3/4/5/6) |\n|------|------|\n| **Shell** | 0 / 2 / 4 / 6 / 8 / 10 |\n| **Octopus** | 0 / 3 / 6 / 9 / 12 |\n| **Penguin** | 1 / 3 / 5 |\n| **Sailor** | 0 / 5 |\n\n### Multipliers\n| Card | Scores |\n|------|--------|\n| **Lighthouse** | +1 per Boat |\n| **Shoal of Fish** | +1 per Fish |\n| **Penguin Colony** | +2 per Penguin |\n| **The Captain** | +3 per Sailor |\n\n### Mermaids (×4)\nEach = 1 pt per card of your most common color (multiple Mermaids use different colors). Mermaids are **white** cards. **Collect all 4 → instant win!**\n\n### Color Bonus (Last Chance only)\n1 pt per card of your most common color.\n\n---\nAll cards score whether in hand or played. Add round scores to totals. **First to target wins.**",
+        "zh": "### 配对牌\n每组配对 = **1 分**（打出或留手中都算）。打出到面前触发效果。\n- 一回合可打出多组配对。\n- 游泳者和鲨鱼互相配对（不是自己配自己）。\n\n### 收集牌计分\n| 类型 | 分数递进（1/2/3/4/5/6 张） |\n|------|------|\n| **贝壳** | 0 / 2 / 4 / 6 / 8 / 10 |\n| **章鱼** | 0 / 3 / 6 / 9 / 12 |\n| **企鹅** | 1 / 3 / 5 |\n| **水手** | 0 / 5 |\n\n### 倍率牌\n| 卡牌 | 计分方式 |\n|------|--------|\n| **灯塔** | 每张小船 +1 分 |\n| **鱼群** | 每张鱼 +1 分 |\n| **企鹅群** | 每张企鹅 +2 分 |\n| **船长** | 每张水手 +3 分 |\n\n### 美人鱼（×4）\n每张 = 最多颜色的卡牌数（多张须各算不同颜色）。美人鱼本身是**白色**牌。**集齐 4 张 → 即时获胜！**\n\n### 颜色奖励（仅最后机会时）\n最多颜色的卡牌数 = 奖励分。\n\n---\n所有卡牌无论在手中还是面前都计分。各轮分数累加。**最先达到目标分者获胜。**"
       },
       "options": [
-        {
-          "label": {
-            "en": "Duo Effects",
-            "zh": "配对效果"
-          },
-          "next": "duo-pairs"
-        },
-        {
-          "label": {
-            "en": "Collectors & Multipliers",
-            "zh": "收集与倍率"
-          },
-          "next": "scoring"
-        },
-        {
-          "label": {
-            "en": "Mermaids",
-            "zh": "美人鱼"
-          },
-          "next": "mermaids"
-        },
         {
           "label": {
             "en": "Turn Structure",
             "zh": "回合流程"
           },
           "next": "turn"
-        }
-      ]
-    },
-    "duo-pairs": {
-      "title": {
-        "en": "Duo Cards & Effects",
-        "zh": "配对牌与效果"
-      },
-      "content": {
-        "en": "### Scoring\nEach matching pair is worth **1 point** — whether played or kept in hand. Playing them face-up triggers the effect below.\n\n### Effects (only triggered when played)\n\n| Duo Pair | Effect |\n|----------|--------|\n| **2 Crabs** | Choose one discard pile, browse it freely (no shuffling), take any 1 card. Others don't see your choice. |\n| **2 Boats** | Take another turn immediately after this one. |\n| **2 Fish** | Draw the top card from the deck. |\n| **Swimmer + Shark** | Steal 1 random card from another player's hand. |\n\n### Key Rules\n- You may play multiple pairs in the same turn.\n- Pairs score 1pt even if never played (kept in hand until round end).\n- Swimmer and Shark pair with each other (not with themselves).",
-        "zh": "### 计分\n每组配对计 **1 分** — 无论是否打出。打出到面前才触发下方效果。\n\n### 效果（仅打出时触发）\n\n| 配对 | 效果 |\n|------|------|\n| **2 螃蟹** | 选一个弃牌堆，自由浏览（不洗混），从中选取任意 1 张。其他人看不到你选了什么。 |\n| **2 小船** | 立即再进行一个回合。 |\n| **2 鱼** | 从牌堆顶抽 1 张。 |\n| **游泳者 + 鲨鱼** | 从另一位玩家手中随机偷取 1 张。 |\n\n### 关键规则\n- 一回合可打出多组配对。\n- 配对即使不打出（留在手中到轮末），仍计 1 分。\n- 游泳者和鲨鱼互相配对（不是自己配自己）。"
-      },
-      "options": [
-        {
-          "label": {
-            "en": "Mermaids",
-            "zh": "美人鱼"
-          },
-          "next": "mermaids"
         },
         {
           "label": {
-            "en": "Scoring Details",
-            "zh": "计分详情"
-          },
-          "next": "scoring"
-        },
-        {
-          "label": {
-            "en": "End Round",
+            "en": "Ending a Round",
             "zh": "结束本轮"
           },
           "next": "ending-round"
         },
         {
           "label": {
-            "en": "Turn Structure",
-            "zh": "回合流程"
+            "en": "Back to Setup",
+            "zh": "回到准备"
           },
-          "next": "turn"
-        }
-      ]
-    },
-    "mermaids": {
-      "title": {
-        "en": "Mermaid Cards",
-        "zh": "美人鱼"
-      },
-      "content": {
-        "en": "There are **4 Mermaid** cards in the deck. They are powerful but tricky to score.\n\n### Scoring\nEach Mermaid scores: **1 point per card of your most abundant color** (hand + played cards).\n\n### Multiple Mermaids\nIf you have 2+ Mermaids, each must count a **different color**:\n- 1st Mermaid → your most common color\n- 2nd Mermaid → your second most common color\n- 3rd Mermaid → third most common, etc.\n\n### Important Details\n- Mermaids themselves are **white** cards — they can count as a white group.\n- The same color cannot be counted for more than one Mermaid.\n\n### Instant Win!\nIf any player collects all **4 Mermaids** (in hand or played), they **immediately win the entire game** — no need to finish the round!",
-        "zh": "共 **4 张美人鱼**，强力但计分有讲究。\n\n### 计分方式\n每张美人鱼得分 = **你拥有最多的那种颜色的卡牌数**（手中 + 面前）。\n\n### 多张美人鱼\n如果有 2 张以上，每张必须算 **不同颜色**：\n- 第 1 张 → 最多的颜色\n- 第 2 张 → 第二多的颜色\n- 第 3 张 → 第三多的颜色，依此类推\n\n### 重要细节\n- 美人鱼本身是 **白色** 牌 — 可以作为白色组来计算。\n- 同一颜色不能被多张美人鱼重复计算。\n\n### 即时获胜！\n如果有玩家集齐全部 **4 张美人鱼**（手中或面前），**立即赢得整场游戏** — 无需完成本轮！"
-      },
-      "options": [
-        {
-          "label": {
-            "en": "Scoring Details",
-            "zh": "计分详情"
-          },
-          "next": "scoring"
-        },
-        {
-          "label": {
-            "en": "Duo Effects",
-            "zh": "配对效果"
-          },
-          "next": "duo-pairs"
-        },
-        {
-          "label": {
-            "en": "Card Types",
-            "zh": "卡牌类型"
-          },
-          "next": "card-types"
+          "next": "setup"
         }
       ]
     },
@@ -199,10 +112,10 @@
       "options": [
         {
           "label": {
-            "en": "Scoring Details",
-            "zh": "计分详情"
+            "en": "Cards & Scoring",
+            "zh": "卡牌与计分"
           },
-          "next": "scoring"
+          "next": "card-types"
         },
         {
           "label": {
@@ -210,46 +123,6 @@
             "zh": "回合流程"
           },
           "next": "turn"
-        },
-        {
-          "label": {
-            "en": "Card Types",
-            "zh": "卡牌类型"
-          },
-          "next": "card-types"
-        }
-      ]
-    },
-    "scoring": {
-      "title": {
-        "en": "Scoring Summary",
-        "zh": "计分总览"
-      },
-      "content": {
-        "en": "### Collector Cards\n| Type | Points by count (1/2/3/4/5/6) |\n|------|------|\n| **Shell** | 0 / 2 / 4 / 6 / 8 / 10 |\n| **Octopus** | 0 / 3 / 6 / 9 / 12 |\n| **Penguin** | 1 / 3 / 5 |\n| **Sailor** | 0 / 5 |\n\n### Duo Cards\nEach matching pair = **1 point** (played or in hand).\n\n### Multiplier Cards\n| Card | Scores |\n|------|--------|\n| **Lighthouse** | 1 pt per Boat you have |\n| **Shoal of Fish** | 1 pt per Fish you have |\n| **Penguin Colony** | 2 pts per Penguin you have |\n| **The Captain** | 3 pts per Sailor you have |\n\n### Mermaids\nEach Mermaid = 1 pt per card of your most common color (different color per Mermaid).\n\n### Color Bonus (Last Chance only)\n1 pt per card of your most common color.\n\n---\nAdd round scores to cumulative totals. **First to reach target score wins.** Tied at threshold: highest score in final round wins.",
-        "zh": "### 收集牌\n| 类型 | 分数递进（1/2/3/4/5/6 张） |\n|------|------|\n| **贝壳** | 0 / 2 / 4 / 6 / 8 / 10 |\n| **章鱼** | 0 / 3 / 6 / 9 / 12 |\n| **企鹅** | 1 / 3 / 5 |\n| **水手** | 0 / 5 |\n\n### 配对牌\n每组配对 = **1 分**（打出或留手中都算）。\n\n### 倍率牌\n| 卡牌 | 计分方式 |\n|------|--------|\n| **灯塔** | 每张小船 +1 分 |\n| **鱼群** | 每张鱼 +1 分 |\n| **企鹅群** | 每张企鹅 +2 分 |\n| **船长** | 每张水手 +3 分 |\n\n### 美人鱼\n每张美人鱼 = 最多颜色的卡牌数（多张美人鱼须各算不同颜色）。\n\n### 颜色奖励（仅最后机会时）\n最多颜色的卡牌数 = 奖励分。\n\n---\n各轮分数累加。**最先达到目标分者获胜。** 同轮同时达标：最后一轮分高者胜。"
-      },
-      "options": [
-        {
-          "label": {
-            "en": "Mermaids",
-            "zh": "美人鱼"
-          },
-          "next": "mermaids"
-        },
-        {
-          "label": {
-            "en": "End Round",
-            "zh": "结束本轮"
-          },
-          "next": "ending-round"
-        },
-        {
-          "label": {
-            "en": "Duo Effects",
-            "zh": "配对效果"
-          },
-          "next": "duo-pairs"
         },
         {
           "label": {

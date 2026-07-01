@@ -180,18 +180,21 @@ export function LobsterIcon({ className }: IconProps) {
 export function ShellIcon({ className }: IconProps) {
   return (
     <svg viewBox={V} className={className} fill="none">
-      {/* Fan shell */}
-      <path d="M16 27 L4 10 Q9 3 16 3 Q23 3 28 10 Z" fill="#fff" stroke={O} strokeWidth={W} strokeLinejoin="round" />
-      <path d="M16 27 L16 3 Q23 3 28 10 Z" fill="#f0e8e0" stroke="none" />
+      {/* Scallop shell — fan with hinge at bottom */}
+      <path d="M16 26 L3 11 Q3 4 16 4 Q29 4 29 11 Z" fill="#fff" stroke={O} strokeWidth={W} strokeLinejoin="round" />
+      <path d="M16 26 L16 4 Q29 4 29 11 Z" fill="#f0e8e0" stroke="none" />
+      {/* Hinge ears */}
+      <path d="M16 26 L12 29 L14.5 26" fill="#fff" stroke={O} strokeWidth={0.5} strokeLinejoin="round" />
+      <path d="M16 26 L20 29 L17.5 26" fill="#f0e8e0" stroke={O} strokeWidth={0.5} strokeLinejoin="round" />
       {/* Ridges */}
-      <line x1="16" y1="27" x2="7" y2="5" stroke={O} strokeWidth={0.4} opacity={0.2} />
-      <line x1="16" y1="27" x2="11" y2="4" stroke={O} strokeWidth={0.4} opacity={0.2} />
-      <line x1="16" y1="27" x2="16" y2="3" stroke={O} strokeWidth={0.4} opacity={0.2} />
-      <line x1="16" y1="27" x2="21" y2="4" stroke={O} strokeWidth={0.4} opacity={0.2} />
-      <line x1="16" y1="27" x2="25" y2="5" stroke={O} strokeWidth={0.4} opacity={0.2} />
+      <line x1="16" y1="26" x2="6" y2="6" stroke={O} strokeWidth={0.4} opacity={0.2} />
+      <line x1="16" y1="26" x2="10" y2="5" stroke={O} strokeWidth={0.4} opacity={0.2} />
+      <line x1="16" y1="26" x2="16" y2="4" stroke={O} strokeWidth={0.4} opacity={0.2} />
+      <line x1="16" y1="26" x2="22" y2="5" stroke={O} strokeWidth={0.4} opacity={0.2} />
+      <line x1="16" y1="26" x2="26" y2="6" stroke={O} strokeWidth={0.4} opacity={0.2} />
       {/* Curved fold lines */}
-      <path d="M6 11 Q16 14 26 11" stroke={O} strokeWidth={0.3} opacity={0.15} strokeDasharray="1 1" fill="none" />
-      <path d="M9 17 Q16 19 23 17" stroke={O} strokeWidth={0.3} opacity={0.15} strokeDasharray="1 1" fill="none" />
+      <path d="M5 12 Q16 15 27 12" stroke={O} strokeWidth={0.3} opacity={0.15} strokeDasharray="1 1" fill="none" />
+      <path d="M9 18 Q16 20 23 18" stroke={O} strokeWidth={0.3} opacity={0.15} strokeDasharray="1 1" fill="none" />
     </svg>
   );
 }
@@ -202,11 +205,7 @@ export function OctopusIcon({ className }: IconProps) {
       {/* Head — round, distinct from jellyfish dome */}
       <circle cx="16" cy="11" r="7" fill="#fff" stroke={O} strokeWidth={W} />
       <path d="M16 4 A7 7 0 0 1 23 11 L16 11 Z" fill="#e8e0f0" stroke="none" />
-      {/* Eyes */}
-      <circle cx="13" cy="10" r="1.2" fill={O} opacity={0.6} />
-      <circle cx="19" cy="10" r="1.2" fill={O} opacity={0.6} />
-      {/* Mouth */}
-      <path d="M14.5 13 Q16 14.5 17.5 13" stroke={O} strokeWidth={0.4} opacity={0.4} fill="none" strokeLinecap="round" />
+      
       {/* Center fold */}
       <line x1="16" y1="4" x2="16" y2="18" stroke={O} strokeWidth={0.3} opacity={0.15} strokeDasharray="1 1" />
       {/* Horizontal fold */}
@@ -227,28 +226,21 @@ export function OctopusIcon({ className }: IconProps) {
 export function PenguinIcon({ className }: IconProps) {
   return (
     <svg viewBox={V} className={className} fill="none">
-      {/* Body outline */}
-      <path d="M10 10 Q10 4 16 4 Q22 4 22 10 L22 24 Q22 28 16 28 Q10 28 10 24 Z" fill="#fff" stroke={O} strokeWidth={W} strokeLinejoin="round" />
-      {/* Right half shadow */}
-      <path d="M16 4 Q22 4 22 10 L22 24 Q22 28 16 28 L16 4 Z" fill="#eaeaea" stroke="none" />
-      {/* Tuxedo left */}
-      <path d="M10 10 Q10 5 12.5 4.5 L12.5 22 L10 22 Z" fill="#d0d0d0" stroke="none" />
-      {/* Tuxedo right */}
-      <path d="M22 10 Q22 5 19.5 4.5 L19.5 22 L22 22 Z" fill="#d0d0d0" stroke="none" />
-      {/* White belly */}
-      <ellipse cx="16" cy="18" rx="3.5" ry="6" fill="#fff" stroke="none" />
-      {/* Eyes */}
-      <circle cx="14" cy="10" r="1" fill={O} opacity={0.7} />
-      <circle cx="18" cy="10" r="1" fill={O} opacity={0.7} />
-      {/* Beak */}
-      <path d="M15 12.5 L16 15 L17 12.5" fill="#f0c860" stroke={O} strokeWidth={0.4} strokeLinejoin="round" />
-      {/* Left wing */}
-      <path d="M10 14 L6.5 19 L8.5 21 L10 17" fill="#d0d0d0" stroke={O} strokeWidth={0.5} strokeLinejoin="round" />
-      {/* Right wing */}
-      <path d="M22 14 L25.5 19 L23.5 21 L22 17" fill="#d8d8d8" stroke={O} strokeWidth={0.5} strokeLinejoin="round" />
+      {/* Body — side profile facing right */}
+      <path d="M10 10 Q10 4 16 4 Q22 4 22 10 L23 22 Q23 27 17 28 Q11 28 10 22 Z" fill="#fff" stroke={O} strokeWidth={W} strokeLinejoin="round" />
+      {/* Tuxedo back */}
+      <path d="M10 10 Q10 4 13 4.5 L13 26 Q11 27 10 22 Z" fill="#d0d0d0" stroke="none" />
+      {/* Head cap */}
+      <path d="M13 4.5 Q15 4 16 4 Q18 4 19 4.5 L19 7 L13 7 Z" fill="#d8d8d8" stroke="none" />
+      {/* Eye */}
+      <circle cx="18" cy="8.5" r="1" fill={O} opacity={0.7} />
+      {/* Beak — pointing right */}
+      <path d="M22 10 L26 11.5 L22 12.5" fill="#f0c860" stroke={O} strokeWidth={0.4} strokeLinejoin="round" />
+      {/* Wing */}
+      <path d="M11 14 L7 19.5 L9 21.5 L12 17" fill="#d0d0d0" stroke={O} strokeWidth={0.5} strokeLinejoin="round" />
       {/* Feet */}
-      <path d="M13 28 L11 30 L14 30 Z" fill="#f0c860" stroke={O} strokeWidth={0.4} strokeLinejoin="round" />
-      <path d="M19 28 L18 30 L21 30 Z" fill="#f0c860" stroke={O} strokeWidth={0.4} strokeLinejoin="round" />
+      <path d="M15 28 L14 30.5 L17 30 Z" fill="#f0c860" stroke={O} strokeWidth={0.4} strokeLinejoin="round" />
+      <path d="M19 27.5 L18 30 L21 29.5 Z" fill="#f0c860" stroke={O} strokeWidth={0.4} strokeLinejoin="round" />
       {/* Fold crease */}
       <line x1="16" y1="4" x2="16" y2="28" stroke={O} strokeWidth={0.3} opacity={0.12} strokeDasharray="1 1" />
     </svg>
@@ -324,12 +316,13 @@ export function ColonyIcon({ className }: IconProps) {
       <line x1="10" y1="10.5" x2="10" y2="12" stroke={O} strokeWidth={0.6} strokeLinecap="round" />
       {/* "/" separator */}
       <line x1="9" y1="26" x2="22" y2="4" stroke={O} strokeWidth={0.7} opacity={0.3} />
-      {/* Mini penguin facing left — larger, bottom-right */}
-      <path d="M28 16 Q28 12 23.5 12 Q19 12 19 16 L19 25 Q19 27 23.5 27 Q28 27 28 25 Z" fill="#fff" stroke={O} strokeWidth={0.5} strokeLinejoin="round" />
-      <path d="M28 16 Q28 12 23.5 12 L23.5 16 L26 17 L28 17 Z" fill="#d0d0d0" stroke="none" />
-      <path d="M28 17 L26 17 L26 23 L28 25 Z" fill="#d0d0d0" stroke="none" />
-      <circle cx="21" cy="15" r="0.7" fill={O} opacity={0.6} />
-      <path d="M19 16 L16.5 17.5 L19 19" fill="#f0c860" stroke={O} strokeWidth={0.3} strokeLinejoin="round" />
+      {/* Mini penguin — side profile facing right, matching PenguinIcon */}
+      <path d="M19 16 Q19 12 23 12 Q27 12 27 16 L27.5 24 Q27.5 27 24 27.5 Q20 27.5 19 24 Z" fill="#fff" stroke={O} strokeWidth={0.5} strokeLinejoin="round" />
+      <path d="M19 16 Q19 12 21 12.5 L21 26 Q20 27 19 24 Z" fill="#d0d0d0" stroke="none" />
+      <path d="M21 12.5 Q22 12 23 12 Q24.5 12 25.5 13 L25.5 14.5 L21 14.5 Z" fill="#d8d8d8" stroke="none" />
+      <circle cx="25" cy="15" r="0.7" fill={O} opacity={0.6} />
+      <path d="M27 16 L29.5 17 L27 17.8" fill="#f0c860" stroke={O} strokeWidth={0.3} strokeLinejoin="round" />
+      <path d="M20 19 L17.5 22.5 L19 24 L20.5 21" fill="#d0d0d0" stroke={O} strokeWidth={0.4} strokeLinejoin="round" />
     </svg>
   );
 }
@@ -337,8 +330,9 @@ export function ColonyIcon({ className }: IconProps) {
 export function CaptainIcon({ className }: IconProps) {
   return (
     <svg viewBox={V} className={className} fill="none">
-      {/* "3" top-left — larger, drawn as path */}
-      <path d="M4 3 L10 3 L10 4.5 L6 4.5 L9 7 L6 9.5 L10 9.5 L10 12 L4 12 L4 9.5 L7.5 7 L4 4.5 Z" fill="#fff" stroke={O} strokeWidth={0.5} strokeLinejoin="round" />
+      {/* "3" top-left — bold stroked arcs */}
+      <path d="M5 3.5 L9 3.5 Q12 3.5 12 6 Q12 8 8.5 8" fill="none" stroke={O} strokeWidth={1} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8.5 8 Q12 8 12 10.5 Q12 13 9 13 L5 13" fill="none" stroke={O} strokeWidth={1} strokeLinecap="round" strokeLinejoin="round" />
       {/* "/" separator */}
       <line x1="9" y1="26" x2="22" y2="4" stroke={O} strokeWidth={0.7} opacity={0.3} />
       {/* Mini anchor (no crossbar) — larger, bottom-right */}

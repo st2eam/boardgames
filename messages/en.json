@@ -20,6 +20,7 @@
     "export": "Export",
     "exportPDF": "Export as PDF",
     "exportMarkdown": "Download Markdown",
+    "exportCards": "Download Card Faces",
     "scoreTracker": "Score Tracker",
     "tenpaiTrainer": "Tenpai Trainer",
     "openTrainer": "Tenpai Trainer",

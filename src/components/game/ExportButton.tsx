@@ -4,6 +4,11 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { shortcodeToInlineHTML, replaceShortcodesText } from "@/lib/mahjong/shortcode";
 
+const CARD_DOWNLOADS: Record<string, string> = {
+  trio: "/downloads/trio-cards.zip",
+  cabo: "/downloads/cabo-cards.zip",
+};
+
 interface Props {
   markdown: string;
   gameName: string;
@@ -14,6 +19,7 @@ export function ExportButton({ markdown, gameName, slug }: Props) {
   const t = useTranslations("game");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const cardDownloadUrl = CARD_DOWNLOADS[slug];
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -143,6 +149,29 @@ export function ExportButton({ markdown, gameName, slug }: Props) {
             </svg>
             {t("exportMarkdown")}
           </button>
+          {cardDownloadUrl && (
+            <a
+              href={cardDownloadUrl}
+              download
+              onClick={() => setOpen(false)}
+              className="flex w-full items-center gap-2.5 px-4 py-2 text-left text-sm text-stone-700 transition-colors hover:bg-stone-50"
+            >
+              <svg
+                className="h-4 w-4 text-amber-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5a2.25 2.25 0 0 0 2.25-2.25V5.25a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v13.5a2.25 2.25 0 0 0 2.25 2.25Z"
+                />
+              </svg>
+              {t("exportCards")}
+            </a>
+          )}
         </div>
     </div>
   );

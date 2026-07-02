@@ -1,0 +1,87 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Game Overview", "zh": "游戏概述" },
+      "content": {
+        "en": "**TRIO** is a set-collection card game for 3–6 players. Your goal is to reveal three cards of the same number (a \"trio\") by flipping cards from the center of the table or from players' sorted hands.\n\n**Components:** 36 cards numbered 1–12 (three copies each)\n\n**Game Modes:**\n- **Simple** — collect 3 trios to win\n- **Spicy** — collect 2 connected trios to win\n- In both modes, collecting the trio of 7s wins instantly!",
+        "zh": "**TRIO** 是一款 3–6 人的收集套牌卡牌游戏。你的目标是翻开三张相同数字的牌（即「三条」），可以从桌面中央或玩家排好序的手牌中翻牌。\n\n**组件：** 36 张卡牌，数字 1–12（每个数字各 3 张）\n\n**游戏模式：**\n- **简单模式** — 收集 3 组三条获胜\n- **辣味模式** — 收集 2 组相连的三条获胜\n- 两种模式中，收集 7 的三条都能即刻获胜！"
+      },
+      "options": [
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "How to Play", "zh": "游戏流程" }, "next": "turn" },
+        { "label": { "en": "Winning Conditions", "zh": "获胜条件" }, "next": "winning" },
+        { "label": { "en": "Team Variant", "zh": "团队变体" }, "next": "team" }
+      ]
+    },
+    "setup": {
+      "title": { "en": "Game Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. Choose a mode: **Simple** or **Spicy**\n2. Shuffle all 36 cards\n3. Deal cards based on player count:\n\n| Players | Cards/Player | Cards in Center |\n|:-------:|:------------:|:---------------:|\n| 3 | 9 | 9 |\n| 4 | 7 | 8 |\n| 5 | 6 | 6 |\n| 6 | 5 | 6 |\n\n4. Each player secretly sorts their hand from **lowest to highest** (must maintain this order!)\n5. Place remaining cards **face-down** in the center of the table",
+        "zh": "1. 选择模式：**简单模式**或**辣味模式**\n2. 洗混全部 36 张卡牌\n3. 根据人数发牌：\n\n| 人数 | 每人手牌 | 中央牌数 |\n|:----:|:--------:|:--------:|\n| 3 | 9 | 9 |\n| 4 | 7 | 8 |\n| 5 | 6 | 6 |\n| 6 | 5 | 6 |\n\n4. 每位玩家秘密地将手牌从**小到大**排列（整局游戏必须保持此顺序！）\n5. 将剩余卡牌**面朝下**放在桌子中央"
+      },
+      "options": [
+        { "label": { "en": "How to Play", "zh": "游戏流程" }, "next": "turn" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "On Your Turn", "zh": "你的回合" },
+      "content": {
+        "en": "On your turn, reveal numbered cards **one at a time**, trying to find three matching numbers.\n\nFor each reveal, choose one method:\n\n**A. From the center** — Flip any face-down card from the table.\n\n**B. From a player's hand** (including your own) — Ask any player to reveal their current **lowest** or **highest** card.\n\n**Key rules:**\n- You can only access a player's lowest or highest card — NEVER one from the middle\n- You may repeat the same action (e.g., ask the same player for their highest again)\n- Even your own hand follows this rule — lowest or highest only",
+        "zh": "在你的回合，**逐张**翻开卡牌，尝试找到三张相同数字的牌。\n\n每次翻牌选择以下方式之一：\n\n**A. 从中央翻牌** — 翻开桌面中央任意面朝下的牌。\n\n**B. 从玩家手牌翻牌**（包括你自己）— 要求任意玩家展示其当前**最小**或**最大**的牌。\n\n**关键规则：**\n- 只能查看玩家最小或最大的牌——永远不能翻中间的牌\n- 可以重复相同操作（如连续要求同一玩家展示最大牌）\n- 自己的手牌也遵循此规则——只能翻最小或最大"
+      },
+      "options": [
+        { "label": { "en": "Turn Resolution", "zh": "回合结算" }, "next": "resolution" },
+        { "label": { "en": "Winning Conditions", "zh": "获胜条件" }, "next": "winning" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "resolution": {
+      "title": { "en": "Turn Resolution", "zh": "回合结算" },
+      "content": {
+        "en": "Your turn ends in one of two ways:\n\n### ✅ Success — Complete a Trio\nIf you reveal **three cards of the same number**, take all three and place them face-up in front of you.\n\n### ❌ Bust — Mismatch\nAs soon as a revealed card shows a **different number** from the previous one, your turn ends immediately. ALL revealed cards return to their original locations:\n- Center cards → face-down in the center\n- Hand cards → back to owner in correct sorted position\n\n**Note:** If a player has no cards left, they still take turns using center cards and other players' cards.",
+        "zh": "你的回合以两种方式之一结束：\n\n### ✅ 成功——完成三条\n翻开的**三张牌数字相同**时，将这三张牌收到你面前。\n\n### ❌ 失败——数字不匹配\n一旦翻开的牌与前一张**数字不同**，回合立即结束。本回合所有翻开的牌归还原位：\n- 中央的牌 → 面朝下放回桌面中央\n- 手牌 → 归还原主并放回正确排序位置\n\n**注意：** 如果某位玩家没有手牌，轮到他时仍可使用中央卡牌和其他玩家的卡牌。"
+      },
+      "options": [
+        { "label": { "en": "Winning Conditions", "zh": "获胜条件" }, "next": "winning" },
+        { "label": { "en": "How to Play", "zh": "游戏流程" }, "next": "turn" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "winning": {
+      "title": { "en": "Winning Conditions", "zh": "获胜条件" },
+      "content": {
+        "en": "### Simple Mode\nWin by collecting **3 trios** OR the **trio of 7s** (instant win).\n\n### Spicy Mode\nWin by collecting **2 connected trios** OR the **trio of 7s** (instant win).\n\nTwo trios are \"connected\" if their numbers sum to or differ by 7:\n\n| Trio | Connected to |\n|:----:|:------------:|\n| 1 | 6, 8 |\n| 2 | 5, 9 |\n| 3 | 4, 10 |\n| 4 | 3, 11 |\n| 5 | 2, 12 |\n| 6 | 1 |\n| 7 | — (instant win) |\n| 8 | 1 |\n| 9 | 2 |\n| 10 | 3 |\n| 11 | 4 |\n| 12 | 5 |\n\nThe connection icons are printed on the cards for easy reference.",
+        "zh": "### 简单模式\n收集 **3 组三条**或 **7 的三条**（即刻获胜）即可获胜。\n\n### 辣味模式\n收集 **2 组相连的三条**或 **7 的三条**（即刻获胜）即可获胜。\n\n两组三条的数字之和或之差为 7 时「相连」：\n\n| 三条 | 相连数字 |\n|:----:|:--------:|\n| 1 | 6、8 |\n| 2 | 5、9 |\n| 3 | 4、10 |\n| 4 | 3、11 |\n| 5 | 2、12 |\n| 6 | 1 |\n| 7 | —（即刻获胜）|\n| 8 | 1 |\n| 9 | 2 |\n| 10 | 3 |\n| 11 | 4 |\n| 12 | 5 |\n\n卡牌上也印有连接图标方便查阅。"
+      },
+      "options": [
+        { "label": { "en": "Team Variant", "zh": "团队变体" }, "next": "team" },
+        { "label": { "en": "Strategy Tips", "zh": "策略提示" }, "next": "strategy" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "team": {
+      "title": { "en": "Team Variant (4/6 Players)", "zh": "团队变体（4/6 人）" },
+      "content": {
+        "en": "For 4 or 6 players, you can play in **teams of two**. Partners sit across from each other.\n\n### Setup\nAfter dealing and sorting hands, each teammate passes **1 card** to their partner (placed in correct sorted position). No other communication allowed.\n\n### Rules\n- Play proceeds normally with individual turns\n- Partners **share** collected trios (place in front of one partner)\n- When an opposing team completes a trio, your team may perform **one swap** — exchange a card with your partner\n- Win conditions apply to the team's combined trios\n\n### Winning\nSame as standard rules, but using the team's combined collection:\n- Simple: 3 trios as a team\n- Spicy: 2 connected trios as a team\n- 7s: still instant win",
+        "zh": "4 人或 6 人游戏时，可以组成**两人一队**。队友面对面坐。\n\n### 准备\n发牌并排序后，每位队友向搭档传递 **1 张牌**（放入正确排序位置）。不允许其他交流。\n\n### 规则\n- 游戏照常进行，每人轮流操作\n- 队友**共享**收集到的三条（放在其中一人面前）\n- 对方队伍每完成一组三条，你的队伍可进行**一次换牌**——与搭档交换一张牌\n- 获胜条件以队伍共同收集的三条计算\n\n### 获胜\n与标准规则相同，但以队伍合计的三条判定：\n- 简单模式：队伍合计 3 组三条\n- 辣味模式：队伍合计 2 组相连三条\n- 7 的三条：仍然即刻获胜"
+      },
+      "options": [
+        { "label": { "en": "Strategy Tips", "zh": "策略提示" }, "next": "strategy" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "strategy": {
+      "title": { "en": "Strategy Tips", "zh": "策略提示" },
+      "content": {
+        "en": "### Memory\n- Track which numbers have been revealed and returned to specific locations\n- Remember what other players' lowest/highest cards were\n\n### Deduction\n- Watch hand sizes — fewer cards means a narrower range of possible numbers\n- If a player's lowest was revealed as 5, their remaining cards are all ≥ 5\n- Count how many of a number you've seen to gauge likelihood\n\n### Tactics\n- **Use your own hand** — revealing your own lowest/highest gives you safe, known information\n- **Chain reveals** — if someone's lowest was a 3, ask again for their new lowest (might still be 3!)\n- **In Spicy mode** — focus on connected pairs (e.g., 2s and 9s) rather than collecting random trios\n- **Protect your cards** — if you hold two of a number, opponents may target your extremes",
+        "zh": "### 记忆\n- 记住哪些数字在哪些位置被翻开后又放回\n- 记住其他玩家展示过的最大/最小牌\n\n### 推理\n- 注意手牌数量——牌越少，可能的数字范围越窄\n- 如果某人的最小牌是 5，则其剩余牌都 ≥ 5\n- 统计某个数字出现过几次来判断概率\n\n### 技巧\n- **善用自己的手牌**——翻开自己的最大/最小牌是已知的安全信息\n- **连续追问**——如果某人最小牌是 3，再问一次新的最小牌（可能还是 3！）\n- **辣味模式中**——专注于相连配对（如 2 和 9），而非随意收集\n- **保护手牌**——如果你持有某个数字的两张牌，对手可能会瞄准你的最大/最小牌"
+      },
+      "options": [
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

@@ -2,11 +2,11 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — 31 games (including expansions/variants), interactive decision trees, trainers, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — 32 games (including expansions/variants), interactive decision trees, trainers, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **31 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **32 game rules**: web-verified, complete bilingual rules (EN/ZH)
 - **24 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **12 automatic score trackers**: 6 engine types (formula / card-select / card-type / category / feature-calc / multi-player rounds), IndexedDB persistence
 - **Trainers**: Mahjong/Riichi tenpai trainer (4 difficulty levels), Blackjack basic strategy trainer, Texas Hold'em GTO preflop trainer
@@ -69,6 +69,7 @@ npm run build
 | Arena Magnate: Haw! | ✅ | ✅ | — |
 | Rummikub | ✅ | ✅ | — |
 | Blackjack | ✅ | ✅ | 🎯 Strategy Trainer |
+| TRIO | ✅ | ✅ | — |
 
 ### Series
 
@@ -108,7 +109,7 @@ content/games/
 │   ├── score.json                # Optional: score tracker config
 │   ├── zh/rules.md               # Chinese rules
 │   └── en/rules.md               # English rules
-└── ... (31 games total)
+└── ... (32 games total)
 
 public/data/
 ├── games-index.json              # Full game data (with rules, for chat tools)

@@ -4,10 +4,12 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { shortcodeToInlineHTML, replaceShortcodesText } from "@/lib/mahjong/shortcode";
 
+const basePath = process.env.__NEXT_ROUTER_BASEPATH || "";
+
 const CARD_DOWNLOADS: Record<string, string> = {
-  trio: "/downloads/trio-cards.zip",
-  cabo: "/downloads/cabo-cards.zip",
-  "texas-hold-em": "/downloads/texas-hold-em-cards.zip",
+  trio: `${basePath}/downloads/trio-cards.zip`,
+  cabo: `${basePath}/downloads/cabo-cards.zip`,
+  "texas-hold-em": `${basePath}/downloads/texas-hold-em-cards.zip`,
 };
 
 interface Props {

@@ -7,6 +7,7 @@ import { shortcodeToInlineHTML, replaceShortcodesText } from "@/lib/mahjong/shor
 const CARD_DOWNLOADS: Record<string, string> = {
   trio: "/downloads/trio-cards.zip",
   cabo: "/downloads/cabo-cards.zip",
+  "texas-hold-em": "/downloads/texas-hold-em-cards.zip",
 };
 
 interface Props {

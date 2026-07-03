@@ -1,0 +1,8 @@
+{
+  "name": { "en": "Bomb Busters", "zh": "炸弹克星" },
+  "players": "2-5",
+  "duration": "30 min",
+  "difficulty": "medium",
+  "tags": ["cooperative", "deduction", "campaign"],
+  "category": "board"
+}

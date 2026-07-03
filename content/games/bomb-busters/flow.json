@@ -1,0 +1,126 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Game Overview", "zh": "游戏概述" },
+      "content": {
+        "en": "**Bomb Busters** is a cooperative deduction game for 2–5 players. You form a bomb disposal squad, working together to cut matching wires before the bomb explodes.\n\n**Goal:** Cut all safe wires (blue + yellow) without detonating the bomb.\n\n**You lose if:**\n- A red wire is incorrectly targeted during a Dual Cut\n- The detonator dial reaches the skull space\n\nThe game features **66 progressive missions** that introduce new rules and equipment.",
+        "zh": "**炸弹克星**是一款 2–5 人的合作推理桌游。玩家组成拆弹小队，通过推理找出数值相同的导线并配对剪断，赶在炸弹爆炸前完成任务。\n\n**目标：** 剪断所有安全导线（蓝色 + 黄色），不触发爆炸。\n\n**失败条件：**\n- 双人拆弹时错误指向红色导线\n- 起爆器转盘到达终点\n\n游戏内含 **66 个递增难度的关卡**，逐步引入新规则与装备。"
+      },
+      "options": [
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "Your Turn Actions", "zh": "回合行动" }, "next": "turn" },
+        { "label": { "en": "Special Wires", "zh": "特殊导线" }, "next": "special-wires" },
+        { "label": { "en": "Equipment & Characters", "zh": "装备与角色" }, "next": "equipment" }
+      ]
+    },
+    "setup": {
+      "title": { "en": "Game Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. **Choose a mission** — missions are progressively harder; play in order is recommended\n2. **Designate a Captain** (random for first mission, then rotate left)\n3. **Distribute tile stands:**\n\n| Players | Captain | Others |\n|:-------:|:-------:|:------:|\n| 2 | 2 stands | 2 stands |\n| 3 | 2 stands | 1 stand |\n| 4–5 | 1 stand | 1 stand |\n\n4. **Prepare wires:** 48 blue wires + red/yellow wires per mission card. Place colored markers on the board.\n5. **Deal wires** face-down equally among all stands\n6. **Sort wires** left-to-right in ascending order (face toward owner)\n7. **Place equipment cards** on the board (locked until unlocked)\n8. **Place info tokens:** Each player places 1 info token pointing at one of their blue wires, revealing its value as a starting clue",
+        "zh": "1. **选择任务关卡** — 难度递增，建议按顺序游玩\n2. **指定队长**（首局随机，之后向左传递）\n3. **分配牌架：**\n\n| 人数 | 队长 | 其他人 |\n|:----:|:----:|:------:|\n| 2 | 2 个牌架 | 2 个牌架 |\n| 3 | 2 个牌架 | 1 个牌架 |\n| 4–5 | 1 个牌架 | 1 个牌架 |\n\n4. **准备导线：** 48 片蓝色导线 + 按任务卡指示加入红/黄色导线，在版图上放置标记物\n5. **面朝下平均分发**所有导线到各牌架\n6. **按从左到右、从小到大排列**（数字面朝向自己）\n7. **放置装备卡**（暂时锁定，需解锁后使用）\n8. **放置提示标记：** 每人在自己的一片蓝色导线前放置 1 个提示标记，揭示其数值作为初始线索"
+      },
+      "options": [
+        { "label": { "en": "Your Turn Actions", "zh": "回合行动" }, "next": "turn" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Your Turn — 3 Actions", "zh": "你的回合 — 三种行动" },
+      "content": {
+        "en": "Starting with the Captain, take turns clockwise. On your turn, you **must** do exactly **one** of these three actions:\n\n| Action | When to Use |\n|--------|-------------|\n| **Dual Cut** | Main action — guess a teammate's wire to cut a matching pair |\n| **Solo Cut** | All remaining wires of a value are in your hand |\n| **Reveal Red** | All your remaining wires are red |\n\nChoose an action to learn more:",
+        "zh": "从队长开始，按顺时针轮流。每回合**必须**执行以下三种行动之一：\n\n| 行动 | 使用时机 |\n|------|----------|\n| **双人拆弹** | 核心行动 — 猜测队友的导线，配对剪断 |\n| **单人拆弹** | 某数值的剩余导线全在你手中 |\n| **揭示红色** | 你的所有剩余导线都是红色 |\n\n选择一个行动了解详情："
+      },
+      "options": [
+        { "label": { "en": "Dual Cut (Main)", "zh": "双人拆弹（核心）" }, "next": "dual-cut" },
+        { "label": { "en": "Solo Cut", "zh": "单人拆弹" }, "next": "solo-cut" },
+        { "label": { "en": "Reveal Red Wires", "zh": "揭示红色导线" }, "next": "reveal-red" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "dual-cut": {
+      "title": { "en": "Dual Cut Action", "zh": "双人拆弹" },
+      "content": {
+        "en": "The core action — you cut 2 wires of the same value: 1 yours + 1 teammate's.\n\n### How it works\n1. Point at a specific wire on a teammate's stand\n2. State a value: *\"This wire is a 9\"*\n3. Resolve:\n\n| Result | What Happens |\n|--------|-------------|\n| ✅ **Correct** | Both wires revealed and placed face-up — cut! |\n| ❌ **Wrong (blue/yellow)** | Detonator advances 1 space. Teammate places an info token showing the true value. |\n| 💥 **Wrong (red wire)** | Bomb **explodes immediately** — mission failed! |\n\n**Important:** You do NOT reveal where your matching wire is in your hand.\n\n**For yellow wires:** Say *\"This wire is yellow\"* — all yellows share the value \"YELLOW\" during gameplay.",
+        "zh": "核心行动 — 剪断 2 片相同数值的导线：你的 1 片 + 队友的 1 片。\n\n### 操作步骤\n1. 指向队友牌架上的某片导线\n2. 宣告数值：*「这片导线是 9」*\n3. 结算：\n\n| 结果 | 效果 |\n|------|------|\n| ✅ **猜对** | 双方导线翻面——成功剪断！ |\n| ❌ **猜错（蓝/黄色）** | 起爆器前进 1 格。队友放置提示标记揭示真实数值。 |\n| 💥 **猜错（红色导线）** | 炸弹**立即爆炸**——任务失败！ |\n\n**重要：** 主动方不需要展示自己手中配对导线的位置。\n\n**黄色导线：** 说「这片导线是黄色」——游戏中所有黄色导线统一视为「黄色」数值。"
+      },
+      "options": [
+        { "label": { "en": "Solo Cut", "zh": "单人拆弹" }, "next": "solo-cut" },
+        { "label": { "en": "Special Wires", "zh": "特殊导线" }, "next": "special-wires" },
+        { "label": { "en": "Communication Rules", "zh": "交流规则" }, "next": "communication" },
+        { "label": { "en": "Back to Actions", "zh": "返回行动" }, "next": "turn" }
+      ]
+    },
+    "solo-cut": {
+      "title": { "en": "Solo Cut Action", "zh": "单人拆弹" },
+      "content": {
+        "en": "If the remaining wires of a certain value are **all in your hand**, you can cut them without a teammate.\n\n### When you can Solo Cut\n- You have **all 4** wires of the same value → cut all 4 at once\n- **2** wires of that value were already cut, and you hold the **remaining 2** → cut both\n\nSolo cuts are based on **public information** (validation tokens on the board show which values have pairs cut) and **cannot fail**.\n\n**For yellow wires:** You can Solo Cut only if you hold ALL remaining yellow wires.",
+        "zh": "如果某个数值的剩余导线**全部在你手中**，可以不经队友直接剪断。\n\n### 可以单人拆弹的时机\n- 手中有同一数值的**全部 4 片** → 一次剪断 4 片\n- 该数值已有 **2 片**被剪断，剩余 **2 片**均在你手中 → 一次剪断 2 片\n\n单人拆弹基于**公开信息**（版图上的验证标记显示哪些数值已剪断一对），**不会失败**。\n\n**黄色导线：** 只有你手中持有所有剩余的黄色导线时，才能单人拆弹。"
+      },
+      "options": [
+        { "label": { "en": "Reveal Red Wires", "zh": "揭示红色导线" }, "next": "reveal-red" },
+        { "label": { "en": "Dual Cut", "zh": "双人拆弹" }, "next": "dual-cut" },
+        { "label": { "en": "Back to Actions", "zh": "返回行动" }, "next": "turn" }
+      ]
+    },
+    "reveal-red": {
+      "title": { "en": "Reveal Red Wires", "zh": "揭示红色导线" },
+      "content": {
+        "en": "This action is available **only** when all your remaining uncut wires are **red**.\n\nReveal them by placing them face-up in front of your stand.\n\nAfter revealing, your tile stand is empty — you are **out of play** for the rest of the mission. Your turns are simply skipped.\n\n**Note:** This helps the team because it confirms which red values are accounted for.",
+        "zh": "**仅当**你手中所有未剪断的导线都是**红色**时，才能执行此行动。\n\n将红色导线翻面放在牌架前。\n\n揭示后你的牌架清空——本任务中**退出行动**，跳过你的回合。\n\n**提示：** 这对团队有帮助，因为可以确认哪些红色导线的位置已经明确。"
+      },
+      "options": [
+        { "label": { "en": "Dual Cut", "zh": "双人拆弹" }, "next": "dual-cut" },
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" },
+        { "label": { "en": "Back to Actions", "zh": "返回行动" }, "next": "turn" }
+      ]
+    },
+    "special-wires": {
+      "title": { "en": "Special Wires", "zh": "特殊导线" },
+      "content": {
+        "en": "### Yellow Wires 🟡\n- Printed numbers (e.g., \"3.1\") are **only for sorting** during setup\n- During gameplay, all yellow wires share the value **\"YELLOW\"**\n- To Dual Cut: say *\"This wire is yellow\"*\n- If you guess wrong on a yellow wire → yellow info token placed, detonator advances\n\n### Red Wires 🔴\n- Printed numbers (e.g., \"5.5\") are **only for sorting** during setup\n- During gameplay, all red wires share the value **\"RED\"**\n- If a Dual Cut **incorrectly targets** a red wire → 💥 bomb explodes immediately!\n- Red wires are never cut — they remain on stands until revealed via the \"Reveal Red\" action\n\n### Validation Tokens\nWhen all 4 wires of a blue value have been cut, place a validation token on that number on the board. This visual reminder helps track progress.",
+        "zh": "### 黄色导线 🟡\n- 印刷数字（如\"3.1\"）**仅用于设置时排序**\n- 游戏中所有黄色导线统一视为**「黄色」**数值\n- 双人拆弹时说「这片导线是黄色」\n- 猜错黄色导线 → 放置黄色提示标记，起爆器前进\n\n### 红色导线 🔴\n- 印刷数字（如\"5.5\"）**仅用于设置时排序**\n- 游戏中所有红色导线统一视为**「红色」**数值\n- 双人拆弹时**错误指向**红色导线 → 💥 炸弹立即爆炸！\n- 红色导线永远不会被「剪断」——它们留在牌架上，直到通过「揭示红色」行动展示\n\n### 验证标记\n当某个蓝色数值的全部 4 片导线都被剪断后，在版图对应数字上放置验证标记。这有助于追踪进度。"
+      },
+      "options": [
+        { "label": { "en": "Dual Cut", "zh": "双人拆弹" }, "next": "dual-cut" },
+        { "label": { "en": "Equipment & Characters", "zh": "装备与角色" }, "next": "equipment" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "equipment": {
+      "title": { "en": "Equipment & Characters", "zh": "装备与角色" },
+      "content": {
+        "en": "### Equipment Cards\n- Each mission provides equipment cards equal to player count\n- Equipment **unlocks** when 2 wires of the value shown on the card have been cut\n- Each piece of equipment can be used **once per mission**\n- Most can be used by **anyone at any time** (even not on your turn)\n- Multiple equipment can be used in a row\n\n### Character Cards\nEach player gets a character card with a **unique one-time ability**:\n- **Double Detector:** During a Dual Cut, point at 2 of a teammate's wires instead of 1. If either matches, success! If both match, the teammate chooses which to cut.\n\n### Tip\nEquipment and character abilities are powerful — coordinate with your team on when to use them for maximum impact.",
+        "zh": "### 装备卡\n- 每个任务提供与玩家人数相同的装备卡\n- 装备在该卡标示数值的 **2 片导线被剪断后解锁**\n- 每件装备**每局只能使用一次**\n- 大多数可由**任何人在任何时机使用**（即使不在你的回合）\n- 可以连续使用多件装备\n\n### 角色卡\n每位玩家拥有一张角色卡，带有**独特的一次性能力**：\n- **双重探测器：** 双人拆弹时可以指向队友的 2 片导线（而非 1 片）。任一匹配即成功！如果两片都匹配，队友选择剪断哪片。\n\n### 提示\n装备和角色能力非常强大——与队友协调使用时机可以发挥最大效果。"
+      },
+      "options": [
+        { "label": { "en": "Communication Rules", "zh": "交流规则" }, "next": "communication" },
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "communication": {
+      "title": { "en": "Communication Rules", "zh": "交流规则" },
+      "content": {
+        "en": "Communication is intentionally limited to increase the challenge.\n\n### 🚫 Forbidden\n- Talking about the wires in your hand\n- Implying wire values (hints, gestures, coded language)\n- Recalling information from previous turns aloud\n- Sharing your guesses or assumptions\n\n### ✅ Allowed\n- Discussing **general tactics** (\"maybe we should focus on lower numbers\")\n- Discussing **equipment usage** (\"should we use the detector now?\")\n- Reminding teammates about **special rules** or available abilities\n- Recalling **public information** (validation tokens, info tokens already placed)\n\nThe tension between what you know and what you can say is the heart of the game!",
+        "zh": "交流规则被刻意限制以增加挑战性。\n\n### 🚫 禁止\n- 讨论自己手中的导线\n- 暗示导线数值（提示、手势、暗语）\n- 大声回顾先前回合的信息\n- 分享猜测或推断\n\n### ✅ 允许\n- 讨论**整体策略**（「也许我们应该先关注小数字」）\n- 讨论**装备使用**（「现在要不要用探测器？」）\n- 提醒队友**特殊规则**或可用的能力\n- 回顾**公开信息**（已放置的验证标记、提示标记）\n\n你所知道的和你能说出口的之间的张力，正是这款游戏的核心魅力！"
+      },
+      "options": [
+        { "label": { "en": "Your Turn Actions", "zh": "回合行动" }, "next": "turn" },
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "game-end": {
+      "title": { "en": "Game End", "zh": "游戏结束" },
+      "content": {
+        "en": "### ✅ Victory\nAll tile stands are empty — every wire has been accounted for!\n\n### ❌ Defeat\nThe bomb explodes:\n- A **red wire** was incorrectly targeted during a Dual Cut\n- The **detonator dial** reached the skull space (too many failed guesses)\n\nIf a mission fails, change the Captain and try again!\n\n### Campaign Progression\n- Missions 1–3: **Training** (basics)\n- Missions 4–7: **Intermediate** (advanced concepts)\n- Mission 8: **Final exam** → success unlocks the first Surprise Box (missions 9–19)\n- Each Surprise Box introduces new rules, equipment, and challenges\n- Track your wins and losses on the box's score sheet",
+        "zh": "### ✅ 胜利\n所有牌架清空——所有导线均已处理完毕！\n\n### ❌ 失败\n炸弹爆炸：\n- 双人拆弹时**错误指向红色导线**\n- **起爆器转盘**到达终点（猜错次数过多）\n\n任务失败后可更换队长重新挑战！\n\n### 传承进程\n- 第 1–3 关：**训练关卡**（基础教学）\n- 第 4–7 关：**进阶关卡**（高级概念）\n- 第 8 关：**毕业考试** → 通过后解锁第一个惊喜盒子（第 9–19 关）\n- 每个惊喜盒子引入新规则、新装备和新挑战\n- 可在盒子背面记录通关进度"
+      },
+      "options": [
+        { "label": { "en": "Back to Setup", "zh": "返回准备" }, "next": "setup" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    }
+  }
+}

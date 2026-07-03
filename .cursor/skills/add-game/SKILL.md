@@ -33,15 +33,15 @@ If rules can't be found, leave `rules.md` with only the heading — don't guess.
 
 ```
 content/games/{slug}/
-├── meta.json
-├── flow.json      # optional — single bilingual decision tree
-├── score.json     # optional — score tracker config
-├── trainer.json   # optional — tenpai trainer config
-├── calculator.json # optional — score calculator config (e.g., riichi fan/fu)
+├── meta.json       # required
+├── flow.json       # required — single bilingual decision tree
+├── score.json      # if applicable — score tracker config
+├── trainer.json    # if applicable — trainer config
+├── calculator.json # if applicable — score calculator config (e.g., riichi fan/fu)
 ├── en/
-│   └── rules.md   # required
+│   └── rules.md    # required
 └── zh/
-    └── rules.md   # required
+    └── rules.md    # required
 ```
 
 **Slug rules:** lowercase, hyphens only, no special characters. Match existing conventions.
@@ -177,16 +177,16 @@ Add to `content/games/index.json`:
 
 The order in this file determines display order on the homepage (sorted alphabetically by English name at render time).
 
-### Step 6: Add flow.json (optional)
+### Step 6: Create flow.json (REQUIRED)
 
-Only if the game benefits from step-by-step interactive guidance. A flow is a **directed graph** — each node is a rule snippet with jump options.
+Every game **must** have an interactive decision tree. A flow is a **directed graph** — each node is a rule snippet with jump options, allowing players to quickly navigate rules during gameplay.
 
 Place `flow.json` in the game's root directory (not inside locale folders):
 
 ```
 content/games/{slug}/
 ├── meta.json
-├── flow.json       # optional — single bilingual file
+├── flow.json       # required — single bilingual file
 ├── en/rules.md
 └── zh/rules.md
 ```
@@ -230,6 +230,50 @@ content/games/{slug}/
 - Content values support full GFM markdown (tables, lists, bold, etc.)
 - Keep each node focused on one topic — don't cram too much into one node
 
+#### Flow design guidelines
+
+A good flow typically covers these topics (adapt to the game):
+1. **Setup / 游戏准备** — how to set up the game (startNode)
+2. **Turn overview / 回合概览** — what happens on each turn
+3. **Actions / 行动选项** — one node per major action type
+4. **Special mechanics** — unique rules, special cards/tiles, etc.
+5. **Scoring / 计分** — how scoring works
+6. **Game end / 游戏结束** — win/loss conditions
+
+Aim for **5–15 nodes**. Fewer is better for simple games; complex games may need more. Every node should link to at least one other node (no dead ends except terminal nodes like "Game End").
+
+### Step 6b: Evaluate and create score.json (if applicable)
+
+After creating the flow, evaluate whether the game needs a score tracker. **Create `score.json` if ANY of these apply:**
+
+- The game has point-based scoring (not just win/lose)
+- Players accumulate scores across rounds
+- Scoring involves counting cards, tiles, or resources with different values
+- There's a target score to reach
+- End-game scoring requires adding up multiple categories
+
+**Skip `score.json` if:**
+- The game is purely win/lose (no point scoring)
+- Scoring is trivial (e.g., "whoever finishes first wins")
+- The game is cooperative with pass/fail outcomes
+
+Refer to the "Adding a Score Tracker" section below for engine selection and examples.
+
+### Step 6c: Evaluate and create trainer.json (if applicable)
+
+Evaluate whether the game benefits from a dedicated trainer mode. **Create `trainer.json` if ANY of these apply:**
+
+- The game has a skill-based element that benefits from practice (e.g., tile reading, hand evaluation, strategy drills)
+- There are pattern recognition skills players can train (e.g., tenpai detection, card counting, optimal plays)
+- The game has a well-defined "correct answer" for given situations that can be quizzed
+
+**Skip `trainer.json` if:**
+- The game is primarily luck-based with no trainable skills
+- Strategy is too situational or subjective to quiz
+- No existing trainer engine supports the game's training needs
+
+Currently supported trainer types: `tenpai` (Mahjong-based). For new trainer types, you would need to implement a new engine in `src/`.
+
 ### Step 7: Update documentation
 
 Update these files to reflect the new game:
@@ -254,8 +298,23 @@ The `prebuild` script (`scripts/generate-game-data.mjs`) auto-generates `public/
 - [ ] New game appears on homepage
 - [ ] Clicking the card opens the correct rule page
 - [ ] Language switcher works on the rule page
-- [ ] Decision tree works (if flow.json added)
+- [ ] Decision tree loads and navigates correctly
+- [ ] Score tracker works (if score.json added)
 - [ ] AI chat works with game-specific mode (tests rule context injection)
+
+### Step 9: Remind user to add cover image
+
+After all content is created and build succeeds, **always** remind the user to add a cover image:
+
+> 游戏内容已全部添加完成！请记得为新游戏添加封面图：
+>
+> 将图片放到 `public/images/games/{slug}.webp`（推荐）或 `.jpeg` / `.png` 格式。
+>
+> 图片建议：游戏盒封面或实物照片，推荐尺寸 400×400 以上，webp 格式可减小体积。
+
+Cover image path convention: `public/images/games/{slug}.{ext}` — the system auto-discovers the image by slug.
+
+Do NOT skip this reminder. The agent cannot generate or download cover images, so this must be a manual step for the user.
 
 ---
 
@@ -449,14 +508,15 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] Series fields set correctly (if applicable)
 - [ ] `en/rules.md` written with standard structure
 - [ ] `zh/rules.md` written (matching English content)
-- [ ] `flow.json` added at game root with bilingual title/content/label (optional)
-- [ ] `score.json` added for games with scoring (optional)
-- [ ] `trainer.json` added for games with tenpai training (optional)
-- [ ] `calculator.json` added for games with score calculators (optional)
+- [ ] `flow.json` created at game root with bilingual title/content/label (**required**)
+- [ ] `score.json` evaluated — created if game has point-based scoring
+- [ ] `trainer.json` evaluated — created if game has trainable skills
+- [ ] `calculator.json` added for games with score calculators (if applicable)
 - [ ] Slug registered in `content/games/index.json`
 - [ ] `README.md` and `README-en.md` updated
 - [ ] `npm run build` succeeds
-- [ ] Visual check: card renders, links work, AI chat works
+- [ ] Visual check: card renders, links work, decision tree works, AI chat works
+- [ ] Reminded user to add cover image to `public/images/games/{slug}.webp`
 
 ---
 

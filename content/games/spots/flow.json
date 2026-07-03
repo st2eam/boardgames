@@ -1,0 +1,113 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Game Overview", "zh": "游戏概述" },
+      "content": {
+        "en": "**Spots** is a push-your-luck dice game for 1–4 players. Roll dice and place them on matching spaces on your dog cards. Fill all the spots to score your dogs!\n\n**Goal:** Be the first to score **6 dog cards**.\n\n**The catch:** Dice you can't place go to your yard. If your buried dice total more than 7 — you **bust** and lose everything!",
+        "zh": "**狗运当骰**是一款 1–4 人的推测运气骰子游戏。掷骰子，将匹配的骰子放在狗狗卡的对应格子里。填满所有格子即可计分！\n\n**目标：** 率先计分满 **6 张狗狗卡**。\n\n**风险：** 无法放置的骰子必须埋入后院。如果后院骰子点数总和超过 7——你就**爆掉**了，失去一切！"
+      },
+      "options": [
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Busting", "zh": "爆掉机制" }, "next": "busting" },
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" }
+      ]
+    },
+    "setup": {
+      "title": { "en": "Game Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. Place these **6 trick tiles** face-up in the center: Howl, Walk, Run, Roll Over, Fetch, Beg\n2. Shuffle the **dog card deck**, deal **2 cards** to each player (gray side up)\n3. Place all **dice** and **treats** in shared piles\n4. Each player takes **1 yard board**, **1 treat**, and **1 die**\n5. Everyone rolls their die and buries it in their yard\n6. Highest buried die goes first (reroll ties)\n\nEach player starts with:\n- 2 dog cards (gray side up, with empty dice spaces)\n- 1 yard board (with 1 buried die)\n- 1 treat",
+        "zh": "1. 将以下 **6 张技能板块**正面朝上放在桌面中央：嚎叫、散步、奔跑、翻滚、捡球、乞讨\n2. 洗混**狗狗卡牌堆**，给每人发 **2 张**（灰色面朝上）\n3. 将所有**骰子**和**零食**放在公共区域\n4. 每人拿取 **1 个后院板**、**1 个零食**和 **1 个骰子**\n5. 每人掷出骰子并埋入后院\n6. 后院骰子最高者先手（平局重骰）\n\n每位玩家起始拥有：\n- 2 张狗狗卡（灰色面朝上，有空骰子格）\n- 1 个后院板（已有 1 个埋的骰子）\n- 1 个零食"
+      },
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Your Turn", "zh": "你的回合" },
+      "content": {
+        "en": "On your turn, choose **one** of two actions:\n\n| Action | What You Do |\n|--------|------------|\n| **Do a Trick** | Pick a trick tile, roll dice, place on dogs |\n| **Score Your Dogs** | Lock in completed dogs, draw new ones |\n\nMost turns you'll be doing tricks to fill your dogs with dice.",
+        "zh": "每回合选择以下**一种**行动：\n\n| 行动 | 操作 |\n|------|------|\n| **执行技能** | 选一张技能板块，掷骰子，放到狗狗卡上 |\n| **为狗狗计分** | 锁定已完成的狗狗卡，抽取新卡 |\n\n大多数回合你会执行技能来用骰子填满狗狗卡。"
+      },
+      "options": [
+        { "label": { "en": "Do a Trick", "zh": "执行技能" }, "next": "do-trick" },
+        { "label": { "en": "Score Your Dogs", "zh": "为狗狗计分" }, "next": "scoring" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "do-trick": {
+      "title": { "en": "Do a Trick", "zh": "执行技能" },
+      "content": {
+        "en": "1. Choose any **face-up** trick tile\n2. Flip it **face-down**\n3. Follow all steps on it **in order**\n\nMost tricks involve rolling dice. After rolling:\n- **Place** matching dice on your dogs (e.g., die showing 4 → space marked 4)\n- **Bury** unplaceable dice in your yard\n\n### Key rules\n- Steps are mandatory unless they say \"may\"\n- If you can't perform a step, skip it\n- Some steps can be **repeated** (like Run) until you stop or bust\n- Some tricks are stronger based on **paw print icons** on your dogs\n- After rolling, place/bury ALL dice before any next roll",
+        "zh": "1. 选择任意一张**正面朝上**的技能板块\n2. 将其**翻面**\n3. 按板块上列出的步骤**依次执行**\n\n大多数技能涉及掷骰子。掷出后：\n- **放置**匹配的骰子到狗狗卡上（如掷出 4 点 → 放到标有 4 的格子）\n- **埋入**无法放置的骰子到后院\n\n### 关键规则\n- 步骤为强制执行，除非注明「可选」\n- 无法执行的步骤跳过\n- 部分步骤可**重复执行**（如奔跑），直到你决定停止或爆掉\n- 部分技能会因狗狗卡上的**爪印图标**数量增强\n- 掷骰后，必须先放置/埋入全部骰子，才能进行下一次投掷"
+      },
+      "options": [
+        { "label": { "en": "Using Treats (Reroll)", "zh": "使用零食（重骰）" }, "next": "treats" },
+        { "label": { "en": "Busting", "zh": "爆掉机制" }, "next": "busting" },
+        { "label": { "en": "Resetting Trick Tiles", "zh": "重置技能板块" }, "next": "trick-reset" },
+        { "label": { "en": "Back to Turn", "zh": "返回回合" }, "next": "turn" }
+      ]
+    },
+    "treats": {
+      "title": { "en": "Using Treats (Reroll)", "zh": "使用零食（重骰）" },
+      "content": {
+        "en": "Immediately after rolling — but **before** placing or burying — you can spend **1 treat** to reroll.\n\n### Rules\n- You must reroll **ALL** dice from that roll — you can't keep some\n- No limit on treats per turn — keep rerolling as long as you have treats\n- You can only reroll your **most recent** roll\n\n### Getting treats\n- Start with 1 treat\n- When trick tiles are reset (only 1 left face-up), 1 treat is placed on the last tile\n- The next player who picks that tile gets the treat\n\nTreats are your safety net — use them wisely to avoid busting!",
+        "zh": "掷骰后、放置/埋入**之前**，可以花费 **1 个零食**进行重骰。\n\n### 规则\n- 必须重骰该次投掷的**全部**骰子——不能只选部分\n- 每回合可花费的零食没有上限——有零食就可以一直重骰\n- 只能对**最近一次**投掷的骰子使用\n\n### 获取零食\n- 起始拥有 1 个零食\n- 重置技能板块时（仅剩 1 张正面朝上），1 个零食放到最后那张板块上\n- 下一个选择该板块的玩家获得零食\n\n零食是你的安全网——明智使用以避免爆掉！"
+      },
+      "options": [
+        { "label": { "en": "Busting", "zh": "爆掉机制" }, "next": "busting" },
+        { "label": { "en": "Do a Trick", "zh": "执行技能" }, "next": "do-trick" },
+        { "label": { "en": "Back to Turn", "zh": "返回回合" }, "next": "turn" }
+      ]
+    },
+    "busting": {
+      "title": { "en": "Busting", "zh": "爆掉机制" },
+      "content": {
+        "en": "If your **buried dice total exceeds 7**, you bust! 💥\n\n### When you bust\n- Turn ends **immediately** (even mid-trick)\n- **Discard all dice** on your dogs (all progress lost!)\n- **Discard all buried dice**\n\n### Example\nYou have a 3 and a 2 buried (total 5). You roll a 6 — can't place it.\n- Bury the 6 → total becomes 11 → **bust!**\n- Or spend a treat to reroll before burying\n\n### Important\n- Rerolling happens **before** burying, so treats can save you\n- Scored dogs (face-down) are **safe** — they're never affected by busting\n- Only unscored (gray side up) dogs lose their dice",
+        "zh": "如果后院中**埋的骰子点数总和超过 7**，你就爆掉了！💥\n\n### 爆掉时\n- 回合**立即结束**（即使技能步骤未完成）\n- **弃掉**狗狗卡上所有骰子（进度全部丢失！）\n- **弃掉**后院中所有骰子\n\n### 举例\n后院已有 3 和 2（总计 5），你掷出 6 点——无法放置。\n- 埋入 6 → 总计变为 11 → **爆掉！**\n- 或者在埋入前花费零食重骰\n\n### 重要\n- 重骰发生在埋入**之前**，所以零食可以救你\n- 已计分的狗狗卡（翻面的）是**安全的**——永远不受爆掉影响\n- 只有未计分的（灰色面朝上的）狗狗卡会丢失骰子"
+      },
+      "options": [
+        { "label": { "en": "Score Your Dogs", "zh": "为狗狗计分" }, "next": "scoring" },
+        { "label": { "en": "Using Treats", "zh": "使用零食" }, "next": "treats" },
+        { "label": { "en": "Back to Turn", "zh": "返回回合" }, "next": "turn" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Scoring Your Dogs", "zh": "为狗狗计分" },
+      "content": {
+        "en": "There are **two ways** to score:\n\n### 🐢 Slow and Steady (use your turn)\nInstead of doing a trick:\n1. Discard all dice on **completed** dogs (all spaces filled)\n2. Flip completed dogs **face-down** (scored!)\n3. Draw **1 new dog** per scored dog (up to 6 total cards)\n\n- Must have at least 1 completed dog to score\n- Must score **ALL** completed dogs at once\n\n### ⚡ Fast and Risky (free!)\nIf you fill **ALL** your face-up dogs during a trick → score **instantly** without spending a turn!\n\n- Must place/bury all dice from your last roll first\n- If that roll busts you → no scoring\n- After scoring, **continue** the rest of the trick with your new dogs\n\nThis is the reward for being brave (or lucky)!",
+        "zh": "有**两种**计分方式：\n\n### 🐢 稳扎稳打（消耗你的回合）\n不执行技能，改为计分：\n1. 弃掉所有**已完成**狗狗卡（全部格子填满）上的骰子\n2. 将完成的狗狗卡**翻到背面**（已计分！）\n3. 每计分一张，**抽取 1 张新的狗狗卡**（总数上限 6 张）\n\n- 必须有至少 1 张完成的狗狗卡才能计分\n- 必须将**所有**完成的卡一起计分\n\n### ⚡ 快速冒险（免费！）\n如果在执行技能过程中填满了**所有**正面朝上的狗狗卡 → **立即计分**，无需花费回合！\n\n- 必须先将最近一次投掷的所有骰子放置或埋入\n- 如果这次投掷导致爆掉 → 无法计分\n- 计分后，用新的狗狗卡**继续**技能的剩余步骤\n\n这是对勇敢（或幸运）的奖励！"
+      },
+      "options": [
+        { "label": { "en": "Winning", "zh": "获胜条件" }, "next": "winning" },
+        { "label": { "en": "Busting", "zh": "爆掉机制" }, "next": "busting" },
+        { "label": { "en": "Back to Turn", "zh": "返回回合" }, "next": "turn" }
+      ]
+    },
+    "trick-reset": {
+      "title": { "en": "Resetting Trick Tiles", "zh": "重置技能板块" },
+      "content": {
+        "en": "When only **1 face-up trick tile** remains at the start of your turn:\n\n1. Place **1 treat** from the supply onto the last face-up tile\n2. Flip **ALL** trick tiles back **face-up**\n\nThe treat stays on that tile — the next player who chooses it gets the treat as a bonus!\n\nThis ensures players always have meaningful choices and keeps treats circulating.",
+        "zh": "当回合开始时仅剩 **1 张正面朝上**的技能板块：\n\n1. 从供应区放 **1 个零食**到该板块上\n2. 将**所有**技能板块翻回**正面**\n\n零食留在那张板块上——下一个选择它的玩家可以获得这个零食作为奖励！\n\n这确保了玩家始终有多个选择，同时保持零食的流通。"
+      },
+      "options": [
+        { "label": { "en": "Do a Trick", "zh": "执行技能" }, "next": "do-trick" },
+        { "label": { "en": "Back to Turn", "zh": "返回回合" }, "next": "turn" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "winning": {
+      "title": { "en": "Winning the Game", "zh": "获胜条件" },
+      "content": {
+        "en": "The first player to have **6 scored (face-down) dog cards** wins immediately!\n\n### Dog Card Limit\nYou can never have more than **6 dog cards** total (scored + unscored). Stop drawing once you reach 6.\n\n### Running Out of Dice\nIf not enough dice are available, take what you can. In the extremely rare case of zero dice at the start of your turn, all players bust immediately!\n\n### Solo Mode\nPlay against **d0g** (AI opponent). d0g starts with 1 treat, no yard, no dogs.\n\nOn d0g's turn, roll a die (tiles labeled 1–6):\n- Face-up tile → d0g flips it down, takes treats\n- Face-down tile → d0g scores the top dog card\n- d0g with 2+ treats → returns 2, scores top card\n\nYou win if you score 6 dogs first!",
+        "zh": "第一个拥有 **6 张已计分（翻面）狗狗卡**的玩家立即获胜！\n\n### 狗狗卡上限\n手中不能超过 **6 张**狗狗卡（已计分 + 未计分）。达到 6 张后停止抽取。\n\n### 骰子不足\n骰子不够时有多少拿多少。极少情况下回合开始时完全没有骰子，则所有玩家立即爆掉！\n\n### 单人模式\n对抗 **d0g**（AI 对手）。d0g 起始 1 个零食，无后院，无狗狗卡。\n\nd0g 的回合掷一个骰子（板块编号 1–6）：\n- 对应板块正面朝上 → d0g 翻面并拿走零食\n- 对应板块已翻面 → d0g 计分牌堆顶部的狗狗卡\n- d0g 拥有 2 个以上零食 → 归还 2 个，计分顶部卡\n\n你先计分满 6 张就赢！"
+      },
+      "options": [
+        { "label": { "en": "Back to Setup", "zh": "返回准备" }, "next": "setup" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    }
+  }
+}

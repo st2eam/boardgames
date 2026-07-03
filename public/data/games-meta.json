@@ -577,5 +577,37 @@
     ],
     "category": "card",
     "slug": "trio"
+  },
+  {
+    "name": {
+      "en": "Bomb Busters",
+      "zh": "炸弹克星"
+    },
+    "players": "2-5",
+    "duration": "30 min",
+    "difficulty": "medium",
+    "tags": [
+      "cooperative",
+      "deduction",
+      "campaign"
+    ],
+    "category": "board",
+    "slug": "bomb-busters"
+  },
+  {
+    "name": {
+      "en": "Spots",
+      "zh": "狗运当骰"
+    },
+    "players": "1-4",
+    "duration": "15-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "dice",
+      "push-your-luck",
+      "family"
+    ],
+    "category": "party",
+    "slug": "spots"
   }
 ]

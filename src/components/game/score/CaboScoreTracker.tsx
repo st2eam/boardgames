@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import { normalizeNumericInput } from "@/lib/score/numberInput";
 
 interface PlayerData {
   name: string;
@@ -298,10 +299,13 @@ export function CaboScoreTracker({ locale }: Props) {
               <div key={i} className="min-w-0 text-center">
                 <div className="truncate text-[10px] text-stone-400 mb-1">{p.name}</div>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   value={inputs[i]}
                   onChange={(e) => {
-                    setInputs((prev) => prev.map((v, idx) => (idx === i ? e.target.value : v)));
+                    const value = normalizeNumericInput(e.target.value);
+                    setInputs((prev) => prev.map((v, idx) => (idx === i ? value : v)));
                     setRoundError("");
                   }}
                   placeholder="0"

@@ -9,7 +9,7 @@
     "difficulty": "medium",
     "tags": [
       "poker",
-      "strategy"
+      "bluffing"
     ],
     "category": "card",
     "price": 354,
@@ -28,7 +28,7 @@
     "duration": "20-30 min",
     "difficulty": "easy",
     "tags": [
-      "strategy"
+      "area-control"
     ],
     "category": "card",
     "price": 10,
@@ -47,7 +47,7 @@
     "duration": "15-30 min",
     "difficulty": "medium",
     "tags": [
-      "strategy",
+      "push-your-luck",
       "party"
     ],
     "category": "card",
@@ -67,7 +67,8 @@
     "duration": "15-20 min",
     "difficulty": "easy",
     "tags": [
-      "family"
+      "family",
+      "take-that"
     ],
     "category": "card",
     "price": 46,
@@ -86,8 +87,8 @@
     "duration": "15-20 min",
     "difficulty": "easy",
     "tags": [
-      "strategy",
-      "family"
+      "family",
+      "area-control"
     ],
     "category": "card",
     "price": 46,
@@ -106,7 +107,8 @@
     "duration": "10-15 min",
     "difficulty": "easy",
     "tags": [
-      "family"
+      "family",
+      "take-that"
     ],
     "category": "card",
     "family": "drecksau",
@@ -128,7 +130,8 @@
     "duration": "10-15 min",
     "difficulty": "easy",
     "tags": [
-      "family"
+      "family",
+      "take-that"
     ],
     "category": "card",
     "family": "drecksau",
@@ -151,8 +154,8 @@
     "duration": "30-60 min",
     "difficulty": "medium",
     "tags": [
-      "strategy",
-      "dice"
+      "dice",
+      "auction"
     ],
     "category": "board",
     "price": 49,
@@ -171,8 +174,8 @@
     "duration": "60-120 min",
     "difficulty": "medium",
     "tags": [
-      "strategy",
-      "family"
+      "trading",
+      "engine-building"
     ],
     "category": "board",
     "family": "catan",
@@ -194,8 +197,8 @@
     "duration": "100-150 min",
     "difficulty": "medium",
     "tags": [
-      "strategy",
-      "family"
+      "trading",
+      "engine-building"
     ],
     "category": "board",
     "family": "catan",
@@ -218,7 +221,8 @@
     "duration": "30-45 min",
     "difficulty": "easy",
     "tags": [
-      "family"
+      "set-collection",
+      "push-your-luck"
     ],
     "category": "card",
     "family": "sea-salt-paper",
@@ -240,7 +244,8 @@
     "duration": "30-45 min",
     "difficulty": "easy",
     "tags": [
-      "family"
+      "set-collection",
+      "push-your-luck"
     ],
     "category": "card",
     "family": "sea-salt-paper",
@@ -263,7 +268,8 @@
     "duration": "30-60 min",
     "difficulty": "hard",
     "tags": [
-      "strategy"
+      "deduction",
+      "bluffing"
     ],
     "category": "card",
     "family": "legends-of-the-three-kingdoms",
@@ -285,8 +291,8 @@
     "duration": "30-60 min",
     "difficulty": "hard",
     "tags": [
-      "strategy",
-      "deduction"
+      "deduction",
+      "bluffing"
     ],
     "category": "card",
     "family": "legends-of-the-three-kingdoms",
@@ -309,7 +315,7 @@
     "duration": "45-60 min",
     "difficulty": "medium",
     "tags": [
-      "strategy"
+      "auction"
     ],
     "category": "card",
     "price": 59,
@@ -420,7 +426,8 @@
     "duration": "35-45 min",
     "difficulty": "medium",
     "tags": [
-      "strategy"
+      "tile-placement",
+      "area-control"
     ],
     "category": "board",
     "family": "carcassonne",
@@ -443,7 +450,8 @@
     "duration": "35-45 min",
     "difficulty": "medium",
     "tags": [
-      "strategy"
+      "tile-placement",
+      "area-control"
     ],
     "category": "board",
     "family": "carcassonne",
@@ -466,8 +474,8 @@
     "duration": "30-60 min",
     "difficulty": "medium",
     "tags": [
-      "strategy",
-      "deduction"
+      "deduction",
+      "bluffing"
     ],
     "category": "card",
     "price": 38,
@@ -486,7 +494,8 @@
     "duration": "20-30 min",
     "difficulty": "easy",
     "tags": [
-      "family"
+      "memory",
+      "push-your-luck"
     ],
     "category": "card",
     "price": 24,
@@ -505,7 +514,8 @@
     "duration": "15-20 min",
     "difficulty": "easy",
     "tags": [
-      "party"
+      "party",
+      "push-your-luck"
     ],
     "category": "card",
     "family": "exploding-kittens",
@@ -527,7 +537,8 @@
     "duration": "15-20 min",
     "difficulty": "easy",
     "tags": [
-      "party"
+      "party",
+      "push-your-luck"
     ],
     "category": "card",
     "family": "exploding-kittens",
@@ -550,7 +561,8 @@
     "duration": "30 min",
     "difficulty": "medium",
     "tags": [
-      "strategy"
+      "engine-building",
+      "set-collection"
     ],
     "category": "card",
     "family": "splendor",
@@ -572,7 +584,8 @@
     "duration": "30 min",
     "difficulty": "medium",
     "tags": [
-      "strategy"
+      "engine-building",
+      "set-collection"
     ],
     "category": "card",
     "family": "splendor",
@@ -595,10 +608,8 @@
     "duration": "30-60 min",
     "difficulty": "medium",
     "tags": [
-      "tile",
-      "strategy",
-      "family",
-      "classic"
+      "classic",
+      "set-collection"
     ],
     "category": "board",
     "price": 0,
@@ -617,10 +628,8 @@
     "duration": "60-120 min",
     "difficulty": "hard",
     "tags": [
-      "tile",
-      "strategy",
       "classic",
-      "traditional"
+      "set-collection"
     ],
     "category": "board",
     "family": "mahjong",
@@ -642,11 +651,8 @@
     "duration": "90-120 min",
     "difficulty": "hard",
     "tags": [
-      "tile",
-      "strategy",
       "classic",
-      "traditional",
-      "japanese"
+      "deduction"
     ],
     "category": "board",
     "family": "mahjong",
@@ -670,8 +676,7 @@
     "difficulty": "easy",
     "tags": [
       "poker",
-      "strategy",
-      "classic"
+      "push-your-luck"
     ],
     "category": "card",
     "price": 0,
@@ -690,7 +695,6 @@
     "duration": "15 min",
     "difficulty": "easy",
     "tags": [
-      "card",
       "family",
       "memory",
       "deduction"

@@ -155,7 +155,7 @@ src/
   "players": "3-4",
   "duration": "60-120 min",
   "difficulty": "medium",
-  "tags": ["strategy", "family", "board"],
+  "tags": ["trading", "engine-building"],
   "category": "board",
   "family": "catan",
   "familyOrder": 0,

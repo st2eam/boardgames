@@ -3,7 +3,7 @@
   "players": "4",
   "duration": "90-120 min",
   "difficulty": "hard",
-  "tags": ["tile", "strategy", "classic", "traditional", "japanese"],
+  "tags": ["classic", "deduction"],
   "category": "board",
   "family": "mahjong",
   "familyOrder": 2,

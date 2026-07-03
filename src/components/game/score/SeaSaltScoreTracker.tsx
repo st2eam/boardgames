@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import { normalizeNumericInput } from "@/lib/score/numberInput";
 
 interface RoundScore {
   card: number;
@@ -337,12 +338,14 @@ export function SeaSaltScoreTracker({ locale }: Props) {
                   {p.name}
                 </div>
                 <input
-                  type="number"
-                  min="0"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   value={cardInputs[i]}
                   onChange={(e) => {
+                    const value = normalizeNumericInput(e.target.value);
                     setCardInputs((prev) =>
-                      prev.map((v, idx) => (idx === i ? e.target.value : v))
+                      prev.map((v, idx) => (idx === i ? value : v))
                     );
                     setRoundError("");
                   }}
@@ -367,12 +370,14 @@ export function SeaSaltScoreTracker({ locale }: Props) {
                   {p.name}
                 </div>
                 <input
-                  type="number"
-                  min="0"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   value={colorInputs[i]}
                   onChange={(e) => {
+                    const value = normalizeNumericInput(e.target.value);
                     setColorInputs((prev) =>
-                      prev.map((v, idx) => (idx === i ? e.target.value : v))
+                      prev.map((v, idx) => (idx === i ? value : v))
                     );
                     setRoundError("");
                   }}

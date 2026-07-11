@@ -70,7 +70,7 @@ export interface FeatureDef {
   description?: Record<"en" | "zh", string>;
 }
 
-export type ScoreConfigType = "formula" | "card-select" | "card-type" | "category" | "feature-calc" | "rounds" | "cabo-multi" | "sea-salt-multi";
+export type ScoreConfigType = "formula" | "card-select" | "card-type" | "category" | "feature-calc" | "rounds" | "cabo-multi" | "sea-salt-multi" | "just-wild-multi";
 
 export interface ScoreConfig {
   type: ScoreConfigType;

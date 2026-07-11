@@ -1,11 +1,6 @@
 {
-  "type": "category",
-  "engine": "category",
+  "type": "just-wild-multi",
+  "engine": "just-wild-multi",
   "direction": "high-wins",
-  "multiRound": true,
-  "targetByPlayers": { "2": 30, "3": 30, "4": 30 },
-  "players": { "min": 2, "max": 4 },
-  "categories": [
-    { "id": "territory", "name": { "en": "Territory (visible halves)", "zh": "领地（可见半卡）" }, "value": 1 }
-  ]
+  "players": { "min": 2, "max": 4 }
 }

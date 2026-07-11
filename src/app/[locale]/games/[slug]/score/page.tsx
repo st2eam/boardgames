@@ -2,6 +2,7 @@ import { GameRepository } from "@/lib/content/GameRepository";
 import { ScoreTracker } from "@/components/game/score/ScoreTracker";
 import { CaboScoreTracker } from "@/components/game/score/CaboScoreTracker";
 import { SeaSaltScoreTracker } from "@/components/game/score/SeaSaltScoreTracker";
+import { JustWildScoreTracker } from "@/components/game/score/JustWildScoreTracker";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";
@@ -73,6 +74,9 @@ function ScoreContent({ slug, config, locale }: { slug: string; config: Awaited<
   }
   if (config.type === "sea-salt-multi") {
     return <SeaSaltScoreTracker locale={locale} />;
+  }
+  if (config.type === "just-wild-multi") {
+    return <JustWildScoreTracker locale={locale} />;
   }
   return <ScoreTracker slug={slug} config={config} locale={locale} />;
 }

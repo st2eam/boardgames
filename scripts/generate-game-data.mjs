@@ -6,6 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const CONTENT = path.join(ROOT, "content", "games");
 const PUBLIC = path.join(ROOT, "public", "data");
+const IMAGES = path.join(ROOT, "public", "images", "games");
 
 const locales = ["en", "zh"];
 
@@ -68,6 +69,28 @@ function main() {
   console.log(`Generated public/data/games-index.json with ${gamesIndex.length} games`);
   console.log(`Generated public/data/games-meta.json (lightweight)`);
   console.log(`Generated ${index.length} per-game rule files in public/data/rules/`);
+
+  // Generate cover image manifest (which formats exist for which games)
+  const coverManifest = {};
+  if (fs.existsSync(IMAGES)) {
+    const files = fs.readdirSync(IMAGES);
+    for (const file of files) {
+      const match = file.match(/^(.+)\.(webp|png|jpg|jpeg)$/i);
+      if (match) {
+        const [, slug, ext] = match;
+        coverManifest[slug] = ext.toLowerCase();
+      }
+    }
+  }
+  fs.writeFileSync(
+    path.join(PUBLIC, "cover-manifest.json"),
+    JSON.stringify(coverManifest, null, 2)
+  );
+  const missing = index.filter(s => !coverManifest[s]);
+  console.log(`Generated cover manifest: ${Object.keys(coverManifest).length} covers, ${missing.length} missing`);
+  if (missing.length > 0) {
+    console.log(`  Missing: ${missing.join(", ")}`);
+  }
 }
 
 main();

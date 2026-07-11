@@ -1,0 +1,149 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Overview", "zh": "扩展概述" },
+      "content": {
+        "en": "**Disloyal Minister** (不臣之君) is a 2026 Sanguosha expansion that revolutionizes identity-based gameplay. Not a hero expansion — it introduces **7 new identity modes** that fundamentally change faction dynamics. 4-8 players.\n\n### The 7 Modes\n\n| # | Mode | Players | Difficulty | Core Twist |\n|---|------|---------|------------|------------|\n| 1 | **暴虐无道** (Tyranny) | 5 | ☆☆☆ | Tyrant kills all; Interceptor can steal win |\n| 2 | **大忠似奸** (False Loyalty) | 7 | ☆☆ | Rebels ID each other at start; mixing loyalties |\n| 3 | **失心疯** (Madness) | 7 | ☆☆☆ | Some players don't know their own identity |\n| 4 | **各怀鬼胎** (Hidden Agendas) | 5 | ☆☆☆☆ | Three different \"traitor\" types with competing goals |\n| 5 | **合纵斗地主** (Coalition) | 4 | ☆☆☆☆ | 2v2 with landlord system; peasants can revolt |\n| 6 | **无间道** (Infernal Affairs) | 8 | ☆☆☆☆☆ | 4v4 spy: each team has a mole from the enemy |\n| 7 | **锋矢奇谋** (Arrow Formation) | 8 | — | 4v4: kill enemy General; bait & vanguard mechanics |\n\n**Requires the base game.** Exclusive heroes: Liu Hong (刘宏), Dong Zhuo (董卓), Zhang Jiao (张角).",
+        "zh": "**《不臣之君》** 是2026年推出的三国杀身份玩法扩展，不是武将扩充，而是引入**7种全新身份模式**，从根本上改变阵营对抗。4-8人。\n\n### 7种模式总览\n\n| # | 模式 | 人数 | 难度 | 核心特色 |\n|---|------|------|------|----------|\n| 1 | **暴虐无道** | 5 | ☆☆☆ | 暴君杀光所有人；间者可截胡胜利 |\n| 2 | **大忠似奸** | 7 | ☆☆ | 义军开局互认；忠臣如内奸 |\n| 3 | **失心疯** | 7 | ☆☆☆ | 有角色不知道自己的真实身份 |\n| 4 | **各怀鬼胎** | 5 | ☆☆☆☆ | 三种\"贼\"各有不同胜利条件 |\n| 5 | **合纵斗地主** | 4 | ☆☆☆☆ | 2v2+地主奴役机制，农民可起义 |\n| 6 | **无间道** | 8 | ☆☆☆☆☆ | 4v4谍战：每方各有一名敌方内鬼 |\n| 7 | **锋矢奇谋** | 8 | — | 4v4：击杀大将；前锋诱饵机制 |\n\n**需要标准版。** 专属武将：刘宏、董卓、张角。"
+      },
+      "options": [
+        { "label": { "en": "暴虐无道 (Tyranny)", "zh": "暴虐无道" }, "next": "tyranny" },
+        { "label": { "en": "大忠似奸 (False Loyalty)", "zh": "大忠似奸" }, "next": "false-loyalty" },
+        { "label": { "en": "失心疯 (Madness)", "zh": "失心疯" }, "next": "madness" },
+        { "label": { "en": "各怀鬼胎 (Hidden Agendas)", "zh": "各怀鬼胎" }, "next": "hidden-agendas" },
+        { "label": { "en": "合纵斗地主 (Coalition)", "zh": "合纵斗地主" }, "next": "coalition" },
+        { "label": { "en": "无间道 (Infernal Affairs)", "zh": "无间道" }, "next": "infernal-affairs" },
+        { "label": { "en": "锋矢奇谋 (Arrow Formation)", "zh": "锋矢奇谋" }, "next": "arrow-formation" },
+        { "label": { "en": "Exclusive Heroes", "zh": "专属武将" }, "next": "heroes" }
+      ]
+    },
+
+    "tyranny": {
+      "title": { "en": "暴虐无道 — Tyranny", "zh": "暴虐无道" },
+      "content": {
+        "en": "### Setup (5 players)\n\n| Role | Count |\n|---|---|\n| **Tyrant (暴君)** | 1 |\n| **Admonisher (诤臣)** | 1 |\n| **Interceptor (间者)** | 1 |\n| **Rebel (逆乱)** | 2 |\n\n### Victory Conditions\n\n| Role | To Win |\n|---|---|\n| **Tyrant** | All other characters dead |\n| **Admonisher** | Rebels AND Tyrant dead (Rebels first, then Tyrant) |\n| **Interceptor** | **On YOUR turn**, if another role meets their win condition — you win instead! |\n| **Rebel** | Tyrant dies while at least one Rebel is alive |\n\n### Key Mechanics\n- Tyrant gets **+2 max health** (empty — no starting health gain).\n- Tyrant recovers 1 health per kill.\n- **Interceptor** is the wildcard: if Tyrant dies on Interceptor's turn → Interceptor steals the win.\n- Rebels must time the Tyrant kill carefully to avoid handing victory to the Interceptor.",
+        "zh": "### 身份配置（5人）\n\n| 身份 | 数量 |\n|---|---|\n| **暴君** | 1 |\n| **诤臣** | 1 |\n| **间者** | 1 |\n| **逆乱** | 2 |\n\n### 胜利条件\n\n| 身份 | 条件 |\n|---|---|\n| **暴君** | 所有其他角色死亡 |\n| **诤臣** | 逆乱和暴君死亡（需先死反再死主） |\n| **间者** | **在你的回合内**，其他身份达成胜利条件则改为你单独获胜！ |\n| **逆乱** | 暴君死亡，且此时有逆乱存活 |\n\n### 核心机制\n- 暴君**体力上限+2**（空上限不加血）。\n- 暴君每杀一人回复1体力。\n- **间者**是最大变数——暴君在间者回合内死亡→间者直接获胜。\n- 逆乱推暴君时必须小心为间者做嫁衣。"
+      },
+      "options": [
+        { "label": { "en": "Exclusive Hero: Dong Zhuo", "zh": "专属武将：董卓" }, "next": "hero-dongzhuo" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "hero-dongzhuo": {
+      "title": { "en": "Tyrant Dong Zhuo (暴君董卓)", "zh": "暴君董卓" },
+      "content": {
+        "en": "### Dong Zhuo (董卓) — 6 Health, Tyrant\n\n- **Deceitful Cup (诈觥):** Play Phase start → force another character to choose: ① All hand cards treated as [Wine] this turn + take 1 dmg from you; ② Treat as using [Wine] on you + deal 1 dmg to you.\n\n- **Fierce Slaughter (凶戮):** Spade hand cards = [Wine]. [Wine] has no use limit. [Wine]-enhanced [Slash] needs X [Dodge] cards (X = Wine stack count).\n\n- **Collapse (崩坏):** Compulsory — End Phase: if not lowest health, lose 1 health or -1 max health.\n\n- **Rampage (肆虐)** — Tyrant Skill: Compulsory — at the start of EACH ROUND, recover all health. Once per turn, when dealing damage: -1 max health and draw cards equal to damage dealt. If this kills a character, reset the \"once per turn\" limit.",
+        "zh": "### 董卓 — 6体力，暴君\n\n- **诈觥：** 出牌阶段开始时，令一名其他角色选择：①本回合所有手牌视为【酒】并受你1点伤害；②视为对你用【酒】并造成1点伤害。\n\n- **凶戮：** 黑桃手牌可当【酒】；【酒】无次数限制；【酒】【杀】需要X张【闪】抵消（X=酒强化次数）。\n\n- **崩坏：** 锁定技，结束阶段若不为体力最小则失去1体力或减1上限。\n\n- **肆虐（暴君技）：** 锁定技，**每轮开始时回复所有体力**。每回合限一次，造成伤害时减1点体力上限并摸等同伤害值的牌。若因此杀死角色，重置该限制。"
+      },
+      "options": [
+        { "label": { "en": "Back to Tyranny", "zh": "返回暴虐无道" }, "next": "tyranny" },
+        { "label": { "en": "All Heroes", "zh": "全部专属武将" }, "next": "heroes" }
+      ]
+    },
+
+    "false-loyalty": {
+      "title": { "en": "大忠似奸 — False Loyalty", "zh": "大忠似奸" },
+      "content": {
+        "en": "### Setup (7 players)\n\n| Role | Count |\n|---|---|\n| **Foolish Monarch (昏君)** | 1 |\n| **Treacherous Minister (奸臣)** | 1 |\n| **Loyal Minister (忠臣)** | 2 |\n| **Righteous Army (义军)** | 3 |\n\n### Special Rules\n- **Foolish Monarch reveals immediately.**\n- **Righteous Army members open eyes and ID each other** at game start (like Werewolf).\n- Monarch sits at **seat 1**, gets **+1 max health & health**.\n\n### Victory Conditions\n\n| Role | To Win |\n|---|---|\n| **Foolish Monarch** | All Loyal Ministers + All Righteous Army dead |\n| **Treacherous Minister** | All Loyal Ministers dead AND Monarch alive |\n| **Loyal Minister** | All Treacherous Ministers + Righteous Army dead, Monarch alive |\n| **Righteous Army** | Monarch dead |\n\n### Core Twist\n> When the LAST Loyal Minister dies, if all Righteous Army are already dead → **Monarch AND Treacherous Minister win together!**\n\n- Righteous Army can't blindly kill Loyal Ministers first (or TM steals win).\n- Loyal Minister ≈ traditional Traitor role (keep Monarch alive but no need to be last).\n- Treacherous Minister ≈ traditional Loyalist (doesn't care about Rebels).",
+        "zh": "### 身份配置（7人）\n\n| 身份 | 数量 |\n|---|---|\n| **昏君** | 1 |\n| **奸臣** | 1 |\n| **忠臣** | 2 |\n| **义军** | 3 |\n\n### 特殊规则\n- **昏君立即明置身份。**\n- **义军开局睁眼互认**（类似狼人杀）。\n- 昏君为**1号位**，体力上限与体力值**+1**。\n\n### 胜利条件\n\n| 身份 | 条件 |\n|---|---|\n| **昏君** | 所有忠臣+所有义军死亡 |\n| **奸臣** | 所有忠臣死亡且昏君存活 |\n| **忠臣** | 所有奸臣+义军死亡且昏君存活 |\n| **义军** | 昏君死亡 |\n\n### 核心博弈\n> 当最后一名忠臣死亡时，若义军已全灭 → **昏君与奸臣同时获胜！**\n\n- 义军不能无脑先推忠臣（否则奸臣捡漏）。\n- 忠臣≈传统内奸（需保主但不必单挑）。\n- 奸臣≈传统忠臣（不管反贼死活）。"
+      },
+      "options": [
+        { "label": { "en": "Exclusive Hero: Liu Hong", "zh": "专属武将：刘宏" }, "next": "hero-liuhong" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "hero-liuhong": {
+      "title": { "en": "Foolish Monarch Liu Hong (昏君刘宏)", "zh": "昏君刘宏" },
+      "content": {
+        "en": "### Liu Hong (刘宏) — Foolish Monarch\n\n- **Blinding the Eyes (障目)** — Monarch Skill: When a non-Righteous Army character dies, their identity is NOT revealed (only viewable by other characters). When killing ANY character, treat it as \"killed Righteous Army\" → **draw 2 cards**.\n\n### Strategic Impact\n- Identity concealment on kills creates huge information asymmetry.\n- The Monarch is incentivized to kill everyone (each kill = draw 2).\n- Other players can't verify who died — was that a Loyal Minister or Treacherous Minister?",
+        "zh": "### 刘宏 — 昏君\n\n- **障目（昏君技）：** 非义军角色死亡时身份不亮出（仅其他角色可观看）。杀死**任意角色**均按\"杀死义军\"处理 → **摸两张牌**。\n\n### 战略影响\n- 死亡身份不公开制造巨大信息不对称。\n- 昏君杀人即摸牌，人人皆可杀。\n- 其他玩家无法验证死者身份——死的是忠臣还是奸臣？"
+      },
+      "options": [
+        { "label": { "en": "Back to False Loyalty", "zh": "返回大忠似奸" }, "next": "false-loyalty" },
+        { "label": { "en": "All Heroes", "zh": "全部专属武将" }, "next": "heroes" }
+      ]
+    },
+
+    "madness": {
+      "title": { "en": "失心疯 — Madness", "zh": "失心疯" },
+      "content": {
+        "en": "### Setup (7 players)\n\n| Role | Count |\n|---|---|\n| **Cult Leader (教主)** | 1 |\n| **Guardian (护法)** | 2 |\n| **Soldier (官兵)** | 3 |\n| **Traitor (内奸)** | 1 |\n| **Madman (失心)** | 1 |\n\n### Core Mechanic: Hidden Self\n\n- **1-2 non-Monarch characters DON'T KNOW their own identity** (identity card is hidden from them).\n- Only the **Cult Leader** knows who the Madmen are.\n\n### Kill Rewards & Penalties\n- Kill a Madman → **-1 max health** (deters hunting Madmen)\n- Cult Leader kills Guardian → **discard all cards**\n- Kill a Soldier → **draw 3 cards**\n\n### Strategy\n- Madmen must deduce their role by observing others' behavior.\n- Cult Leader can exploit information gap to manipulate Madmen.\n- The -1 max health penalty protects Madmen from being randomly killed.",
+        "zh": "### 身份配置（7人）\n\n| 身份 | 数量 |\n|---|---|\n| **教主** | 1 |\n| **护法** | 2 |\n| **官兵** | 3 |\n| **内奸** | 1 |\n| **失心** | 1 |\n\n### 核心机制：身份未知\n\n- **1-2名非教主角色不知道自己的真实身份**（身份牌对其不可见）。\n- 只有**教主**知道谁是失心者。\n\n### 击杀奖惩\n- 杀死失心 → **减1点体力上限**（威慑保护失心）\n- 教主杀死护法 → **弃置所有牌**\n- 杀死官兵 → **摸三张牌**\n\n### 策略要点\n- 失心需要通过观察他人行为推测自己身份。\n- 教主利用信息差迷惑失心为己所用。\n- 减上限惩罚有效保护失心不被随意盲杀。"
+      },
+      "options": [
+        { "label": { "en": "Exclusive Hero: Zhang Jiao", "zh": "专属武将：张角" }, "next": "hero-zhangjiao" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "hero-zhangjiao": {
+      "title": { "en": "Cult Leader Zhang Jiao (教主张角)", "zh": "教主张角" },
+      "content": {
+        "en": "### Zhang Jiao (张角) — 3 Health, Cult Leader\n\n- **Shrouding the Masses (蔽众)** — Cult Leader Skill: Killing a Madman has NO penalty. At game start: choose a non-Madman character → view their identity and MAKE them a Madman. Then you may freely swap identity cards among all Madmen.\n\n- **Lightning Strike (雷击) / Dark Arts (鬼道):** Similar to standard OL Zhang Jiao abilities.\n\n### Strategic Impact\n- The Cult Leader can secretly reassign identities — creating absolute chaos.\n- Madmen who think they're one role may actually be another.\n- The Cult Leader builds their own hidden army.",
+        "zh": "### 张角 — 3体力，教主\n\n- **蔽众（教主技）：** 杀死失心不受惩罚。游戏开始时，可选择一名非失心角色观看其身份并**令其成为失心**，然后可任意交换所有失心角色的身份牌。\n\n- **雷击/鬼道：** 基本沿袭OL界张角技能。\n\n### 战略影响\n- 教主可秘密重新分配身份——制造绝对混乱。\n- 失心以为自己是什么身份，实际可能是另一个身份。\n- 教主暗中打造自己的隐藏军队。"
+      },
+      "options": [
+        { "label": { "en": "Back to Madness", "zh": "返回失心疯" }, "next": "madness" },
+        { "label": { "en": "All Heroes", "zh": "全部专属武将" }, "next": "heroes" }
+      ]
+    },
+
+    "hidden-agendas": {
+      "title": { "en": "各怀鬼胎 — Hidden Agendas", "zh": "各怀鬼胎" },
+      "content": {
+        "en": "### Setup (5 players)\n\n| Role | Count |\n|---|---|\n| **Monarch (主公)** | 1 |\n| **Loyalist (忠臣)** | 1 |\n| **Treacherous Traitor (奸贼)** | 1 |\n| **Evil Traitor (恶贼)** | 1 |\n| **Rebel Traitor (逆贼)** | 1 |\n\n### Victory Conditions — The Core Puzzle\n\n| Role | To Win |\n|---|---|\n| **Monarch** | All three Traitor types dead |\n| **Loyalist** | Same as Monarch (protect Monarch, eliminate 3 traitors) |\n| **Treacherous Traitor (奸贼)** | Monarch dies while **NO Loyalist is alive** |\n| **Evil Traitor (恶贼)** | Monarch dies while **a Loyalist IS alive**; OR all other characters dead |\n| **Rebel Traitor (逆贼)** | Monarch dies while Treacherous+Evil Traitors are **BOTH alive OR BOTH dead** |\n\n### Core Dynamic\n> Three Traitors with mutually contradictory conditions — it's possible for a Traitor to **protect the Monarch** to prevent another Traitor from winning!\n\n- Evil Traitor must keep Loyalist alive → becomes Monarch's bodyguard.\n- Rebel Traitor needs both peers in sync → monitors who kills whom.\n- Treacherous Traitor wants Loyalist dead first → hunts the Loyalist.\n\n### Rewards\n- Monarch kills Loyalist → discard all cards.\n- Kill any Traitor → draw **3 cards**.",
+        "zh": "### 身份配置（5人）\n\n| 身份 | 数量 |\n|---|---|\n| **主公** | 1 |\n| **忠臣** | 1 |\n| **奸贼** | 1 |\n| **恶贼** | 1 |\n| **逆贼** | 1 |\n\n### 胜利条件——核心博弈\n\n| 身份 | 条件 |\n|---|---|\n| **主公** | 三种贼全部死亡 |\n| **忠臣** | 与主公一致（保护主公，消灭三贼） |\n| **奸贼** | **在没有忠臣存活的情况下**→主公死亡 |\n| **恶贼** | **在有忠臣存活的情况下**→主公死亡；**或**所有其他角色死亡 |\n| **逆贼** | 奸贼、恶贼**均存活**或**均死亡**的情况下→主公死亡 |\n\n### 核心动态\n> 三贼条件相互矛盾——贼可能**保主公**以防止另一贼获胜！\n\n- 恶贼必须留忠臣活口→变相保皇党。\n- 逆贼需要两个同伙同时活或同时死→监控全局。\n- 奸贼要忠臣先死→追杀忠臣。\n\n### 奖惩\n- 主公杀死忠臣→弃所有牌。\n- 杀死任意贼→摸**三张牌**。"
+      },
+      "options": [
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+
+    "coalition": {
+      "title": { "en": "合纵斗地主 — Coalition", "zh": "合纵斗地主" },
+      "content": {
+        "en": "### Setup (4 players)\n\n| Role | Count |\n|---|---|\n| **Dragon Landlord (龙地主)** | 1 |\n| **Dragon Peasant (龙农民)** | 1 |\n| **Tiger Landlord (虎地主)** | 1 |\n| **Tiger Peasant (虎农民)** | 1 |\n\n### Two Phases\n\n| Phase | Structure |\n|---|---|\n| **Before Revolt** | 2v2: Dragon team vs Tiger team |\n| **After Revolt** | 1v1v2: Dragon Lord vs Tiger Lord vs Both Peasants |\n\n### Revolt Mechanic\n- Landlords gain **Enslavement (奴役)** marks (1 per use or per round end).\n- When marks reach **9** → **REVOLT triggers!**\n\n### Skills\n- **Enslavement (奴役)** — Landlord Skill: Once per Play Phase, deal 1 dmg to your own Peasant → **draw 3 cards**.\n- **Uprising (啸聚)** — Peasant Skill (after revolt): Damage dealt to your original Landlord is **+1**.\n\n### Victory\n| Phase | Goal |\n|---|---|\n| Before Revolt | Enemy Landlord dies |\n| After Revolt | All characters in the other 2 factions die (3-way battle) |\n\n### Core Dilemma\nLandlords want to use Enslavement for card advantage — but each use brings revolt closer. If one Landlord uses it, the other feels pressured to follow. **An arms race where everyone loses.**",
+        "zh": "### 身份配置（4人）\n\n| 身份 | 数量 |\n|---|---|\n| **龙地主** | 1 |\n| **龙农民** | 1 |\n| **虎地主** | 1 |\n| **虎农民** | 1 |\n\n### 两个阶段\n\n| 阶段 | 阵营结构 |\n|---|---|\n| **起义前** | 2v2：龙队 vs 虎队 |\n| **起义后** | 1v1v2：龙地主 vs 虎地主 vs 双方农民 |\n\n### 起义机制\n- 地主获得**奴役**标记（每次发动或每轮结束+1）。\n- 标记达**9枚**→**起义触发！**\n\n### 技能\n- **奴役** — 地主技：出牌阶段限一次，对己方农民造成1点伤害→**摸三张牌**。\n- **啸聚** — 农民技（起义后获得）：对原阵营地主造成的伤害**+1**。\n\n### 胜利条件\n| 阶段 | 目标 |\n|---|---|\n| 起义前 | 敌方地主死亡 |\n| 起义后 | 另外两个阵营全部死亡（三方混战） |\n\n### 核心博弈\n地主想靠奴役赚牌差——但每次发动都加速起义。一方发动后，另一方很难忍住不跟。**军备竞赛，最终同归于尽。**"
+      },
+      "options": [
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+
+    "infernal-affairs": {
+      "title": { "en": "无间道 — Infernal Affairs", "zh": "无间道" },
+      "content": {
+        "en": "### Setup (8 players — 4v4)\n\nEach team (Red/Blue or Dragon/Tiger):\n\n| Role | Count | Notes |\n|---|---|---|\n| **Commander (主帅)** | 1 | Identity revealed. Can view ALL enemy identities. |\n| **Guard (护卫)** | 2 | Regular role. Don't know who the mole is. |\n| **Mole (内鬼)** | 1 | Card back = enemy color. Actually belongs to your team. |\n\n### Special Rules\n1. Identity cards have **colored backs** to distinguish teams.\n2. Both **Commanders reveal immediately**.\n3. Each Commander views **all enemy team members' identities** (knowing their mole).\n4. Moles do NOT know that the Commander knows they're the mole.\n\n### Kill Rules\n- Kill a character with the **SAME actual team as you** → **discard all cards**.\n- **Commander is killed** → that team's **Mole immediately reveals identity**.\n\n### Victory: Kill the ENEMY TEAM'S MOLE\n\n### The Ultimate Irony\n> Commander knows the enemy mole's identity but can't openly act on it (would expose the mole). Guards blindly attack — and might accidentally kill their own mole.\n\n**The nightmare scenario:** A Guard snipes what they think is an enemy… and it's their own mole, losing the game instantly.",
+        "zh": "### 身份配置（8人 — 4v4）\n\n每方阵营各含：\n\n| 角色 | 数量 | 说明 |\n|---|---|---|\n| **主帅** | 1 | 明置身份。可查看敌方全员身份牌。 |\n| **护卫** | 2 | 普通角色。不知道谁是内鬼。 |\n| **内鬼** | 1 | 牌背为对方阵营。正面归属敌方，实为自己人。 |\n\n### 特殊规则\n1. 身份牌以**牌背颜色**区分阵营。\n2. 双方**主帅立即明置**。\n3. 每位主帅查看**对方阵营所有角色**的身份（知道自己安插的内鬼是谁）。\n4. 内鬼不知道主帅已知其身份。\n\n### 击杀规则\n- 击杀与自己**实际阵营相同**的角色→**弃置所有牌**。\n- **主帅被击杀**→该阵营**内鬼立即明置身份**。\n\n### 胜利：击杀敌方内鬼\n\n### 终极讽刺\n> 主帅知道敌方内鬼身份，但不能明着打（会暴露内鬼）。护卫盲打——可能把自己内鬼狙死。\n\n**噩梦场景：** 护卫以为是敌人开了一枪……结果打死的是自家内鬼，直接输掉游戏。"
+      },
+      "options": [
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+
+    "arrow-formation": {
+      "title": { "en": "锋矢奇谋 — Arrow Formation", "zh": "锋矢奇谋" },
+      "content": {
+        "en": "### Setup (8 players — 4v4)\n\nEach team (4 players):\n\n| Role | Notes |\n|---|---|\n| **General (大将)** | Hidden at start. Reveals when Vanguard dies. |\n| **Center Army (中军)** | Standard role. |\n| **Vanguard (前锋)** | **Revealed at start.** +1 max health & health. |\n| **Bait (诱饵)** | If killed by enemy → own General discards all cards AND is exposed. |\n\n### Core Mechanics\n- **Objective:** Kill the enemy **General**.\n- Vanguard dies → own General identity revealed.\n- Bait dies → enemy General identity revealed + discards all cards.\n\n### Selection Order\n1. Both Generals view their own Center Army, Vanguard, and Bait.\n2. Both Vanguards reveal simultaneously.\n3. Both Generals pick & reveal simultaneously.\n4. Vanguards pick openly → all others pick simultaneously.\n\n### Privileges\n- Vanguard: revealed, +1 max health, +1 card draw.\n- General: +1 max health.\n\n### Strategic Depth\n> Sacrifice your Vanguard to expose the enemy General. Kill the Bait to blow up the enemy General's hand. A game of calculated sacrifice and target priority.",
+        "zh": "### 身份配置（8人 — 4v4）\n\n每方4人：\n\n| 角色 | 说明 |\n|---|---|\n| **大将** | 初始隐藏。前锋死后才亮明。 |\n| **中军** | 标准角色。 |\n| **前锋** | **开局明置。** 体力上限+1、体力值+1。 |\n| **诱饵** | 被敌方击杀→己方大将弃置所有牌并暴露身份。 |\n\n### 核心机制\n- **目标：** 击杀对方**大将**。\n- 前锋阵亡→己方大将身份亮明。\n- 诱饵阵亡→敌方大将身份暴露+弃置所有牌。\n\n### 选将流程\n1. 双方大将各自查看己方中军、前锋、诱饵。\n2. 双方前锋同时明置。\n3. 双方大将同时选将亮将。\n4. 前锋明牌选将→其他角色同时选将。\n\n### 特权\n- 前锋：明置+上限+1+多摸1牌。\n- 大将：体力上限+1。\n\n### 战略深度\n> 牺牲前锋暴露对方大将，击杀诱饵引爆对方大将手牌。一场精心计算的牺牲与目标优先级博弈。"
+      },
+      "options": [
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+
+    "heroes": {
+      "title": { "en": "Exclusive Heroes", "zh": "专属武将总览" },
+      "content": {
+        "en": "### The Three Exclusive Heroes\n\n| Hero | Mode | Health | Role |\n|---|---|---|---|\n| **Dong Zhuo (董卓)** | 暴虐无道 | 6 | Tyrant (暴君) |\n| **Liu Hong (刘宏)** | 大忠似奸 | — | Foolish Monarch (昏君) |\n| **Zhang Jiao (张角)** | 失心疯 | 3 | Cult Leader (教主) |\n\n### Universal Rule: Ruler Skill Compatibility\n\n> In ANY mode, if your identity is a **Ruler-type role** (Monarch, Tyrant, Foolish Monarch, Cult Leader, Commander, Landlord), your character's **Monarch Skill (主公技) takes effect**.\n\nThis makes characters with Monarch Skills viable across all 7 modes.",
+        "zh": "### 三位专属武将\n\n| 武将 | 模式 | 体力 | 身份 |\n|---|---|---|---|\n| **董卓** | 暴虐无道 | 6 | 暴君 |\n| **刘宏** | 大忠似奸 | — | 昏君 |\n| **张角** | 失心疯 | 3 | 教主 |\n\n### 通用规则：主公技普适化\n\n> 任何模式下，如果你的身份是**君主类角色**（主公、暴君、昏君、教主、主帅、地主），武将牌上的**主公技皆会生效**。\n\n这使得拥有主公技的武将在全部7种模式中都能发挥作用。"
+      },
+      "options": [
+        { "label": { "en": "Dong Zhuo (董卓)", "zh": "董卓（暴君）" }, "next": "hero-dongzhuo" },
+        { "label": { "en": "Liu Hong (刘宏)", "zh": "刘宏（昏君）" }, "next": "hero-liuhong" },
+        { "label": { "en": "Zhang Jiao (张角)", "zh": "张角（教主）" }, "next": "hero-zhangjiao" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    }
+  }
+}

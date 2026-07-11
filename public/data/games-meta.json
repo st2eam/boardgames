@@ -17,21 +17,6 @@
   },
   {
     "name": {
-      "en": "TACTA",
-      "zh": "TACTA"
-    },
-    "players": "2-6",
-    "duration": "20-30 min",
-    "difficulty": "easy",
-    "tags": [
-      "area-control"
-    ],
-    "category": "card",
-    "price": 10,
-    "slug": "tacta"
-  },
-  {
-    "name": {
       "en": "The 21st Constellation",
       "zh": "群星二十一"
     },

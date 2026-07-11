@@ -609,5 +609,42 @@
     ],
     "category": "party",
     "slug": "spots"
+  },
+  {
+    "name": {
+      "en": "Harmonies",
+      "zh": "自然和弦"
+    },
+    "players": "1-4",
+    "duration": "30-45 min",
+    "difficulty": "medium",
+    "tags": [
+      "tile-placement",
+      "pattern-building",
+      "set-collection"
+    ],
+    "category": "board",
+    "price": 60,
+    "slug": "harmonies"
+  },
+  {
+    "name": {
+      "en": "Legends of the Three Kingdoms: Wind and Cloud Gathering",
+      "zh": "三国杀：风云际会"
+    },
+    "players": "4-8",
+    "duration": "30-60 min",
+    "difficulty": "hard",
+    "tags": [
+      "deduction",
+      "bluffing"
+    ],
+    "category": "card",
+    "family": "legends-of-the-three-kingdoms",
+    "familyOrder": 2,
+    "variantType": "expansion",
+    "requiresBase": true,
+    "price": 88,
+    "slug": "legends-of-the-three-kingdoms-wind-and-cloud"
   }
 ]

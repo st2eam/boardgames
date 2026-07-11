@@ -1,0 +1,16 @@
+{
+  "name": {
+    "en": "Harmonies",
+    "zh": "自然和弦"
+  },
+  "players": "1-4",
+  "duration": "30-45 min",
+  "difficulty": "medium",
+  "tags": [
+    "tile-placement",
+    "pattern-building",
+    "set-collection"
+  ],
+  "category": "board",
+  "price": 60
+}

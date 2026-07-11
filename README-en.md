@@ -2,13 +2,13 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — 34 games (including expansions/variants), interactive decision trees, trainers, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — 35 games (including expansions/variants), interactive decision trees, trainers, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
 - **34 game rules**: web-verified, complete bilingual rules (EN/ZH)
-- **24 interactive decision trees**: step-by-step flow with sidebar outline navigation
-- **12 automatic score trackers**: 6 engine types (formula / card-select / card-type / category / feature-calc / multi-player rounds), IndexedDB persistence
+- **29 interactive decision trees**: step-by-step flow with sidebar outline navigation
+- **6 automatic score trackers**: 5 types (`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `category` / `feature-calc`), localStorage persistence
 - **Trainers**: Mahjong/Riichi tenpai trainer (4 difficulty levels), Blackjack basic strategy trainer, Texas Hold'em GTO preflop trainer
 - **Score Calculator**: Riichi Mahjong han/fu/points auto calculator — visual tile picker (14 tiles) → mark winning tile → mark open melds → auto hand decomposition, yaku detection, fu & points calculation
 - **Game family grouping**: UNO, Drecksau, Legends of the Three Kingdoms, Exploding Kittens, Splendor, Sea Salt & Paper, Catan, Carcassonne, Mahjong series
@@ -59,8 +59,8 @@ npm run build
 | Game | Rules | Decision Tree | Score |
 |------|:-----:|:-------------:|:-----:|
 | Texas Hold'em | ✅ | ✅ | 🎯 GTO Preflop |
-| TACTA | ✅ | ✅ | ✅ |
-| Modern Art | ✅ | ✅ | ✅ |
+| Harmonies | ✅ | ✅ | — |
+| Modern Art | ✅ | ✅ | — |
 | GoTown | ✅ | ✅ | — |
 | Just Wild | ✅ | ✅ | ✅ |
 | The Message: Attack by Stratagem | ✅ | ✅ | — |
@@ -77,14 +77,15 @@ npm run build
 
 | Series | Game | Type | Rules | Decision Tree | Score |
 |--------|------|------|:-----:|:-------------:|:-----:|
-| UNO | UNO | Base | ✅ | ✅ | ✅ |
-| | UNO Flip | Variant | ✅ | ✅ | ✅ |
-| | UNO Show 'Em No Mercy | Variant | ✅ | ✅ | ✅ |
+| UNO | UNO | Base | ✅ | ✅ | — |
+| | UNO Flip | Variant | ✅ | ✅ | — |
+| | UNO Show 'Em No Mercy | Variant | ✅ | ✅ | — |
 | | UNO DOS | Variant | ✅ | — | — |
 | Drecksau | Drecksau | Base | ✅ | ✅ | — |
 | | Drecksau: Sauschön | DLC (req. base) | ✅ | — | — |
 | Legends of the Three Kingdoms | LotTK | Base | ✅ | ✅ | — |
-| | Disloyal Minister | DLC (req. base) | ✅ | — | — |
+| | Disloyal Minister | DLC (req. base) | ✅ | ✅ | — |
+| | Wind & Cloud Gathering | DLC (req. base) | ✅ | ✅ | — |
 | Exploding Kittens | Exploding Kittens | Base | ✅ | ✅ | — |
 | | NSFW Edition | Variant (standalone) | ✅ | — | — |
 | Splendor | Splendor | Base | ✅ | ✅ | — |
@@ -111,11 +112,12 @@ content/games/
 │   ├── score.json                # Optional: score tracker config
 │   ├── zh/rules.md               # Chinese rules
 │   └── en/rules.md               # English rules
-└── ... (32 games total)
+└── ... (35 games total)
 
 public/data/
 ├── games-index.json              # Full game data (with rules, for chat tools)
 ├── games-meta.json               # Lightweight index (metadata only, for system prompt)
+├── cover-manifest.json           # Cover image format map (scanned at build time)
 └── rules/{slug}.json             # Per-game rules (on-demand loading)
 
 src/
@@ -123,7 +125,7 @@ src/
 ├── components/
 │   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
-│   ├── game/score/               # ScoreTracker, CaboScoreTracker, CardSelector, FeatureInput, ScoreDisplay
+│   ├── game/score/               # ScoreTracker, CaboScoreTracker, SeaSaltScoreTracker, JustWildScoreTracker, CardSelector, FeatureInput, ScoreDisplay
 │   ├── game/trainer/             # TenpaiTrainer, PreflopTrainer, PreflopChart, MahjongTile, TileSelector, TrainerStats, InlineTile
 │   ├── game/calculator/          # ScoreCalculator, HandPicker, AgariSelector, MeldMarker, ScoreResult
 │   ├── chat/                     # ChatToggle, ChatIsland (lazy-loaded), ChatDialog, ChatMessages
@@ -132,8 +134,8 @@ src/
 ├── lib/content/                  # Content layer (Repository + Factory pattern, with memory cache)
 ├── lib/mahjong/                  # Mahjong core library (tiles, winCheck, tenpai, hand generation, shortcode, scoring, handAnalyzer)
 ├── lib/remark-mahjong-tiles.ts   # Remark plugin: parses [3m] shortcodes into inline tile components
-├── lib/score/                    # Score tracker (useScoreState hook + IndexedDB storage)
-├── lib/score/engines/            # Scoring engine factory (sea-salt / card-select / card-type / category / feature-calc)
+├── lib/score/                    # Score tracker (useScoreState hook + localStorage storage)
+├── lib/score/engines/            # Generic scoring engine factory (sea-salt / card-select / card-type / category / feature-calc)
 ├── lib/texas-holdem/             # Texas Hold'em core library (GTO preflop strategy tables, scenario generation)
 ├── lib/ai/                       # DeepSeekAdapter, ChatStrategies, tool-handlers
 └── types/                        # TypeScript type definitions
@@ -172,6 +174,7 @@ src/
 | `familyOrder` | `number` |  | Sort order within series (0 = base) |
 | `variantType` | `"base" \| "expansion" \| "variant"` |  | Base / expansion / variant |
 | `requiresBase` | `boolean` |  | Whether base game is required |
+| `price` | `number` |  | Price (CNY), 0 = free/already owned |
 
 ### flow.json (Decision Tree)
 
@@ -208,6 +211,7 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 | `/en` `/zh` | Homepage: game card grid + global AI chat |
 | `/en/games/catan` | Rule page: header + rules + export + related games + chat |
 | `/en/games/catan/flow` | Interactive decision tree (only if `flow.json` exists) |
+| `/en/games/catan/score` | Score tracker (only if `score.json` exists) |
 
 ---
 
@@ -290,7 +294,7 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 
 ## Key Decisions
 
-1. **Build-time file reads** — `fs.readFileSync` runs only during `next build`; 31 games is trivially fast
+1. **Build-time file reads** — `fs.readFileSync` runs only during `next build`; 35 games is trivially fast
 2. **`dangerouslyAllowBrowser: true`** — API key is user-provided, no server; explicitly enable browser-side calls
 3. **Tool call limit** — Max 5 iterations to prevent infinite loops
 4. **No middleware** — next-intl middleware incompatible with `output: 'export'`

@@ -2,13 +2,13 @@
 
 > [English version / 英文版](README-en.md)
 
-一个精心整理的现代桌游规则参考网站，覆盖 34 款游戏（含扩展/变体），支持中英双语、交互式决策树、训练器、LLM 对话查询，纯静态站点部署到 GitHub Pages。
+一个精心整理的现代桌游规则参考网站，覆盖 35 款游戏（含扩展/变体），支持中英双语、交互式决策树、训练器、LLM 对话查询，纯静态站点部署到 GitHub Pages。
 
 ## 功能特性
 
-- **34 款游戏规则**：经过网络验证的中英双语完整规则
-- **24 款交互式决策树**：分步交互流程，含侧边栏目录导航
-- **12 款自动计分器**：6 种引擎（公式 / 卡牌选择 / 卡牌类型 / 分类计数 / 特征计算 / 多人回合），支持单人与多人，IndexedDB 持久化
+- **35 款游戏规则**：经过网络验证的中英双语完整规则
+- **29 款交互式决策树**：分步交互流程，含侧边栏目录导航
+- **6 款自动计分器**：5 种引擎（`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `category` / `feature-calc`），支持多人同屏计分，localStorage 持久化
 - **训练器**：麻将/日麻听牌训练器（4 级难度）、21 点基本策略训练、德州扑克 GTO 翻前训练器
 - **番符计算器**：日麻番数/符数/点数自动计算器，可视化选牌（14 张）→ 指定和牌 → 标记副露 → 系统自动拆解牌型、检测役种、计算符数与点数
 - **游戏系列分组**：UNO、脏小猪、三国杀、爆炸猫、璀璨宝石、海盐折纸、卡坦岛、卡卡颂、麻将等系列以堆叠卡片效果展示
@@ -59,8 +59,8 @@ npm run build
 | 游戏 | 规则 | 决策树 | 计分器 |
 |------|:----:|:------:|:------:|
 | 德州扑克 | ✅ | ✅ | 🎯 GTO翻前训练 |
-| TACTA | ✅ | ✅ | ✅ |
-| 现代艺术 | ✅ | ✅ | ✅ |
+| 自然和弦 (Harmonies) | ✅ | ✅ | — |
+| 现代艺术 | ✅ | ✅ | — |
 | 摩天大楼 (GoTown) | ✅ | ✅ | — |
 | 荒野之王 (Just Wild) | ✅ | ✅ | ✅ |
 | 风声再临 | ✅ | ✅ | — |
@@ -77,14 +77,15 @@ npm run build
 
 | 系列 | 游戏 | 类型 | 规则 | 决策树 | 计分器 |
 |------|------|------|:----:|:------:|:------:|
-| UNO | UNO | 本体 | ✅ | ✅ | ✅ |
-| | UNO Flip | 变体 | ✅ | ✅ | ✅ |
-| | UNO No Mercy | 变体 | ✅ | ✅ | ✅ |
+| UNO | UNO | 本体 | ✅ | ✅ | — |
+| | UNO Flip | 变体 | ✅ | ✅ | — |
+| | UNO No Mercy | 变体 | ✅ | ✅ | — |
 | | UNO DOS | 变体 | ✅ | — | — |
 | 脏小猪 | 脏小猪 | 本体 | ✅ | ✅ | — |
 | | 小猪选美 | DLC（需本体） | ✅ | — | — |
 | 三国杀 | 三国杀 | 本体 | ✅ | ✅ | — |
-| | 不臣之君 | DLC（需本体） | ✅ | — | — |
+| | 不臣之君 | DLC（需本体） | ✅ | ✅ | — |
+| | 风云际会 | DLC（需本体） | ✅ | ✅ | — |
 | 爆炸猫 | 爆炸猫（红盒版） | 本体 | ✅ | ✅ | — |
 | | 爆炸猫：黑盒版 | 变体（可独立） | ✅ | — | — |
 | 璀璨宝石 | 璀璨宝石 | 本体 | ✅ | ✅ | — |
@@ -113,11 +114,12 @@ content/games/
 │   ├── calculator.json           # 可选：计算器配置（如日麻番符）
 │   ├── zh/rules.md               # 中文规则
 │   └── en/rules.md               # 英文规则
-└── ...（共 32 款游戏）
+└── ...（共 35 款游戏）
 
 public/data/
 ├── games-index.json              # 完整游戏数据（含规则，chat tool 用）
 ├── games-meta.json               # 轻量索引（仅元数据，system prompt 用）
+├── cover-manifest.json           # 封面图格式映射（构建时扫描 images/games/）
 └── rules/{slug}.json             # 按游戏拆分的规则（按需加载）
 
 public/icons/                      # PWA 图标（180/192/512/maskable-512）
@@ -129,7 +131,7 @@ src/
 ├── components/
 │   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
-│   ├── game/score/               # ScoreTracker, CaboScoreTracker, CardSelector, FeatureInput, ScoreDisplay
+│   ├── game/score/               # ScoreTracker, CaboScoreTracker, SeaSaltScoreTracker, JustWildScoreTracker, CardSelector, FeatureInput, ScoreDisplay
 │   ├── game/trainer/             # TenpaiTrainer, PreflopTrainer, PreflopChart, MahjongTile, TileSelector, TrainerStats, InlineTile
 │   ├── game/calculator/          # ScoreCalculator, HandPicker, AgariSelector, MeldMarker, ScoreResult
 │   ├── chat/                     # ChatToggle, ChatIsland（懒加载）, ChatDialog, ChatMessages
@@ -138,8 +140,8 @@ src/
 ├── lib/content/                  # 内容层（Repository + Factory 模式，带内存缓存）
 ├── lib/mahjong/                  # 麻将核心库（tiles 牌定义、winCheck 和牌判定、tenpai 听牌计算、hand 手牌生成、shortcode 简写标记、scoring 番符点数计算、handAnalyzer 手牌分析+役种自动检测）
 ├── lib/remark-mahjong-tiles.ts   # remark 插件：解析 [3m] 简写标记为内联牌面组件
-├── lib/score/                    # 计分器（useScoreState hook + IndexedDB 存储）
-├── lib/score/engines/            # 计分引擎工厂（sea-salt / card-select / card-type / category / feature-calc）
+├── lib/score/                    # 计分器（useScoreState hook + localStorage 存储）
+├── lib/score/engines/            # 通用计分引擎工厂（sea-salt / card-select / card-type / category / feature-calc）
 ├── lib/texas-holdem/             # 德州扑克核心库（GTO 翻前策略表、场景生成）
 ├── lib/ai/                       # DeepSeekAdapter, ChatStrategies, tool-handlers
 └── types/                        # TypeScript 类型定义
@@ -178,6 +180,7 @@ src/
 | `familyOrder` | `number` |  | 系列内排序（0 = 本体） |
 | `variantType` | `"base" \| "expansion" \| "variant"` |  | 本体 / 扩展 / 变体 |
 | `requiresBase` | `boolean` |  | 是否需要本体才能游玩 |
+| `price` | `number` |  | 价格（元），0 表示免费/已拥有 |
 
 ### flow.json（决策树）
 
@@ -240,24 +243,15 @@ src/
 
 独立页面 `/[locale]/games/[slug]/score/`，仅有 `score.json` 的游戏会生成此页面。
 
-采用 **引擎策略模式**，根据 `score.json` 中的 `engine` 字段自动匹配引擎，实现自动计分。用户只需选择卡牌/输入数值，系统自动计算得分明细。
+采用 **引擎策略模式**，根据 `score.json` 中的 `type` 字段匹配计分组件，实现自动计分。
 
-| 引擎 | 适用游戏 | 说明 |
-|------|---------|------|
-| `sea-salt` | 海盐折纸 | 按配对、收集、倍率、美人鱼四类规则自动计算 |
-| `card-type` | UNO 系列 | 按卡牌类型 × 数量计分 |
-| `cabo-multi` | Cabo | 多人回合制计分（2-4 人，含 -50 重置） |
-| `category` | 卡坦岛、荒野之王、TACTA、现代艺术 | 按分类项 × 数量计分 |
-| `feature-calc` | 卡卡颂 | 按地物类型输入数量，公式自动计算 |
-| `card-sum` | （通用） | 按卡牌列表逐张选择，累加点数 |
-
-功能：
-- **自动计算**：选择卡牌或输入数量后实时显示得分明细
-- **分类筛选**：按卡牌类型、等级、颜色等快速定位
-- **多轮支持**：海盐折纸、UNO 系列支持逐轮确认并累计总分
-- **多人计分**：Cabo 支持 2-4 人同时记分，含一次性 -50 重置机会
-- **目标检测**：到达目标分时高亮提示
-- **数据持久化**：IndexedDB / localStorage 自动保存，刷新不丢失
+| 类型 | 组件 | 适用游戏 |
+|------|------|---------|
+| `just-wild-multi` | JustWildScoreTracker | 荒野之王（多人同屏，含指示物平局判定） |
+| `cabo-multi` | CaboScoreTracker | Cabo（多人回合制，含 -50 重置） |
+| `sea-salt-multi` | SeaSaltScoreTracker | 海盐折纸（配对各色卡牌 + 美人鱼计分） |
+| `category` | ScoreTracker（通用） | 卡坦岛、卡坦岛中国版图 |
+| `feature-calc` | ScoreTracker（通用） | 卡卡颂 |
 
 ### 交互式决策树
 
@@ -297,7 +291,7 @@ src/
 | **Repository** | `GameRepository.ts` | 统一封装文件系统内容访问 |
 | **Factory** | `GameFactory.ts` | 组装 Game 领域对象，分离构造与数据访问 |
 | **Strategy** | `GlobalChatStrategy` / `GameChatStrategy` | 不同对话范围的 prompt 和 tool 定义 |
-| **Strategy** | `ScoringEngine` (sea-salt / card-type / category / feature-calc / card-select / cabo-multi) | 不同游戏的自动计分引擎 |
+| **Strategy** | `ScoringEngine` + dedicated trackers (`CaboScoreTracker`, `SeaSaltScoreTracker`, `JustWildScoreTracker`) | 不同游戏的自动计分 |
 | **Adapter** | `DeepSeekAdapter.ts` | 隔离 LLM 提供商，方便替换 |
 | **Context+Provider** | `ChatProvider.tsx` | 统一管理消息、流式状态、API Key |
 
@@ -322,7 +316,7 @@ src/
 
 ## 关键技术决策
 
-1. **构建时同步读取文件** — `fs.readFileSync` 仅在 `next build` 时执行，带内存缓存避免重复读取
+1. **构建时同步读取文件** — `fs.readFileSync` 仅在 `next build` 时执行，35 款游戏绰绰有余
 2. **Chat 懒加载** — `openai` SDK + 整个 chat 栈通过 `dynamic()` 延迟到用户点击 FAB 时加载
 3. **MarkdownRenderer 为 Server Component** — `react-markdown` 不进入客户端包，规则页面零额外 JS
 4. **数据拆分** — `games-meta.json`（轻量索引）+ `rules/{slug}.json`（按需加载），chat 不再一次性加载全部规则
@@ -334,6 +328,7 @@ src/
 10. **`trailingSlash: true`** — GitHub Pages 子目录路由兼容的必要配置
 11. **slug = 英文名** — 目录名即 slugified 英文名，无额外映射层
 12. **游戏系列分组** — `family` 字段实现逻辑关联，`familyOrder` 控制排序，`variantType` 区分类型
+13. **封面零 404** — 构建时扫描封面生成 `cover-manifest.json`，运行时直接加载正确格式，缺图游戏不发 `<img>` 请求
 
 ---
 
@@ -354,40 +349,28 @@ src/
 
 ```json
 {
-  "type": "formula | card-type | category | feature-calc | card-select | cabo-multi",
-  "engine": "sea-salt | card-type | category | feature-calc | card-sum | cabo-multi",
+  "type": "cabo-multi | sea-salt-multi | just-wild-multi | category | feature-calc | ...",
+  "engine": "category | feature-calc | sea-salt | card-sum | card-type",
   "direction": "high-wins | low-wins",
-  "target": 10,
-  "targetByPlayers": { "2": 40, "3": 35, "4": 30 },
+  "target": 100,
+  "targetByPlayers": { "2": 30, "3": 30, "4": 30 },
   "players": { "min": 2, "max": 4 },
   "multiRound": true,
-  "cards": [
-    { "id": "crab", "name": { "en": "Crab", "zh": "螃蟹" }, "color": "red", "count": 9, "group": "duo", "points": 1 }
-  ],
-  "cardTypes": [
-    { "id": "skip", "name": { "en": "Skip", "zh": "禁止" }, "value": 20, "group": "action" }
-  ],
   "categories": [
     { "id": "village", "name": { "en": "Village", "zh": "村庄" }, "value": 1, "max": 5 }
   ],
   "features": [
-    { "id": "road", "name": { "en": "Road", "zh": "道路" }, "inputType": "number", "formula": "n", "description": { "en": "1 pt/tile", "zh": "每块1分" } }
-  ],
-  "filters": [
-    { "id": "group", "name": { "en": "Type", "zh": "类型" }, "field": "group", "values": [...] }
+    { "id": "road", "name": { "en": "Road", "zh": "道路" }, "inputType": "number", "formula": "n" }
   ]
 }
 ```
 
 | 字段 | 说明 |
 |------|------|
-| `type` | 计分器类型（决定 UI 布局） |
-| `engine` | 计分引擎名称（决定计算逻辑） |
-| `direction` | `high-wins`（高分赢）/ `low-wins`（低分赢，如 Cabo） |
+| `type` | 计分器类型（决定 UI 组件：`*-multi` → 专用多人组件，其他 → 通用 ScoreTracker） |
+| `engine` | 通用计分引擎名称（仅通用 ScoreTracker 使用） |
+| `direction` | `high-wins`（高分赢）/ `low-wins`（低分赢） |
 | `multiRound` | 是否支持多轮确认累计 |
 | `target` / `targetByPlayers` | 目标分数或按人数不同目标 |
-| `cards` | 完整卡牌列表（含名称、颜色、数量上限、分组） |
-| `cardTypes` | 卡牌类型列表（含名称、分值、分组） |
 | `categories` | 分类计数项（含名称、单位分值、上限） |
 | `features` | 特征输入项（含名称、公式、描述） |
-| `filters` | 筛选器定义（字段名 + 可选值列表） |

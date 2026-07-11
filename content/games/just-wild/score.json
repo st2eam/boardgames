@@ -1,9 +1,8 @@
 {
-  "type": "category",
-  "engine": "category",
+  "type": "cabo-multi",
+  "engine": "cabo-multi",
   "direction": "high-wins",
-  "players": { "min": 2, "max": 4 },
-  "categories": [
-    { "id": "territory", "name": { "en": "Territory (visible halves)", "zh": "领地（可见半卡）" }, "value": 1 }
-  ]
+  "target": 30,
+  "multiRound": true,
+  "players": { "min": 2, "max": 4 }
 }

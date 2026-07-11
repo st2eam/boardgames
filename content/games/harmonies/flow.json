@@ -1,0 +1,142 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Overview", "zh": "概述" },
+      "content": {
+        "en": "**Harmonies** is a tile-laying strategy game (Libellud, 2024) for **1–4 players**, about **30–45 minutes**. Players build 3D landscapes by placing colored terrain tokens on their personal board, then populate them with animals when patterns match.\n\n**Setup:** Each player gets a personal board (same side). Fill the pouch with 120 tokens. Draw 3 tokens onto each of the 5 central board spaces. Display 5 face-up animal cards.",
+        "zh": "**《自然和弦》** 是一款板块放置策略桌游（Libellud，2024），支持 **1–4人**，时长约 **30–45分钟**。玩家在个人版图上放置彩色地形标记构建3D景观，当满足动物卡图案条件时放置动物方块得分。\n\n**准备：** 每人一张个人版图（同面）。120个标记放入布袋。从袋中抽3个标记放到中央版图5个空格的每一格。翻开5张动物卡。"
+      },
+      "options": [
+        { "label": { "en": "Turn Flow", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Terrain Tokens & Stacking", "zh": "地形标记与堆叠" }, "next": "tokens" },
+        { "label": { "en": "Scoring Overview", "zh": "计分总览" }, "next": "scoring" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Turn Flow", "zh": "回合流程" },
+      "content": {
+        "en": "### Your Turn (3 actions, any order)\n\n| Action | Type |\n|---|---|\n| **Take & Place Tokens** | **MANDATORY** |\n| Take an Animal Card | Optional (max 1/turn) |\n| Place Animal Cubes | Optional (unlimited) |\n\n1. **Take & Place:** Choose one space on the central board → take all 3 tokens → place all 3 on your personal board.\n2. **Animal Card:** Choose 1 of 5 face-up cards, place cubes on it (bottom → top). Max 4 cards in hand.\n3. **Place Cubes:** When your board pattern matches a card's habitat, take the lowest cube and place it on a matching token.\n\n**End of turn:** Refill the central board space with 3 new tokens. Replenish animal cards to 5.",
+        "zh": "### 你的回合（3个行动，任意顺序）\n\n| 行动 | 类型 |\n|---|---|\n| **拿取并放置标记** | **必须** |\n| 拿取动物卡 | 可选（每回合至多1张） |\n| 放置动物方块 | 可选（不限次数） |\n\n1. **拿取放置：** 选择中央版图一个空格 → 拿走3个标记 → 全部放到个人版图上。\n2. **动物卡：** 从5张面朝上卡牌中选1张，放置方块（从下到上）。手牌上限4张。\n3. **放置方块：** 版图图案与动物卡栖息地匹配时，取最下方方块放到对应标记上。\n\n**回合结束：** 从袋中补3个标记到中央版图。补满动物卡至5张。"
+      },
+      "options": [
+        { "label": { "en": "Terrain & Stacking Rules", "zh": "地形与堆叠规则" }, "next": "tokens" },
+        { "label": { "en": "Animal Cards & Patterns", "zh": "动物卡与图案匹配" }, "next": "animals" },
+        { "label": { "en": "End Game Triggers", "zh": "游戏结束条件" }, "next": "endgame" }
+      ]
+    },
+    "tokens": {
+      "title": { "en": "Terrain Tokens & Stacking", "zh": "地形标记与堆叠" },
+      "content": {
+        "en": "### Token Distribution (120 total)\n\n| Token | Count |\n|---|---|\n| 🔵 Blue (Water) | 23 |\n| ⚫ Gray (Mountain) | 23 |\n| 🟤 Brown (Wood/Trunk) | 21 |\n| 🟢 Green (Treetop) | 19 |\n| 🟡 Yellow (Field) | 19 |\n| 🔴 Red (Building) | 15 |\n\n### Stacking Rules (max 3 high)\n\n| Token | Placed on | Accepts on top |\n|---|---|---|\n| 🔵 Water | Empty only | — |\n| 🟡 Field | Empty only | — |\n| ⚫ Mountain | Empty or gray | Only gray |\n| 🟤 Wood | Empty or brown | Brown or green |\n| 🟢 Treetop | Only on 1–2 brown | — |\n| 🔴 Building | On gray/brown/red | — |\n\n> Once an animal cube is on a space, no more stacking there.",
+        "zh": "### 标记分布（共120个）\n\n| 标记 | 数量 |\n|---|---|\n| 🔵 蓝色（水域） | 23 |\n| ⚫ 灰色（山脉） | 23 |\n| 🟤 棕色（树干） | 21 |\n| 🟢 绿色（树冠） | 19 |\n| 🟡 黄色（原野） | 19 |\n| 🔴 红色（建筑） | 15 |\n\n### 堆叠规则（最多3层）\n\n| 标记 | 可放在 | 上面可放 |\n|---|---|---|\n| 🔵 水域 | 仅空格 | — |\n| 🟡 原野 | 仅空格 | — |\n| ⚫ 山脉 | 空格或灰色上方 | 仅灰色 |\n| 🟤 树干 | 空格或棕色上方 | 棕色或绿色 |\n| 🟢 树冠 | 仅1–2个棕色上方 | — |\n| 🔴 建筑 | 灰色/棕色/红色上方 | — |\n\n> 放置动物方块后，该格不能再堆叠。"
+      },
+      "options": [
+        { "label": { "en": "Turn Flow", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Tree Scoring", "zh": "树木计分" }, "next": "scoring-trees" },
+        { "label": { "en": "Mountain Scoring", "zh": "山脉计分" }, "next": "scoring-mountains" }
+      ]
+    },
+    "animals": {
+      "title": { "en": "Animal Cards & Pattern Matching", "zh": "动物卡与图案匹配" },
+      "content": {
+        "en": "### Taking Animal Cards\n\n- Choose **1** face-up card per turn and place it above your personal board.\n- **Maximum 4 cards** in hand at any time.\n- Take animal cubes equal to the count on the card's edge, placing them **bottom to top**.\n\n### Placing Animal Cubes\n\nWhen the token pattern on your board **exactly matches** an animal card's habitat:\n\n1. Take the **lowest available cube** from that card.\n2. Place it on a corresponding token in the pattern.\n3. Patterns match in **any rotation or mirroring**.\n4. Tree and mountain **heights must match exactly**.\n5. Red (building) in a pattern = any valid building type.\n6. One token → at most **one cube**.\n7. Placed cubes **stay permanently**.\n8. When all cubes removed from a card → discard it (frees up a slot).",
+        "zh": "### 拿取动物卡\n\n- 每回合从5张面朝上卡牌中选**1张**，放在个人版图上方。\n- **最多持有4张**动物卡。\n- 取卡牌边缘所示数量的方块，**从下到上**排列。\n\n### 放置动物方块\n\n当版图标记图案与动物卡栖息地**完全匹配**时：\n\n1. 从该卡拿取**最下方的可用方块**。\n2. 放在图案中对应的标记上。\n3. 图案可**任意旋转或镜像**匹配。\n4. 树和山的高度必须**完全一致**。\n5. 图案中红色（建筑）= 任意有效建筑类型。\n6. 一个标记上至多**一个方块**。\n7. 已放置方块**永久锁定**。\n8. 卡上所有方块被拿完后弃掉该卡（腾出卡位）。"
+      },
+      "options": [
+        { "label": { "en": "Turn Flow", "zh": "回合流程" }, "next": "turn" },
+        { "label": { "en": "Scoring Overview", "zh": "计分总览" }, "next": "scoring" }
+      ]
+    },
+    "endgame": {
+      "title": { "en": "End Game Triggers", "zh": "游戏结束条件" },
+      "content": {
+        "en": "The game ends when **either**:\n\n1. The **pouch is empty** when refilling the central board, **OR**\n2. A player has **≤2 empty spaces** on their personal board at turn's end.\n\nAll players get **equal turns**. If triggered mid-round, remaining players take one final turn.\n\n**Tiebreaker:** Most animal cubes placed wins. Still tied → shared victory.",
+        "zh": "满足**任一**条件时游戏结束：\n\n1. 需要补充中央版图时**布袋已空**，**或**\n2. 回合结束时有玩家个人版图空格**≤2格**。\n\n所有玩家获得**相同回合数**。轮次中途触发时，剩余玩家各进行最后一回合。\n\n**平分决胜：** 放置动物方块最多者胜。仍平局则共享胜利。"
+      },
+      "options": [
+        { "label": { "en": "Scoring Overview", "zh": "计分总览" }, "next": "scoring" },
+        { "label": { "en": "Turn Flow", "zh": "回合流程" }, "next": "turn" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Scoring Overview", "zh": "计分总览" },
+      "content": {
+        "en": "### All Scoring Categories\n\n| Category | How It Scores |\n|---|---|\n| 🌳 **Trees** | Bush (1 green alone): 1, Tree (1 brown+1 green): 3, Tall tree (2 brown+1 green): 7. No green = 0. |\n| ⛰️ **Mountains** | Height 1/2/3 → 1/3/7 pts. Must be adjacent to ≥1 other mountain. Isolated = 0. |\n| 🌾 **Fields** | Each contiguous group of 2+ yellow tokens = 5 pts. Small groups > large group. |\n| 🏠 **Buildings** | 5 pts if adjacent to ≥3 different color tokens. |\n| 💧 **Water (A: River)** | Longest chain score: 1→0, 2→2, 3→5, 4→8, 5→11, 6→15, +4 per extra. Loops penalized. |\n| 🏝️ **Water (B: Islands)** | Each separated land area = 5 pts. |\n| 🐾 **Animal Cards** | Highest uncovered number on each card. Zero if no cubes placed. |",
+        "zh": "### 全部计分项\n\n| 类别 | 计分方式 |\n|---|---|\n| 🌳 **树木** | 灌木（1绿色）：1分，树木（1棕+1绿）：3分，大树（2棕+1绿）：7分。无绿色=0。 |\n| ⛰️ **山脉** | 高度1/2/3层 → 1/3/7分。必须与≥1个其他山脉相邻。孤立=0。 |\n| 🌾 **原野** | 每组2+黄色相连 = 5分。多个小组优于一个大组。 |\n| 🏠 **建筑** | 与≥3种不同颜色相邻 = 5分。 |\n| 💧 **水域（A面：河流）** | 最长链计分：1→0，2→2，3→5，4→8，5→11，6→15，之后每+1→+4。环形受罚。 |\n| 🏝️ **水域（B面：岛屿）** | 每个被分隔的陆地区域 = 5分。 |\n| 🐾 **动物卡** | 每张卡最高未覆盖数字。未放方块=0。 |"
+      },
+      "options": [
+        { "label": { "en": "Tree Scoring (Detail)", "zh": "树木计分（详细）" }, "next": "scoring-trees" },
+        { "label": { "en": "Mountain Scoring (Detail)", "zh": "山脉计分（详细）" }, "next": "scoring-mountains" },
+        { "label": { "en": "Water Scoring (Detail)", "zh": "水域计分（详细）" }, "next": "scoring-water" },
+        { "label": { "en": "Nature Spirit Cards", "zh": "自然精灵卡" }, "next": "spirits" },
+        { "label": { "en": "Solo Mode", "zh": "单人模式" }, "next": "solo" }
+      ]
+    },
+    "scoring-trees": {
+      "title": { "en": "Tree Scoring", "zh": "树木计分" },
+      "content": {
+        "en": "### 🌳 Tree Formations\n\n| Formation | Points |\n|---|---|\n| 1 brown alone | 0 |\n| 2 brown alone | 0 |\n| 1 green alone (bush) | **1** |\n| 1 brown + 1 green (tree) | **3** |\n| 2 brown + 1 green (tall tree) | **7** |\n\n- Each tree is scored **independently**.\n- Green without brown underneath = bush (1 pt).\n- Green on 1 brown = tree (3 pts).\n- Green on 2 brown = tall tree (7 pts).\n- Brown tokens without green on top score nothing.",
+        "zh": "### 🌳 树木构成计分\n\n| 构成 | 分数 |\n|---|---|\n| 1个棕色单独 | 0 |\n| 2个棕色单独 | 0 |\n| 1个绿色单独（灌木） | **1** |\n| 1棕+1绿（树木） | **3** |\n| 2棕+1绿（大树） | **7** |\n\n- 每棵树**独立**计分。\n- 绿色下方无棕色 = 灌木（1分）。\n- 绿色在1个棕色上 = 树木（3分）。\n- 绿色在2个棕色上 = 大树（7分）。\n- 仅有棕色无绿色 = 不计分。"
+      },
+      "options": [
+        { "label": { "en": "Scoring Overview", "zh": "计分总览" }, "next": "scoring" },
+        { "label": { "en": "Mountain Scoring", "zh": "山脉计分" }, "next": "scoring-mountains" }
+      ]
+    },
+    "scoring-mountains": {
+      "title": { "en": "Mountain Scoring", "zh": "山脉计分" },
+      "content": {
+        "en": "### ⛰️ Mountain Scoring\n\n**Must be adjacent to ≥1 other mountain to score.**\n\n| Height | Points |\n|---|---|\n| 1 token | **1** |\n| 2 tokens | **3** |\n| 3 tokens | **7** |\n| Isolated (no adjacent mountain) | **0** |\n\n- Adjacency = sharing an edge (diagonal doesn't count).\n- Each mountain stack scores independently.\n- A 3-high stack scores 7 — but **only if it touches another mountain**.",
+        "zh": "### ⛰️ 山脉计分\n\n**必须与≥1个其他山脉相邻才能计分。**\n\n| 高度 | 分数 |\n|---|---|\n| 1层 | **1** |\n| 2层 | **3** |\n| 3层 | **7** |\n| 孤立（无相邻山脉） | **0** |\n\n- 相邻 = 共享一条边（对角不算）。\n- 每座山独立计分。\n- 3层山脉得7分——但**仅当与另一个山脉相邻时**。"
+      },
+      "options": [
+        { "label": { "en": "Scoring Overview", "zh": "计分总览" }, "next": "scoring" },
+        { "label": { "en": "Water Scoring", "zh": "水域计分" }, "next": "scoring-water" }
+      ]
+    },
+    "scoring-water": {
+      "title": { "en": "Water Scoring", "zh": "水域计分" },
+      "content": {
+        "en": "### 💧 Side A — River\n\nScore the **longest continuous chain** via **shortest path**:\n\n| Length | Pts |\n|---|---|\n| 1 | 0 |\n| 2 | 2 |\n| 3 | 5 |\n| 4 | 8 |\n| 5 | 11 |\n| 6 | 15 |\n| Each +1 beyond 6 | +4 |\n\n> ⚠️ **Loop penalty:** shortest path through a loop ≈ half the tokens + 1.\n\n### 🏝️ Side B — Islands\n\nEach land area **separated** by blue tokens = **5 pts**.\n\nYou always have at least 1 island.",
+        "zh": "### 💧 A面 — 河流\n\n计算**最长连续链**，取两端**最短路径**：\n\n| 长度 | 分数 |\n|---|---|\n| 1 | 0 |\n| 2 | 2 |\n| 3 | 5 |\n| 4 | 8 |\n| 5 | 11 |\n| 6 | 15 |\n| 超6，每+1 | +4 |\n\n> ⚠️ **环形惩罚：** 环的最短路径 ≈ 环上一半标记+1。\n\n### 🏝️ B面 — 岛屿\n\n每个被蓝色标记**分隔**的陆地区域 = **5分**。\n\n最少必有1个岛屿。"
+      },
+      "options": [
+        { "label": { "en": "Scoring Overview", "zh": "计分总览" }, "next": "scoring" },
+        { "label": { "en": "Field & Building Scoring", "zh": "原野与建筑计分" }, "next": "scoring-fields" }
+      ]
+    },
+    "scoring-fields": {
+      "title": { "en": "Field & Building Scoring", "zh": "原野与建筑计分" },
+      "content": {
+        "en": "### 🌾 Fields\n\n- Each contiguous group of **2+ adjacent yellow tokens** = **5 points**.\n- One large group = 5 pts total. Many small groups = 5 pts each.\n- **Tip:** Split fields deliberately for more points!\n\n### 🏠 Buildings\n\n- A red token stacked on gray/brown/red = a **building**.\n- Each building = **5 points** — *only if* adjacent to ≥3 tokens of **different colors**.\n- Only the **top token** of each adjacent stack counts for color variety.\n- Adjacency = sharing an edge (not diagonal).",
+        "zh": "### 🌾 原野\n\n- 每组**2+黄色相邻标记** = **5分**。\n- 一个大组 = 总共5分。多个小组 = 每组5分。\n- **技巧：** 刻意拆分原野可获更多分数！\n\n### 🏠 建筑\n\n- 红色标记叠在灰色/棕色/红色上 = **建筑**。\n- 每座建筑 = **5分** — *前提是*与≥3个**不同颜色**的标记相邻。\n- 每个相邻堆仅**最顶部标记**计入颜色种类。\n- 相邻 = 共享一条边（对角不算）。"
+      },
+      "options": [
+        { "label": { "en": "Scoring Overview", "zh": "计分总览" }, "next": "scoring" }
+      ]
+    },
+    "spirits": {
+      "title": { "en": "Nature Spirit Cards (Variant)", "zh": "自然精灵卡（变体）" },
+      "content": {
+        "en": "### Optional Variant (recommended after a few games)\n\n**Setup:** Each player draws 2 Spirit cards, keeps 1, returns the other. Place above your board (counts toward 4-card limit). Place a Nature Spirit cube on it.\n\n**Gameplay:** Works like an animal card but with a special pattern. Once you place the cube, it moves aside.\n\n**Two scoring types:**\n1. **Landscape Count** — score for each time you create a specific layout.\n2. **Group Scoring** — score for each group of connected tokens matching the card.\n\nSpirit card points are **added** to all other scoring.",
+        "zh": "### 可选变体（建议熟悉基础后使用）\n\n**准备：** 每人抽2张精灵卡，保留1张，另一张放回。放在版图上方（计入4张上限）。放置一个精灵方块。\n\n**玩法：** 类似动物卡但有特殊条件。放置方块后移开。\n\n**两种计分类型：**\n1. **景观计数型** — 每创造一个指定布局计分。\n2. **群组计分型** — 每组符合条件的地形计分。\n\n精灵卡分数**累加**到其他所有计分上。"
+      },
+      "options": [
+        { "label": { "en": "Scoring Overview", "zh": "计分总览" }, "next": "scoring" },
+        { "label": { "en": "Solo Mode", "zh": "单人模式" }, "next": "solo" }
+      ]
+    },
+    "solo": {
+      "title": { "en": "Solo Mode", "zh": "单人模式" },
+      "content": {
+        "en": "### Solo Rule Changes\n\n| Rule | Change |\n|---|---|\n| Central Board | Solo side (3 spaces, not 5) |\n| Animal Cards | Only 3 face-up |\n| Token Cleanup | At turn start, remove all 6 leftover tokens (→ box), refill all 3 spaces |\n| Card Refresh | If you didn't take an animal card, may discard 1 face-up and replace |\n\n### Solo Scoring — Earn Suns 🌞\n\n| Score | Suns |\n|---|---|\n| 40+ | 1 |\n| 70+ | 2 |\n| 90+ | 3 |\n| 110+ | 4 |\n| 130+ | 5 |\n| 140+ | 6 |\n| 150+ | 7 |\n| 160+ | 8 |\n\n- Side A board: **+1 sun**\n- No Nature Spirit: **+2 suns**\n- Group-type Spirit: **+1 sun**",
+        "zh": "### 单人模式规则变化\n\n| 规则 | 变化 |\n|---|---|\n| 中央版图 | 单人面（3格，非5格） |\n| 动物卡 | 仅3张面朝上 |\n| 标记清理 | 回合开始，移除所有6个剩余标记（→盒子），补满3格 |\n| 卡牌刷新 | 未拿动物卡时，可弃1张面朝上并替换 |\n\n### 单人计分 — 获得太阳 🌞\n\n| 分数 | 太阳 |\n|---|---|\n| 40+ | 1 |\n| 70+ | 2 |\n| 90+ | 3 |\n| 110+ | 4 |\n| 130+ | 5 |\n| 140+ | 6 |\n| 150+ | 7 |\n| 160+ | 8 |\n\n- 使用A面板图：**+1太阳**\n- 未使用精灵卡：**+2太阳**\n- 使用群组型精灵卡：**+1太阳**"
+      },
+      "options": [
+        { "label": { "en": "Scoring Overview", "zh": "计分总览" }, "next": "scoring" },
+        { "label": { "en": "Turn Flow", "zh": "回合流程" }, "next": "turn" }
+      ]
+    }
+  }
+}

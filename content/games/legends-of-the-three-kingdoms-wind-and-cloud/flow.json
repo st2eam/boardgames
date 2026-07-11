@@ -1,0 +1,134 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Overview", "zh": "扩展概述" },
+      "content": {
+        "en": "**Wind and Cloud Gathering** (风云际会) is a 2025 Sanguosha expansion bundling **3 variant modes**:\n\n| Mode | Core Innovation |\n|---|---|\n| 🕵️ **Spy Chapter** | Gifting mechanic, Poison cards, sabotage equipment |\n| 🛡️ **Loyal Hero Chapter** | Hidden Monarch, open Loyalist (明忠), exclusive skills |\n| ⚡ **Adaptation Chapter** | Adaptive keywords, Ice damage, Jin Faction concealment |\n\n**Requires the base game (Legends of the Three Kingdoms).** Each mode is played independently.",
+        "zh": "**《风云际会》** 是2025年出版的三国杀扩展包，集成了**3大变体模式**：\n\n| 模式 | 核心创新 |\n|---|---|\n| 🕵️ **用间篇** | 赠予机制、毒牌、装备坑害 |\n| 🛡️ **忠胆英杰** | 主公隐藏、明忠亮将、专属忠臣技 |\n| ⚡ **应变篇** | 应变关键词、冰属性伤害、晋势力隐匿 |\n\n**需要三国杀标准版。** 各模式独立游玩。"
+      },
+      "options": [
+        { "label": { "en": "Spy Chapter (用间篇)", "zh": "用间篇" }, "next": "spy" },
+        { "label": { "en": "Loyal Hero Chapter (忠胆英杰)", "zh": "忠胆英杰" }, "next": "loyal-hero" },
+        { "label": { "en": "Adaptation Chapter (应变篇)", "zh": "应变篇" }, "next": "adaptation" }
+      ]
+    },
+
+    "spy": {
+      "title": { "en": "Spy Chapter (用间篇)", "zh": "用间篇" },
+      "content": {
+        "en": "### Core Mechanic: Gifting (赠予)\n\nCards marked with **\"Gift\" (赠)** can be gifted to other characters.\n\n- **When:** Play Phase\n- **Target:** Any one other character, **cannot refuse**\n- **Equipment →** directly into target's equipment zone\n- **Non-equipment →** target's hand\n- **Can fail:** Only vs [War Elephant] equipped target\n\n### New Basic Cards\n\n| Card | Count | Effect |\n|---|---|---|\n| **Poison (毒)** | 5 | Obtained from deck → must reveal & gift. Leaves hand face-up → lose 1 health. |\n| **Assassination (刺杀)** | 10 | [Slash] variant. Dodged → target also discards 1 hand or damage still goes through. |",
+        "zh": "### 核心机制：赠予\n\n左下角标有**\"赠\"**字的卡牌可赠予他人。\n\n- **时机：** 出牌阶段\n- **目标：** 任意一名其他角色，**不能拒绝**\n- **装备牌 →** 直接进入目标装备区\n- **非装备牌 →** 进入目标手牌\n- **失败条件：** 仅目标有【战象】时赠予失败\n\n### 新基本牌\n\n| 卡牌 | 张数 | 效果 |\n|---|---|---|\n| **毒** | 5 | 从牌堆获得须展示并赠予他人。正面离手流失1体力。 |\n| **刺杀** | 10 | 【杀】变体。被闪抵消→目标额外弃1手牌，否则依然造成伤害。 |"
+      },
+      "options": [
+        { "label": { "en": "Spy Chapter — Strategy Cards", "zh": "用间篇——锦囊牌" }, "next": "spy-strategy" },
+        { "label": { "en": "Spy Chapter — Equipment", "zh": "用间篇——装备牌" }, "next": "spy-equipment" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "spy-strategy": {
+      "title": { "en": "Spy Chapter — Strategy Cards", "zh": "用间篇——锦囊牌" },
+      "content": {
+        "en": "### New Strategy Cards\n\n| Card | Count | Effect |\n|---|---|---|\n| **Deception Blooms (树上开花)** | 2 | Use on self. Discard 1-2 cards, draw same. If any was equipment, +1 draw. |\n| **Healing the Bone (刮骨疗毒)** | 2 | Target a wounded character: recover 1 health, then you may discard one [Poison] from their area free. |\n| **Heart-to-Heart (推心置腹)** | 2 | Target at distance 1: take ≤2 cards from their zones, give them equal amount from your hand. |\n| **Looting Disaster (趁火打劫)** | 3 | Reveal 1 of target's hand cards. They choose: give it to you, or take 1 damage from you. |\n\n### Strategy\n\n- [Poison] circulates without entering discard pile — high-stakes tension.\n- [Healing the Bone] is the primary [Poison] counter.\n- Gift [Poison] to enemies before their Discard Phase for free health loss.",
+        "zh": "### 新锦囊牌\n\n| 卡牌 | 张数 | 效果 |\n|---|---|---|\n| **树上开花** | 2 | 对自己使用。弃1-2张摸等量。若弃牌含装备，多摸1张。 |\n| **刮骨疗毒** | 2 | 对一名已受伤角色使用。回复1体力，然后你可无代价弃置其一张【毒】。 |\n| **推心置腹** | 2 | 对距离1角色使用。获得其区域内≤2张牌，交给其等量手牌。 |\n| **趁火打劫** | 3 | 展示目标1手牌。对方选：交给你，或受你1点伤害。 |\n\n### 策略要点\n\n- 【毒】在玩家间流转不进弃牌堆——高风险博弈。\n- 【刮骨疗毒】是清理【毒】的核心手段。\n- 在敌人弃牌阶段前塞【毒】，迫使其掉血。"
+      },
+      "options": [
+        { "label": { "en": "Spy Chapter — Equipment", "zh": "用间篇——装备牌" }, "next": "spy-equipment" },
+        { "label": { "en": "Spy Chapter Overview", "zh": "用间篇概述" }, "next": "spy" }
+      ]
+    },
+    "spy-equipment": {
+      "title": { "en": "Spy Chapter — Equipment", "zh": "用间篇——装备牌" },
+      "content": {
+        "en": "### New Equipment\n\n| Card | Type/Range | Effect |\n|---|---|---|\n| **Broken Halberd (折戟)** | Weapon / 0 | No effect. Gift to sabotage enemies. |\n| **Seven Star Dagger (七星宝刀)** | Weapon / 2 | On equip: discard ALL other cards in equipment & judgment zones. |\n| **Sky Sword (倚天剑)** | Weapon / 2 | After your [Slash] deals damage, discard 1 → recover 1 health. |\n| **Bee Cloak (引蜂衣)** | Armor | Compulsory: Strategy damage +1, [Poison] loss +1. |\n| **Women's Dress (女装)** | Armor | Compulsory: Male chars targeted by [Slash] judge → black = damage +1. |\n| **Nag (驽马)** | -1 Horse | Compulsory: Other chars' distance to you is always 1. |\n| **War Elephant (战象)** | +1 Horse | Compulsory: All gifts to you fail. |\n| **Carrier Pigeon (信鸽)** | Treasure | Once/Play Phase: give 1 hand card to another char. |\n\n### Gifting Sabotage\n\n- Gift [Broken Halberd] → blocks weapon slot\n- Gift [Bee Cloak] / [Women's Dress] → makes target vulnerable\n- Gift [Seven Star Dagger] → blows up their equipment\n- [War Elephant] is the **only counter** to receiving unwanted gifts",
+        "zh": "### 新装备牌\n\n| 卡牌 | 类型/范围 | 效果 |\n|---|---|---|\n| **折戟** | 武器/0 | 无效果。可赠予坑害敌人。 |\n| **七星宝刀** | 武器/2 | 进入装备区时弃置你装备区和判定区所有其他牌。 |\n| **倚天剑** | 武器/2 | 【杀】造成伤害后弃1手牌→回复1体力。 |\n| **引蜂衣** | 防具 | 锁定技：锦囊伤害+1，【毒】流失体力+1。 |\n| **女装** | 防具 | 锁定技：男性角色被【杀】指定时判定→黑色则伤害+1。 |\n| **驽马** | -1马 | 锁定技：其他角色到你距离始终为1。 |\n| **战象** | +1马 | 锁定技：他人对你的赠予一律失败。 |\n| **信鸽** | 宝物 | 出牌阶段限一次，将一张手牌交给其他角色。 |\n\n### 赠予破坏战术\n\n- 塞【折戟】→ 废掉武器槽\n- 塞【引蜂衣】/【女装】→ 使其易伤\n- 塞【七星宝刀】→ 炸掉装备区\n- 【战象】是**唯一防御**被赠予坑害的手段"
+      },
+      "options": [
+        { "label": { "en": "Spy Chapter — Strategy Cards", "zh": "用间篇——锦囊牌" }, "next": "spy-strategy" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+
+    "loyal-hero": {
+      "title": { "en": "Loyal Hero Chapter (忠胆英杰)", "zh": "忠胆英杰" },
+      "content": {
+        "en": "### Core Innovation: Hidden Monarch + Open Loyalist\n\n- **8 players:** 1 Monarch, 2 Loyalists, 4 Rebels, 1 Traitor\n- One Loyalist = **Open Loyalist (明忠)**, identity revealed\n- **Monarch hidden** among other 7 players\n- Open Loyalist gets **+1 max health** and sits at **seat 1**\n- Monarch reveals only when Open Loyalist dies\n\n### Open Loyalist Skills\n\n**Insight (洞察)** — ≤3 base health characters:\n- Game start: peek at one Rebel's identity.\n- Preparation Phase: discard 1 card from any field zone.\n\n**Sacrifice (舍身)** — ≥4 base health characters & all females:\n- Compulsory: When Monarch still dying after Peach saves → Monarch +1 max health, recover to X (X = your health), takes all your cards, **you die**.",
+        "zh": "### 核心创新：主公隐藏 + 明忠亮将\n\n- **8人：** 1主公 + 2忠臣 + 4反贼 + 1内奸\n- 随机一名忠臣 = **明忠**，公开身份\n- **主公身份隐藏**，潜伏于7人中\n- 明忠**体力上限+1**，固定**1号位**\n- 明忠死亡后主公才亮将\n\n### 忠臣技\n\n**洞察** — 适用于≤3基础体力武将：\n- 开局：随机偷看一名反贼身份。\n- 准备阶段：弃置场上任意区域一张牌。\n\n**舍身** — 适用于≥4基础体力武将及所有女性：\n- 锁定技：主公濒死求桃完毕后仍濒死→主公+1上限，回复至X点（X=你的体力），获得你所有牌，**你死亡**。"
+      },
+      "options": [
+        { "label": { "en": "Kill Rewards & Penalties", "zh": "击杀奖惩" }, "next": "loyal-kills" },
+        { "label": { "en": "Exclusive Characters", "zh": "专属武将" }, "next": "loyal-characters" },
+        { "label": { "en": "Exclusive Cards", "zh": "专属卡牌" }, "next": "loyal-cards" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "loyal-kills": {
+      "title": { "en": "Kill Rewards & Penalties", "zh": "击杀奖惩" },
+      "content": {
+        "en": "### Special Kill Rules\n\n| Situation | Result |\n|---|---|\n| Anyone kills a Rebel | Draw **3 cards** |\n| Anyone (except hidden Monarch) kills Open Loyalist | Draw **3 cards** |\n| **Hidden Monarch kills Open Loyalist** | Draw **0**. **Discard ALL cards.** |\n| Hidden Monarch kills hidden Loyalist | No penalty |\n| Revealed Monarch kills hidden Loyalist | **Discard all cards** |\n\n### Why?\n\n- The hidden Monarch can't see who's on their side → killing the Open Loyalist by mistake is severely punished.\n- Killing a Rebel is rewarded for everyone (not just the main attacker).\n\n### Victory Conditions\n\nSame as standard: Monarch+Loyalists eliminate Rebels+Traitor; Rebels kill Monarch; Traitor is last standing.",
+        "zh": "### 特殊击杀规则\n\n| 情形 | 结果 |\n|---|---|\n| 任何人杀死反贼 | 摸**3张牌** |\n| 任何人杀死明忠（暗主除外） | 摸**3张牌** |\n| **暗主杀死明忠** | 不摸，**弃置所有牌** |\n| 暗主杀死暗忠 | 无惩罚 |\n| 明主杀死暗忠 | **弃置所有牌** |\n\n### 设计意图\n\n- 暗主看不到队友 → 误杀明忠受重罚。\n- 杀反贼全民有赏（非仅击杀者）。\n\n### 胜利条件\n\n与标准局相同：主忠消灭反内；反贼击杀主公；内奸最后存活。"
+      },
+      "options": [
+        { "label": { "en": "Loyal Hero Overview", "zh": "忠胆英杰概述" }, "next": "loyal-hero" },
+        { "label": { "en": "Exclusive Characters", "zh": "专属武将" }, "next": "loyal-characters" }
+      ]
+    },
+    "loyal-characters": {
+      "title": { "en": "Exclusive Characters", "zh": "专属武将" },
+      "content": {
+        "en": "### Cui Yan (崔琰) — Wei, 3 Health\n- **Elegant Reputation (雅望)** — Compulsory: Draw Phase → draw X (X = chars with your current health). Max X card uses in Play Phase.\n- **Martyrdom (殉志)** — Preparation Phase: if both neighbors' health ≠ yours, lose 1 health → permanently +2 hand limit.\n\n### Huangfu Song (皇甫嵩) — Qun, 4 Health\n- **Brandishing Axe (奋钺)** — Play Phase, X times (X = surviving Loyalists). Point Duel with a char.\n  - **Win:** Choose → they can't use/play hand cards this turn, OR treat as [Slash] on them (unlimited).\n  - **Lose:** End your Play Phase immediately.\n\n### 明忠专属卡\n\n| 武将 | 忠臣技 |\n|---|---|\n| ≤3基础体力男性 | **洞察** |\n| ≥4基础体力男性 | **舍身** |\n| 所有女性武将 | **舍身** |",
+        "zh": "### 崔琰（魏，3体力）\n- **雅望** — 锁定技：摸牌阶段摸X张（X=与你体力相等的角色数）。出牌阶段至多用X张牌。\n- **殉志** — 准备阶段：若上下家体力均与你不同，失去1体力→永久手牌上限+2。\n\n### 皇甫嵩（群，4体力）\n- **奋钺** — 出牌阶段限X次（X=存活忠臣数）。与一名角色拼点。\n  - **赢：** 选→其本回合不能用/打出手牌，或视为对其使用【杀】（不计次数）。\n  - **没赢：** 立即结束出牌阶段。\n\n### 明忠专属卡\n\n| 武将 | 忠臣技 |\n|---|---|\n| ≤3基础体力男性 | **洞察** |\n| ≥4基础体力男性 | **舍身** |\n| 所有女性武将 | **舍身** |"
+      },
+      "options": [
+        { "label": { "en": "Exclusive Cards", "zh": "专属卡牌" }, "next": "loyal-cards" },
+        { "label": { "en": "Loyal Hero Overview", "zh": "忠胆英杰概述" }, "next": "loyal-hero" }
+      ]
+    },
+    "loyal-cards": {
+      "title": { "en": "Exclusive Cards (9 cards)", "zh": "专属卡牌（9张）" },
+      "content": {
+        "en": "| Card | Replaces | Effect |\n|---|---|---|\n| **Feint East, Strike West (声东击西)** | Snatch | Give 1 card to char at dist 1; they give 2 to another |\n| **Abandon Arms (弃甲曳兵)** | Borrowed Sword | Target discards all weapons/-1 horses OR all armor/+1 horses |\n| **Grass and Trees (草木皆兵)** | Supply Shortage | Delayed: non-Clubs → draw 1 fewer; dist 1 chars draw 1 each |\n| **Cicada Shell (金蝉脱壳)** | Nullification | Only hand card → immune + draw 2. Discarded → draw 1. |\n| **Reinforce & Reduce (增兵减灶)** | Something from Nothing / Bountiful Harvest | Target draws 3, then discards 1 non-basic or 2 cards |\n| **Floating Thunder (浮雷)** | Lightning | Judge Spade → X Lightning dmg (X = consecutive Spades), then move |\n| **Seven Treasure Blade (七宝刀)** | Blue Steel Blade | Range 2, ignore armor. Target undamaged → dmg +1. |\n| **Steel Lance (衠钢槊)** | Green Dragon Blade | Range 3. [Slash] targets → you & target may each discard 1. |\n| **Tarnished Silver Armor (烂银甲)** | Eight Trigrams | Hand cards as [Dodge]. After [Slash] dmg → discard this armor. |",
+        "zh": "| 卡牌 | 替换原牌 | 效果 |\n|---|---|---|\n| **声东击西** | 顺手牵羊 | 给距离1角色1手牌，其给另一角色2张 |\n| **弃甲曳兵** | 借刀杀人 | 目标弃所有武器/-1马，或所有防具/+1马 |\n| **草木皆兵** | 兵粮寸断 | 延时：非梅花→少摸1张，距离1角色各摸1张 |\n| **金蝉脱壳** | 无懈可击 | 唯一手牌→免疫+摸2。被弃置→摸1。 |\n| **增兵减灶** | 无中/五谷 | 目标摸3，然后弃1非基本或2张 |\n| **浮雷** | 闪电 | 判黑桃→X雷伤（X=连续黑桃数），然后移到下家 |\n| **七宝刀** | 青釭剑 | 范围2，无视防具。目标未受伤→伤害+1。 |\n| **衠钢槊** | 青龙偃月刀 | 范围3。【杀】指定目标→你与目标可互弃1手牌。 |\n| **烂银甲** | 八卦阵 | 手牌当【闪】。受【杀】伤害后→弃此防具。 |"
+      },
+      "options": [
+        { "label": { "en": "Exclusive Characters", "zh": "专属武将" }, "next": "loyal-characters" },
+        { "label": { "en": "Loyal Hero Overview", "zh": "忠胆英杰概述" }, "next": "loyal-hero" }
+      ]
+    },
+
+    "adaptation": {
+      "title": { "en": "Adaptation Chapter (应变篇)", "zh": "应变篇" },
+      "content": {
+        "en": "### Three New Systems\n\n| System | Description |\n|---|---|\n| **Adaptive (应变)** | Cards gain bonuses when you meet conditions |\n| **Ice Damage (冰)** | New damage type — prevent to discard 2 opponent cards |\n| **Divination (卜算)** | Peek at top X deck cards, rearrange top/bottom |\n\n### Adaptive Keywords\n\n| Condition | Trigger | Common Bonus |\n|---|---|---|\n| **Reinforce (助战)** | After use, others discard same-type card | +1 target / +1 dmg / draw 1 / uncounterable |\n| **Empty Nest (空巢)** | You have 0 hand cards after use | Draw cards / +1 target |\n| **Wealthy (富甲)** | Most hand cards when using | -1 target / uncounterable |\n| **Wounded Body (残躯)** | Exactly 1 health when using | +1 target / +1 dmg |\n\n### Ice Damage\n\n- Can **prevent** Ice damage → target **discards 2 cards** sequentially.\n- Direct targets only (does NOT propagate via Iron Shackles).\n- Strong counter vs damage-trigger characters (Guo Jia, Cao Cao).",
+        "zh": "### 三大新系统\n\n| 系统 | 描述 |\n|---|---|\n| **应变** | 满足条件时卡牌获额外效果 |\n| **冰属性伤害** | 新伤害类型——可防止改为弃目标2张牌 |\n| **卜算** | 观看牌堆顶X张，任意顺序放回顶/底 |\n\n### 应变关键词\n\n| 条件 | 触发方式 | 常见加成 |\n|---|---|---|\n| **助战** | 使用后，他人弃同类型手牌 | 目标+1 / 伤害+1 / 摸1 / 不可响应 |\n| **空巢** | 使用后手牌为0 | 摸牌 / 目标+1 |\n| **富甲** | 使用时手牌数全场最多 | 目标-1 / 不可响应 |\n| **残躯** | 使用时体力为1 | 目标+1 / 伤害+1 |\n\n### 冰属性伤害\n\n- 可**防止**冰伤→目标**依次弃置2张牌**。\n- 仅对直接目标（不通过铁索传导）。\n- 强力克制卖血流（郭嘉、曹操等）。"
+      },
+      "options": [
+        { "label": { "en": "Adaptation — New Cards", "zh": "应变篇——新卡牌" }, "next": "adapt-cards" },
+        { "label": { "en": "Jin Faction (晋势力)", "zh": "晋势力" }, "next": "jin-faction" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "adapt-cards": {
+      "title": { "en": "Adaptation — New Cards", "zh": "应变篇——新卡牌" },
+      "content": {
+        "en": "### Key New Cards\n\n| Card | Type | Effect |\n|---|---|---|\n| **Ice Slash (冰杀)** | Basic | Deal 1 Ice damage. |\n| **Adapt and Improvise (随机应变)** | Strategy | Treat as the last basic/strategy card used this turn. |\n| **Catch Off Guard (出其不意)** | Strategy | Reveal 1 target hand → suit mismatch = 1 dmg. |\n| **Approach Far, Attack Near (逐近弃远)** | Strategy | Dist >1 = discard from zone; dist =1 = take from zone. |\n| **Flood Seven Armies (水淹七军)** | Strategy | Target: discard 2 equipment or take 1 Lightning dmg. |\n| **Foresee Opportunity (洞烛先机)** | Strategy | Divination 2, then draw 2. |\n| **Five Elements Crane Fan** | Weapon/R4 | Treat elemental [Slash] as any other element. |\n| **Iron Shackle Chain** | Weapon/R3 | Target chained→view hand; not→chain them. |\n| **Black Light Armor** | Armor | Non-unique target→card invalid vs you. |\n| **Heart Mirror** | Armor | Prevent lethal dmg by discarding this. |\n| **Bronze Sparrow** | Treasure | Use Adaptive cards ignoring conditions. |\n| **Heaven's Blueprint** | Treasure | Unequip→draw to 5 hand cards. |\n\n### Deck Changes\n\n- Total remains **161 cards** (same as Military Chapter).\n- Removed: Fire Attack, Ice Sword, Vermilion Bird Fan, Fangtian Halberd, Silver Lion, etc.\n- Attribute damage: 17 → 25 cards.",
+        "zh": "### 核心新卡牌\n\n| 卡牌 | 类型 | 效果 |\n|---|---|---|\n| **冰杀** | 基本 | 造成1点冰属性伤害。 |\n| **随机应变** | 锦囊 | 视为本回合使用的上一张基本/锦囊牌。 |\n| **出其不意** | 锦囊 | 展示目标1手牌→花色不同则1伤害。 |\n| **逐近弃远** | 锦囊 | 距>1=弃置其区域1牌；距=1=获得其区域1牌。 |\n| **水淹七军** | 锦囊 | 目标选：弃2装备或受1雷伤。 |\n| **洞烛先机** | 锦囊 | 卜算2，然后摸2张。 |\n| **五行鹤翎扇** | 武器/4 | 属性【杀】当任意属性使用。 |\n| **乌铁锁链** | 武器/3 | 目标已横置→看手牌；未横置→横置之。 |\n| **黑光铠** | 防具 | 非唯一目标→牌对你无效。 |\n| **护心镜** | 防具 | 防致命伤然后弃置。 |\n| **铜雀** | 宝物 | 使用应变牌无视条件。 |\n| **天机图** | 宝物 | 离开装备区→摸至5手牌。 |\n\n### 牌堆变化\n\n- 总牌数保持**161张**（与军争篇同）。\n- 移除：火攻、寒冰剑、朱雀羽扇、方天画戟、白银狮子等。\n- 属性伤害：17张→25张。"
+      },
+      "options": [
+        { "label": { "en": "Jin Faction (晋势力)", "zh": "晋势力" }, "next": "jin-faction" },
+        { "label": { "en": "Adaptation Overview", "zh": "应变篇概述" }, "next": "adaptation" }
+      ]
+    },
+    "jin-faction": {
+      "title": { "en": "Jin Faction — Concealment", "zh": "晋势力——隐匿机制" },
+      "content": {
+        "en": "### Concealment Mechanic (隐匿)\n\n> At game start, Jin characters are placed **face-down**. No health, no visible skills, gender = male. When taking health-reducing damage/loss, or at your own turn start, flip and reveal — called **Debut (登场)**.\n\n### Jin Characters\n\n| Character | Health | Key Skill |\n|---|---|---|\n| **Sima Yi (司马懿)** | 3 | Debut: take 1 card from current turn player. Limited: reveal & use deck top repeatedly. |\n| **Zhang Chunhua (张春华)** | 3 | Instead of drawing, view deck top and take half. Debut: prevent all dmg this turn. |\n| **Sima Shi (司马师)** | 3/4 | Debut: target hand limit -2. Compulsory: end phase refill; next turn lose the refilled amount. |\n| **Xiahou Hui (夏侯徽)** | 3 | Debut: gain a treasure from deck/discard. Point Duel win → take all enemy hand, give half back. |\n| **Sima Zhao (司马昭)** | 3 | Debut: force [Slash] or take 1 dmg. Make hand visible → lose last suit card → draw/discard from others. |\n| **Wang Yuanji (王元姬)** | 3 | Debut: Banquet Play. Guess which of 3 cards came from target's hand → win = take all 3. |\n| **Zhang Hu & Yue Chen (张虎&乐綝)** | 4 | Gain Title tokens per damage; spend for bonus effects. |\n| **Du Yu (杜预)** | 4 | Target draws 3 discards 3. Awaken after 3 uses → hand cards as Catch Off Guard. |",
+        "zh": "### 隐匿机制\n\n> 开局时晋势力武将**暗置**。无体力值、无技能展示、性别男。受到扣减体力伤害/流失，或自己回合开始时，翻转亮出——称为**登场**，触发登场技能。\n\n### 晋势力武将\n\n| 武将 | 体力 | 核心技能 |\n|---|---|---|\n| **司马懿** | 3 | 登场：获当前回合角色1张牌。限定技：反复展示并使用牌堆顶。 |\n| **张春华** | 3 | 放弃摸牌→看牌堆顶取一半。登场：本回合免伤。 |\n| **司马师** | 3/4 | 登场：目标手牌上限-2。锁定技：回合结束补满；下回合失去补的量。 |\n| **夏侯徽** | 3 | 登场：获得宝物牌。拼点赢→拿敌人所有手牌，还一半。 |\n| **司马昭** | 3 | 登场：强制【杀】或受1伤害。手牌可见→失去某花色最后一张→摸/弃他人牌。 |\n| **王元姬** | 3 | 登场：宴戏。猜3张牌中哪张来自目标手牌→对则全拿。 |\n| **张虎&乐綝** | 4 | 按伤害获标记，弃标记发动额外技能。 |\n| **杜预** | 4 | 令目标摸3弃3。觉醒后手牌当【出其不意】使用。 |"
+      },
+      "options": [
+        { "label": { "en": "Adaptation — New Cards", "zh": "应变篇——新卡牌" }, "next": "adapt-cards" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    }
+  }
+}

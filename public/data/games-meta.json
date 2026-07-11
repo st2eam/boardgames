@@ -281,7 +281,7 @@
     "family": "uno",
     "familyOrder": 0,
     "variantType": "base",
-    "price": 0,
+    "price": 23,
     "slug": "uno"
   },
   {
@@ -576,6 +576,7 @@
       "deduction"
     ],
     "category": "card",
+    "price": 35,
     "slug": "trio"
   },
   {
@@ -592,6 +593,7 @@
       "campaign"
     ],
     "category": "board",
+    "price": 186,
     "slug": "bomb-busters"
   },
   {
@@ -608,6 +610,7 @@
       "family"
     ],
     "category": "party",
+    "price": 169,
     "slug": "spots"
   },
   {
@@ -624,7 +627,7 @@
       "set-collection"
     ],
     "category": "board",
-    "price": 60,
+    "price": 226,
     "slug": "harmonies"
   },
   {
@@ -644,7 +647,7 @@
     "familyOrder": 2,
     "variantType": "expansion",
     "requiresBase": true,
-    "price": 88,
+    "price": 94,
     "slug": "legends-of-the-three-kingdoms-wind-and-cloud"
   }
 ]

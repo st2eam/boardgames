@@ -2,6 +2,8 @@
 
 import { useState, useCallback } from "react";
 
+const EXTS = ["webp", "png", "jpg", "jpeg"] as const;
+
 interface Props {
   slug: string;
   gradient: string;
@@ -12,17 +14,18 @@ interface Props {
 
 export function GameCover({ slug, gradient, className = "", children, fallbackIcon }: Props) {
   const [imgLoaded, setImgLoaded] = useState(false);
-  const [imgFailed, setImgFailed] = useState(false);
+  const [extIdx, setExtIdx] = useState(0);
   const basePath = process.env.__NEXT_ROUTER_BASEPATH || "/boardgames";
-  const src = imgFailed ? "" : `${basePath}/images/games/${slug}.webp`;
+  const allFailed = extIdx >= EXTS.length;
+  const src = allFailed ? "" : `${basePath}/images/games/${slug}.${EXTS[extIdx]}`;
 
   const handleError = useCallback(() => {
-    setImgFailed(true);
+    setExtIdx((i) => i + 1);
   }, []);
 
   return (
     <div className={`relative overflow-hidden bg-gradient-to-br ${gradient} ${className}`}>
-      {!imgFailed && (
+      {!allFailed && (
         <img
           src={src}
           alt=""
@@ -33,7 +36,7 @@ export function GameCover({ slug, gradient, className = "", children, fallbackIc
           draggable={false}
         />
       )}
-      {!imgLoaded && (
+      {(allFailed || !imgLoaded) && (
         fallbackIcon ? (
           <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
             {fallbackIcon}

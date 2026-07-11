@@ -69,7 +69,7 @@ Games can belong to a family (e.g., UNO, Exploding Kittens, Sanguosha, Dirty Pig
 
 ### Decision Tree (Interactive Flow)
 
-15 games have `flow.json` decision trees. Each flow defines:
+29 games have `flow.json` decision trees. Each flow defines:
 - `startNode` — entry point key
 - `nodes` — record of `{ title: {en, zh}, content: markdown, options: [{label: {en, zh}, next: nodeId}] }`
 
@@ -113,12 +113,48 @@ Games can belong to a family (e.g., UNO, Exploding Kittens, Sanguosha, Dirty Pig
 - Header: site title (`home.title` from i18n) + language switcher only (no nav links)
 - Footer: site title + GitHub link
 
+### Cover Image System
+
+Cover images live in `public/images/games/<slug>.<ext>` (webp, png, jpg, jpeg).
+
+**Build-time manifest generation** (`scripts/generate-game-data.mjs`):
+- Scans `public/images/games/` at prebuild time
+- Generates `public/data/cover-manifest.json` — `{ "<slug>": "<ext>" }` mapping
+- Reports missing covers in build output (e.g., `Missing: carcassonne-the-river`)
+
+**Runtime** (`GameCover` component in `src/components/home/GameCover.tsx`):
+- Fetches `cover-manifest.json` on first load (cached in memory)
+- Loads the correct format directly — no `<img>` tag at all for games without covers
+- Missing covers render with gradient placeholder, **zero 404s**
+
+**Adding a cover:** drop the image file into `public/images/games/<slug>.<ext>` — prebuild picks it up automatically. No code changes needed.
+
+### Score Calculator System
+
+Score calculators are powered by `content/games/<slug>/score.json`. The `type` field determines which component renders:
+
+| Type | Component | Games |
+|------|-----------|-------|
+| `cabo-multi` | `CaboScoreTracker` | CABO |
+| `sea-salt-multi` | `SeaSaltScoreTracker` | Sea Salt Paper |
+| `just-wild-multi` | `JustWildScoreTracker` | Just Wild (荒野之王) |
+| `category` / others | `ScoreTracker` (generic engine-based) | Catan, Carcassonne, etc. |
+
+Custom tracker components are self-contained with their own UI, localStorage persistence, and multi-player support. The generic `ScoreTracker` uses pluggable engines defined in `src/lib/score/engines/`.
+
+**ScoreConfigType** (in `src/types/game.ts`) lists all valid types. To add a new dedicated tracker:
+1. Add the type string to `ScoreConfigType`
+2. Create the component in `src/components/game/score/`
+3. Route it in `score/page.tsx` `ScoreContent`
+4. Set the game's `score.json` to the new type
+
 ### Types
 
 Core types in `src/types/game.ts`:
-- `GameMeta` — slug, name (bilingual), players, duration, difficulty, tags, category, family*, variantType*, requiresBase*
+- `GameMeta` — slug, name (bilingual), players, duration, difficulty, tags, category, family*, variantType*, requiresBase*, price
 - `Game` — meta + rules (markdown string) + flow (FlowData | null)
-- `GameSummary` — lightweight: meta + hasFlow + family* (no rules content)
+- `GameSummary` — lightweight: meta + hasFlow + hasScore + hasTrainer + family* (no rules content)
 - `FlowData` — startNode + nodes record
-- `FlowNode` — title (bilingual), content (markdown), options array
+- `FlowNode` — title (bilingual), content (bilingual markdown), options array
 - `FlowOption` — label (bilingual), next (node key)
+- `ScoreConfig` — type, engine, direction, players, multiRound, target/targetByPlayers, categories/cards/features

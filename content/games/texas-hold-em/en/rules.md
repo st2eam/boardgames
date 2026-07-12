@@ -75,6 +75,8 @@ For example, with A♥ A♦ in hand and K♠ K♣ K♥ Q♠ Q♥ on the board, y
 > Ace works at both ends: A-2-3-4-5 (the Wheel) is the lowest straight; 10-J-Q-K-A (Broadway) is the highest.
 >
 > ⚠️ **Suits have no rank.** Spades are not higher than hearts. Flushes are compared by card ranks, not suits. Two royal flushes always split the pot.
+>
+> 💡 **Hand ranks are absolute**: a higher-ranked hand always beats a lower-ranked one. There is no "a flush is only slightly better than a straight" — it simply wins. Two pair is five cards total (two pairs + a kicker), not four cards.
 
 ## Comparing Hands
 
@@ -111,6 +113,8 @@ A player may go all-in by pushing all remaining chips at any time. When an all-i
 3. All-in players can only win pots they contributed to
 
 > **Example:** Player A (500) all-in, B (1500) calls, C (1500) calls. Main pot = 500 × 3 = 1500 (A/B/C compete). Side pot = 1000 × 2 = 2000 (B/C only).
+>
+> 💡 Going all-in only risks the chips you put in — you can never lose more than your stack.
 
 ## Pot Odds
 
@@ -152,20 +156,6 @@ From earliest to latest post-flop:
 | **CO (Cutoff)** | Left of BTN; wide opening ranges |
 | **BTN (Button)** | **Best position** — always last post-flop |
 
-## Full Ring (9-Max) Reference
-
-| Seat | Full Ring | 6-Max |
-|------|-----------|--------|
-| UTG | UTG | — |
-| UTG+1 | UTG+1 | — |
-| MP | MP (Middle Position) | — |
-| LJ | LJ (Lojack) | UTG |
-| HJ | HJ | HJ |
-| CO | CO | CO |
-| BTN | BTN | BTN |
-| SB | SB | SB |
-| BB | BB | BB |
-
 > **Action order:** Pre-flop, action starts from UTG and proceeds clockwise. Post-flop, action starts from SB. BTN always acts last post-flop.
 
 ## Preflop Starting Hand Strategy
@@ -201,21 +191,6 @@ Before any call, ask: How much am I putting in? How much can I win? How likely a
 ## Master Preflop Before the Rest
 
 Preflop decisions are the foundation. If you're unsure which hands to play and which to fold, post-flop complexity will only compound the confusion. Drill RFI ranges with the Preflop Trainer first — post-flop can wait.
-
----
-
-# Common Misconceptions
-
-| Myth | Reality |
-|------|---------|
-| You must use both hole cards | ❌ You may use 0, 1, or 2 hole cards to make your best five |
-| Spades are the highest suit | ❌ Suits have no rank. Flushes compare by card ranks |
-| Ace is always the highest card | ❌ Ace can also act as 1 in A-2-3-4-5, the lowest straight |
-| A flush is "much bigger" than a straight | ❌ Flush is simply one rank higher on the hand hierarchy — there is no point value |
-| If the board shows a royal flush, one player wins | ❌ All remaining players split the pot |
-| Two pair means four cards total | ❌ Two pair is two pairs + a kicker — five cards total |
-| Three of a kind always beats two pair | ✅ Correct — hand rank is absolute |
-| Going all-in means you can lose everything | ❌ You can only lose what you put in; you never owe more than your stack |
 
 ---
 

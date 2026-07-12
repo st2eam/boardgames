@@ -154,17 +154,17 @@ From earliest to latest post-flop:
 
 ## Full Ring (9-Max) Reference
 
-| Full Ring | 6-Max |
-|-----------|--------|
-| UTG | — |
-| UTG+1 | — |
-| MP (Middle Position) | — |
-| LJ (Lojack) | UTG |
-| HJ | HJ |
-| CO | CO |
-| BTN | BTN |
-| SB | SB |
-| BB | BB |
+| Seat | Full Ring | 6-Max |
+|------|-----------|--------|
+| UTG | UTG | — |
+| UTG+1 | UTG+1 | — |
+| MP | MP (Middle Position) | — |
+| LJ | LJ (Lojack) | UTG |
+| HJ | HJ | HJ |
+| CO | CO | CO |
+| BTN | BTN | BTN |
+| SB | SB | SB |
+| BB | BB | BB |
 
 > **Action order:** Pre-flop, action starts from UTG and proceeds clockwise. Post-flop, action starts from SB. BTN always acts last post-flop.
 

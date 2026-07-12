@@ -154,17 +154,17 @@
 
 ## 9 人桌对照
 
-| 9 人桌 | 6 人桌 |
-|--------|--------|
-| UTG | — |
-| UTG+1 | — |
-| MP（中间位） | — |
-| LJ（Lojack） | UTG |
-| HJ | HJ |
-| CO | CO |
-| BTN | BTN |
-| SB | SB |
-| BB | BB |
+| 位置 | 9 人桌 | 6 人桌 |
+|------|--------|--------|
+| UTG | UTG | — |
+| UTG+1 | UTG+1 | — |
+| MP | MP（中间位） | — |
+| LJ | LJ（Lojack） | UTG |
+| HJ | HJ | HJ |
+| CO | CO | CO |
+| BTN | BTN | BTN |
+| SB | SB | SB |
+| BB | BB | BB |
 
 > **行动顺序**：翻牌前从 UTG 开始顺时针行动；翻牌后从 SB 开始。BTN 翻牌后永远最后行动。
 

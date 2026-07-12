@@ -9,8 +9,9 @@
     "playerCount": "Players",
     "anyPlayerCount": "Any",
     "sortLabel": "Sort by",
-    "sortAlphabetical": "A-Z",
-    "sortByBggRank": "BGG Rank"
+    "sortEnglish": "EN",
+    "sortChinese": "中文",
+    "sortByBggRank": "BGG"
   },
   "game": {
     "players": "Players",

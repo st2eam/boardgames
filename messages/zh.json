@@ -9,8 +9,9 @@
     "playerCount": "游玩人数",
     "anyPlayerCount": "不限",
     "sortLabel": "排序",
-    "sortAlphabetical": "字母",
-    "sortByBggRank": "BGG 排名"
+    "sortEnglish": "英文",
+    "sortChinese": "中文",
+    "sortByBggRank": "BGG"
   },
   "game": {
     "players": "人数",

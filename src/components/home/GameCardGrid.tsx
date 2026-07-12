@@ -15,7 +15,7 @@ type GridItem =
   | { type: "single"; game: GameSummary }
   | { type: "family"; key: string; games: GameSummary[] };
 
-export type SortMode = "alphabetical" | "bggRank";
+export type SortMode = "english" | "chinese" | "bggRank";
 
 function deriveFamilyTags(
   games: GameSummary[],
@@ -50,7 +50,8 @@ export function GameCardGrid({ games }: Props) {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedPlayerCount, setSelectedPlayerCount] = useState<number | null>(null);
-  const [sortMode, setSortMode] = useState<SortMode>("alphabetical");
+  const [sortMode, setSortMode] = useState<SortMode>("english");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
 
   const { enriched, familyTagSet } = useMemo(
     () => deriveFamilyTags(games, locale),
@@ -117,20 +118,29 @@ export function GameCardGrid({ games }: Props) {
   );
 
   const gridItems = useMemo((): GridItem[] => {
+    // Shared sort comparator that respects sortMode + sortDir
+    const cmp = (a: GameSummary, b: GameSummary): number => {
+      // Family grouping takes priority when series filter is active
+      if (hasSeriesFilter && a.family === b.family && a.family) {
+        return (a.familyOrder ?? 0) - (b.familyOrder ?? 0);
+      }
+      let r = 0;
+      if (sortMode === "bggRank") {
+        const ra = a.bggRank ?? Infinity;
+        const rb = b.bggRank ?? Infinity;
+        r = ra - rb;
+      } else if (sortMode === "chinese") {
+        r = a.name.zh.localeCompare(b.name.zh, "zh-CN");
+      } else {
+        r = a.name.en.localeCompare(b.name.en);
+      }
+      return sortDir === "asc" ? r : -r;
+    };
+
     if (hasSeriesFilter) {
       return filtered
         .slice()
-        .sort((a, b) => {
-          if (a.family === b.family && a.family) {
-            return (a.familyOrder ?? 0) - (b.familyOrder ?? 0);
-          }
-          if (sortMode === "bggRank") {
-            const rankA = a.bggRank ?? Infinity;
-            const rankB = b.bggRank ?? Infinity;
-            if (rankA !== rankB) return rankA - rankB;
-          }
-          return a.name.en.localeCompare(b.name.en);
-        })
+        .sort(cmp)
         .map((game) => ({ type: "single" as const, game }));
     }
 
@@ -171,27 +181,15 @@ export function GameCardGrid({ games }: Props) {
       }
     }
 
-    if (sortMode === "bggRank") {
-      items.sort((a, b) => {
-        const rankA = a.type === "family"
-          ? (a.games[0].bggRank ?? Infinity)
-          : (a.game.bggRank ?? Infinity);
-        const rankB = b.type === "family"
-          ? (b.games[0].bggRank ?? Infinity)
-          : (b.game.bggRank ?? Infinity);
-        if (rankA !== rankB) return rankA - rankB;
-        const nameA = a.type === "family" ? a.games[0].name.en : a.game.name.en;
-        const nameB = b.type === "family" ? b.games[0].name.en : b.game.name.en;
-        return nameA.localeCompare(nameB);
-      });
-    } else {
-      const getSortName = (item: GridItem) =>
-        item.type === "family" ? item.games[0].name.en : item.game.name.en;
-      items.sort((a, b) => getSortName(a).localeCompare(getSortName(b)));
-    }
+    // Sort grid items by the representative game
+    items.sort((a, b) => {
+      const ga = a.type === "family" ? a.games[0] : a.game;
+      const gb = b.type === "family" ? b.games[0] : b.game;
+      return cmp(ga, gb);
+    });
 
     return items;
-  }, [filtered, hasSeriesFilter, sortMode]);
+  }, [filtered, hasSeriesFilter, sortMode, sortDir]);
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) => {
@@ -238,16 +236,25 @@ export function GameCardGrid({ games }: Props) {
           ))}
           {/* Mobile: sort toggle */}
           <div className="ml-auto flex shrink-0 items-center gap-1">
-            <span className="text-[11px] font-medium text-stone-400">{t("sortLabel")}</span>
             <button
-              onClick={() => setSortMode("alphabetical")}
+              onClick={() => setSortMode("english")}
               className={`cursor-pointer shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium transition-all ${
-                sortMode === "alphabetical"
+                sortMode === "english"
                   ? "bg-primary text-white"
                   : "bg-stone-100 text-stone-500 hover:bg-amber-50"
               }`}
             >
-              A-Z
+              EN
+            </button>
+            <button
+              onClick={() => setSortMode("chinese")}
+              className={`cursor-pointer shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium transition-all ${
+                sortMode === "chinese"
+                  ? "bg-primary text-white"
+                  : "bg-stone-100 text-stone-500 hover:bg-amber-50"
+              }`}
+            >
+              中文
             </button>
             <button
               onClick={() => setSortMode("bggRank")}
@@ -258,6 +265,21 @@ export function GameCardGrid({ games }: Props) {
               }`}
             >
               BGG
+            </button>
+            <button
+              onClick={() => setSortDir((d) => (d === "asc" ? "desc" : "asc"))}
+              className="cursor-pointer shrink-0 rounded-full p-1 text-stone-400 hover:bg-stone-100 hover:text-primary transition-colors"
+              title={sortDir === "asc" ? "Ascending" : "Descending"}
+            >
+              {sortDir === "asc" ? (
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12" />
+                </svg>
+              ) : (
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
@@ -280,6 +302,8 @@ export function GameCardGrid({ games }: Props) {
             onSelectPlayerCount={setSelectedPlayerCount}
             sortMode={sortMode}
             onSortModeChange={setSortMode}
+            sortDir={sortDir}
+            onToggleSortDir={() => setSortDir((d) => (d === "asc" ? "desc" : "asc"))}
           />
         </div>
 

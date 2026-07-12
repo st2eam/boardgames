@@ -19,6 +19,8 @@ interface Props {
   onSelectPlayerCount: (n: number | null) => void;
   sortMode: SortMode;
   onSortModeChange: (mode: SortMode) => void;
+  sortDir: "asc" | "desc";
+  onToggleSortDir: () => void;
 }
 
 export function Sidebar({
@@ -37,6 +39,8 @@ export function Sidebar({
   onSelectPlayerCount,
   sortMode,
   onSortModeChange,
+  sortDir,
+  onToggleSortDir,
 }: Props) {
   const t = useTranslations("home");
   const tc = useTranslations("common");
@@ -60,19 +64,46 @@ export function Sidebar({
 
       {/* Sort mode toggle */}
       <div>
-        <h4 className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-stone-400">
-          {t("sortLabel")}
-        </h4>
+        <div className="mb-2 flex items-center justify-between">
+          <h4 className="text-[11px] font-semibold uppercase tracking-widest text-stone-400">
+            {t("sortLabel")}
+          </h4>
+          <button
+            onClick={onToggleSortDir}
+            className="cursor-pointer rounded-md p-1 text-stone-400 hover:bg-stone-100 hover:text-primary transition-colors"
+            title={sortDir === "asc" ? "Ascending" : "Descending"}
+          >
+            {sortDir === "asc" ? (
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12" />
+              </svg>
+            ) : (
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />
+              </svg>
+            )}
+          </button>
+        </div>
         <div className="flex gap-1">
           <button
-            onClick={() => onSortModeChange("alphabetical")}
+            onClick={() => onSortModeChange("english")}
             className={`cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
-              sortMode === "alphabetical"
+              sortMode === "english"
                 ? "bg-primary text-white"
                 : "text-stone-600 hover:bg-stone-100 hover:text-primary"
             }`}
           >
-            {t("sortAlphabetical")}
+            {t("sortEnglish")}
+          </button>
+          <button
+            onClick={() => onSortModeChange("chinese")}
+            className={`cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+              sortMode === "chinese"
+                ? "bg-primary text-white"
+                : "text-stone-600 hover:bg-stone-100 hover:text-primary"
+            }`}
+          >
+            {t("sortChinese")}
           </button>
           <button
             onClick={() => onSortModeChange("bggRank")}

@@ -9,6 +9,7 @@ interface Props {
   onIntersectionClick: (c: Coord) => void;
   disabled?: boolean;
   lastMove?: Coord | null;
+  solutionStones?: Coord[] | null;
 }
 
 const PADDING = 24;
@@ -23,7 +24,7 @@ const STAR_POINTS_19 = [
   [15, 3], [15, 9], [15, 15],
 ];
 
-export function GoBoard({ size, stones, onIntersectionClick, disabled, lastMove }: Props) {
+export function GoBoard({ size, stones, onIntersectionClick, disabled, lastMove, solutionStones }: Props) {
   const viewSize = 320;
   const spacing = (viewSize - PADDING * 2) / (size - 1);
 
@@ -82,6 +83,21 @@ export function GoBoard({ size, stones, onIntersectionClick, disabled, lastMove 
       ))}
 
       {/* Stones */}
+      {/* Solution highlight markers */}
+      {solutionStones && solutionStones.map((c) => (
+        <g key={`sol-${c.row}-${c.col}`}>
+          <circle
+            cx={toSvg(c.col)} cy={toSvg(c.row)} r={stoneR + 3}
+            fill="none" stroke="#16a34a" strokeWidth={2.5} strokeDasharray="4 2"
+            className="animate-pulse"
+          />
+          <circle
+            cx={toSvg(c.col)} cy={toSvg(c.row)} r={stoneR * 0.7}
+            fill="#16a34a" opacity={0.35}
+          />
+        </g>
+      ))}
+
       {Object.entries(stones).map(([k, color]) => {
         const [r, c] = k.split(",").map(Number);
         const cx = toSvg(c);

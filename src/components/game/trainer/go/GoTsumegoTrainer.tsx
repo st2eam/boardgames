@@ -25,6 +25,7 @@ export function GoTsumegoTrainer({ config, locale }: Props) {
   const [correct, setCorrect] = useState(0);
   const [total, setTotal] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [wasCorrect, setWasCorrect] = useState(true);
 
   function getRandom(diff: string): GoProblem {
     const pool = getProblemsByDifficulty(diff);
@@ -53,8 +54,10 @@ export function GoTsumegoTrainer({ config, locale }: Props) {
     if (isCorrect) {
       setCorrect((p) => p + 1);
       setStreak((p) => p + 1);
+      setWasCorrect(true);
     } else {
       setStreak(0);
+      setWasCorrect(false);
     }
     setPhase("result");
   };
@@ -65,6 +68,7 @@ export function GoTsumegoTrainer({ config, locale }: Props) {
     setPlayedStones({});
     setLastMove(null);
     setPhase("playing");
+    setWasCorrect(true);
   };
 
   const handleDifficultyChange = (diff: string) => {
@@ -74,6 +78,7 @@ export function GoTsumegoTrainer({ config, locale }: Props) {
     setPlayedStones({});
     setLastMove(null);
     setPhase("playing");
+    setWasCorrect(true);
   };
 
   const handleUndo = () => {
@@ -117,10 +122,10 @@ export function GoTsumegoTrainer({ config, locale }: Props) {
           : "bg-amber-50 text-amber-800 border border-amber-200"
       }`}>
         {phase === "result"
-          ? (streak > 0
-              ? `${locale === "zh" ? "正确！" : "Correct!"} ${goalText}`
-              : `${locale === "zh" ? "错误，答案是：" : "Incorrect. Answer:"} ${problem.solution.map((s) => String.fromCharCode(65 + s.col) + (problem.size - s.row)).join(", ")}`)
-          : `${locale === "zh" ? "黑方" : "Black"}: ${goalText}`
+          ? (wasCorrect
+              ? `${locale === "zh" ? "正确！" : "Correct!"}`
+              : `${locale === "zh" ? "错误，绿色标记为正确答案" : "Incorrect — green marks show the answer"}`)
+          : goalText
         }
       </div>
 
@@ -131,6 +136,7 @@ export function GoTsumegoTrainer({ config, locale }: Props) {
         onIntersectionClick={handleClick}
         disabled={phase === "result"}
         lastMove={lastMove}
+        solutionStones={phase === "result" && !wasCorrect ? problem.solution : null}
       />
 
       {/* Controls */}

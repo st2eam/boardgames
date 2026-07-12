@@ -24,7 +24,9 @@ function useTags(game: GameSummary, t: ReturnType<typeof useTranslations<"game">
       ? t("strategyTrainer")
       : game.trainerType === "texas-holdem-preflop"
         ? t("preflopTrainer")
-        : t("tenpaiTrainer");
+        : game.trainerType === "go-tsumego"
+          ? t("tsumegoTrainer")
+          : t("tenpaiTrainer");
     functional.push(label);
   }
   if (game.hasCalculator) functional.push(t("scoreCalculator"));

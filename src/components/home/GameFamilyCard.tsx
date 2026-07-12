@@ -119,7 +119,7 @@ export function GameFamilyCard({ games, sortMode }: Props) {
               )}
               {base.hasTrainer && (
                 <span className="rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
-                  {base.trainerType === "blackjack-basic-strategy" ? t("strategyTrainer") : base.trainerType === "texas-holdem-preflop" ? t("preflopTrainer") : t("tenpaiTrainer")}
+                  {base.trainerType === "blackjack-basic-strategy" ? t("strategyTrainer") : base.trainerType === "texas-holdem-preflop" ? t("preflopTrainer") : base.trainerType === "go-tsumego" ? t("tsumegoTrainer") : t("tenpaiTrainer")}
                 </span>
               )}
               {base.hasCalculator && (

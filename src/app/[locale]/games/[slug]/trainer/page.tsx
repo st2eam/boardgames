@@ -2,6 +2,7 @@ import { GameRepository } from "@/lib/content/GameRepository";
 import { TenpaiTrainer } from "@/components/game/trainer/TenpaiTrainer";
 import { BasicStrategyTrainer } from "@/components/game/trainer/blackjack/BasicStrategyTrainer";
 import { PreflopTrainer } from "@/components/game/trainer/texas-holdem/PreflopTrainer";
+import { GoTsumegoTrainer } from "@/components/game/trainer/go/GoTsumegoTrainer";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";
@@ -15,6 +16,7 @@ const TRAINER_TITLES: Record<string, { en: string; zh: string }> = {
   tenpai: { en: "Tenpai Trainer", zh: "听牌训练" },
   "blackjack-basic-strategy": { en: "Basic Strategy Trainer", zh: "基本策略训练" },
   "texas-holdem-preflop": { en: "Preflop Trainer", zh: "翻前训练" },
+  "go-tsumego": { en: "Tsumego Trainer", zh: "死活训练" },
 };
 
 const TRAINER_DESCRIPTIONS: Record<string, { en: string; zh: string }> = {
@@ -29,6 +31,10 @@ const TRAINER_DESCRIPTIONS: Record<string, { en: string; zh: string }> = {
   "texas-holdem-preflop": {
     en: "practice GTO preflop open-raise decisions",
     zh: "练习GTO翻前起手牌决策",
+  },
+  "go-tsumego": {
+    en: "practice life & death problems",
+    zh: "练习围棋死活题",
   },
 };
 
@@ -103,6 +109,7 @@ export default async function TrainerPage({ params }: Props) {
       {type === "tenpai" && <TenpaiTrainer config={config} locale={locale} />}
       {type === "blackjack-basic-strategy" && <BasicStrategyTrainer locale={locale} />}
       {type === "texas-holdem-preflop" && <PreflopTrainer locale={locale} />}
+      {type === "go-tsumego" && <GoTsumegoTrainer config={config as any} locale={locale} />}
     </div>
   );
 }

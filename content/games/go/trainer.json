@@ -1,0 +1,21 @@
+{
+  "type": "go-tsumego",
+  "tileSet": "go",
+  "difficulties": [
+    {
+      "id": "beginner",
+      "name": { "en": "Beginner", "zh": "入门" },
+      "handSize": 9
+    },
+    {
+      "id": "easy",
+      "name": { "en": "Easy", "zh": "简单" },
+      "handSize": 9
+    },
+    {
+      "id": "normal",
+      "name": { "en": "Normal", "zh": "普通" },
+      "handSize": 9
+    }
+  ]
+}

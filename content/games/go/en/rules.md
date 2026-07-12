@@ -11,8 +11,7 @@ The rules are remarkably simple, but the possibilities are nearly infinite — w
 ## Components
 
 - Go board (goban): standard **19×19** grid (beginners may use **13×13** or **9×9**)
-- 181 black stones
-- 180 white stones
+- Black and white stones, roughly **180 of each**
 - Stone bowls
 
 ---
@@ -26,7 +25,7 @@ The rules are remarkably simple, but the possibilities are nearly infinite — w
 
 ---
 
-# How to Play
+# Basic Rules
 
 ## Placing Stones
 
@@ -35,7 +34,8 @@ Players alternate placing one stone of their color on any vacant **intersection*
 - Stones are placed on intersections, not inside the squares.
 - Once placed, stones do not move unless captured.
 - A player may **pass** at any time, skipping their turn.
-- Two consecutive passes end the game.
+- You cannot play on an intersection with no liberties (**illegal point**), unless the move captures opponent stones and gains liberties as a result.
+- When both players agree there is nothing left to play and pass consecutively, the game ends.
 
 ---
 
@@ -43,7 +43,7 @@ Players alternate placing one stone of their color on any vacant **intersection*
 
 Every stone depends on adjacent empty intersections to "breathe." These empty intersections are called **liberties**.
 
-Stones of the same color connected orthogonally (not diagonally) form a **group**, and the entire group shares all its liberties.
+Stones of the same color connected orthogonally (not diagonally) form a **group** (or chain), and the entire group shares all its liberties.
 
 For example:
 
@@ -58,29 +58,27 @@ These three black stones belong to the same group and share their surrounding em
 
 ## Capture
 
-When a group's **last liberty** is filled by an opponent stone, the entire group is immediately captured and removed from the board.
-
-Captured stones are called **prisoners**.
+When a group's **last liberty** is filled by an opponent stone, the entire group is immediately **captured** and removed from the board.
 
 For example:
 
 ```
-○ ○ ○
-○ ● +
-○ ○ ○
+● ● ●
+● ○ +
+● ● ●
 ```
 
-Where **+** marks Black's next move.
+Where **+** marks White's next move.
 
 After playing:
 
 ```
-○ ○ ○
-○ ● ●
-○ ○ ○
+● ● ●
+● ○ ○
+● ● ●
 ```
 
-The white group's last liberty is filled, so it is immediately captured.
+The black group's last liberty is filled, so it is immediately captured.
 
 ---
 
@@ -88,11 +86,36 @@ The white group's last liberty is filled, so it is immediately captured.
 
 Sometimes a position allows infinite back-and-forth capture of a single stone — this is called a **ko**.
 
+The simplest ko shape:
+
+```
+  ●
+● ○ ●
+  +
+```
+
+White can play at **+** to capture the marked black stone. But Black cannot immediately recapture at the same spot — otherwise the position would loop forever.
+
 To prevent endless loops, the **ko rule** states:
 
 > **Immediate recapture is forbidden.**
 
-After a ko capture, the other player must play elsewhere on the board first. Only after the opponent has played away can the ko be retaken.
+After a ko capture, the other player must play elsewhere on the board first (a **ko threat**). Only after the opponent has played away can the ko be retaken.
+
+---
+
+# Endgame & Scoring
+
+## Game End
+
+The game ends when both players agree there is nothing left to play and pass consecutively.
+
+The following steps are then performed:
+
+1. Players agree which groups are dead.
+2. Dead stones are removed from the board.
+3. Each player's score is calculated.
+4. The player with the higher score wins.
 
 ---
 
@@ -103,7 +126,7 @@ Not all stones remain on the board at the end of the game.
 - **Alive**: a group that can survive on the board indefinitely.
 - **Dead**: a group that cannot escape and will inevitably be captured.
 
-A group that has (or can make) **two separate eyes** can guarantee survival — this is called **two-eye life**.
+An **eye** is one or more empty intersections completely enclosed by stones of the same color. A group with only one eye will eventually be filled and captured; a group with **two separate, unconnected eyes** can never be captured — the opponent cannot fill both at once. This is called **two-eye life**.
 
 ---
 
@@ -112,19 +135,6 @@ A group that has (or can make) **two separate eyes** can guarantee survival — 
 **Territory** is the set of empty intersections completely enclosed by a player's living groups.
 
 Neutral points shared by both players (such as dame in seki) **do not count as territory** for either side.
-
----
-
-# Game End
-
-The game ends when both players pass consecutively.
-
-The following steps are then performed:
-
-1. Players agree which groups are dead.
-2. Dead stones are removed from the board.
-3. Each player's score is calculated.
-4. The player with the higher score wins.
 
 ---
 
@@ -156,10 +166,34 @@ Because Black has the advantage of moving first, White receives **komi** as comp
 
 Standard values:
 
-- Chinese rules: **7.5 points**
+- Chinese rules: **3¾ points** (equivalent to ~7.5 points)
 - Japanese rules: **6.5 points**
 
-The **0.5** prevents draws.
+The fractional value prevents draws.
+
+---
+
+# Special Rules
+
+## Illegal Points & Suicide
+
+An **illegal point** is an intersection where playing would leave your own group without liberties — unless the move also captures opponent stones and gains liberties as a result. Such moves are generally forbidden.
+
+The exception: if the move simultaneously captures opponent stones and gives your group liberties again, the move is allowed.
+
+---
+
+## Seki (Mutual Life)
+
+When opposing groups are mutually dependent — where whoever plays first puts themselves in danger — the position is called **seki**.
+
+Both groups in seki are treated as alive, and the neutral points shared between them **do not count as territory** for either side.
+
+---
+
+## Dame
+
+**Dame** are neutral points between territories that either player can fill. Each side typically takes half, so they do not change the score difference. They are usually filled before formally counting.
 
 ---
 
@@ -173,13 +207,13 @@ Rules:
 - Handicap stones are placed on designated star points before the game starts.
 - White plays first.
 - Common handicap: **2–9 stones**.
-- Handicap games typically have no komi.
+- Handicap games typically have no komi, but Black must **return stones** at the end (n handicap stones → return n/2 stones).
 
 ---
 
 # Strategy Concepts
 
-Go has simple rules but extraordinary strategic depth. Beginners can start by mastering these core principles.
+The following are not rules — they are thinking frameworks to help beginners navigate the board.
 
 ---
 
@@ -249,28 +283,4 @@ Before every move, it is worth asking:
 
 ---
 
-# Special Rules
-
-## Suicide
-
-In general, playing a stone that leaves your own group without liberties is forbidden.
-
-The only exception is:
-
-> If the move simultaneously captures opponent stones and gives your group liberties again, the move is allowed.
-
----
-
-## Seki (Mutual Life)
-
-When opposing groups are mutually dependent — where whoever plays first puts themselves in danger — the position is called **seki**.
-
-Both groups in seki are treated as alive, and the neutral points shared between them **do not count as territory** for either side.
-
----
-
-## Dame
-
-**Dame** are neutral points between territories that either player can fill but do not affect the final score.
-
-These are typically filled before formally counting.
+**Go in one sentence**: Place stones in turns → groups with no liberties are captured → no immediate ko recapture → both pass, count territory → higher score wins.

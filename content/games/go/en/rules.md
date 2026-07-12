@@ -77,6 +77,30 @@ To balance skill differences:
 - White plays first in handicap games.
 - Handicap: 2–9 stones, no komi for Black.
 
+## Strategy Concepts
+
+Go's rules are minimal, but the possibilities are nearly infinite. The following ideas provide a thinking framework for navigating an open board.
+
+### Stone Efficiency
+
+You only place one stone per turn, so every stone must do real work. The most common beginner trap is **following your opponent's stones** — they play, you respond, and your stones create nothing new. Strong moves often **serve two purposes at once**: expanding your own framework while reducing your opponent's, or reinforcing a weak group while threatening the opponent's thin position.
+
+### Strong and Weak Groups
+
+The goal is not to capture stones, but to secure more territory. Reinforcing an already-living group wastes a move. Conversely, a weak group on the run can drag down your entire position. **Before each move, assess the life-and-death status of every group on the board**, then decide where to play.
+
+### Corners, Sides, Center
+
+Corners enclose the most territory with the fewest stones — two edges do the work for you. Sides have one natural boundary. The center is wide open. As a beginner, the reliable path is: **occupy corners → approach or enclose corners → extend along sides**. Center fighting can wait until your fundamentals are solid.
+
+### Using Thickness
+
+After building a thick wall of stones, the worst thing you can do is **play right next to it to make territory**. Thickness earns its value through influence: you can expand boldly at a distance, and your opponent cannot risk approaching. Thickness is a deterrent, not a fence.
+
+### Sente and Gote
+
+If your opponent must answer your move, you keep **sente** (initiative) and can turn elsewhere. If your opponent can ignore your move, you fall into **gote** and have essentially played for them. Before every move, ask: **can my opponent tenuki (play away)?** If they can, the move may be less valuable than it seems.
+
 ## Special Rules
 
 - **Suicide**: Under Chinese rules, playing a stone that results in your own group having zero liberties (self-capture) is **forbidden** unless it also captures opponent stones.

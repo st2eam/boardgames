@@ -1,7 +1,6 @@
 export const categoryGradients: Record<string, string> = {
   board: "from-amber-500 to-orange-500",
   card: "from-emerald-500 to-teal-500",
-  party: "from-rose-500 to-pink-500",
   strategy: "from-indigo-500 to-violet-500",
   family: "from-lime-500 to-green-500",
   adventure: "from-violet-500 to-fuchsia-500",

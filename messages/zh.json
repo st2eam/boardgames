@@ -32,8 +32,8 @@
     "openStrategyTrainer": "策略训练",
     "preflopTrainer": "翻前训练",
     "openPreflopTrainer": "翻前训练",
-    "tsumegoTrainer": "死活训练",
-    "openTsumegoTrainer": "死活训练",
+    "tsumegoTrainer": "训练",
+    "openTsumegoTrainer": "训练",
     "scoreCalculator": "番符计算器",
     "openCalculator": "番符计算器"
   },

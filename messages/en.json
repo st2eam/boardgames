@@ -32,8 +32,8 @@
     "openStrategyTrainer": "Strategy Trainer",
     "preflopTrainer": "Preflop Trainer",
     "openPreflopTrainer": "Preflop Trainer",
-    "tsumegoTrainer": "Tsumego Trainer",
-    "openTsumegoTrainer": "Tsumego Trainer",
+    "tsumegoTrainer": "Trainer",
+    "openTsumegoTrainer": "Trainer",
     "scoreCalculator": "Score Calculator",
     "openCalculator": "Score Calculator"
   },

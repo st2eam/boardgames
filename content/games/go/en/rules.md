@@ -274,15 +274,3 @@ Both groups in seki are treated as alive, and the neutral points shared between 
 **Dame** are neutral points between territories that either player can fill but do not affect the final score.
 
 These are typically filled before formally counting.
-
----
-
-# Quick-Start Tips
-
-New to Go? Remember these essentials:
-
-- Black plays first; players alternate placing stones.
-- Stones go on intersections and cannot be moved.
-- A group with no liberties is immediately captured.
-- Two consecutive passes end the game.
-- Prioritize corners, then sides, then the center.

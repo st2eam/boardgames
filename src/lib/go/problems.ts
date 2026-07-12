@@ -45,14 +45,14 @@ export const problems: GoProblem[] = [
     id: "easy-1",
     size: 9,
     setup: {
-      "2,4": "black", "3,4": "black", "4,4": "black",
-      "2,5": "black", "4,5": "black",
+      "2,4": "black", "3,4": "black",
+      "2,5": "black",
       "2,6": "black", "3,6": "black", "4,6": "black",
       "3,5": "white",
     },
     turn: "black",
     goal: { en: "Black to play — capture to make the corner safe", zh: "黑先 — 提子确保角部安全" },
-    solution: [{ row: 4, col: 4 }],
+    solution: [{ row: 4, col: 5 }],
     difficulty: "easy",
   },
   {

@@ -65,11 +65,10 @@ export function getCorrectAction(
 ): Action {
   const col = dealerIndex(dealerUpcard);
 
-  // Check pairs first
+  // Check pairs first — the pair table encodes the full correct action,
+  // not just whether to split. Return its action directly.
   if (isPair && pairValue !== null && PAIR_TABLE[pairValue]) {
-    const action = PAIR_TABLE[pairValue][col];
-    if (action === "P") return "P";
-    // If pair table says not to split, fall through to hard/soft
+    return PAIR_TABLE[pairValue][col];
   }
 
   // Soft hands

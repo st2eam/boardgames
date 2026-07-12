@@ -156,10 +156,17 @@ export function BasicStrategyTrainer({ locale }: Props) {
             let className = `rounded-lg border-2 px-4 py-3 text-center font-bold transition-all `;
             if (disabled) {
               className += "opacity-30 cursor-not-allowed border-stone-200 bg-stone-50 text-stone-400";
-            } else if (isSelected && phase === "result") {
-              className += ACTION_ACTIVE[action];
-            } else if (isCorrectAnswer && phase === "result") {
-              className += "ring-2 ring-offset-1 ring-green-500 " + ACTION_COLORS[action];
+            } else if (phase === "result") {
+              // Show green ring on the correct answer (whether selected or not)
+              if (isCorrectAnswer) {
+                className += "ring-2 ring-offset-1 ring-green-500 ";
+              }
+              // Show active/pressed style on the selected answer
+              if (isSelected) {
+                className += ACTION_ACTIVE[action];
+              } else {
+                className += ACTION_COLORS[action];
+              }
             } else if (phase === "answering") {
               className += ACTION_COLORS[action] + " cursor-pointer";
             } else {

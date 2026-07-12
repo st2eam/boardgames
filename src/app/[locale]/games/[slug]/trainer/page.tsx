@@ -16,7 +16,7 @@ const TRAINER_TITLES: Record<string, { en: string; zh: string }> = {
   tenpai: { en: "Tenpai Trainer", zh: "听牌训练" },
   "blackjack-basic-strategy": { en: "Basic Strategy Trainer", zh: "基本策略训练" },
   "texas-holdem-preflop": { en: "Preflop Trainer", zh: "翻前训练" },
-  "go-tsumego": { en: "Tsumego Trainer", zh: "死活训练" },
+  "go-tsumego": { en: "Trainer", zh: "训练" },
 };
 
 const TRAINER_DESCRIPTIONS: Record<string, { en: string; zh: string }> = {
@@ -33,8 +33,8 @@ const TRAINER_DESCRIPTIONS: Record<string, { en: string; zh: string }> = {
     zh: "练习GTO翻前起手牌决策",
   },
   "go-tsumego": {
-    en: "practice life & death problems",
-    zh: "练习围棋死活题",
+    en: "practice Go problems",
+    zh: "练习围棋题目",
   },
 };
 

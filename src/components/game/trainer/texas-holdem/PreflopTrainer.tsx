@@ -137,12 +137,19 @@ export function PreflopTrainer({ locale }: Props) {
                 const isMixed = phase === "result" && scenario.correctAction === "M";
 
                 let className = "rounded-lg border-2 px-4 py-3 text-center font-bold transition-all ";
-                if (isSelected && phase === "result") {
-                  className += ACTION_ACTIVE[action];
-                } else if (isCorrect && phase === "result") {
-                  className += "ring-2 ring-offset-1 ring-green-500 " + ACTION_COLORS[action];
-                } else if (isMixed && phase === "result") {
-                  className += "ring-2 ring-offset-1 ring-amber-400 " + ACTION_COLORS[action];
+                if (phase === "result") {
+                  // Show appropriate ring on the correct/mixed answer(s)
+                  if (isCorrect) {
+                    className += "ring-2 ring-offset-1 ring-green-500 ";
+                  } else if (isMixed) {
+                    className += "ring-2 ring-offset-1 ring-amber-400 ";
+                  }
+                  // Show active/pressed style on the selected answer
+                  if (isSelected) {
+                    className += ACTION_ACTIVE[action];
+                  } else {
+                    className += ACTION_COLORS[action];
+                  }
                 } else if (phase === "answering") {
                   className += ACTION_COLORS[action] + " cursor-pointer";
                 } else {

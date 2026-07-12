@@ -59,7 +59,7 @@ export function GameCard({ game, sortMode }: Props) {
         className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover hover:border-amber-300/60 active:translate-y-0"
       >
         {/* Cover area */}
-        <GameCover slug={game.slug} gradient={gradient} className="flex-1 min-h-64">
+        <GameCover slug={game.slug} gradient={gradient} className="flex-1 min-h-48">
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent p-4 pt-20">
             <h3 className="font-heading text-lg font-bold leading-tight text-white">
               {name}

@@ -4,15 +4,11 @@
 
 Texas Hold'em is the most widely played poker variant in the world. Each player receives 2 private hole cards and combines them with 5 community cards to make the best 5-card hand. The game blends probability, psychology, and risk management — easy to learn, endlessly deep in strategy.
 
----
-
 ## Components
 
 - Standard 52-card deck, no jokers
 - Chips
 - 2–10 players; standard cash games use 6-max or 9-max tables
-
----
 
 ## Dealer & Blinds
 
@@ -42,8 +38,6 @@ After the final betting round comes **showdown**:
 - If no bet was made on the river, the first player left of the button still in the hand shows first.
 - The best 5-card hand wins the pot.
 
----
-
 ## Available Actions
 
 | Action | Condition | Description |
@@ -57,15 +51,11 @@ After the final betting round comes **showdown**:
 
 > ⚠️ **Note**: An all-in that is less than a full raise does **not** reopen the betting for players who have already acted. E.g., A bets 100, B goes all-in for 150 (under-raise), C calls — A may only call, not raise.
 
----
-
 ## Community Card Rule
 
 > 💡 **Core rule**: Your final hand is exactly 5 cards. You may use **0, 1, or 2** of your hole cards combined with community cards. The system automatically selects the best 5-card combination from the 7 available cards.
 
 For example, with A♥ A♦ in hand and K♠ K♣ K♥ Q♠ Q♥ on the board, your best five are **K♠ K♣ K♥ A♥ A♦** (a full house), not A♥ A♦ K♠ K♣ K♥ (two pair).
-
----
 
 ## Hand Rankings (Highest to Lowest)
 
@@ -86,8 +76,6 @@ For example, with A♥ A♦ in hand and K♠ K♣ K♥ Q♠ Q♥ on the board, y
 >
 > ⚠️ **Suits have no rank.** Spades are not higher than hearts. Flushes are compared by card ranks, not suits. Two royal flushes always split the pot.
 
----
-
 ## Comparing Hands
 
 When players share the same hand type:
@@ -103,8 +91,6 @@ When players share the same hand type:
 | Two Pair | Higher pair → lower pair → kicker |
 | One Pair | Pair rank → kickers |
 | High Card | Highest to lowest, card by card |
-
----
 
 ## Split Pot
 
@@ -125,8 +111,6 @@ A player may go all-in by pushing all remaining chips at any time. When an all-i
 3. All-in players can only win pots they contributed to
 
 > **Example:** Player A (500) all-in, B (1500) calls, C (1500) calls. Main pot = 500 × 3 = 1500 (A/B/C compete). Side pot = 1000 × 2 = 2000 (B/C only).
-
----
 
 ## Pot Odds
 
@@ -184,8 +168,6 @@ From earliest to latest post-flop:
 
 > **Action order:** Pre-flop, action starts from UTG and proceeds clockwise. Post-flop, action starts from SB. BTN always acts last post-flop.
 
----
-
 ## Preflop Starting Hand Strategy
 
 The most important preflop decision: **RFI (Raise First In)** — everyone folds to you. Do you play this hand?
@@ -200,31 +182,21 @@ This page's companion **Preflop Trainer** helps you memorize correct RFI decisio
 
 The following are not rules — they are strategic frameworks to improve your game.
 
----
-
 ## Position Matters More Than Your Cards
 
 KJo (king-jack offsuit) is a **fold** from UTG and an **easy raise** from the Button. The cards haven't changed — your information advantage has. Before looking at your cards, know your seat.
-
----
 
 ## Bet Good Hands, Fold Bad Ones
 
 Texas Hold'em is about **winning more when ahead and losing less when behind**. Don't call "just to see a flop." Most starting hands are not worth playing. Fold them.
 
----
-
 ## Respect the Information in Bets
 
 Every bet tells you something. A preflop 3-bet signals extreme strength (QQ+, AK range). Large bets usually mean confidence. Most of the time, they have it.
 
----
-
 ## Only Call When the Math Works
 
 Before any call, ask: How much am I putting in? How much can I win? How likely am I to hit? If those three don't line up, folding is the rational choice.
-
----
 
 ## Master Preflop Before the Rest
 

@@ -6,6 +6,7 @@ import type { GameSummary } from "@/types/game";
 import { useLocale, useTranslations } from "next-intl";
 import { GameCover } from "./GameCover";
 import { categoryGradients, difficultyColors, variantBadge } from "@/lib/constants";
+import type { SortMode } from "./GameCardGrid";
 
 function TruncatedName({ name }: { name: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -35,9 +36,10 @@ function TruncatedName({ name }: { name: string }) {
 
 interface Props {
   games: GameSummary[];
+  sortMode: SortMode;
 }
 
-export function GameFamilyCard({ games }: Props) {
+export function GameFamilyCard({ games, sortMode }: Props) {
   const locale = useLocale();
   const t = useTranslations("game");
   const tc = useTranslations("common");
@@ -51,6 +53,8 @@ export function GameFamilyCard({ games }: Props) {
   const gradient =
     categoryGradients[base.category] ?? "from-stone-400 to-stone-500";
   const baseName = base.name[locale as "en" | "zh"] ?? base.name.en;
+
+  const showRank = sortMode === "bggRank" && base.bggRank != null;
 
   return (
     <div className="group/family relative">
@@ -92,6 +96,11 @@ export function GameFamilyCard({ games }: Props) {
             <span className="absolute top-3 left-3 rounded-full bg-white/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
               {base.category}
             </span>
+            {showRank && (
+              <span className="absolute top-3 right-3 z-10 rounded-full bg-amber-500/90 px-2 py-0.5 text-[10px] font-bold text-white shadow-sm backdrop-blur-sm">
+                #{base.bggRank}
+              </span>
+            )}
           </GameCover>
 
           <div className="flex items-center gap-2 px-4 py-2.5">

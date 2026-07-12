@@ -5,9 +5,11 @@ import type { GameSummary } from "@/types/game";
 import { useTranslations, useLocale } from "next-intl";
 import { GameCover } from "./GameCover";
 import { categoryGradients, difficultyColors } from "@/lib/constants";
+import type { SortMode } from "./GameCardGrid";
 
 interface Props {
   game: GameSummary;
+  sortMode: SortMode;
 }
 
 const difficultyColor: Record<string, string> = difficultyColors;
@@ -29,7 +31,7 @@ function useTags(game: GameSummary, t: ReturnType<typeof useTranslations<"game">
   return { descriptive, functional };
 }
 
-export function GameCard({ game }: Props) {
+export function GameCard({ game, sortMode }: Props) {
   const locale = useLocale();
   const t = useTranslations("game");
   const tc = useTranslations("common");
@@ -41,6 +43,13 @@ export function GameCard({ game }: Props) {
 
   const difficultyKey =
     `difficulty${game.difficulty.charAt(0).toUpperCase() + game.difficulty.slice(1)}` as const;
+
+  const showRank = sortMode === "bggRank" && game.bggRank != null;
+  const rankBadge = showRank ? (
+    <span className="absolute top-3 right-3 z-10 rounded-full bg-amber-500/90 px-2 py-0.5 text-[10px] font-bold text-white shadow-sm backdrop-blur-sm transition-opacity duration-300">
+      #{game.bggRank}
+    </span>
+  ) : null;
 
   // ── card games: 1×2 tall skinny card ──
   if (game.category === "card") {
@@ -62,6 +71,7 @@ export function GameCard({ game }: Props) {
           <span className="absolute top-3 left-3 rounded-full bg-white/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
             {game.category}
           </span>
+          {rankBadge}
         </GameCover>
 
         {/* Footer */}
@@ -99,6 +109,7 @@ export function GameCard({ game }: Props) {
           <span className="absolute bottom-3 left-3 rounded-full bg-white/25 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
             {game.category}
           </span>
+          {rankBadge}
         </GameCover>
 
         {/* Content — right side */}
@@ -154,6 +165,7 @@ export function GameCard({ game }: Props) {
         <span className="absolute bottom-2 left-3 rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/90 backdrop-blur-sm">
           {game.category}
         </span>
+        {rankBadge}
       </GameCover>
 
       {/* Content */}

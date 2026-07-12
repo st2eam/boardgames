@@ -1,9 +1,16 @@
 {
-  "name": { "en": "Blackjack", "zh": "21点" },
+  "name": {
+    "en": "Blackjack",
+    "zh": "21点"
+  },
   "players": "2-8",
   "duration": "15-30 min",
   "difficulty": "easy",
-  "tags": ["poker", "push-your-luck"],
+  "tags": [
+    "poker",
+    "push-your-luck"
+  ],
   "category": "card",
-  "price": 0
+  "price": 0,
+  "bggRank": 30881
 }

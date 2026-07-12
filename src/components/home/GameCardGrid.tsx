@@ -366,7 +366,7 @@ export function GameCardGrid({ games }: Props) {
                           : ""
                     }
                   >
-                    <GameFamilyCard games={item.games} />
+                    <GameFamilyCard games={item.games} sortMode={sortMode} />
                   </div>
                 );
               }
@@ -381,7 +381,7 @@ export function GameCardGrid({ games }: Props) {
                         : ""
                   }
                 >
-                  <GameCard game={item.game} />
+                  <GameCard game={item.game} sortMode={sortMode} />
                 </div>
               );
             })}

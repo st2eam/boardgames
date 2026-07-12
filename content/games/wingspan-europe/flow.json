@@ -1,0 +1,64 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "European Expansion Overview", "zh": "欧洲篇概览" },
+      "content": {
+        "en": "The European Expansion adds:\n- **81 new bird cards** (European birds)\n- **Round End powers** (teal) — activate before scoring goals\n- **Sideways birds** — cover 2 spaces in a habitat row\n- **\"Count Double\" birds** — count twice for bird-counting goals\n- **Alternative costs** (✱) — special payment methods\n- **5 new goal tiles** and **5 new bonus cards**\n\nRequires the **base game** to play. Shuffle all expansion cards into the base game decks.",
+        "zh": "欧洲篇新增内容：\n- **81 张新鸟牌**（欧洲鸟类）\n- **回合结束能力**（青色）——在结算目标之前触发\n- **横向鸟类**——覆盖栖息地行的 2 个位置\n- **\"双倍计数\"鸟类**——对计鸟目标计双倍\n- **替代费用**（✱）——特殊支付方式\n- **5 块新目标板块**和 **5 张新奖励牌**\n\n需要**基础游戏**才能游玩。将所有扩展卡牌洗入基础游戏牌堆。"
+      },
+      "options": [
+        { "label": { "en": "Round End Powers", "zh": "回合结束能力" }, "next": "round-end-powers" },
+        { "label": { "en": "Sideways Birds", "zh": "横向鸟类" }, "next": "sideways-birds" },
+        { "label": { "en": "Count Double & Alt Costs", "zh": "双倍计数与替代费用" }, "next": "count-double" },
+        { "label": { "en": "New Goals", "zh": "新目标板块" }, "next": "new-goals" }
+      ]
+    },
+    "round-end-powers": {
+      "title": { "en": "Round End Powers (Teal)", "zh": "回合结束能力（青色）" },
+      "content": {
+        "en": "**Timing**: After all turns are complete, BEFORE scoring the end-of-round goal.\n\n**Resolution**:\n1. Start with the first player of that round.\n2. Proceed in turn order.\n3. If you have multiple round-end birds, resolve them in any order you choose.\n\n**Important**: Round end powers do NOT trigger \"Once Between Turns\" (pink) powers.\n\n**Examples**:\n- \"Discard 1 food to lay 1 egg on this bird\"\n- \"Tuck 1 card from your hand behind this bird\"\n- \"All players may discard 1 food to draw 1 card\"",
+        "zh": "**时机**：所有回合行动完成后，结算回合目标**之前**。\n\n**结算顺序**：\n1. 从当回合起始玩家开始。\n2. 按玩家顺序进行。\n3. 如有多只回合结束鸟，可任选结算顺序。\n\n**重要**：回合结束能力**不会**触发\"回合之间\"（粉色）能力。\n\n**示例**：\n- \"弃 1 食物，在此鸟上产 1 蛋\"\n- \"将手牌中 1 张牌塞入此鸟后方\"\n- \"所有玩家可弃 1 食物抽 1 张牌\""
+      },
+      "options": [
+        { "label": { "en": "Sideways Birds", "zh": "横向鸟类" }, "next": "sideways-birds" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    },
+    "sideways-birds": {
+      "title": { "en": "Sideways Birds", "zh": "横向鸟类" },
+      "content": {
+        "en": "Some birds are played **sideways**, covering 2 adjacent spaces:\n\n**Rules**:\n- Both spaces must be in the **same habitat row**.\n- You still pay all costs normally (food + eggs).\n- A sideways bird has **two brown \"When Activated\" triggers** — one for each column it covers.\n- When you take that habitat's action, both brown powers activate.\n\n**Overlapping**: Some birds (e.g., Common Buzzard) can be played **on top of** a sideways bird:\n- Also placed sideways, completely covering the bird underneath.\n- The covered bird's powers no longer activate.\n\n**Example**: European Roller covers columns 2-3 in Forest; gains 1 food per activation of each column.",
+        "zh": "部分鸟类以**横向**方式打出，覆盖 2 个相邻位置：\n\n**规则**：\n- 两个位置必须在**同一栖息地行**。\n- 正常支付所有费用（食物 + 鸟蛋）。\n- 横向鸟有**两个棕色\"激活时\"触发**——每个被覆盖的列各一个。\n- 执行该栖息地行动时，两个棕色能力都会触发。\n\n**重叠**：部分鸟类（如普通鵟）可以打在横向鸟**上面**：\n- 同样横向放置，完全覆盖下方鸟。\n- 被覆盖鸟的能力不再触发。\n\n**示例**：欧洲佛法僧覆盖森林第 2–3 列；每激活一列获得 1 食物。"
+      },
+      "options": [
+        { "label": { "en": "Round End Powers", "zh": "回合结束能力" }, "next": "round-end-powers" },
+        { "label": { "en": "Count Double & Alt Costs", "zh": "双倍计数与替代费用" }, "next": "count-double" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    },
+    "count-double": {
+      "title": { "en": "Count Double & Alternative Costs", "zh": "双倍计数与替代费用" },
+      "content": {
+        "en": "### Count Double Birds\nSome birds count as **2 birds** for end-of-round goals, but ONLY for goals that count **birds** (e.g., \"birds with platform nests\"). They do NOT double for goals counting eggs, food costs, etc.\n\n### Alternative Costs (✱)\nBirds with ✱ in their food cost have an alternative payment:\n- **Hunting/Fishing powers**: Roll dice outside the birdfeeder to determine what you gain.\n- The card text explains the exact alternative — read carefully.\n- Example: \"Roll all dice not in the birdfeeder. If any are [rodent], cache 1 [rodent] on this bird.\"",
+        "zh": "### 双倍计数鸟类\n部分鸟类在回合目标中计为 **2 只鸟**，但仅适用于计算**鸟类数量**的目标（如\"具有平台巢穴的鸟\"）。对计算鸟蛋、食物费用等目标不翻倍。\n\n### 替代费用（✱）\n食物费用旁标有 ✱ 的鸟类具有替代支付方式：\n- **狩猎/捕鱼能力**：在喂食器外掷骰子决定获得内容。\n- 卡牌文字详细说明替代方式——请仔细阅读。\n- 示例：\"投掷喂食器中不存在的所有骰子。如有 [老鼠]，在此鸟上缓存 1 [老鼠]。\""
+      },
+      "options": [
+        { "label": { "en": "Sideways Birds", "zh": "横向鸟类" }, "next": "sideways-birds" },
+        { "label": { "en": "New Goals", "zh": "新目标板块" }, "next": "new-goals" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    },
+    "new-goals": {
+      "title": { "en": "New End-of-Round Goals", "zh": "新回合目标" },
+      "content": {
+        "en": "The European Expansion adds 5 new goal tiles:\n\n| Goal | Description |\n|------|-------------|\n| Food in supply | Most food tokens in personal supply |\n| Birds >4 points | Most birds worth over 4 VP |\n| Birds with no eggs | Most birds without any eggs |\n| Most populated row | Most birds in a single habitat row |\n| Filled columns | Most columns with birds in all 3 habitats |\n| Brown powers | Most birds with brown \"When Activated\" |\n| White/no powers | Most birds with white powers or no powers |\n| Birds with tucked cards | Most birds that have tucked cards |\n| Food cost of birds | Highest total food cost of played birds |\n\nUse the **green side** of the goal mat — some goals don't work with the blue side.",
+        "zh": "欧洲篇新增 5 块目标板块：\n\n| 目标 | 描述 |\n|------|------|\n| 个人补给食物 | 个人供应区食物标记最多 |\n| 4分以上鸟 | 分值超过 4 分的鸟最多 |\n| 无蛋鸟 | 没有鸟蛋的鸟最多 |\n| 最多栖息地行 | 单一栖息地行中鸟最多 |\n| 填满列 | 三栖息地均有鸟的列数最多 |\n| 棕色能力 | 有棕色\"激活时\"的鸟最多 |\n| 白色/无能力 | 有白色能力或无能力的鸟最多 |\n| 塞入卡牌 | 有塞入卡牌的鸟最多 |\n| 鸟的食物费用 | 已打出鸟的食物总费用最高 |\n\n使用目标板的**绿色面**——部分目标不适用于蓝色面。"
+      },
+      "options": [
+        { "label": { "en": "Round End Powers", "zh": "回合结束能力" }, "next": "round-end-powers" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": {
+    "en": "Wingspan: Asia",
+    "zh": "展翅翱翔：亚洲篇"
+  },
+  "players": "1-7",
+  "duration": "40-70 min",
+  "difficulty": "medium",
+  "tags": [
+    "engine-building",
+    "card",
+    "birds",
+    "nature",
+    "duet"
+  ],
+  "category": "board",
+  "family": "wingspan",
+  "familyOrder": 1,
+  "variantType": "expansion",
+  "requiresBase": true,
+  "price": 18.81
+}

@@ -1,0 +1,21 @@
+{
+  "name": {
+    "en": "Wingspan: Europe",
+    "zh": "展翅翱翔：欧洲篇"
+  },
+  "players": "1-5",
+  "duration": "40-70 min",
+  "difficulty": "medium",
+  "tags": [
+    "engine-building",
+    "card",
+    "birds",
+    "nature"
+  ],
+  "category": "board",
+  "family": "wingspan",
+  "familyOrder": 2,
+  "variantType": "expansion",
+  "requiresBase": true,
+  "price": 34.96
+}

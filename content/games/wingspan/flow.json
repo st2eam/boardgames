@@ -1,0 +1,152 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Game Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. Shuffle all 170 bird cards, fill the bird tray (3 face-up slots).\n2. Shuffle bonus cards into a face-down deck.\n3. Place 1 random goal tile on each of the 4 round spaces.\n4. Place all food tokens and egg miniatures in a shared supply.\n5. Roll all 5 food dice into the birdfeeder.\n6. Each player receives:\n   - 1 player mat + 8 action cubes\n   - 5 bird cards + 1 of each food (5 total)\n   - 2 bonus cards (keep 1)\n7. Keep any number of bird cards; discard 1 food per card kept.\n8. Choose a starting player; give them the first-player token.",
+        "zh": "1. 洗匀 170 张鸟牌，填满展示架（3 个面朝上卡位）。\n2. 将奖励牌洗匀成面朝下牌堆。\n3. 在 4 个回合位置各放 1 块随机目标板块。\n4. 将所有食物标记和鸟蛋放入公共供应区。\n5. 将 5 颗食物骰子投入喂食器。\n6. 每名玩家获得：\n   - 1 张玩家面板 + 8 个行动方块\n   - 5 张鸟牌 + 每种食物各 1 个（共 5 个）\n   - 2 张奖励牌（保留 1 张）\n7. 保留任意数量鸟牌；每保留 1 张弃 1 个食物。\n8. 选起始玩家，给予起始玩家标记。"
+      },
+      "options": [
+        { "label": { "en": "Turn Overview", "zh": "回合概览" }, "next": "turn-overview" },
+        { "label": { "en": "Play a Bird", "zh": "打出鸟牌" }, "next": "play-bird" },
+        { "label": { "en": "Scoring", "zh": "计分方式" }, "next": "scoring" }
+      ]
+    },
+    "turn-overview": {
+      "title": { "en": "Turn Overview", "zh": "回合概览" },
+      "content": {
+        "en": "The game lasts **4 rounds**, with decreasing turns:\n\n| Round | Turns |\n|-------|-------|\n| 1 | 8 |\n| 2 | 7 |\n| 3 | 6 |\n| 4 | 5 |\n\nOn your turn, choose **one** of four actions:\n1. **Play a Bird** — pay food + egg costs, place in matching habitat\n2. **Gain Food** (Forest) — take food from birdfeeder\n3. **Lay Eggs** (Grassland) — place eggs on your birds\n4. **Draw Cards** (Wetlands) — draw from tray or deck\n\nAfter placing an action cube, activate **brown powers** on birds in that habitat row from **right to left**.",
+        "zh": "游戏共**4 回合**，行动次数递减：\n\n| 回合 | 行动次数 |\n|------|---------|\n| 1 | 8 |\n| 2 | 7 |\n| 3 | 6 |\n| 4 | 5 |\n\n你的回合选择**一项**行动：\n1. **打出鸟牌** — 支付食物+鸟蛋费用，放入对应栖息地\n2. **获取食物**（森林）— 从喂食器拿取食物\n3. **产蛋**（草原）— 在鸟牌上放置鸟蛋\n4. **抽牌**（湿地）— 从展示架或牌堆抽牌\n\n放置行动方块后，从**右到左**触发该栖息地鸟类的**棕色能力**。"
+      },
+      "options": [
+        { "label": { "en": "Play a Bird", "zh": "打出鸟牌" }, "next": "play-bird" },
+        { "label": { "en": "Gain Food", "zh": "获取食物" }, "next": "gain-food" },
+        { "label": { "en": "Lay Eggs", "zh": "产蛋" }, "next": "lay-eggs" },
+        { "label": { "en": "Draw Cards", "zh": "抽牌" }, "next": "draw-cards" },
+        { "label": { "en": "Round End", "zh": "回合结束" }, "next": "round-end" }
+      ]
+    },
+    "play-bird": {
+      "title": { "en": "Play a Bird", "zh": "打出鸟牌" },
+      "content": {
+        "en": "### Costs to Play a Bird\n\n1. **Food Cost** — Pay food shown on top-left of card.\n   - Wild symbol (gray coin) = any food type.\n   - **2 any food = 1 wild** — substitute any 2 food tokens for 1 required type.\n\n2. **Egg Cost** — Based on column:\n   - Col 1 = 0 eggs | Col 2–3 = 1 egg | Col 4–5 = 2 eggs\n   - Eggs must come from birds already on your mat.\n\n3. **Habitat Match** — Place bird in matching row (Forest/Grassland/Wetlands).\n\n4. **When Played (White)** — Activate white powers immediately.\n\n### Bird Placement\nEach habitat row has 5 columns. Birds are placed left to right. More birds in a row = stronger actions.",
+        "zh": "### 打出鸟牌的费用\n\n1. **食物费用** — 支付卡牌左上角显示的食物。\n   - 万能符号（灰色硬币）= 任意食物。\n   - **2 任意食物 = 1 万能** — 任意 2 个食物标记替代 1 个指定类型。\n\n2. **鸟蛋费用** — 取决于列数：\n   - 第 1 列 = 0 蛋 | 第 2–3 列 = 1 蛋 | 第 4–5 列 = 2 蛋\n   - 鸟蛋必须来自面板上已有的鸟。\n\n3. **栖息地匹配** — 将鸟放入对应行（森林/草原/湿地）。\n\n4. **打出时（白色）** — 立即触发白色能力。\n\n### 鸟类放置\n每行栖息地有 5 列。鸟从左到右放置。一行中鸟越多 = 行动越强。"
+      },
+      "options": [
+        { "label": { "en": "Gain Food", "zh": "获取食物" }, "next": "gain-food" },
+        { "label": { "en": "Lay Eggs", "zh": "产蛋" }, "next": "lay-eggs" },
+        { "label": { "en": "Draw Cards", "zh": "抽牌" }, "next": "draw-cards" },
+        { "label": { "en": "Bird Powers", "zh": "鸟牌能力" }, "next": "bird-powers" }
+      ]
+    },
+    "gain-food": {
+      "title": { "en": "Gain Food (Forest)", "zh": "获取食物（森林）" },
+      "content": {
+        "en": "1. Place action cube on leftmost exposed Forest slot.\n2. Gain food = number of **dice icons** at that position.\n3. Choose dice from birdfeeder, take matching tokens.\n   - Die showing two options → pick either.\n4. **Card-for-food**: If slot shows this icon, discard 1 bird card to gain 1 extra die/food.\n5. **Re-roll dice** only when birdfeeder is empty OR all remaining dice show the same face.\n6. Activate **brown powers** on Forest birds right → left.",
+        "zh": "1. 将行动方块放在森林行最左侧空位。\n2. 获取等于该位置**骰子图标**数量的食物。\n3. 从喂食器选骰子，拿取对应标记。\n   - 骰子显示两个选项 → 任选其一。\n4. **弃牌换食物**：如此位置有此图标，弃 1 张鸟牌额外获取 1 个食物。\n5. **重新投骰**：仅在喂食器为空或剩余骰子全部同面时。\n6. 从**右到左**触发森林鸟类的棕色能力。"
+      },
+      "options": [
+        { "label": { "en": "Play a Bird", "zh": "打出鸟牌" }, "next": "play-bird" },
+        { "label": { "en": "Lay Eggs", "zh": "产蛋" }, "next": "lay-eggs" },
+        { "label": { "en": "Birdfeeder Rules", "zh": "喂食器规则" }, "next": "birdfeeder" },
+        { "label": { "en": "Back to Turn Overview", "zh": "返回回合概览" }, "next": "turn-overview" }
+      ]
+    },
+    "lay-eggs": {
+      "title": { "en": "Lay Eggs (Grassland)", "zh": "产蛋（草原）" },
+      "content": {
+        "en": "1. Place action cube on leftmost exposed Grassland slot.\n2. Gain eggs = number of **egg icons** at that position.\n3. Place eggs on your bird cards.\n   - Each bird has a **maximum egg capacity** (number on nest icon).\n   - Excess eggs beyond capacity are lost.\n4. **Food-for-egg**: If slot shows this icon, pay 1 food → gain 1 extra egg.\n5. Activate **brown powers** on Grassland birds right → left.",
+        "zh": "1. 将行动方块放在草原行最左侧空位。\n2. 获取等于该位置**鸟蛋图标**数量的鸟蛋。\n3. 将鸟蛋放在鸟牌上。\n   - 每张鸟牌有**最大蛋容量**（巢穴图标数字）。\n   - 超出容量的蛋将丢失。\n4. **食物换蛋**：如此位置有此图标，支付 1 食物 → 额外获得 1 蛋。\n5. 从**右到左**触发草原鸟类的棕色能力。"
+      },
+      "options": [
+        { "label": { "en": "Play a Bird", "zh": "打出鸟牌" }, "next": "play-bird" },
+        { "label": { "en": "Gain Food", "zh": "获取食物" }, "next": "gain-food" },
+        { "label": { "en": "Egg Strategy Tips", "zh": "产蛋策略" }, "next": "egg-strategy" },
+        { "label": { "en": "Back to Turn Overview", "zh": "返回回合概览" }, "next": "turn-overview" }
+      ]
+    },
+    "draw-cards": {
+      "title": { "en": "Draw Bird Cards (Wetlands)", "zh": "抽牌（湿地）" },
+      "content": {
+        "en": "1. Place action cube on leftmost exposed Wetlands slot.\n2. Draw cards = number of **card icons** at that position.\n3. Draw from face-up tray, top of deck, or mix.\n4. **Do not refill** the tray until your turn ends.\n5. **Egg-for-card**: If slot shows this icon, discard 1 egg → draw 1 extra card.\n6. Activate **brown powers** on Wetlands birds right → left.\n\n**No hand limit** — you can hold as many bird cards as you want.",
+        "zh": "1. 将行动方块放在湿地行最左侧空位。\n2. 抽牌数量 = 该位置**卡牌图标**数量。\n3. 从面朝上展示架、牌堆顶或混合抽取。\n4. **不要补充**展示架，直到你的回合结束。\n5. **弃蛋换牌**：如此位置有此图标，弃 1 蛋 → 额外抽 1 张。\n6. 从**右到左**触发湿地鸟类的棕色能力。\n\n**无手牌上限**——手牌数量不限。"
+      },
+      "options": [
+        { "label": { "en": "Play a Bird", "zh": "打出鸟牌" }, "next": "play-bird" },
+        { "label": { "en": "Gain Food", "zh": "获取食物" }, "next": "gain-food" },
+        { "label": { "en": "Bird Tray Management", "zh": "展示架管理" }, "next": "bird-tray" },
+        { "label": { "en": "Back to Turn Overview", "zh": "返回回合概览" }, "next": "turn-overview" }
+      ]
+    },
+    "bird-powers": {
+      "title": { "en": "Bird Card Powers", "zh": "鸟牌能力类型" },
+      "content": {
+        "en": "| Color | Trigger | Description |\n|-------|---------|-------------|\n| **White** | When Played | Activates once when you play the bird |\n| **Brown** | When Activated | Activates each time you take that habitat's action |\n| **Pink** | Once Between Turns | Activates on other players' turns |\n\n### Activation Order\nWhen activating brown powers in a habitat, always go **right to left** — newest bird activates last.\n\n### Key Bird Abilities\n- **Caching**: Place food tokens on cards for end-game points.\n- **Tucking/Flocking**: Tuck cards under other birds for 1 point each.\n- **Card drawing/gaining food/laying eggs**: Extra resources beyond the base action.\n- **Predator powers**: Roll dice (outside birdfeeder) for chance-based benefits.",
+        "zh": "| 颜色 | 触发时机 | 说明 |\n|------|---------|------|\n| **白色** | 打出时 | 打出鸟牌时一次性触发 |\n| **棕色** | 激活时 | 每次执行对应栖息地行动时触发 |\n| **粉色** | 回合之间 | 在其他玩家回合满足条件时触发 |\n\n### 触发顺序\n触发栖息地棕色能力时，始终**从右到左**——最新打出的鸟最后触发。\n\n### 关键鸟类能力\n- **缓存**：将食物标记放在卡牌上，游戏结束计分。\n- **塞入/集群**：将卡牌塞入其他鸟下方，每张 1 分。\n- **抽牌/获取食物/产蛋**：基础行动外的额外资源。\n- **捕食者能力**：掷骰子（喂食器外）获得概率性收益。"
+      },
+      "options": [
+        { "label": { "en": "Play a Bird", "zh": "打出鸟牌" }, "next": "play-bird" },
+        { "label": { "en": "Round End", "zh": "回合结束" }, "next": "round-end" },
+        { "label": { "en": "Scoring", "zh": "计分方式" }, "next": "scoring" }
+      ]
+    },
+    "round-end": {
+      "title": { "en": "Round End", "zh": "回合结束" },
+      "content": {
+        "en": "After all players have used all action cubes:\n\n1. **Round End powers** — Activate teal/yellow bird powers (from expansions).\n2. **Score the round goal**:\n   - Place 1 action cube on the goal board.\n   - Points depend on relative ranking:\n     - 5 players: 5/4/3/2/0 pts for 1st–5th\n     - 3–4 players: 5/3/1 pts\n     - 2 players: 4/1 pts\n3. Remove all action cubes from player mats.\n4. Discard face-up bird cards → refill tray with 3 new cards.\n5. Pass first-player token clockwise.\n6. Begin next round.\n\nFinal round: after scoring the round goal, proceed to **final scoring**.",
+        "zh": "所有玩家用完全部行动方块后：\n\n1. **回合结束能力** — 触发青色/黄色鸟类能力（来自扩展）。\n2. **结算回合目标**：\n   - 在目标板上放置 1 个行动方块。\n   - 分数取决于相对排名：\n     - 5 人局：5/4/3/2/0 分\n     - 3–4 人局：5/3/1 分\n     - 2 人局：4/1 分\n3. 从玩家面板移除所有行动方块。\n4. 弃掉面朝上鸟牌 → 补充 3 张新牌。\n5. 起始玩家标记顺时针传递。\n6. 开始下一回合。\n\n最后一回合：结算回合目标后，进入**最终计分**。"
+      },
+      "options": [
+        { "label": { "en": "Scoring", "zh": "计分方式" }, "next": "scoring" },
+        { "label": { "en": "Back to Turn Overview", "zh": "返回回合概览" }, "next": "turn-overview" },
+        { "label": { "en": "Back to Setup", "zh": "返回游戏准备" }, "next": "setup" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Final Scoring", "zh": "最终计分" },
+      "content": {
+        "en": "After Round 4 ends, tally all points:\n\n| Source | Points |\n|--------|--------|\n| Bird point values | Printed feather icons on left of each card |\n| Eggs | 1 point per egg on your birds |\n| Cached food | 1 point per food token on bird cards |\n| Tucked cards | 1 point per card tucked under birds |\n| Bonus cards | Points from kept bonus card objectives |\n| End-of-round goals | Total from all 4 rounds |\n| Nectar (Oceania) | 5/3/1 pts per habitat for most spent nectar |\n\n**Tiebreaker**: Most unused food tokens. Second tiebreaker: shared victory.",
+        "zh": "第 4 回合结束后，统计所有分数：\n\n| 来源 | 计分 |\n|------|------|\n| 鸟牌分值 | 每张卡左侧羽毛图标印刷分数 |\n| 鸟蛋 | 每颗蛋 1 分 |\n| 缓存食物 | 鸟牌上每个食物标记 1 分 |\n| 塞入卡牌 | 鸟牌下每张塞入卡 1 分 |\n| 奖励牌 | 保留的奖励牌目标得分 |\n| 回合目标 | 4 回合总分 |\n| 花蜜（大洋洲） | 每个栖息地最多花蜜者 5/3/1 分 |\n\n**平局规则**：比较剩余食物标记数，多者胜。仍平局则共享胜利。"
+      },
+      "options": [
+        { "label": { "en": "Round End", "zh": "回合结束" }, "next": "round-end" },
+        { "label": { "en": "Bird Powers", "zh": "鸟牌能力" }, "next": "bird-powers" },
+        { "label": { "en": "Back to Setup", "zh": "返回游戏准备" }, "next": "setup" }
+      ]
+    },
+    "birdfeeder": {
+      "title": { "en": "Birdfeeder Rules", "zh": "喂食器规则" },
+      "content": {
+        "en": "The birdfeeder holds 5 food dice at all times (except mid-turn).\n\n**Taking food**: Remove a die from the birdfeeder and take the matching food token.\n\n**When to re-roll all 5 dice**:\n- The birdfeeder is **empty** after your food gain, OR\n- All remaining dice show the **same face** (e.g., all worms).\n\n**Dice faces**: Each die shows 6 faces: worm, seed, fruit, fish, rodent, and one split face (worm/seed, fruit/fish, worm/rodent, etc. — varies by die). Split faces let you choose either food.",
+        "zh": "喂食器始终保有 5 颗骰子（回合中除外）。\n\n**获取食物**：从喂食器中移除一颗骰子，拿取对应食物标记。\n\n**何时重新投掷全部 5 颗骰子**：\n- 你获取食物后喂食器为**空**，或\n- 剩余所有骰子显示**相同面**（如全是虫子）。\n\n**骰子面**：每颗骰子有 6 面：虫子、种子、果实、鱼、老鼠，以及一面分割面（虫子/种子、果实/鱼、虫子/老鼠等——因骰子而异）。分割面可任选其一。"
+      },
+      "options": [
+        { "label": { "en": "Gain Food", "zh": "获取食物" }, "next": "gain-food" },
+        { "label": { "en": "Back to Turn Overview", "zh": "返回回合概览" }, "next": "turn-overview" }
+      ]
+    },
+    "egg-strategy": {
+      "title": { "en": "Egg Strategy Tips", "zh": "产蛋策略" },
+      "content": {
+        "en": "**Egg Management Tips:**\n\n- Eggs are worth **1 point each** at game end — but each egg you keep is one you could have spent to play more birds.\n- Birds in columns 4–5 cost **2 eggs** to play. Plan ahead!\n- Grassland birds often have strong egg-laying brown powers — building a Grassland engine can generate lots of eggs.\n- **Don't hoard eggs too early** — the last round is often best for mass egg-laying since you won't have time to play more birds anyway.\n- Remember each bird's **egg capacity** (nest icon). Star nests (⭐) count as wild for bonus cards.",
+        "zh": "**鸟蛋管理技巧：**\n\n- 游戏结束时每颗蛋值 **1 分**——但保留的每颗蛋都本可以用来打出更多鸟牌。\n- 第 4–5 列的鸟需要 **2 颗蛋**来打出。提前规划！\n- 草原鸟类通常有强大的产蛋棕色能力——构筑草原引擎可以大量产蛋。\n- **不要太早囤蛋**——最后一回合通常最适合大量产蛋，因为反正没时间打更多鸟了。\n- 别忘了每只鸟的**蛋容量**（巢穴图标）。⭐ 星号巢穴计入万能巢穴。"
+      },
+      "options": [
+        { "label": { "en": "Lay Eggs", "zh": "产蛋" }, "next": "lay-eggs" },
+        { "label": { "en": "Scoring", "zh": "计分方式" }, "next": "scoring" }
+      ]
+    },
+    "bird-tray": {
+      "title": { "en": "Bird Tray Management", "zh": "展示架管理" },
+      "content": {
+        "en": "The bird tray always shows **3 face-up cards** at the start of each turn.\n\n**Drawing from tray**: Take any face-up card(s) you want.\n\n**When to refill**:\n- At the **end of your turn**, refill the tray to 3 cards.\n- At the **end of each round**, discard all face-up cards and draw 3 new ones.\n\n**Tip**: If you don't like any face-up cards, you can always draw blindly from the top of the deck. Use the Wetlands action to cycle through unwanted cards and find the birds you need.",
+        "zh": "展示架在每回合开始时始终显示 **3 张面朝上卡牌**。\n\n**从展示架抽牌**：拿取任意想要的面朝上卡牌。\n\n**何时补充**：\n- 你的回合**结束时**，将展示架补满至 3 张。\n- 每**回合结束**时，弃掉所有面朝上牌并抽 3 张新牌。\n\n**提示**：如果不喜欢面朝上的牌，可以始终从牌堆顶盲抽。使用湿地行动循环不需要的卡牌，找到你需要的鸟。"
+      },
+      "options": [
+        { "label": { "en": "Draw Cards", "zh": "抽牌" }, "next": "draw-cards" },
+        { "label": { "en": "Back to Turn Overview", "zh": "返回回合概览" }, "next": "turn-overview" }
+      ]
+    }
+  }
+}

@@ -634,5 +634,90 @@
     "requiresBase": true,
     "price": 94,
     "slug": "legends-of-the-three-kingdoms-wind-and-cloud"
+  },
+  {
+    "name": {
+      "en": "Wingspan",
+      "zh": "展翅翱翔"
+    },
+    "players": "1-5",
+    "duration": "40-70 min",
+    "difficulty": "medium",
+    "tags": [
+      "engine-building",
+      "card",
+      "birds",
+      "nature"
+    ],
+    "category": "board",
+    "family": "wingspan",
+    "familyOrder": 0,
+    "variantType": "base",
+    "slug": "wingspan"
+  },
+  {
+    "name": {
+      "en": "Wingspan: Asia",
+      "zh": "展翅翱翔：亚洲篇"
+    },
+    "players": "1-7",
+    "duration": "40-70 min",
+    "difficulty": "medium",
+    "tags": [
+      "engine-building",
+      "card",
+      "birds",
+      "nature",
+      "duet"
+    ],
+    "category": "board",
+    "family": "wingspan",
+    "familyOrder": 1,
+    "variantType": "expansion",
+    "requiresBase": true,
+    "slug": "wingspan-asia"
+  },
+  {
+    "name": {
+      "en": "Wingspan: Europe",
+      "zh": "展翅翱翔：欧洲篇"
+    },
+    "players": "1-5",
+    "duration": "40-70 min",
+    "difficulty": "medium",
+    "tags": [
+      "engine-building",
+      "card",
+      "birds",
+      "nature"
+    ],
+    "category": "board",
+    "family": "wingspan",
+    "familyOrder": 2,
+    "variantType": "expansion",
+    "requiresBase": true,
+    "slug": "wingspan-europe"
+  },
+  {
+    "name": {
+      "en": "Wingspan: Oceania",
+      "zh": "展翅翱翔：大洋洲篇"
+    },
+    "players": "1-5",
+    "duration": "40-70 min",
+    "difficulty": "medium",
+    "tags": [
+      "engine-building",
+      "card",
+      "birds",
+      "nature",
+      "nectar"
+    ],
+    "category": "board",
+    "family": "wingspan",
+    "familyOrder": 3,
+    "variantType": "expansion",
+    "requiresBase": true,
+    "slug": "wingspan-oceania"
   }
 ]

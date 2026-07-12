@@ -1,0 +1,22 @@
+{
+  "name": {
+    "en": "Wingspan: Oceania",
+    "zh": "展翅翱翔：大洋洲篇"
+  },
+  "players": "1-5",
+  "duration": "40-70 min",
+  "difficulty": "medium",
+  "tags": [
+    "engine-building",
+    "card",
+    "birds",
+    "nature",
+    "nectar"
+  ],
+  "category": "board",
+  "family": "wingspan",
+  "familyOrder": 3,
+  "variantType": "expansion",
+  "requiresBase": true,
+  "price": 34.96
+}

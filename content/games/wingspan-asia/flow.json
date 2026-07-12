@@ -1,0 +1,65 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Asia Expansion Overview", "zh": "亚洲篇概览" },
+      "content": {
+        "en": "Wingspan Asia serves three purposes:\n\n1. **Card Expansion** — 90 new Asian bird cards + 14 bonus cards, fully compatible with base game and all expansions.\n\n2. **Duet Mode (1–2 players)** — A standalone mode using the Duet Map board. Place duet tokens when playing birds and score for connected groups.\n\n3. **Flock Mode (6–7 players)** — Expand to 6–7 players by splitting into two groups, with simultaneous turns.\n\nCan be played standalone (Duet mode) or as an expansion (requires base game for Flock mode).",
+        "zh": "《展翅翱翔：亚洲篇》有三种玩法：\n\n1. **卡牌扩展** — 90 张亚洲新鸟牌 + 14 张奖励牌，与基础游戏及所有扩展完全兼容。\n\n2. **二重唱模式（1–2 人）** — 使用二重唱地图板的独立模式。打出鸟牌时放置二重唱标记，通过连通群组得分。\n\n3. **群鸟模式（6–7 人）** — 分为两组，同时行动，扩展至 6–7 人。\n\n可独立游玩（二重唱模式）或作为扩展（群鸟模式需要基础游戏）。"
+      },
+      "options": [
+        { "label": { "en": "Duet Mode", "zh": "二重唱模式" }, "next": "duet-mode" },
+        { "label": { "en": "Flock Mode (6-7p)", "zh": "群鸟模式（6-7人）" }, "next": "flock-mode" },
+        { "label": { "en": "Key Rules & FAQ", "zh": "重要规则与FAQ" }, "next": "faq" }
+      ]
+    },
+    "duet-mode": {
+      "title": { "en": "Duet Mode (1–2 Players)", "zh": "二重唱模式（1–2 人）" },
+      "content": {
+        "en": "### Setup\n- Give each player **15 duet tokens** in their color.\n- Place the **Duet Map** in the center.\n- Use the **6 duet-specific goal tiles** (instead of standard goals).\n\n### Placing Duet Tokens\nWhen you **play a bird card**, place 1 duet token on the duet map matching:\n1. The bird's **habitat** (Forest/Grassland/Wetlands), AND\n2. One of the bird's **traits**: nest type, food cost (number of icons), OR wingspan length.\n\n### Map Rules\n- Each space: max **1 token per player**.\n- **Reset box** (top-left): unlimited tokens from either player.\n- **Bonus spaces** (food die / card icon): gain the bonus when you place a token there.\n\n### Scoring\nAt game end, your tokens form **connected groups** (orthogonally adjacent). Larger groups = more points. The duet map has its own scoring track on the goal board.",
+        "zh": "### 准备\n- 每位玩家获得 **15 个同色二重唱标记**。\n- 将**二重唱地图**放在中央。\n- 使用 **6 块二重唱专用目标板块**（替代标准目标）。\n\n### 放置二重唱标记\n**打出鸟牌**时，在二重唱地图上放置 1 个标记，匹配：\n1. 鸟的**栖息地**（森林/草原/湿地），以及\n2. 鸟的**特征之一**：巢穴类型、食物费用（图标数量）或翼展长度。\n\n### 地图规则\n- 每格：每位玩家最多 **1 个标记**。\n- **重置格**（左上角）：双方玩家可放任意数量标记。\n- **奖励格**（食物骰子/卡牌图标）：在此放置标记时获得奖励。\n\n### 计分\n游戏结束时，你的标记形成**连通群组**（正交相邻）。群组越大，分数越多。二重唱地图在目标板上有自己的计分轨。"
+      },
+      "options": [
+        { "label": { "en": "Duet Scoring Details", "zh": "二重唱计分详解" }, "next": "duet-scoring" },
+        { "label": { "en": "Flock Mode (6-7p)", "zh": "群鸟模式（6-7人）" }, "next": "flock-mode" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    },
+    "duet-scoring": {
+      "title": { "en": "Duet Map Scoring", "zh": "二重唱地图计分" },
+      "content": {
+        "en": "### Connected Groups\n- Tokens of your color that are **orthogonally adjacent** (sharing an edge) form a group.\n- Diagonals do NOT connect.\n- The **reset box** does NOT connect to any other space.\n\n### Bonus Spaces\n- **Food die icon**: When placing a token here, take 1 die from the birdfeeder (gain matching food). Remove the die; re-roll only if birdfeeder is empty.\n- **Card icon**: When placing a token here, draw 1 card from the tray or deck.\n- These bonuses are one-time — only when you place the token.\n\n### End-of-Round Goals (Duet)\nThe 6 duet goal tiles score differently from standard goals — they measure things like:\n- Most tokens in a specific habitat region\n- Most tokens adjacent to bonus spaces\n- Largest connected group so far\n\nFor full Duet goal details, refer to the Duet mode rulebook included in the Asia expansion.",
+        "zh": "### 连通群组\n- 你的颜色标记**正交相邻**（共享边）形成群组。\n- 斜角**不**算连通。\n- **重置格**不与任何其他格连通。\n\n### 奖励格\n- **食物骰子图标**：在此放置标记时，从喂食器拿 1 颗骰子（获得对应食物）。移除骰子；仅在喂食器为空时重投。\n- **卡牌图标**：在此放置标记时，从展示架或牌堆抽 1 张牌。\n- 这些奖励是一次性的——仅在放置标记时获得。\n\n### 二重唱回合目标\n6 块二重唱目标板块的计分方式与标准目标不同——它们衡量：\n- 特定栖息地区域中标记最多\n- 与奖励格相邻的标记最多\n- 目前最大连通群组\n\n完整的二重唱目标详情，请参考亚洲篇附带的二重唱模式规则书。"
+      },
+      "options": [
+        { "label": { "en": "Duet Mode", "zh": "二重唱模式" }, "next": "duet-mode" },
+        { "label": { "en": "Key Rules & FAQ", "zh": "重要规则与FAQ" }, "next": "faq" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    },
+    "flock-mode": {
+      "title": { "en": "Flock Mode (6–7 Players)", "zh": "群鸟模式（6–7 人）" },
+      "content": {
+        "en": "Flock mode allows up to 7 players by splitting the table into two groups.\n\n### Setup\n- Divide players into **two groups** (e.g., Group A and Group B).\n- Each group shares: 1 birdfeeder, 1 bird card deck, 1 bird tray.\n- Each player still has their own mat, cubes, and food/egg supply.\n- Use the **Flock round-end goal board** instead of the standard goal board.\n\n### Gameplay\n- **Two players take turns simultaneously** — one from each group.\n- Use the **turn-order dial** to track which player is active in each group.\n- When both active players finish, advance the dial to the next pair.\n- Players in the same group still take turns in order.\n\n### Rules\n- You can only interact with your **own group's** birdfeeder and card tray.\n- Cross-group interaction is minimal — you're essentially playing two parallel games.\n- End-of-round goals compare all players across both groups.\n\nRequires the **base game** for additional player components.",
+        "zh": "群鸟模式将桌面分为两组，允许最多 7 人参与。\n\n### 准备\n- 将玩家分为**两组**（如 A 组和 B 组）。\n- 每组共享：1 个喂食器、1 副鸟牌牌堆、1 个展示架。\n- 每位玩家仍有自己的面板、方块和食物/鸟蛋供应。\n- 使用**群鸟回合结束目标板**替代标准目标板。\n\n### 游戏流程\n- **两名玩家同时行动**——每组各一人。\n- 使用**回合顺序转盘**追踪每组的活跃玩家。\n- 当两名活跃玩家都完成行动后，转盘推进至下一对。\n- 同组玩家仍按顺序行动。\n\n### 规则\n- 你只能与你**自己组**的喂食器和展示架互动。\n- 跨组互动极少——本质上是在玩两局并行的游戏。\n- 回合目标比较两组中的全部玩家。\n\n需要**基础游戏**提供额外玩家组件。"
+      },
+      "options": [
+        { "label": { "en": "Duet Mode", "zh": "二重唱模式" }, "next": "duet-mode" },
+        { "label": { "en": "Key Rules & FAQ", "zh": "重要规则与FAQ" }, "next": "faq" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    },
+    "faq": {
+      "title": { "en": "Key Rules & FAQ", "zh": "重要规则与常见问题" },
+      "content": {
+        "en": "### Important Clarifications\n\n**Great Cormorant**: Skip the first clause (moving a fish) the first time it activates. Just roll 2 dice. Once a fish is cached, the full ability works on subsequent turns.\n\n**Nectar Caching**: Nectar can be cached as wild food. Cached nectar stays on the bird — it is NOT placed in \"spent nectar\" and is NOT discarded at round end.\n\n**Anatomist Bonus Card**: If using both original and Asia versions of this bonus card, use the Asia version's updated point values.\n\n**Mixing Duet and Standard Goals**: Unofficially, you can mix Duet and standard goals, but this de-emphasizes duet map tokens.\n\n**Card Compatibility**: All 90 Asia bird cards and 14 bonus cards work with the base game, Europe, and Oceania expansions without issue.",
+        "zh": "### 重要说明\n\n**普通鸬鹚**：首次激活时跳过第一步（移动鱼）。只掷 2 颗骰子。一旦缓存了鱼，后续回合可使用完整能力。\n\n**花蜜缓存**：花蜜可作为万能食物缓存。缓存的花蜜留在鸟上——**不会**放入\"已使用花蜜\"区域，回合结束时也**不会**丢弃。\n\n**解剖学家奖励牌**：如果同时使用原版和亚洲版此奖励牌，使用亚洲版的更新分值。\n\n**混合二重唱与标准目标**：非官方规则下可混合使用，但这会降低二重唱地图标记的重要性。\n\n**卡牌兼容性**：全部 90 张亚洲鸟牌和 14 张奖励牌可与基础游戏、欧洲篇和大洋洲篇无障碍混用。"
+      },
+      "options": [
+        { "label": { "en": "Duet Mode", "zh": "二重唱模式" }, "next": "duet-mode" },
+        { "label": { "en": "Flock Mode (6-7p)", "zh": "群鸟模式（6-7人）" }, "next": "flock-mode" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    }
+  }
+}

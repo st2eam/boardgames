@@ -1,0 +1,66 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Oceania Expansion Overview", "zh": "大洋洲篇概览" },
+      "content": {
+        "en": "The Oceania Expansion adds:\n- **95 new bird cards** (Australia/New Zealand birds)\n- **Nectar** — a new wild food type with end-game scoring\n- **New player mats** — redesigned with reset actions and faster early game\n- **Yellow \"End of Game\" powers** — activate after the game ends\n- **New food dice** — include nectar faces\n- **All-player interaction powers**\n\nRequires the **base game** to play. Nectar rules require the Oceania mats and dice.",
+        "zh": "大洋洲篇新增内容：\n- **95 张新鸟牌**（澳大利亚/新西兰鸟类）\n- **花蜜**——新的万能食物类型，带有游戏结束计分\n- **新玩家面板**——重新设计，有重置行动和更快的前期节奏\n- **黄色\"游戏结束\"能力**——游戏结束后触发\n- **新食物骰子**——包含花蜜面\n- **全员互动能力**\n\n需要**基础游戏**才能游玩。花蜜规则需要大洋洲面板和骰子。"
+      },
+      "options": [
+        { "label": { "en": "Nectar System", "zh": "花蜜系统" }, "next": "nectar" },
+        { "label": { "en": "New Player Mats", "zh": "新玩家面板" }, "next": "new-mats" },
+        { "label": { "en": "Yellow End-of-Game Powers", "zh": "黄色游戏结束能力" }, "next": "yellow-powers" },
+        { "label": { "en": "Nectar Scoring", "zh": "花蜜计分" }, "next": "nectar-scoring" }
+      ]
+    },
+    "nectar": {
+      "title": { "en": "Nectar System", "zh": "花蜜系统" },
+      "content": {
+        "en": "Nectar is the biggest new mechanic in Oceania.\n\n### As a Food Type\n- Nectar is **wild** — it can substitute for any other food type when paying bird costs.\n- When you spend nectar to play a bird, place it in the **\"spent nectar\"** space on your player mat in the habitat where the bird was played.\n- Nectar dice faces appear on the new food dice — you can gain nectar just like any other food.\n\n### Key Rules\n- **Unspent nectar = 0 points**. Only nectar spent on playing birds counts for scoring.\n- Nectar can be cached on bird cards (like other food), but cached nectar stays on the bird and is **not** placed in spent nectar.\n- Nectar tokens are limited (69 in supply). If nectar runs out, you cannot gain more.",
+        "zh": "花蜜是大洋洲篇最重要的新机制。\n\n### 作为食物类型\n- 花蜜是**万能**食物——支付鸟牌费用时可替代任意其他食物类型。\n- 使用花蜜打出鸟牌时，将花蜜标记放在玩家面板打出鸟牌所在栖息地的**\"已使用花蜜\"**位置。\n- 新食物骰子上有花蜜面——可以像其他食物一样获取花蜜。\n\n### 关键规则\n- **未使用花蜜 = 0 分**。只有用于打出鸟牌的花蜜才计入计分。\n- 花蜜可以缓存在鸟牌上（像其他食物），但缓存的花蜜留在鸟上，**不会**放入已使用花蜜。\n- 花蜜标记有限（供应区 69 个）。如花蜜耗尽，无法再获取更多。"
+      },
+      "options": [
+        { "label": { "en": "Nectar Scoring", "zh": "花蜜计分" }, "next": "nectar-scoring" },
+        { "label": { "en": "New Player Mats", "zh": "新玩家面板" }, "next": "new-mats" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    },
+    "nectar-scoring": {
+      "title": { "en": "Nectar Scoring", "zh": "花蜜计分" },
+      "content": {
+        "en": "At the end of the game, score nectar separately for **each habitat** (Forest, Grassland, Wetlands):\n\n| Rank | 2 players | 3–4 players | 5 players |\n|------|-----------|-------------|-----------|\n| 1st (most) | 6 pts | 5 pts | 5 pts |\n| 2nd | 3 pts | 3 pts | 4 pts |\n| 3rd | — | 1 pt | 3 pts |\n| 4th | — | — | 2 pts |\n| 5th | — | — | 1 pt |\n\n**Important**:\n- Ties: add points for tied positions, divide equally (rounded down).\n- If no one has spent nectar in a habitat, no points are awarded for that habitat.\n- Players who spent **0 nectar** in a habitat score 0 for that habitat.\n- Nectar in each habitat is scored independently — a player could score in all three.",
+        "zh": "游戏结束时，按**每个栖息地**（森林、草原、湿地）分别计分：\n\n| 排名 | 2 人局 | 3–4 人局 | 5 人局 |\n|------|--------|----------|--------|\n| 第 1（最多）| 6 分 | 5 分 | 5 分 |\n| 第 2 | 3 分 | 3 分 | 4 分 |\n| 第 3 | — | 1 分 | 3 分 |\n| 第 4 | — | — | 2 分 |\n| 第 5 | — | — | 1 分 |\n\n**重要**：\n- 平局：将平局位置分数相加后平分（向下取整）。\n- 如果某栖息地无人使用花蜜，该栖息地不产生花蜜分数。\n- 在某栖息地使用 **0 花蜜**的玩家得 0 分。\n- 各栖息地花蜜独立计分——一名玩家可能在三个栖息地都获得分数。"
+      },
+      "options": [
+        { "label": { "en": "Nectar System", "zh": "花蜜系统" }, "next": "nectar" },
+        { "label": { "en": "Yellow End-of-Game Powers", "zh": "黄色游戏结束能力" }, "next": "yellow-powers" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    },
+    "new-mats": {
+      "title": { "en": "New Player Mats", "zh": "新玩家面板" },
+      "content": {
+        "en": "The Oceania player mats replace the original mats with redesigned layouts:\n\n### Key Changes\n| Feature | Original Mat | Oceania Mat |\n|---------|-------------|-------------|\n| Column 1 food cost | Cost printed | **No cost** — free to play |\n| Early food gain | Slower | **Faster** — more dice icons early |\n| Early card gain | Slower | **Faster** — more card icons early |\n| Egg gain | Higher | **Reduced** — less egg spamming |\n| Reset actions | None | Reset birdfeeder or card tray (costs 1 cube) |\n\n### Reset Actions\n- **Reset Birdfeeder**: Instead of a normal turn, spend 1 action cube to re-roll all 5 dice.\n- **Reset Card Tray**: Instead of a normal turn, spend 1 action cube to discard face-up cards and draw 3 new ones.\n- Both reset actions are on the player mat and cost a full action.\n\n### Compatibility\nYou can choose to play with original mats or Oceania mats. Nectar rules require the Oceania mats and dice.",
+        "zh": "大洋洲玩家面板替换原版面板，布局重新设计：\n\n### 关键变化\n| 特性 | 原版面板 | 大洋洲面板 |\n|------|---------|----------|\n| 第 1 列食物费 | 有印刷费用 | **免费**打出 |\n| 前期食物获取 | 较慢 | **更快**——前期更多骰子图标 |\n| 前期卡牌获取 | 较慢 | **更快**——前期更多卡牌图标 |\n| 产蛋量 | 较高 | **减少**——降低后期蛋海战术 |\n| 重置行动 | 无 | 重置喂食器或展示架（花费 1 方块）|\n\n### 重置行动\n- **重置喂食器**：替代常规回合，花费 1 个行动方块重新投掷全部 5 颗骰子。\n- **重置展示架**：替代常规回合，花费 1 个行动方块弃掉面朝上牌并抽 3 张新牌。\n- 两种重置行动都在玩家面板上，消耗一整次行动。\n\n### 兼容性\n可选择使用原版面板或大洋洲面板。花蜜规则需要大洋洲面板和骰子。"
+      },
+      "options": [
+        { "label": { "en": "Nectar System", "zh": "花蜜系统" }, "next": "nectar" },
+        { "label": { "en": "Yellow End-of-Game Powers", "zh": "黄色游戏结束能力" }, "next": "yellow-powers" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    },
+    "yellow-powers": {
+      "title": { "en": "Yellow \"End of Game\" Powers", "zh": "黄色\"游戏结束\"能力" },
+      "content": {
+        "en": "Yellow bird powers are a new type that activates **after the game ends**:\n\n**Timing**:\n1. Game ends after Round 4.\n2. Activate all yellow \"End of Game\" powers.\n3. Then tally final scores.\n\n**Examples**:\n- \"Tuck up to 3 cards from your hand behind this bird\"\n- \"Cache 1 food from your supply on this bird\"\n- \"Lay 1 egg on each bird in this habitat\"\n- \"Discard any number of [worms] from your supply; score 1 point each\"\n\n**Key Points**:\n- Yellow powers can give you last-minute points!\n- They resolve BEFORE nectar scoring and final tally.\n- Multiple yellow birds can activate — resolve in any order.\n- These powers are in addition to (not instead of) normal end-of-round and end-of-game scoring.",
+        "zh": "黄色鸟类能力是一种新类型，在**游戏结束后**触发：\n\n**时机**：\n1. 第 4 回合结束后游戏结束。\n2. 触发所有黄色\"游戏结束\"能力。\n3. 然后统计最终分数。\n\n**示例**：\n- \"将手牌中最多 3 张牌塞入此鸟后方\"\n- \"从你的补给区缓存 1 个食物到此鸟上\"\n- \"在此栖息地的每只鸟上产 1 个蛋\"\n- \"弃掉补给区任意数量 [虫子]；每张计 1 分\"\n\n**关键点**：\n- 黄色能力可以给你最后的得分机会！\n- 它们在花蜜计分和最终统计**之前**结算。\n- 多只黄色鸟均可触发——任意顺序结算。\n- 这些能力额外于（而非替代）正常的回合结束和游戏结束计分。"
+      },
+      "options": [
+        { "label": { "en": "Nectar Scoring", "zh": "花蜜计分" }, "next": "nectar-scoring" },
+        { "label": { "en": "New Player Mats", "zh": "新玩家面板" }, "next": "new-mats" },
+        { "label": { "en": "Back to Overview", "zh": "返回概览" }, "next": "overview" }
+      ]
+    }
+  }
+}

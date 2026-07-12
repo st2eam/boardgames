@@ -17,8 +17,8 @@
     "capture": {
       "title": { "en": "Placing Stones & Capture", "zh": "落子与提子" },
       "content": {
-        "en": "### Placing\n- Place one stone on any vacant **intersection** (where lines cross).\n- Stones do not move once placed.\n- You may **pass** at any time. Two consecutive passes end the game.\n\n### Liberties\nA stone or connected group has **liberties** — orthogonally adjacent empty intersections.\n- A single stone in the center has 4 liberties.\n- Edge stone: 3 liberties. Corner stone: 2 liberties.\n\n### Capture\nWhen a group has **zero liberties**, it is **captured** and removed from the board.\n- Captured stones = **prisoners** (count as 1 point each at the end).",
-        "zh": "### 落子\n- 在任意空**交叉点**上放一颗棋子。\n- 棋子一旦放置，不可移动。\n- 可随时**停着**（pass），连续两次停着棋局结束。\n\n### 气\n一颗或一组相连的棋子拥有**气**——正交相邻的空交叉点。\n- 中央单子有 4 口气。\n- 边上：3 口气。角上：2 口气。\n\n### 提子\n当一组棋子**气数为零**时，被**提走**并从棋盘移除。\n- 被提走的棋子 = **俘虏**（每颗终局计 1 分）。"
+        "en": "### Placing\n- Place one stone on any vacant **intersection** (where lines cross).\n- Stones do not move once placed.\n- You may **pass** at any time. Two consecutive passes end the game.\n\n### Liberties\nA stone or connected group has **liberties** — orthogonally adjacent empty intersections.\n\n| Position | Liberties |\n|----------|-----------|\n| Center | 4 (up, down, left, right) |\n| Edge | 3 |\n| Corner | 2 |\n\n### Capture\nWhen a group has **zero liberties**, it is **captured** and removed from the board. Captured stones are kept as **prisoners** — each worth 1 point at the end.\n\nFor example, a lone white stone surrounded on all 4 sides by black stones has 0 liberties and is removed immediately.",
+        "zh": "### 落子\n- 在任意空**交叉点**上放一颗棋子。\n- 棋子一旦放置，不可移动。\n- 可随时**停着**（pass），连续两次停着棋局结束。\n\n### 气\n一颗或一组相连的棋子拥有**气**——正交相邻的空交叉点。\n\n| 位置 | 气数 |\n|------|------|\n| 中央 | 4 口（上下左右）|\n| 边上 | 3 口 |\n| 角上 | 2 口 |\n\n### 提子\n当一组棋子**气数为零**时，被**提走**并从棋盘移除。被提走的棋子作为**俘虏**保留——每颗终局计 1 分。\n\n例如，一颗被黑棋四面围住的白子无气，立即被移除。"
       },
       "options": [
         { "label": { "en": "Ko Rule", "zh": "劫规则" }, "next": "ko" },
@@ -29,8 +29,8 @@
     "ko": {
       "title": { "en": "The Ko Rule", "zh": "劫规则" },
       "content": {
-        "en": "A **ko** (劫) is a position where a single stone capture could be immediately recaptured, creating an infinite loop.\n\n**Example:**\n```\n. B W .\nB . B W\n. B W .\n```\nBlack captures the middle white stone → White could retake immediately → loop.\n\n### The Ko Rule\n**You cannot recapture a ko immediately.** You must:\n1. Play **elsewhere** on the board (a *ko threat*).\n2. Your opponent may **fill the ko** (ending it) or respond to your threat.\n3. If they respond, you may now retake the ko.\n\nThis is one of the most tactically rich aspects of Go.",
-        "zh": "**劫**是指单颗棋子可以无限来回提子的局面。\n\n**示例：**\n```\n● ○ ●\n● · ● ○\n● ○ ●\n```\n黑提中间白子 → 白可立即回提 → 无限循环。\n\n### 劫规则\n**不可立即回提劫。** 必须：\n1. 先在**别处**走一手（*劫材*）。\n2. 对方可选择**消劫**（结束劫争）或应你的劫材。\n3. 如对方应了，你才可回提此劫。\n\n这是围棋中战术最丰富的层面之一。"
+        "en": "A **ko** (劫) is a position where capturing a single stone could be immediately recaptured, creating an infinite loop.\n\n### How Ko Happens\n- Black captures a white stone that had only 1 liberty.\n- After capture, the black stone now has only 1 liberty.\n- Without the ko rule, White could immediately recapture, restoring the original position.\n\n### The Ko Rule\n**You cannot recapture a ko immediately.** You must:\n1. Play **elsewhere** on the board (a *ko threat*).\n2. Your opponent may **fill the ko** (ending it) or respond to your threat.\n3. If they respond elsewhere, you may now retake the ko.\n\nKo fights are one of the most tactically rich aspects of Go — players build *ko threats* throughout the game.",
+        "zh": "**劫**是指提掉一子后可被立即回提、形成无限循环的局面。\n\n### 劫的形成\n- 黑棋提掉一颗仅剩 1 气的白子。\n- 提子后，这颗黑子本身也仅剩 1 气。\n- 若无劫规则，白棋可立即回提，恢复初始局面。\n\n### 劫规则\n**不可立即回提劫。** 必须：\n1. 先在**别处**走一手（*劫材*）。\n2. 对方可选择**消劫**（结束劫争）或应你的劫材。\n3. 如对方应了别处，你才可回提此劫。\n\n劫争是围棋中战术最丰富的层面之一——高手在对局中会刻意制造劫材。"
       },
       "options": [
         { "label": { "en": "Life & Death", "zh": "死活" }, "next": "life-death" },

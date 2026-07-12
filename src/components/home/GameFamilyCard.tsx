@@ -93,14 +93,16 @@ export function GameFamilyCard({ games, sortMode }: Props) {
                 {base.players} &middot; {base.duration}
               </p>
             </div>
-            <span className="absolute top-3 left-3 rounded-full bg-white/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
-              {base.category}
-            </span>
-            {showRank && (
-              <span className="absolute top-3 right-3 z-10 rounded-full bg-amber-500/90 px-2 py-0.5 text-[10px] font-bold text-white shadow-sm backdrop-blur-sm">
-                #{base.bggRank}
+            <div className="absolute top-3 left-3 flex gap-1.5">
+              <span className="rounded-full bg-white/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+                {base.category}
               </span>
-            )}
+              {showRank && (
+                <span className="rounded-full bg-amber-500/90 px-2 py-0.5 text-[10px] font-bold text-white shadow-sm backdrop-blur-sm">
+                  #{base.bggRank}
+                </span>
+              )}
+            </div>
           </GameCover>
 
           <div className="flex items-center gap-2 px-4 py-2.5">

@@ -1,0 +1,17 @@
+{
+  "name": {
+    "en": "Go",
+    "zh": "围棋"
+  },
+  "players": "2",
+  "duration": "30-180 min",
+  "difficulty": "hard",
+  "tags": [
+    "abstract",
+    "strategy",
+    "classic"
+  ],
+  "category": "board",
+  "price": 0,
+  "bggRank": 237
+}

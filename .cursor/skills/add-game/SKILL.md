@@ -63,7 +63,8 @@ content/games/{slug}/
   "duration": "60-120 min",
   "difficulty": "medium",
   "tags": ["strategy", "board", "family"],
-  "category": "board"
+  "category": "board",
+  "bggRank": 377
 }
 ```
 
@@ -79,7 +80,8 @@ content/games/{slug}/
   "category": "card",
   "family": "splendor",
   "familyOrder": 0,
-  "variantType": "base"
+  "variantType": "base",
+  "bggRank": 256
 }
 ```
 
@@ -131,6 +133,7 @@ content/games/{slug}/
 | `familyOrder` | `number` |  | Sort order: `0` = base, `1+` = variants |
 | `variantType` | `string` |  | `"base"` / `"expansion"` / `"variant"` |
 | `requiresBase` | `boolean` |  | `true` if expansion, omit otherwise |
+| `bggRank` | `number` |  | BGG ranking (lower = better). Only for base/standalone games. Omit for DLCs/expansions. Look up on [BoardGameGeek](https://boardgamegeek.com/). |
 
 **Series tags are auto-generated** from `family` — e.g. family `"uno"` produces tags "UNO series" / "UNO 系列". No need to add them manually.
 
@@ -505,6 +508,7 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 
 - [ ] Rules researched from official/web sources
 - [ ] `meta.json` created with all required fields
+- [ ] BGG rank looked up and added (base/standalone games only)
 - [ ] Series fields set correctly (if applicable)
 - [ ] `en/rules.md` written with standard structure
 - [ ] `zh/rules.md` written (matching English content)

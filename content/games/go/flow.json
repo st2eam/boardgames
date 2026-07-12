@@ -1,0 +1,66 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. Place the board between two players (19×19 standard, or 13×13 / 9×9 for beginners).\n2. Black takes 181 black stones, White takes 180 white stones.\n3. The board starts empty.\n4. **Black plays first.**\n\n**Handicap games**: Weaker player takes Black and places 2–9 stones on star points. White plays first in handicap games.",
+        "zh": "1. 将棋盘放在两人之间（标准 19×19，初学者可用 13×13 或 9×9）。\n2. 执黑者拿 181 颗黑子，执白者拿 180 颗白子。\n3. 棋盘初始为空。\n4. **黑方先行。**\n\n**让子局**：较弱方持黑，开局前在星位放置 2–9 颗让子。让子局白方先行。"
+      },
+      "options": [
+        { "label": { "en": "Placing Stones & Capture", "zh": "落子与提子" }, "next": "capture" },
+        { "label": { "en": "Ko Rule", "zh": "劫规则" }, "next": "ko" },
+        { "label": { "en": "Life & Death", "zh": "死活" }, "next": "life-death" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "capture": {
+      "title": { "en": "Placing Stones & Capture", "zh": "落子与提子" },
+      "content": {
+        "en": "### Placing\n- Place one stone on any vacant **intersection** (where lines cross).\n- Stones do not move once placed.\n- You may **pass** at any time. Two consecutive passes end the game.\n\n### Liberties\nA stone or connected group has **liberties** — orthogonally adjacent empty intersections.\n- A single stone in the center has 4 liberties.\n- Edge stone: 3 liberties. Corner stone: 2 liberties.\n\n### Capture\nWhen a group has **zero liberties**, it is **captured** and removed from the board.\n- Captured stones = **prisoners** (count as 1 point each at the end).",
+        "zh": "### 落子\n- 在任意空**交叉点**上放一颗棋子。\n- 棋子一旦放置，不可移动。\n- 可随时**停着**（pass），连续两次停着棋局结束。\n\n### 气\n一颗或一组相连的棋子拥有**气**——正交相邻的空交叉点。\n- 中央单子有 4 口气。\n- 边上：3 口气。角上：2 口气。\n\n### 提子\n当一组棋子**气数为零**时，被**提走**并从棋盘移除。\n- 被提走的棋子 = **俘虏**（每颗终局计 1 分）。"
+      },
+      "options": [
+        { "label": { "en": "Ko Rule", "zh": "劫规则" }, "next": "ko" },
+        { "label": { "en": "Life & Death", "zh": "死活" }, "next": "life-death" },
+        { "label": { "en": "Back to Setup", "zh": "返回准备" }, "next": "setup" }
+      ]
+    },
+    "ko": {
+      "title": { "en": "The Ko Rule", "zh": "劫规则" },
+      "content": {
+        "en": "A **ko** (劫) is a position where a single stone capture could be immediately recaptured, creating an infinite loop.\n\n**Example:**\n```\n. B W .\nB . B W\n. B W .\n```\nBlack captures the middle white stone → White could retake immediately → loop.\n\n### The Ko Rule\n**You cannot recapture a ko immediately.** You must:\n1. Play **elsewhere** on the board (a *ko threat*).\n2. Your opponent may **fill the ko** (ending it) or respond to your threat.\n3. If they respond, you may now retake the ko.\n\nThis is one of the most tactically rich aspects of Go.",
+        "zh": "**劫**是指单颗棋子可以无限来回提子的局面。\n\n**示例：**\n```\n● ○ ●\n● · ● ○\n● ○ ●\n```\n黑提中间白子 → 白可立即回提 → 无限循环。\n\n### 劫规则\n**不可立即回提劫。** 必须：\n1. 先在**别处**走一手（*劫材*）。\n2. 对方可选择**消劫**（结束劫争）或应你的劫材。\n3. 如对方应了，你才可回提此劫。\n\n这是围棋中战术最丰富的层面之一。"
+      },
+      "options": [
+        { "label": { "en": "Life & Death", "zh": "死活" }, "next": "life-death" },
+        { "label": { "en": "Capture Basics", "zh": "落子与提子" }, "next": "capture" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "life-death": {
+      "title": { "en": "Life & Death", "zh": "死活" },
+      "content": {
+        "en": "### Eyes\nAn **eye** is a single empty intersection fully surrounded by stones of one color.\n\n### Two Eyes = Alive\nA group with **two separate eyes** is unconditionally alive — the opponent can never capture it because they cannot fill both eyes at once (each play would be suicide).\n\n### Dead Groups\nA group that cannot form two eyes is **dead** — it will eventually be captured. At the end of the game, dead groups are removed as prisoners.\n\n### Seki (Mutual Life)\nA **seki** is a position where neither player can play without putting their own group at risk. Both groups live in seki without two eyes. The shared liberties (dame) are neutral — neither player scores them.",
+        "zh": "### 眼\n**眼**是由同色棋子完全包围的单空交叉点。\n\n### 两眼活棋\n拥有**两只独立眼**的棋组无条件活——对方永远无法提掉它，因为无法同时填满两只眼（每步都是自杀）。\n\n### 死棋\n无法做出两只眼的棋组为**死棋**——最终会被提掉。终局时，死棋作为俘虏移除。\n\n### 双活（Seki）\n**双活**是双方都无法落子而不危及己方棋组的状态。双方棋组皆活但无两只眼。双活中的公气为中性——不计入任何一方的分数。"
+      },
+      "options": [
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Capture Basics", "zh": "落子与提子" }, "next": "capture" },
+        { "label": { "en": "Back to Setup", "zh": "返回准备" }, "next": "setup" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "Scoring", "zh": "计分方式" },
+      "content": {
+        "en": "The game ends when both players **pass consecutively**.\n\n### 1. Remove Dead Stones\nBoth players agree which groups are dead → remove as prisoners.\n\n### 2. Count Score\n\n**Chinese Rules (Area Scoring - 数子法):**\n- Each living stone on the board = 1 point\n- Each surrounded vacant intersection = 1 point\n- **Komi**: White gets **7.5 points** compensation\n\n**Japanese Rules (Territory Scoring - 数目法):**\n- Each surrounded vacant intersection = 1 point\n- Each prisoner captured = 1 point\n- **Komi**: White gets **6.5 points**\n\n### Komi\nThe 0.5 half-point prevents ties (jigo).\n\n### Winner\n**Higher score wins.** The 0.5 komi means White wins ties (e.g., Black 45 vs White 45 → White wins by 0.5).",
+        "zh": "当双方**连续停着**时，对局结束。\n\n### 1. 移除死子\n双方确认哪些棋组为死棋 → 作为俘虏移除。\n\n### 2. 计分\n\n**中国规则（数子法）：**\n- 棋盘上每颗活子 = 1 分\n- 每块围住的空交叉点 = 1 分\n- **贴目**：白方补偿 **7.5 目**\n\n**日本规则（数目法）：**\n- 每块围住的空交叉点 = 1 分\n- 每颗提子俘虏 = 1 分\n- **贴目**：白方补偿 **6.5 目**\n\n### 贴目\n0.5 目杜绝平局（无胜负）。\n\n### 胜负\n**得分高者获胜。** 0.5 目的贴目意味着白方在平局情况下胜出。"
+      },
+      "options": [
+        { "label": { "en": "Life & Death", "zh": "死活" }, "next": "life-death" },
+        { "label": { "en": "Ko Rule", "zh": "劫规则" }, "next": "ko" },
+        { "label": { "en": "Back to Setup", "zh": "返回准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

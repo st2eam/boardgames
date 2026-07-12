@@ -2,107 +2,287 @@
 
 ## Overview
 
-Go (Weiqi / Baduk) is an abstract strategy board game for two players, originating in China over 2,500 years ago. Players alternate placing black and white stones on a grid, aiming to surround more territory than their opponent. Despite simple rules, Go is considered one of the deepest strategy games in existence.
+Go (Weiqi / Baduk) is an abstract strategy board game for two players, originating in China over 2,500 years ago. Players alternate placing black and white stones on the intersections of a grid, battling for territory through surrounding, attacking, and making trade-offs.
+
+The rules are remarkably simple, but the possibilities are nearly infinite — which is why Go is considered one of the deepest strategy games in existence.
+
+---
 
 ## Components
 
-- Go board (goban): 19×19 grid of lines (beginner: 13×13 or 9×9)
+- Go board (goban): standard **19×19** grid (beginners may use **13×13** or **9×9**)
 - 181 black stones
 - 180 white stones
 - Stone bowls
 
+---
+
 ## Setup
 
 1. Place the board between the two players.
-2. Black takes the black stones, White takes the white stones.
+2. One player takes black, the other takes white.
 3. The board starts empty.
-4. Black plays first.
+4. **Black plays first.**
 
-## How to Play
+---
 
-### Placing Stones
+# How to Play
 
-Players alternate placing one stone of their color on any vacant intersection (where the lines cross). Stones are placed on **intersections**, not inside the squares.
+## Placing Stones
 
-- Once placed, stones do not move (unless captured).
-- You may **pass** your turn at any time. Two consecutive passes end the game.
+Players alternate placing one stone of their color on any vacant **intersection** (where the lines cross).
 
-### Liberties and Capture
+- Stones are placed on intersections, not inside the squares.
+- Once placed, stones do not move unless captured.
+- A player may **pass** at any time, skipping their turn.
+- Two consecutive passes end the game.
 
-A stone or group of connected stones has **liberties** — the empty intersections directly adjacent (orthogonally, not diagonally) to the group.
+---
 
-- When a group has **zero liberties**, it is captured and removed from the board.
-- Captured stones are kept as prisoners and count as points at the end.
+## Groups and Liberties
 
-**Example:**
+Every stone depends on adjacent empty intersections to "breathe." These empty intersections are called **liberties**.
+
+Stones of the same color connected orthogonally (not diagonally) form a **group**, and the entire group shares all its liberties.
+
+For example:
+
 ```
-. . . . .
-. B W . .
-. B W . .
-. . . . .
+● ●
+  ●
 ```
-If Black plays at the remaining liberty of the white stone, the white stone is captured.
 
-### The Ko Rule
+These three black stones belong to the same group and share their surrounding empty intersections as liberties.
 
-A **ko** occurs when a single stone could be captured immediately back and forth, creating an infinite loop. The **ko rule** forbids recapturing a ko immediately — you must play elsewhere first, and your opponent may fill the ko before you can retake it.
+---
 
-### Life and Death
+## Capture
 
-- **Two eyes**: A group is **alive** if it has (or can make) two separate empty spaces (eyes) that cannot both be filled — the opponent cannot capture it.
-- **Dead groups**: Groups that cannot form two eyes are **dead** and will be removed as prisoners at the end (under Chinese rules) or left to prove capture (under Japanese rules).
+When a group's **last liberty** is filled by an opponent stone, the entire group is immediately captured and removed from the board.
 
-### Territory
+Captured stones are called **prisoners**.
 
-**Territory** is the empty intersections surrounded by your stones. At the end:
-- **Chinese rules**: Territory + stones on the board count as points.
-- **Japanese rules**: Territory + captured prisoners count as points.
+For example:
 
-## Game End
+```
+○ ○ ○
+○ ● +
+○ ○ ○
+```
 
-The game ends when both players pass consecutively. Then:
+Where **+** marks Black's next move.
 
-1. Players agree which groups are dead and remove them as prisoners.
-2. Count each player's score:
-   - **Area scoring (Chinese)**: Your living stones + your territory.
-   - **Territory scoring (Japanese)**: Your territory + prisoners captured.
-3. **Komi**: White receives **6.5** points compensation (Chinese rules) or **6.5** points (Japanese rules) for going second. The 0.5 prevents ties.
+After playing:
 
-**The player with the higher score wins.**
+```
+○ ○ ○
+○ ● ●
+○ ○ ○
+```
 
-## Handicap System
+The white group's last liberty is filled, so it is immediately captured.
 
-To balance skill differences:
-- Weaker player (Black) places handicap stones on designated star points before the game begins.
-- White plays first in handicap games.
-- Handicap: 2–9 stones, no komi for Black.
+---
 
-## Strategy Concepts
+## The Ko Rule
 
-Go's rules are minimal, but the possibilities are nearly infinite. The following ideas provide a thinking framework for navigating an open board.
+Sometimes a position allows infinite back-and-forth capture of a single stone — this is called a **ko**.
 
-### Stone Efficiency
+To prevent endless loops, the **ko rule** states:
 
-You only place one stone per turn, so every stone must do real work. The most common beginner trap is **following your opponent's stones** — they play, you respond, and your stones create nothing new. Strong moves often **serve two purposes at once**: expanding your own framework while reducing your opponent's, or reinforcing a weak group while threatening the opponent's thin position.
+> **Immediate recapture is forbidden.**
 
-### Strong and Weak Groups
+After a ko capture, the other player must play elsewhere on the board first. Only after the opponent has played away can the ko be retaken.
 
-The goal is not to capture stones, but to secure more territory. Reinforcing an already-living group wastes a move. Conversely, a weak group on the run can drag down your entire position. **Before each move, assess the life-and-death status of every group on the board**, then decide where to play.
+---
 
-### Corners, Sides, Center
+## Life and Death
 
-Corners enclose the most territory with the fewest stones — two edges do the work for you. Sides have one natural boundary. The center is wide open. As a beginner, the reliable path is: **occupy corners → approach or enclose corners → extend along sides**. Center fighting can wait until your fundamentals are solid.
+Not all stones remain on the board at the end of the game.
 
-### Using Thickness
+- **Alive**: a group that can survive on the board indefinitely.
+- **Dead**: a group that cannot escape and will inevitably be captured.
 
-After building a thick wall of stones, the worst thing you can do is **play right next to it to make territory**. Thickness earns its value through influence: you can expand boldly at a distance, and your opponent cannot risk approaching. Thickness is a deterrent, not a fence.
+A group that has (or can make) **two separate eyes** can guarantee survival — this is called **two-eye life**.
 
-### Sente and Gote
+---
 
-If your opponent must answer your move, you keep **sente** (initiative) and can turn elsewhere. If your opponent can ignore your move, you fall into **gote** and have essentially played for them. Before every move, ask: **can my opponent tenuki (play away)?** If they can, the move may be less valuable than it seems.
+## Territory
 
-## Special Rules
+**Territory** is the set of empty intersections completely enclosed by a player's living groups.
 
-- **Suicide**: Under Chinese rules, playing a stone that results in your own group having zero liberties (self-capture) is **forbidden** unless it also captures opponent stones.
-- **Seki (Mutual Life)**: A position where neither player can play without putting their own group in danger. Both groups live without two eyes. Points in seki are neutral — no one scores them.
-- **Dame**: Neutral points between territories that don't affect scoring. Fill dame before counting.
+Neutral points shared by both players (such as dame in seki) **do not count as territory** for either side.
+
+---
+
+# Game End
+
+The game ends when both players pass consecutively.
+
+The following steps are then performed:
+
+1. Players agree which groups are dead.
+2. Dead stones are removed from the board.
+3. Each player's score is calculated.
+4. The player with the higher score wins.
+
+---
+
+## Scoring Methods
+
+Different rulesets use different scoring methods.
+
+### Chinese Rules (Area Scoring)
+
+Your score is:
+
+> **Living stones on the board + your surrounded territory**
+
+Prisoners are **not counted separately**.
+
+---
+
+### Japanese Rules (Territory Scoring)
+
+Your score is:
+
+> **Your surrounded territory + prisoners captured**
+
+---
+
+## Komi
+
+Because Black has the advantage of moving first, White receives **komi** as compensation.
+
+Standard values:
+
+- Chinese rules: **7.5 points**
+- Japanese rules: **6.5 points**
+
+The **0.5** prevents draws.
+
+---
+
+# Handicap System
+
+When there is a large skill gap between players, the handicap system can balance the game.
+
+Rules:
+
+- The weaker player takes black.
+- Handicap stones are placed on designated star points before the game starts.
+- White plays first.
+- Common handicap: **2–9 stones**.
+- Handicap games typically have no komi.
+
+---
+
+# Strategy Concepts
+
+Go has simple rules but extraordinary strategic depth. Beginners can start by mastering these core principles.
+
+---
+
+## Make Every Move Count
+
+Every stone should do real work.
+
+Strong moves often serve multiple purposes at once:
+
+- Expanding your own territory;
+- Limiting your opponent's development;
+- Reinforcing your own weak groups;
+- Attacking thin or vulnerable opponent shapes.
+
+Avoid passively following your opponent's moves.
+
+---
+
+## Assess Strong and Weak Groups
+
+Go is not about capturing the most stones — it is about who ends up with more territory.
+
+Before each move, ask yourself:
+
+- Which groups are already safe?
+- Which groups are still in danger?
+- Which groups need attention first?
+
+A group that is already alive usually does not need further reinforcement.
+
+---
+
+## Corners, Sides, Center
+
+Territory efficiency follows this order:
+
+> **Corners ＞ Sides ＞ Center**
+
+Corners naturally have two edges helping to enclose territory. Sides have one. The center is open on all four sides.
+
+Beginners should generally follow:
+
+> **Occupy corners → Approach or enclose corners → Extend along sides → Develop the center last**
+
+---
+
+## Using Thickness
+
+Thickness is a solid, secure group of stones.
+
+Its greatest value is not directly enclosing territory, but providing support for distant expansion and making the opponent wary of approaching.
+
+Once you have built thickness, you can usually expand further away rather than playing tightly around it.
+
+---
+
+## Sente and Gote
+
+After you play a move:
+
+- If your opponent must respond, you retain **sente** (initiative).
+- If your opponent can ignore it, you have lost the initiative.
+
+Before every move, it is worth asking:
+
+> **If I were my opponent, would I need to answer this immediately?**
+
+---
+
+# Special Rules
+
+## Suicide
+
+In general, playing a stone that leaves your own group without liberties is forbidden.
+
+The only exception is:
+
+> If the move simultaneously captures opponent stones and gives your group liberties again, the move is allowed.
+
+---
+
+## Seki (Mutual Life)
+
+When opposing groups are mutually dependent — where whoever plays first puts themselves in danger — the position is called **seki**.
+
+Both groups in seki are treated as alive, and the neutral points shared between them **do not count as territory** for either side.
+
+---
+
+## Dame
+
+**Dame** are neutral points between territories that either player can fill but do not affect the final score.
+
+These are typically filled before formally counting.
+
+---
+
+# Quick-Start Tips
+
+New to Go? Remember these essentials:
+
+- Black plays first; players alternate placing stones.
+- Stones go on intersections and cannot be moved.
+- A group with no liberties is immediately captured.
+- Two consecutive passes end the game.
+- Prioritize corners, then sides, then the center.

@@ -1,9 +1,17 @@
 {
-  "name": { "en": "Spots", "zh": "狗运当骰" },
+  "name": {
+    "en": "Spots",
+    "zh": "狗运当骰"
+  },
   "players": "1-4",
   "duration": "15-30 min",
   "difficulty": "easy",
-  "tags": ["dice", "push-your-luck", "family"],
+  "tags": [
+    "dice",
+    "push-your-luck",
+    "family"
+  ],
   "category": "party",
-  "price": 169
+  "price": 169,
+  "bggRank": 1076
 }

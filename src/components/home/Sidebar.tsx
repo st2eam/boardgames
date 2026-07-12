@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import type { SortMode } from "./GameCardGrid";
 
 interface Props {
   categories: string[];
@@ -16,6 +17,8 @@ interface Props {
   playerCounts: number[];
   selectedPlayerCount: number | null;
   onSelectPlayerCount: (n: number | null) => void;
+  sortMode: SortMode;
+  onSortModeChange: (mode: SortMode) => void;
 }
 
 export function Sidebar({
@@ -32,6 +35,8 @@ export function Sidebar({
   playerCounts,
   selectedPlayerCount,
   onSelectPlayerCount,
+  sortMode,
+  onSortModeChange,
 }: Props) {
   const t = useTranslations("home");
   const tc = useTranslations("common");
@@ -50,6 +55,35 @@ export function Sidebar({
           <span className="text-xs text-stone-400">
             {filteredCount !== totalCount ? `(${filteredCount} visible)` : "games"}
           </span>
+        </div>
+      </div>
+
+      {/* Sort mode toggle */}
+      <div>
+        <h4 className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-stone-400">
+          {t("sortLabel")}
+        </h4>
+        <div className="flex gap-1">
+          <button
+            onClick={() => onSortModeChange("alphabetical")}
+            className={`cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+              sortMode === "alphabetical"
+                ? "bg-primary text-white"
+                : "text-stone-600 hover:bg-stone-100 hover:text-primary"
+            }`}
+          >
+            {t("sortAlphabetical")}
+          </button>
+          <button
+            onClick={() => onSortModeChange("bggRank")}
+            className={`cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+              sortMode === "bggRank"
+                ? "bg-primary text-white"
+                : "text-stone-600 hover:bg-stone-100 hover:text-primary"
+            }`}
+          >
+            {t("sortByBggRank")}
+          </button>
         </div>
       </div>
 

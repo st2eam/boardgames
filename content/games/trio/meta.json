@@ -1,9 +1,17 @@
 {
-  "name": { "en": "TRIO", "zh": "TRIO（ナナ）" },
+  "name": {
+    "en": "TRIO",
+    "zh": "TRIO（ナナ）"
+  },
   "players": "3-6",
   "duration": "15 min",
   "difficulty": "easy",
-  "tags": ["family", "memory", "deduction"],
+  "tags": [
+    "family",
+    "memory",
+    "deduction"
+  ],
   "category": "card",
-  "price": 35
+  "price": 35,
+  "bggRank": 1125
 }

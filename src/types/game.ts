@@ -11,6 +11,7 @@ export interface GameMeta {
   variantType?: "base" | "expansion" | "variant";
   requiresBase?: boolean;
   price?: number;
+  bggRank?: number;
 }
 
 export interface FlowOption {
@@ -154,4 +155,5 @@ export interface GameSummary {
   variantType?: "base" | "expansion" | "variant";
   requiresBase?: boolean;
   price?: number;
+  bggRank?: number;
 }

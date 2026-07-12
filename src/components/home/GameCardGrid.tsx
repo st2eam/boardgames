@@ -15,6 +15,8 @@ type GridItem =
   | { type: "single"; game: GameSummary }
   | { type: "family"; key: string; games: GameSummary[] };
 
+export type SortMode = "alphabetical" | "bggRank";
+
 function deriveFamilyTags(
   games: GameSummary[],
   locale: string
@@ -48,6 +50,7 @@ export function GameCardGrid({ games }: Props) {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedPlayerCount, setSelectedPlayerCount] = useState<number | null>(null);
+  const [sortMode, setSortMode] = useState<SortMode>("alphabetical");
 
   const { enriched, familyTagSet } = useMemo(
     () => deriveFamilyTags(games, locale),
@@ -121,6 +124,11 @@ export function GameCardGrid({ games }: Props) {
           if (a.family === b.family && a.family) {
             return (a.familyOrder ?? 0) - (b.familyOrder ?? 0);
           }
+          if (sortMode === "bggRank") {
+            const rankA = a.bggRank ?? Infinity;
+            const rankB = b.bggRank ?? Infinity;
+            if (rankA !== rankB) return rankA - rankB;
+          }
           return a.name.en.localeCompare(b.name.en);
         })
         .map((game) => ({ type: "single" as const, game }));
@@ -163,12 +171,27 @@ export function GameCardGrid({ games }: Props) {
       }
     }
 
-    const getSortName = (item: GridItem) =>
-      item.type === "family" ? item.games[0].name.en : item.game.name.en;
-    items.sort((a, b) => getSortName(a).localeCompare(getSortName(b)));
+    if (sortMode === "bggRank") {
+      items.sort((a, b) => {
+        const rankA = a.type === "family"
+          ? (a.games[0].bggRank ?? Infinity)
+          : (a.game.bggRank ?? Infinity);
+        const rankB = b.type === "family"
+          ? (b.games[0].bggRank ?? Infinity)
+          : (b.game.bggRank ?? Infinity);
+        if (rankA !== rankB) return rankA - rankB;
+        const nameA = a.type === "family" ? a.games[0].name.en : a.game.name.en;
+        const nameB = b.type === "family" ? b.games[0].name.en : b.game.name.en;
+        return nameA.localeCompare(nameB);
+      });
+    } else {
+      const getSortName = (item: GridItem) =>
+        item.type === "family" ? item.games[0].name.en : item.game.name.en;
+      items.sort((a, b) => getSortName(a).localeCompare(getSortName(b)));
+    }
 
     return items;
-  }, [filtered, hasSeriesFilter]);
+  }, [filtered, hasSeriesFilter, sortMode]);
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) => {
@@ -213,6 +236,30 @@ export function GameCardGrid({ games }: Props) {
               {cat}
             </button>
           ))}
+          {/* Mobile: sort toggle */}
+          <div className="ml-auto flex shrink-0 items-center gap-1">
+            <span className="text-[11px] font-medium text-stone-400">{t("sortLabel")}</span>
+            <button
+              onClick={() => setSortMode("alphabetical")}
+              className={`cursor-pointer shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium transition-all ${
+                sortMode === "alphabetical"
+                  ? "bg-primary text-white"
+                  : "bg-stone-100 text-stone-500 hover:bg-amber-50"
+              }`}
+            >
+              A-Z
+            </button>
+            <button
+              onClick={() => setSortMode("bggRank")}
+              className={`cursor-pointer shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium transition-all ${
+                sortMode === "bggRank"
+                  ? "bg-primary text-white"
+                  : "bg-stone-100 text-stone-500 hover:bg-amber-50"
+              }`}
+            >
+              BGG
+            </button>
+          </div>
         </div>
 
         {/* Desktop: full sidebar */}
@@ -231,6 +278,8 @@ export function GameCardGrid({ games }: Props) {
             playerCounts={playerCounts}
             selectedPlayerCount={selectedPlayerCount}
             onSelectPlayerCount={setSelectedPlayerCount}
+            sortMode={sortMode}
+            onSortModeChange={setSortMode}
           />
         </div>
 

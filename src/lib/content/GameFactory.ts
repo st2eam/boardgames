@@ -33,6 +33,8 @@ export class GameFactory {
       familyOrder: meta.familyOrder,
       variantType: meta.variantType,
       requiresBase: meta.requiresBase,
+      price: meta.price,
+      bggRank: meta.bggRank,
     };
   }
 }

@@ -1,9 +1,16 @@
 {
-  "name": { "en": "Rummikub", "zh": "拉密" },
+  "name": {
+    "en": "Rummikub",
+    "zh": "拉密"
+  },
   "players": "2-4",
   "duration": "30-60 min",
   "difficulty": "medium",
-  "tags": ["classic", "set-collection"],
+  "tags": [
+    "classic",
+    "set-collection"
+  ],
   "category": "board",
-  "price": 0
+  "price": 0,
+  "bggRank": 1642
 }

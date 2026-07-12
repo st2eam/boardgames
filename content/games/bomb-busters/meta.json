@@ -1,9 +1,17 @@
 {
-  "name": { "en": "Bomb Busters", "zh": "炸弹克星" },
+  "name": {
+    "en": "Bomb Busters",
+    "zh": "炸弹克星"
+  },
   "players": "2-5",
   "duration": "30 min",
   "difficulty": "medium",
-  "tags": ["cooperative", "deduction", "campaign"],
+  "tags": [
+    "cooperative",
+    "deduction",
+    "campaign"
+  ],
   "category": "board",
-  "price": 186
+  "price": 186,
+  "bggRank": 3475
 }

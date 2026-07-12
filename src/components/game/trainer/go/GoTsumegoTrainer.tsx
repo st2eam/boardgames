@@ -46,10 +46,14 @@ export function GoTsumegoTrainer({ config, locale }: Props) {
   );
 
   const handleCheck = () => {
-    const isCorrect = problem.solution.some(
-      (sol) =>
-        playedStones[`${sol.row},${sol.col}`] === problem.turn
+    // Correct: all solution positions must be played, no extra stones elsewhere
+    const solutionKeys = new Set(problem.solution.map((s) => `${s.row},${s.col}`));
+    const playedKeys = Object.keys(playedStones);
+    const allSolutionPlayed = problem.solution.every(
+      (sol) => playedStones[`${sol.row},${sol.col}`] === problem.turn
     );
+    const noExtraStones = playedKeys.every((k) => solutionKeys.has(k));
+    const isCorrect = allSolutionPlayed && noExtraStones && playedKeys.length > 0;
     setTotal((p) => p + 1);
     if (isCorrect) {
       setCorrect((p) => p + 1);
@@ -93,6 +97,9 @@ export function GoTsumegoTrainer({ config, locale }: Props) {
   };
 
   const goalText = problem.goal[locale as "en" | "zh"] ?? problem.goal.en;
+  const turnLabel = problem.turn === "black"
+    ? (locale === "zh" ? "黑先" : "Black")
+    : (locale === "zh" ? "白先" : "White");
 
   return (
     <div className="mx-auto max-w-md space-y-4">
@@ -125,7 +132,7 @@ export function GoTsumegoTrainer({ config, locale }: Props) {
           ? (wasCorrect
               ? `${locale === "zh" ? "正确！" : "Correct!"}`
               : `${locale === "zh" ? "错误，绿色标记为正确答案" : "Incorrect — green marks show the answer"}`)
-          : goalText
+          : `${turnLabel}: ${goalText}`
         }
       </div>
 

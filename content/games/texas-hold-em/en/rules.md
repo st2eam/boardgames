@@ -170,12 +170,12 @@ From earliest to latest post-flop:
 
 ## Full Ring (9-Max) Reference
 
-| 6-Max | Full Ring |
-|-------|-----------|
-| — | UTG |
-| — | UTG+1 |
-| — | MP (Middle Position) |
-| UTG | LJ (Lojack) |
+| Full Ring | 6-Max |
+|-----------|--------|
+| UTG | — |
+| UTG+1 | — |
+| MP (Middle Position) | — |
+| LJ (Lojack) | UTG |
 | HJ | HJ |
 | CO | CO |
 | BTN | BTN |

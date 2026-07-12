@@ -6,15 +6,11 @@ Go (Weiqi / Baduk) is an abstract strategy board game for two players, originati
 
 The rules are remarkably simple, but the possibilities are nearly infinite — which is why Go is considered one of the deepest strategy games in existence.
 
----
-
 ## Components
 
 - Go board (goban): standard **19×19** grid (beginners may use **13×13** or **9×9**)
 - Black and white stones, roughly **180 of each**
 - Stone bowls
-
----
 
 ## Setup
 
@@ -37,8 +33,6 @@ Players alternate placing one stone of their color on any vacant **intersection*
 - You cannot play on an intersection with no liberties (**illegal point**), unless the move captures opponent stones and gains liberties as a result.
 - When both players agree there is nothing left to play and pass consecutively, the game ends.
 
----
-
 ## Groups and Liberties
 
 Every stone depends on adjacent empty intersections to "breathe." These empty intersections are called **liberties**.
@@ -53,8 +47,6 @@ For example:
 ```
 
 These three black stones belong to the same group and share their surrounding empty intersections as liberties.
-
----
 
 ## Capture
 
@@ -79,8 +71,6 @@ After playing:
 ```
 
 The black group's last liberty is filled, so it is immediately captured.
-
----
 
 ## The Ko Rule
 
@@ -117,8 +107,6 @@ The following steps are then performed:
 3. Each player's score is calculated.
 4. The player with the higher score wins.
 
----
-
 ## Life and Death
 
 Not all stones remain on the board at the end of the game.
@@ -128,15 +116,11 @@ Not all stones remain on the board at the end of the game.
 
 An **eye** is one or more empty intersections completely enclosed by stones of the same color. A group with only one eye will eventually be filled and captured; a group with **two separate, unconnected eyes** can never be captured — the opponent cannot fill both at once. This is called **two-eye life**.
 
----
-
 ## Territory
 
 **Territory** is the set of empty intersections completely enclosed by a player's living groups.
 
 Neutral points shared by both players (such as dame in seki) **do not count as territory** for either side.
-
----
 
 ## Scoring Methods
 
@@ -150,15 +134,11 @@ Your score is:
 
 Prisoners are **not counted separately**.
 
----
-
 ### Japanese Rules (Territory Scoring)
 
 Your score is:
 
 > **Your surrounded territory + prisoners captured**
-
----
 
 ## Komi
 
@@ -181,15 +161,11 @@ An **illegal point** is an intersection where playing would leave your own group
 
 The exception: if the move simultaneously captures opponent stones and gives your group liberties again, the move is allowed.
 
----
-
 ## Seki (Mutual Life)
 
 When opposing groups are mutually dependent — where whoever plays first puts themselves in danger — the position is called **seki**.
 
 Both groups in seki are treated as alive, and the neutral points shared between them **do not count as territory** for either side.
-
----
 
 ## Dame
 
@@ -215,8 +191,6 @@ Rules:
 
 The following are not rules — they are thinking frameworks to help beginners navigate the board.
 
----
-
 ## Make Every Move Count
 
 Every stone should do real work.
@@ -230,8 +204,6 @@ Strong moves often serve multiple purposes at once:
 
 Avoid passively following your opponent's moves.
 
----
-
 ## Assess Strong and Weak Groups
 
 Go is not about capturing the most stones — it is about who ends up with more territory.
@@ -243,8 +215,6 @@ Before each move, ask yourself:
 - Which groups need attention first?
 
 A group that is already alive usually does not need further reinforcement.
-
----
 
 ## Corners, Sides, Center
 
@@ -258,8 +228,6 @@ Beginners should generally follow:
 
 > **Occupy corners → Approach or enclose corners → Extend along sides → Develop the center last**
 
----
-
 ## Using Thickness
 
 Thickness is a solid, secure group of stones.
@@ -267,8 +235,6 @@ Thickness is a solid, secure group of stones.
 Its greatest value is not directly enclosing territory, but providing support for distant expansion and making the opponent wary of approaching.
 
 Once you have built thickness, you can usually expand further away rather than playing tightly around it.
-
----
 
 ## Sente and Gote
 
@@ -280,7 +246,5 @@ After you play a move:
 Before every move, it is worth asking:
 
 > **If I were my opponent, would I need to answer this immediately?**
-
----
 
 **Go in one sentence**: Place stones in turns → groups with no liberties are captured → no immediate ko recapture → both pass, count territory → higher score wins.

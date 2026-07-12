@@ -196,9 +196,9 @@ This page's companion **Preflop Trainer** helps you memorize correct RFI decisio
 
 ---
 
-# Beginner's Guide
+# Strategy Guide
 
-The following are not rules — they are a learning path for new players.
+The following are not rules — they are strategic frameworks to improve your game.
 
 ---
 

@@ -7,337 +7,198 @@
         "zh": "游戏准备"
       },
       "content": {
-        "en": "## Components\n\n- **Identity cards** — Monarch, Loyalists, Rebels, Traitor\n- **Hero cards** — legendary Three Kingdoms characters with unique skills\n- **Game cards** — Basic, Strategy (Scroll), and Equipment cards\n- **Health cards** — track each hero's remaining health\n\n## Setup Steps\n\n1. **Draw identity** — each player draws one face down. The **Monarch reveals immediately**; all others stay hidden.\n2. **Select hero** — Monarch chooses from **5 heroes**; others choose from **3 each**. Reveal your hero.\n3. **Monarch bonus** — Monarch gets **+1 maximum health**.\n4. **Starting hand** — starting from the Monarch (counterclockwise), each player draws **4 cards**.\n\n## Player Count (Standard 8)\n\n| Role | Count |\n|------|-------|\n| Monarch (主公) | 1 |\n| Loyalist (忠臣) | 2 |\n| Rebel (反贼) | 4 |\n| Traitor (内奸) | 1 |",
-        "zh": "## 组件\n\n- **身份牌** — 主公、忠臣、反贼、内奸\n- **武将牌** — 三国英雄，各拥有独特技能\n- **游戏牌** — 基本牌、锦囊牌、装备牌\n- **体力牌** — 记录武将当前体力\n\n## 准备步骤\n\n1. **抽取身份** — 每人抽一张面朝下。**主公立即亮明**；其余身份保密。\n2. **选择武将** — 主公从 **5 张** 中选；其他玩家从 **3 张** 中选。亮出所选武将。\n3. **主公加成** — 主公 **体力上限 +1**。\n4. **起始手牌** — 从主公开始（逆时针），每人摸 **4 张牌**。\n\n## 标准 8 人局身份分配\n\n| 身份 | 数量 |\n|------|------|\n| 主公 | 1 |\n| 忠臣 | 2 |\n| 反贼 | 4 |\n| 内奸 | 1 |"
+        "en": "## Components\n\n- **Identity cards** — Monarch, Loyalist, Rebel, Traitor\n- **Hero cards** — Three Kingdoms characters with unique skills\n- **Game cards** — Basic (Slash, Dodge, Peach, Wine), Strategy (instant + delayed), Equipment (weapon, armor, +1/-1 horse)\n- **Health cards** — track remaining health\n\n## Setup\n\n1. **Draw identity** — each player draws one face down. The **Monarch reveals immediately**.\n2. **Select hero** — Monarch chooses from **5**; others from **3 each**. Reveal your hero.\n3. **Monarch bonus** — Monarch gets **+1 maximum health**.\n4. **Starting hand** — from the Monarch counterclockwise, each draws **4 cards**.\n\n## Standard 8-Player Distribution\n\n| Role | Count |\n|------|-------|\n| Monarch (主公) | 1 |\n| Loyalist (忠臣) | 2 |\n| Rebel (反贼) | 4 |\n| Traitor (内奸) | 1 |",
+        "zh": "## 组件\n\n- **身份牌** — 主公、忠臣、反贼、内奸\n- **武将牌** — 三国英雄，各拥有独特技能\n- **游戏牌** — 基本牌（杀、闪、桃、酒）、锦囊牌（即时+延时）、装备牌（武器、防具、+1/-1马）\n- **体力牌** — 记录当前体力\n\n## 准备\n\n1. **抽取身份** — 每人抽一张面朝下。**主公立即亮明**。\n2. **选择武将** — 主公从 **5 张**中选；其他人从 **3 张**中选。亮出武将。\n3. **主公加成** — 主公 **体力上限 +1**。\n4. **起始手牌** — 从主公起逆时针，每人摸 **4 张**。\n\n## 标准 8 人分配\n\n| 身份 | 数量 |\n|------|------|\n| 主公 | 1 |\n| 忠臣 | 2 |\n| 反贼 | 4 |\n| 内奸 | 1 |"
       },
       "options": [
-        {
-          "label": {
-            "en": "Roles & Victory",
-            "zh": "身份与胜利"
-          },
-          "next": "roles"
-        },
-        {
-          "label": {
-            "en": "Turn Phases",
-            "zh": "回合阶段"
-          },
-          "next": "turn-phases"
-        },
-        {
-          "label": {
-            "en": "Basic Cards",
-            "zh": "基本牌"
-          },
-          "next": "basic-cards"
-        }
+        { "label": { "en": "Roles & Victory", "zh": "身份与胜利" }, "next": "roles" },
+        { "label": { "en": "Game Flow", "zh": "游戏流程" }, "next": "game-flow" },
+        { "label": { "en": "Game Cards", "zh": "游戏牌" }, "next": "basic-cards" }
       ]
     },
+
     "roles": {
       "title": {
         "en": "Roles & Victory",
         "zh": "身份与胜利"
       },
       "content": {
-        "en": "## Identity Overview\n\n| Role | Team | Victory Condition |\n|------|------|-------------------|\n| **Monarch (主公)** | Ruler | Eliminate all Rebels and the Traitor |\n| **Loyalist (忠臣)** | Ruler | Protect the Monarch; eliminate Rebels and Traitor |\n| **Rebel (反贼)** | Rebel | Eliminate the Monarch |\n| **Traitor (内奸)** | Solo | Be the **last player standing** (Monarch must die last) |\n\n## Key Rules\n\n- Only the **Monarch** reveals their identity at the start.\n- Loyalists and Traitor are **hidden** — deduce allegiance from actions.\n- **Rebels win immediately** when the Monarch dies, even if all Rebels are also dead.\n- The **Traitor** must survive until they are the sole remaining player; killing the Monarch too early helps Rebels win.\n\n## Team Dynamics\n\n- Monarch + Loyalists share a team but Loyalists are secret allies.\n- Traitor pretends to help the Monarch while eliminating everyone else.",
-        "zh": "## 身份一览\n\n| 身份 | 阵营 | 胜利条件 |\n|------|------|----------|\n| **主公** | 主公方 | 消灭所有反贼和内奸 |\n| **忠臣** | 主公方 | 保护主公，消灭反贼和内奸 |\n| **反贼** | 反贼方 | 消灭主公 |\n| **内奸** | 独立 | **成为最后存活者**（主公必须最后被消灭） |\n\n## 核心规则\n\n- 开局仅 **主公** 亮明身份。\n- 忠臣和内奸 **隐藏身份** — 从行动中推断阵营。\n- **主公阵亡时反贼立即获胜**，即使反贼自身也已全灭。\n- **内奸** 需存活到最后成为唯一玩家；过早杀死主公会帮助反贼获胜。\n\n## 阵营关系\n\n- 主公与忠臣同阵营，但忠臣身份保密。\n- 内奸表面效忠主公，实则需消灭所有人。"
+        "en": "## Identity Overview\n\n| Role | Team | Victory Condition |\n|------|------|-------------------|\n| **Monarch (主公)** | Ruler | Eliminate all Rebels and the Traitor |\n| **Loyalist (忠臣)** | Ruler | Protect Monarch; eliminate Rebels and Traitor |\n| **Rebel (反贼)** | Rebel | Eliminate the Monarch |\n| **Traitor (内奸)** | Solo | Be the **last player standing** (Monarch dies last) |\n\n## Key Rules\n\n- Only the **Monarch** reveals identity at the start.\n- Loyalists and Traitor are **hidden** — deduce allegiance from behavior.\n- **Rebels win immediately** when the Monarch dies.\n- **Traitor** must be the sole survivor; killing Monarch too early lets Rebels win.\n\n## Death Rewards & Penalties\n\n| Who Died | Effect |\n|----------|--------|\n| **Rebel** killed | Killer draws **3 cards** |\n| **Loyalist** killed by Monarch | Monarch **discards all cards** |",
+        "zh": "## 身份一览\n\n| 身份 | 阵营 | 胜利条件 |\n|------|------|----------|\n| **主公** | 主公方 | 消灭所有反贼和内奸 |\n| **忠臣** | 主公方 | 保护主公，消灭反贼和内奸 |\n| **反贼** | 反贼方 | 消灭主公 |\n| **内奸** | 独立 | 成为**最后存活者**（主公最后被消灭） |\n\n## 核心规则\n\n- 仅 **主公** 开局亮明身份。\n- 忠臣和内奸 **隐藏身份** — 从行动推断阵营。\n- **主公阵亡时反贼立即获胜**。\n- **内奸** 必须成为唯一存活者；过早杀主公等于帮反贼。\n\n## 死亡奖惩\n\n| 阵亡身份 | 效果 |\n|----------|------|\n| **反贼** 被杀死 | 凶手 **摸 3 张牌** |\n| **忠臣** 被主公杀死 | 主公 **弃置所有牌** |"
       },
       "options": [
-        {
-          "label": {
-            "en": "Death Rules",
-            "zh": "阵亡规则"
-          },
-          "next": "death-rules"
-        },
-        {
-          "label": {
-            "en": "Turn Phases",
-            "zh": "回合阶段"
-          },
-          "next": "turn-phases"
-        },
-        {
-          "label": {
-            "en": "Back to Setup",
-            "zh": "回到准备"
-          },
-          "next": "setup"
-        }
+        { "label": { "en": "Dying & Death", "zh": "濒死与阵亡" }, "next": "dying-death" },
+        { "label": { "en": "Game Flow", "zh": "游戏流程" }, "next": "game-flow" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
       ]
     },
-    "turn-phases": {
+
+    "game-flow": {
       "title": {
-        "en": "Turn Phases",
-        "zh": "回合阶段"
+        "en": "Game Flow",
+        "zh": "游戏流程"
       },
       "content": {
-        "en": "## Six Phases (in order)\n\n| # | Phase | What Happens |\n|---|-------|--------------|\n| 1 | **Preparation (准备)** | Trigger start-of-turn hero abilities |\n| 2 | **Judgment (判定)** | Resolve delayed strategy cards (see **Judgment Phase**) |\n| 3 | **Draw (摸牌)** | Draw **2 cards** from the deck |\n| 4 | **Play (出牌)** | Use cards and hero abilities (see **Play Phase**) |\n| 5 | **Discard (弃牌)** | Discard down to **current health** (hand limit) |\n| 6 | **End (结束)** | Trigger end-of-turn hero abilities |\n\n## Turn Direction\n\nTurns proceed **counterclockwise**, starting from the Monarch.\n\n## Skipping Phases\n\nSome effects (e.g. **Contentment / 乐不思蜀**) can skip the **Play Phase**.",
-        "zh": "## 六个阶段（按顺序）\n\n| # | 阶段 | 内容 |\n|---|------|------|\n| 1 | **准备阶段** | 触发回合开始的武将技能 |\n| 2 | **判定阶段** | 处理判定区延时锦囊（详见 **判定阶段**） |\n| 3 | **摸牌阶段** | 从牌堆摸 **2 张牌** |\n| 4 | **出牌阶段** | 使用手牌和武将技能（详见 **出牌阶段**） |\n| 5 | **弃牌阶段** | 手牌弃至 **当前体力值**（手牌上限） |\n| 6 | **结束阶段** | 触发回合结束的武将技能 |\n\n## 回合方向\n\n从主公开始，按 **逆时针** 依次进行。\n\n## 跳过阶段\n\n部分效果（如 **乐不思蜀**）可跳过 **出牌阶段**。"
+        "en": "## Six Phases (in order)\n\n| # | Phase | What Happens |\n|---|-------|--------------|\n| 1 | **Preparation** | Start-of-turn skills trigger |\n| 2 | **Judgment** | Resolve delayed cards (Contentment, Supply Shortage, Lightning) in reverse placement order |\n| 3 | **Draw** | Draw **2 cards** from the deck |\n| 4 | **Play** | Use cards, activate skills, reforge. Max **1 Slash per turn**. |\n| 5 | **Discard** | Discard hand down to **current health** |\n| 6 | **End** | End-of-turn skills trigger |\n\n## Judgment Phase Detail\n\n1. Resolve delayed cards in **reverse order of placement**.\n2. Reveal top deck card → apply effect by suit/number.\n3. Judgment-modification skills (e.g. 鬼才, 鬼道) may alter the result.\n4. Judgment card enters discard pile.\n\n> Judgment cards do not belong to any character. They cannot be targeted or obtained (unless a skill specifically allows).\n\n## Play Phase Detail\n\n- Use Basic and Strategy cards\n- Equip weapons, armor, horses\n- Activate hero skills\n- **Reforge**: discard a card to draw one (does NOT count as \"using\")\n\n**Key limit:** At most 1 Slash per turn (unless modified by skills or weapons).\n\n## Turn Direction\n\nCounterclockwise, starting from the Monarch.",
+        "zh": "## 六个阶段（按顺序）\n\n| # | 阶段 | 内容 |\n|---|------|------|\n| 1 | **准备阶段** | 回合开始技能触发 |\n| 2 | **判定阶段** | 按放入逆序处理延时锦囊（乐不思蜀、兵粮寸断、闪电） |\n| 3 | **摸牌阶段** | 从牌堆摸 **2 张牌** |\n| 4 | **出牌阶段** | 使用牌、发动技能、重铸。每回合限 **1 张杀**。 |\n| 5 | **弃牌阶段** | 手牌弃至 **当前体力值** |\n| 6 | **结束阶段** | 回合结束技能触发 |\n\n## 判定阶段详解\n\n1. 按**后放入先判定**顺序处理延时锦囊。\n2. 翻牌堆顶 → 按花色/点数执行效果。\n3. 改判技能（鬼才、鬼道）可修改结果。\n4. 判定牌置入弃牌堆。\n\n> 判定牌不属于任何角色，不能成为目标，不能被获得（除非技能特别说明）。\n\n## 出牌阶段详解\n\n- 使用基本牌和锦囊牌\n- 装备武器、防具、马匹\n- 发动武将技能\n- **重铸**：弃一张牌摸一张（不算\"使用\"）\n\n**关键限制：** 每回合最多 1 张杀（除非技能或武器修改）。\n\n## 回合方向\n\n从主公起逆时针依次进行。"
       },
       "options": [
-        {
-          "label": {
-            "en": "Judgment Phase",
-            "zh": "判定阶段"
-          },
-          "next": "judge-phase"
-        },
-        {
-          "label": {
-            "en": "Play Phase",
-            "zh": "出牌阶段"
-          },
-          "next": "play-phase"
-        },
-        {
-          "label": {
-            "en": "Basic Cards",
-            "zh": "基本牌"
-          },
-          "next": "basic-cards"
-        },
-        {
-          "label": {
-            "en": "Roles & Victory",
-            "zh": "身份与胜利"
-          },
-          "next": "roles"
-        }
+        { "label": { "en": "Basic Cards", "zh": "基本牌" }, "next": "basic-cards" },
+        { "label": { "en": "Strategy Cards", "zh": "锦囊牌" }, "next": "strategy-cards" },
+        { "label": { "en": "Equipment", "zh": "装备牌" }, "next": "equipment" },
+        { "label": { "en": "Distance & Range", "zh": "距离与范围" }, "next": "distance" },
+        { "label": { "en": "Roles & Victory", "zh": "身份与胜利" }, "next": "roles" }
       ]
     },
-    "judge-phase": {
-      "title": {
-        "en": "Judgment Phase",
-        "zh": "判定阶段"
-      },
-      "content": {
-        "en": "## When It Happens\n\nAt the start of your turn, **before drawing cards**, resolve all cards in your **judgment zone**.\n\n## Resolution Order\n\nProcess delayed cards in **reverse order of placement** (last placed = first resolved).\n\n## How to Judge\n\n1. Flip the top card of the deck — this is the **judgment result**.\n2. Apply the effect based on the card's **suit and number**.\n3. The judgment card is then **discarded**.\n\n## Delayed Cards\n\n| Card | Effect |\n|------|--------|\n| **Contentment (乐不思蜀)** | If result is **NOT Hearts** → skip your **Play Phase** |\n| **Lightning (闪电)** | If **Spade 2–9** → take **3 damage**; otherwise pass left |\n\n## Nullification\n\nAny player may play **Nullification (无懈可击)** to cancel a judgment effect before it resolves.",
-        "zh": "## 何时进行\n\n回合开始时，**摸牌之前**，处理 **判定区** 内的所有延时锦囊。\n\n## 处理顺序\n\n按 **后放入先判定** 的逆序处理（最后放入的最先判定）。\n\n## 判定流程\n\n1. 从牌堆顶翻一张牌作为 **判定结果**。\n2. 根据牌的 **花色和点数** 执行效果。\n3. 判定牌随后 **弃置**。\n\n## 延时锦囊效果\n\n| 锦囊 | 效果 |\n|------|------|\n| **乐不思蜀** | 判定结果 **不是红桃** → 跳过 **出牌阶段** |\n| **闪电** | 判定为 **黑桃 2–9** → 受到 **3 点伤害**；否则传递给左侧角色 |\n\n## 无懈可击\n\n任何角色可在判定生效前打出 **无懈可击** 抵消判定效果。"
-      },
-      "options": [
-        {
-          "label": {
-            "en": "Strategy Cards",
-            "zh": "锦囊牌"
-          },
-          "next": "strategy-cards"
-        },
-        {
-          "label": {
-            "en": "Turn Phases",
-            "zh": "回合阶段"
-          },
-          "next": "turn-phases"
-        },
-        {
-          "label": {
-            "en": "Play Phase",
-            "zh": "出牌阶段"
-          },
-          "next": "play-phase"
-        }
-      ]
-    },
-    "play-phase": {
-      "title": {
-        "en": "Play Phase",
-        "zh": "出牌阶段"
-      },
-      "content": {
-        "en": "## What You Can Do\n\nDuring your Play Phase, you may:\n\n- Play **Basic cards** (Slash, Dodge, Peach)\n- Play **Strategy cards** (scrolls)\n- Equip **Equipment** (weapons, armor, horses)\n- Activate **hero abilities** (as allowed by your character)\n\n## Key Limits\n\n- **1 Slash per turn** (unless a hero ability or weapon removes this limit)\n- **Dodge** is normally played in response, not during your own Play Phase\n- **Distance** determines who you can target (see **Equipment**)\n\n## Playing Cards\n\n1. Declare the card and target(s).\n2. Other players may respond (Dodge, Nullification, etc.).\n3. Resolve the effect.\n\n## End of Play Phase\n\nProceed to **Discard Phase** — hand size cannot exceed current health.",
-        "zh": "## 可以做什么\n\n出牌阶段可以：\n\n- 使用 **基本牌**（杀、闪、桃）\n- 使用 **锦囊牌**\n- 装备 **装备牌**（武器、防具、马匹）\n- 发动 **武将技能**（按武将说明）\n\n## 关键限制\n\n- 每回合限出 **1 张杀**（除非武将技能或武器另有说明）\n- **闪** 通常在响应时打出，而非自己出牌阶段主动使用\n- **距离** 决定可攻击的目标（详见 **装备牌**）\n\n## 出牌流程\n\n1. 声明使用的牌和目标。\n2. 其他角色可响应（出闪、无懈可击等）。\n3. 结算效果。\n\n## 出牌阶段结束\n\n进入 **弃牌阶段** — 手牌数不能超过当前体力值。"
-      },
-      "options": [
-        {
-          "label": {
-            "en": "Basic Cards",
-            "zh": "基本牌"
-          },
-          "next": "basic-cards"
-        },
-        {
-          "label": {
-            "en": "Strategy Cards",
-            "zh": "锦囊牌"
-          },
-          "next": "strategy-cards"
-        },
-        {
-          "label": {
-            "en": "Equipment",
-            "zh": "装备牌"
-          },
-          "next": "equipment"
-        },
-        {
-          "label": {
-            "en": "Turn Phases",
-            "zh": "回合阶段"
-          },
-          "next": "turn-phases"
-        }
-      ]
-    },
+
     "basic-cards": {
       "title": {
         "en": "Basic Cards",
         "zh": "基本牌"
       },
       "content": {
-        "en": "## Slash (杀) — Attack\n\n- Target **one player within range**\n- Deals **1 damage** if not dodged\n- Limit: **1 per turn** (unless hero ability says otherwise)\n- Cannot be played if no valid target in range\n\n## Dodge (闪) — Defense\n\n- Played **in response** to a Slash targeting you\n- Negates that Slash's damage\n- Also required to respond to **Archery Attack (万箭齐发)**\n- Some heroes can use black cards as Dodge\n\n## Peach (桃) — Heal\n\n- **On your turn**: restore **1 health** to yourself (cannot exceed max)\n- **Any time**: save a player in **dying state** (health = 0)\n- If no one plays a Peach on a dying player, they are **eliminated**",
-        "zh": "## 杀 — 攻击\n\n- 指定 **攻击范围内** 的一名角色\n- 未被闪抵消则造成 **1 点伤害**\n- 限制：每回合 **1 次**（除非武将技能另有说明）\n- 攻击范围内无目标时无法使用\n\n## 闪 — 防御\n\n- **响应** 针对自己的杀时打出\n- 抵消该杀的伤害\n- 响应 **万箭齐发** 时也需出闪\n- 部分武将可用黑色手牌当闪\n\n## 桃 — 回复\n\n- **自己回合内**：为自己回复 **1 点体力**（不超过上限）\n- **任何时候**：救 **濒死状态** 的角色（体力为 0）\n- 若无人对濒死角色使用桃，该角色 **阵亡**"
+        "en": "## Slash (杀)\n\n| | |\n|---|---|\n| **Timing** | Play Phase |\n| **Target** | One character within attack range |\n| **Effect** | Target must play Dodge or take 1 normal damage |\n| **Limit** | Once per turn (unless modified) |\n\n## Dodge (闪)\n\n| | |\n|---|---|\n| **Timing** | In response to Slash or Archery Attack |\n| **Target** | None (response card) |\n| **Effect** | Negate one Slash |\n\n## Peach (桃)\n\n| | |\n|---|---|\n| **Timing** | Your Play Phase, or any time a character is dying |\n| **Target** | Yourself (Play Phase) or any dying character |\n| **Effect** | Restore 1 health (cannot exceed max) |\n\n> On a dying character: restores to 1 health and ends dying state.\n\n## Wine (酒)\n\n| | |\n|---|---|\n| **Timing** | Play Phase, or when you are dying |\n| **Target** | Yourself |\n| **Effect** | Play Phase: next Slash this turn deals **+1 damage**. Dying: restores 1 health (like Peach). |\n| **Limit** | Once per turn (Play Phase) |\n\n> If the Slash after Wine is dodged, the +1 damage is wasted — there is no damage to increase.",
+        "zh": "## 杀\n\n| | |\n|---|---|\n| **时机** | 出牌阶段 |\n| **目标** | 攻击范围内一名角色 |\n| **效果** | 目标需出闪，否则受 1 点普通伤害 |\n| **限制** | 每回合限一次（除非技能修改） |\n\n## 闪\n\n| | |\n|---|---|\n| **时机** | 响应杀或万箭齐发时 |\n| **目标** | 无（响应牌） |\n| **效果** | 抵消一张杀 |\n\n## 桃\n\n| | |\n|---|---|\n| **时机** | 出牌阶段，或任意角色濒死时 |\n| **目标** | 自己（出牌阶段）或任意濒死角色 |\n| **效果** | 回复 1 点体力（不超上限） |\n\n> 对濒死角色使用：体力回复至 1 并脱离濒死。\n\n## 酒\n\n| | |\n|---|---|\n| **时机** | 出牌阶段，或自己濒死时 |\n| **目标** | 自己 |\n| **效果** | 出牌阶段：本回合下一张杀伤害 **+1**。濒死时：当桃用，回复 1 点体力。 |\n| **限制** | 每回合限一次（出牌阶段） |\n\n> 酒后的杀若被闪避，+1 效果浪费——无伤害可增加。"
       },
       "options": [
-        {
-          "label": {
-            "en": "Play Phase",
-            "zh": "出牌阶段"
-          },
-          "next": "play-phase"
-        },
-        {
-          "label": {
-            "en": "Strategy Cards",
-            "zh": "锦囊牌"
-          },
-          "next": "strategy-cards"
-        },
-        {
-          "label": {
-            "en": "Death Rules",
-            "zh": "阵亡规则"
-          },
-          "next": "death-rules"
-        },
-        {
-          "label": {
-            "en": "Equipment",
-            "zh": "装备牌"
-          },
-          "next": "equipment"
-        }
+        { "label": { "en": "Strategy Cards", "zh": "锦囊牌" }, "next": "strategy-cards" },
+        { "label": { "en": "Equipment", "zh": "装备牌" }, "next": "equipment" },
+        { "label": { "en": "Game Flow", "zh": "游戏流程" }, "next": "game-flow" },
+        { "label": { "en": "Dying & Death", "zh": "濒死与阵亡" }, "next": "dying-death" }
       ]
     },
+
     "strategy-cards": {
       "title": {
         "en": "Strategy Cards",
         "zh": "锦囊牌"
       },
       "content": {
-        "en": "## Instant Scrolls\n\n| Card | Effect |\n|------|--------|\n| **Something from Nothing (无中生有)** | Draw **2 cards** for yourself |\n| **Dismantle (过河拆桥)** | Discard **1 card** from any player (hand or equipped) |\n| **Snatch (顺手牵羊)** | Take **1 card** from a player within **distance 1** |\n| **Duel (决斗)** | Challenge one player — alternate discarding Slashes; first who cannot takes **1 damage** |\n| **Barbarian Assault (南蛮入侵)** | All other players must play a **Slash** or take **1 damage** |\n| **Archery Attack (万箭齐发)** | All other players must play a **Dodge** or take **1 damage** |\n| **Peach Garden (桃园结义)** | All players recover **1 health** (cannot exceed max) |\n| **Bountiful Harvest (五谷丰登)** | Reveal cards equal to player count; each player picks one in order |\n\n## Delayed Scrolls\n\n| Card | Effect |\n|------|--------|\n| **Contentment (乐不思蜀)** | Place on another player — if judged NOT Hearts, skip their **Play Phase** |\n| **Lightning (闪电)** | Place on yourself — passes left each turn; Spade 2–9 = **3 damage** |\n\n## Nullification (无懈可击)\n\nCancel **any strategy card**. Can be played by anyone at any time (including in response to another Nullification).",
-        "zh": "## 即时锦囊\n\n| 锦囊 | 效果 |\n|------|------|\n| **无中生有** | 自己摸 **2 张牌** |\n| **过河拆桥** | 弃置任意一名角色的 **1 张牌**（手牌或装备） |\n| **顺手牵羊** | 拿取 **距离 1 以内** 一名角色的 **1 张牌** |\n| **决斗** | 与一名角色决斗 — 轮流弃杀，先不出杀者受 **1 点伤害** |\n| **南蛮入侵** | 所有其他角色须出 **杀**，否则受 **1 点伤害** |\n| **万箭齐发** | 所有其他角色须出 **闪**，否则受 **1 点伤害** |\n| **桃园结义** | 所有角色恢复 **1 点体力**（不超过上限） |\n| **五谷丰登** | 翻开等同于角色数的牌，按顺序每人选一张 |\n\n## 延时锦囊\n\n| 锦囊 | 效果 |\n|------|------|\n| **乐不思蜀** | 置于其他角色判定区 — 判定不是红桃则跳过 **出牌阶段** |\n| **闪电** | 置于自己判定区 — 每回合向左传递；黑桃 2–9 造成 **3 点伤害** |\n\n## 无懈可击\n\n抵消 **任意一张锦囊牌**。任何人都可在任何时候打出（包括响应另一张无懈可击）。"
+        "en": "## Non-Delayed Strategy Cards\n\n| Card | Type | Effect |\n|------|------|--------|\n| **Something from Nothing (无中生有)** | Self | Draw **2 cards** |\n| **Duel (决斗)** | Targeted | Target plays Slash first, then alternate. Whoever can't → takes **1 damage** |\n| **Archery Attack (万箭齐发)** | AoE | All others must play **Dodge** or take 1 damage |\n| **Barbarian Assault (南蛮入侵)** | AoE | All others must play **Slash** or take 1 damage |\n| **Dismantle (过河拆桥)** | Targeted | Discard **1 card** from target (hand or equipment) |\n| **Snatch (顺手牵羊)** | Targeted | Take **1 card** from target within **distance 1** |\n| **Borrowed Sword (借刀杀人)** | Targeted | Order weapon-equipped character to Slash your designated target. If they refuse → you take their weapon. |\n| **Bountiful Harvest (五谷丰登)** | AoE | Reveal cards = player count; each picks one counterclockwise |\n| **Peach Garden (桃园结义)** | AoE | All characters recover **1 health** (max) |\n| **Nullification (无懈可击)** | Counter | Cancel any Strategy card **before it resolves**. Can counter another Nullification. |\n| **Iron Shackles (铁索连环)** | Targeted | Toggle chain state on 1–2 characters. Chained characters propagate elemental damage. May also reforge. |\n| **Fire Attack (火攻)** | Targeted | Target reveals hand card; you discard same suit → **1 Fire damage** |\n\n## Delayed Strategy Cards\n\n| Card | Placement | Judgment |\n|------|-----------|----------|\n| **Contentment (乐不思蜀)** | Another character's zone | NOT Hearts → skip **Play Phase** |\n| **Supply Shortage (兵粮寸断)** | Another char within dist 1 | NOT Clubs → skip **Draw Phase** |\n| **Lightning (闪电)** | Your own zone | Spade 2–9 → **3 Lightning damage**; otherwise pass left |\n\n> Nullification can cancel a delayed card when it **enters the judgment zone**, not when the judgment card is revealed.",
+        "zh": "## 非延时锦囊\n\n| 卡牌 | 类型 | 效果 |\n|------|------|------|\n| **无中生有** | 自身 | 摸 **2 张牌** |\n| **决斗** | 指定 | 目标先出杀，然后轮流出。不能出者受 **1 点伤害** |\n| **万箭齐发** | 群体 | 所有其他角色须出 **闪**，否则受 1 点伤害 |\n| **南蛮入侵** | 群体 | 所有其他角色须出 **杀**，否则受 1 点伤害 |\n| **过河拆桥** | 指定 | 弃置目标 **1 张牌**（手牌或装备） |\n| **顺手牵羊** | 指定 | 获得 **距离 1 以内**目标 **1 张牌** |\n| **借刀杀人** | 指定 | 令装备武器的角色对你指定目标出杀。不出 → 你获得其武器。 |\n| **五谷丰登** | 群体 | 翻开等同角色数的牌，逆时针依次各选一张 |\n| **桃园结义** | 群体 | 所有角色回复 **1 点体力**（不超上限） |\n| **无懈可击** | 抵消 | 在锦囊**生效前**抵消之。可抵消另一张无懈可击。 |\n| **铁索连环** | 指定 | 横置/重置 1~2 名角色。连环状态角色传导属性伤害。也可重铸。 |\n| **火攻** | 指定 | 目标展示手牌；你弃同花色 → **1 点火焰伤害** |\n\n## 延时锦囊\n\n| 卡牌 | 放置 | 判定 |\n|------|------|------|\n| **乐不思蜀** | 另一角色判定区 | 不是红桃 → 跳过**出牌阶段** |\n| **兵粮寸断** | 距离 1 内角色判定区 | 不是梅花 → 跳过**摸牌阶段** |\n| **闪电** | 自己判定区 | 黑桃 2~9 → **3 点雷电伤害**；否则向左传递 |\n\n> 无懈可击只能抵消延时锦囊**进入判定区时**，不能抵消判定牌翻开后的结果。"
       },
       "options": [
-        {
-          "label": {
-            "en": "Judgment Phase",
-            "zh": "判定阶段"
-          },
-          "next": "judge-phase"
-        },
-        {
-          "label": {
-            "en": "Basic Cards",
-            "zh": "基本牌"
-          },
-          "next": "basic-cards"
-        },
-        {
-          "label": {
-            "en": "Play Phase",
-            "zh": "出牌阶段"
-          },
-          "next": "play-phase"
-        },
-        {
-          "label": {
-            "en": "Equipment",
-            "zh": "装备牌"
-          },
-          "next": "equipment"
-        }
+        { "label": { "en": "Basic Cards", "zh": "基本牌" }, "next": "basic-cards" },
+        { "label": { "en": "Equipment", "zh": "装备牌" }, "next": "equipment" },
+        { "label": { "en": "Game Flow", "zh": "游戏流程" }, "next": "game-flow" },
+        { "label": { "en": "Terminology", "zh": "游戏术语" }, "next": "terminology" }
       ]
     },
+
     "equipment": {
       "title": {
         "en": "Equipment",
         "zh": "装备牌"
       },
       "content": {
-        "en": "## Equipment Slots\n\nEach player has 4 equipment slots (one of each type):\n\n| Slot | Effect |\n|------|--------|\n| **Weapon (武器)** | Increases **attack range**; some grant special effects (e.g. extra Slashes) |\n| **Armor (防具)** | Passive protection (e.g. ignore certain attacks) |\n| **+1 Horse (防御马)** | Other players' **distance to you** is increased by 1 |\n| **-1 Horse (进攻马)** | Your **distance to others** is decreased by 1 |\n\n## Range & Distance\n\n- **Adjacent players** are at distance **1**\n- You can only **Slash** targets within your **attack range**\n- **Snatch (顺手牵羊)** requires distance **1** to target\n- Equipping a new item in the same slot **replaces** the old one (discarded)\n\n## Equipping\n\nPlay an equipment card during your **Play Phase**. It stays in your equipment zone until replaced or discarded.",
-        "zh": "## 装备栏位\n\n每位角色有 4 个装备栏（各类型限 1 件）：\n\n| 栏位 | 效果 |\n|------|------|\n| **武器** | 增加 **攻击范围**；部分附带特殊效果（如额外出杀） |\n| **防具** | 被动防护（如忽略特定攻击） |\n| **+1 马（防御马）** | 其他角色计算与你的 **距离 +1** |\n| **-1 马（进攻马）** | 你计算与其他角色的 **距离 -1** |\n\n## 距离与范围\n\n- **相邻角色** 距离为 **1**\n- 只能对 **攻击范围内** 的角色使用 **杀**\n- **顺手牵羊** 要求目标距离为 **1**\n- 装备新物品替换同栏位旧装备（旧装备弃置）\n\n## 装备方式\n\n在 **出牌阶段** 打出装备牌，置于装备区直至被替换或弃置。"
+        "en": "## Equipment Slots\n\nEach character has 4 equipment slots (one of each type):\n\n| Slot | Effect |\n|------|--------|\n| **Weapon** | Sets **attack range** (typically 2–5). Some grant special effects (e.g. extra Slashes). |\n| **Armor** | Passive protection (e.g. Eight Trigrams: judge — if red, treated as playing Dodge). |\n| **+1 Horse** (defensive) | Others' **distance to you** +1 |\n| **-1 Horse** (offensive) | Your **distance to others** -1 |\n\n## Range vs Distance\n\n- **Distance** = shortest path between two characters (clockwise or counterclockwise).\n- **Attack range** = set by weapon; determines who you can target with Slash.\n- Adjacent characters are at distance **1**.\n- Dead characters are **excluded** from distance calculation.\n- **Snatch (顺手牵羊)** requires distance **1**.\n- Equipping a new item in the same slot **replaces** the old one (discarded).\n\n> Equipment skills are \"possessed\" by your character but are NOT \"character skills.\" Effects referencing \"character skills\" do not include equipment.",
+        "zh": "## 装备栏\n\n每名角色有 4 个装备栏（每类限 1 件）：\n\n| 栏位 | 效果 |\n|------|------|\n| **武器** | 设定**攻击范围**（通常 2~5）。部分附带特殊效果。 |\n| **防具** | 被动防护（如八卦阵：需出闪时判定，红色则视为出闪）。 |\n| **+1 马**（防御） | 其他角色与你的**距离 +1** |\n| **-1 马**（进攻） | 你与其他角色的**距离 -1** |\n\n## 攻击范围 vs 距离\n\n- **距离** = 两角色间最短路径（顺时针或逆时针）。\n- **攻击范围** = 由武器设定；决定杀可攻击的目标。\n- 相邻角色距离为 **1**。\n- 死亡角色**不参与**距离计算。\n- **顺手牵羊**要求目标距离 **1**。\n- 装备新物品替换同栏旧装备（旧装备弃置）。\n\n> 装备技能是角色\"拥有\"的但非\"角色的技能\"。涉及\"角色的技能\"的效果不包括装备技能。"
       },
       "options": [
-        {
-          "label": {
-            "en": "Play Phase",
-            "zh": "出牌阶段"
-          },
-          "next": "play-phase"
-        },
-        {
-          "label": {
-            "en": "Basic Cards",
-            "zh": "基本牌"
-          },
-          "next": "basic-cards"
-        },
-        {
-          "label": {
-            "en": "Strategy Cards",
-            "zh": "锦囊牌"
-          },
-          "next": "strategy-cards"
-        },
-        {
-          "label": {
-            "en": "Turn Phases",
-            "zh": "回合阶段"
-          },
-          "next": "turn-phases"
-        }
+        { "label": { "en": "Distance & Range", "zh": "距离与范围" }, "next": "distance" },
+        { "label": { "en": "Basic Cards", "zh": "基本牌" }, "next": "basic-cards" },
+        { "label": { "en": "Strategy Cards", "zh": "锦囊牌" }, "next": "strategy-cards" },
+        { "label": { "en": "Game Flow", "zh": "游戏流程" }, "next": "game-flow" }
       ]
     },
-    "death-rules": {
+
+    "distance": {
       "title": {
-        "en": "Death Rules",
-        "zh": "阵亡规则"
+        "en": "Distance & Range",
+        "zh": "距离与范围"
       },
       "content": {
-        "en": "## Dying State\n\nWhen a player's health reaches **0**, they enter the **dying state**:\n\n1. Any player may play a **Peach (桃)** to restore them to **1 health**.\n2. The dying player may play Peaches on themselves if they have any.\n3. If no Peach is played, the player is **eliminated**.\n\n## Rewards & Penalties\n\n| Who Died | Effect |\n|----------|--------|\n| **Rebel (反贼)** killed | The **killer draws 3 cards** |\n| **Loyalist (忠臣)** killed | The **Monarch discards all hand cards and all equipment** |\n| **Traitor (内奸)** killed | Same as Loyalist — **Monarch discards all hand cards and equipment** |\n| **Monarch (主公)** killed | **All identities are revealed**; check victory conditions |\n\n## After Death\n\n- Dead players' cards are **discarded** (unless a hero ability says otherwise).\n- Eliminated players take no further turns but may still win if their team condition is met.\n- **Rebels win** as soon as the Monarch dies, regardless of other survivors.",
-        "zh": "## 濒死状态\n\n角色体力降至 **0** 时进入 **濒死状态**：\n\n1. 任何角色可使用 **桃** 将其体力恢复至 **1**。\n2. 濒死角色若有桃，也可对自己使用。\n3. 若无人使用桃，该角色 **阵亡**。\n\n## 奖惩规则\n\n| 阵亡身份 | 效果 |\n|----------|------|\n| **反贼** 被杀死 | **凶手摸 3 张牌** |\n| **忠臣** 被杀死 | **主公弃置所有手牌和装备** |\n| **内奸** 被杀死 | 同忠臣 — **主公弃置所有手牌和装备** |\n| **主公** 被杀死 | **所有身份亮明**；判定胜负 |\n\n## 阵亡后\n\n- 阵亡角色的牌 **弃置**（除非武将技能另有说明）。\n- 阵亡玩家不再行动，但若阵营达成胜利条件仍可获胜。\n- **主公阵亡时反贼立即获胜**，与其他存活者无关。"
+        "en": "## How Distance Works\n\nDistance = the **shortest path** between two characters, counting seats clockwise or counterclockwise.\n\n```\nA —— B —— C —— D —— E\n\nA to C: clockwise 2, counterclockwise 3 → distance = 2\nA to D: clockwise 3, counterclockwise 2 → distance = 2\n```\n\n## Dead Characters Are Excluded\n\n```\nC dies:  A —— B      D —— E\n\nA to D: no continuous path → unreachable\nB to D: B → D = distance 1 (C no longer exists)\n```\n\n## Modifiers\n\n| Modifier | Effect |\n|----------|--------|\n| **Weapon** | Sets attack range (independent of distance) |\n| **-1 Horse** | Your distance to others -1 |\n| **+1 Horse** | Others' distance to you +1 |\n\n## Key Implications\n\n- Adjacent characters are at distance **1**.\n- You can only Slash targets within your **attack range**.\n- **Snatch (顺手牵羊)** requires the target to be within distance **1**.\n- **Supply Shortage (兵粮寸断)** can only be placed on characters within distance **1**.",
+        "zh": "## 距离如何计算\n\n距离 = 两名角色之间的**最短路径**，沿顺时针或逆时针计算座位数。\n\n```\nA —— B —— C —— D —— E\n\nA 到 C：顺时针 2，逆时针 3 → 距离 = 2\nA 到 D：顺时针 3，逆时针 2 → 距离 = 2\n```\n\n## 死亡角色不参与计算\n\n```\nC 阵亡：  A —— B      D —— E\n\nA 到 D：无连续路径 → 不可达\nB 到 D：B → D = 距离 1（C 已不存在）\n```\n\n## 调整项\n\n| 调整项 | 效果 |\n|--------|------|\n| **武器** | 设定攻击范围（与距离独立） |\n| **-1 马** | 你到其他角色距离 -1 |\n| **+1 马** | 其他角色到你距离 +1 |\n\n## 关键影响\n\n- 相邻角色距离为 **1**。\n- 只能对**攻击范围内**的目标使用杀。\n- **顺手牵羊**要求目标距离 **1** 以内。\n- **兵粮寸断**只能放在距离 **1** 以内的角色判定区。"
       },
       "options": [
-        {
-          "label": {
-            "en": "Roles & Victory",
-            "zh": "身份与胜利"
-          },
-          "next": "roles"
-        },
-        {
-          "label": {
-            "en": "Basic Cards",
-            "zh": "基本牌"
-          },
-          "next": "basic-cards"
-        },
-        {
-          "label": {
-            "en": "Turn Phases",
-            "zh": "回合阶段"
-          },
-          "next": "turn-phases"
-        },
-        {
-          "label": {
-            "en": "Back to Setup",
-            "zh": "回到准备"
-          },
-          "next": "setup"
-        }
+        { "label": { "en": "Equipment", "zh": "装备牌" }, "next": "equipment" },
+        { "label": { "en": "Game Flow", "zh": "游戏流程" }, "next": "game-flow" },
+        { "label": { "en": "Terminology", "zh": "游戏术语" }, "next": "terminology" }
+      ]
+    },
+
+    "dying-death": {
+      "title": {
+        "en": "Dying & Death",
+        "zh": "濒死与阵亡"
+      },
+      "content": {
+        "en": "## Dying State\n\nWhen health reaches **0**, the character enters **dying state**:\n\n1. Starting from the dying character counterclockwise, each may play **one Peach** (or Wine used as Peach) to attempt rescue.\n2. If healed to ≥ **1 health**, saved and dying state ends.\n3. If all pass → the character **dies**.\n\n> Damage prevention does NOT stop dying. Only Peach/Wine restores health from 0.\n\n## Death: Immediate Removal\n\nWhen a character dies:\n\n1. Discard **all cards** (hand, equipment, judgment zone)\n2. Remove the hero card\n3. Exit distance calculation\n4. The character no longer exists in the game\n\n> Dead characters cannot activate skills unless the skill explicitly states it works after death.\n\n## Rewards & Penalties\n\n| Who Died | Effect |\n|----------|--------|\n| **Rebel (反贼)** killed by anyone | Killer **draws 3 cards** |\n| **Loyalist (忠臣)** killed by Monarch | Monarch **discards all cards** |\n\n## Victory Check\n\n- **Rebels win** the moment the Monarch dies (even if all Rebels are also dead).\n- Monarch + Loyalists win when all Rebels AND the Traitor are eliminated.\n- Traitor wins when they are the only character remaining.",
+        "zh": "## 濒死状态\n\n体力降至 **0** 时进入**濒死状态**：\n\n1. 从濒死角色起逆时针，每人可依次使用**一张桃**（或将酒当桃用）进行救援。\n2. 体力回复至 ≥ **1**，脱离濒死。\n3. 所有人均不救 → 角色**阵亡**。\n\n> 防止伤害不能阻止濒死。只有桃/酒才能从 0 回复体力。\n\n## 死亡：立即离场\n\n角色阵亡时：\n\n1. 弃置**所有牌**（手牌、装备、判定区）\n2. 移除武将牌\n3. 退出距离计算\n4. 该角色不再存在于游戏中\n\n> 阵亡角色不能发动技能，除非技能明确说明可以。\n\n## 奖惩\n\n| 阵亡身份 | 效果 |\n|----------|------|\n| **反贼** 被任何人杀死 | 凶手 **摸 3 张牌** |\n| **忠臣** 被主公杀死 | 主公 **弃置所有牌** |\n\n## 胜负判定\n\n- **主公阵亡时反贼立即获胜**（即使反贼已全灭）。\n- 主公+忠臣在反贼**和**内奸均被消灭时获胜。\n- 内奸为唯一存活角色时获胜。"
+      },
+      "options": [
+        { "label": { "en": "Roles & Victory", "zh": "身份与胜利" }, "next": "roles" },
+        { "label": { "en": "Basic Cards", "zh": "基本牌" }, "next": "basic-cards" },
+        { "label": { "en": "Terminology", "zh": "游戏术语" }, "next": "terminology" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
+      ]
+    },
+
+    "terminology": {
+      "title": {
+        "en": "Game Terminology",
+        "zh": "游戏术语"
+      },
+      "content": {
+        "en": "## Skill Types\n\n| Type | Definition |\n|------|-----------|\n| **Compulsory (锁定技)** | Must activate if able; cannot decline |\n| **Limited (限定技)** | At most once per game |\n| **Awakening (觉醒技)** | Must activate + only once; permanently changes state |\n| **Monarch (主公技)** | Only effective when role is Monarch |\n| **Conversion (转换技)** | Yang/Yin forms; each activation switches |\n\n> To determine if forced: look for **\"may\" (可以)**, not the \"Compulsory\" label.\n\n## Use vs Play\n\n| Action | Definition |\n|--------|-----------|\n| **Use (使用)** | Declare actively, designate targets, full resolution |\n| **Play (打出)** | Respond to event; no targets, no use-effects |\n\n## Losing Cards\n\n\"Losing a card\" = any card leaving your control: using, playing, discarding, point duel, reforging, equipment removed/replaced — all count.\n\n## Damage Terms\n\n| Term | Meaning |\n|------|---------|\n| **Source** | Character dealing damage. If source dies → no source. |\n| **Channel** | Card/skill causing damage. Transfer preserves channel. |\n| **Elemental** | Fire or Lightning. Unspecified = normal. |\n| **Health Loss** | Has NO source. Doesn't trigger reactive skills. |\n\n> **Prevent damage ≠ Recover.** Prevention = no damage happened. Recovery = restoring health after damage.\n\n## Judgment (判定)\n\nReveal top deck → modification window → apply effect → card to discard pile.\n\n> Judgment cards don't belong to any character. Can't be targeted or obtained.\n\n## Point Duel (拼点)\n\nBoth must have hand cards. Values: A=1 … K=13. Higher wins. Point duel cards have **no suit**.\n\n## Choice Keywords\n\n| Word | Meaning |\n|------|---------|\n| **May (可以)** | Has choice; once declared, first effect is mandatory |\n| **Need (需)** | Has choice in *how* to respond, but must respond |\n| **Must (须)** | Forced; no choice |\n\n## Connective Words\n\n| Word | Meaning |\n|------|---------|\n| **Then (然后)** | Sequential execution |\n| **And (并)** | Simultaneous execution |\n| **If you do (若如此做)** | Subsequent effect only if preceding succeeded |",
+        "zh": "## 技能类型\n\n| 类型 | 定义 |\n|------|------|\n| **锁定技** | 若能发动则必须发动，不能放弃 |\n| **限定技** | 一局至多发动一次 |\n| **觉醒技** | 必须发动且仅一次，永久改变状态 |\n| **主公技** | 仅主公身份有效 |\n| **转换技** | 阳/阴形态，每次发动切换 |\n\n> 判断强制与否看**\"可以\"**二字，而非\"锁定技\"标签。\n\n## 使用 vs 打出\n\n| 操作 | 定义 |\n|------|------|\n| **使用** | 主动声明，指定目标，完整结算 |\n| **打出** | 响应事件出示；无目标，无使用效果 |\n\n## 失去牌\n\n\"失去牌\"= 牌离开你的控制区域：使用、打出、弃置、拼点、重铸、装备被拆/被顺/被替换——均算。\n\n## 伤害术语\n\n| 术语 | 含义 |\n|------|------|\n| **来源** | 造成伤害的角色。来源死亡 → 无来源。 |\n| **渠道** | 造成伤害的牌/技能。转移保持原渠道。 |\n| **属性** | 火焰或雷电。未注明 = 普通。 |\n| **体力流失** | 无来源。不触发卖血技。 |\n\n> **防止伤害 ≠ 回复。** 防止 = 没造成伤害。回复 = 伤害后恢复体力。\n\n## 判定\n\n翻牌堆顶 → 改判窗口 → 生效 → 牌入弃牌堆。\n\n> 判定牌不属于任何角色。不能成为目标，不能被获得。\n\n## 拼点\n\n双方均须有手牌。点数：A=1 … K=13。大者赢。拼点牌**没有花色**。\n\n## 选择权\n\n| 词 | 含义 |\n|------|------|\n| **可以** | 有选择权；声明后首效果必须执行 |\n| **需** | 有*如何*响应的选择权，但必须响应 |\n| **须** | 强制，无选择空间 |\n\n## 连接词\n\n| 词 | 含义 |\n|------|------|\n| **然后** | 先后执行 |\n| **并** | 同时执行 |\n| **若如此做** | 前置成功才执行后续 |"
+      },
+      "options": [
+        { "label": { "en": "Resolution Rules", "zh": "结算规则" }, "next": "resolution" },
+        { "label": { "en": "Timing Reference", "zh": "时机参考" }, "next": "timing" },
+        { "label": { "en": "FAQ", "zh": "常见问题" }, "next": "faq" },
+        { "label": { "en": "Game Flow", "zh": "游戏流程" }, "next": "game-flow" }
+      ]
+    },
+
+    "resolution": {
+      "title": {
+        "en": "Resolution Rules",
+        "zh": "结算规则"
+      },
+      "content": {
+        "en": "## Effect Conflicts\n\n**Priority:** Skill description > Card text > Game rules\n\n**Negation Principle:** Negating effects override affirming effects. \"Cannot use\" > \"can use.\"\n\n## Resolution Order\n\n**Insertion:** New event pauses current flow → inserted event resolves → original resumes.\n\n**Multi-character order:** From current turn player, going **counterclockwise**.\n\n## Priority Determination\n\n> **Hero skill > Equipment skill > Use card > Game procedure**\n\nSkipping a higher priority = losing that timing forever.\n\n## Compulsory Skills Don't Miss Timing\n\nCompulsory skills trigger immediately when conditions are met. Even if forgotten, the effect must still be applied.\n\n## Cannot Respond to Resolved Events\n\nOnce an event finishes resolving, it cannot be responded to. Nullification must be played **before** the Strategy card resolves.\n\n## Prevent Damage ≠ Recover\n\nPreventing damage = no damage occurred (no triggers, no dying, no chain). Recovery = restoring health after the fact.\n\n## Death: Immediate Removal\n\nAll cards discarded. Hero removed. Exits distance calculation. No skills unless explicitly stated.",
+        "zh": "## 效果冲突\n\n**优先级：** 技能描述 > 牌面信息 > 游戏规则\n\n**否定原则：** 否定效果优先于肯定效果。\"不能使用\" > \"可以使用\"。\n\n## 结算顺序\n\n**插入结算：** 新事件中止当前流程 → 插入事件结算完 → 继续原流程。\n\n**多角色顺序：** 从当前回合角色起**逆时针**依次结算。\n\n## 优先级确定\n\n> **武将技能 > 装备技能 > 使用牌 > 游戏流程操作**\n\n跳过高优先级后不可回头。\n\n## 锁定技不会错过时机\n\n锁定技满足条件立即触发。即使遗忘，效果仍须补充执行。\n\n## 不能响应已结算事件\n\n事件结算完成后不能再响应。无懈可击必须在锦囊**生效前**打出。\n\n## 防止伤害 ≠ 回复\n\n防止伤害 = 没造成伤害（无触发、无濒死、无传导）。回复 = 事后恢复体力。\n\n## 死亡立即离场\n\n弃所有牌。移除武将。退出距离。无技能（除非特别说明）。"
+      },
+      "options": [
+        { "label": { "en": "Terminology", "zh": "游戏术语" }, "next": "terminology" },
+        { "label": { "en": "Timing Reference", "zh": "时机参考" }, "next": "timing" },
+        { "label": { "en": "FAQ", "zh": "常见问题" }, "next": "faq" }
+      ]
+    },
+
+    "timing": {
+      "title": {
+        "en": "Timing Reference",
+        "zh": "时机参考"
+      },
+      "content": {
+        "en": "## Turn Phase Timing\n\n```\nPreparation Phase\n  ├─ Start-of-turn Compulsory skills\n  └─ \"At the start of your turn\" optional skills\n\nJudgment Phase\n  ├─ Lightning (if present)\n  ├─ Contentment (if present)\n  └─ Supply Shortage (if present)\n\nDraw Phase\n  └─ Draw 2 cards\n\nPlay Phase\n  ├─ Use cards / activate skills / reforge\n  └─ Max 1 Slash per turn\n\nDiscard Phase\n  └─ Discard to hand limit\n\nEnd Phase\n  └─ End-of-turn skills\n```\n\n## Damage Event Chain\n\n```\nDamage about to be dealt\n  ↓ Prevention window\n  ↓ [If prevented → end]\n  ↓ Damage dealt\n  ↓ \"After taking damage\" triggers\n  ↓ Health check:\n    ├─ >0 → end\n    └─ ≤0 → Dying → Peach/Wine → Saved or Dead\n```\n\n## Slash Resolution Chain\n\n```\nUse Slash → specify target\n  ↓ Response window (Dodge / armor / hero skill)\n  ↓ If not dodged → Damage calculation\n  ↓ Apply damage → Post-damage triggers\n```",
+        "zh": "## 回合阶段时机\n\n```\n准备阶段\n  ├─ 回合开始锁定技\n  └─ \"回合开始时\"可选技能\n\n判定阶段\n  ├─ 闪电（若存在）\n  ├─ 乐不思蜀（若存在）\n  └─ 兵粮寸断（若存在）\n\n摸牌阶段\n  └─ 摸 2 张牌\n\n出牌阶段\n  ├─ 使用牌 / 发动技能 / 重铸\n  └─ 每回合至多 1 张杀\n\n弃牌阶段\n  └─ 弃牌至手牌上限\n\n结束阶段\n  └─ 回合结束技能\n```\n\n## 伤害事件链\n\n```\n伤害即将造成\n  ↓ 防止窗口\n  ↓ [若被防止 → 结束]\n  ↓ 伤害造成\n  ↓ \"受到伤害后\"触发\n  ↓ 体力检查：\n    ├─ >0 → 结束\n    └─ ≤0 → 濒死 → 桃/酒 → 救活或阵亡\n```\n\n## 杀结算链\n\n```\n使用杀 → 指定目标\n  ↓ 响应窗口（闪 / 防具 / 武将技能）\n  ↓ 若未闪避 → 伤害计算\n  ↓ 造成伤害 → 伤害后触发\n```"
+      },
+      "options": [
+        { "label": { "en": "Resolution Rules", "zh": "结算规则" }, "next": "resolution" },
+        { "label": { "en": "Terminology", "zh": "游戏术语" }, "next": "terminology" },
+        { "label": { "en": "FAQ", "zh": "常见问题" }, "next": "faq" },
+        { "label": { "en": "Game Flow", "zh": "游戏流程" }, "next": "game-flow" }
+      ]
+    },
+
+    "faq": {
+      "title": {
+        "en": "FAQ",
+        "zh": "常见问题"
+      },
+      "content": {
+        "en": "**Q: If Slash after Wine is dodged, is the +1 damage wasted?**\nA: Yes. There is no damage to increase.\n\n**Q: Can Nullification cancel another Nullification?**\nA: Yes.\n\n**Q: Can a dead character still activate skills?**\nA: Only if the skill explicitly says so.\n\n**Q: Can Lightning be nullified?**\nA: Only when it enters the judgment zone, not the judgment result.\n\n**Q: Can I be targeted by Point Duel with no hand cards?**\nA: No. Both parties need at least one hand card.\n\n**Q: Does health loss trigger \"sell-blood\" abilities?**\nA: No. Health loss has no source and doesn't trigger reactive skills.\n\n**Q: Can I use Peach on myself during another player's turn?**\nA: Only when you are dying. Otherwise, only during your own Play Phase.\n\n**Q: What happens if the Monarch dies from Lightning?**\nA: Rebels win. Victory conditions check the final state.\n\n**Q: Does replacing equipment count as \"losing\" a card?**\nA: Yes.\n\n**Q: Two Compulsory skills trigger at the same time — which first?**\nA: From the current turn player, counterclockwise.",
+        "zh": "**Q：酒后的杀被闪了，+1 伤害还在吗？**\nA：不在。无伤害可增加。\n\n**Q：无懈可以无懈无懈吗？**\nA：可以。\n\n**Q：死亡后还能发动技能吗？**\nA：只有技能明确说明可以。\n\n**Q：闪电能无懈吗？**\nA：只能无懈其进入判定区时，不能无懈判定结果。\n\n**Q：空手牌能被拼点吗？**\nA：不能。双方都需有手牌。\n\n**Q：体力流失会触发卖血技吗？**\nA：不会。体力流失无来源，不触发卖血技。\n\n**Q：能在别人回合对自己用桃吗？**\nA：只有自己濒死时可以。否则仅限自己出牌阶段。\n\n**Q：主公被闪电劈死算谁赢？**\nA：反贼赢。胜负以最终状态判定。\n\n**Q：装备被替换算失去牌吗？**\nA：算。\n\n**Q：两个锁定技同时触发，谁先结算？**\nA：从当前回合角色起逆时针依次结算。"
+      },
+      "options": [
+        { "label": { "en": "Resolution Rules", "zh": "结算规则" }, "next": "resolution" },
+        { "label": { "en": "Timing Reference", "zh": "时机参考" }, "next": "timing" },
+        { "label": { "en": "Terminology", "zh": "游戏术语" }, "next": "terminology" },
+        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
       ]
     }
   }

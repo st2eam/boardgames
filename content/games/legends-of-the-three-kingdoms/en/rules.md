@@ -441,15 +441,7 @@ Increase health (cannot exceed maximum). A character at full health cannot recov
 
 **Conditions:** Both parties must have hand cards. A character with no hand cards cannot initiate or be targeted.
 
-**Card values:**
-
-| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 |
-
-> A = 1 (smallest), K = 13 (largest).
-
-> **Point duel cards have no suit.** Only the number matters, unless a skill states otherwise.
+> **Point duel cards have no suit.** Only the number matters (A = 1 smallest, K = 13 largest), unless a skill states otherwise.
 
 **Resolution:**
 1. Both parties select one hand card and place it face-down in the processing zone simultaneously.
@@ -707,41 +699,7 @@ Target response window:
   ↓
 Damage calculation (modifiers: Wine +1,〖Bare Chested〗+1, etc.)
   ↓
+
 Apply damage
   ↓
 Post-damage triggers
-```
-
----
-
-## 11. FAQ
-
-**Q: If Slash after Wine is dodged, is the +1 damage wasted?**
-A: Yes. There is no damage to increase — the Wine's effect is consumed but has no impact.
-
-**Q: Can Nullification cancel another Nullification?**
-A: Yes. Nullification can target any Strategy card, including another Nullification.
-
-**Q: Can a dead character still activate skills?**
-A: Only if the skill explicitly states it can be used after death. Otherwise, all hero skills cease upon death.
-
-**Q: Can Lightning be nullified?**
-A: Nullification can cancel Lightning when it first enters the judgment zone. It cannot cancel the judgment result after the judgment card is revealed.
-
-**Q: If my hand is empty, can I be targeted by Point Duel?**
-A: No. Point Duel requires both parties to have at least one hand card.
-
-**Q: Does losing health from a skill (体力流失) trigger "sell-blood" abilities?**
-A: No. Health loss has no source and does not trigger reactive skills like Feedback or Bequeathed Strategy.
-
-**Q: Can I use Peach on myself during someone else's turn?**
-A: Only during your own Play Phase, or when you are in the dying state (any turn). You cannot use Peach on yourself during another player's turn unless you are dying.
-
-**Q: What happens if the Monarch dies from Lightning?**
-A: Rebels win immediately. Death rewards/penalties are determined by damage attribution, but victory conditions check the final state regardless.
-
-**Q: Does removing equipment count as "losing" a card?**
-A: Yes. Whether removed by Dismantle, Snatch, or replacement, equipment leaving your zone counts as losing a card.
-
-**Q: If two Compulsory skills trigger at the same time, which resolves first?**
-A: They follow the standard multi-character order: starting from the current turn player, going counterclockwise.

@@ -147,7 +147,6 @@
       "options": [
         { "label": { "en": "Resolution Rules", "zh": "结算规则" }, "next": "resolution" },
         { "label": { "en": "Timing Reference", "zh": "时机参考" }, "next": "timing" },
-        { "label": { "en": "FAQ", "zh": "常见问题" }, "next": "faq" },
         { "label": { "en": "Game Flow", "zh": "游戏流程" }, "next": "game-flow" }
       ]
     },
@@ -163,8 +162,7 @@
       },
       "options": [
         { "label": { "en": "Terminology", "zh": "游戏术语" }, "next": "terminology" },
-        { "label": { "en": "Timing Reference", "zh": "时机参考" }, "next": "timing" },
-        { "label": { "en": "FAQ", "zh": "常见问题" }, "next": "faq" }
+        { "label": { "en": "Timing Reference", "zh": "时机参考" }, "next": "timing" }
       ]
     },
 
@@ -180,25 +178,7 @@
       "options": [
         { "label": { "en": "Resolution Rules", "zh": "结算规则" }, "next": "resolution" },
         { "label": { "en": "Terminology", "zh": "游戏术语" }, "next": "terminology" },
-        { "label": { "en": "FAQ", "zh": "常见问题" }, "next": "faq" },
         { "label": { "en": "Game Flow", "zh": "游戏流程" }, "next": "game-flow" }
-      ]
-    },
-
-    "faq": {
-      "title": {
-        "en": "FAQ",
-        "zh": "常见问题"
-      },
-      "content": {
-        "en": "**Q: If Slash after Wine is dodged, is the +1 damage wasted?**\nA: Yes. There is no damage to increase.\n\n**Q: Can Nullification cancel another Nullification?**\nA: Yes.\n\n**Q: Can a dead character still activate skills?**\nA: Only if the skill explicitly says so.\n\n**Q: Can Lightning be nullified?**\nA: Only when it enters the judgment zone, not the judgment result.\n\n**Q: Can I be targeted by Point Duel with no hand cards?**\nA: No. Both parties need at least one hand card.\n\n**Q: Does health loss trigger \"sell-blood\" abilities?**\nA: No. Health loss has no source and doesn't trigger reactive skills.\n\n**Q: Can I use Peach on myself during another player's turn?**\nA: Only when you are dying. Otherwise, only during your own Play Phase.\n\n**Q: What happens if the Monarch dies from Lightning?**\nA: Rebels win. Victory conditions check the final state.\n\n**Q: Does replacing equipment count as \"losing\" a card?**\nA: Yes.\n\n**Q: Two Compulsory skills trigger at the same time — which first?**\nA: From the current turn player, counterclockwise.",
-        "zh": "**Q：酒后的杀被闪了，+1 伤害还在吗？**\nA：不在。无伤害可增加。\n\n**Q：无懈可以无懈无懈吗？**\nA：可以。\n\n**Q：死亡后还能发动技能吗？**\nA：只有技能明确说明可以。\n\n**Q：闪电能无懈吗？**\nA：只能无懈其进入判定区时，不能无懈判定结果。\n\n**Q：空手牌能被拼点吗？**\nA：不能。双方都需有手牌。\n\n**Q：体力流失会触发卖血技吗？**\nA：不会。体力流失无来源，不触发卖血技。\n\n**Q：能在别人回合对自己用桃吗？**\nA：只有自己濒死时可以。否则仅限自己出牌阶段。\n\n**Q：主公被闪电劈死算谁赢？**\nA：反贼赢。胜负以最终状态判定。\n\n**Q：装备被替换算失去牌吗？**\nA：算。\n\n**Q：两个锁定技同时触发，谁先结算？**\nA：从当前回合角色起逆时针依次结算。"
-      },
-      "options": [
-        { "label": { "en": "Resolution Rules", "zh": "结算规则" }, "next": "resolution" },
-        { "label": { "en": "Timing Reference", "zh": "时机参考" }, "next": "timing" },
-        { "label": { "en": "Terminology", "zh": "游戏术语" }, "next": "terminology" },
-        { "label": { "en": "Back to Setup", "zh": "回到准备" }, "next": "setup" }
       ]
     }
   }

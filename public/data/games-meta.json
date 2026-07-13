@@ -13,6 +13,7 @@
     ],
     "category": "card",
     "price": 354,
+    "bggRank": 1414,
     "slug": "texas-hold-em"
   },
   {
@@ -45,6 +46,7 @@
     ],
     "category": "card",
     "price": 46,
+    "bggRank": 13805,
     "slug": "gotown"
   },
   {
@@ -61,6 +63,7 @@
     ],
     "category": "card",
     "price": 46,
+    "bggRank": 14847,
     "slug": "just-wild"
   },
   {
@@ -80,7 +83,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 40,
-    "bggRank": 8250,
+    "bggRank": 5165,
     "slug": "drecksau"
   },
   {
@@ -136,7 +139,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 0,
-    "bggRank": 377,
+    "bggRank": 623,
     "slug": "catan"
   },
   {
@@ -176,7 +179,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 83,
-    "bggRank": 299,
+    "bggRank": 253,
     "slug": "sea-salt-paper"
   },
   {
@@ -216,6 +219,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 84,
+    "bggRank": 9337,
     "slug": "legends-of-the-three-kingdoms"
   },
   {
@@ -251,7 +255,7 @@
     ],
     "category": "card",
     "price": 59,
-    "bggRank": 190,
+    "bggRank": 221,
     "slug": "modern-art"
   },
   {
@@ -271,7 +275,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 23,
-    "bggRank": 18854,
+    "bggRank": 30779,
     "slug": "uno"
   },
   {
@@ -349,7 +353,7 @@
     "variantType": "base",
     "requiresBase": false,
     "price": 28,
-    "bggRank": 170,
+    "bggRank": 240,
     "slug": "carcassonne"
   },
   {
@@ -386,6 +390,7 @@
     ],
     "category": "card",
     "price": 38,
+    "bggRank": 5498,
     "slug": "the-message-attack-by-stratagem"
   },
   {
@@ -402,7 +407,7 @@
     ],
     "category": "card",
     "price": 24,
-    "bggRank": 3337,
+    "bggRank": 1832,
     "slug": "cabo"
   },
   {
@@ -422,7 +427,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 14,
-    "bggRank": 5332,
+    "bggRank": 3998,
     "slug": "exploding-kittens"
   },
   {
@@ -462,7 +467,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 0,
-    "bggRank": 256,
+    "bggRank": 244,
     "slug": "splendor"
   },
   {
@@ -483,24 +488,8 @@
     "variantType": "variant",
     "requiresBase": false,
     "price": 261,
+    "bggRank": 1285,
     "slug": "splendor-pokemon"
-  },
-  {
-    "name": {
-      "en": "Rummikub",
-      "zh": "拉密"
-    },
-    "players": "2-4",
-    "duration": "30-60 min",
-    "difficulty": "medium",
-    "tags": [
-      "classic",
-      "set-collection"
-    ],
-    "category": "board",
-    "price": 0,
-    "bggRank": 1642,
-    "slug": "rummikub"
   },
   {
     "name": {
@@ -519,6 +508,7 @@
     "familyOrder": 1,
     "variantType": "base",
     "price": 0,
+    "bggRank": 1012,
     "slug": "mahjong"
   },
   {
@@ -539,6 +529,7 @@
     "variantType": "variant",
     "requiresBase": false,
     "price": 0,
+    "bggRank": 2492,
     "slug": "riichi-mahjong"
   },
   {
@@ -555,6 +546,7 @@
     ],
     "category": "card",
     "price": 0,
+    "bggRank": 30881,
     "slug": "blackjack"
   },
   {
@@ -572,7 +564,7 @@
     ],
     "category": "card",
     "price": 35,
-    "bggRank": 1125,
+    "bggRank": 490,
     "slug": "trio"
   },
   {
@@ -590,7 +582,7 @@
     ],
     "category": "board",
     "price": 186,
-    "bggRank": 3475,
+    "bggRank": 90,
     "slug": "bomb-busters"
   },
   {
@@ -606,9 +598,9 @@
       "push-your-luck",
       "family"
     ],
-    "category": "party",
+    "category": "board",
     "price": 169,
-    "bggRank": 1076,
+    "bggRank": 895,
     "slug": "spots"
   },
   {
@@ -626,7 +618,7 @@
     ],
     "category": "board",
     "price": 226,
-    "bggRank": 176,
+    "bggRank": 54,
     "slug": "harmonies"
   },
   {
@@ -651,6 +643,24 @@
   },
   {
     "name": {
+      "en": "Go",
+      "zh": "围棋"
+    },
+    "players": "2",
+    "duration": "30-180 min",
+    "difficulty": "hard",
+    "tags": [
+      "abstract",
+      "strategy",
+      "classic"
+    ],
+    "category": "board",
+    "price": 0,
+    "bggRank": 237,
+    "slug": "go"
+  },
+  {
+    "name": {
       "en": "Wingspan",
       "zh": "展翅翱翔"
     },
@@ -668,7 +678,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 27.36,
-    "bggRank": 24,
+    "bggRank": 38,
     "slug": "wingspan"
   },
   {
@@ -692,6 +702,7 @@
     "variantType": "expansion",
     "requiresBase": true,
     "price": 18.81,
+    "bggRank": 88,
     "slug": "wingspan-asia"
   },
   {

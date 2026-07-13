@@ -187,21 +187,6 @@ export function Sidebar({
         </nav>
       )}
 
-      {/* Player count slider */}
-      {playerCounts.length > 0 && (
-        <div>
-          <h4 className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-stone-400">
-            {t("playerCount")}
-          </h4>
-          <PlayerCountSlider
-            counts={playerCounts}
-            value={selectedPlayerCount}
-            onChange={onSelectPlayerCount}
-            anyLabel={t("anyPlayerCount")}
-          />
-        </div>
-      )}
-
       {/* Series searchable select */}
       {seriesTags.length > 0 && (
         <div>
@@ -244,6 +229,21 @@ export function Sidebar({
             accentClass="bg-accent text-white"
             selectedBgClass="bg-amber-100 text-amber-800"
             optionBgClass="hover:bg-amber-50"
+          />
+        </div>
+      )}
+
+      {/* Player count slider */}
+      {playerCounts.length > 0 && (
+        <div>
+          <h4 className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-stone-400">
+            {t("playerCount")}
+          </h4>
+          <PlayerCountSlider
+            counts={playerCounts}
+            value={selectedPlayerCount}
+            onChange={onSelectPlayerCount}
+            anyLabel={t("anyPlayerCount")}
           />
         </div>
       )}

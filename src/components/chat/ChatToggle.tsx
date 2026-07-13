@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { motion, AnimatePresence } from "motion/react";
 import type { ChatScope } from "@/lib/chat/types";
 
 const LazyChatIsland = dynamic(
@@ -35,13 +36,19 @@ export function ChatToggle({ scope, locale }: Props) {
       />
 
       {/* Chat island - lazy loaded on first open */}
-      {isOpen && (
-        <div
-          className={`fixed bottom-[88px] right-4 z-50 w-[calc(100vw-2rem)] max-w-[400px] transition-all duration-300 origin-bottom-right motion-reduce:transition-none scale-100 opacity-100 translate-y-0`}
-        >
-          <LazyChatIsland scope={scope} locale={locale} onClose={() => setIsOpen(false)} />
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: 12 }}
+            transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed bottom-[88px] right-4 z-50 w-[calc(100vw-2rem)] max-w-[400px] origin-bottom-right"
+          >
+            <LazyChatIsland scope={scope} locale={locale} onClose={() => setIsOpen(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Floating button - always rendered, no heavy deps */}
       <button

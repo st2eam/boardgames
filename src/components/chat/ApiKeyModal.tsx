@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import { useChat } from "@/lib/chat/ChatProvider";
 import { useTranslations } from "next-intl";
 
@@ -20,7 +21,13 @@ export function ApiKeyModal({ onClose }: Props) {
   };
 
   return (
-    <div className="absolute inset-0 z-10 flex flex-col justify-end rounded-2xl bg-white/95 backdrop-blur-sm">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="absolute inset-0 z-10 flex flex-col justify-end rounded-2xl bg-white/95 backdrop-blur-sm"
+    >
       <div className="flex flex-1 flex-col items-center justify-center px-6 pb-4">
         <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10">
           <svg
@@ -75,6 +82,6 @@ export function ApiKeyModal({ onClose }: Props) {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

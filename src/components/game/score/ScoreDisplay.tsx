@@ -1,8 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { motion, AnimatePresence } from "motion/react";
 import type { ScoreBreakdown } from "@/lib/score/engines/types";
 import type { RoundRecord } from "@/lib/score/score-storage";
+import { AnimatedNumber } from "@/components/home/AnimatedNumber";
 
 interface Props {
   breakdown: ScoreBreakdown;
@@ -48,19 +50,28 @@ export function ScoreDisplay({
           )}
         </div>
         <div className="text-3xl font-bold tabular-nums text-stone-800">
-          {breakdown.total}
+          <AnimatedNumber value={breakdown.total} />
           {target && !multiRound && (
             <span className="text-sm font-normal text-stone-400 ml-1">/ {target}</span>
           )}
         </div>
         {(breakdown.details.length > 0 || breakdown.colorBonus > 0) && (
           <div className="mt-3 space-y-1">
-            {breakdown.details.map((d, i) => (
-              <div key={i} className="flex items-center justify-between text-sm">
-                <span className="text-stone-500">{d.label[lang]}</span>
-                <span className="font-medium tabular-nums text-stone-700">+{d.value}</span>
-              </div>
-            ))}
+            <AnimatePresence initial={false}>
+              {breakdown.details.map((d, i) => (
+                <motion.div
+                  key={`${d.label.en}-${i}`}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 8 }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex items-center justify-between text-sm"
+                >
+                  <span className="text-stone-500">{d.label[lang]}</span>
+                  <span className="font-medium tabular-nums text-stone-700">+{d.value}</span>
+                </motion.div>
+              ))}
+            </AnimatePresence>
             {breakdown.colorBonus > 0 && (
               <div className={`flex items-center justify-between text-sm ${breakdown.details.length > 0 ? "border-t border-dashed border-stone-200 pt-1 mt-1" : ""}`}>
                 <span className="text-stone-500">{t("colorBonus")}</span>
@@ -85,9 +96,10 @@ export function ScoreDisplay({
               {t("totalScore")}
             </span>
             <div>
-              <span className="text-2xl font-bold tabular-nums text-stone-800">
-                {cumulativeTotal}
-              </span>
+              <AnimatedNumber
+                value={cumulativeTotal}
+                className="text-2xl font-bold text-stone-800"
+              />
               {target && (
                 <span className="text-sm text-stone-400 ml-1">/ {target}</span>
               )}
@@ -102,14 +114,23 @@ export function ScoreDisplay({
             </div>
           )}
           <div className="space-y-1">
-            {rounds.map((r, i) => (
-              <div key={i} className="flex items-center justify-between text-sm">
-                <span className="text-stone-400">
-                  {t("round", { n: i + 1 })}
-                </span>
-                <span className="font-medium tabular-nums text-stone-600">+{r.score}</span>
-              </div>
-            ))}
+            <AnimatePresence initial={false}>
+              {rounds.map((r, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, height: 0, y: -6 }}
+                  animate={{ opacity: 1, height: "auto", y: 0 }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex items-center justify-between overflow-hidden text-sm"
+                >
+                  <span className="text-stone-400">
+                    {t("round", { n: i + 1 })}
+                  </span>
+                  <span className="font-medium tabular-nums text-stone-600">+{r.score}</span>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
           {isGameOver && (
             <div className="mt-3 rounded-lg bg-amber-100 px-3 py-2 text-center text-sm font-medium text-amber-800">

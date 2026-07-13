@@ -6,6 +6,10 @@ import { useTranslations, useLocale } from "next-intl";
 import { GameCard } from "./GameCard";
 import { GameFamilyCard } from "./GameFamilyCard";
 import { Sidebar } from "./Sidebar";
+import { PlayerCountSlider } from "./PlayerCountSlider";
+import { SearchableSelect } from "./SearchableSelect";
+import { SearchBox } from "./SearchBox";
+import { motion, AnimatePresence } from "motion/react";
 
 interface Props {
   games: GameSummary[];
@@ -47,6 +51,7 @@ export function GameCardGrid({ games }: Props) {
   const t = useTranslations("home");
   const tc = useTranslations("common");
   const locale = useLocale();
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedPlayerCount, setSelectedPlayerCount] = useState<number | null>(null);
@@ -90,7 +95,12 @@ export function GameCardGrid({ games }: Props) {
   }, [enriched]);
 
   const filtered = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
     return enriched.filter((g) => {
+      if (q) {
+        const haystack = `${g.name.en} ${g.name.zh}`.toLowerCase();
+        if (!haystack.includes(q)) return false;
+      }
       if (selectedTags.size > 0 && !g.tags.some((t) => selectedTags.has(t))) {
         return false;
       }
@@ -110,7 +120,7 @@ export function GameCardGrid({ games }: Props) {
       }
       return true;
     });
-  }, [enriched, selectedTags, selectedCategory, selectedPlayerCount]);
+  }, [enriched, searchQuery, selectedTags, selectedCategory, selectedPlayerCount]);
 
   const hasSeriesFilter = useMemo(
     () => Array.from(selectedTags).some((t) => familyTagSet.has(t)),
@@ -191,6 +201,23 @@ export function GameCardGrid({ games }: Props) {
     return items;
   }, [filtered, hasSeriesFilter, sortMode, sortDir]);
 
+  const mobileSeriesTags = useMemo(
+    () => allTags.filter((t) => familyTagSet.has(t)),
+    [allTags, familyTagSet]
+  );
+  const mobileRegularTags = useMemo(
+    () => allTags.filter((t) => !familyTagSet.has(t)),
+    [allTags, familyTagSet]
+  );
+  const mobileSelectedSeriesTags = useMemo(
+    () => new Set(Array.from(selectedTags).filter((t) => familyTagSet.has(t))),
+    [selectedTags, familyTagSet]
+  );
+  const mobileSelectedRegularTags = useMemo(
+    () => new Set(Array.from(selectedTags).filter((t) => !familyTagSet.has(t))),
+    [selectedTags, familyTagSet]
+  );
+
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) => {
       const next = new Set(prev);
@@ -207,6 +234,15 @@ export function GameCardGrid({ games }: Props) {
     <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
       {/* Sidebar — desktop: sticky left, mobile: inline */}
       <div className="lg:sticky lg:top-20 lg:self-start">
+        {/* Mobile: search box */}
+        <div className="mb-2 lg:hidden">
+          <SearchBox
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder={t("search")}
+          />
+        </div>
+
         {/* Mobile: horizontal scroll filter strip */}
         <div className="flex gap-2 overflow-x-auto pb-2 lg:hidden">
           <button
@@ -287,6 +323,8 @@ export function GameCardGrid({ games }: Props) {
         {/* Desktop: full sidebar */}
         <div className="hidden lg:block">
           <Sidebar
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
             categories={categories}
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
@@ -307,67 +345,62 @@ export function GameCardGrid({ games }: Props) {
           />
         </div>
 
-        {/* Mobile: player count filter */}
+        {/* Mobile: player count slider */}
         {playerCounts.length > 0 && (
-          <div className="mt-2 flex gap-1.5 overflow-x-auto pb-1 lg:hidden">
-            <span className="shrink-0 self-center text-[11px] font-medium text-stone-400">
+          <div className="mt-3 px-1 lg:hidden">
+            <div className="mb-1 text-[11px] font-medium text-stone-400">
               {t("playerCount")}
-            </span>
-            <button
-              onClick={() => setSelectedPlayerCount(null)}
-              className={`cursor-pointer shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
-                selectedPlayerCount === null
-                  ? "bg-emerald-500 text-white"
-                  : "bg-stone-100 text-stone-500 hover:bg-emerald-50"
-              }`}
-            >
-              {t("anyPlayerCount")}
-            </button>
-            {playerCounts.map((n) => (
-              <button
-                key={n}
-                onClick={() => setSelectedPlayerCount(selectedPlayerCount === n ? null : n)}
-                className={`cursor-pointer shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium tabular-nums transition-all focus:outline-none focus:ring-2 focus:ring-emerald-300/50 ${
-                  selectedPlayerCount === n
-                    ? "bg-emerald-500 text-white"
-                    : "bg-stone-100 text-stone-500 hover:bg-emerald-50"
-                }`}
-              >
-                {n}
-              </button>
-            ))}
+            </div>
+            <PlayerCountSlider
+              counts={playerCounts}
+              value={selectedPlayerCount}
+              onChange={setSelectedPlayerCount}
+              anyLabel={t("anyPlayerCount")}
+            />
           </div>
         )}
 
-        {/* Mobile: tag strip */}
-        <div className="mt-3 flex flex-wrap gap-1 lg:hidden">
-          {allTags.map((tag) => {
-            const isSeries = familyTagSet.has(tag);
-            return (
-              <button
-                key={tag}
-                onClick={() => toggleTag(tag)}
-                className={`cursor-pointer rounded-full px-2.5 py-1 text-[11px] font-medium transition-all focus:outline-none focus:ring-2 ${
-                  selectedTags.has(tag)
-                    ? isSeries
-                      ? "bg-violet-500 text-white ring-violet-300/50"
-                      : "bg-accent text-white ring-accent/50"
-                    : isSeries
-                      ? "bg-violet-50 text-violet-600 hover:bg-violet-100 ring-violet-300/50"
-                      : "bg-stone-100 text-stone-500 hover:bg-accent-light ring-accent/50"
-                }`}
-              >
-                {tag}
-              </button>
-            );
-          })}
-          {selectedTags.size > 0 && (
-            <button
-              onClick={() => setSelectedTags(new Set())}
-              className="cursor-pointer rounded-full px-2 py-1 text-[11px] text-stone-400 hover:text-stone-600"
-            >
-              {tc("clear")}
-            </button>
+        {/* Mobile: series & tags selects */}
+        <div className="mt-3 space-y-3 lg:hidden">
+          {mobileSeriesTags.length > 0 && (
+            <div>
+              <div className="mb-1 text-[11px] font-medium text-stone-400">
+                {t("series")}
+              </div>
+              <SearchableSelect
+                options={mobileSeriesTags}
+                selected={mobileSelectedSeriesTags}
+                onToggle={toggleTag}
+                placeholder={t("series")}
+                accentClass="bg-violet-500 text-white"
+                selectedBgClass="bg-violet-100 text-violet-700"
+                optionBgClass="hover:bg-violet-50"
+              />
+            </div>
+          )}
+          {mobileRegularTags.length > 0 && (
+            <div>
+              <div className="mb-1 flex items-center justify-between">
+                <span className="text-[11px] font-medium text-stone-400">Tags</span>
+                {selectedTags.size > 0 && (
+                  <button
+                    onClick={() => setSelectedTags(new Set())}
+                    className="cursor-pointer text-[11px] text-stone-400 hover:text-stone-600"
+                  >
+                    {tc("clear")}
+                  </button>
+                )}
+              </div>
+              <SearchableSelect
+                options={mobileRegularTags}
+                selected={mobileSelectedRegularTags}
+                onToggle={toggleTag}
+                placeholder="Tags"
+                accentClass="bg-accent text-white"
+                selectedBgClass="bg-amber-100 text-amber-800"
+                optionBgClass="hover:bg-amber-50"
+              />
+            </div>
           )}
         </div>
       </div>
@@ -376,39 +409,42 @@ export function GameCardGrid({ games }: Props) {
       <div className="min-w-0 flex-1">
         {gridItems.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 grid-flow-dense">
-            {gridItems.map((item) => {
-              if (item.type === "family") {
-                const base = item.games[0];
+            <AnimatePresence mode="popLayout">
+              {gridItems.map((item) => {
+                const key = item.type === "family" ? item.key : item.game.slug;
+                const category =
+                  item.type === "family"
+                    ? item.games[0].category
+                    : item.game.category;
+                const spanClass =
+                  category === "card"
+                    ? "sm:col-span-1 sm:row-span-2"
+                    : category === "board"
+                      ? "sm:col-span-2"
+                      : "";
                 return (
-                  <div
-                    key={item.key}
-                    className={
-                      base.category === "card"
-                        ? "sm:col-span-1 sm:row-span-2"
-                        : base.category === "board"
-                          ? "sm:col-span-2"
-                          : ""
-                    }
+                  <motion.div
+                    key={key}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{
+                      duration: 0.28,
+                      ease: [0.22, 1, 0.36, 1],
+                      layout: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+                    }}
+                    className={spanClass}
                   >
-                    <GameFamilyCard games={item.games} sortMode={sortMode} />
-                  </div>
+                    {item.type === "family" ? (
+                      <GameFamilyCard games={item.games} sortMode={sortMode} />
+                    ) : (
+                      <GameCard game={item.game} sortMode={sortMode} />
+                    )}
+                  </motion.div>
                 );
-              }
-              return (
-                <div
-                  key={item.game.slug}
-                  className={
-                    item.game.category === "card"
-                      ? "sm:col-span-1 sm:row-span-2"
-                      : item.game.category === "board"
-                        ? "sm:col-span-2"
-                        : ""
-                  }
-                >
-                  <GameCard game={item.game} sortMode={sortMode} />
-                </div>
-              );
-            })}
+              })}
+            </AnimatePresence>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-2 py-20 text-center">
@@ -417,6 +453,7 @@ export function GameCardGrid({ games }: Props) {
             </p>
             <button
               onClick={() => {
+                setSearchQuery("");
                 setSelectedCategory(null);
                 setSelectedTags(new Set());
                 setSelectedPlayerCount(null);

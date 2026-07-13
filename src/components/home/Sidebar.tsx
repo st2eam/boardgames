@@ -1,9 +1,17 @@
 "use client";
 
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
+import { motion } from "motion/react";
 import type { SortMode } from "./GameCardGrid";
+import { PlayerCountSlider } from "./PlayerCountSlider";
+import { SearchableSelect } from "./SearchableSelect";
+import { SearchBox } from "./SearchBox";
+import { AnimatedNumber } from "./AnimatedNumber";
 
 interface Props {
+  searchQuery: string;
+  onSearchChange: (value: string) => void;
   categories: string[];
   selectedCategory: string | null;
   onSelectCategory: (cat: string | null) => void;
@@ -24,6 +32,8 @@ interface Props {
 }
 
 export function Sidebar({
+  searchQuery,
+  onSearchChange,
   categories,
   selectedCategory,
   onSelectCategory,
@@ -48,19 +58,36 @@ export function Sidebar({
   const regularTags = allTags.filter((t) => !familyTags?.has(t));
   const seriesTags = allTags.filter((t) => familyTags?.has(t));
 
+  const selectedSeriesTags = useMemo(
+    () => new Set(Array.from(selectedTags).filter((t) => familyTags?.has(t))),
+    [selectedTags, familyTags]
+  );
+  const selectedRegularTags = useMemo(
+    () => new Set(Array.from(selectedTags).filter((t) => !familyTags?.has(t))),
+    [selectedTags, familyTags]
+  );
+
   return (
     <aside className="flex shrink-0 flex-col gap-6 lg:w-60">
       {/* Site identity */}
       <div>
         <div className="flex items-baseline gap-1.5">
-          <span className="font-heading text-2xl font-bold tabular-nums tracking-tight text-primary-dark">
-            {totalCount}
-          </span>
+          <AnimatedNumber
+            value={filteredCount}
+            className="font-heading text-2xl font-bold tracking-tight text-primary-dark"
+          />
           <span className="text-xs text-stone-400">
-            {filteredCount !== totalCount ? `(${filteredCount} visible)` : "games"}
+            {filteredCount !== totalCount ? `/ ${totalCount}` : "games"}
           </span>
         </div>
       </div>
+
+      {/* Search box */}
+      <SearchBox
+        value={searchQuery}
+        onChange={onSearchChange}
+        placeholder={t("search")}
+      />
 
       {/* Sort mode toggle */}
       <div>
@@ -85,36 +112,30 @@ export function Sidebar({
           </button>
         </div>
         <div className="flex gap-1">
-          <button
-            onClick={() => onSortModeChange("english")}
-            className={`cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
-              sortMode === "english"
-                ? "bg-primary text-white"
-                : "text-stone-600 hover:bg-stone-100 hover:text-primary"
-            }`}
-          >
-            {t("sortEnglish")}
-          </button>
-          <button
-            onClick={() => onSortModeChange("chinese")}
-            className={`cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
-              sortMode === "chinese"
-                ? "bg-primary text-white"
-                : "text-stone-600 hover:bg-stone-100 hover:text-primary"
-            }`}
-          >
-            {t("sortChinese")}
-          </button>
-          <button
-            onClick={() => onSortModeChange("bggRank")}
-            className={`cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
-              sortMode === "bggRank"
-                ? "bg-primary text-white"
-                : "text-stone-600 hover:bg-stone-100 hover:text-primary"
-            }`}
-          >
-            {t("sortByBggRank")}
-          </button>
+          {([
+            ["english", t("sortEnglish")],
+            ["chinese", t("sortChinese")],
+            ["bggRank", t("sortByBggRank")],
+          ] as const).map(([mode, label]) => (
+            <button
+              key={mode}
+              onClick={() => onSortModeChange(mode)}
+              className={`relative cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+                sortMode === mode
+                  ? "text-white"
+                  : "text-stone-600 hover:bg-stone-100 hover:text-primary"
+              }`}
+            >
+              {sortMode === mode && (
+                <motion.span
+                  layoutId="sortActiveIndicator"
+                  className="absolute inset-0 rounded-md bg-primary"
+                  transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                />
+              )}
+              <span className="relative z-10">{label}</span>
+            </button>
+          ))}
         </div>
       </div>
 
@@ -126,13 +147,20 @@ export function Sidebar({
           </h4>
           <button
             onClick={() => onSelectCategory(null)}
-            className={`w-full cursor-pointer rounded-lg px-3 py-2 text-left text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+            className={`relative w-full cursor-pointer rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 ${
               selectedCategory === null
-                ? "bg-primary text-white"
+                ? "text-white"
                 : "text-stone-600 hover:bg-stone-100 hover:text-primary"
             }`}
           >
-            {t("allGames")}
+            {selectedCategory === null && (
+              <motion.span
+                layoutId="categoryActiveIndicator"
+                className="absolute inset-0 rounded-lg bg-primary"
+                transition={{ type: "spring", stiffness: 420, damping: 34 }}
+              />
+            )}
+            <span className="relative z-10">{t("allGames")}</span>
           </button>
           {categories.map((cat) => (
             <button
@@ -140,79 +168,59 @@ export function Sidebar({
               onClick={() =>
                 onSelectCategory(selectedCategory === cat ? null : cat)
               }
-              className={`w-full cursor-pointer rounded-lg px-3 py-2 text-left text-sm font-medium capitalize transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+              className={`relative w-full cursor-pointer rounded-lg px-3 py-2 text-left text-sm font-medium capitalize transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 ${
                 selectedCategory === cat
-                  ? "bg-primary text-white"
+                  ? "text-white"
                   : "text-stone-600 hover:bg-stone-100 hover:text-primary"
               }`}
             >
-              {cat}
+              {selectedCategory === cat && (
+                <motion.span
+                  layoutId="categoryActiveIndicator"
+                  className="absolute inset-0 rounded-lg bg-primary"
+                  transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                />
+              )}
+              <span className="relative z-10">{cat}</span>
             </button>
           ))}
         </nav>
       )}
 
-      {/* Player count filter */}
+      {/* Player count slider */}
       {playerCounts.length > 0 && (
         <div>
           <h4 className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-stone-400">
             {t("playerCount")}
           </h4>
-          <div className="flex flex-wrap gap-1">
-            <button
-              onClick={() => onSelectPlayerCount(null)}
-              className={`cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-emerald-300/50 ${
-                selectedPlayerCount === null
-                  ? "bg-emerald-500 text-white"
-                  : "text-stone-600 hover:bg-emerald-50 hover:text-emerald-700"
-              }`}
-            >
-              {t("anyPlayerCount")}
-            </button>
-            {playerCounts.map((n) => (
-              <button
-                key={n}
-                onClick={() =>
-                  onSelectPlayerCount(selectedPlayerCount === n ? null : n)
-                }
-                className={`cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium tabular-nums transition-all focus:outline-none focus:ring-2 focus:ring-emerald-300/50 ${
-                  selectedPlayerCount === n
-                    ? "bg-emerald-500 text-white"
-                    : "text-stone-600 hover:bg-emerald-50 hover:text-emerald-700"
-                }`}
-              >
-                {n}
-              </button>
-            ))}
-          </div>
+          <PlayerCountSlider
+            counts={playerCounts}
+            value={selectedPlayerCount}
+            onChange={onSelectPlayerCount}
+            anyLabel={t("anyPlayerCount")}
+          />
         </div>
       )}
 
-      {/* Series tags */}
+      {/* Series searchable select */}
       {seriesTags.length > 0 && (
         <div>
           <h4 className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-stone-400">
             {t("series")}
           </h4>
-          <div className="flex flex-wrap gap-1">
-            {seriesTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => onToggleTag(tag)}
-                className={`cursor-pointer rounded-md px-2 py-1 text-[11px] font-medium transition-all focus:outline-none focus:ring-2 focus:ring-violet-300/50 ${
-                  selectedTags.has(tag)
-                    ? "bg-violet-500 text-white"
-                    : "bg-violet-50 text-violet-600 hover:bg-violet-100 hover:text-violet-700"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
+          <SearchableSelect
+            options={seriesTags}
+            selected={selectedSeriesTags}
+            onToggle={onToggleTag}
+            placeholder={t("series")}
+            accentClass="bg-violet-500 text-white"
+            selectedBgClass="bg-violet-100 text-violet-700"
+            optionBgClass="hover:bg-violet-50"
+          />
         </div>
       )}
 
-      {/* Tag cloud */}
+      {/* Tags searchable select */}
       {regularTags.length > 0 && (
         <div>
           <div className="mb-2 flex items-center justify-between">
@@ -228,21 +236,15 @@ export function Sidebar({
               </button>
             )}
           </div>
-          <div className="flex flex-wrap gap-1">
-            {regularTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => onToggleTag(tag)}
-                className={`cursor-pointer rounded-md px-2 py-1 text-[11px] font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
-                  selectedTags.has(tag)
-                    ? "bg-accent text-white"
-                    : "bg-stone-100 text-stone-500 hover:bg-accent-light hover:text-accent-dark"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
+          <SearchableSelect
+            options={regularTags}
+            selected={selectedRegularTags}
+            onToggle={onToggleTag}
+            placeholder="Tags"
+            accentClass="bg-accent text-white"
+            selectedBgClass="bg-amber-100 text-amber-800"
+            optionBgClass="hover:bg-amber-50"
+          />
         </div>
       )}
     </aside>

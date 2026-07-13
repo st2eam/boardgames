@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { motion } from "motion/react";
 import { useChat } from "@/lib/chat/ChatProvider";
 import { useTranslations } from "next-intl";
 
@@ -167,8 +168,11 @@ export function ChatMessages() {
           {messages
             .filter((m) => m.role === "user" || m.role === "assistant")
             .map((msg) => (
-              <div
+              <motion.div
                 key={msg.id}
+                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 {msg.role === "assistant" && (
@@ -224,7 +228,7 @@ export function ChatMessages() {
                     </svg>
                   </div>
                 )}
-              </div>
+              </motion.div>
             ))}
 
           {/* Streaming placeholder */}

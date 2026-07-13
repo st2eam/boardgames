@@ -60,7 +60,7 @@ export function GameCover({ slug, gradient, className = "", children, fallbackIc
           src={src}
           alt=""
           onLoad={() => setImgLoaded(true)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-500 ease-out group-hover:scale-105 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
           loading="lazy"
           draggable={false}
         />

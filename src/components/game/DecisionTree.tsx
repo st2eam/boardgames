@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef, lazy, Suspense } from "react"
 import type { FlowData } from "@/types/game";
 import { MarkdownRenderer } from "./MarkdownRenderer";
 import { useTranslations } from "next-intl";
+import { motion, AnimatePresence } from "motion/react";
 
 const SeaSaltCardReference = lazy(() =>
   import("./sea-salt/SeaSaltCardReference").then((m) => ({
@@ -269,78 +270,88 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
             </span>
           </div>
 
-          {/* Title */}
-          <div className="px-5 pt-5 sm:px-6">
-            <h2 className="text-xl font-bold text-stone-900 sm:text-2xl">
-              {title}
-            </h2>
-          </div>
-
-          {/* Content body */}
-          <div className="px-5 py-5 sm:px-6">
-            <div className="rounded-xl border border-border bg-stone-50/50 p-4 sm:p-5">
-              <MarkdownRenderer content={node.content[locale as "en" | "zh"] ?? node.content.en} />
-            </div>
-            {slug?.startsWith("sea-salt-paper") && currentNodeId === "card-types" && (
-              <div className="mt-4">
-                <Suspense fallback={<div className="py-8 text-center text-stone-400">Loading...</div>}>
-                  <SeaSaltCardReference locale={locale} />
-                </Suspense>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentNodeId}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {/* Title */}
+              <div className="px-5 pt-5 sm:px-6">
+                <h2 className="text-xl font-bold text-stone-900 sm:text-2xl">
+                  {title}
+                </h2>
               </div>
-            )}
-          </div>
 
-          {/* Navigation options */}
-          {node.options.length > 0 && (
-            <div className="border-t border-border px-5 py-4 sm:px-6">
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-stone-400">
-                {t("chooseNext")}
-              </p>
-              <div className="grid gap-2 sm:grid-cols-2">
-                {node.options.map((opt) => {
-                  const targetTitle = opt.label[locale as "en" | "zh"] ?? opt.label.en;
-                  const isVisited = history.includes(opt.next);
-                  return (
-                    <button
-                      key={opt.next}
-                      onClick={() => navigateTo(opt.next)}
-                      className={`group flex w-full cursor-pointer items-center gap-3 rounded-lg border px-3.5 py-2.5 text-left text-sm transition-all focus:outline-none focus:ring-2 focus:ring-accent/40 ${
-                        isVisited
-                          ? "border-stone-200 bg-stone-50 text-stone-500 hover:border-stone-300 hover:bg-stone-100 hover:text-stone-700"
-                          : "border-border bg-white text-stone-700 shadow-sm hover:border-amber-300 hover:bg-amber-50 hover:text-primary hover:shadow"
-                      }`}
-                    >
-                      <span
-                        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors ${
-                          isVisited
-                            ? "bg-stone-200 text-stone-400"
-                            : "bg-stone-100 text-stone-400 group-hover:bg-primary group-hover:text-white"
-                        }`}
-                      >
-                        <ChevronIcon className="h-3 w-3" />
-                      </span>
-                      <span className="font-medium">{targetTitle}</span>
-                      {isVisited && (
-                        <svg
-                          className="ml-auto h-3.5 w-3.5 shrink-0 text-stone-300"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth="2"
+              {/* Content body */}
+              <div className="px-5 py-5 sm:px-6">
+                <div className="rounded-xl border border-border bg-stone-50/50 p-4 sm:p-5">
+                  <MarkdownRenderer content={node.content[locale as "en" | "zh"] ?? node.content.en} />
+                </div>
+                {slug?.startsWith("sea-salt-paper") && currentNodeId === "card-types" && (
+                  <div className="mt-4">
+                    <Suspense fallback={<div className="py-8 text-center text-stone-400">Loading...</div>}>
+                      <SeaSaltCardReference locale={locale} />
+                    </Suspense>
+                  </div>
+                )}
+              </div>
+
+              {/* Navigation options */}
+              {node.options.length > 0 && (
+                <div className="border-t border-border px-5 py-4 sm:px-6">
+                  <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-stone-400">
+                    {t("chooseNext")}
+                  </p>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {node.options.map((opt) => {
+                      const targetTitle = opt.label[locale as "en" | "zh"] ?? opt.label.en;
+                      const isVisited = history.includes(opt.next);
+                      return (
+                        <button
+                          key={opt.next}
+                          onClick={() => navigateTo(opt.next)}
+                          className={`group flex w-full cursor-pointer items-center gap-3 rounded-lg border px-3.5 py-2.5 text-left text-sm transition-all focus:outline-none focus:ring-2 focus:ring-accent/40 ${
+                            isVisited
+                              ? "border-stone-200 bg-stone-50 text-stone-500 hover:border-stone-300 hover:bg-stone-100 hover:text-stone-700"
+                              : "border-border bg-white text-stone-700 shadow-sm hover:border-amber-300 hover:bg-amber-50 hover:text-primary hover:shadow"
+                          }`}
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="m4.5 12.75 6 6 9-13.5"
-                          />
-                        </svg>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+                          <span
+                            className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors ${
+                              isVisited
+                                ? "bg-stone-200 text-stone-400"
+                                : "bg-stone-100 text-stone-400 group-hover:bg-primary group-hover:text-white"
+                            }`}
+                          >
+                            <ChevronIcon className="h-3 w-3" />
+                          </span>
+                          <span className="font-medium">{targetTitle}</span>
+                          {isVisited && (
+                            <svg
+                              className="ml-auto h-3.5 w-3.5 shrink-0 text-stone-300"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              d="m4.5 12.75 6 6 9-13.5"
+                            />
+                          </svg>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
 
           {/* Bottom bar */}
           <div className="flex items-center justify-between border-t border-border px-5 py-3 sm:px-6">

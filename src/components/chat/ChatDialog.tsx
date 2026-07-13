@@ -6,6 +6,7 @@ import { ChatInput } from "./ChatInput";
 import { ApiKeyModal } from "./ApiKeyModal";
 import { useRef, useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { motion, AnimatePresence } from "motion/react";
 
 interface Props {
   title?: string;
@@ -56,8 +57,20 @@ function ClearConfirmDialog({
   }, []);
 
   return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-white/95 backdrop-blur-sm">
-      <div className="w-full max-w-xs px-6 text-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.18 }}
+      className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-white/95 backdrop-blur-sm"
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.94, y: 8 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.96, y: 6 }}
+        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full max-w-xs px-6 text-center"
+      >
         <div className="mb-4 flex justify-center">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50">
             <svg
@@ -96,8 +109,8 @@ function ClearConfirmDialog({
             {t("delete")}
           </button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -242,20 +255,24 @@ export function ChatDialog({ title }: Props) {
       <ChatInput />
 
       {/* API Key Modal */}
-      {showApiModal && (
-        <ApiKeyModal onClose={() => setShowApiModal(false)} />
-      )}
+      <AnimatePresence>
+        {showApiModal && (
+          <ApiKeyModal onClose={() => setShowApiModal(false)} />
+        )}
+      </AnimatePresence>
 
       {/* Clear history confirmation */}
-      {showClearConfirm && (
-        <ClearConfirmDialog
-          onConfirm={() => {
-            clearHistory();
-            setShowClearConfirm(false);
-          }}
-          onCancel={() => setShowClearConfirm(false)}
-        />
-      )}
+      <AnimatePresence>
+        {showClearConfirm && (
+          <ClearConfirmDialog
+            onConfirm={() => {
+              clearHistory();
+              setShowClearConfirm(false);
+            }}
+            onCancel={() => setShowClearConfirm(false)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

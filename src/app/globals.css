@@ -50,6 +50,15 @@
     border-radius: 4px;
   }
 
+  /* iOS Safari zooms focused inputs when font-size < 16px */
+  @media (hover: none) and (pointer: coarse) {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

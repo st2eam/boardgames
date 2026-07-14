@@ -6,6 +6,7 @@ import { GoTsumegoTrainer } from "@/components/game/trainer/go/GoTsumegoTrainer"
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";
+import { buildPageMetadata, getCoverImageUrl } from "@/lib/seo";
 import type { Metadata } from "next";
 
 interface Props {
@@ -47,10 +48,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const titleText = TRAINER_TITLES[type]?.[locale as "en" | "zh"] ?? TRAINER_TITLES.tenpai.en;
   const desc = TRAINER_DESCRIPTIONS[type]?.[locale as "en" | "zh"] ?? "";
 
-  return {
-    title: `${name} ${titleText} - The Game Shelf`,
-    description: `${name} - ${desc}`,
-  };
+  return buildPageMetadata({
+    locale,
+    title: `${name} ${titleText}`,
+    description: `${name} — ${desc}`,
+    path: `/games/${slug}/trainer/`,
+    ogImage: getCoverImageUrl(slug),
+  });
 }
 
 export async function generateStaticParams() {

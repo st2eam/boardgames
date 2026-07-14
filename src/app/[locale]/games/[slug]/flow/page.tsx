@@ -3,6 +3,7 @@ import { DecisionTree } from "@/components/game/DecisionTree";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";
+import { buildPageMetadata, getCoverImageUrl } from "@/lib/seo";
 import type { Metadata } from "next";
 
 interface Props {
@@ -15,12 +16,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const name = meta.name[locale as "en" | "zh"] ?? meta.name.en;
   const title = locale === "zh" ? `${name} 互动流程` : `${name} Interactive Flow`;
 
-  return {
-    title: `${title} - The Game Shelf`,
-    description: locale === "zh"
-      ? `${name} 的互动决策树 - 一步步引导你学会游戏`
-      : `Interactive decision tree for ${name} - learn the game step by step`,
-  };
+  return buildPageMetadata({
+    locale,
+    title,
+    description:
+      locale === "zh"
+        ? `${name} 的互动决策树 — 一步步引导你学会游戏`
+        : `Interactive decision tree for ${name} — learn the game step by step`,
+    path: `/games/${slug}/flow/`,
+    ogImage: getCoverImageUrl(slug),
+  });
 }
 
 export async function generateStaticParams() {

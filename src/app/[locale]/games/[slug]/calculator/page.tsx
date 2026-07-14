@@ -3,6 +3,7 @@ import { ScoreCalculator } from "@/components/game/calculator/ScoreCalculator";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";
+import { buildPageMetadata, getCoverImageUrl } from "@/lib/seo";
 import type { Metadata } from "next";
 
 interface Props {
@@ -15,12 +16,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const name = meta.name[locale as "en" | "zh"] ?? meta.name.en;
   const title = locale === "zh" ? `${name} 番符计算器` : `${name} Score Calculator`;
 
-  return {
-    title: `${title} - The Game Shelf`,
-    description: locale === "zh"
-      ? `${name} 番符自动计算器 - 选择役种和面子组成，自动计算点数`
-      : `Score calculator for ${name} - select yaku and melds to calculate points`,
-  };
+  return buildPageMetadata({
+    locale,
+    title,
+    description:
+      locale === "zh"
+        ? `${name} 番符自动计算器 — 选择役种和面子组成，自动计算点数`
+        : `Score calculator for ${name} — select yaku and melds to calculate points`,
+    path: `/games/${slug}/calculator/`,
+    ogImage: getCoverImageUrl(slug),
+  });
 }
 
 export async function generateStaticParams() {

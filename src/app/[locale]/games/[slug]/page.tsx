@@ -6,6 +6,7 @@ import { RelatedGames } from "@/components/game/RelatedGames";
 import { ChatToggle } from "@/components/chat/ChatToggle";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { buildPageMetadata, getCoverImageUrl, absoluteUrl } from "@/lib/seo";
 import type { Metadata } from "next";
 
 interface Props {
@@ -16,19 +17,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   const meta = await GameRepository.getGameMeta(slug);
   const name = meta.name[locale as "en" | "zh"] ?? meta.name.en;
-  const description = locale === "zh"
-    ? `${name} 完整规则说明 - ${meta.players}人, 时长${meta.duration}`
-    : `Complete rules for ${name} - ${meta.players} players, ${meta.duration}`;
+  const description =
+    locale === "zh"
+      ? `${name} 完整规则说明 — ${meta.players} 人，时长 ${meta.duration}`
+      : `Complete rules for ${name} — ${meta.players} players, ${meta.duration}`;
 
-  return {
-    title: `${name} - The Game Shelf`,
+  return buildPageMetadata({
+    locale,
+    title: name,
     description,
-    openGraph: {
-      title: name,
-      description,
-      type: "article",
-    },
-  };
+    path: `/games/${slug}/`,
+    ogImage: getCoverImageUrl(slug),
+    type: "article",
+  });
 }
 
 export async function generateStaticParams() {
@@ -56,11 +57,48 @@ export default async function GamePage({ params }: Props) {
   const gameName = game.meta.name[locale as "en" | "zh"] ?? game.meta.name.en;
 
   const trainerConfig = await GameRepository.getTrainerConfig(slug);
+  const cover = getCoverImageUrl(slug);
+  const pageUrl = absoluteUrl(`/${locale}/games/${slug}/`);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: gameName,
+    description:
+      locale === "zh"
+        ? `${gameName} 完整规则说明`
+        : `Complete rules for ${gameName}`,
+    url: pageUrl,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "The Game Shelf",
+      url: absoluteUrl("/"),
+    },
+    about: {
+      "@type": "Game",
+      name: game.meta.name.en,
+      alternateName: game.meta.name.zh,
+      numberOfPlayers: game.meta.players,
+      ...(cover ? { image: cover } : {}),
+    },
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-        <GameHeader meta={game.meta} hasFlow={game.flow !== null} hasScore={GameRepository.hasScoreConfig(slug)} hasTrainer={GameRepository.hasTrainerConfig(slug)} hasCalculator={GameRepository.hasCalculatorConfig(slug)} trainerType={trainerConfig?.type} rules={game.rules} />
+        <GameHeader
+          meta={game.meta}
+          hasFlow={game.flow !== null}
+          hasScore={GameRepository.hasScoreConfig(slug)}
+          hasTrainer={GameRepository.hasTrainerConfig(slug)}
+          hasCalculator={GameRepository.hasCalculatorConfig(slug)}
+          trainerType={trainerConfig?.type}
+          rules={game.rules}
+        />
         <div className="rounded-xl border border-border bg-white p-6 sm:p-8">
           <MarkdownRenderer content={game.rules} />
         </div>

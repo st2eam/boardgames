@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fredoka, Nunito, Noto_Sans_SC } from "next/font/google";
+import { SITE_NAME, SITE_URL, getDefaultOgImage } from "@/lib/seo";
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -24,13 +25,35 @@ const notoSansSC = Noto_Sans_SC({
 });
 
 export const metadata: Metadata = {
-  title: "The Game Shelf",
-  description: "Your curated collection of tabletop game rules",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s - ${SITE_NAME}`,
+  },
+  description:
+    "Bilingual board game rules reference — decision trees, score trackers, trainers, and AI Q&A.",
+  applicationName: SITE_NAME,
   manifest: "/boardgames/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: "Game Shelf",
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description:
+      "Bilingual board game rules reference — decision trees, score trackers, trainers, and AI Q&A.",
+    url: SITE_URL,
+    images: [{ url: getDefaultOgImage(), width: 512, height: 512, alt: SITE_NAME }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description:
+      "Bilingual board game rules reference — decision trees, score trackers, trainers, and AI Q&A.",
+    images: [getDefaultOgImage()],
   },
   other: {
     "mobile-web-app-capable": "yes",

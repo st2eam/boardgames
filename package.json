@@ -6,7 +6,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/generate-game-data.mjs",
     "build": "next build",
-    "postbuild": "node scripts/generate-sw-precache.mjs",
+    "postbuild": "node scripts/generate-sw-precache.mjs && node scripts/generate-seo.mjs",
     "start": "next start",
     "lint": "eslint"
   },

@@ -1,9 +1,32 @@
 import { GameRepository } from "@/lib/content/GameRepository";
 import type { GameMeta } from "@/types/game";
 import { CostDashboard } from "@/components/costs/CostDashboard";
+import { buildPageMetadata } from "@/lib/seo";
+import type { Metadata } from "next";
 
 interface Props {
   params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+
+  if (locale === "zh") {
+    return buildPageMetadata({
+      locale,
+      title: "收藏花费",
+      description: "查看桌游收藏的花费统计、分类分布与单价排行。",
+      path: "/costs/",
+    });
+  }
+
+  return buildPageMetadata({
+    locale,
+    title: "Collection Costs",
+    description:
+      "Spending overview for the board game collection — totals, categories, and price rankings.",
+    path: "/costs/",
+  });
 }
 
 export default async function CostsPage({ params }: Props) {

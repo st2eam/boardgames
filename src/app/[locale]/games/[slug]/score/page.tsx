@@ -6,9 +6,29 @@ import { JustWildScoreTracker } from "@/components/game/score/JustWildScoreTrack
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";
+import { buildPageMetadata, getCoverImageUrl } from "@/lib/seo";
+import type { Metadata } from "next";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const meta = await GameRepository.getGameMeta(slug);
+  const name = meta.name[locale as "en" | "zh"] ?? meta.name.en;
+  const title = locale === "zh" ? `${name} 计分器` : `${name} Score Tracker`;
+
+  return buildPageMetadata({
+    locale,
+    title,
+    description:
+      locale === "zh"
+        ? `${name} 自动计分器 — 多人同屏记分`
+        : `Score tracker for ${name} — multi-player scoring`,
+    path: `/games/${slug}/score/`,
+    ogImage: getCoverImageUrl(slug),
+  });
 }
 
 export async function generateStaticParams() {

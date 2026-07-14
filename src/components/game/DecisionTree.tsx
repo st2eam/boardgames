@@ -52,6 +52,8 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
   const [history, setHistory] = useState<string[]>([]);
   const [outlineOpen, setOutlineOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
+  const outlinePanelRef = useRef<HTMLDivElement>(null);
+  const activeOutlineRef = useRef<HTMLButtonElement>(null);
 
   const nodeIds = Object.keys(flowData.nodes);
   const node = flowData.nodes[currentNodeId];
@@ -81,6 +83,21 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
 
   useEffect(() => {
     contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+
+    const panel = outlinePanelRef.current;
+    const item = activeOutlineRef.current;
+    if (!panel || !item) return;
+    const panelRect = panel.getBoundingClientRect();
+    const itemRect = item.getBoundingClientRect();
+    const pad = 8;
+    if (itemRect.top < panelRect.top + pad) {
+      panel.scrollBy({ top: itemRect.top - panelRect.top - pad, behavior: "smooth" });
+    } else if (itemRect.bottom > panelRect.bottom - pad) {
+      panel.scrollBy({
+        top: itemRect.bottom - panelRect.bottom + pad,
+        behavior: "smooth",
+      });
+    }
   }, [currentNodeId]);
 
   if (!node) {
@@ -140,7 +157,10 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
         <nav
           className={`mt-2 lg:mt-0 ${outlineOpen ? "block" : "hidden"} lg:block`}
         >
-          <div className="rounded-xl border border-border bg-white p-2 shadow-sm lg:sticky lg:top-24">
+          <div
+            ref={outlinePanelRef}
+            className="max-h-[min(70vh,calc(100vh-8rem))] overflow-y-auto rounded-xl border border-border bg-white p-2 shadow-sm lg:sticky lg:top-24"
+          >
             <p className="mb-1 px-2 pt-1 text-[10px] font-bold uppercase tracking-widest text-stone-400">
               {t("outline")}
             </p>
@@ -152,6 +172,7 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
                 return (
                   <li key={id}>
                     <button
+                      ref={isCurrent ? activeOutlineRef : undefined}
                       onClick={() => navigateTo(id)}
                       className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-left text-[13px] transition-colors focus:outline-none focus:ring-2 focus:ring-accent/40 ${
                         isCurrent

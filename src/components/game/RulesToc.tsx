@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { extractToc } from "@/lib/markdown-toc";
 import { useTranslations } from "next-intl";
 
@@ -14,6 +14,8 @@ export function RulesToc({ content, variant }: Props) {
   const items = useMemo(() => extractToc(content), [content]);
   const [activeId, setActiveId] = useState<string>("");
   const [open, setOpen] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const activeLinkRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (items.length === 0) return;
@@ -40,6 +42,25 @@ export function RulesToc({ content, variant }: Props) {
     return () => observer.disconnect();
   }, [items]);
 
+  // Keep the active entry visible inside the sticky TOC scroller (not the page)
+  useEffect(() => {
+    if (!activeId || variant !== "desktop") return;
+    const panel = panelRef.current;
+    const link = activeLinkRef.current;
+    if (!panel || !link) return;
+    const panelRect = panel.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    const pad = 12;
+    if (linkRect.top < panelRect.top + pad) {
+      panel.scrollBy({ top: linkRect.top - panelRect.top - pad, behavior: "smooth" });
+    } else if (linkRect.bottom > panelRect.bottom - pad) {
+      panel.scrollBy({
+        top: linkRect.bottom - panelRect.bottom + pad,
+        behavior: "smooth",
+      });
+    }
+  }, [activeId, variant]);
+
   if (items.length < 2) return null;
 
   const list = (
@@ -48,6 +69,7 @@ export function RulesToc({ content, variant }: Props) {
         {items.map((item) => (
           <li key={item.id}>
             <a
+              ref={item.id === activeId ? activeLinkRef : undefined}
               href={`#${item.id}`}
               onClick={() => setOpen(false)}
               className={`block rounded-md py-1 text-sm transition-colors ${
@@ -97,7 +119,10 @@ export function RulesToc({ content, variant }: Props) {
 
   return (
     <aside>
-      <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto rounded-xl border border-border bg-white/80 p-4 backdrop-blur-sm">
+      <div
+        ref={panelRef}
+        className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto rounded-xl border border-border bg-white/80 p-4 backdrop-blur-sm"
+      >
         <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-stone-400">
           {t("toc")}
         </p>

@@ -1,146 +1,140 @@
 # Love Letter Rules
 
-## Overview
+## Theme
 
-Designed by **Seiji Kanai**. You are a suitor trying to deliver a love letter to **Princess Annette** of Tempest. She has locked herself in the palace, so you must rely on intermediaries — the sixteen cards in the deck — to carry your message. Outwit rival suitors through deduction, bluffing, and careful timing.
+In the wake of the arrest of Queen Marianna for high treason, none was more heartbroken than her daughter, **Princess Annette**. Suitors throughout the City-State of Tempest sought to ease Annette's sorrow by courting her to bring some joy into her life.
 
-## Components
+You are one of these suitors, trying to get your love letter to the princess. Unfortunately, she has locked herself in the palace, so you must rely on intermediaries to carry your message.
 
-- **16 game cards** (see card table below)
-- **4 reference cards**
-- **Tokens of affection** (to track round wins)
+During the game, you hold one secret card in your hand. This is who currently carries your message of love for the princess.
 
-### Card List
+Make sure that the person closest to the princess holds your love letter at the end of the day, so it reaches her first!
 
-| Rank | Card | Qty | Effect |
-|:----:|------|:---:|--------|
-| 8 | **Princess** | 1 | If you play or discard her for any reason, you are out of the round |
-| 7 | **Countess** | 1 | No effect when played. Must play her if you also hold the King or Prince |
-| 6 | **King** | 1 | Trade hands with another player |
-| 5 | **Prince** | 2 | Choose a player (including yourself) to discard their hand and draw a new card |
-| 4 | **Handmaid** | 2 | Until your next turn, you are immune to other players' card effects |
-| 3 | **Baron** | 2 | Compare hands with another player; the lower rank is out |
-| 2 | **Priest** | 2 | Secretly look at another player's hand |
-| 1 | **Guard** | 5 | Name a non-Guard card; if that player has it, they are out |
+> This page covers the **Full Game** edition (**Princess = 9**), for **2–6 players**. Classic (Princess = 8) and discontinued 5–8 player cards are listed at the end for reference.
+
+## Components (Full Game)
+
+- **21 game cards** (see Full Game table below)
+- **Reference cards**
+- **Favor / affection tokens** (★) to track round wins
 
 ## Setup
 
-1. Shuffle all **16 cards** into a face-down draw deck.
-2. Remove the **top card** from the game without looking at it (set aside face down).
-3. Each player draws **1 card** — this is your secret hand.
-4. The player who most recently went on a date starts (or choose randomly). After the first round, the previous round's winner starts.
+1. One of the playing cards is removed at the beginning of each round (set aside face down without looking).
+2. Shuffle the remaining cards.
+3. Every player is dealt **one card**.
+4. The remaining cards form a face-down draw pile in the centre of the table.
 
 > **2-Player Special Rule**
 >
-> - In addition to the face-down removed card, also remove the next **3 cards** and place them **face up** beside the deck. They are not used this round.
-> - All other rules remain the same.
+> In addition to the face-down removed card, also remove the next **3 cards** and place them **face up** beside the deck. They are not used this round.
 
-## How to Play
+## Game Play
 
-The game is played over multiple **rounds** (each round is one "day"). Win enough tokens of affection to win the game.
+Players take turns:
 
-### On Your Turn
+1. **Draw** one card (you now hold two cards).
+2. **Discard / play** one card (returning to one card in hand).
+3. When a player discards a card, **its effect is applied** immediately.
 
-1. **Draw** the top card of the deck into your hand (you now have 2 cards).
-2. **Choose** one of the two cards and **play it face up into your discard area**.
-3. **Resolve** that card's effect immediately. If the effect knocks a player out or causes a discard, resolve that right away, then continue play.
-4. **Keep all played cards overlapping in order** so everyone can track what remains in the game.
-5. Play passes to the left.
+Play continues until the round ends (see below).
 
 ### Knocked Out
 
 If you are eliminated from the round:
 
-- Discard your remaining hand card **face up** (do **not** resolve its effect).
-- If you discard the Princess due to a Prince effect, the Princess's own rule still applies and you are immediately out.
+- Discard your remaining hand card **face up** (do **not** resolve its effect, unless a specific card says otherwise — e.g. discarding the Princess due to the Prince still knocks you out).
 - Take no further turns until the next round.
 
-## Card Effects (Detail)
+## Card Effects — Full Game (2–6 Players)
 
-### Guard (1)
+| Value | № | Name | Effect description |
+|:-----:|:-:|------|--------------------|
+| 9 | 1 | **Princess** | If you play or discard this card, you are out of the round. |
+| 8 | 1 | **Countess** | If the King or Prince is in your hand, you must play this card. |
+| 7 | 1 | **King** | Choose and trade hands with another player. |
+| 6 | 2 | **Chancellor** | Draw 2 cards. Keep 1 card and put your other 2 on the bottom of the deck in any order. |
+| 5 | 2 | **Prince** | Choose any player (including yourself). That player discards their hand and redraws. |
+| 4 | 2 | **Handmaid** | Until your next turn, other players cannot choose you for their card effects. |
+| 3 | 2 | **Baron** | Choose and secretly compare hands with another player. Whoever has the lower value is out of the round. |
+| 2 | 2 | **Priest** | Choose and look at another player's hand. |
+| 1 | 6 | **Guard** | Choose another player and name a non-Guard card. If that player has that card, they are out of the round. |
+| 0 | 2 | **Spy** | At the end of the round, if you are the only player **still in** the round who played or discarded a Spy, gain 1 favor token. If you have 2 Spies you still only gain 1 favor. |
 
-Choose another player and name a character **other than Guard**. If they hold that card, they are out of the round. You cannot name Guard.
+### Card Notes
 
-### Priest (2)
+- **Princess (9):** Out if played or discarded for any reason (including when forced by the Prince).
+- **Countess (8):** Unlike most cards, her restriction applies **while in hand**. She has no effect when discarded. You may also discard her voluntarily even without King/Prince. Do not reveal your other card.
+- **King (7):** Cannot trade with a player who is out, nor with someone protected by the Handmaid. If all other players still in the round are protected, this card does nothing.
+- **Chancellor (6):** Draw 2 so you temporarily hold 3 cards; keep 1 and place the other 2 on the bottom of the deck in any order.
+- **Prince (5):** When the target discards, do not apply that card's effect unless it is the Princess. If the deck is empty, that player draws the card removed at the start of the round. If all other players are protected by the Handmaid, you must choose yourself.
+- **Handmaid (4):** Immunity lasts until the start of your next turn.
+- **Baron (3):** On a tie, nothing happens. If all other players still in the round are protected by the Handmaid, this card does nothing.
+- **Priest (2):** Look at the hand privately — do **not** reveal it to all players.
+- **Guard (1):** Name a card value other than Guard. If all other players still in the round are protected by the Handmaid, this card does nothing.
+- **Spy (0):** Favor is checked at round end among players still in the round. Two Spies still award at most 1 favor.
 
-Secretly look at another player's hand. Do not reveal it afterward, and do not show it to other players.
+## Round End
 
-### Baron (3)
+A round ends when:
 
-Choose another player and secretly compare hands — only the two of you look. The player with the **lower** rank is immediately out. On a tie, no one is out.
+1. **No cards remain in the deck**, or
+2. **Only one player remains** in the round.
 
-### Handmaid (4)
+The player holding the **Princess**, or otherwise the card with the **highest value**, earns **1 ★ token**.
 
-Until the start of your next turn, you cannot be targeted by other players' card effects. If a card has no legal target, it is still played, but its effect does nothing.
+### Tiebreak
 
-### Prince (5)
+1. Sum of the value of each tied player's **discarded cards**.
+2. If a tie remains, **nobody** gets a ★ token.
 
-Choose any player **including yourself**. That player discards their hand (resolving the Princess if discarded) and draws a new card. If the draw deck is empty, they draw the **face-down card that was set aside at the start of the round** (the three face-up cards removed in a 2-player game cannot be drawn).
+> **Spy favor:** Resolve Spy favor separately after the round winner is determined (among players still in the round).
 
-### King (6)
+## Game End
 
-Trade hands with another player. You cannot choose a player who is protected by a Handmaid. If there is no legal target, this effect does nothing.
+First player to reach the winning number of ★ tokens wins the game:
 
-### Countess (7)
-
-No effect when played. If your other card is the **King (6)** or a **Prince (5)**, you cannot play that card this turn — you **must** play the Countess. You may still choose to play her voluntarily. Do not reveal your other card when you play her.
-
-### Princess (8)
-
-If you play or discard the Princess for any reason, you are immediately out of the round.
-
-## End of a Round
-
-A round ends when either:
-
-1. **Only one player remains** — that player wins the round; or
-2. **The draw deck is exhausted** — when the last card is drawn, the current turn finishes normally; then all remaining players reveal their hands. Highest rank wins. On a tie, the player whose **discarded cards** sum to the highest total wins. If still tied, each tied player receives 1 token of affection.
-
-The winner takes **1 token of affection** (see above for ties). Shuffle all 16 cards and start a new round (same setup).
-
-## Winning the Game
-
-Collect enough tokens of affection:
-
-| Players | Tokens to win |
-|:-------:|:-------------:|
-| 2 | 7 |
+| № Players | № ★ tokens |
+|:---------:|:----------:|
+| 2 | 6 |
 | 3 | 5 |
 | 4 | 4 |
+| 5–6 | 3 |
 
-## Notes
+---
 
-- Always resolve a played card's effect, even when disadvantageous.
-- If a card requires targeting another player and there is no legal target, the card is played but its effect does nothing.
-- All discarded cards remain face up and may be inspected by any player at any time.
-- Honesty matters for Guard guesses and Countess forced plays — this is a light social deduction game.
+## Appendix A — Classic Cards (2–4 Players, Princess = 8)
 
-## FAQ
+Older Classic edition uses **16 cards**. Princess is value **8**. There is no Chancellor or Spy.
 
-- **Q: Can the Guard name Guard?**
+| Value | № | Name | Simplified effect | Full effect |
+|:-----:|:-:|------|-------------------|-------------|
+| 8 | 1 | **Princess Annette** | Discard = out! | If you discard the Princess — no matter how or why — she has tossed your letter into the fire. You are knocked out of the round. |
+| 7 | 1 | **Countess Wilhelmina** | Must discard with King or Prince in hand | Unlike other cards which take effect when discarded, the text on the Countess applies while she is in your hand. In fact, she has no effect when you discard her. If you ever have the Countess and either the King or Prince in your hand, you must discard the Countess. You do not have to reveal the other card in your hand. Of course, you can also discard the Countess even if you do not have a royal family member in your hand. She likes to play mind games. |
+| 6 | 1 | **King Arnaud IV** | Swap hands | When you discard King Arnaud IV, trade the card in your hand with the card held by another player of your choice. You cannot trade with a player who is out of the round, nor with someone protected by the Handmaid. If all other players still in the round are protected by the Handmaid, this card does nothing. |
+| 5 | 2 | **Prince Arnaud** | A player must discard | When you discard Prince Arnaud, choose one player still in the round (including yourself). That player discards their hand (do not apply its effect, unless it's Princess Annette) and draws a new card. If the deck is empty, that player draws the card that was removed at the start of the round. If all other players are protected by the Handmaid, you must choose yourself. |
+| 4 | 2 | **Handmaid Susannah** | May not be targeted | When you discard the Handmaid, you are immune to the effects of other players' cards until the start of your next turn. |
+| 3 | 2 | **Baron Talus** | Compare → lower = out | When discarded, choose one other player still in the round. You and that player secretly compare your hands. The player with the lower rank is knocked out of the round. In case of a tie, nothing happens. If all other players still in the round are protected by the Handmaid, this card does nothing. |
+| 2 | 2 | **Priest Tomas** | Look at one | When you discard the Priest, you can look at one other player's hand. DO NOT reveal the hand to all players. |
+| 1 | 5 | **Guard Odette** | Guess value → out | When you discard the Guard, choose a player and name a card value (other than 1). If that player has a card with that value, that player is knocked out of the round. If all other players still in the round are protected by the Handmaid, this card does nothing. If your opponent holds an Assassin, you're out (even if you guess correctly!) |
 
-  No.
+Classic win targets commonly used: 2 players → 7 ★, 3 → 5 ★, 4 → 4 ★.
 
-- **Q: Can a Handmaid-protected player still be a target of the Prince?**
+---
 
-  No. If there are other legal targets, you must choose one of them; if there are none, you may target yourself.
+## Appendix B — Discontinued Additional Cards (5–8 Players)
 
-- **Q: What if the Prince makes me discard the Princess?**
+These cards were used in older larger-player / discontinued mixes. They are **not** part of the Full Game (Princess = 9) deck.
 
-  You are immediately out.
-
-- **Q: If I hold the Countess and the King, can I play the King?**
-
-  No.
-
-- **Q: Does the round end the instant the deck empties?**
-
-  No. The current turn finishes first; then the round ends.
-
-- **Q: Does the Baron comparison need to be shown to everyone?**
-
-  No. Only the two players need to confirm the result.
-
-- **Q: What if every other player has a Handmaid?**
-
-  Cards that require a target are still played, but their effect does nothing.
+| Value | № | Name | Simplified effect | Full effect |
+|:-----:|:-:|------|-------------------|-------------|
+| 9 | 1 | **Bishop Vinizio** | Guess value → +1★ | Similar to a Guard, name a number other than 1 and choose another player. If they have that number card in their hand, gain 1 ★. If the guess is correct, the targeted player can choose whether to keep or discard the card. Despite his impressive 9, the Bishop always loses to the Princess at the end of the round. |
+| 7 | 1 | **Dowager Queen Tummia** | Compare → higher = out | Acts as a Baron, but the highest card is eliminated instead of the lowest. |
+| 6 | 1 | **Constable Viktor** | Out → +1★ | If this card is in your discard pile then this gives you 1 ★ if you are knocked out of the round. |
+| 5 | 2 | **Count Guntram** | +1 value @ round end | Add +1 to your card value at the end of the round. |
+| 4 | 2 | **Sycophant Morris** | Choose target | Lets you decide who will be the target of the next card played. |
+| 3 | 2 | **Baroness Fiona** | Look at two | Allows you to see TWO hands. |
+| 2 | 2 | **Cardinal Vesper** | Swap two hands + look at one | Exchanges the hands of 2 players. You may see one of the hands. |
+| 1 | +3 | **Guard Odette** | Guess value → out | Same as Guard: choose a player and name a card value other than 1; correct guess knocks them out. Does nothing if all other players are protected by the Handmaid. |
+| 0 | 1 | **Jester Darius** | Guess winner → +1★ | Allows you to guess who will win the round and score 1 ★ if this is the case. |
+| 0 | 1 | **Assassin** | Guard = out | Kills your opponent if they use a Guard against you. |

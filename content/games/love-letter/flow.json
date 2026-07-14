@@ -7,8 +7,8 @@
         "zh": "游戏准备"
       },
       "content": {
-        "en": "**16 cards** total. Goal: deliver your love letter to Princess Annette by winning rounds and collecting **tokens of affection**.\n\n1. Shuffle all 16 cards into a face-down deck.\n2. Remove the **top card** from the game (face down, unseen).\n3. **2 players only:** Also set aside the next **3 cards face up** — unused this round.\n4. Each player draws **1 card** as a secret hand.\n5. Choose a starting player (after round 1: previous winner starts).\n\n| Players | Tokens to win the game |\n|:-------:|:----------------------:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |",
-        "zh": "共 **16 张牌**。目标：通过赢得轮次集齐**爱心标记**，把情书送到安妮特公主手中。\n\n1. 洗匀全部 16 张牌，面朝下组成抽牌堆。\n2. 不查看地移出牌堆顶 **1 张**（面朝下）。\n3. **仅双人局：** 再翻开接下来的 **3 张**面朝上放一旁，本轮不用。\n4. 每位玩家抽 **1 张**作为秘密手牌。\n5. 决定起始玩家（首轮之后由上一轮胜者先手）。\n\n| 人数 | 整局所需爱心 |\n|:----:|:------------:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |"
+        "en": "**Full Game** (Princess = **9**), **2–6 players**, **21 cards**. Goal: deliver your love letter by winning rounds and collecting **★ favor tokens**.\n\n1. Remove **1 card** face down (unseen) from the game.\n2. Shuffle the rest and deal **1 card** to each player.\n3. Remaining cards form the draw pile.\n4. **2 players only:** Also set aside the next **3 cards face up** — unused this round.\n\n| Players | ★ to win |\n|:-------:|:--------:|\n| 2 | 6 |\n| 3 | 5 |\n| 4 | 4 |\n| 5–6 | 3 |",
+        "zh": "**完整版**（公主 = **9**），**2–6 人**，共 **21 张牌**。目标：通过赢得轮次集齐 **★ 好感标记**，把情书送到公主手中。\n\n1. 不查看地移出 **1 张**牌（面朝下）。\n2. 洗匀其余牌，每人发 **1 张**。\n3. 剩余牌组成抽牌堆。\n4. **仅双人局：** 再翻开接下来的 **3 张**面朝上放一旁，本轮不用。\n\n| 人数 | 所需 ★ |\n|:----:|:------:|\n| 2 | 6 |\n| 3 | 5 |\n| 4 | 4 |\n| 5–6 | 3 |"
       },
       "options": [
         {
@@ -20,8 +20,8 @@
         },
         {
           "label": {
-            "en": "Card Effects",
-            "zh": "卡牌效果"
+            "en": "Card Overview",
+            "zh": "卡牌一览"
           },
           "next": "cards"
         },
@@ -40,35 +40,35 @@
         "zh": "你的回合"
       },
       "content": {
-        "en": "On your turn:\n\n1. **Draw** 1 card from the deck (you now hold 2).\n2. **Discard** 1 of them **face up** in front of you.\n3. **Resolve** that card's effect immediately — even if it hurts you.\n4. Keep discards overlapping in order so everyone can track played cards.\n5. Play continues clockwise.\n\n**Knocked out?** Discard your remaining hand face up (**do not** resolve it) and sit out until the next round.",
-        "zh": "你的回合：\n\n1. 从牌堆**抽** 1 张（手中现有 2 张）。\n2. **正面朝上弃**其中 1 张在自己面前。\n3. **立即结算**该牌效果——即使对自己不利也必须执行。\n4. 弃牌按顺序叠放，方便推断场上剩余牌。\n5. 顺时针轮到下一位。\n\n**出局了？** 将剩余手牌正面朝上弃掉（**不结算**效果），本轮不再行动。"
+        "en": "On your turn:\n\n1. **Draw** 1 card (you now hold 2).\n2. **Play / discard** 1 card face up.\n3. **Resolve** that card's effect immediately — even if it hurts you.\n4. Keep discards visible so everyone can track what remains.\n5. Play continues to the next player.\n\n**Knocked out?** Discard your remaining hand face up (**do not** resolve it, unless Princess was discarded via Prince) and sit out until the next round.",
+        "zh": "你的回合：\n\n1. **抽** 1 张（手中现有 2 张）。\n2. **正面朝上打出 / 弃掉**其中 1 张。\n3. **立即结算**该牌效果——即使对自己不利也必须执行。\n4. 弃牌保持可见，方便推断场上剩余牌。\n5. 轮到下一位。\n\n**出局了？** 将剩余手牌正面朝上弃掉（**不结算**效果；若因王子弃掉公主则仍出局），本轮不再行动。"
       },
       "options": [
         {
           "label": {
-            "en": "Card Effects",
-            "zh": "卡牌效果"
+            "en": "Card Overview",
+            "zh": "卡牌一览"
           },
           "next": "cards"
         },
         {
           "label": {
-            "en": "Guard / Priest / Baron",
-            "zh": "守卫 / 神父 / 男爵"
+            "en": "Spy / Guard / Priest",
+            "zh": "间谍 / 守卫 / 神父"
           },
           "next": "low-cards"
         },
         {
           "label": {
-            "en": "Handmaid / Prince / King",
-            "zh": "侍女 / 王子 / 国王"
+            "en": "Baron / Handmaid / Prince",
+            "zh": "男爵 / 侍女 / 王子"
           },
           "next": "mid-cards"
         },
         {
           "label": {
-            "en": "Countess / Princess",
-            "zh": "伯爵夫人 / 公主"
+            "en": "Chancellor → Princess",
+            "zh": "首相 → 公主"
           },
           "next": "high-cards"
         },
@@ -83,32 +83,32 @@
     },
     "cards": {
       "title": {
-        "en": "Card Overview",
-        "zh": "卡牌一览"
+        "en": "Card Overview (Full Game)",
+        "zh": "卡牌一览（完整版）"
       },
       "content": {
-        "en": "| Rank | Card | Qty | Summary |\n|:----:|------|:---:|--------|\n| 8 | **Princess** | 1 | Play/discard → you are out |\n| 7 | **Countess** | 1 | Must play if holding King or Prince |\n| 6 | **King** | 1 | Trade hands |\n| 5 | **Prince** | 2 | Target discards hand & redraws |\n| 4 | **Handmaid** | 2 | Immune until your next turn |\n| 3 | **Baron** | 2 | Compare; lower rank is out |\n| 2 | **Priest** | 2 | Peek at a hand |\n| 1 | **Guard** | 5 | Guess a non-Guard card |",
-        "zh": "| 等级 | 卡牌 | 数量 | 简述 |\n|:----:|------|:----:|------|\n| 8 | **公主** | 1 | 打出/弃掉 → 出局 |\n| 7 | **伯爵夫人** | 1 | 持有国王或王子时必须打出 |\n| 6 | **国王** | 1 | 交换手牌 |\n| 5 | **王子** | 2 | 指定者弃牌重抽 |\n| 4 | **侍女** | 2 | 至下回合前免疫 |\n| 3 | **男爵** | 2 | 比牌，低者出局 |\n| 2 | **神父** | 2 | 偷看手牌 |\n| 1 | **守卫** | 5 | 猜非守卫牌 |"
+        "en": "| Value | Card | Qty | Summary |\n|:-----:|------|:---:|--------|\n| 9 | **Princess** | 1 | Play/discard → out |\n| 8 | **Countess** | 1 | Must play if holding King or Prince |\n| 7 | **King** | 1 | Trade hands |\n| 6 | **Chancellor** | 2 | Draw 2; keep 1; bottom 2 |\n| 5 | **Prince** | 2 | Target discards & redraws |\n| 4 | **Handmaid** | 2 | Immune until your next turn |\n| 3 | **Baron** | 2 | Compare; lower is out |\n| 2 | **Priest** | 2 | Peek at a hand |\n| 1 | **Guard** | 6 | Guess a non-Guard card |\n| 0 | **Spy** | 2 | Sole Spy still in → +1 ★ |",
+        "zh": "| 点数 | 卡牌 | 数量 | 简述 |\n|:----:|------|:----:|------|\n| 9 | **公主** | 1 | 打出/弃掉 → 出局 |\n| 8 | **伯爵夫人** | 1 | 持有国王或王子时必须打出 |\n| 7 | **国王** | 1 | 交换手牌 |\n| 6 | **首相** | 2 | 抽 2；留 1；其余放回牌堆底 |\n| 5 | **王子** | 2 | 指定者弃牌重抽 |\n| 4 | **侍女** | 2 | 至下回合前免疫 |\n| 3 | **男爵** | 2 | 比牌，低者出局 |\n| 2 | **神父** | 2 | 偷看手牌 |\n| 1 | **守卫** | 6 | 猜非守卫牌 |\n| 0 | **间谍** | 2 | 唯一仍在局的间谍 → +1 ★ |"
       },
       "options": [
         {
           "label": {
-            "en": "Guard / Priest / Baron",
-            "zh": "守卫 / 神父 / 男爵"
+            "en": "Spy / Guard / Priest",
+            "zh": "间谍 / 守卫 / 神父"
           },
           "next": "low-cards"
         },
         {
           "label": {
-            "en": "Handmaid / Prince / King",
-            "zh": "侍女 / 王子 / 国王"
+            "en": "Baron / Handmaid / Prince",
+            "zh": "男爵 / 侍女 / 王子"
           },
           "next": "mid-cards"
         },
         {
           "label": {
-            "en": "Countess / Princess",
-            "zh": "伯爵夫人 / 公主"
+            "en": "Chancellor → Princess",
+            "zh": "首相 → 公主"
           },
           "next": "high-cards"
         },
@@ -123,25 +123,25 @@
     },
     "low-cards": {
       "title": {
-        "en": "Guard · Priest · Baron",
-        "zh": "守卫 · 神父 · 男爵"
+        "en": "Spy · Guard · Priest",
+        "zh": "间谍 · 守卫 · 神父"
       },
       "content": {
-        "en": "### Guard (1) ×5\nChoose another player and name a character **other than Guard**. If they hold it, they are out.\n\n### Priest (2) ×2\nSecretly look at another player's hand.\n\n### Baron (3) ×2\nPrivately compare hands with another player. **Lower** rank is out. Tie → nothing happens. Do not show the cards to others.",
-        "zh": "### 守卫（1）×5\n指定另一名玩家，说出一种**除守卫外**的角色。若对方持有该牌，则出局。\n\n### 神父（2）×2\n秘密查看另一名玩家的手牌。\n\n### 男爵（3）×2\n与另一名玩家私下比牌。点数**较低**者出局；相同则无事。不要向其他人公开。"
+        "en": "### Spy (0) ×2\nAt round end, if you are the **only player still in the round** who played/discarded a Spy, gain **1 ★**. Two Spies still give only 1 favor.\n\n### Guard (1) ×6\nChoose another player and name a **non-Guard** card. If they hold it, they are out. If all others are Handmaid-protected, this does nothing.\n\n### Priest (2) ×2\nSecretly look at another player's hand. Do **not** reveal it to everyone.",
+        "zh": "### 间谍（0）×2\n本轮结束时，若你是**仍在局中唯一**打出/弃掉过间谍的玩家，获得 **1 ★**。两张间谍也只得 1 枚。\n\n### 守卫（1）×6\n指定另一名玩家，说出一张**非守卫**牌。若对方持有该牌则出局。若其余玩家都被侍女保护，则无效。\n\n### 神父（2）×2\n秘密查看另一名玩家手牌。**不要**向全体公开。"
       },
       "options": [
         {
           "label": {
-            "en": "Handmaid / Prince / King",
-            "zh": "侍女 / 王子 / 国王"
+            "en": "Baron / Handmaid / Prince",
+            "zh": "男爵 / 侍女 / 王子"
           },
           "next": "mid-cards"
         },
         {
           "label": {
-            "en": "Countess / Princess",
-            "zh": "伯爵夫人 / 公主"
+            "en": "Chancellor → Princess",
+            "zh": "首相 → 公主"
           },
           "next": "high-cards"
         },
@@ -163,25 +163,25 @@
     },
     "mid-cards": {
       "title": {
-        "en": "Handmaid · Prince · King",
-        "zh": "侍女 · 王子 · 国王"
+        "en": "Baron · Handmaid · Prince",
+        "zh": "男爵 · 侍女 · 王子"
       },
       "content": {
-        "en": "### Handmaid (4) ×2\nUntil your next turn, you cannot be targeted by other players' effects.\n\n### Prince (5) ×2\nChoose any player **including yourself**. They discard their hand (Princess discarded → out) and draw a new card. If the deck is empty, draw the set-aside card from setup.\n\n### King (6) ×1\nTrade hands with another player.\n\n> If you hold Countess + King/Prince, you **must** play the Countess.",
-        "zh": "### 侍女（4）×2\n直到你下一回合开始，其他玩家不能以你为目标。\n\n### 王子（5）×2\n指定任意玩家（**含自己**）。该玩家弃掉手牌（弃掉公主则出局）并抽一张新牌。若牌堆已空，则抽取开局移出的那张牌。\n\n### 国王（6）×1\n与另一名玩家交换手牌。\n\n> 若你同时持有伯爵夫人与国王/王子，**必须**打出伯爵夫人。"
+        "en": "### Baron (3) ×2\nSecretly compare hands with another player. **Lower** value is out. Tie → nothing. No legal target (all Handmaid) → nothing.\n\n### Handmaid (4) ×2\nUntil your next turn, other players cannot choose you for card effects.\n\n### Prince (5) ×2\nChoose any player **including yourself**. They discard their hand (Princess discarded → out; other cards' effects do not apply) and draw a new card. Empty deck → draw the setup set-aside card. If all others are Handmaid-protected, you must choose yourself.",
+        "zh": "### 男爵（3）×2\n与另一名玩家秘密比牌。点数**较低**者出局；相同则无事。无合法目标（皆侍女）则无效。\n\n### 侍女（4）×2\n直到你下一回合，其他玩家不能以你为目标。\n\n### 王子（5）×2\n指定任意玩家（**含自己**）。该玩家弃掉手牌（弃掉公主则出局；其他牌不结算效果）并重抽。牌堆空则抽开局移出的那张。若其余皆受侍女保护，必须指定自己。"
       },
       "options": [
         {
           "label": {
-            "en": "Countess / Princess",
-            "zh": "伯爵夫人 / 公主"
+            "en": "Chancellor → Princess",
+            "zh": "首相 → 公主"
           },
           "next": "high-cards"
         },
         {
           "label": {
-            "en": "Guard / Priest / Baron",
-            "zh": "守卫 / 神父 / 男爵"
+            "en": "Spy / Guard / Priest",
+            "zh": "间谍 / 守卫 / 神父"
           },
           "next": "low-cards"
         },
@@ -203,12 +203,12 @@
     },
     "high-cards": {
       "title": {
-        "en": "Countess · Princess",
-        "zh": "伯爵夫人 · 公主"
+        "en": "Chancellor · King · Countess · Princess",
+        "zh": "首相 · 国王 · 伯爵夫人 · 公主"
       },
       "content": {
-        "en": "### Countess (7) ×1\nNo effect when played. **Must** discard her if your other card is King or Prince. You may play her voluntarily anyway. Do not reveal your other card.\n\n### Princess (8) ×1\nIf you play or discard the Princess **for any reason**, you are immediately out of the round.\n\n**Tip:** Holding the Princess is strong for end-of-round reveal — but risky if forced to discard (e.g. Prince).",
-        "zh": "### 伯爵夫人（7）×1\n打出无效果。若另一张是国王或王子，则**必须**打出她；也可自愿打出。打出时不要展示另一张牌。\n\n### 公主（8）×1\n无论因何打出或弃掉公主，你立即出局。\n\n**提示：** 持有公主在亮牌结算时很强，但若被王子等强制弃牌则风险极高。"
+        "en": "### Chancellor (6) ×2\nDraw 2 cards (now hold 3). **Keep 1**, put the other **2 on the bottom** of the deck in any order.\n\n### King (7) ×1\nTrade hands with another player. Cannot target out / Handmaid-protected players.\n\n### Countess (8) ×1\nNo effect when played. **Must** play her if your other card is King or Prince. May play voluntarily. Do not reveal your other card.\n\n### Princess (9) ×1\nIf you play or discard the Princess **for any reason**, you are immediately out.\n\n**Tip:** Princess wins most end-of-round reveals — but is deadly if forced to discard.",
+        "zh": "### 首相（6）×2\n抽 2 张（手中共 3 张）。**保留 1 张**，将其余 **2 张按任意顺序放回牌堆底**。\n\n### 国王（7）×1\n与另一名玩家交换手牌。不能指定已出局或受侍女保护的玩家。\n\n### 伯爵夫人（8）×1\n打出无效果。若另一张是国王或王子，则**必须**打出她；也可自愿打出。不要展示另一张牌。\n\n### 公主（9）×1\n无论因何打出或弃掉公主，你立即出局。\n\n**提示：** 亮牌时公主通常最强，但被强制弃牌时风险极高。"
       },
       "options": [
         {
@@ -247,8 +247,8 @@
         "zh": "一轮结束与获胜"
       },
       "content": {
-        "en": "A round ends when:\n\n1. **Only one player remains** → that player wins the round; or\n2. **Deck is empty** after a turn → remaining players reveal hands. **Highest rank** wins. On a tie, highest **sum of discarded card ranks** wins.\n\nWinner takes **1 token of affection**. Reshuffle all 16 cards and set up a new round.\n\n### Win the Game\n\n| Players | Tokens needed |\n|:-------:|:-------------:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |",
-        "zh": "本轮结束条件：\n\n1. **只剩一人在局** → 该玩家赢得本轮；或\n2. **某回合后抽牌堆已空** → 在局玩家亮牌，**点数最高**者胜。并列则比本轮**弃牌点数总和**。\n\n胜者获得 **1 枚爱心标记**。重新洗匀 16 张牌，开始新一轮。\n\n### 整局胜利\n\n| 人数 | 所需爱心 |\n|:----:|:--------:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |"
+        "en": "A round ends when:\n\n1. **Deck is empty**, or\n2. **Only one player remains**.\n\nWinner: the player holding the **Princess**, otherwise the **highest-value** hand card → gains **1 ★**.\n\n**Tiebreak:** highest sum of discarded card values. If still tied → **nobody** gets a ★.\n\n**Spy:** After determining the round winner, if exactly one still-in player discarded Spy(s), that player gains 1 ★.\n\n### Win the Game\n\n| Players | ★ needed |\n|:-------:|:--------:|\n| 2 | 6 |\n| 3 | 5 |\n| 4 | 4 |\n| 5–6 | 3 |",
+        "zh": "本轮结束条件：\n\n1. **牌堆已空**，或\n2. **只剩一人在局**。\n\n胜者：持有**公主**者，否则手牌点数**最高**者 → 获得 **1 ★**。\n\n**平局：** 比本轮弃牌点数总和；仍并列则**无人**得 ★。\n\n**间谍：** 确定本轮胜者后，若仍在局玩家中恰好一人打出/弃过间谍，该玩家再得 1 ★。\n\n### 整局胜利\n\n| 人数 | 所需 ★ |\n|:----:|:------:|\n| 2 | 6 |\n| 3 | 5 |\n| 4 | 4 |\n| 5–6 | 3 |"
       },
       "options": [
         {

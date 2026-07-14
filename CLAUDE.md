@@ -33,8 +33,8 @@ content/games/
     meta.json             # GameMeta (name, players, duration, difficulty, tags, category, family info)
     en/rules.md           # English rules (markdown)
     zh/rules.md           # Chinese rules (markdown)
-    en/flow.json          # Optional interactive decision tree (FlowData)
-    zh/flow.json
+    flow.json             # Optional interactive decision tree (bilingual FlowData at game root)
+    score.json / trainer.json / calculator.json  # Optional feature configs
 ```
 
 - `scripts/generate-game-data.mjs` runs at build time (`prebuild`) to write `public/data/games-meta.json`, per-game `rules/*.json`, and `cover-manifest.json`

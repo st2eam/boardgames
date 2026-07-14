@@ -79,7 +79,7 @@ export default function RootLayout({
         {children}
         <script
           dangerouslySetInnerHTML={{
-            __html: `if("serviceWorker"in navigator){window.addEventListener("load",function(){var refreshing=false;navigator.serviceWorker.addEventListener("controllerchange",function(){if(refreshing)return;refreshing=true;location.reload()});navigator.serviceWorker.register("/boardgames/sw.js").then(function(reg){function check(){reg.update()}document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")check()});setInterval(check,36e5)})})}`,
+            __html: `if("serviceWorker"in navigator){window.addEventListener("load",function(){var hadController=!!navigator.serviceWorker.controller;var refreshing=false;navigator.serviceWorker.addEventListener("controllerchange",function(){if(!hadController){hadController=true;return}if(refreshing)return;refreshing=true;location.reload()});navigator.serviceWorker.register("/boardgames/sw.js").then(function(reg){function check(){reg.update()}document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")check()});setInterval(check,36e5)}).catch(function(){})})}`,
           }}
         />
       </body>

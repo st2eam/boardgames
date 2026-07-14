@@ -16,7 +16,7 @@ Make sure that the person closest to the princess holds your love letter at the 
 
 - **21 game cards** (see Full Game table below)
 - **Reference cards**
-- **Favor / affection tokens** (★) to track round wins
+- **Favor / affection tokens** (♥) to track round wins
 
 ## Setup
 
@@ -81,20 +81,20 @@ A round ends when:
 1. **No cards remain in the deck**, or
 2. **Only one player remains** in the round.
 
-The player holding the **Princess**, or otherwise the card with the **highest value**, earns **1 ★ token**.
+The player holding the **Princess**, or otherwise the card with the **highest value**, earns **1 ♥ token**.
 
 ### Tiebreak
 
 1. Sum of the value of each tied player's **discarded cards**.
-2. If a tie remains, **nobody** gets a ★ token.
+2. If a tie remains, **nobody** gets a ♥ token.
 
 > **Spy favor:** Resolve Spy favor separately after the round winner is determined (among players still in the round).
 
 ## Game End
 
-First player to reach the winning number of ★ tokens wins the game:
+First player to reach the winning number of ♥ tokens wins the game:
 
-| № Players | № ★ tokens |
+| № Players | № ♥ tokens |
 |:---------:|:----------:|
 | 2 | 6 |
 | 3 | 5 |

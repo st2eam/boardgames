@@ -2,12 +2,12 @@
 
 > [English version / 英文版](README-en.md)
 
-一个精心整理的现代桌游规则参考网站，覆盖 40 款游戏（含扩展/变体），支持中英双语、交互式决策树、训练器、LLM 对话查询，纯静态站点部署到 GitHub Pages。
+一个精心整理的现代桌游规则参考网站，覆盖 41 款游戏（含扩展/变体），支持中英双语、交互式决策树、训练器、LLM 对话查询，纯静态站点部署到 GitHub Pages。
 
 ## 功能特性
 
-- **40 款游戏规则**：经过网络验证的中英双语完整规则
-- **34 款交互式决策树**：分步交互流程，含侧边栏目录导航
+- **41 款游戏规则**：经过网络验证的中英双语完整规则
+- **35 款交互式决策树**：分步交互流程，含侧边栏目录导航
 - **6 款自动计分器**：5 种引擎（`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `category` / `feature-calc`），支持多人同屏计分，localStorage 持久化
 - **训练器**：麻将/日麻听牌训练器（4 级难度）、21 点基本策略训练、德州扑克 GTO 翻前训练器
 - **番符计算器**：日麻番数/符数/点数自动计算器，可视化选牌（14 张）→ 指定和牌 → 标记副露 → 系统自动拆解牌型、检测役种、计算符数与点数
@@ -73,6 +73,7 @@ npm run build
 | 炸弹克星 (Bomb Busters) | ✅ | ✅ | — |
 | 狗运当骰 (Spots) | ✅ | ✅ | — |
 | 情书 (Love Letter) | ✅ | ✅ | — |
+| 跋涉远足 (Tic Tac Trek) | ✅ | ✅ | — |
 
 ### 游戏系列
 
@@ -119,7 +120,7 @@ content/games/
 │   ├── calculator.json           # 可选：计算器配置（如日麻番符）
 │   ├── zh/rules.md               # 中文规则
 │   └── en/rules.md               # 英文规则
-└── ...（共 40 款游戏）
+└── ...（共 41 款游戏）
 
 public/data/
 ├── games-index.json              # 完整游戏数据（含规则，chat tool 用）
@@ -321,7 +322,7 @@ src/
 
 ## 关键技术决策
 
-1. **构建时同步读取文件** — `fs.readFileSync` 仅在 `next build` 时执行，40 款游戏绰绰有余
+1. **构建时同步读取文件** — `fs.readFileSync` 仅在 `next build` 时执行，41 款游戏绰绰有余
 2. **Chat 懒加载** — `openai` SDK + 整个 chat 栈通过 `dynamic()` 延迟到用户点击 FAB 时加载
 3. **MarkdownRenderer 为 Server Component** — `react-markdown` 不进入客户端包，规则页面零额外 JS
 4. **数据拆分** — `games-meta.json`（轻量索引）+ `rules/{slug}.json`（按需加载），chat 不再一次性加载全部规则

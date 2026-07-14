@@ -767,7 +767,27 @@
       "family"
     ],
     "category": "card",
-    "bggRank": 351,
+    "price": 28,
+    "bggRank": 369,
     "slug": "love-letter"
+  },
+  {
+    "name": {
+      "en": "Tic Tac Trek",
+      "zh": "跋涉远足"
+    },
+    "players": "2",
+    "duration": "15 min",
+    "difficulty": "easy",
+    "tags": [
+      "abstract",
+      "tile-placement",
+      "family",
+      "2-player"
+    ],
+    "category": "board",
+    "price": 29,
+    "bggRank": 5422,
+    "slug": "tic-tac-trek"
   }
 ]

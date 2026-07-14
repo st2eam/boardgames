@@ -1,0 +1,87 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Game Overview", "zh": "游戏概述" },
+      "content": {
+        "en": "**Tic Tac Trek** is a 2-player tile-laying twist on tic-tac-toe by Brett J. Gilbert & Trevor Benjamin (Alley Cat Games).\n\nDraw terrain tiles, place your **X** or **O**, complete trails of three, and camp beside empty wilderness. Score **1 point** for each empty space around your campfires.\n\n**Players:** 2 · **Time:** ~15 min · **Age:** 8+",
+        "zh": "**跋涉远足（Tic Tac Trek）** 是 Brett J. Gilbert 与 Trevor Benjamin 设计的双人铺砖「井字棋」变体（Alley Cat Games）。\n\n抽取地形砖，放置你的 **X** 或 **O**，完成三连徒步小径，在荒野边缘扎营。每枚营火周围的空位各得 **1 分**。\n\n**人数：** 2 · **时长：** 约 15 分钟 · **年龄：** 8+"
+      },
+      "options": [
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. Put all **26 tiles** in the bag and mix.\n2. Draw **2 tiles**. Place them orthogonally adjacent — one **X**, one **O** — as the starting play area.\n3. Each player takes a symbol (**X** or **O**) and **6 campfire tokens**.\n4. Choose a starting player.\n\n**Tiles:** Mountain ×6, Desert ×6, Grassland ×6, Forest ×6, Lake ×2 (wild).",
+        "zh": "1. 将全部 **26 张**砖放入布袋并混匀。\n2. 抽出 **2 张**，正交相邻摆放——一张 **X**、一张 **O**——作为起点。\n3. 每位玩家选择符号（**X** 或 **O**），并拿取 **6 枚**营火。\n4. 决定先手。\n\n**地形：** 山脉×6、沙漠×6、草原×6、森林×6、湖泊×2（百搭）。"
+      },
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Placement Rules", "zh": "放置规则" }, "next": "placement" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "On Your Turn", "zh": "你的回合" },
+      "content": {
+        "en": "1. **Draw** 1 tile from the bag.\n2. Show **your symbol** face up.\n3. **Place** it following placement rules.\n4. If you completed a **trek**, place a campfire on the tile you just played.\n\nTurns alternate until the bag is empty.",
+        "zh": "1. 从袋中**抽 1 张**砖。\n2. 将**你的符号**朝上。\n3. 按放置规则**放入**场地。\n4. 若完成**徒步小径**，在刚放下的砖上放营火。\n\n双方轮流行动，直到袋空。"
+      },
+      "options": [
+        { "label": { "en": "Placement Rules", "zh": "放置规则" }, "next": "placement" },
+        { "label": { "en": "Treks & Campfires", "zh": "小径与营火" }, "next": "trek" },
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+      ]
+    },
+    "placement": {
+      "title": { "en": "Placement Rules", "zh": "放置规则" },
+      "content": {
+        "en": "- Place **orthogonally adjacent** to at least one existing tile.\n- If possible, touch a **matching terrain** (or a **Lake** — lakes match any terrain).\n- **Lake tiles** may sit next to any terrain.\n- If **no matching placement** exists, place adjacent to any tile.",
+        "zh": "- 必须与至少一张已有砖**正交相邻**。\n- 若可能，必须贴到**相同地形**（或**湖泊**——湖泊可匹配任意地形）。\n- **湖泊砖**可与任意地形相邻。\n- 若**没有合法匹配位置**，则可与任意已有砖相邻放置。"
+      },
+      "options": [
+        { "label": { "en": "Treks & Campfires", "zh": "小径与营火" }, "next": "trek" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "trek": {
+      "title": { "en": "Treks & Campfires", "zh": "小径与营火" },
+      "content": {
+        "en": "A **trek** is three of **your symbols** in a line (horizontal, vertical, or diagonal). Terrain does **not** need to match.\n\nWhen the tile you just placed completes a trek:\n- Place **one** campfire on that tile.\n- Campfire tiles cannot join future treks.\n- Completing two treks at once still places only **one** campfire.\n- If all **6** campfires are already out, **move** one onto the new tile.",
+        "zh": "**徒步小径**指你的符号形成横向、纵向或斜向的**三连**。地形不必相同。\n\n刚放下的砖完成小径时：\n- 在该砖上放 **1 枚**营火。\n- 有营火的砖不能再参与之后的三连。\n- 一次完成两条小径仍只放 **1 枚**营火。\n- 若 **6 枚**营火都已在场，则将其中一枚**挪到**新砖上。"
+      },
+      "options": [
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "scoring": {
+      "title": { "en": "End & Scoring", "zh": "结束与计分" },
+      "content": {
+        "en": "When the **last tile** is placed, score each campfire:\n\n- Check its **8** neighboring spaces (including diagonals).\n- **+1 point** for each **empty** space (no tile).\n- Max **8** points per campfire.\n\nHighest total wins.\n\n**Ties:** most campfires wins → if still tied, the player who took the **final turn** loses.",
+        "zh": "袋中**最后一张砖**放下后，为每枚营火计分：\n\n- 查看周围 **8** 个方位（含斜向）。\n- 每个**空位**（无砖）得 **1 分**。\n- 单枚营火最多 **8 分**。\n\n总分更高者胜。\n\n**平局：** 营火更多者胜 → 仍平则**走最后一手**的玩家负。"
+      },
+      "options": [
+        { "label": { "en": "Strategy Tips", "zh": "策略提示" }, "next": "tips" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "tips": {
+      "title": { "en": "Strategy Tips", "zh": "策略提示" },
+      "content": {
+        "en": "- Campfires on the **edge of the map** score more than those boxed in.\n- Completing a trek is good — but placing it where wilderness remains open is better.\n- Block opponent lines when you can; force them into dense clusters.\n- Lake tiles are flexible — save them mentally for awkward draws.",
+        "zh": "- 地图**边缘**的营火通常比被砖包围的得分更高。\n- 完成小径很好——但让营火周围保持开阔更好。\n- 尽量阻断对手连线，把他们挤进密集区域。\n- 湖泊砖很灵活——遇到难放的砖时特别有用。"
+      },
+      "options": [
+        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    }
+  }
+}

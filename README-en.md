@@ -2,12 +2,12 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — 40 games (including expansions/variants), interactive decision trees, trainers, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — 41 games (including expansions/variants), interactive decision trees, trainers, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **40 game rules**: web-verified, complete bilingual rules (EN/ZH)
-- **34 interactive decision trees**: step-by-step flow with sidebar outline navigation
+- **41 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **35 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **6 automatic score trackers**: 5 types (`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `category` / `feature-calc`), localStorage persistence
 - **Trainers**: Mahjong/Riichi tenpai trainer (4 difficulty levels), Blackjack basic strategy trainer, Texas Hold'em GTO preflop trainer
 - **Score Calculator**: Riichi Mahjong han/fu/points auto calculator — visual tile picker (14 tiles) → mark winning tile → mark open melds → auto hand decomposition, yaku detection, fu & points calculation
@@ -73,6 +73,7 @@ npm run build
 | Bomb Busters | ✅ | ✅ | — |
 | Spots | ✅ | ✅ | — |
 | Love Letter | ✅ | ✅ | — |
+| Tic Tac Trek | ✅ | ✅ | — |
 
 ### Series
 
@@ -117,7 +118,7 @@ content/games/
 │   ├── score.json                # Optional: score tracker config
 │   ├── zh/rules.md               # Chinese rules
 │   └── en/rules.md               # English rules
-└── ... (40 games total)
+└── ... (41 games total)
 
 public/data/
 ├── games-index.json              # Full game data (with rules, for chat tools)
@@ -299,7 +300,7 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 
 ## Key Decisions
 
-1. **Build-time file reads** — `fs.readFileSync` runs only during `next build`; 40 games is trivially fast
+1. **Build-time file reads** — `fs.readFileSync` runs only during `next build`; 41 games is trivially fast
 2. **`dangerouslyAllowBrowser: true`** — API key is user-provided, no server; explicitly enable browser-side calls
 3. **Tool call limit** — Max 5 iterations to prevent infinite loops
 4. **No middleware** — next-intl middleware incompatible with `output: 'export'`

@@ -10,7 +10,7 @@ During the game, you hold one secret card in your hand. This is who currently ca
 
 Make sure that the person closest to the princess holds your love letter at the end of the day, so it reaches her first!
 
-> This page covers the **Full Game** edition (**Princess = 9**), for **2–6 players**. Classic (Princess = 8) and discontinued 5–8 player cards are listed at the end for reference.
+> This page covers the **Full Game** edition (**Princess = 9**), for **2–6 players**.
 
 ## Components (Full Game)
 
@@ -100,41 +100,3 @@ First player to reach the winning number of ★ tokens wins the game:
 | 3 | 5 |
 | 4 | 4 |
 | 5–6 | 3 |
-
----
-
-## Appendix A — Classic Cards (2–4 Players, Princess = 8)
-
-Older Classic edition uses **16 cards**. Princess is value **8**. There is no Chancellor or Spy.
-
-| Value | № | Name | Simplified effect | Full effect |
-|:-----:|:-:|------|-------------------|-------------|
-| 8 | 1 | **Princess Annette** | Discard = out! | If you discard the Princess — no matter how or why — she has tossed your letter into the fire. You are knocked out of the round. |
-| 7 | 1 | **Countess Wilhelmina** | Must discard with King or Prince in hand | Unlike other cards which take effect when discarded, the text on the Countess applies while she is in your hand. In fact, she has no effect when you discard her. If you ever have the Countess and either the King or Prince in your hand, you must discard the Countess. You do not have to reveal the other card in your hand. Of course, you can also discard the Countess even if you do not have a royal family member in your hand. She likes to play mind games. |
-| 6 | 1 | **King Arnaud IV** | Swap hands | When you discard King Arnaud IV, trade the card in your hand with the card held by another player of your choice. You cannot trade with a player who is out of the round, nor with someone protected by the Handmaid. If all other players still in the round are protected by the Handmaid, this card does nothing. |
-| 5 | 2 | **Prince Arnaud** | A player must discard | When you discard Prince Arnaud, choose one player still in the round (including yourself). That player discards their hand (do not apply its effect, unless it's Princess Annette) and draws a new card. If the deck is empty, that player draws the card that was removed at the start of the round. If all other players are protected by the Handmaid, you must choose yourself. |
-| 4 | 2 | **Handmaid Susannah** | May not be targeted | When you discard the Handmaid, you are immune to the effects of other players' cards until the start of your next turn. |
-| 3 | 2 | **Baron Talus** | Compare → lower = out | When discarded, choose one other player still in the round. You and that player secretly compare your hands. The player with the lower rank is knocked out of the round. In case of a tie, nothing happens. If all other players still in the round are protected by the Handmaid, this card does nothing. |
-| 2 | 2 | **Priest Tomas** | Look at one | When you discard the Priest, you can look at one other player's hand. DO NOT reveal the hand to all players. |
-| 1 | 5 | **Guard Odette** | Guess value → out | When you discard the Guard, choose a player and name a card value (other than 1). If that player has a card with that value, that player is knocked out of the round. If all other players still in the round are protected by the Handmaid, this card does nothing. If your opponent holds an Assassin, you're out (even if you guess correctly!) |
-
-Classic win targets commonly used: 2 players → 7 ★, 3 → 5 ★, 4 → 4 ★.
-
----
-
-## Appendix B — Discontinued Additional Cards (5–8 Players)
-
-These cards were used in older larger-player / discontinued mixes. They are **not** part of the Full Game (Princess = 9) deck.
-
-| Value | № | Name | Simplified effect | Full effect |
-|:-----:|:-:|------|-------------------|-------------|
-| 9 | 1 | **Bishop Vinizio** | Guess value → +1★ | Similar to a Guard, name a number other than 1 and choose another player. If they have that number card in their hand, gain 1 ★. If the guess is correct, the targeted player can choose whether to keep or discard the card. Despite his impressive 9, the Bishop always loses to the Princess at the end of the round. |
-| 7 | 1 | **Dowager Queen Tummia** | Compare → higher = out | Acts as a Baron, but the highest card is eliminated instead of the lowest. |
-| 6 | 1 | **Constable Viktor** | Out → +1★ | If this card is in your discard pile then this gives you 1 ★ if you are knocked out of the round. |
-| 5 | 2 | **Count Guntram** | +1 value @ round end | Add +1 to your card value at the end of the round. |
-| 4 | 2 | **Sycophant Morris** | Choose target | Lets you decide who will be the target of the next card played. |
-| 3 | 2 | **Baroness Fiona** | Look at two | Allows you to see TWO hands. |
-| 2 | 2 | **Cardinal Vesper** | Swap two hands + look at one | Exchanges the hands of 2 players. You may see one of the hands. |
-| 1 | +3 | **Guard Odette** | Guess value → out | Same as Guard: choose a player and name a card value other than 1; correct guess knocks them out. Does nothing if all other players are protected by the Handmaid. |
-| 0 | 1 | **Jester Darius** | Guess winner → +1★ | Allows you to guess who will win the round and score 1 ★ if this is the case. |
-| 0 | 1 | **Assassin** | Guard = out | Kills your opponent if they use a Guard against you. |

@@ -120,6 +120,7 @@ export function ChatDialog({ title }: Props) {
   const locale = useLocale();
   const [showApiModal, setShowApiModal] = useState(false);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (apiKeyLoaded && !apiKey) {
@@ -146,12 +147,51 @@ export function ChatDialog({ title }: Props) {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [close]);
 
+  // Focus trap for accessibility
+  useEffect(() => {
+    const root = dialogRef.current;
+    if (!root) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+
+    const focusables = () =>
+      Array.from(
+        root.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => !el.hasAttribute("disabled") && el.tabIndex !== -1);
+
+    const initial = focusables()[0];
+    initial?.focus();
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key !== "Tab") return;
+      const items = focusables();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    root.addEventListener("keydown", onKeyDown);
+    return () => {
+      root.removeEventListener("keydown", onKeyDown);
+      previouslyFocused?.focus?.();
+    };
+  }, []);
+
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label={headerTitle}
-      className="flex h-[520px] flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-white shadow-2xl shadow-stone-400/15"
+      className="flex h-dvh flex-col overflow-hidden border-0 bg-white shadow-none sm:h-[min(520px,calc(100dvh-7rem))] sm:rounded-2xl sm:border sm:border-stone-200/80 sm:shadow-2xl sm:shadow-stone-400/15"
     >
       {/* Header */}
       <div className="flex shrink-0 items-center justify-between border-b border-stone-100 bg-gradient-to-b from-stone-50/80 to-white px-4 py-3.5">

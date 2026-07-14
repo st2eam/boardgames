@@ -3,12 +3,23 @@ import remarkGfm from "remark-gfm";
 import { remarkMahjongTiles } from "@/lib/remark-mahjong-tiles";
 import { parseShortcode } from "@/lib/mahjong/shortcode";
 import { InlineTile } from "./trainer/InlineTile";
+import { extractToc } from "@/lib/markdown-toc";
 
 interface Props {
   content: string;
 }
 
 export function MarkdownRenderer({ content }: Props) {
+  const toc = extractToc(content);
+  const idQueue = toc.map((item) => item.id);
+  let headingIndex = 0;
+
+  const nextHeadingId = () => {
+    const id = idQueue[headingIndex] ?? `section-${headingIndex + 1}`;
+    headingIndex += 1;
+    return id;
+  };
+
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm, remarkMahjongTiles]}
@@ -18,16 +29,28 @@ export function MarkdownRenderer({ content }: Props) {
             {children}
           </h1>
         ),
-        h2: ({ children }) => (
-          <h2 className="mb-3 mt-6 text-xl font-semibold text-primary-dark">
-            {children}
-          </h2>
-        ),
-        h3: ({ children }) => (
-          <h3 className="mb-2 mt-4 text-lg font-semibold text-stone-800">
-            {children}
-          </h3>
-        ),
+        h2: ({ children }) => {
+          const id = nextHeadingId();
+          return (
+            <h2
+              id={id}
+              className="mb-3 mt-6 scroll-mt-24 text-xl font-semibold text-primary-dark"
+            >
+              {children}
+            </h2>
+          );
+        },
+        h3: ({ children }) => {
+          const id = nextHeadingId();
+          return (
+            <h3
+              id={id}
+              className="mb-2 mt-4 scroll-mt-24 text-lg font-semibold text-stone-800"
+            >
+              {children}
+            </h3>
+          );
+        },
         p: ({ children }) => (
           <p className="mb-3 leading-relaxed text-stone-700">{children}</p>
         ),

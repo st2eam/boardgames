@@ -6,6 +6,9 @@
     "search": "搜索游戏...",
     "filterByTags": "按标签筛选",
     "noGamesFound": "未找到游戏",
+    "noGamesFoundHint": "试试放宽筛选条件，或清除全部筛选。",
+    "clearFilters": "清除全部筛选",
+    "recentlyViewed": "最近看过",
     "series": "系列",
     "playerCount": "游玩人数",
     "anyPlayerCount": "不限",
@@ -36,7 +39,8 @@
     "tsumegoTrainer": "训练",
     "openTsumegoTrainer": "训练",
     "scoreCalculator": "番符计算器",
-    "openCalculator": "番符计算器"
+    "openCalculator": "番符计算器",
+    "toc": "目录"
   },
   "chat": {
     "title": "规则助手",

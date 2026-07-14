@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { GameSummary } from "@/types/game";
 import { useTranslations, useLocale } from "next-intl";
 import { GameCard } from "./GameCard";
@@ -9,6 +10,7 @@ import { Sidebar } from "./Sidebar";
 import { PlayerCountSlider } from "./PlayerCountSlider";
 import { SearchableSelect } from "./SearchableSelect";
 import { SearchBox } from "./SearchBox";
+import { RecentGames } from "./RecentGames";
 import { motion, AnimatePresence } from "motion/react";
 
 interface Props {
@@ -20,6 +22,11 @@ type GridItem =
   | { type: "family"; key: string; games: GameSummary[] };
 
 export type SortMode = "english" | "chinese" | "bggRank";
+
+function parseSortMode(value: string | null): SortMode {
+  if (value === "chinese" || value === "bggRank" || value === "english") return value;
+  return "english";
+}
 
 function deriveFamilyTags(
   games: GameSummary[],
@@ -51,12 +58,79 @@ export function GameCardGrid({ games }: Props) {
   const t = useTranslations("home");
   const tc = useTranslations("common");
   const locale = useLocale();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedPlayerCount, setSelectedPlayerCount] = useState<number | null>(null);
-  const [sortMode, setSortMode] = useState<SortMode>("english");
-  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const skipUrlSync = useRef(true);
+
+  const [searchQuery, setSearchQuery] = useState(() => searchParams.get("q") ?? "");
+  const [selectedTags, setSelectedTags] = useState<Set<string>>(() => {
+    const raw = searchParams.get("tag");
+    return raw ? new Set(raw.split(",").filter(Boolean)) : new Set();
+  });
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
+    () => searchParams.get("cat")
+  );
+  const [selectedPlayerCount, setSelectedPlayerCount] = useState<number | null>(() => {
+    const raw = searchParams.get("players");
+    if (!raw) return null;
+    const n = parseInt(raw, 10);
+    return Number.isFinite(n) ? n : null;
+  });
+  const [sortMode, setSortMode] = useState<SortMode>(() =>
+    parseSortMode(searchParams.get("sort"))
+  );
+  const [sortDir, setSortDir] = useState<"asc" | "desc">(() =>
+    searchParams.get("dir") === "desc" ? "desc" : "asc"
+  );
+
+  // Sync filters → URL (shareable / refresh-safe)
+  useEffect(() => {
+    if (skipUrlSync.current) {
+      skipUrlSync.current = false;
+      return;
+    }
+    const params = new URLSearchParams();
+    if (searchQuery.trim()) params.set("q", searchQuery.trim());
+    if (selectedCategory) params.set("cat", selectedCategory);
+    if (selectedTags.size > 0) {
+      params.set("tag", Array.from(selectedTags).join(","));
+    }
+    if (selectedPlayerCount !== null) {
+      params.set("players", String(selectedPlayerCount));
+    }
+    if (sortMode !== "english") params.set("sort", sortMode);
+    if (sortDir !== "asc") params.set("dir", sortDir);
+
+    const qs = params.toString();
+    const next = qs ? `${pathname}?${qs}` : pathname;
+    const current = `${pathname}${window.location.search}`;
+    if (next !== current) {
+      router.replace(next, { scroll: false });
+    }
+  }, [
+    searchQuery,
+    selectedCategory,
+    selectedTags,
+    selectedPlayerCount,
+    sortMode,
+    sortDir,
+    pathname,
+    router,
+  ]);
+
+  const clearFilters = useCallback(() => {
+    setSearchQuery("");
+    setSelectedCategory(null);
+    setSelectedTags(new Set());
+    setSelectedPlayerCount(null);
+  }, []);
+
+  const hasActiveFilters =
+    Boolean(searchQuery.trim()) ||
+    selectedCategory !== null ||
+    selectedTags.size > 0 ||
+    selectedPlayerCount !== null;
 
   const { enriched, familyTagSet } = useMemo(
     () => deriveFamilyTags(games, locale),
@@ -407,6 +481,8 @@ export function GameCardGrid({ games }: Props) {
 
       {/* Grid */}
       <div className="min-w-0 flex-1">
+        {!hasActiveFilters && <RecentGames games={games} />}
+
         {gridItems.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 grid-flow-dense">
             <AnimatePresence mode="popLayout">
@@ -447,20 +523,49 @@ export function GameCardGrid({ games }: Props) {
             </AnimatePresence>
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-2 py-20 text-center">
-            <p className="text-lg font-medium text-stone-400">
-              {t("noGamesFound")}
-            </p>
+          <div className="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-border bg-white/60 px-6 py-16 text-center">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-50 text-accent">
+              <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-lg font-semibold text-stone-600">
+                {t("noGamesFound")}
+              </p>
+              <p className="mt-1 text-sm text-stone-400">
+                {t("noGamesFoundHint")}
+              </p>
+            </div>
+            {hasActiveFilters && (
+              <div className="flex flex-wrap justify-center gap-2 text-xs text-stone-500">
+                {searchQuery.trim() && (
+                  <span className="rounded-full bg-stone-100 px-2.5 py-1">
+                    “{searchQuery.trim()}”
+                  </span>
+                )}
+                {selectedCategory && (
+                  <span className="rounded-full bg-stone-100 px-2.5 py-1 capitalize">
+                    {selectedCategory}
+                  </span>
+                )}
+                {selectedPlayerCount !== null && (
+                  <span className="rounded-full bg-stone-100 px-2.5 py-1">
+                    {selectedPlayerCount}P
+                  </span>
+                )}
+                {Array.from(selectedTags).map((tag) => (
+                  <span key={tag} className="rounded-full bg-stone-100 px-2.5 py-1">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
             <button
-              onClick={() => {
-                setSearchQuery("");
-                setSelectedCategory(null);
-                setSelectedTags(new Set());
-                setSelectedPlayerCount(null);
-              }}
-              className="cursor-pointer text-sm text-accent hover:text-accent/80 transition-colors"
+              onClick={clearFilters}
+              className="cursor-pointer rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-accent/90"
             >
-              {tc("clear")}
+              {t("clearFilters")}
             </button>
           </div>
         )}

@@ -6,6 +6,9 @@
     "search": "Search games...",
     "filterByTags": "Filter by tags",
     "noGamesFound": "No games found",
+    "noGamesFoundHint": "Try loosening filters, or clear them all.",
+    "clearFilters": "Clear all filters",
+    "recentlyViewed": "Recently viewed",
     "series": "Series",
     "playerCount": "Players",
     "anyPlayerCount": "Any",
@@ -36,7 +39,8 @@
     "tsumegoTrainer": "Trainer",
     "openTsumegoTrainer": "Trainer",
     "scoreCalculator": "Score Calculator",
-    "openCalculator": "Score Calculator"
+    "openCalculator": "Score Calculator",
+    "toc": "Contents"
   },
   "chat": {
     "title": "Rules Assistant",

@@ -12,8 +12,10 @@ interface Props {
 
 export function ChatIsland({ scope, locale, onClose }: Props) {
   return (
-    <ChatProvider scope={scope} locale={locale} onClose={onClose}>
-      <ChatDialog />
-    </ChatProvider>
+    <div className="flex h-full min-h-0 flex-col">
+      <ChatProvider scope={scope} locale={locale} onClose={onClose}>
+        <ChatDialog />
+      </ChatProvider>
+    </div>
   );
 }

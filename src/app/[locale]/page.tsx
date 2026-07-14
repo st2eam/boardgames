@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { GameFactory } from "@/lib/content/GameFactory";
 import { GameRepository } from "@/lib/content/GameRepository";
 import { GameCardGrid } from "@/components/home/GameCardGrid";
@@ -41,7 +42,13 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-        <GameCardGrid games={games} />
+        <Suspense
+          fallback={
+            <div className="py-20 text-center text-sm text-stone-400">Loading…</div>
+          }
+        >
+          <GameCardGrid games={games} />
+        </Suspense>
       </div>
       <ChatToggle scope={{ type: "global" }} locale={locale} />
     </>

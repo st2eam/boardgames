@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "motion/react";
 import type { ChatScope } from "@/lib/chat/types";
+import { setChatOpen } from "@/lib/floating-ui";
 
 const LazyChatIsland = dynamic(
   () => import("./ChatIsland").then((m) => ({ default: m.ChatIsland })),
@@ -24,45 +25,60 @@ export function ChatToggle({ scope, locale }: Props) {
     return () => clearTimeout(t);
   }, []);
 
+  useEffect(() => {
+    setChatOpen(isOpen);
+    if (isOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+        setChatOpen(false);
+      };
+    }
+    return () => setChatOpen(false);
+  }, [isOpen]);
+
   return (
     <>
-      {/* Backdrop overlay */}
+      {/* Backdrop — desktop only; mobile uses full-screen sheet */}
       <div
-        className={`fixed inset-0 z-40 bg-stone-900/10 backdrop-blur-sm transition-all duration-300 ${
+        className={`fixed inset-0 z-40 bg-stone-900/10 backdrop-blur-sm transition-all duration-300 max-sm:hidden ${
           isOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         aria-hidden="true"
         onClick={() => setIsOpen(false)}
       />
 
-      {/* Chat island - lazy loaded on first open */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 12 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 12 }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12 }}
             transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-[88px] right-4 z-50 w-[calc(100vw-2rem)] max-w-[400px] origin-bottom-right"
+            className="fixed inset-0 z-50 flex flex-col sm:inset-auto sm:bottom-[88px] sm:right-4 sm:h-auto sm:w-[calc(100vw-2rem)] sm:max-w-[400px] sm:origin-bottom-right"
           >
-            <LazyChatIsland scope={scope} locale={locale} onClose={() => setIsOpen(false)} />
+            <LazyChatIsland
+              scope={scope}
+              locale={locale}
+              onClose={() => setIsOpen(false)}
+            />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Floating button - always rendered, no heavy deps */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`fixed bottom-4 right-4 z-50 flex items-center justify-center rounded-2xl shadow-lg transition-all duration-300 motion-reduce:transition-none cursor-pointer ${
           isOpen
-            ? "h-12 w-12 rotate-90 bg-stone-700 text-white shadow-stone-400/20 hover:bg-stone-800"
+            ? "hidden h-12 w-12 rotate-90 bg-stone-700 text-white shadow-stone-400/20 hover:bg-stone-800 sm:flex"
             : `h-14 w-14 bg-accent text-white shadow-accent/25 hover:shadow-accent/40 hover:-translate-y-0.5 hover:scale-105 active:scale-95 ${
                 mounted ? "scale-100 opacity-100" : "scale-75 opacity-0"
               }`
         }`}
         aria-label={isOpen ? "Close chat" : "Open chat"}
+        aria-expanded={isOpen}
       >
-        {/* Close icon */}
         <svg
           className={`absolute h-5 w-5 transition-all duration-300 motion-reduce:transition-none ${
             isOpen ? "scale-100 rotate-0 opacity-100" : "scale-75 -rotate-90 opacity-0"
@@ -78,7 +94,6 @@ export function ChatToggle({ scope, locale }: Props) {
           <path d="m6 6 12 12" />
         </svg>
 
-        {/* Chat icon */}
         <svg
           className={`absolute h-[22px] w-[22px] transition-all duration-300 motion-reduce:transition-none ${
             isOpen ? "scale-75 rotate-90 opacity-0" : "scale-100 rotate-0 opacity-100"

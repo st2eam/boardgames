@@ -30,41 +30,84 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+function isNavigation(request, url) {
+  return (
+    request.mode === "navigate" ||
+    url.pathname.endsWith(".html") ||
+    url.pathname.endsWith("/")
+  );
+}
+
+function isMutableData(url) {
+  // Game JSON / manifests must refresh after deploy
+  return url.pathname.includes("/data/");
+}
+
+function isImmutableAsset(url) {
+  // Content-hashed Next bundles + static media
+  return (
+    url.pathname.includes("/_next/static/") ||
+    /\.(png|jpe?g|webp|svg|ico|woff2?|css)$/i.test(url.pathname)
+  );
+}
+
+function networkFirst(request) {
+  return fetch(request)
+    .then((response) => {
+      if (response && response.status === 200) {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+      }
+      return response;
+    })
+    .catch(() =>
+      caches.match(request).then(
+        (cached) =>
+          cached ||
+          (request.mode === "navigate"
+            ? caches.match("/boardgames/") ||
+              new Response("Offline", { status: 503 })
+            : new Response("Offline", { status: 503 }))
+      )
+    );
+}
+
+function cacheFirst(request) {
+  return caches.match(request).then((cached) => {
+    if (cached) return cached;
+    return fetch(request).then((response) => {
+      if (response && response.status === 200) {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+      }
+      return response;
+    });
+  });
+}
+
 self.addEventListener("fetch", (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip non-GET requests
   if (request.method !== "GET") return;
-
-  // Skip external requests (e.g., DeepSeek API for AI chat)
   if (url.origin !== self.location.origin) return;
-
-  // Skip chrome-extension and other non-http schemes
   if (!url.protocol.startsWith("http")) return;
 
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      if (cached) return cached;
+  // Never cache the SW script itself
+  if (url.pathname.endsWith("/sw.js")) return;
 
-      return fetch(request)
-        .then((response) => {
-          // Don't cache error responses
-          if (!response || response.status !== 200) return response;
+  // HTML + game data: always try network first so deploys show up
+  if (isNavigation(request, url) || isMutableData(url)) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
 
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(request, clone);
-          });
-          return response;
-        })
-        .catch(() => {
-          // Offline fallback for navigation requests
-          if (request.mode === "navigate") {
-            return caches.match("/boardgames/") || new Response("Offline", { status: 503 });
-          }
-          return new Response("Offline", { status: 503 });
-        });
-    })
-  );
+  // Hashed bundles / images: cache-first for speed & offline
+  if (isImmutableAsset(url) || url.pathname.endsWith(".js")) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
+  // Default: network-first
+  event.respondWith(networkFirst(request));
 });

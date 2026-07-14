@@ -85,7 +85,7 @@ If you don't know the house rule they're asking about, don't make it up — say 
 export class GlobalChatStrategy implements ChatToolStrategy {
   async getSystemPrompt(locale: string): Promise<string> {
     try {
-      const resp = await fetch("/boardgames/data/games-meta.json");
+      const resp = await fetch("/boardgames/data/games-meta.json", { cache: "no-store" });
       const games = await resp.json();
       return buildPrompt(locale, games);
     } catch {

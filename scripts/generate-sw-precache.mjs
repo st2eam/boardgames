@@ -1,35 +1,15 @@
 /**
- * Post-build script: scans the static export (out/) and injects a precache
- * manifest into sw.js so the Service Worker can cache all assets on install.
+ * Post-build script: injects a lean precache manifest + content hash into sw.js.
+ * Full site is NOT precached — HTML/JSON use network-first at runtime.
+ * Precache only the app shell so offline still has a landing page.
  */
-import { readdirSync, statSync, readFileSync, writeFileSync } from "fs";
+import { readdirSync, statSync, readFileSync, writeFileSync, existsSync } from "fs";
 import { join, relative } from "path";
 import { createHash } from "crypto";
 
 const OUT_DIR = join(import.meta.dirname, "../out");
 const SW_PATH = join(OUT_DIR, "sw.js");
 const BASE_PATH = "/boardgames";
-
-const INCLUDE_EXTENSIONS = new Set([
-  ".html",
-  ".js",
-  ".css",
-  ".json",
-  ".png",
-  ".jpg",
-  ".jpeg",
-  ".webp",
-  ".svg",
-  ".ico",
-  ".woff",
-  ".woff2",
-]);
-
-const EXCLUDE_PATTERNS = [
-  /\/__next\./,
-  /\.txt$/,
-  /\.map$/,
-];
 
 function walk(dir) {
   const results = [];
@@ -45,34 +25,51 @@ function walk(dir) {
   return results;
 }
 
-function shouldInclude(filePath) {
-  const ext = filePath.slice(filePath.lastIndexOf("."));
-  if (!INCLUDE_EXTENSIONS.has(ext)) return false;
-  const rel = relative(OUT_DIR, filePath);
-  return !EXCLUDE_PATTERNS.some((p) => p.test(rel));
+function toUrl(filePath) {
+  const rel = relative(OUT_DIR, filePath).replace(/\\/g, "/");
+  return `${BASE_PATH}/${rel}`;
 }
 
-const allFiles = walk(OUT_DIR).filter(shouldInclude);
+const allFiles = existsSync(OUT_DIR) ? walk(OUT_DIR) : [];
 
-const urls = allFiles.map((f) => {
-  const rel = relative(OUT_DIR, f).replace(/\\/g, "/");
-  return `${BASE_PATH}/${rel}`;
-});
-
-// Add root URL
-urls.unshift(`${BASE_PATH}/`);
-
-// Deduplicate
-const uniqueUrls = [...new Set(urls)];
-
-// Generate a version hash based on all file contents
+// Version must reflect ANY content change (rules, HTML, data, assets)
 const hash = createHash("md5");
-for (const f of allFiles.slice(0, 50)) {
+for (const f of allFiles.sort()) {
+  hash.update(relative(OUT_DIR, f));
   hash.update(readFileSync(f));
 }
 const version = hash.digest("hex").slice(0, 8);
 
-// Read sw.js template and inject manifest
+// Lean app-shell precache for offline fallback (not the whole site)
+const shellCandidates = [
+  `${BASE_PATH}/`,
+  `${BASE_PATH}/en/`,
+  `${BASE_PATH}/zh/`,
+  `${BASE_PATH}/manifest.json`,
+  `${BASE_PATH}/icons/icon-192.png`,
+  `${BASE_PATH}/icons/icon-512.png`,
+  `${BASE_PATH}/data/cover-manifest.json`,
+  `${BASE_PATH}/data/games-meta.json`,
+];
+
+const existingUrls = new Set(allFiles.map(toUrl));
+existingUrls.add(`${BASE_PATH}/`);
+
+const precacheUrls = shellCandidates.filter((url) => {
+  if (url === `${BASE_PATH}/`) return true;
+  const rel = url.slice(BASE_PATH.length + 1);
+  // trailingSlash HTML lives as directory/index.html in export
+  if (url.endsWith("/")) {
+    return (
+      existsSync(join(OUT_DIR, rel, "index.html")) ||
+      existsSync(join(OUT_DIR, rel.replace(/\/$/, "") + ".html"))
+    );
+  }
+  return existingUrls.has(url) || existsSync(join(OUT_DIR, rel));
+});
+
+const uniqueUrls = [...new Set(precacheUrls)];
+
 let swContent = readFileSync(SW_PATH, "utf-8");
 
 swContent = swContent.replace(

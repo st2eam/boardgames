@@ -8,14 +8,14 @@ export async function executeToolCall(
       const locale = (args.locale as string) || "en";
       try {
         // First get game metadata
-        const metaResp = await fetch("/boardgames/data/games-meta.json");
+        const metaResp = await fetch("/boardgames/data/games-meta.json", { cache: "no-store" });
         const games = await metaResp.json();
         const game = games.find((g: { slug: string }) => g.slug === slug);
         if (!game) {
           return `Game not found: ${slug}. Available games: ${games.map((g: { slug: string }) => g.slug).join(", ")}`;
         }
         // Load rules from per-game file
-        const rulesResp = await fetch(`/boardgames/data/rules/${slug}.json`);
+        const rulesResp = await fetch(`/boardgames/data/rules/${slug}.json`, { cache: "no-store" });
         if (!rulesResp.ok) {
           return `No rules available for ${game.name[locale] ?? game.name.en}.`;
         }

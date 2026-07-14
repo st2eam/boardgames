@@ -18,7 +18,7 @@ let fetchPromise: Promise<Record<string, string>> | null = null;
 function fetchManifest(): Promise<Record<string, string>> {
   if (cachedManifest) return Promise.resolve(cachedManifest);
   if (fetchPromise) return fetchPromise;
-  fetchPromise = fetch(`${basePath}/data/cover-manifest.json`)
+  fetchPromise = fetch(`${basePath}/data/cover-manifest.json`, { cache: "no-store" })
     .then(r => r.json())
     .then(m => {
       cachedManifest = m;

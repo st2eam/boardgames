@@ -14,7 +14,7 @@ export class GameChatStrategy implements ChatToolStrategy {
   private async loadRules(locale: string): Promise<string> {
     if (this.cachedRules) return this.cachedRules;
     try {
-      const resp = await fetch(`/boardgames/data/rules/${this.slug}.json`);
+      const resp = await fetch(`/boardgames/data/rules/${this.slug}.json`, { cache: "no-store" });
       const rules = await resp.json();
       this.cachedRules = rules[locale] ?? rules.en ?? "";
     } catch {

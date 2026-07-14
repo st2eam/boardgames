@@ -45,7 +45,7 @@ export function RecentGames({ games }: Props) {
           return (
             <div
               key={game.slug}
-              className="group flex shrink-0 items-center gap-0.5 rounded-full border border-border bg-white py-1 pl-3.5 pr-1 shadow-sm transition-colors hover:border-amber-300 hover:bg-amber-50"
+              className="group flex shrink-0 items-center rounded-full border border-border bg-white py-1 pl-3 pr-1 shadow-sm transition-colors hover:border-amber-300 hover:bg-amber-50"
             >
               <Link
                 href={`/${locale}/games/${game.slug}/`}
@@ -56,11 +56,11 @@ export function RecentGames({ games }: Props) {
               <button
                 type="button"
                 onClick={() => handleRemove(game.slug)}
-                className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-stone-400 transition-all hover:bg-stone-200/70 hover:text-stone-700 focus-visible:opacity-100 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:none)]:opacity-80"
+                className="ml-0.5 flex h-5 w-5 cursor-pointer items-center justify-center rounded-full text-stone-400 transition-all hover:bg-stone-200/70 hover:text-stone-600 focus-visible:opacity-100 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:none)]:opacity-70"
                 aria-label={t("removeRecent", { name })}
                 title={t("removeRecent", { name })}
               >
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>
               </button>

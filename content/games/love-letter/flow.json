@@ -1,0 +1,278 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Setup",
+        "zh": "游戏准备"
+      },
+      "content": {
+        "en": "**16 cards** total. Goal: deliver your love letter to Princess Annette by winning rounds and collecting **tokens of affection**.\n\n1. Shuffle all 16 cards into a face-down deck.\n2. Remove the **top card** from the game (face down, unseen).\n3. **2 players only:** Also set aside the next **3 cards face up** — unused this round.\n4. Each player draws **1 card** as a secret hand.\n5. Choose a starting player (after round 1: previous winner starts).\n\n| Players | Tokens to win the game |\n|:-------:|:----------------------:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |",
+        "zh": "共 **16 张牌**。目标：通过赢得轮次集齐**爱心标记**，把情书送到安妮特公主手中。\n\n1. 洗匀全部 16 张牌，面朝下组成抽牌堆。\n2. 不查看地移出牌堆顶 **1 张**（面朝下）。\n3. **仅双人局：** 再翻开接下来的 **3 张**面朝上放一旁，本轮不用。\n4. 每位玩家抽 **1 张**作为秘密手牌。\n5. 决定起始玩家（首轮之后由上一轮胜者先手）。\n\n| 人数 | 整局所需爱心 |\n|:----:|:------------:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Card Effects",
+            "zh": "卡牌效果"
+          },
+          "next": "cards"
+        },
+        {
+          "label": {
+            "en": "End of Round",
+            "zh": "一轮结束"
+          },
+          "next": "round-end"
+        }
+      ]
+    },
+    "turn": {
+      "title": {
+        "en": "Your Turn",
+        "zh": "你的回合"
+      },
+      "content": {
+        "en": "On your turn:\n\n1. **Draw** 1 card from the deck (you now hold 2).\n2. **Discard** 1 of them **face up** in front of you.\n3. **Resolve** that card's effect immediately — even if it hurts you.\n4. Keep discards overlapping in order so everyone can track played cards.\n5. Play continues clockwise.\n\n**Knocked out?** Discard your remaining hand face up (**do not** resolve it) and sit out until the next round.",
+        "zh": "你的回合：\n\n1. 从牌堆**抽** 1 张（手中现有 2 张）。\n2. **正面朝上弃**其中 1 张在自己面前。\n3. **立即结算**该牌效果——即使对自己不利也必须执行。\n4. 弃牌按顺序叠放，方便推断场上剩余牌。\n5. 顺时针轮到下一位。\n\n**出局了？** 将剩余手牌正面朝上弃掉（**不结算**效果），本轮不再行动。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Card Effects",
+            "zh": "卡牌效果"
+          },
+          "next": "cards"
+        },
+        {
+          "label": {
+            "en": "Guard / Priest / Baron",
+            "zh": "守卫 / 神父 / 男爵"
+          },
+          "next": "low-cards"
+        },
+        {
+          "label": {
+            "en": "Handmaid / Prince / King",
+            "zh": "侍女 / 王子 / 国王"
+          },
+          "next": "mid-cards"
+        },
+        {
+          "label": {
+            "en": "Countess / Princess",
+            "zh": "伯爵夫人 / 公主"
+          },
+          "next": "high-cards"
+        },
+        {
+          "label": {
+            "en": "End of Round",
+            "zh": "一轮结束"
+          },
+          "next": "round-end"
+        }
+      ]
+    },
+    "cards": {
+      "title": {
+        "en": "Card Overview",
+        "zh": "卡牌一览"
+      },
+      "content": {
+        "en": "| Rank | Card | Qty | Summary |\n|:----:|------|:---:|--------|\n| 8 | **Princess** | 1 | Play/discard → you are out |\n| 7 | **Countess** | 1 | Must play if holding King or Prince |\n| 6 | **King** | 1 | Trade hands |\n| 5 | **Prince** | 2 | Target discards hand & redraws |\n| 4 | **Handmaid** | 2 | Immune until your next turn |\n| 3 | **Baron** | 2 | Compare; lower rank is out |\n| 2 | **Priest** | 2 | Peek at a hand |\n| 1 | **Guard** | 5 | Guess a non-Guard card |",
+        "zh": "| 等级 | 卡牌 | 数量 | 简述 |\n|:----:|------|:----:|------|\n| 8 | **公主** | 1 | 打出/弃掉 → 出局 |\n| 7 | **伯爵夫人** | 1 | 持有国王或王子时必须打出 |\n| 6 | **国王** | 1 | 交换手牌 |\n| 5 | **王子** | 2 | 指定者弃牌重抽 |\n| 4 | **侍女** | 2 | 至下回合前免疫 |\n| 3 | **男爵** | 2 | 比牌，低者出局 |\n| 2 | **神父** | 2 | 偷看手牌 |\n| 1 | **守卫** | 5 | 猜非守卫牌 |"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Guard / Priest / Baron",
+            "zh": "守卫 / 神父 / 男爵"
+          },
+          "next": "low-cards"
+        },
+        {
+          "label": {
+            "en": "Handmaid / Prince / King",
+            "zh": "侍女 / 王子 / 国王"
+          },
+          "next": "mid-cards"
+        },
+        {
+          "label": {
+            "en": "Countess / Princess",
+            "zh": "伯爵夫人 / 公主"
+          },
+          "next": "high-cards"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "low-cards": {
+      "title": {
+        "en": "Guard · Priest · Baron",
+        "zh": "守卫 · 神父 · 男爵"
+      },
+      "content": {
+        "en": "### Guard (1) ×5\nChoose another player and name a character **other than Guard**. If they hold it, they are out.\n\n### Priest (2) ×2\nSecretly look at another player's hand.\n\n### Baron (3) ×2\nPrivately compare hands with another player. **Lower** rank is out. Tie → nothing happens. Do not show the cards to others.",
+        "zh": "### 守卫（1）×5\n指定另一名玩家，说出一种**除守卫外**的角色。若对方持有该牌，则出局。\n\n### 神父（2）×2\n秘密查看另一名玩家的手牌。\n\n### 男爵（3）×2\n与另一名玩家私下比牌。点数**较低**者出局；相同则无事。不要向其他人公开。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Handmaid / Prince / King",
+            "zh": "侍女 / 王子 / 国王"
+          },
+          "next": "mid-cards"
+        },
+        {
+          "label": {
+            "en": "Countess / Princess",
+            "zh": "伯爵夫人 / 公主"
+          },
+          "next": "high-cards"
+        },
+        {
+          "label": {
+            "en": "Card Overview",
+            "zh": "卡牌一览"
+          },
+          "next": "cards"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "mid-cards": {
+      "title": {
+        "en": "Handmaid · Prince · King",
+        "zh": "侍女 · 王子 · 国王"
+      },
+      "content": {
+        "en": "### Handmaid (4) ×2\nUntil your next turn, you cannot be targeted by other players' effects.\n\n### Prince (5) ×2\nChoose any player **including yourself**. They discard their hand (Princess discarded → out) and draw a new card. If the deck is empty, draw the set-aside card from setup.\n\n### King (6) ×1\nTrade hands with another player.\n\n> If you hold Countess + King/Prince, you **must** play the Countess.",
+        "zh": "### 侍女（4）×2\n直到你下一回合开始，其他玩家不能以你为目标。\n\n### 王子（5）×2\n指定任意玩家（**含自己**）。该玩家弃掉手牌（弃掉公主则出局）并抽一张新牌。若牌堆已空，则抽取开局移出的那张牌。\n\n### 国王（6）×1\n与另一名玩家交换手牌。\n\n> 若你同时持有伯爵夫人与国王/王子，**必须**打出伯爵夫人。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Countess / Princess",
+            "zh": "伯爵夫人 / 公主"
+          },
+          "next": "high-cards"
+        },
+        {
+          "label": {
+            "en": "Guard / Priest / Baron",
+            "zh": "守卫 / 神父 / 男爵"
+          },
+          "next": "low-cards"
+        },
+        {
+          "label": {
+            "en": "Card Overview",
+            "zh": "卡牌一览"
+          },
+          "next": "cards"
+        },
+        {
+          "label": {
+            "en": "End of Round",
+            "zh": "一轮结束"
+          },
+          "next": "round-end"
+        }
+      ]
+    },
+    "high-cards": {
+      "title": {
+        "en": "Countess · Princess",
+        "zh": "伯爵夫人 · 公主"
+      },
+      "content": {
+        "en": "### Countess (7) ×1\nNo effect when played. **Must** discard her if your other card is King or Prince. You may play her voluntarily anyway. Do not reveal your other card.\n\n### Princess (8) ×1\nIf you play or discard the Princess **for any reason**, you are immediately out of the round.\n\n**Tip:** Holding the Princess is strong for end-of-round reveal — but risky if forced to discard (e.g. Prince).",
+        "zh": "### 伯爵夫人（7）×1\n打出无效果。若另一张是国王或王子，则**必须**打出她；也可自愿打出。打出时不要展示另一张牌。\n\n### 公主（8）×1\n无论因何打出或弃掉公主，你立即出局。\n\n**提示：** 持有公主在亮牌结算时很强，但若被王子等强制弃牌则风险极高。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "End of Round",
+            "zh": "一轮结束"
+          },
+          "next": "round-end"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Card Overview",
+            "zh": "卡牌一览"
+          },
+          "next": "cards"
+        },
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        }
+      ]
+    },
+    "round-end": {
+      "title": {
+        "en": "End of Round & Winning",
+        "zh": "一轮结束与获胜"
+      },
+      "content": {
+        "en": "A round ends when:\n\n1. **Only one player remains** → that player wins the round; or\n2. **Deck is empty** after a turn → remaining players reveal hands. **Highest rank** wins. On a tie, highest **sum of discarded card ranks** wins.\n\nWinner takes **1 token of affection**. Reshuffle all 16 cards and set up a new round.\n\n### Win the Game\n\n| Players | Tokens needed |\n|:-------:|:-------------:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |",
+        "zh": "本轮结束条件：\n\n1. **只剩一人在局** → 该玩家赢得本轮；或\n2. **某回合后抽牌堆已空** → 在局玩家亮牌，**点数最高**者胜。并列则比本轮**弃牌点数总和**。\n\n胜者获得 **1 枚爱心标记**。重新洗匀 16 张牌，开始新一轮。\n\n### 整局胜利\n\n| 人数 | 所需爱心 |\n|:----:|:--------:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Card Overview",
+            "zh": "卡牌一览"
+          },
+          "next": "cards"
+        }
+      ]
+    }
+  }
+}

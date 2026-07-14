@@ -403,7 +403,8 @@
     "difficulty": "easy",
     "tags": [
       "memory",
-      "push-your-luck"
+      "push-your-luck",
+      "poker"
     ],
     "category": "card",
     "price": 24,
@@ -560,7 +561,8 @@
     "tags": [
       "family",
       "memory",
-      "deduction"
+      "deduction",
+      "poker"
     ],
     "category": "card",
     "price": 35,
@@ -749,5 +751,23 @@
     "requiresBase": true,
     "price": 34.96,
     "slug": "wingspan-oceania"
+  },
+  {
+    "name": {
+      "en": "Love Letter",
+      "zh": "情书"
+    },
+    "players": "2-4",
+    "duration": "20 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "deduction",
+      "bluffing",
+      "family"
+    ],
+    "category": "card",
+    "bggRank": 351,
+    "slug": "love-letter"
   }
 ]

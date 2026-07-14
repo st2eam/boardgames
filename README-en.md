@@ -121,8 +121,7 @@ content/games/
 └── ... (41 games total)
 
 public/data/
-├── games-index.json              # Full game data (with rules, for chat tools)
-├── games-meta.json               # Lightweight index (metadata only, for system prompt)
+├── games-meta.json               # Lightweight index (metadata only, for chat / system prompt)
 ├── cover-manifest.json           # Cover image format map (scanned at build time)
 └── rules/{slug}.json             # Per-game rules (on-demand loading)
 

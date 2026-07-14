@@ -118,8 +118,3 @@ export const problems: GoProblem[] = [
 export function getProblemsByDifficulty(difficulty: string): GoProblem[] {
   return problems.filter((p) => p.difficulty === difficulty);
 }
-
-export function getRandomProblem(difficulty: string): GoProblem {
-  const pool = getProblemsByDifficulty(difficulty);
-  return pool[Math.floor(Math.random() * pool.length)];
-}

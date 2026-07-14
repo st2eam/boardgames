@@ -287,7 +287,7 @@ Update these files to reflect the new game:
    - If series member: add to the appropriate series row in "游戏系列 / Series" section
    - Update the game count in the subtitle (e.g. "覆盖 23 款游戏" → "覆盖 24 款游戏")
 
-2. **Update the global AI prompt** if the game count or series info changed noticeably. The prompt is auto-generated from `games-index.json`, so just running `npm run build` syncs it — no manual edit needed.
+2. **Update the global AI prompt** if the game count or series info changed noticeably. The prompt is auto-generated from `games-meta.json`, so just running `npm run build` syncs it — no manual edit needed.
 
 ### Step 8: Build and verify
 
@@ -295,7 +295,7 @@ Update these files to reflect the new game:
 npm run build
 ```
 
-The `prebuild` script (`scripts/generate-game-data.mjs`) auto-generates `public/data/games-index.json` from all `meta.json` files. Verify:
+The `prebuild` script (`scripts/generate-game-data.mjs`) auto-generates `public/data/games-meta.json` and `public/data/rules/{slug}.json` from all `meta.json` / rules files. Verify:
 
 - [ ] Build succeeds with no errors
 - [ ] New game appears on homepage

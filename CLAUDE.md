@@ -37,7 +37,7 @@ content/games/
     zh/flow.json
 ```
 
-- `scripts/generate-game-mdata.mjs` runs at build time (`prebuild`) to bundle all game data into `public/data/games-index.json`
+- `scripts/generate-game-data.mjs` runs at build time (`prebuild`) to write `public/data/games-meta.json`, per-game `rules/*.json`, and `cover-manifest.json`
 - `GameRepository` reads from `content/games/` at build time via `fs` (Node filesystem)
 - `GameFactory.createGame(slug, locale)` assembles the full `Game` object
 - `GameFactory.createGameSummary(slug)` creates lightweight summary (no rules content, just meta + hasFlow + family info)

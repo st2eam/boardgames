@@ -48,26 +48,16 @@ function main() {
       );
     }
 
-    // Keep full index for backward compat but also produce a lightweight meta-only index
-    meta.rules = rulesByLocale;
     gamesIndex.push(meta);
   }
 
-  // Full index (used by chat tool-handlers for game lookup)
+  // Lightweight meta index (no rules text — chat system prompts & tool lookup)
   fs.writeFileSync(
-    path.join(PUBLIC, "games-index.json"),
+    path.join(PUBLIC, "games-meta.json"),
     JSON.stringify(gamesIndex, null, 2)
   );
 
-  // Lightweight meta index (no rules text - for system prompts & game listing)
-  const metaIndex = gamesIndex.map(({ rules, ...rest }) => rest);
-  fs.writeFileSync(
-    path.join(PUBLIC, "games-meta.json"),
-    JSON.stringify(metaIndex, null, 2)
-  );
-
-  console.log(`Generated public/data/games-index.json with ${gamesIndex.length} games`);
-  console.log(`Generated public/data/games-meta.json (lightweight)`);
+  console.log(`Generated public/data/games-meta.json with ${gamesIndex.length} games`);
   console.log(`Generated ${index.length} per-game rule files in public/data/rules/`);
 
   // Generate cover image manifest (which formats exist for which games)

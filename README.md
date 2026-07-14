@@ -123,8 +123,7 @@ content/games/
 └── ...（共 41 款游戏）
 
 public/data/
-├── games-index.json              # 完整游戏数据（含规则，chat tool 用）
-├── games-meta.json               # 轻量索引（仅元数据，system prompt 用）
+├── games-meta.json               # 轻量索引（仅元数据，chat / system prompt 用）
 ├── cover-manifest.json           # 封面图格式映射（构建时扫描 images/games/）
 └── rules/{slug}.json             # 按游戏拆分的规则（按需加载）
 

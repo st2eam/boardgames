@@ -19,8 +19,6 @@ export function RecentGames({ games }: Props) {
     setSlugs(getRecentGameSlugs());
   }, []);
 
-  if (slugs.length === 0) return null;
-
   const bySlug = new Map(games.map((g) => [g.slug, g]));
   const recent = slugs
     .map((slug) => bySlug.get(slug))
@@ -47,22 +45,18 @@ export function RecentGames({ games }: Props) {
           return (
             <div
               key={game.slug}
-              className="group relative shrink-0"
+              className="group flex shrink-0 items-center gap-0.5 rounded-full border border-border bg-white py-1 pl-3.5 pr-1 shadow-sm transition-colors hover:border-amber-300 hover:bg-amber-50"
             >
               <Link
                 href={`/${locale}/games/${game.slug}/`}
-                className="inline-flex items-center rounded-full border border-border bg-white py-1.5 pl-3.5 pr-8 text-sm text-stone-700 shadow-sm transition-colors group-hover:border-amber-300 group-hover:bg-amber-50 group-hover:text-primary [@media(hover:hover)]:pr-3.5 [@media(hover:hover)]:group-hover:pr-8"
+                className="text-sm text-stone-700 transition-colors group-hover:text-primary"
               >
                 {name}
               </Link>
               <button
                 type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleRemove(game.slug);
-                }}
-                className="absolute right-1 top-1/2 flex h-6 w-6 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-stone-400 transition-all hover:bg-stone-200/80 hover:text-stone-700 focus-visible:opacity-100 focus-visible:outline-none [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:none)]:opacity-70"
+                onClick={() => handleRemove(game.slug)}
+                className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-stone-400 transition-all hover:bg-stone-200/70 hover:text-stone-700 focus-visible:opacity-100 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:none)]:opacity-80"
                 aria-label={t("removeRecent", { name })}
                 title={t("removeRecent", { name })}
               >

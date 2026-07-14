@@ -96,8 +96,8 @@ export function RulesToc({ content, variant }: Props) {
   }
 
   return (
-    <aside>
-      <div className="rounded-xl border border-border bg-white/80 p-4 backdrop-blur-sm">
+    <aside className="h-full">
+      <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto rounded-xl border border-border bg-white/80 p-4 backdrop-blur-sm">
         <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-stone-400">
           {t("toc")}
         </p>

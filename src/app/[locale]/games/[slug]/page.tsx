@@ -105,7 +105,8 @@ export default async function GamePage({ params }: Props) {
           />
         </div>
 
-        <div className="lg:grid lg:grid-cols-[minmax(0,48rem)_14rem] lg:items-start lg:justify-center lg:gap-10">
+        {/* columns stretch so sticky TOC has a tall containing block */}
+        <div className="lg:grid lg:grid-cols-[minmax(0,48rem)_14rem] lg:justify-center lg:gap-10">
           <div className="min-w-0">
             <div className="lg:hidden">
               <RulesToc content={game.rules} variant="mobile" />

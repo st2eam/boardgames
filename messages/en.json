@@ -9,6 +9,7 @@
     "noGamesFoundHint": "Try loosening filters, or clear them all.",
     "clearFilters": "Clear all filters",
     "recentlyViewed": "Recently viewed",
+    "removeRecent": "Remove {name}",
     "series": "Series",
     "playerCount": "Players",
     "anyPlayerCount": "Any",

@@ -9,6 +9,7 @@
     "noGamesFoundHint": "试试放宽筛选条件，或清除全部筛选。",
     "clearFilters": "清除全部筛选",
     "recentlyViewed": "最近看过",
+    "removeRecent": "移除 {name}",
     "series": "系列",
     "playerCount": "游玩人数",
     "anyPlayerCount": "不限",

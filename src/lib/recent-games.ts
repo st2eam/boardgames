@@ -24,3 +24,17 @@ export function trackRecentGame(slug: string) {
     // ignore quota / private mode
   }
 }
+
+export function removeRecentGame(slug: string) {
+  if (typeof window === "undefined" || !slug) return;
+  try {
+    const next = getRecentGameSlugs().filter((s) => s !== slug);
+    if (next.length === 0) {
+      localStorage.removeItem(STORAGE_KEY);
+    } else {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    }
+  } catch {
+    // ignore quota / private mode
+  }
+}

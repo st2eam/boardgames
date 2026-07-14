@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import type { GameSummary } from "@/types/game";
-import { getRecentGameSlugs } from "@/lib/recent-games";
+import { getRecentGameSlugs, removeRecentGame } from "@/lib/recent-games";
 
 interface Props {
   games: GameSummary[];
@@ -29,6 +29,11 @@ export function RecentGames({ games }: Props) {
 
   if (recent.length === 0) return null;
 
+  const handleRemove = (slug: string) => {
+    removeRecentGame(slug);
+    setSlugs((prev) => prev.filter((s) => s !== slug));
+  };
+
   return (
     <section className="mb-6" aria-label={t("recentlyViewed")}>
       <div className="mb-2 flex items-center justify-between">
@@ -40,13 +45,32 @@ export function RecentGames({ games }: Props) {
         {recent.map((game) => {
           const name = game.name[locale as "en" | "zh"] ?? game.name.en;
           return (
-            <Link
+            <div
               key={game.slug}
-              href={`/${locale}/games/${game.slug}/`}
-              className="shrink-0 rounded-full border border-border bg-white px-3.5 py-1.5 text-sm text-stone-700 shadow-sm transition-colors hover:border-amber-300 hover:bg-amber-50 hover:text-primary"
+              className="group relative shrink-0"
             >
-              {name}
-            </Link>
+              <Link
+                href={`/${locale}/games/${game.slug}/`}
+                className="inline-flex items-center rounded-full border border-border bg-white py-1.5 pl-3.5 pr-8 text-sm text-stone-700 shadow-sm transition-colors group-hover:border-amber-300 group-hover:bg-amber-50 group-hover:text-primary [@media(hover:hover)]:pr-3.5 [@media(hover:hover)]:group-hover:pr-8"
+              >
+                {name}
+              </Link>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleRemove(game.slug);
+                }}
+                className="absolute right-1 top-1/2 flex h-6 w-6 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-stone-400 transition-all hover:bg-stone-200/80 hover:text-stone-700 focus-visible:opacity-100 focus-visible:outline-none [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:none)]:opacity-70"
+                aria-label={t("removeRecent", { name })}
+                title={t("removeRecent", { name })}
+              >
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           );
         })}
       </div>

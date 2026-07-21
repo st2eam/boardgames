@@ -10,6 +10,8 @@ const CARD_DOWNLOADS: Record<string, string> = {
   trio: `${basePath}/downloads/trio-cards.zip`,
   cabo: `${basePath}/downloads/cabo-cards.zip`,
   "texas-hold-em": `${basePath}/downloads/texas-hold-em-cards.zip`,
+  "love-letter": `${basePath}/downloads/love-letter-cards.zip`,
+  "love-letter-premium": `${basePath}/downloads/love-letter-cards.zip`,
 };
 
 interface Props {

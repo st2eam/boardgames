@@ -133,7 +133,7 @@ content/games/{slug}/
 | `familyOrder` | `number` |  | Sort order: `0` = base, `1+` = variants |
 | `variantType` | `string` |  | `"base"` / `"expansion"` / `"variant"` |
 | `requiresBase` | `boolean` |  | `true` if expansion, omit otherwise |
-| `bggRank` | `number` |  | BGG ranking (lower = better). **Ask the user** — do not look up or guess. Only for base/standalone games. Omit for DLCs/expansions if user doesn't provide one. |
+| `bggRank` | `number` |  | BGG ranking (lower = better). Prefer user value. Only for base/standalone games. See Step 9 fallback if user never provides one. |
 | `price` | `number` |  | User's purchase price in CNY (¥). **Ask the user** — do not invent. Use `0` for free/gift; omit if unknown. Used by the costs page. |
 
 **Series tags are auto-generated** from `family` — e.g. family `"uno"` produces tags "UNO series" / "UNO 系列". No need to add them manually.
@@ -306,19 +306,15 @@ The `prebuild` script (`scripts/generate-game-data.mjs`) auto-generates `public/
 - [ ] Score tracker works (if score.json added)
 - [ ] AI chat works with game-specific mode (tests rule context injection)
 
-### Step 9: Collect user-only fields + cover reminder
+### Step 9: Collect user fields + cover reminder (+ bggRank fallback)
 
-These fields must come from the user — **never** look up, scrape, or invent them:
+| Field | Policy |
+|-------|--------|
+| `bggRank` | Prefer user. After reminder, if still missing → fall back to BGG lookup |
+| `price` | User-only — never invent (personal purchase price ¥) |
+| Cover image | User-only — agent cannot generate or download covers |
 
-| Field | Why user-only |
-|-------|----------------|
-| `bggRank` | Agent BGG lookups are often wrong; user should paste the rank they want |
-| `price` | Personal purchase price (¥), not market MSRP |
-| Cover image | Agent cannot generate or download covers |
-
-**Before or while writing `meta.json`**, ask the user for `bggRank` and `price` if they haven't provided them. If they skip:
-- Omit `bggRank` (homepage BGG sort won't show a rank)
-- Omit `price`, or set `0` only if they say it's free/gift
+**Before or while writing `meta.json`**, ask the user for `bggRank` and `price` if they haven't provided them.
 
 After all content is created and build succeeds, **always** remind the user about any still-missing items:
 
@@ -328,9 +324,21 @@ After all content is created and build succeeds, **always** remind the user abou
 > 2. **BGG 排名**（`bggRank`，独立/本体游戏）：在 [BoardGameGeek](https://boardgamegeek.com/) 查好后告诉我，我写入 `meta.json`
 > 3. **购入价格**（`price`，人民币数字）：告诉我后写入；免费/赠送写 `0`
 
+#### `bggRank` fallback (after reminder)
+
+If the user was reminded and **still does not provide** `bggRank` (ignore, say "随便/你看着填", or move on without answering):
+
+1. Look up the game on [BoardGameGeek](https://boardgamegeek.com/) (match the correct edition / base game)
+2. Write that rank into `meta.json`
+3. Tell the user it was filled from BGG as a fallback, and they can override anytime
+
+Do **not** use this fallback on the first ask — wait until after the post-build reminder. Never invent a rank. Omit for DLCs/expansions unless the user (or a clear BGG page for that exact product) provides one.
+
+`price`: if still missing after reminder, omit it (or `0` only if they said free/gift). No market-price fallback.
+
 Cover image path convention: `public/images/games/{slug}.{ext}` — the system auto-discovers the image by slug.
 
-Do NOT skip this reminder for cover / rank / price gaps.
+Do NOT skip the reminder for cover / rank / price gaps.
 
 ---
 
@@ -521,8 +529,9 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 
 - [ ] Rules researched from official/web sources
 - [ ] `meta.json` created with all required fields
-- [ ] Asked user for `bggRank` (base/standalone) — wrote only if they provided it
-- [ ] Asked user for `price` (CNY) — wrote only if they provided it
+- [ ] Asked user for `bggRank` (base/standalone); after reminder with no answer, fell back to BGG lookup
+- [ ] Asked user for `price` (CNY) — wrote only if they provided it (no market fallback)
+
 - [ ] Series fields set correctly (if applicable)
 - [ ] `en/rules.md` written with standard structure
 - [ ] `zh/rules.md` written (matching English content)
@@ -534,7 +543,7 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] `README.md` and `README-en.md` updated
 - [ ] `npm run build` succeeds
 - [ ] Visual check: card renders, links work, decision tree works, AI chat works
-- [ ] Reminded user about missing cover / `bggRank` / `price` as needed
+- [ ] Reminded user about missing cover / `bggRank` / `price`; applied BGG fallback for rank if still unanswered
 
 ---
 

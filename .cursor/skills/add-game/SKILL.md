@@ -133,7 +133,8 @@ content/games/{slug}/
 | `familyOrder` | `number` |  | Sort order: `0` = base, `1+` = variants |
 | `variantType` | `string` |  | `"base"` / `"expansion"` / `"variant"` |
 | `requiresBase` | `boolean` |  | `true` if expansion, omit otherwise |
-| `bggRank` | `number` |  | BGG ranking (lower = better). Only for base/standalone games. Omit for DLCs/expansions. Look up on [BoardGameGeek](https://boardgamegeek.com/). |
+| `bggRank` | `number` |  | BGG ranking (lower = better). **Ask the user** — do not look up or guess. Only for base/standalone games. Omit for DLCs/expansions if user doesn't provide one. |
+| `price` | `number` |  | User's purchase price in CNY (¥). **Ask the user** — do not invent. Use `0` for free/gift; omit if unknown. Used by the costs page. |
 
 **Series tags are auto-generated** from `family` — e.g. family `"uno"` produces tags "UNO series" / "UNO 系列". No need to add them manually.
 
@@ -305,19 +306,31 @@ The `prebuild` script (`scripts/generate-game-data.mjs`) auto-generates `public/
 - [ ] Score tracker works (if score.json added)
 - [ ] AI chat works with game-specific mode (tests rule context injection)
 
-### Step 9: Remind user to add cover image
+### Step 9: Collect user-only fields + cover reminder
 
-After all content is created and build succeeds, **always** remind the user to add a cover image:
+These fields must come from the user — **never** look up, scrape, or invent them:
 
-> 游戏内容已全部添加完成！请记得为新游戏添加封面图：
+| Field | Why user-only |
+|-------|----------------|
+| `bggRank` | Agent BGG lookups are often wrong; user should paste the rank they want |
+| `price` | Personal purchase price (¥), not market MSRP |
+| Cover image | Agent cannot generate or download covers |
+
+**Before or while writing `meta.json`**, ask the user for `bggRank` and `price` if they haven't provided them. If they skip:
+- Omit `bggRank` (homepage BGG sort won't show a rank)
+- Omit `price`, or set `0` only if they say it's free/gift
+
+After all content is created and build succeeds, **always** remind the user about any still-missing items:
+
+> 游戏内容已全部添加完成！还请补充：
 >
-> 将图片放到 `public/images/games/{slug}.webp`（推荐）或 `.jpeg` / `.png` 格式。
->
-> 图片建议：游戏盒封面或实物照片，推荐尺寸 400×400 以上，webp 格式可减小体积。
+> 1. **封面图**：放到 `public/images/games/{slug}.webp`（推荐）或 `.jpeg` / `.png`
+> 2. **BGG 排名**（`bggRank`，独立/本体游戏）：在 [BoardGameGeek](https://boardgamegeek.com/) 查好后告诉我，我写入 `meta.json`
+> 3. **购入价格**（`price`，人民币数字）：告诉我后写入；免费/赠送写 `0`
 
 Cover image path convention: `public/images/games/{slug}.{ext}` — the system auto-discovers the image by slug.
 
-Do NOT skip this reminder. The agent cannot generate or download cover images, so this must be a manual step for the user.
+Do NOT skip this reminder for cover / rank / price gaps.
 
 ---
 
@@ -508,7 +521,8 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 
 - [ ] Rules researched from official/web sources
 - [ ] `meta.json` created with all required fields
-- [ ] BGG rank looked up and added (base/standalone games only)
+- [ ] Asked user for `bggRank` (base/standalone) — wrote only if they provided it
+- [ ] Asked user for `price` (CNY) — wrote only if they provided it
 - [ ] Series fields set correctly (if applicable)
 - [ ] `en/rules.md` written with standard structure
 - [ ] `zh/rules.md` written (matching English content)
@@ -520,7 +534,7 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] `README.md` and `README-en.md` updated
 - [ ] `npm run build` succeeds
 - [ ] Visual check: card renders, links work, decision tree works, AI chat works
-- [ ] Reminded user to add cover image to `public/images/games/{slug}.webp`
+- [ ] Reminded user about missing cover / `bggRank` / `price` as needed
 
 ---
 

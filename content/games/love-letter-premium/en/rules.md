@@ -107,9 +107,9 @@ Tokens can be gained mid-round (Bishop, Constable, Jester, etc.), so a player ca
 | 6 | **Constable** | 1 | No effect when discarded. If you are knocked out while this is in your **discard pile**, gain **1 ♥** (can win immediately). |
 | 5 | **Count** | 2 | At round end, when comparing hands: each Count in your discard pile adds **+1** to your hand value (two Counts → +2). Can make a 7 beat the Princess. Resolve remaining ties via discard sums as usual. |
 | 4 | **Sycophant** | 2 | Choose a player (including yourself). The **next** card that chooses one or more players must include that player. |
-| 3 | **Baroness** | 2 | Secretly look at **1 or 2** other players' hands. |
-| 2 | **Cardinal** | 2 | Choose **exactly 2** players still in (may include yourself); they swap hands. Then you may look at **one** of those hands. Fewer than 2 legal targets → no effect. |
-| 1 | **Guard** | 8 total | Same as classic Guard (name a number ≠ 1). Three extra Guards in the 32-card deck. |
+| 3 | **Baroness** | 2 | Look at **1 or 2** other players' hands privately. |
+| 2 | **Cardinal** | 2 | Choose **exactly 2** players still in (may include yourself); they swap hands. Then you may peek at **one** of those hands. Fewer than 2 legal targets → no effect. |
+| 1 | **Guard** (+3) | 8 total | Same Guard effect (name a number ≠ 1). Three extra Guards in the 32-card deck. |
 | 0 | **Jester** | 1 | Choose another player (place the Jester token as a reminder). If they **win the round**, you also gain **1 ♥** (can win immediately). |
 | 0 | **Assassin** | 1 | While in hand: if targeted by a Guard (any named number, even 0), reveal Assassin → the **Guard player** is out, you are not. Then discard Assassin and redraw (empty deck → set-aside card). |
 

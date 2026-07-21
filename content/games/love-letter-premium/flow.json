@@ -107,7 +107,7 @@
       },
       "content": {
         "en": "Added when using all **32** cards:\n\n| # | Card | Qty | Summary |\n|:-:|------|:---:|--------|\n| 9 | **Bishop** | 1 | Guess number → +1 ♥; Princess still wins reveal |\n| 7 | **Dowager Queen** | 1 | Compare; **higher** out |\n| 6 | **Constable** | 1 | Knocked out with this in discard → +1 ♥ |\n| 5 | **Count** | 2 | Each in discard: +1 to hand at reveal |\n| 4 | **Sycophant** | 2 | Next chooser must include your pick |\n| 3 | **Baroness** | 2 | Peek 1 or 2 hands |\n| 2 | **Cardinal** | 2 | Swap 2 hands; peek one |\n| 1 | **Guard** | +3 | Same Guard (8 total) |\n| 0 | **Jester** | 1 | If pick wins round → you +1 ♥ |\n| 0 | **Assassin** | 1 | Vs Guard: Guard player out; then redraw |",
-        "zh": "使用全部 **32** 张时加入：\n\n| 点 | 卡牌 | 数 | 简述 |\n|:--:|------|:--:|------|\n| 9 | **主教** | 1 | 猜点数 → +1 ♥；亮牌仍公主优先 |\n| 7 | **太后** | 1 | 比牌，**高**者出局 |\n| 6 | **警官** | 1 | 出局时弃牌中有此牌 → +1 ♥ |\n| 5 | **伯爵** | 2 | 弃牌中每张亮牌 +1 |\n| 4 | **谄媚者** | 2 | 下一张指定必须含你所选 |\n| 3 | **男爵夫人** | 2 | 偷看 1 或 2 手 |\n| 2 | **枢机** | 2 | 两人换牌；可看一张 |\n| 1 | **守卫** | +3 | 同守卫（共 8） |\n| 0 | **小丑** | 1 | 所选赢轮 → 你 +1 ♥ |\n| 0 | **刺客** | 1 | 对守卫：出守卫者出局；然后重抽 |"
+        "zh": "使用全部 **32** 张时加入：\n\n| 点 | 卡牌 | 数 | 简述 |\n|:--:|------|:--:|------|\n| 9 | **主教** | 1 | 猜点数得 1 ♥；比牌仍负于公主 |\n| 7 | **太后** | 1 | 秘密比点，**高**者出局 |\n| 6 | **警官** | 1 | 出局且弃牌区有此牌 → +1 ♥ |\n| 5 | **伯爵** | 2 | 弃牌区每张使手牌 +1 |\n| 4 | **谄媚者** | 2 | 下张指定牌须包含该玩家 |\n| 3 | **女男爵** | 2 | 可查看 1 或 2 名手牌 |\n| 2 | **红衣主教** | 2 | 两人换牌；可偷看一人 |\n| 1 | **卫兵** | +3 | 同守卫猜点数（共 8） |\n| 0 | **小丑** | 1 | 指定者胜轮 → 你 +1 ♥ |\n| 0 | **刺客** | 1 | 被守卫猜测则淘汰猜测者 |"
       },
       "options": [
         {
@@ -140,7 +140,7 @@
       },
       "content": {
         "en": "### Bishop (9)\nName a number + player. Hit → **+1 ♥** (instant win if enough). Target may discard & redraw (Princess still outs). At **reveal**, Princess beats Bishop.\n\n### Dowager Queen (7)\nCompare; **higher** value is out. Tie → nothing.\n\n### Constable (6)\nIf knocked out with Constable in your **discard pile** → **+1 ♥** (instant win if enough).\n\n### Count (5) ×2\nAt reveal, +1 hand value per Count in your discard (two → +2). A boosted 7 can beat Princess. Remaining ties use discard sums.",
-        "zh": "### 主教（9）\n说出点数 + 指定玩家。命中 → **+1 ♥**（凑齐可立即胜）。对方可弃牌重抽（公主仍出局）。**亮牌时公主胜过主教**。\n\n### 太后（7）\n比牌，**较高**者出局；相同无事。\n\n### 警官（6）\n出局时弃牌堆有警官 → **+1 ♥**（凑齐可立即胜）。\n\n### 伯爵（5）×2\n亮牌时弃牌中每张伯爵使手牌 +1（两张 +2）。加强后的 7 可胜过公主。仍平则比弃牌总和。"
+        "zh": "### 主教（9）\n指定玩家并猜其点数；猜中得 **1 ♥**（凑齐可立即胜），对方可弃牌重抽（弃公主仍出局）。**亮牌比牌时仍负于公主**。\n\n### 太后（7）\n与指定未出局玩家秘密比点，**较高**者出局；相同则无人出局。\n\n### 警官（6）\n出局且弃牌区有警官 → **+1 ♥**（凑齐可立即胜）。\n\n### 伯爵（5）×2\n最终比牌时，弃牌区每张伯爵使手牌 +1（两张 +2）。加强后的 7 可胜过公主。仍平则比弃牌总和。"
       },
       "options": [
         {
@@ -169,11 +169,11 @@
     "low-exp": {
       "title": {
         "en": "Sycophant · Baroness · Cardinal · Jester · Assassin",
-        "zh": "谄媚者 · 男爵夫人 · 枢机 · 小丑 · 刺客"
+        "zh": "谄媚者 · 女男爵 · 红衣主教 · 小丑 · 刺客"
       },
       "content": {
         "en": "### Sycophant (4) ×2\nChoose a player (incl. you). The **next** card that chooses players must include them.\n\n### Baroness (3) ×2\nSecretly look at **1 or 2** other hands.\n\n### Cardinal (2) ×2\nChoose **exactly 2** still-in players (may include you); they swap. Then peek **one** of those hands. <2 legal targets → no effect.\n\n### Jester (0)\nPick another player (Jester token). If they **win the round**, you also get **1 ♥**.\n\n### Assassin (0)\nIn hand vs Guard: reveal → **Guard player** is out; you are not. Then discard Assassin and redraw (empty deck → set-aside).",
-        "zh": "### 谄媚者（4）×2\n指定一名玩家（可含自己）。**下一张**需要指定玩家的牌必须包含该目标。\n\n### 男爵夫人（3）×2\n秘密查看 **1 或 2** 名其他玩家手牌。\n\n### 枢机（2）×2\n指定**恰好 2** 名仍在局者（可含自己）换牌，再偷看其中**一张**。合法目标不足 2 → 无效。\n\n### 小丑（0）\n指定另一玩家（小丑标记）。若其**赢下本轮**，你也得 **1 ♥**。\n\n### 刺客（0）\n手中对守卫：亮出 → **出守卫者**出局；你不出局。然后弃刺客并重抽（牌堆空 → 开局移出牌）。"
+        "zh": "### 谄媚者（4）×2\n指定一名玩家（可含自己）。下一张需要指定玩家的牌，在合法前提下必须包含该玩家。\n\n### 女男爵（3）×2\n可查看 **1 名或 2 名**玩家手牌（不公开）。\n\n### 红衣主教（2）×2\n令两名未出局玩家换牌，然后可偷看其中一人手牌。合法目标不足 2 → 无效。\n\n### 小丑（0）\n指定另一玩家（小丑标记）。若其赢得本轮，你得 **1 ♥**。\n\n### 刺客（0）\n被守卫/卫兵猜测时亮牌：淘汰**猜测者**，你弃刺客并重抽（牌堆空 → 开局移出牌）。"
       },
       "options": [
         {

@@ -54,7 +54,7 @@ Some effects knock you out of the current round. When this happens:
 | 9 | 1 | **Princess** | If you play or discard this card, you are out of the round. |
 | 8 | 1 | **Countess** | If the King or Prince is in your hand, you must play this card. |
 | 7 | 1 | **King** | Choose and trade hands with another player. |
-| 6 | 2 | **Chancellor** | Draw 2 cards. Keep 1 card and put your other 2 on the bottom of the deck in any order. |
+| 6 | 2 | **Chancellor** | Draw 2 cards. Keep 1 of the 3, and put the other 2 face down on the bottom of the deck in any order. |
 | 5 | 2 | **Prince** | Choose any player (including yourself). That player discards their hand and redraws. |
 | 4 | 2 | **Handmaid** | Until the start of your next turn, other players cannot choose you for their card effects. |
 | 3 | 2 | **Baron** | Choose and secretly compare hands with another player. Whoever has the lower value is out of the round. |

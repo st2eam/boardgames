@@ -10,13 +10,14 @@ import {
   useRef,
   type ReactNode,
 } from "react";
-import type { ChatMessage, ChatScope, ToolCall } from "./types";
+import type { ChatMessage, ChatScope } from "./types";
 import { saveMessages, loadMessages, clearHistory as clearStoredHistory } from "./chat-storage";
 import { loadApiKey, saveApiKey } from "./api-key-storage";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 import { GlobalChatStrategy } from "@/lib/ai/GlobalChatStrategy";
 import { GameChatStrategy } from "@/lib/ai/GameChatStrategy";
 import type { ChatToolStrategy } from "@/lib/ai/ChatToolStrategy";
+import type { AnthropicContentBlock, AnthropicMessage } from "@/lib/ai/LLMAdapter";
 import { executeToolCall } from "@/lib/ai/tool-handlers";
 
 const MAX_TOOL_CALL_ITERATIONS = 5;
@@ -241,6 +242,65 @@ function createStreamFlusher(
   };
 }
 
+// ─── Anthropic message builder ───────────────────────────────────────────
+
+function buildAnthropicMessages(msgs: ChatMessage[]): AnthropicMessage[] {
+  const result: AnthropicMessage[] = [];
+
+  for (const msg of msgs) {
+    if (msg.role === "system") continue;
+
+    if (msg.role === "user") {
+      result.push({ role: "user", content: msg.content });
+      continue;
+    }
+
+    if (msg.role === "assistant") {
+      const blocks: AnthropicContentBlock[] = [];
+      if (msg.content) {
+        blocks.push({ type: "text", text: msg.content });
+      }
+      if (msg.toolCalls?.length) {
+        for (const tc of msg.toolCalls) {
+          let input: Record<string, unknown> = {};
+          try {
+            input = JSON.parse(tc.arguments) as Record<string, unknown>;
+          } catch {
+            // keep empty input
+          }
+          blocks.push({
+            type: "tool_use",
+            id: tc.id,
+            name: tc.name,
+            input,
+          });
+        }
+      }
+      if (blocks.length === 0) {
+        blocks.push({ type: "text", text: "" });
+      }
+      result.push({ role: "assistant", content: blocks });
+      continue;
+    }
+
+    if (msg.role === "tool") {
+      const toolResult: AnthropicContentBlock = {
+        type: "tool_result",
+        tool_use_id: msg.toolCallId ?? "",
+        content: msg.content,
+      };
+      const last = result[result.length - 1];
+      if (last?.role === "user" && Array.isArray(last.content)) {
+        last.content.push(toolResult);
+      } else {
+        result.push({ role: "user", content: [toolResult] });
+      }
+    }
+  }
+
+  return result;
+}
+
 // ─── Conversation runner ─────────────────────────────────────────────────
 
 async function runConversation(
@@ -252,39 +312,7 @@ async function runConversation(
 ) {
   const adapter = new DeepSeekAdapter(apiKey);
 
-  // Convert our flat ToolCall format back to OpenAI-compatible shape
-  const toOpenAIToolCalls = (tcs?: ToolCall[]) => {
-    if (!tcs || tcs.length === 0) return undefined;
-    return tcs.map((tc) => ({
-      id: tc.id,
-      type: "function" as const,
-      function: { name: tc.name, arguments: tc.arguments },
-    }));
-  };
-
-  const buildMessages = (msgs: ChatMessage[]) => {
-    const result: {
-      role: "system" | "user" | "assistant" | "tool";
-      content: string | null;
-      tool_call_id?: string;
-      tool_calls?: { id: string; type: "function"; function: { name: string; arguments: string } }[];
-    }[] = [{ role: "system", content: systemPrompt }];
-
-    for (const msg of msgs) {
-      if (msg.role === "system") continue;
-      const hasToolCalls = msg.toolCalls && msg.toolCalls.length > 0;
-      result.push({
-        role: msg.role,
-        // Assistant messages with tool_calls must have content: null
-        content: msg.role === "assistant" && hasToolCalls ? null : msg.content,
-        tool_call_id: msg.toolCallId,
-        tool_calls: hasToolCalls ? toOpenAIToolCalls(msg.toolCalls) : undefined,
-      });
-    }
-    return result;
-  };
-
-  let currentMessages = [...historyMessages];
+  const currentMessages = [...historyMessages];
   let iteration = 0;
 
   while (iteration < MAX_TOOL_CALL_ITERATIONS) {
@@ -302,8 +330,9 @@ async function runConversation(
     const { finishReason, toolCalls: responseToolCalls } =
       await adapter.streamChat(
         {
-          messages: buildMessages(currentMessages),
-          tools: iteration === 1 ? tools : undefined,
+          system: systemPrompt,
+          messages: buildAnthropicMessages(currentMessages),
+          tools,
         },
         (chunk) => {
           if (chunk.content) {
@@ -311,13 +340,6 @@ async function runConversation(
           }
         }
       );
-
-    // Strip DSML artifacts that may have leaked before detection
-    if (assistantMsg.content.includes("\uFF5CDSML\uFF5C")) {
-      assistantMsg.content = assistantMsg.content
-        .replace(/<[\uFF5C|]+DSML[\uFF5C|]+[^>]*>[\s\S]*/g, "")
-        .trim();
-    }
 
     flusher.finalize();
 
@@ -339,7 +361,8 @@ async function runConversation(
       return;
     }
 
-    // Handle tool calls
+    // Client tool calls (e.g. get_game_rules). Web search is server-side
+    // and completes inside the same Anthropic stream.
     assistantMsg.toolCalls = responseToolCalls;
     setMessages((prev) => {
       const idx = prev.findIndex((m) => m.id === assistantMsg.id);

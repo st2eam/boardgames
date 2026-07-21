@@ -1,132 +1,182 @@
-import OpenAI from "openai";
-import type { ChatParams, ChatChunk as _ChatChunk } from "./LLMAdapter";
+import type { ChatParams, ChatChunk } from "./LLMAdapter";
 import type { ToolCall } from "@/lib/chat/types";
 
 interface StreamCallback {
-  (chunk: { content: string; toolCalls?: ToolCall[] }): void;
+  (chunk: ChatChunk): void;
 }
 
-const DSML_MARKER = "\uFF5C\uFF5CDSML\uFF5C\uFF5C"; // ｜｜DSML｜｜
+const ANTHROPIC_URL = "https://api.deepseek.com/anthropic/v1/messages";
+const DEFAULT_MODEL = "deepseek-v4-pro";
+const DEFAULT_MAX_TOKENS = 8192;
 
-function parseDsmlToolCalls(raw: string): ToolCall[] | null {
-  const invokeRe = new RegExp(
-    `<${DSML_MARKER}invoke\\s+name="([^"]+)"[^>]*>([\\s\\S]*?)</${DSML_MARKER}invoke>`,
-    "g"
-  );
-  const paramRe = new RegExp(
-    `<${DSML_MARKER}parameter\\s+name="([^"]+)"[^>]*>([\\s\\S]*?)</${DSML_MARKER}parameter>`,
-    "g"
-  );
-
-  const calls: ToolCall[] = [];
-  let match: RegExpExecArray | null;
-
-  while ((match = invokeRe.exec(raw)) !== null) {
-    const name = match[1];
-    const body = match[2];
-    const args: Record<string, string> = {};
-
-    let pm: RegExpExecArray | null;
-    while ((pm = paramRe.exec(body)) !== null) {
-      args[pm[1]] = pm[2].trim();
-    }
-
-    calls.push({
-      id: `dsml_${crypto.randomUUID().slice(0, 8)}`,
-      name,
-      arguments: JSON.stringify(args),
-    });
-  }
-
-  return calls.length > 0 ? calls : null;
+interface ContentBlockState {
+  type: string;
+  id?: string;
+  name?: string;
+  text?: string;
+  partialJson?: string;
 }
 
 export class DeepSeekAdapter {
-  private getClient: () => OpenAI;
-
-  constructor(apiKey: string) {
-    this.getClient = () =>
-      new OpenAI({
-        apiKey,
-        baseURL: "https://api.deepseek.com",
-        dangerouslyAllowBrowser: true,
-      });
-  }
+  constructor(private apiKey: string) {}
 
   async streamChat(
     params: ChatParams,
     onChunk: StreamCallback
   ): Promise<{ finishReason: string; toolCalls?: ToolCall[] }> {
-    const client = this.getClient();
-
-    const stream = await client.chat.completions.create({
-      model: params.model ?? "deepseek-v4-pro",
-      messages: params.messages as OpenAI.Chat.Completions.ChatCompletionMessageParam[],
-      tools: params.tools?.map((t) => ({
-        type: "function" as const,
-        function: t.function,
-      })),
+    const body = {
+      model: params.model ?? DEFAULT_MODEL,
+      max_tokens: params.maxTokens ?? DEFAULT_MAX_TOKENS,
       stream: true,
+      system: params.system,
+      messages: params.messages,
+      ...(params.tools && params.tools.length > 0
+        ? { tools: params.tools }
+        : {}),
+    };
+
+    const response = await fetch(ANTHROPIC_URL, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-api-key": this.apiKey,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify(body),
     });
 
-    let finishReason = "";
-    let fullContent = "";
-    let dsmlDetected = false;
-    const accumulatedToolCalls: Map<number, ToolCall> = new Map();
+    if (!response.ok) {
+      const errText = await response.text().catch(() => "");
+      throw new Error(
+        `DeepSeek Anthropic API error ${response.status}: ${errText || response.statusText}`
+      );
+    }
 
-    for await (const event of stream) {
-      const delta = event.choices[0]?.delta;
-      const finish = event.choices[0]?.finish_reason;
+    if (!response.body) {
+      throw new Error("DeepSeek Anthropic API returned an empty body");
+    }
 
-      if (delta?.content) {
-        fullContent += delta.content;
+    const blocks = new Map<number, ContentBlockState>();
+    let stopReason = "end_turn";
+    let emittedText = false;
 
-        if (!dsmlDetected && fullContent.includes(`<${DSML_MARKER}`)) {
-          dsmlDetected = true;
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const parts = buffer.split("\n");
+      buffer = parts.pop() ?? "";
+
+      for (const line of parts) {
+        const trimmed = line.trim();
+        if (!trimmed.startsWith("data:")) continue;
+        const data = trimmed.slice(5).trim();
+        if (!data || data === "[DONE]") continue;
+
+        let event: Record<string, unknown>;
+        try {
+          event = JSON.parse(data);
+        } catch {
+          continue;
         }
 
-        if (!dsmlDetected) {
-          onChunk({ content: delta.content });
-        }
-      }
+        const type = event.type as string | undefined;
 
-      if (delta?.tool_calls) {
-        for (const tc of delta.tool_calls) {
-          const index = tc.index;
-          if (tc.id) {
-            accumulatedToolCalls.set(index, {
-              id: tc.id,
-              name: tc.function?.name ?? "",
-              arguments: tc.function?.arguments ?? "",
-            });
-          } else if (accumulatedToolCalls.has(index)) {
-            const existing = accumulatedToolCalls.get(index)!;
-            if (tc.function?.arguments) {
-              existing.arguments += tc.function.arguments;
-            }
+        if (type === "content_block_start") {
+          const index = event.index as number;
+          const block = event.content_block as {
+            type: string;
+            id?: string;
+            name?: string;
+            text?: string;
+          };
+          blocks.set(index, {
+            type: block.type,
+            id: block.id,
+            name: block.name,
+            text: block.text ?? "",
+            partialJson: "",
+          });
+
+          if (block.type === "server_tool_use" && block.name === "web_search") {
+            onChunk({ content: "", status: "web_search" });
+          } else if (block.type === "tool_use") {
+            onChunk({ content: "", status: "tool_use" });
           }
+        } else if (type === "content_block_delta") {
+          const index = event.index as number;
+          const delta = event.delta as {
+            type?: string;
+            text?: string;
+            partial_json?: string;
+          };
+          const state = blocks.get(index);
+          if (!state) continue;
+
+          if (delta.type === "text_delta" && delta.text) {
+            state.text = (state.text ?? "") + delta.text;
+            emittedText = true;
+            onChunk({ content: delta.text });
+          } else if (delta.type === "input_json_delta" && delta.partial_json) {
+            state.partialJson = (state.partialJson ?? "") + delta.partial_json;
+          }
+        } else if (type === "message_delta") {
+          const delta = event.delta as { stop_reason?: string | null };
+          if (delta.stop_reason) {
+            stopReason = delta.stop_reason;
+          }
+        } else if (type === "error") {
+          const err = event.error as { message?: string } | undefined;
+          throw new Error(err?.message ?? "DeepSeek stream error");
         }
       }
-
-      if (finish) {
-        finishReason = finish;
-      }
     }
 
-    let toolCalls =
-      accumulatedToolCalls.size > 0
-        ? Array.from(accumulatedToolCalls.values())
-        : undefined;
+    const toolCalls = collectClientToolCalls(blocks);
 
-    if (!toolCalls && dsmlDetected) {
-      const parsed = parseDsmlToolCalls(fullContent);
-      if (parsed) {
-        toolCalls = parsed;
-        finishReason = "tool_calls";
-      }
+    // Anthropic uses tool_use; normalize for our conversation loop
+    const finishReason =
+      stopReason === "tool_use" || toolCalls.length > 0
+        ? "tool_calls"
+        : stopReason;
+
+    if (!emittedText && toolCalls.length === 0 && finishReason === "end_turn") {
+      onChunk({ content: "" });
     }
 
-    onChunk({ content: "" });
-    return { finishReason, toolCalls };
+    return {
+      finishReason,
+      toolCalls: toolCalls.length > 0 ? toolCalls : undefined,
+    };
   }
+}
+
+function collectClientToolCalls(
+  blocks: Map<number, ContentBlockState>
+): ToolCall[] {
+  const calls: ToolCall[] = [];
+
+  for (const block of blocks.values()) {
+    if (block.type !== "tool_use" || !block.id || !block.name) continue;
+
+    let args = block.partialJson?.trim() || "{}";
+    try {
+      JSON.parse(args);
+    } catch {
+      args = "{}";
+    }
+
+    calls.push({
+      id: block.id,
+      name: block.name,
+      arguments: args,
+    });
+  }
+
+  return calls;
 }

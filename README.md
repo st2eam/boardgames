@@ -325,7 +325,7 @@ src/
 ## 关键技术决策
 
 1. **构建时同步读取文件** — `fs.readFileSync` 仅在 `next build` 时执行，41 款游戏绰绰有余
-2. **Chat 懒加载** — `openai` SDK + 整个 chat 栈通过 `dynamic()` 延迟到用户点击 FAB 时加载
+2. **Chat 懒加载** — DeepSeek Anthropic API 适配器 + 整个 chat 栈通过 `dynamic()` 延迟到用户点击 FAB 时加载
 3. **MarkdownRenderer 为 Server Component** — `react-markdown` 不进入客户端包，规则页面零额外 JS
 4. **数据拆分** — `games-meta.json`（轻量索引）+ `rules/{slug}.json`（按需加载），chat 不再一次性加载全部规则
 5. **Per-game SEO** — `generateMetadata` 为每个游戏页生成独立 title / description / OG tags

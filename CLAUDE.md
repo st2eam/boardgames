@@ -91,7 +91,7 @@ Games can belong to a family (e.g., UNO, Exploding Kittens, Sanguosha, Dirty Pig
 - **next-intl** `^4.8.3` — i18n with direct JSON import (static-friendly)
 - **react-markdown** + **remark-gfm** — rules rendering
 - **idb-keyval** — IndexedDB key-value storage (API key persistence)
-- **openai** `^6.42.0` — DeepSeek chat (uses OpenAI-compatible endpoint)
+- DeepSeek chat via Anthropic-compatible Messages API (`api.deepseek.com/anthropic`) with client tools + server-side `web_search`
 
 ### Chat System
 

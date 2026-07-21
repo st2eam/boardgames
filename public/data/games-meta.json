@@ -789,5 +789,61 @@
     "price": 29,
     "bggRank": 5422,
     "slug": "tic-tac-trek"
+  },
+  {
+    "name": {
+      "en": "Art Robbery",
+      "zh": "神偷大盗"
+    },
+    "players": "2-5",
+    "duration": "20 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family",
+      "bluffing",
+      "set-collection"
+    ],
+    "category": "card",
+    "price": 54,
+    "bggRank": 3346,
+    "slug": "art-robbery"
+  },
+  {
+    "name": {
+      "en": "Odin",
+      "zh": "维京怒火"
+    },
+    "players": "2-6",
+    "duration": "15 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family",
+      "shedding"
+    ],
+    "category": "card",
+    "price": 54,
+    "bggRank": 1869,
+    "slug": "odin"
+  },
+  {
+    "name": {
+      "en": "Halli Galli",
+      "zh": "哈铃果铃"
+    },
+    "players": "2-6",
+    "duration": "10-15 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family",
+      "party",
+      "reflex"
+    ],
+    "category": "card",
+    "price": 76,
+    "bggRank": 7963,
+    "slug": "halli-galli"
   }
 ]

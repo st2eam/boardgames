@@ -1,0 +1,17 @@
+{
+  "type": "feature-calc",
+  "engine": "feature-calc",
+  "direction": "low-wins",
+  "target": 15,
+  "multiRound": true,
+  "players": { "min": 2, "max": 6 },
+  "features": [
+    {
+      "id": "cards-left",
+      "name": { "en": "Cards left in hand", "zh": "手牌剩余张数" },
+      "inputType": "number",
+      "formula": "n",
+      "description": { "en": "1 pt per remaining card", "zh": "每张剩余手牌 1 分" }
+    }
+  ]
+}

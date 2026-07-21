@@ -1,0 +1,62 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Game Overview", "zh": "游戏概述" },
+      "content": {
+        "en": "**Odin** (维京怒火): ladder-climbing card game. Beat the middle with a higher-value set, pick up one beaten card, empty your hand.\n\n**Win:** Fewest points when someone hits the threshold (usually **15**). 1 point per card left each hand.\n\n**Players:** 2–6 · **Time:** ~15 min · **Deck:** 1–9 in 6 colours",
+        "zh": "**维京怒火（Odin）**：爬梯出牌。用更高分的牌组压过中央，从被压牌中捡 1 张，尽快清空手牌。\n\n**获胜：** 有人达到分数线（通常 **15**）时，总分**最少**者胜。每手剩余手牌每张 1 分。\n\n**人数：** 2–6 · **时长：** 约 15 分钟 · **牌组：** 6 色 × 1–9"
+      },
+      "options": [
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "Playing Cards", "zh": "如何出牌" }, "next": "play" },
+        { "label": { "en": "Pass & New Round", "zh": "过牌与新轮" }, "next": "pass" },
+        { "label": { "en": "Hand / Game End", "zh": "一手与终局" }, "next": "end" }
+      ]
+    },
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. Shuffle all 54 cards.\n2. Deal **9** to each player.\n3. Set leftovers aside.\n4. Random first player; clockwise turns.\n\n**2 players:** Remove **2 colours** for a tighter game.",
+        "zh": "1. 洗混全部 54 张。\n2. 每人发 **9** 张。\n3. 余牌先放一边。\n4. 随机首家，顺时针行动。\n\n**双人：** 移除 **2 种颜色**，对局更紧凑。"
+      },
+      "options": [
+        { "label": { "en": "Playing Cards", "zh": "如何出牌" }, "next": "play" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "play": {
+      "title": { "en": "Playing Cards", "zh": "如何出牌" },
+      "content": {
+        "en": "Lead starts a round with **1 card**.\n\nTo beat the middle:\n- Same count **or +1** card\n- Multiples: same **number** or same **colour**\n- Value **strictly higher**\n\n**Value of a set:** arrange digits high→low as one number (2+8 → **82**; 2+4+9 → **942**).\n\nThen pick up **1** beaten card (discard the rest of that old set).",
+        "zh": "首家用 **1 张牌**开轮。\n\n压过中央须：\n- 张数相同 **或 +1**\n- 多张：同**数字**或同**颜色**\n- 分值**严格更高**\n\n**多张分值：** 数字从大到小拼成整数（2+8 → **82**；2+4+9 → **942**）。\n\n然后从被压的牌中捡 **1** 张上手（旧组其余弃掉）。"
+      },
+      "options": [
+        { "label": { "en": "Pass & New Round", "zh": "过牌与新轮" }, "next": "pass" },
+        { "label": { "en": "Hand / Game End", "zh": "一手与终局" }, "next": "end" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "pass": {
+      "title": { "en": "Pass & New Round", "zh": "过牌与新轮" },
+      "content": {
+        "en": "**Pass:** play nothing this turn; you may act again later.\n\nIf everyone else passes in a row, discard the middle. Last player who played **leads** the next round with 1 card.\n\nHands stay as they are between rounds of the same hand.",
+        "zh": "**过牌：** 本回合不出；之后仍可再出。\n\n若其他人连续都过，弃掉中央牌。最后出牌者用 1 张**领出**新一轮。\n\n同一手牌局内，轮次之间手牌不变。"
+      },
+      "options": [
+        { "label": { "en": "Hand / Game End", "zh": "一手与终局" }, "next": "end" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "end": {
+      "title": { "en": "Hand / Game End", "zh": "一手与终局" },
+      "content": {
+        "en": "### Hand ends when\n- You empty your hand (don't pick up), **or**\n- As lead, you play **all** remaining cards (same number or colour)\n\n**Score:** +1 per card left in hand.\n\n### Game ends\nSomeone reaches **15+** (or 10 / 20 by agreement). **Lowest** total wins.\n\nNext hand: reshuffle, deal 9, left of previous starter leads.",
+        "zh": "### 一手结束当\n- 你出空手牌（不再捡牌），**或**\n- 作为首家，一次性打出**全部**剩余牌（同数或同色）\n\n**计分：** 剩余手牌每张 +1。\n\n### 游戏结束\n有人达到 **15+**（或约定 10 / 20）。总分**最低**者胜。\n\n下一手：重洗发 9，上一手首家的左手边开局。"
+      },
+      "options": [
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    }
+  }
+}

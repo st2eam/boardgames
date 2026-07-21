@@ -1,0 +1,74 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Game Overview", "zh": "游戏概述" },
+      "content": {
+        "en": "**Halli Galli** (哈铃果铃) by Haim Shafir: flip fruit cards, spot **exactly 5** of one fruit on the top cards, ring the bell first, take all face-up piles.\n\n**Win:** Most cards at the end.\n\n**Players:** 2–6 · **Time:** 10–15 min · **Ages:** 6+",
+        "zh": "**哈铃果铃（Halli Galli）**，Haim Shafir 作品：轮流翻水果牌，看见顶牌合计某水果**恰好 5 个**就抢按铃，收走所有正面牌堆。\n\n**获胜：** 结束时牌最多。\n\n**人数：** 2–6 · **时长：** 10–15 分钟 · **年龄：** 6+"
+      },
+      "options": [
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "How to Play", "zh": "游戏流程" }, "next": "play" },
+        { "label": { "en": "Ring / Sorry!", "zh": "按铃与误按" }, "next": "bell" },
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "end" }
+      ]
+    },
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. Bell in the centre (protect the table).\n2. Shuffle; deal all **56** cards face down (uneven OK).\n3. Each player: face-down draw pile — no peeking.\n\nLeft of dealer starts.",
+        "zh": "1. 铃铛放中央（注意保护桌面）。\n2. 洗牌，发完全部 **56** 张（可不均分）。\n3. 每人面前面朝下牌库——不要偷看。\n\n发牌者左手边先手。"
+      },
+      "options": [
+        { "label": { "en": "How to Play", "zh": "游戏流程" }, "next": "play" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "play": {
+      "title": { "en": "How to Play", "zh": "游戏流程" },
+      "content": {
+        "en": "On your turn, flip the top card **away from you** onto your face-up stack (only the top is visible).\n\nContinue clockwise. Watch **all** top cards: when any fruit totals **exactly 5**, ring!\n\nWinner of the bell takes **every** face-up stack under their draw pile, then flips to continue.",
+        "zh": "轮到你时，把顶牌**朝外**翻到自己正面弃牌堆（只看见最上面一张）。\n\n顺时针继续。盯着**所有**顶牌：某水果合计**恰好 5** 就按铃！\n\n按对铃的人收走**全部**正面牌堆塞到牌库底，再翻一张继续。"
+      },
+      "options": [
+        { "label": { "en": "Ring / Sorry!", "zh": "按铃与误按" }, "next": "bell" },
+        { "label": { "en": "Out of Cards", "zh": "没牌了" }, "next": "empty" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "bell": {
+      "title": { "en": "Ring / Sorry!", "zh": "按铃与误按" },
+      "content": {
+        "en": "**Correct ring:** exactly 5 of one fruit across visible tops → take all face-up piles.\n\n**Sorry! (false ring):** not exactly 5 → give each other player 1 card from your face-down pile.\n\nCount carefully: 4 or 6 is a false ring.",
+        "zh": "**正确按铃：** 可见顶牌合计某水果恰好 5 → 收走所有正面牌堆。\n\n**对不起！（误按）：** 并非恰好 5 → 从自己面朝下牌库给每位对手各 1 张。\n\n仔细数：4 或 6 都算误按。"
+      },
+      "options": [
+        { "label": { "en": "Out of Cards", "zh": "没牌了" }, "next": "empty" },
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "end" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "empty": {
+      "title": { "en": "Out of Cards", "zh": "没牌了" },
+      "content": {
+        "en": "No draw pile → stop flipping, but you can still **ring**.\n\nYour face-up stack stays until someone wins a round.\n\nWhen you have no cards left at all (draw + face-up gone), you drop out.",
+        "zh": "牌库空了 → 不再翻牌，但仍可**按铃**。\n\n正面弃牌堆留到有人赢下该轮。\n\n牌库和正面牌都没了，才出局。"
+      },
+      "options": [
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "end" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "end": {
+      "title": { "en": "Game End", "zh": "游戏结束" },
+      "content": {
+        "en": "When **2 players** remain, play until one correctly takes the face-up stacks. Most cards wins.\n\n**Final duel false ring:** opponent takes all face-up stacks → game over.\n\nOptional: play until one player has **all** cards.",
+        "zh": "只剩 **2 人**时，继续到有人正确收走正面牌堆。牌多者胜。\n\n**终局误按：** 对手收走全部正面牌 → 游戏结束。\n\n可选：玩到有人收齐**全部**牌。"
+      },
+      "options": [
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    }
+  }
+}

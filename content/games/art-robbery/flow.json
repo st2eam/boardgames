@@ -1,0 +1,86 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": { "en": "Game Overview", "zh": "游戏概述" },
+      "content": {
+        "en": "**Art Robbery** (神偷大盗) by Reiner Knizia: four raids of loot-grabbing. Play cards to take tiles from the middle or steal from rivals. Collect **Alibis** (white dots) so the police don't catch you.\n\n**Win:** Most loot points after 4 raids (Boss tiles = 5). Fewest Alibis → arrested!\n\n**Players:** 2–5 · **Time:** ~20 min",
+        "zh": "**神偷大盗（Art Robbery）**，赖纳·克尼齐亚作品：四轮突袭抢战利品。出牌从中央拿方块，或从对手处偷窃。收集**不在场证明**（白点），别被警察抓走。\n\n**获胜：** 4 轮后战利品分最高（Boss = 5 分）。不在场证明最少者被逮捕！\n\n**人数：** 2–5 · **时长：** 约 20 分钟"
+      },
+      "options": [
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "On Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Card Effects", "zh": "卡牌效果" }, "next": "cards" },
+        { "label": { "en": "End of Raid / Game", "zh": "轮次与终局" }, "next": "end" }
+      ]
+    },
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. Sort Loot tiles into **4 stacks** by back (one per raid).\n2. Place the **Guard Dog** figure in the middle.\n3. Shuffle cards; deal **5** to each player; rest = draw pile.\n\n**Raid order:** Sketches → Sculptures → Antiquities → Paintings.\n\nStart Raid 1 by placing that raid's 9 tiles face up. Most recent museum visitor goes first.",
+        "zh": "1. 按背面把战利品分成 **4 堆**（每轮一堆）。\n2. 中央放置**看门狗**标记。\n3. 洗牌，每人发 **5** 张，其余为牌库。\n\n**轮次顺序：** 素描 → 雕塑 → 古董 → 画作。\n\n第 1 轮：摆出该轮 9 枚方块（正面）。最近去过博物馆的人先手。"
+      },
+      "options": [
+        { "label": { "en": "On Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "On Your Turn", "zh": "你的回合" },
+      "content": {
+        "en": "1. Play **1 card** onto the discard pile.\n2. Take the matching tile (if any) → face up in front of you.\n3. Draw to refill hand to **5**.\n\nEmpty draw pile → reshuffle discard. No legal tile → turn ends after the play.\n\nClockwise turns until the middle has **no tiles left** (raid ends).",
+        "zh": "1. 打出 **1 张牌**到弃牌堆。\n2. 拿取对应方块（若有）→ 正面放在自己面前。\n3. 抽牌把手牌补回 **5** 张。\n\n牌库空了 → 洗弃牌堆。拿不到方块 → 出完牌回合结束。\n\n顺时针进行，直到中央**没有方块**（本轮结束）。"
+      },
+      "options": [
+        { "label": { "en": "Card Effects", "zh": "卡牌效果" }, "next": "cards" },
+        { "label": { "en": "Guard Dog & Steal", "zh": "看门狗与偷窃" }, "next": "dog" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "cards": {
+      "title": { "en": "Card Effects", "zh": "卡牌效果" },
+      "content": {
+        "en": "| Card | Effect |\n|------|--------|\n| **Number 0–5** | Take that value from the middle; if none, **steal** it from a player |\n| **Guard Dog** | Take the Guard Dog figure |\n| **Greedy Thief** | Any **one** tile from the middle only |\n| **Boss** | Take this raid's Boss tile |\n\n**Boss keep rule:** At raid end, keep Boss only if you also have a **4 or 5** from the same raid.",
+        "zh": "| 卡牌 | 效果 |\n|------|------|\n| **数字 0–5** | 从中央拿该数值；没有则从玩家处**偷** |\n| **看门狗** | 获得看门狗标记 |\n| **贪婪小偷** | 仅从中央任选 **1** 枚 |\n| **Boss** | 拿本轮 Boss 方块 |\n\n**Boss 保留：** 轮末须同时有本轮的 **4 或 5**，否则 Boss 作废。"
+      },
+      "options": [
+        { "label": { "en": "Guard Dog & Steal", "zh": "看门狗与偷窃" }, "next": "dog" },
+        { "label": { "en": "Alibis", "zh": "不在场证明" }, "next": "alibis" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "dog": {
+      "title": { "en": "Guard Dog & Steal", "zh": "看门狗与偷窃" },
+      "content": {
+        "en": "Stealing happens when you play a Number card and that value is **gone from the middle** — take it from another player's face-up tiles.\n\nIf the target has the **Guard Dog**, they choose:\n- Give you the tile, **or**\n- Give you the Guard Dog instead (keep the tile).\n\nPlaying a Guard Dog card takes the figure from wherever it is.",
+        "zh": "当数字牌对应数值在中央**已经没有**时，可从其他玩家正面朝上的方块中偷取。\n\n若目标持有**看门狗**，由对方选择：\n- 把方块给你，**或**\n- 把看门狗给你（保留方块）。\n\n打出看门狗牌：无论标记在谁那里，都归你。"
+      },
+      "options": [
+        { "label": { "en": "Alibis", "zh": "不在场证明" }, "next": "alibis" },
+        { "label": { "en": "End of Raid / Game", "zh": "轮次与终局" }, "next": "end" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "alibis": {
+      "title": { "en": "Alibis", "zh": "不在场证明" },
+      "content": {
+        "en": "White dots on Loot tiles = **Alibis** (common on 0s). Each dot = 1 Alibi.\n\nAt game end, fewest Alibis is bad:\n- **3–5p:** eliminated (score 0); ties all out\n- **2p:** discard tiles totaling **10** points\n\nOn a loot-score tie, most Alibis among tied players wins.",
+        "zh": "战利品上的白点 = **不在场证明**（0 分方块常见）。每点计 1。\n\n终局时最少者倒霉：\n- **3–5 人：** 淘汰（0 分）；并列全淘汰\n- **2 人：** 弃掉总值 **10** 分的方块\n\n战利品分平局时，平局中不在场证明**较多**者胜。"
+      },
+      "options": [
+        { "label": { "en": "End of Raid / Game", "zh": "轮次与终局" }, "next": "end" },
+        { "label": { "en": "Back", "zh": "返回概述" }, "next": "overview" }
+      ]
+    },
+    "end": {
+      "title": { "en": "End of Raid / Game", "zh": "轮次与终局" },
+      "content": {
+        "en": "### End of raid\nLast middle tile taken → Boss check → stack tiles face down (safe) → next raid's tiles out → Guard Dog holder starts. Keep hands; no reshuffle.\n\n### End of game (after raid 4)\n1. Resolve Alibis (arrest / −10).\n2. Sum loot values (Boss = 5).\n3. Highest score wins.",
+        "zh": "### 轮次结束\n中央最后一枚被拿走 → Boss 检定 → 方块面朝下叠好（安全）→ 摆下一轮 → 持看门狗者先手。手牌保留，不重洗。\n\n### 游戏结束（第 4 轮后）\n1. 结算不在场证明（逮捕 / −10）。\n2. 加总战利品（Boss = 5）。\n3. 分高者胜。"
+      },
+      "options": [
+        { "label": { "en": "Back to Overview", "zh": "返回概述" }, "next": "overview" }
+      ]
+    }
+  }
+}

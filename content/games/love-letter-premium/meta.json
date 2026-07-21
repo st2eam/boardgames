@@ -1,0 +1,20 @@
+{
+  "name": {
+    "en": "Love Letter: Premium Edition",
+    "zh": "情书：珍藏版"
+  },
+  "players": "2-8",
+  "duration": "20-30 min",
+  "difficulty": "easy",
+  "tags": [
+    "card",
+    "deduction",
+    "bluffing",
+    "family"
+  ],
+  "category": "card",
+  "family": "love-letter",
+  "familyOrder": 1,
+  "variantType": "variant",
+  "requiresBase": false
+}

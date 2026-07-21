@@ -767,9 +767,33 @@
       "family"
     ],
     "category": "card",
+    "family": "love-letter",
+    "familyOrder": 0,
+    "variantType": "base",
     "price": 28,
     "bggRank": 369,
     "slug": "love-letter"
+  },
+  {
+    "name": {
+      "en": "Love Letter: Premium Edition",
+      "zh": "情书：珍藏版"
+    },
+    "players": "2-8",
+    "duration": "20-30 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "deduction",
+      "bluffing",
+      "family"
+    ],
+    "category": "card",
+    "family": "love-letter",
+    "familyOrder": 1,
+    "variantType": "variant",
+    "requiresBase": false,
+    "slug": "love-letter-premium"
   },
   {
     "name": {

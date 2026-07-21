@@ -13,6 +13,9 @@
     "family"
   ],
   "category": "card",
+  "family": "love-letter",
+  "familyOrder": 0,
+  "variantType": "base",
   "price": 28,
   "bggRank": 369
 }

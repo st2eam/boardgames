@@ -441,6 +441,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/love-letter-premium/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/love-letter-premium/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/tic-tac-trek/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -922,6 +932,16 @@
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/love-letter/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/love-letter-premium/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/love-letter-premium/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

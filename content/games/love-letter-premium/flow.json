@@ -1,0 +1,236 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Setup",
+        "zh": "游戏准备"
+      },
+      "content": {
+        "en": "**Premium Edition** — standalone, **2–8 players**.\n\n### 2–4 Players (16 cards)\nPrincess **8**, Countess 7, King 6, Prince×2, Handmaid×2, Baron×2, Priest×2, Guard×5.\n\n1. Shuffle 16; set aside top card **face down**.\n2. **2 players:** also set aside next **3 face up**.\n3. Deal 1 each. Most recent date goes first (tie → youngest).\n\n### 5–8 Players (32 cards)\nUse **all** cards. Shuffle; set aside 1 face down; deal 1 each.\n\n| Players | ♥ to win |\n|:-------:|:--------:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |\n| 5–8 | 4 |",
+        "zh": "**珍藏版** — 可独立游玩，**2–8 人**。\n\n### 2–4 人（16 张）\n公主 **8**、伯爵夫人 7、国王 6、王子×2、侍女×2、男爵×2、神父×2、守卫×5。\n\n1. 洗 16 张；移出顶牌**面朝下**。\n2. **双人：** 再翻开接下来 **3 张**面朝上。\n3. 每人 1 张。最近约会者先手（并列 → 最年轻）。\n\n### 5–8 人（32 张）\n使用**全部**牌。洗牌；移出 1 张面朝下；每人发 1 张。\n\n| 人数 | 所需 ♥ |\n|:----:|:------:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |\n| 5–8 | 4 |"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Classic Cards",
+            "zh": "经典卡牌"
+          },
+          "next": "classic"
+        },
+        {
+          "label": {
+            "en": "5–8 Expansion Cards",
+            "zh": "5–8 扩展牌"
+          },
+          "next": "expansion"
+        }
+      ]
+    },
+    "turn": {
+      "title": {
+        "en": "Your Turn",
+        "zh": "你的回合"
+      },
+      "content": {
+        "en": "1. **Draw** 1 card (hold 2).\n2. **Discard** 1 face up and **resolve** its effect — even if it hurts you.\n3. Keep discards visible in order. Play passes left.\n\n**Out?** Discard remaining hand face up (**no** effect). Constable / Jester knock-out effects still apply.\n\n**Can't choose** a required target (Handmaid / Sycophant)? Card is discarded with **no effect**.\n\n**5–8 tip:** “Name a **number**” hits **every** card of that value (e.g. 4 = Handmaid **and** Sycophant).",
+        "zh": "1. **抽** 1 张（手中 2 张）。\n2. **正面弃掉** 1 张并**结算**效果——即使对自己不利。\n3. 弃牌按顺序可见。左手下一位。\n\n**出局？** 剩余手牌正面弃掉（**不结算**）。警官 / 小丑的出局效果仍生效。\n\n**无法指定**所需目标（侍女 / 谄媚者）？该牌**无效弃掉**。\n\n**5–8 提示：** “说出一个**点数**”会命中该点数的**所有**牌（如 4 = 侍女 **与** 谄媚者）。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Classic Cards",
+            "zh": "经典卡牌"
+          },
+          "next": "classic"
+        },
+        {
+          "label": {
+            "en": "5–8 Expansion Cards",
+            "zh": "5–8 扩展牌"
+          },
+          "next": "expansion"
+        },
+        {
+          "label": {
+            "en": "Round End",
+            "zh": "一轮结束"
+          },
+          "next": "round-end"
+        }
+      ]
+    },
+    "classic": {
+      "title": {
+        "en": "Classic Cards",
+        "zh": "经典卡牌"
+      },
+      "content": {
+        "en": "| # | Card | Effect |\n|:-:|------|--------|\n| 8 | **Princess** | Play/discard → out; no Prince redraw if she was forced |\n| 7 | **Countess** | Must play if holding King/Prince |\n| 6 | **King** | Trade hands |\n| 5 | **Prince** | Target discards & redraws |\n| 4 | **Handmaid** | Immune until start of your next turn |\n| 3 | **Baron** | Compare; lower out |\n| 2 | **Priest** | Peek one hand |\n| 1 | **Guard** | Name a **number** ≠ 1; match → out |",
+        "zh": "| 点 | 卡牌 | 效果 |\n|:--:|------|------|\n| 8 | **公主** | 打出/弃掉 → 出局；被强制时王子不再重抽 |\n| 7 | **伯爵夫人** | 持有国王/王子时必须打出 |\n| 6 | **国王** | 交换手牌 |\n| 5 | **王子** | 指定者弃牌重抽 |\n| 4 | **侍女** | 至下一回合开始前免疫 |\n| 3 | **男爵** | 比牌，低者出局 |\n| 2 | **神父** | 偷看一手 |\n| 1 | **守卫** | 猜**点数**≠1；命中则出局 |"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "5–8 Expansion Cards",
+            "zh": "5–8 扩展牌"
+          },
+          "next": "expansion"
+        },
+        {
+          "label": {
+            "en": "Bishop · Queen · Constable · Count",
+            "zh": "主教 · 太后 · 警官 · 伯爵"
+          },
+          "next": "high-exp"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "expansion": {
+      "title": {
+        "en": "Expansion Overview (5–8)",
+        "zh": "扩展一览（5–8）"
+      },
+      "content": {
+        "en": "Added when using all **32** cards:\n\n| # | Card | Qty | Summary |\n|:-:|------|:---:|--------|\n| 9 | **Bishop** | 1 | Guess number → +1 ♥; Princess still wins reveal |\n| 7 | **Dowager Queen** | 1 | Compare; **higher** out |\n| 6 | **Constable** | 1 | Knocked out with this in discard → +1 ♥ |\n| 5 | **Count** | 2 | Each in discard: +1 to hand at reveal |\n| 4 | **Sycophant** | 2 | Next chooser must include your pick |\n| 3 | **Baroness** | 2 | Peek 1 or 2 hands |\n| 2 | **Cardinal** | 2 | Swap 2 hands; peek one |\n| 1 | **Guard** | +3 | Same Guard (8 total) |\n| 0 | **Jester** | 1 | If pick wins round → you +1 ♥ |\n| 0 | **Assassin** | 1 | Vs Guard: Guard player out; then redraw |",
+        "zh": "使用全部 **32** 张时加入：\n\n| 点 | 卡牌 | 数 | 简述 |\n|:--:|------|:--:|------|\n| 9 | **主教** | 1 | 猜点数 → +1 ♥；亮牌仍公主优先 |\n| 7 | **太后** | 1 | 比牌，**高**者出局 |\n| 6 | **警官** | 1 | 出局时弃牌中有此牌 → +1 ♥ |\n| 5 | **伯爵** | 2 | 弃牌中每张亮牌 +1 |\n| 4 | **谄媚者** | 2 | 下一张指定必须含你所选 |\n| 3 | **男爵夫人** | 2 | 偷看 1 或 2 手 |\n| 2 | **枢机** | 2 | 两人换牌；可看一张 |\n| 1 | **守卫** | +3 | 同守卫（共 8） |\n| 0 | **小丑** | 1 | 所选赢轮 → 你 +1 ♥ |\n| 0 | **刺客** | 1 | 对守卫：出守卫者出局；然后重抽 |"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Bishop · Queen · Constable · Count",
+            "zh": "主教 · 太后 · 警官 · 伯爵"
+          },
+          "next": "high-exp"
+        },
+        {
+          "label": {
+            "en": "Sycophant → Assassin",
+            "zh": "谄媚者 → 刺客"
+          },
+          "next": "low-exp"
+        },
+        {
+          "label": {
+            "en": "Round End",
+            "zh": "一轮结束"
+          },
+          "next": "round-end"
+        }
+      ]
+    },
+    "high-exp": {
+      "title": {
+        "en": "Bishop · Dowager · Constable · Count",
+        "zh": "主教 · 太后 · 警官 · 伯爵"
+      },
+      "content": {
+        "en": "### Bishop (9)\nName a number + player. Hit → **+1 ♥** (instant win if enough). Target may discard & redraw (Princess still outs). At **reveal**, Princess beats Bishop.\n\n### Dowager Queen (7)\nCompare; **higher** value is out. Tie → nothing.\n\n### Constable (6)\nIf knocked out with Constable in your **discard pile** → **+1 ♥** (instant win if enough).\n\n### Count (5) ×2\nAt reveal, +1 hand value per Count in your discard (two → +2). A boosted 7 can beat Princess. Remaining ties use discard sums.",
+        "zh": "### 主教（9）\n说出点数 + 指定玩家。命中 → **+1 ♥**（凑齐可立即胜）。对方可弃牌重抽（公主仍出局）。**亮牌时公主胜过主教**。\n\n### 太后（7）\n比牌，**较高**者出局；相同无事。\n\n### 警官（6）\n出局时弃牌堆有警官 → **+1 ♥**（凑齐可立即胜）。\n\n### 伯爵（5）×2\n亮牌时弃牌中每张伯爵使手牌 +1（两张 +2）。加强后的 7 可胜过公主。仍平则比弃牌总和。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Sycophant → Assassin",
+            "zh": "谄媚者 → 刺客"
+          },
+          "next": "low-exp"
+        },
+        {
+          "label": {
+            "en": "Expansion Overview",
+            "zh": "扩展一览"
+          },
+          "next": "expansion"
+        },
+        {
+          "label": {
+            "en": "Round End",
+            "zh": "一轮结束"
+          },
+          "next": "round-end"
+        }
+      ]
+    },
+    "low-exp": {
+      "title": {
+        "en": "Sycophant · Baroness · Cardinal · Jester · Assassin",
+        "zh": "谄媚者 · 男爵夫人 · 枢机 · 小丑 · 刺客"
+      },
+      "content": {
+        "en": "### Sycophant (4) ×2\nChoose a player (incl. you). The **next** card that chooses players must include them.\n\n### Baroness (3) ×2\nSecretly look at **1 or 2** other hands.\n\n### Cardinal (2) ×2\nChoose **exactly 2** still-in players (may include you); they swap. Then peek **one** of those hands. <2 legal targets → no effect.\n\n### Jester (0)\nPick another player (Jester token). If they **win the round**, you also get **1 ♥**.\n\n### Assassin (0)\nIn hand vs Guard: reveal → **Guard player** is out; you are not. Then discard Assassin and redraw (empty deck → set-aside).",
+        "zh": "### 谄媚者（4）×2\n指定一名玩家（可含自己）。**下一张**需要指定玩家的牌必须包含该目标。\n\n### 男爵夫人（3）×2\n秘密查看 **1 或 2** 名其他玩家手牌。\n\n### 枢机（2）×2\n指定**恰好 2** 名仍在局者（可含自己）换牌，再偷看其中**一张**。合法目标不足 2 → 无效。\n\n### 小丑（0）\n指定另一玩家（小丑标记）。若其**赢下本轮**，你也得 **1 ♥**。\n\n### 刺客（0）\n手中对守卫：亮出 → **出守卫者**出局；你不出局。然后弃刺客并重抽（牌堆空 → 开局移出牌）。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Round End",
+            "zh": "一轮结束"
+          },
+          "next": "round-end"
+        },
+        {
+          "label": {
+            "en": "Bishop · Queen · Constable · Count",
+            "zh": "主教 · 太后 · 警官 · 伯爵"
+          },
+          "next": "high-exp"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "round-end": {
+      "title": {
+        "en": "Round End & Winning",
+        "zh": "一轮结束与获胜"
+      },
+      "content": {
+        "en": "### Round ends when\n1. **Deck empty** — highest hand wins. Tie → highest **discard sum**; still tied → **all** tied win.\n2. **One player left** — that player wins.\n\nWinner(s) each get **1 ♥**. Next round: previous winner first.\n\n### Win the game\n| Players | ♥ |\n|:-------:|:-:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |\n| 5–8 | 4 |\n\n**5–8:** Mid-round ♥ (Bishop / Constable / Jester) can finish the game. Simultaneous winners → **tiebreaker round**.",
+        "zh": "### 本轮结束\n1. **牌堆空** — 手牌最高者胜。平局 → 比**弃牌总和**；仍平 → **所有**并列者皆胜。\n2. **只剩一人** — 该玩家胜。\n\n胜者（们）各得 **1 ♥**。下一轮：上轮胜者先手。\n\n### 整局胜利\n| 人数 | ♥ |\n|:----:|:-:|\n| 2 | 7 |\n| 3 | 5 |\n| 4 | 4 |\n| 5–8 | 4 |\n\n**5–8：** 中途 ♥（主教 / 警官 / 小丑）可直接结束。多人同时达标 → **加赛一轮**。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "5–8 Expansion Cards",
+            "zh": "5–8 扩展牌"
+          },
+          "next": "expansion"
+        }
+      ]
+    }
+  }
+}

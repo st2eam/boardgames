@@ -17,16 +17,28 @@ import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 import { GlobalChatStrategy } from "@/lib/ai/GlobalChatStrategy";
 import { GameChatStrategy } from "@/lib/ai/GameChatStrategy";
 import type { ChatToolStrategy } from "@/lib/ai/ChatToolStrategy";
-import type { AnthropicContentBlock, AnthropicMessage } from "@/lib/ai/LLMAdapter";
+import type {
+  AnthropicContentBlock,
+  AnthropicMessage,
+  ChatStreamStatus,
+} from "@/lib/ai/LLMAdapter";
 import { executeToolCall } from "@/lib/ai/tool-handlers";
 
 const MAX_TOOL_CALL_ITERATIONS = 5;
 
 export type ChatMode = "game" | "global";
+export type { ChatStreamStatus };
+
+function statusFromToolName(name: string): ChatStreamStatus {
+  if (name === "web_search") return "web_search";
+  if (name === "get_game_rules") return "get_game_rules";
+  return "tool_use";
+}
 
 interface ChatContextValue {
   messages: ChatMessage[];
   isStreaming: boolean;
+  streamStatus: ChatStreamStatus | null;
   apiKey: string | null;
   apiKeyLoaded: boolean;
   close: () => void;
@@ -50,6 +62,7 @@ interface Props {
 export function ChatProvider({ children, scope, locale, onClose }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
+  const [streamStatus, setStreamStatus] = useState<ChatStreamStatus | null>(null);
   const [apiKey, setApiKeyState] = useState<string | null>(null);
   const [apiKeyLoaded, setApiKeyLoaded] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -136,6 +149,7 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
       const tools = strategy.getTools();
 
       setIsStreaming(true);
+      setStreamStatus(null);
 
       try {
         await runConversation(
@@ -143,7 +157,8 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
           systemPrompt,
           tools,
           history,
-          setMessages
+          setMessages,
+          setStreamStatus
         );
       } catch (err) {
         console.error("Chat error:", err);
@@ -160,10 +175,10 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
           },
         ]);
       } finally {
+        setStreamStatus(null);
         setIsStreaming(false);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [apiKey, isStreaming, scope, locale, activeMode]
   );
 
@@ -172,6 +187,7 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
       value={{
         messages,
         isStreaming,
+        streamStatus,
         apiKey,
         apiKeyLoaded,
         close,
@@ -308,7 +324,8 @@ async function runConversation(
   systemPrompt: string,
   tools: ReturnType<ChatToolStrategy["getTools"]>,
   historyMessages: ChatMessage[],
-  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>
+  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
+  setStreamStatus: React.Dispatch<React.SetStateAction<ChatStreamStatus | null>>
 ) {
   const adapter = new DeepSeekAdapter(apiKey);
 
@@ -335,7 +352,11 @@ async function runConversation(
           tools,
         },
         (chunk) => {
+          if (chunk.status) {
+            setStreamStatus(chunk.status);
+          }
           if (chunk.content) {
+            setStreamStatus(null);
             flusher.append(chunk.content);
           }
         }
@@ -344,6 +365,7 @@ async function runConversation(
     flusher.finalize();
 
     if (finishReason !== "tool_calls" || !responseToolCalls || responseToolCalls.length === 0) {
+      setStreamStatus(null);
       if (assistantMsg.content) {
         setMessages((prev) => {
           const idx = prev.findIndex((m) => m.id === assistantMsg.id);
@@ -376,6 +398,8 @@ async function runConversation(
     currentMessages.push(assistantMsg);
 
     for (const tc of responseToolCalls) {
+      setStreamStatus(statusFromToolName(tc.name));
+
       let args: Record<string, unknown> = {};
       try {
         args = JSON.parse(tc.arguments);

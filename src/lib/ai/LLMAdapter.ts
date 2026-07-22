@@ -44,8 +44,11 @@ export interface ChatParams {
   maxTokens?: number;
 }
 
+/** Live tool-call status surfaced to the chat UI while streaming. */
+export type ChatStreamStatus = "web_search" | "get_game_rules" | "tool_use";
+
 export interface ChatChunk {
   content: string;
-  status?: "web_search" | "tool_use";
+  status?: ChatStreamStatus;
   toolCalls?: ToolCall[];
 }

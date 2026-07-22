@@ -19,6 +19,38 @@ function TypingIndicator() {
   );
 }
 
+function ToolStatusIndicator({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-2 px-1 py-0.5 text-xs text-stone-500">
+      <span
+        className="inline-block h-3.5 w-3.5 shrink-0 animate-spin rounded-full border-2 border-accent/25 border-t-accent"
+        aria-hidden
+      />
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function AssistantAvatar() {
+  return (
+    <div className="mr-2 mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-accent/10">
+      <svg
+        className="h-3.5 w-3.5 text-accent"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"
+        />
+      </svg>
+    </div>
+  );
+}
+
 function EmptyState({ placeholder }: { placeholder: string }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-6 py-8 text-center">
@@ -134,7 +166,7 @@ function MarkdownBubble({ content }: { content: string }) {
 // ─── Main ────────────────────────────────────────────────────────────────
 
 export function ChatMessages() {
-  const { messages, isStreaming } = useChat();
+  const { messages, isStreaming, streamStatus } = useChat();
   const t = useTranslations("chat");
   const bottomRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -149,11 +181,26 @@ export function ChatMessages() {
     if (isNearBottom()) {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages]);
+  }, [messages, streamStatus, isStreaming]);
 
-  const hasMessages = messages.some(
-    (m) => m.role === "user" || m.role === "assistant"
+  const visibleMessages = messages.filter(
+    (m) => m.role === "user" || (m.role === "assistant" && Boolean(m.content))
   );
+
+  const hasMessages = visibleMessages.length > 0;
+  const lastVisible = visibleMessages[visibleMessages.length - 1];
+  const showStatusRow =
+    isStreaming &&
+    (Boolean(streamStatus) || !lastVisible || lastVisible.role === "user");
+
+  const statusLabel =
+    streamStatus === "web_search"
+      ? t("statusWebSearch")
+      : streamStatus === "get_game_rules"
+        ? t("statusGetGameRules")
+        : streamStatus === "tool_use"
+          ? t("statusToolUse")
+          : t("thinking");
 
   return (
     <div
@@ -165,9 +212,7 @@ export function ChatMessages() {
         <EmptyState placeholder={t("placeholder")} />
       ) : (
         <div className="flex flex-col gap-3 px-4 py-4">
-          {messages
-            .filter((m) => m.role === "user" || m.role === "assistant")
-            .map((msg) => (
+          {visibleMessages.map((msg) => (
               <motion.div
                 key={msg.id}
                 initial={{ opacity: 0, y: 10, scale: 0.98 }}
@@ -175,40 +220,18 @@ export function ChatMessages() {
                 transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                {msg.role === "assistant" && (
-                  <div className="mr-2 mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-accent/10">
-                    <svg
-                      className="h-3.5 w-3.5 text-accent"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"
-                      />
-                    </svg>
-                  </div>
-                )}
+                {msg.role === "assistant" && <AssistantAvatar />}
                 <div
                   className={`max-w-[78%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                     msg.role === "user"
                       ? "rounded-br-md bg-accent text-white shadow-sm shadow-accent/20"
-                      : msg.content
-                        ? "rounded-bl-md bg-stone-100 text-stone-800"
-                        : "bg-stone-100 text-stone-400"
+                      : "rounded-bl-md bg-stone-100 text-stone-800"
                   }`}
                 >
-                  {msg.content ? (
-                    msg.role === "user" ? (
-                      <p className="whitespace-pre-wrap">{msg.content}</p>
-                    ) : (
-                      <MarkdownBubble content={msg.content} />
-                    )
+                  {msg.role === "user" ? (
+                    <p className="whitespace-pre-wrap">{msg.content}</p>
                   ) : (
-                    <TypingIndicator />
+                    <MarkdownBubble content={msg.content} />
                   )}
                 </div>
                 {msg.role === "user" && (
@@ -231,30 +254,18 @@ export function ChatMessages() {
               </motion.div>
             ))}
 
-          {/* Streaming placeholder */}
-          {isStreaming &&
-            messages[messages.length - 1]?.role === "user" && (
-              <div className="flex justify-start">
-                <div className="mr-2 mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-accent/10">
-                  <svg
-                    className="h-3.5 w-3.5 text-accent"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"
-                    />
-                  </svg>
-                </div>
-                <div className="rounded-2xl rounded-bl-md bg-stone-100 px-3.5 py-2.5">
+          {showStatusRow && (
+            <div className="flex justify-start">
+              <AssistantAvatar />
+              <div className="rounded-2xl rounded-bl-md bg-stone-100 px-3.5 py-2.5">
+                {streamStatus ? (
+                  <ToolStatusIndicator label={statusLabel} />
+                ) : (
                   <TypingIndicator />
-                </div>
+                )}
               </div>
-            )}
+            </div>
+          )}
 
           <div ref={bottomRef} />
         </div>

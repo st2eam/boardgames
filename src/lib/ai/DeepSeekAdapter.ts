@@ -106,7 +106,11 @@ export class DeepSeekAdapter {
           if (block.type === "server_tool_use" && block.name === "web_search") {
             onChunk({ content: "", status: "web_search" });
           } else if (block.type === "tool_use") {
-            onChunk({ content: "", status: "tool_use" });
+            onChunk({
+              content: "",
+              status:
+                block.name === "get_game_rules" ? "get_game_rules" : "tool_use",
+            });
           }
         } else if (type === "content_block_delta") {
           const index = event.index as number;

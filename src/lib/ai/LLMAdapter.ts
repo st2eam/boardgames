@@ -1,4 +1,4 @@
-import type { ToolCall } from "@/lib/chat/types";
+import type { ChatActivity, ToolCall } from "@/lib/chat/types";
 
 /** Anthropic-style client tool (executed in the browser). */
 export interface ClientToolDefinition {
@@ -44,11 +44,12 @@ export interface ChatParams {
   maxTokens?: number;
 }
 
-/** Live tool-call status surfaced to the chat UI while streaming. */
-export type ChatStreamStatus = "web_search" | "get_game_rules" | "tool_use";
+/** @deprecated Prefer ChatActivity; kept for simple status fallbacks. */
+export type ChatStreamStatus = "web_search" | "get_game_rules" | "tool_use" | "thinking";
 
 export interface ChatChunk {
-  content: string;
-  status?: ChatStreamStatus;
+  content?: string;
+  /** Full activity snapshot to upsert into the current assistant message. */
+  activity?: ChatActivity;
   toolCalls?: ToolCall[];
 }

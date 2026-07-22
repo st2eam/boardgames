@@ -10,7 +10,7 @@ import {
   useRef,
   type ReactNode,
 } from "react";
-import type { ChatMessage, ChatScope } from "./types";
+import type { ChatActivity, ChatMessage, ChatScope } from "./types";
 import { saveMessages, loadMessages, clearHistory as clearStoredHistory } from "./chat-storage";
 import { loadApiKey, saveApiKey } from "./api-key-storage";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
@@ -20,7 +20,6 @@ import type { ChatToolStrategy } from "@/lib/ai/ChatToolStrategy";
 import type {
   AnthropicContentBlock,
   AnthropicMessage,
-  ChatStreamStatus,
 } from "@/lib/ai/LLMAdapter";
 import { executeToolCall } from "@/lib/ai/tool-handlers";
 import {
@@ -33,18 +32,21 @@ import zhMessages from "../../../messages/zh.json";
 const MAX_TOOL_CALL_ITERATIONS = 5;
 
 export type ChatMode = "game" | "global";
-export type { ChatStreamStatus };
 
-function statusFromToolName(name: string): ChatStreamStatus {
-  if (name === "web_search") return "web_search";
-  if (name === "get_game_rules") return "get_game_rules";
-  return "tool_use";
+function upsertActivity(msg: ChatMessage, activity: ChatActivity) {
+  const list = msg.activities ? [...msg.activities] : [];
+  const idx = list.findIndex((a) => a.id === activity.id);
+  if (idx >= 0) {
+    list[idx] = { ...list[idx], ...activity };
+  } else {
+    list.push(activity);
+  }
+  msg.activities = list;
 }
 
 interface ChatContextValue {
   messages: ChatMessage[];
   isStreaming: boolean;
-  streamStatus: ChatStreamStatus | null;
   apiKey: string | null;
   apiKeyLoaded: boolean;
   close: () => void;
@@ -68,7 +70,6 @@ interface Props {
 export function ChatProvider({ children, scope, locale, onClose }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
-  const [streamStatus, setStreamStatus] = useState<ChatStreamStatus | null>(null);
   const [apiKey, setApiKeyState] = useState<string | null>(null);
   const [apiKeyLoaded, setApiKeyLoaded] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -155,7 +156,6 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
       const tools = strategy.getTools();
 
       setIsStreaming(true);
-      setStreamStatus(null);
 
       try {
         await runConversation(
@@ -163,8 +163,7 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
           systemPrompt,
           tools,
           history,
-          setMessages,
-          setStreamStatus
+          setMessages
         );
       } catch (err) {
         console.error("Chat error:", err);
@@ -182,7 +181,6 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
           },
         ]);
       } finally {
-        setStreamStatus(null);
         setIsStreaming(false);
       }
     },
@@ -194,7 +192,6 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
       value={{
         messages,
         isStreaming,
-        streamStatus,
         apiKey,
         apiKeyLoaded,
         close,
@@ -251,6 +248,11 @@ function createStreamFlusher(
   return {
     append(chunk: string) {
       assistantMsg.content += chunk;
+      if (rafId === null) {
+        rafId = requestAnimationFrame(flush);
+      }
+    },
+    touch() {
       if (rafId === null) {
         rafId = requestAnimationFrame(flush);
       }
@@ -345,8 +347,7 @@ async function runConversation(
   systemPrompt: string,
   tools: ReturnType<ChatToolStrategy["getTools"]>,
   historyMessages: ChatMessage[],
-  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
-  setStreamStatus: React.Dispatch<React.SetStateAction<ChatStreamStatus | null>>
+  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>
 ) {
   const adapter = new DeepSeekAdapter(apiKey);
 
@@ -360,6 +361,7 @@ async function runConversation(
       id: crypto.randomUUID(),
       role: "assistant",
       content: "",
+      activities: [],
       timestamp: Date.now(),
     };
 
@@ -376,11 +378,11 @@ async function runConversation(
           tools,
         },
         (chunk) => {
-          if (chunk.status) {
-            setStreamStatus(chunk.status);
+          if (chunk.activity) {
+            upsertActivity(assistantMsg, chunk.activity);
+            flusher.touch();
           }
           if (chunk.content) {
-            setStreamStatus(null);
             flusher.append(chunk.content);
           }
         }
@@ -393,8 +395,7 @@ async function runConversation(
     flusher.finalize();
 
     if (finishReason !== "tool_calls" || !responseToolCalls || responseToolCalls.length === 0) {
-      setStreamStatus(null);
-      if (assistantMsg.content) {
+      if (assistantMsg.content || (assistantMsg.activities?.length ?? 0) > 0) {
         setMessages((prev) => {
           const idx = prev.findIndex((m) => m.id === assistantMsg.id);
           if (idx >= 0) {
@@ -430,7 +431,23 @@ async function runConversation(
     currentMessages.push(assistantMsg);
 
     for (const tc of responseToolCalls) {
-      setStreamStatus(statusFromToolName(tc.name));
+      const kind =
+        tc.name === "get_game_rules" ? "get_game_rules" : "tool_use";
+      upsertActivity(assistantMsg, {
+        id: tc.id,
+        kind,
+        status: "running",
+        toolName: tc.name,
+      });
+      setMessages((prev) => {
+        const idx = prev.findIndex((m) => m.id === assistantMsg.id);
+        if (idx >= 0) {
+          const updated = [...prev];
+          updated[idx] = { ...assistantMsg };
+          return updated;
+        }
+        return [...prev, { ...assistantMsg }];
+      });
 
       let args: Record<string, unknown> = {};
       try {
@@ -440,6 +457,22 @@ async function runConversation(
       }
 
       const result = await executeToolCall(tc.name, args);
+
+      upsertActivity(assistantMsg, {
+        id: tc.id,
+        kind,
+        status: "done",
+        toolName: tc.name,
+      });
+      setMessages((prev) => {
+        const idx = prev.findIndex((m) => m.id === assistantMsg.id);
+        if (idx >= 0) {
+          const updated = [...prev];
+          updated[idx] = { ...assistantMsg };
+          return updated;
+        }
+        return prev;
+      });
 
       const toolMsg: ChatMessage = {
         id: crypto.randomUUID(),

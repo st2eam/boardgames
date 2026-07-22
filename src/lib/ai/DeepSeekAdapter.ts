@@ -1,5 +1,10 @@
 import type { ChatParams, ChatChunk } from "./LLMAdapter";
-import type { ThinkingBlock, ToolCall } from "@/lib/chat/types";
+import type {
+  ChatActivity,
+  ThinkingBlock,
+  ToolCall,
+  WebSearchResultItem,
+} from "@/lib/chat/types";
 import { DeepSeekApiError } from "@/lib/chat/chat-errors";
 
 interface StreamCallback {
@@ -17,6 +22,8 @@ interface ContentBlockState {
   text?: string;
   partialJson?: string;
   signature?: string;
+  activityId?: string;
+  toolUseId?: string;
 }
 
 export class DeepSeekAdapter {
@@ -71,6 +78,10 @@ export class DeepSeekAdapter {
     const decoder = new TextDecoder();
     let buffer = "";
 
+    const emitActivity = (activity: ChatActivity) => {
+      onChunk({ activity });
+    };
+
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
@@ -103,8 +114,11 @@ export class DeepSeekAdapter {
             text?: string;
             thinking?: string;
             signature?: string;
+            tool_use_id?: string;
+            content?: unknown;
           };
-          blocks.set(index, {
+
+          const state: ContentBlockState = {
             type: block.type,
             id: block.id,
             name: block.name,
@@ -114,17 +128,49 @@ export class DeepSeekAdapter {
                 : (block.text ?? ""),
             partialJson: "",
             signature: block.signature ?? "",
-          });
+            toolUseId: block.tool_use_id,
+          };
 
-          if (block.type === "server_tool_use" && block.name === "web_search") {
-            onChunk({ content: "", status: "web_search" });
+          if (block.type === "thinking") {
+            state.activityId = `thinking-${index}`;
+            emitActivity({
+              id: state.activityId,
+              kind: "thinking",
+              status: "running",
+              thinkingText: state.text,
+            });
+          } else if (block.type === "server_tool_use" && block.name === "web_search") {
+            state.activityId = block.id ?? `web-search-${index}`;
+            emitActivity({
+              id: state.activityId,
+              kind: "web_search",
+              status: "running",
+              toolName: "web_search",
+            });
           } else if (block.type === "tool_use") {
-            onChunk({
-              content: "",
-              status:
-                block.name === "get_game_rules" ? "get_game_rules" : "tool_use",
+            const kind =
+              block.name === "get_game_rules" ? "get_game_rules" : "tool_use";
+            state.activityId = block.id ?? `tool-${index}`;
+            emitActivity({
+              id: state.activityId,
+              kind,
+              status: "running",
+              toolName: block.name,
+            });
+          } else if (block.type === "web_search_tool_result") {
+            const toolUseId = block.tool_use_id ?? `web-result-${index}`;
+            const parsed = parseWebSearchResultContent(block.content);
+            emitActivity({
+              id: toolUseId,
+              kind: "web_search",
+              status: parsed.errorCode ? "error" : "done",
+              errorCode: parsed.errorCode,
+              results: parsed.results,
+              toolName: "web_search",
             });
           }
+
+          blocks.set(index, state);
         } else if (type === "content_block_delta") {
           const index = event.index as number;
           const delta = event.delta as {
@@ -143,10 +189,46 @@ export class DeepSeekAdapter {
             onChunk({ content: delta.text });
           } else if (delta.type === "thinking_delta" && delta.thinking) {
             state.text = (state.text ?? "") + delta.thinking;
+            if (state.activityId) {
+              emitActivity({
+                id: state.activityId,
+                kind: "thinking",
+                status: "running",
+                thinkingText: state.text,
+              });
+            }
           } else if (delta.type === "signature_delta" && delta.signature) {
             state.signature = (state.signature ?? "") + delta.signature;
           } else if (delta.type === "input_json_delta" && delta.partial_json) {
             state.partialJson = (state.partialJson ?? "") + delta.partial_json;
+            if (
+              state.type === "server_tool_use" &&
+              state.name === "web_search" &&
+              state.activityId
+            ) {
+              const query = tryParseQuery(state.partialJson);
+              if (query) {
+                emitActivity({
+                  id: state.activityId,
+                  kind: "web_search",
+                  status: "running",
+                  query,
+                  toolName: "web_search",
+                });
+              }
+            }
+          }
+        } else if (type === "content_block_stop") {
+          const index = event.index as number;
+          const state = blocks.get(index);
+          // Client tool_use stays "running" until the browser finishes executeToolCall.
+          if (state?.type === "thinking" && state.activityId) {
+            emitActivity({
+              id: state.activityId,
+              kind: "thinking",
+              status: "done",
+              thinkingText: state.text,
+            });
           }
         } else if (type === "message_delta") {
           const delta = event.delta as { stop_reason?: string | null };
@@ -154,7 +236,7 @@ export class DeepSeekAdapter {
             stopReason = delta.stop_reason;
           }
         } else if (type === "error") {
-          const err = event.error as { message?: string; type?: string } | undefined;
+          const err = event.error as { message?: string } | undefined;
           throw new DeepSeekApiError(
             400,
             err?.message ?? "DeepSeek stream error"
@@ -166,7 +248,6 @@ export class DeepSeekAdapter {
     const toolCalls = collectClientToolCalls(blocks);
     const thinking = collectThinking(blocks);
 
-    // Anthropic uses tool_use; normalize for our conversation loop
     const finishReason =
       stopReason === "tool_use" || toolCalls.length > 0
         ? "tool_calls"
@@ -182,6 +263,51 @@ export class DeepSeekAdapter {
       thinking,
     };
   }
+}
+
+function tryParseQuery(partialJson: string): string | undefined {
+  try {
+    const parsed = JSON.parse(partialJson) as { query?: unknown };
+    return typeof parsed.query === "string" && parsed.query.trim()
+      ? parsed.query.trim()
+      : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function parseWebSearchResultContent(content: unknown): {
+  results?: WebSearchResultItem[];
+  errorCode?: string;
+} {
+  if (!Array.isArray(content)) return {};
+
+  for (const item of content) {
+    if (!item || typeof item !== "object") continue;
+    const row = item as {
+      type?: string;
+      error_code?: string;
+      title?: string;
+      url?: string;
+    };
+    if (row.type === "web_search_tool_result_error") {
+      return { errorCode: row.error_code || "unavailable" };
+    }
+  }
+
+  const results: WebSearchResultItem[] = [];
+  for (const item of content) {
+    if (!item || typeof item !== "object") continue;
+    const row = item as { type?: string; title?: string; url?: string };
+    if (row.type === "web_search_result" && row.url) {
+      results.push({
+        title: row.title?.trim() || row.url,
+        url: row.url,
+      });
+    }
+  }
+
+  return results.length > 0 ? { results } : {};
 }
 
 function collectClientToolCalls(

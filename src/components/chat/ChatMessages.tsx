@@ -1,17 +1,18 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { motion } from "motion/react";
 import { useChat } from "@/lib/chat/ChatProvider";
+import type { ChatActivity, ChatMessage } from "@/lib/chat/types";
 import { useTranslations } from "next-intl";
 
 // ─── Sub-components ──────────────────────────────────────────────────────
 
 function TypingIndicator() {
   return (
-    <div className="flex items-center gap-1 px-4 py-2">
+    <div className="flex items-center gap-1 px-1 py-0.5">
       <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-stone-400 [animation-delay:0ms]" />
       <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-stone-400 [animation-delay:150ms]" />
       <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-stone-400 [animation-delay:300ms]" />
@@ -19,15 +20,12 @@ function TypingIndicator() {
   );
 }
 
-function ToolStatusIndicator({ label }: { label: string }) {
+function Spinner({ className = "border-accent/25 border-t-accent" }: { className?: string }) {
   return (
-    <div className="flex items-center gap-2 px-1 py-0.5 text-xs text-stone-500">
-      <span
-        className="inline-block h-3.5 w-3.5 shrink-0 animate-spin rounded-full border-2 border-accent/25 border-t-accent"
-        aria-hidden
-      />
-      <span>{label}</span>
-    </div>
+    <span
+      className={`inline-block h-3.5 w-3.5 shrink-0 animate-spin rounded-full border-2 ${className}`}
+      aria-hidden
+    />
   );
 }
 
@@ -75,14 +73,171 @@ function EmptyState({ placeholder }: { placeholder: string }) {
   );
 }
 
-/** Renders markdown inside assistant bubbles. Tailwind prose reset isn't used
- *  because the bubble has its own bg — we define inline styles instead. */
+function ActivityRow({ activity }: { activity: ChatActivity }) {
+  const t = useTranslations("chat");
+  const [open, setOpen] = useState(false);
+
+  if (activity.kind === "thinking") {
+    const running = activity.status === "running";
+    return (
+      <div className="rounded-xl border border-stone-200/80 bg-white/70 px-2.5 py-2">
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="flex w-full cursor-pointer items-center gap-2 text-left text-xs text-stone-500"
+        >
+          {running ? <Spinner /> : (
+            <span className="text-accent" aria-hidden>✦</span>
+          )}
+          <span className="flex-1">
+            {running ? t("activityThinking") : t("activityThinkingDone")}
+          </span>
+          {activity.thinkingText ? (
+            <span className="text-[10px] text-stone-400">
+              {open ? t("hideThinking") : t("showThinking")}
+            </span>
+          ) : null}
+        </button>
+        {open && activity.thinkingText ? (
+          <p className="mt-1.5 max-h-28 overflow-y-auto whitespace-pre-wrap border-t border-stone-100 pt-1.5 text-[11px] leading-relaxed text-stone-400">
+            {activity.thinkingText}
+          </p>
+        ) : null}
+      </div>
+    );
+  }
+
+  if (activity.kind === "web_search") {
+    if (activity.status === "error") {
+      const detail =
+        activity.errorCode === "unavailable"
+          ? t("activityWebSearchUnavailable")
+          : t("activityWebSearchFailed", {
+              code: activity.errorCode || "unknown",
+            });
+      return (
+        <div className="rounded-xl border border-amber-200 bg-amber-50/80 px-2.5 py-2 text-xs text-amber-800">
+          <div className="flex items-start gap-2">
+            <span aria-hidden>⚠</span>
+            <div className="min-w-0">
+              <p className="font-medium">{t("activityWebSearchErrorTitle")}</p>
+              <p className="mt-0.5 text-amber-700/90">{detail}</p>
+              {activity.query ? (
+                <p className="mt-1 truncate text-[11px] text-amber-700/70">
+                  {t("activityWebSearchQuery", { query: activity.query })}
+                </p>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (activity.status === "done" && activity.results?.length) {
+      return (
+        <div className="rounded-xl border border-emerald-200/80 bg-emerald-50/60 px-2.5 py-2 text-xs text-emerald-900">
+          <p className="mb-1.5 font-medium">
+            {t("activityWebSearchResults", { count: activity.results.length })}
+          </p>
+          <ul className="space-y-1">
+            {activity.results.slice(0, 5).map((r) => (
+              <li key={r.url} className="truncate">
+                <a
+                  href={r.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-800 underline decoration-emerald-300/60 underline-offset-2 hover:decoration-emerald-700"
+                >
+                  {r.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex items-center gap-2 rounded-xl border border-sky-200/80 bg-sky-50/70 px-2.5 py-2 text-xs text-sky-800">
+        <Spinner className="border-sky-300 border-t-sky-600" />
+        <div className="min-w-0">
+          <p className="font-medium">{t("activityWebSearch")}</p>
+          {activity.query ? (
+            <p className="truncate text-[11px] text-sky-700/80">
+              {t("activityWebSearchQuery", { query: activity.query })}
+            </p>
+          ) : null}
+        </div>
+      </div>
+    );
+  }
+
+  if (activity.kind === "get_game_rules") {
+    return (
+      <div className="flex items-center gap-2 rounded-xl border border-violet-200/80 bg-violet-50/70 px-2.5 py-2 text-xs text-violet-800">
+        {activity.status === "running" ? (
+          <Spinner className="border-violet-300 border-t-violet-600" />
+        ) : (
+          <span aria-hidden>✓</span>
+        )}
+        <span>
+          {activity.status === "running"
+            ? t("activityGetGameRules")
+            : t("activityGetGameRulesDone")}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-2 rounded-xl border border-stone-200 bg-white/70 px-2.5 py-2 text-xs text-stone-600">
+      {activity.status === "running" ? <Spinner /> : <span aria-hidden>•</span>}
+      <span>
+        {activity.status === "running"
+          ? t("activityToolUse", { name: activity.toolName || "tool" })
+          : t("activityToolUseDone", { name: activity.toolName || "tool" })}
+      </span>
+    </div>
+  );
+}
+
+function AssistantBubble({
+  msg,
+  isStreamingTail,
+}: {
+  msg: ChatMessage;
+  isStreamingTail: boolean;
+}) {
+  const activities = msg.activities ?? [];
+  const hasContent = Boolean(msg.content);
+  const showTyping =
+    isStreamingTail && !hasContent && activities.every((a) => a.status !== "running");
+
+  return (
+    <div className="max-w-[85%] space-y-2 rounded-2xl rounded-bl-md bg-stone-100 px-3.5 py-2.5 text-sm leading-relaxed text-stone-800">
+      {activities.length > 0 && (
+        <div className="space-y-1.5">
+          {activities.map((activity) => (
+            <ActivityRow key={activity.id} activity={activity} />
+          ))}
+        </div>
+      )}
+      {hasContent ? <MarkdownBubble content={msg.content} /> : null}
+      {showTyping ? <TypingIndicator /> : null}
+      {!hasContent &&
+        !showTyping &&
+        activities.some((a) => a.status === "running") === false &&
+        activities.length === 0 && <TypingIndicator />}
+    </div>
+  );
+}
+
+/** Renders markdown inside assistant bubbles. */
 function MarkdownBubble({ content }: { content: string }) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       components={{
-        // Headings — smaller scale since we're in a chat bubble
         h1: ({ children }) => (
           <h1 className="mb-1.5 mt-3 text-base font-bold first:mt-0">{children}</h1>
         ),
@@ -92,24 +247,21 @@ function MarkdownBubble({ content }: { content: string }) {
         h3: ({ children }) => (
           <h3 className="mb-1 mt-2 text-sm font-semibold first:mt-0">{children}</h3>
         ),
-        // Paragraph
-        p: ({ children }) => (
-          <p className="mb-1 last:mb-0">{children}</p>
-        ),
-        // Lists
+        p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
         ul: ({ children }) => (
           <ul className="mb-1 ml-4 list-disc space-y-0.5 last:mb-0">{children}</ul>
         ),
         ol: ({ children }) => (
           <ol className="mb-1 ml-4 list-decimal space-y-0.5 last:mb-0">{children}</ol>
         ),
-        // Inline
         strong: ({ children }) => (
           <strong className="font-semibold text-stone-900">{children}</strong>
         ),
         code: ({ children, className }) => {
           const inline =
-            !className || (!String(className).includes("language") && !String(className).includes("hljs"));
+            !className ||
+            (!String(className).includes("language") &&
+              !String(className).includes("hljs"));
           return inline ? (
             <code className="rounded bg-stone-200/70 px-1 py-0.5 text-[12px] text-stone-700">
               {children}
@@ -120,7 +272,6 @@ function MarkdownBubble({ content }: { content: string }) {
             </pre>
           );
         },
-        // Table
         table: ({ children }) => (
           <div className="mb-1.5 mt-1 overflow-x-auto last:mb-0">
             <table className="min-w-full border-collapse text-[12px]">
@@ -135,17 +286,8 @@ function MarkdownBubble({ content }: { content: string }) {
           <th className="px-2 py-1 text-left font-semibold">{children}</th>
         ),
         td: ({ children }) => (
-          <td className="px-2 py-1">{children}</td>
+          <td className="border-t border-stone-200 px-2 py-1">{children}</td>
         ),
-        // Blockquote
-        blockquote: ({ children }) => (
-          <blockquote className="mb-1 border-l-2 border-amber-400/60 pl-3 italic text-stone-600 last:mb-0">
-            {children}
-          </blockquote>
-        ),
-        // Horizontal rule
-        hr: () => <hr className="my-2 border-stone-300" />,
-        // Link
         a: ({ href, children }) => (
           <a
             href={href}
@@ -166,7 +308,7 @@ function MarkdownBubble({ content }: { content: string }) {
 // ─── Main ────────────────────────────────────────────────────────────────
 
 export function ChatMessages() {
-  const { messages, isStreaming, streamStatus } = useChat();
+  const { messages, isStreaming } = useChat();
   const t = useTranslations("chat");
   const bottomRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -181,26 +323,24 @@ export function ChatMessages() {
     if (isNearBottom()) {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages, streamStatus, isStreaming]);
+  }, [messages, isStreaming]);
 
   const visibleMessages = messages.filter(
-    (m) => m.role === "user" || (m.role === "assistant" && Boolean(m.content))
+    (m) =>
+      m.role === "user" ||
+      (m.role === "assistant" &&
+        (Boolean(m.content) || (m.activities?.length ?? 0) > 0))
   );
 
   const hasMessages = visibleMessages.length > 0;
   const lastVisible = visibleMessages[visibleMessages.length - 1];
-  const showStatusRow =
+  const showWaitingRow =
     isStreaming &&
-    (Boolean(streamStatus) || !lastVisible || lastVisible.role === "user");
-
-  const statusLabel =
-    streamStatus === "web_search"
-      ? t("statusWebSearch")
-      : streamStatus === "get_game_rules"
-        ? t("statusGetGameRules")
-        : streamStatus === "tool_use"
-          ? t("statusToolUse")
-          : t("thinking");
+    (!lastVisible ||
+      lastVisible.role === "user" ||
+      (lastVisible.role === "assistant" &&
+        !lastVisible.content &&
+        !(lastVisible.activities?.length)));
 
   return (
     <div
@@ -212,7 +352,10 @@ export function ChatMessages() {
         <EmptyState placeholder={t("placeholder")} />
       ) : (
         <div className="flex flex-col gap-3 px-4 py-4">
-          {visibleMessages.map((msg) => (
+          {visibleMessages.map((msg, index) => {
+            const isTail =
+              isStreaming && index === visibleMessages.length - 1 && msg.role === "assistant";
+            return (
               <motion.div
                 key={msg.id}
                 initial={{ opacity: 0, y: 10, scale: 0.98 }}
@@ -221,19 +364,13 @@ export function ChatMessages() {
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 {msg.role === "assistant" && <AssistantAvatar />}
-                <div
-                  className={`max-w-[78%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
-                    msg.role === "user"
-                      ? "rounded-br-md bg-accent text-white shadow-sm shadow-accent/20"
-                      : "rounded-bl-md bg-stone-100 text-stone-800"
-                  }`}
-                >
-                  {msg.role === "user" ? (
+                {msg.role === "user" ? (
+                  <div className="max-w-[78%] rounded-2xl rounded-br-md bg-accent px-3.5 py-2.5 text-sm leading-relaxed text-white shadow-sm shadow-accent/20">
                     <p className="whitespace-pre-wrap">{msg.content}</p>
-                  ) : (
-                    <MarkdownBubble content={msg.content} />
-                  )}
-                </div>
+                  </div>
+                ) : (
+                  <AssistantBubble msg={msg} isStreamingTail={isTail} />
+                )}
                 {msg.role === "user" && (
                   <div className="ml-2 mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-stone-200">
                     <svg
@@ -252,17 +389,14 @@ export function ChatMessages() {
                   </div>
                 )}
               </motion.div>
-            ))}
+            );
+          })}
 
-          {showStatusRow && (
+          {showWaitingRow && (
             <div className="flex justify-start">
               <AssistantAvatar />
               <div className="rounded-2xl rounded-bl-md bg-stone-100 px-3.5 py-2.5">
-                {streamStatus ? (
-                  <ToolStatusIndicator label={statusLabel} />
-                ) : (
-                  <TypingIndicator />
-                )}
+                <TypingIndicator />
               </div>
             </div>
           )}

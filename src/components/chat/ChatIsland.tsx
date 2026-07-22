@@ -8,13 +8,24 @@ interface Props {
   scope: ChatScope;
   locale: string;
   onClose: () => void;
+  isExpanded?: boolean;
+  onToggleExpand?: () => void;
 }
 
-export function ChatIsland({ scope, locale, onClose }: Props) {
+export function ChatIsland({
+  scope,
+  locale,
+  onClose,
+  isExpanded = false,
+  onToggleExpand,
+}: Props) {
   return (
     <div className="flex h-full min-h-0 flex-col">
       <ChatProvider scope={scope} locale={locale} onClose={onClose}>
-        <ChatDialog />
+        <ChatDialog
+          isExpanded={isExpanded}
+          onToggleExpand={onToggleExpand}
+        />
       </ChatProvider>
     </div>
   );

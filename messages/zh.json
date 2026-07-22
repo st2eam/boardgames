@@ -64,6 +64,8 @@
     "error": "出错了，请重试。",
     "noApiKey": "请先设置 DeepSeek API Key 再开始对话。",
     "close": "关闭",
+    "expandFullscreen": "扩展至全屏",
+    "exitFullscreen": "退出全屏",
     "switchToGlobal": "切换为全局助手",
     "switchToGame": "切换为当前游戏助手",
     "offlineMode": "离线模式 — AI 助手需要网络连接"

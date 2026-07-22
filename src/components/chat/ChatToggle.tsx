@@ -18,12 +18,18 @@ interface Props {
 
 export function ChatToggle({ scope, locale }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 100);
     return () => clearTimeout(t);
   }, []);
+
+  const closeChat = () => {
+    setIsExpanded(false);
+    setIsOpen(false);
+  };
 
   useEffect(() => {
     setChatOpen(isOpen);
@@ -43,10 +49,10 @@ export function ChatToggle({ scope, locale }: Props) {
       {/* Backdrop — desktop only; mobile uses full-screen sheet */}
       <div
         className={`fixed inset-0 z-40 bg-stone-900/10 backdrop-blur-sm transition-all duration-300 max-sm:hidden ${
-          isOpen ? "opacity-100" : "pointer-events-none opacity-0"
+          isOpen && !isExpanded ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         aria-hidden="true"
-        onClick={() => setIsOpen(false)}
+        onClick={closeChat}
       />
 
       <AnimatePresence>
@@ -56,22 +62,33 @@ export function ChatToggle({ scope, locale }: Props) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
             transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-50 flex flex-col sm:inset-auto sm:bottom-[88px] sm:right-4 sm:h-auto sm:w-[calc(100vw-2rem)] sm:max-w-[400px] sm:origin-bottom-right"
+            className={
+              isExpanded
+                ? "fixed inset-0 z-50 flex flex-col"
+                : "fixed inset-0 z-50 flex flex-col sm:inset-auto sm:bottom-[88px] sm:right-4 sm:h-auto sm:w-[calc(100vw-2rem)] sm:max-w-[400px] sm:origin-bottom-right"
+            }
           >
             <LazyChatIsland
               scope={scope}
               locale={locale}
-              onClose={() => setIsOpen(false)}
+              onClose={closeChat}
+              isExpanded={isExpanded}
+              onToggleExpand={() => setIsExpanded((v) => !v)}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          if (isOpen) closeChat();
+          else setIsOpen(true);
+        }}
         className={`fixed bottom-4 right-4 z-50 flex items-center justify-center rounded-2xl shadow-lg transition-all duration-300 motion-reduce:transition-none cursor-pointer ${
           isOpen
-            ? "hidden h-12 w-12 rotate-90 bg-stone-700 text-white shadow-stone-400/20 hover:bg-stone-800 sm:flex"
+            ? isExpanded
+              ? "hidden"
+              : "hidden h-12 w-12 rotate-90 bg-stone-700 text-white shadow-stone-400/20 hover:bg-stone-800 sm:flex"
             : `h-14 w-14 bg-accent text-white shadow-accent/25 hover:shadow-accent/40 hover:-translate-y-0.5 hover:scale-105 active:scale-95 ${
                 mounted ? "scale-100 opacity-100" : "scale-75 opacity-0"
               }`

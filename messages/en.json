@@ -64,6 +64,8 @@
     "error": "Something went wrong. Please try again.",
     "noApiKey": "Please set your DeepSeek API key to start chatting.",
     "close": "Close",
+    "expandFullscreen": "Expand to full screen",
+    "exitFullscreen": "Exit full screen",
     "switchToGlobal": "Switch to global assistant",
     "switchToGame": "Switch to game assistant",
     "offlineMode": "Offline — AI assistant requires network"

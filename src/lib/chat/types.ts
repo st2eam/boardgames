@@ -4,7 +4,14 @@ export interface ChatMessage {
   content: string;
   toolCallId?: string;
   toolCalls?: ToolCall[];
+  /** DeepSeek thinking-mode block; must be replayed after tool calls. */
+  thinking?: ThinkingBlock;
   timestamp: number;
+}
+
+export interface ThinkingBlock {
+  thinking: string;
+  signature?: string;
 }
 
 export interface ToolCall {

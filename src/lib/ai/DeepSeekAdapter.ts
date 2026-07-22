@@ -1,5 +1,5 @@
 import type { ChatParams, ChatChunk } from "./LLMAdapter";
-import type { ToolCall } from "@/lib/chat/types";
+import type { ThinkingBlock, ToolCall } from "@/lib/chat/types";
 
 interface StreamCallback {
   (chunk: ChatChunk): void;
@@ -15,6 +15,7 @@ interface ContentBlockState {
   name?: string;
   text?: string;
   partialJson?: string;
+  signature?: string;
 }
 
 export class DeepSeekAdapter {
@@ -23,7 +24,11 @@ export class DeepSeekAdapter {
   async streamChat(
     params: ChatParams,
     onChunk: StreamCallback
-  ): Promise<{ finishReason: string; toolCalls?: ToolCall[] }> {
+  ): Promise<{
+    finishReason: string;
+    toolCalls?: ToolCall[];
+    thinking?: ThinkingBlock;
+  }> {
     const body = {
       model: params.model ?? DEFAULT_MODEL,
       max_tokens: params.maxTokens ?? DEFAULT_MAX_TOKENS,
@@ -94,13 +99,19 @@ export class DeepSeekAdapter {
             id?: string;
             name?: string;
             text?: string;
+            thinking?: string;
+            signature?: string;
           };
           blocks.set(index, {
             type: block.type,
             id: block.id,
             name: block.name,
-            text: block.text ?? "",
+            text:
+              block.type === "thinking"
+                ? (block.thinking ?? "")
+                : (block.text ?? ""),
             partialJson: "",
+            signature: block.signature ?? "",
           });
 
           if (block.type === "server_tool_use" && block.name === "web_search") {
@@ -118,6 +129,8 @@ export class DeepSeekAdapter {
             type?: string;
             text?: string;
             partial_json?: string;
+            thinking?: string;
+            signature?: string;
           };
           const state = blocks.get(index);
           if (!state) continue;
@@ -126,6 +139,10 @@ export class DeepSeekAdapter {
             state.text = (state.text ?? "") + delta.text;
             emittedText = true;
             onChunk({ content: delta.text });
+          } else if (delta.type === "thinking_delta" && delta.thinking) {
+            state.text = (state.text ?? "") + delta.thinking;
+          } else if (delta.type === "signature_delta" && delta.signature) {
+            state.signature = (state.signature ?? "") + delta.signature;
           } else if (delta.type === "input_json_delta" && delta.partial_json) {
             state.partialJson = (state.partialJson ?? "") + delta.partial_json;
           }
@@ -142,6 +159,7 @@ export class DeepSeekAdapter {
     }
 
     const toolCalls = collectClientToolCalls(blocks);
+    const thinking = collectThinking(blocks);
 
     // Anthropic uses tool_use; normalize for our conversation loop
     const finishReason =
@@ -156,6 +174,7 @@ export class DeepSeekAdapter {
     return {
       finishReason,
       toolCalls: toolCalls.length > 0 ? toolCalls : undefined,
+      thinking,
     };
   }
 }
@@ -183,4 +202,21 @@ function collectClientToolCalls(
   }
 
   return calls;
+}
+
+function collectThinking(
+  blocks: Map<number, ContentBlockState>
+): ThinkingBlock | undefined {
+  // Prefer the last thinking block (closest to the tool/text turn).
+  let thinking: ThinkingBlock | undefined;
+  for (const block of blocks.values()) {
+    if (block.type !== "thinking") continue;
+    const text = block.text?.trim() ?? "";
+    if (!text && !block.signature) continue;
+    thinking = {
+      thinking: block.text ?? "",
+      ...(block.signature ? { signature: block.signature } : {}),
+    };
+  }
+  return thinking;
 }

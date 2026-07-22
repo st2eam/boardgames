@@ -273,6 +273,20 @@ function buildAnthropicMessages(msgs: ChatMessage[]): AnthropicMessage[] {
 
     if (msg.role === "assistant") {
       const blocks: AnthropicContentBlock[] = [];
+      // DeepSeek thinking mode: after tool calls, thinking blocks must be
+      // echoed back on every subsequent request.
+      if (msg.thinking) {
+        blocks.push({
+          type: "thinking",
+          thinking: msg.thinking.thinking,
+          ...(msg.thinking.signature
+            ? { signature: msg.thinking.signature }
+            : {}),
+        });
+      } else if (msg.toolCalls?.length) {
+        // Fallback empty block if an older history entry lost thinking.
+        blocks.push({ type: "thinking", thinking: "" });
+      }
       if (msg.content) {
         blocks.push({ type: "text", text: msg.content });
       }
@@ -344,8 +358,11 @@ async function runConversation(
 
     const flusher = createStreamFlusher(assistantMsg, setMessages);
 
-    const { finishReason, toolCalls: responseToolCalls } =
-      await adapter.streamChat(
+    const {
+      finishReason,
+      toolCalls: responseToolCalls,
+      thinking,
+    } = await adapter.streamChat(
         {
           system: systemPrompt,
           messages: buildAnthropicMessages(currentMessages),
@@ -361,6 +378,10 @@ async function runConversation(
           }
         }
       );
+
+    if (thinking) {
+      assistantMsg.thinking = thinking;
+    }
 
     flusher.finalize();
 
@@ -386,6 +407,10 @@ async function runConversation(
     // Client tool calls (e.g. get_game_rules). Web search is server-side
     // and completes inside the same Anthropic stream.
     assistantMsg.toolCalls = responseToolCalls;
+    // Ensure thinking is present for replay even if the stream omitted it.
+    if (!assistantMsg.thinking) {
+      assistantMsg.thinking = { thinking: "" };
+    }
     setMessages((prev) => {
       const idx = prev.findIndex((m) => m.id === assistantMsg.id);
       if (idx >= 0) {

@@ -23,6 +23,12 @@ import type {
   ChatStreamStatus,
 } from "@/lib/ai/LLMAdapter";
 import { executeToolCall } from "@/lib/ai/tool-handlers";
+import {
+  chatErrorMessageKey,
+  classifyChatError,
+} from "@/lib/chat/chat-errors";
+import enMessages from "../../../messages/en.json";
+import zhMessages from "../../../messages/zh.json";
 
 const MAX_TOOL_CALL_ITERATIONS = 5;
 
@@ -162,15 +168,16 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
         );
       } catch (err) {
         console.error("Chat error:", err);
+        const code = classifyChatError(err);
+        const key = chatErrorMessageKey(code) as keyof typeof enMessages.chat;
+        const catalog = locale === "zh" ? zhMessages.chat : enMessages.chat;
+        const content = catalog[key] ?? catalog.errorUnknown;
         setMessages((prev) => [
           ...prev,
           {
             id: crypto.randomUUID(),
             role: "assistant",
-            content:
-              locale === "zh"
-                ? "抱歉，出错了。请检查 API Key 是否正确，或稍后重试。"
-                : "Sorry, something went wrong. Please check your API key or try again later.",
+            content,
             timestamp: Date.now(),
           },
         ]);

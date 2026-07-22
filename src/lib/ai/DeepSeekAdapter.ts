@@ -1,5 +1,6 @@
 import type { ChatParams, ChatChunk } from "./LLMAdapter";
 import type { ThinkingBlock, ToolCall } from "@/lib/chat/types";
+import { DeepSeekApiError } from "@/lib/chat/chat-errors";
 
 interface StreamCallback {
   (chunk: ChatChunk): void;
@@ -52,13 +53,14 @@ export class DeepSeekAdapter {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => "");
-      throw new Error(
-        `DeepSeek Anthropic API error ${response.status}: ${errText || response.statusText}`
+      throw new DeepSeekApiError(
+        response.status,
+        errText || response.statusText
       );
     }
 
     if (!response.body) {
-      throw new Error("DeepSeek Anthropic API returned an empty body");
+      throw new DeepSeekApiError(502, "Empty response body from DeepSeek API");
     }
 
     const blocks = new Map<number, ContentBlockState>();
@@ -152,8 +154,11 @@ export class DeepSeekAdapter {
             stopReason = delta.stop_reason;
           }
         } else if (type === "error") {
-          const err = event.error as { message?: string } | undefined;
-          throw new Error(err?.message ?? "DeepSeek stream error");
+          const err = event.error as { message?: string; type?: string } | undefined;
+          throw new DeepSeekApiError(
+            400,
+            err?.message ?? "DeepSeek stream error"
+          );
         }
       }
     }

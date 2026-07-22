@@ -8,13 +8,13 @@
 
 - **45 款游戏规则**：经过网络验证的中英双语完整规则
 - **39 款交互式决策树**：分步交互流程，含侧边栏目录导航
-- **7 款自动计分器**：5 种引擎（`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `category` / `feature-calc`），支持多人同屏计分，localStorage 持久化
-- **训练器**：麻将/日麻听牌训练器（4 级难度）、21 点基本策略训练、德州扑克 GTO 翻前训练器
-- **番符计算器**：日麻番数/符数/点数自动计算器，可视化选牌（14 张）→ 指定和牌 → 标记副露 → 系统自动拆解牌型、检测役种、计算符数与点数
+- **7 款自动计分器**：`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `category` / `feature-calc`，支持多人同屏计分，localStorage 持久化
+- **5 款训练器**：麻将/日麻听牌、21 点基本策略、德州扑克 GTO 翻前、围棋死活题
+- **番符计算器**：日麻番数/符数/点数自动计算器，可视化选牌（14 张）→ 指定和牌 → 标记副露 → 自动拆解牌型、检测役种、计算符数与点数
 - **游戏系列分组**：UNO、脏小猪、三国杀、爆炸猫、璀璨宝石、海盐折纸、卡坦岛、卡卡颂、展翅翱翔、麻将、情书等系列以堆叠卡片效果展示
-- **DLC / 变体支持**：小猪选美、不臣之君、黑盒版、UNO Flip、UNO No Mercy、UNO DOS、璀璨宝石宝可梦版、盐趣倍增、中国版图、卡卡颂河流、情书珍藏版
+- **DLC / 变体支持**：小猪选美、不臣之君、风云际会、黑盒版、UNO Flip、UNO 无情出击、UNO DOS、璀璨宝石宝可梦版、盐趣倍增、中国版图、卡卡颂河流、情书珍藏版、展翅翱翔扩展等
 - **规则导出**：支持导出为 PDF 或下载 Markdown 原文
-- **LLM 对话**：基于 DeepSeek API 的规则问答助手，支持游戏限定 / 全局模式切换，懒加载（点击时才加载）
+- **LLM 对话**：DeepSeek Anthropic Messages API（`deepseek-v4-pro`），站内规则 tool + 服务端网页搜索；桌面端可扩展全屏；流式展示 thinking / 搜索 / 读规则等活动状态
 - **Per-game SEO**：每个游戏页面有独立 title / description / OG 标签
 - **首页排序**：游戏卡片按英文名字母顺序排列
 - **按人数筛选**：支持按游玩人数精确筛选游戏
@@ -24,15 +24,17 @@
 ## 快速开始
 
 ```bash
-# 安装依赖（需要 Node.js >= 20.9.0）
+# 安装依赖（需要 Node.js >= 20）
 npm install
 
 # 启动开发服务器
 npm run dev
 
-# 构建静态站点
+# 构建静态站点（prebuild 生成 games-meta / rules / cover-manifest）
 npm run build
 ```
+
+> **维护提示**：新增/调整游戏后，请同步更新下方「游戏清单」与文首数量（当前：`45` 游戏 / `39` 决策树 / `7` 计分 / `5` 训练器 / `1` 计算器）。可用 `node scripts/print-project-stats.mjs` 快速核对。
 
 ---
 
@@ -40,15 +42,15 @@ npm run build
 
 | 项 | 决定 | 原因 |
 |---|---|---|
-| 框架 | Next.js 16 App Router | 静态导出 + 服务端组件 + 丰富生态 |
+| 框架 | Next.js 16.2 App Router | 静态导出 + 服务端组件 + 丰富生态 |
 | 导出模式 | `output: 'export'` | GitHub Pages 纯静态托管 |
 | 样式 | Tailwind CSS v4 | 原子化 CSS，响应式友好 |
-| 字体 | `next/font` (Google) | 自托管、子集化、无渲染阻塞 |
+| 字体 | `next/font` (Fredoka / Nunito / Noto Sans SC) | 自托管、子集化、无渲染阻塞 |
 | i18n | next-intl（无 middleware） | middleware 与静态导出不兼容，使用 `[locale]` 目录路由 |
 | 内容格式 | Markdown（自由格式） | 灵活撰写，无结构约束 |
 | 内容渲染 | react-markdown + remark-gfm（Server Component） | GFM 表格/任务列表/删除线，不增加客户端包 |
-| LLM SDK | OpenAI SDK → DeepSeek（懒加载） | 用户点击时才加载，节省 ~100KB 首屏 JS |
-| 对话存储 | idb-keyval（IndexedDB） | 持久化对话历史，API 简单 |
+| LLM | DeepSeek Anthropic Messages API（浏览器 `fetch`，懒加载） | 支持服务端 `web_search` + 客户端 tool；无自建后端 |
+| 对话存储 | idb-keyval（IndexedDB） | API Key 与对话历史均存本地 |
 
 ---
 
@@ -56,34 +58,34 @@ npm run build
 
 ### 独立游戏
 
-| 游戏 | 规则 | 决策树 | 计分器 |
-|------|:----:|:------:|:------:|
-| 德州扑克 | ✅ | ✅ | 🎯 GTO翻前训练 |
+| 游戏 | 规则 | 决策树 | 计分 / 训练 |
+|------|:----:|:------:|:-----------:|
+| 德州扑克 | ✅ | ✅ | 🎯 GTO 翻前训练 |
 | 自然和弦 (Harmonies) | ✅ | ✅ | — |
 | 现代艺术 | ✅ | ✅ | — |
 | 摩天大楼 (GoTown) | ✅ | ✅ | — |
-| 荒野之王 (Just Wild) | ✅ | ✅ | ✅ |
+| 荒野之王 (Just Wild) | ✅ | ✅ | ✅ 计分 |
 | 风声再临 | ✅ | ✅ | — |
-| Cabo | ✅ | ✅ | ✅（多人回合制） |
+| Cabo | ✅ | ✅ | ✅ 计分（多人回合制） |
 | 群星二十一 | ✅ | ✅ | — |
 | 榴莲教练的大拳馆 | ✅ | ✅ | — |
-| 拉密 (Rummikub) | ✅ | ✅ | — |
 | 21点 (Blackjack) | ✅ | ✅ | 🎯 策略训练 |
 | TRIO（ナナ） | ✅ | ✅ | — |
 | 炸弹克星 (Bomb Busters) | ✅ | ✅ | — |
 | 狗运当骰 (Spots) | ✅ | ✅ | — |
 | 跋涉远足 (Tic Tac Trek) | ✅ | ✅ | — |
 | 神偷大盗 (Art Robbery) | ✅ | ✅ | — |
-| 维京怒火 (Odin) | ✅ | ✅ | ✅ |
+| 维京怒火 (Odin) | ✅ | ✅ | ✅ 计分 |
 | 哈铃果铃 (Halli Galli) | ✅ | ✅ | — |
+| 围棋 | ✅ | ✅ | 🎯 死活题训练 |
 
 ### 游戏系列
 
-| 系列 | 游戏 | 类型 | 规则 | 决策树 | 计分器 |
-|------|------|------|:----:|:------:|:------:|
+| 系列 | 游戏 | 类型 | 规则 | 决策树 | 计分 / 训练 |
+|------|------|------|:----:|:------:|:-----------:|
 | UNO | UNO | 本体 | ✅ | ✅ | — |
 | | UNO Flip | 变体 | ✅ | ✅ | — |
-| | UNO No Mercy | 变体 | ✅ | ✅ | — |
+| | UNO 无情出击 | 变体 | ✅ | ✅ | — |
 | | UNO DOS | 变体 | ✅ | — | — |
 | 脏小猪 | 脏小猪 | 本体 | ✅ | ✅ | — |
 | | 小猪选美 | DLC（需本体） | ✅ | — | — |
@@ -94,14 +96,14 @@ npm run build
 | | 爆炸猫：黑盒版 | 变体（可独立） | ✅ | — | — |
 | 璀璨宝石 | 璀璨宝石 | 本体 | ✅ | ✅ | — |
 | | 璀璨宝石：宝可梦版 | 变体（可独立） | ✅ | ✅ | — |
-| 海盐折纸 | 海盐折纸 | 本体 | ✅ | ✅ | ✅ |
-| | 盐趣倍增 | DLC（需本体） | ✅ | — | ✅ |
-| 卡坦岛 | 卡坦岛 | 本体 | ✅ | ✅ | ✅ |
-| | 中国版图 | 变体（可独立） | ✅ | — | ✅ |
-| 卡卡颂 | 卡卡颂 | 本体 | ✅ | ✅ | ✅ |
+| 海盐折纸 | 海盐折纸 | 本体 | ✅ | ✅ | ✅ 计分 |
+| | 盐趣倍增 | DLC（需本体） | ✅ | — | — |
+| 卡坦岛 | 卡坦岛 | 本体 | ✅ | ✅ | ✅ 计分 |
+| | 中国版图 | 变体（可独立） | ✅ | — | ✅ 计分 |
+| 卡卡颂 | 卡卡颂 | 本体 | ✅ | ✅ | ✅ 计分 |
 | | 卡卡颂：河流 | DLC（需本体） | ✅ | — | — |
-| 麻将 | 麻将 | 本体 | ✅ | ✅ | 🎯 训练器 |
-| | 日本麻将 | 变体（可独立） | ✅ | ✅ | 🎯 训练器 |
+| 麻将 | 麻将 | 本体 | ✅ | ✅ | 🎯 听牌训练 |
+| | 日本麻将 | 变体（可独立） | ✅ | ✅ | 🎯 听牌训练 + 🧮 番符计算 |
 | 展翅翱翔 | 展翅翱翔 | 本体 | ✅ | ✅ | — |
 | | 亚洲篇 | DLC（需本体） | ✅ | ✅ | — |
 | | 欧洲篇 | DLC（需本体） | ✅ | ✅ | — |
@@ -124,10 +126,10 @@ content/games/
 │   ├── calculator.json           # 可选：计算器配置（如日麻番符）
 │   ├── zh/rules.md               # 中文规则
 │   └── en/rules.md               # 英文规则
-└── ...（共 41 款游戏）
+└── ...（共 45 款游戏）
 
-public/data/
-├── games-meta.json               # 轻量索引（仅元数据，chat / system prompt 用）
+public/data/                       # prebuild 生成，勿手改作为源
+├── games-meta.json               # 轻量索引（chat system prompt 用）
 ├── cover-manifest.json           # 封面图格式映射（构建时扫描 images/games/）
 └── rules/{slug}.json             # 按游戏拆分的规则（按需加载）
 
@@ -136,23 +138,21 @@ public/manifest.json               # Web App Manifest
 public/sw.js                       # Service Worker 模板（postbuild 注入预缓存列表）
 
 src/
-├── app/[locale]/                 # 页面路由
+├── app/[locale]/                 # 页面路由（含 costs / games/*/flow|score|trainer|calculator）
 ├── components/
 │   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
-│   ├── game/score/               # ScoreTracker, CaboScoreTracker, SeaSaltScoreTracker, JustWildScoreTracker, CardSelector, FeatureInput, ScoreDisplay
-│   ├── game/trainer/             # TenpaiTrainer, PreflopTrainer, PreflopChart, MahjongTile, TileSelector, TrainerStats, InlineTile
-│   ├── game/calculator/          # ScoreCalculator, HandPicker, AgariSelector, MeldMarker, ScoreResult
+│   ├── game/score/               # ScoreTracker + Cabo / SeaSalt / JustWild 专用多人计分
+│   ├── game/trainer/             # Tenpai / Preflop / Blackjack / Go 等训练器 UI
+│   ├── game/calculator/          # 日麻番符计算器
 │   ├── chat/                     # ChatToggle, ChatIsland（懒加载）, ChatDialog, ChatMessages
 │   └── layout/                   # Header, Footer, BackToTop
-├── lib/constants.ts              # 共享常量（categoryGradients, difficultyColors, variantBadge）
-├── lib/content/                  # 内容层（Repository + Factory 模式，带内存缓存）
-├── lib/mahjong/                  # 麻将核心库（tiles 牌定义、winCheck 和牌判定、tenpai 听牌计算、hand 手牌生成、shortcode 简写标记、scoring 番符点数计算、handAnalyzer 手牌分析+役种自动检测）
-├── lib/remark-mahjong-tiles.ts   # remark 插件：解析 [3m] 简写标记为内联牌面组件
-├── lib/score/                    # 计分器（useScoreState hook + localStorage 存储）
-├── lib/score/engines/            # 通用计分引擎工厂（sea-salt / card-select / card-type / category / feature-calc）
-├── lib/texas-holdem/             # 德州扑克核心库（GTO 翻前策略表、场景生成）
-├── lib/ai/                       # DeepSeekAdapter, ChatStrategies, tool-handlers
+├── lib/content/                  # Repository + Factory（读 content/games）
+├── lib/mahjong/                  # 麻将核心（听牌 / 番符 / 役种）
+├── lib/score/                    # 计分 hook + engines
+├── lib/texas-holdem/             # GTO 翻前
+├── lib/ai/                       # DeepSeekAdapter（Anthropic SSE）、ChatStrategies、tool-handlers
+├── lib/chat/                     # ChatProvider、错误分类、IndexedDB 存储
 └── types/                        # TypeScript 类型定义
 ```
 
@@ -184,7 +184,7 @@ src/
 | `duration` | `string` | ✅ | 游戏时长 |
 | `difficulty` | `"easy" \| "medium" \| "hard"` | ✅ | 难度等级 |
 | `tags` | `string[]` | ✅ | 标签 |
-| `category` | `string` | ✅ | 分类（board / card / party 等） |
+| `category` | `"board" \| "card"` | ✅ | 分类（首页布局用） |
 | `family` | `string` |  | 所属系列 ID |
 | `familyOrder` | `number` |  | 系列内排序（0 = 本体） |
 | `variantType` | `"base" \| "expansion" \| "variant"` |  | 本体 / 扩展 / 变体 |
@@ -224,9 +224,12 @@ src/
 |-----|------|
 | `/` | → 重定向至 `/en` |
 | `/en` `/zh` | 首页：游戏卡片网格 + 全局 AI 对话 |
+| `/en/costs` | 花费统计 |
 | `/en/games/catan` | 规则页：GameHeader + 规则正文 + 导出 + 相关游戏 + 对话 |
 | `/en/games/catan/flow` | 交互式决策树（仅 flow.json 存在时生成） |
 | `/en/games/catan/score` | 计分器（仅 score.json 存在时生成） |
+| `/en/games/mahjong/trainer` | 训练器（仅 trainer.json 存在时生成） |
+| `/en/games/riichi-mahjong/calculator` | 计算器（仅 calculator.json 存在时生成） |
 
 ---
 
@@ -243,10 +246,10 @@ src/
 ### 游戏规则页
 
 - GameHeader：标题、人数、时长、难度、标签
-- 操作按钮：交互式决策树（如有）+ 计分器（如有）+ 导出（PDF / Markdown）
+- 操作按钮：决策树 / 计分器 / 训练器 / 计算器（按配置显示）+ 导出（PDF / Markdown）
 - MarkdownRenderer：渲染规则正文
 - RelatedGames：同系列游戏导航（如有 family 分组）
-- ChatToggle：右下角 LLM 对话，支持游戏限定 / 全局模式切换
+- ChatToggle：右下角 LLM 对话，支持游戏限定 / 全局模式切换；桌面端可扩展全屏
 
 ### 计分器
 
@@ -260,7 +263,7 @@ src/
 | `cabo-multi` | CaboScoreTracker | Cabo（多人回合制，含 -50 重置） |
 | `sea-salt-multi` | SeaSaltScoreTracker | 海盐折纸（配对各色卡牌 + 美人鱼计分） |
 | `category` | ScoreTracker（通用） | 卡坦岛、卡坦岛中国版图 |
-| `feature-calc` | ScoreTracker（通用） | 卡卡颂 |
+| `feature-calc` | ScoreTracker（通用） | 卡卡颂、维京怒火 (Odin) |
 
 ### 交互式决策树
 
@@ -282,14 +285,16 @@ src/
 
 | 维度 | 方案 |
 |------|------|
-| API | DeepSeek API（OpenAI 兼容格式） |
-| base_url | `https://api.deepseek.com` |
-| 模型 | `deepseek-v4-pro` |
-| API Key | 用户手动填写，存入 `localStorage` |
-| 首页对话 | **全局模式**：LLM 通过 tool call 拉取任意游戏规则 |
-| 游戏页对话 | **游戏限定模式**：system prompt 预载完整规则 |
-| 模式切换 | 游戏页可切换为全局模式，首页固定全局（无切换按钮） |
-| 对话历史 | IndexedDB，全局和每个游戏各独立一份，模式切换不丢失 |
+| API | DeepSeek **Anthropic Messages** 兼容接口（浏览器直连，无自建后端） |
+| base_url | `https://api.deepseek.com/anthropic` |
+| 模型 | `deepseek-v4-pro`（默认开启 thinking） |
+| API Key | 用户手动填写，存入 IndexedDB（`idb-keyval`） |
+| 首页对话 | **全局模式**：`get_game_rules` 拉取站内规则 + 服务端 `web_search` |
+| 游戏页对话 | **游戏限定模式**：system prompt 预载完整规则，并可网页搜索 |
+| 模式切换 | 游戏页可切换为全局模式，首页固定全局 |
+| 流式 UI | 按 content block 展示：thinking / 网页搜索（含 unavailable）/ 读规则 / 正文 |
+| 对话历史 | IndexedDB，全局和每个游戏各独立一份；含 tool 轮次时需回传 thinking |
+| 说明 | 网页搜索由 DeepSeek 服务端执行；若返回 `unavailable` 属其侧限制 |
 
 ---
 
@@ -302,7 +307,7 @@ src/
 | **Strategy** | `GlobalChatStrategy` / `GameChatStrategy` | 不同对话范围的 prompt 和 tool 定义 |
 | **Strategy** | `ScoringEngine` + dedicated trackers (`CaboScoreTracker`, `SeaSaltScoreTracker`, `JustWildScoreTracker`) | 不同游戏的自动计分 |
 | **Adapter** | `DeepSeekAdapter.ts` | 隔离 LLM 提供商，方便替换 |
-| **Context+Provider** | `ChatProvider.tsx` | 统一管理消息、流式状态、API Key |
+| **Context+Provider** | `ChatProvider.tsx` | 统一管理消息、流式活动、API Key、错误分类 |
 
 ---
 
@@ -325,19 +330,19 @@ src/
 
 ## 关键技术决策
 
-1. **构建时同步读取文件** — `fs.readFileSync` 仅在 `next build` 时执行，41 款游戏绰绰有余
-2. **Chat 懒加载** — DeepSeek Anthropic API 适配器 + 整个 chat 栈通过 `dynamic()` 延迟到用户点击 FAB 时加载
-3. **MarkdownRenderer 为 Server Component** — `react-markdown` 不进入客户端包，规则页面零额外 JS
-4. **数据拆分** — `games-meta.json`（轻量索引）+ `rules/{slug}.json`（按需加载），chat 不再一次性加载全部规则
-5. **Per-game SEO** — `generateMetadata` 为每个游戏页生成独立 title / description / OG tags
-6. **`next/font` 自托管** — Fredoka + Nunito + Noto Sans SC 自托管子集化，无外部 CSS 阻塞
-7. **`dangerouslyAllowBrowser: true`** — API Key 由用户提供且无服务端，显式启用浏览器端调用
-8. **Tool call 循环上限** — 最多 5 轮迭代，防止无限循环
-9. **无 middleware** — next-intl middleware 与 `output: 'export'` 不兼容，使用 `[locale]` 目录路由
-10. **`trailingSlash: true`** — GitHub Pages 子目录路由兼容的必要配置
-11. **slug = 英文名** — 目录名即 slugified 英文名，无额外映射层
-12. **游戏系列分组** — `family` 字段实现逻辑关联，`familyOrder` 控制排序，`variantType` 区分类型
-13. **封面零 404** — 构建时扫描封面生成 `cover-manifest.json`，运行时直接加载正确格式，缺图游戏不发 `<img>` 请求
+1. **构建时同步读取文件** — `fs.readFileSync` 仅在 `next build` 时执行；`public/data/*` 为生成物
+2. **Chat 懒加载** — Anthropic SSE 适配器 + chat 栈通过 `dynamic()` 延迟到点击 FAB 时加载
+3. **浏览器直连 DeepSeek** — 无 API routes；用户 Key + CORS；thinking 在 tool 续写时必须回传
+4. **MarkdownRenderer 为 Server Component** — `react-markdown` 不进入客户端包
+5. **数据拆分** — `games-meta.json` + `rules/{slug}.json`，chat 按需拉规则
+6. **Per-game SEO** — `generateMetadata` + postbuild sitemap
+7. **`next/font` 自托管** — Fredoka + Nunito + Noto Sans SC
+8. **Tool call 循环上限** — 最多 5 轮，防止无限循环
+9. **无 middleware** — 与 `output: 'export'` 不兼容，用 `[locale]` 目录路由
+10. **`trailingSlash: true`** — GitHub Pages 子目录路由兼容
+11. **slug = 英文名 slugified** — 目录名即 slug，无额外映射层
+12. **游戏系列分组** — `family` / `familyOrder` / `variantType`
+13. **封面零 404** — `cover-manifest.json`，缺图不发 `<img>` 请求
 
 ---
 

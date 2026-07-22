@@ -8,31 +8,33 @@ A curated, bilingual reference website for modern board game rules — 45 games 
 
 - **45 game rules**: web-verified, complete bilingual rules (EN/ZH)
 - **39 interactive decision trees**: step-by-step flow with sidebar outline navigation
-- **7 automatic score trackers**: 5 types (`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `category` / `feature-calc`), localStorage persistence
-- **Trainers**: Mahjong/Riichi tenpai trainer (4 difficulty levels), Blackjack basic strategy trainer, Texas Hold'em GTO preflop trainer
-- **Score Calculator**: Riichi Mahjong han/fu/points auto calculator — visual tile picker (14 tiles) → mark winning tile → mark open melds → auto hand decomposition, yaku detection, fu & points calculation
-- **Game family grouping**: UNO, Drecksau, Legends of the Three Kingdoms, Exploding Kittens, Splendor, Sea Salt & Paper, Catan, Carcassonne, Wingspan, Mahjong, Love Letter series
-- **DLC / variant support**: expansions and standalone variants with stacked card UI (UNO DOS, Carcassonne: The River, Love Letter Premium, etc.)
+- **7 automatic score trackers**: `cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `category` / `feature-calc`, localStorage persistence
+- **5 trainers**: Mahjong/Riichi tenpai, Blackjack basic strategy, Texas Hold'em GTO preflop, Go tsumego
+- **Score calculator**: Riichi Mahjong han/fu/points — tile picker → winning tile → open melds → auto yaku/fu/points
+- **Game family grouping**: UNO, Drecksau, LotTK, Exploding Kittens, Splendor, Sea Salt & Paper, Catan, Carcassonne, Wingspan, Mahjong, Love Letter
+- **DLC / variant support**: stacked family cards for expansions and standalone variants
 - **Export**: PDF (browser print) or Markdown download
-- **LLM chat**: DeepSeek-powered Q&A assistant (global + per-game scope), lazy-loaded on click
+- **LLM chat**: DeepSeek Anthropic Messages API (`deepseek-v4-pro`) with on-site rules tool + server-side web search; desktop fullscreen; streamed activity UI (thinking / search / rules)
 - **Per-game SEO**: individual title / description / OG tags per game page
-- **Self-hosted fonts**: next/font with Fredoka, Nunito, Noto Sans SC (no render blocking)
+- **Self-hosted fonts**: next/font with Fredoka, Nunito, Noto Sans SC
 - **Bilingual**: full i18n for UI text and game content
 - **Player count filter**: filter games by number of players
-- **PWA offline support**: add to home screen for full offline access (rules, decision trees, score trackers, trainers); AI chat gracefully degrades offline
+- **PWA offline support**: rules/trees/scores/trainers offline; AI chat degrades when offline
 
 ## Quick Start
 
 ```bash
-# Install dependencies (Node.js >= 20.9.0)
+# Install dependencies (Node.js >= 20)
 npm install
 
 # Start dev server
 npm run dev
 
-# Build static site
+# Build static site (prebuild generates games-meta / rules / cover-manifest)
 npm run build
 ```
+
+> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `45` / `39` flow / `7` score / `5` trainer / `1` calculator). Run `node scripts/print-project-stats.mjs` to verify.
 
 ---
 
@@ -40,15 +42,15 @@ npm run build
 
 | Choice | Decision | Reason |
 |--------|----------|--------|
-| Framework | Next.js App Router | Static export + server components + rich ecosystem |
+| Framework | Next.js 16.2 App Router | Static export + server components |
 | Export | `output: 'export'` | Pure static hosting on GitHub Pages |
 | Styling | Tailwind CSS v4 | Utility-first, responsive-friendly |
-| i18n | next-intl (no middleware) | Middleware incompatible with static export; `[locale]` directory routing |
-| Content | Markdown (free-form) | Flexible authoring, no schema constraints |
-| Rendering | react-markdown + remark-gfm (Server Component) | GFM tables, task lists; zero client JS |
-| Fonts | `next/font` (Google) | Self-hosted, subset, no render blocking |
-| LLM SDK | OpenAI SDK → DeepSeek (lazy-loaded) | Loaded on click, saves ~100KB initial JS |
-| Chat storage | idb-keyval (IndexedDB) | Persistent chat history, simple API |
+| i18n | next-intl (no middleware) | Incompatible with static export; `[locale]` routing |
+| Content | Markdown (free-form) | Flexible authoring |
+| Rendering | react-markdown + remark-gfm (RSC) | GFM tables; zero client JS for rules |
+| Fonts | `next/font` (Fredoka / Nunito / Noto Sans SC) | Self-hosted, subset |
+| LLM | DeepSeek Anthropic Messages API (browser `fetch`, lazy) | Server `web_search` + client tools; no backend |
+| Chat storage | idb-keyval (IndexedDB) | API key + history stored locally |
 
 ---
 
@@ -56,31 +58,31 @@ npm run build
 
 ### Standalone
 
-| Game | Rules | Decision Tree | Score |
-|------|:-----:|:-------------:|:-----:|
+| Game | Rules | Decision Tree | Score / Trainer |
+|------|:-----:|:-------------:|:---------------:|
 | Texas Hold'em | ✅ | ✅ | 🎯 GTO Preflop |
 | Harmonies | ✅ | ✅ | — |
 | Modern Art | ✅ | ✅ | — |
 | GoTown | ✅ | ✅ | — |
-| Just Wild | ✅ | ✅ | ✅ |
+| Just Wild | ✅ | ✅ | ✅ Score |
 | The Message: Attack by Stratagem | ✅ | ✅ | — |
-| Cabo | ✅ | ✅ | ✅ (Multi-player) |
+| Cabo | ✅ | ✅ | ✅ Score (multi) |
 | The 21st Constellation | ✅ | ✅ | — |
 | Arena Magnate: Haw! | ✅ | ✅ | — |
-| Rummikub | ✅ | ✅ | — |
 | Blackjack | ✅ | ✅ | 🎯 Strategy Trainer |
 | TRIO | ✅ | ✅ | — |
 | Bomb Busters | ✅ | ✅ | — |
 | Spots | ✅ | ✅ | — |
 | Tic Tac Trek | ✅ | ✅ | — |
 | Art Robbery | ✅ | ✅ | — |
-| Odin | ✅ | ✅ | ✅ |
+| Odin | ✅ | ✅ | ✅ Score |
 | Halli Galli | ✅ | ✅ | — |
+| Go | ✅ | ✅ | 🎯 Tsumego Trainer |
 
 ### Series
 
-| Series | Game | Type | Rules | Decision Tree | Score |
-|--------|------|------|:-----:|:-------------:|:-----:|
+| Series | Game | Type | Rules | Decision Tree | Score / Trainer |
+|--------|------|------|:-----:|:-------------:|:---------------:|
 | UNO | UNO | Base | ✅ | ✅ | — |
 | | UNO Flip | Variant | ✅ | ✅ | — |
 | | UNO Show 'Em No Mercy | Variant | ✅ | ✅ | — |
@@ -94,14 +96,14 @@ npm run build
 | | NSFW Edition | Variant (standalone) | ✅ | — | — |
 | Splendor | Splendor | Base | ✅ | ✅ | — |
 | | Splendor: Pokémon | Variant (standalone) | ✅ | ✅ | — |
-| Sea Salt & Paper | Sea Salt & Paper | Base | ✅ | ✅ | ✅ |
-| | Extra Salt | DLC (req. base) | ✅ | — | ✅ |
-| Catan | Catan | Base | ✅ | ✅ | ✅ |
-| | China Map | Variant (standalone) | ✅ | — | ✅ |
-| Carcassonne | Carcassonne | Base | ✅ | ✅ | ✅ |
+| Sea Salt & Paper | Sea Salt & Paper | Base | ✅ | ✅ | ✅ Score |
+| | Extra Salt | DLC (req. base) | ✅ | — | — |
+| Catan | Catan | Base | ✅ | ✅ | ✅ Score |
+| | China Map | Variant (standalone) | ✅ | — | ✅ Score |
+| Carcassonne | Carcassonne | Base | ✅ | ✅ | ✅ Score |
 | | The River | DLC (req. base) | ✅ | — | — |
-| Mahjong | Mahjong | Base | ✅ | ✅ | 🎯 Trainer |
-| | Riichi Mahjong | Variant (standalone) | ✅ | ✅ | 🎯 Trainer |
+| Mahjong | Mahjong | Base | ✅ | ✅ | 🎯 Tenpai Trainer |
+| | Riichi Mahjong | Variant (standalone) | ✅ | ✅ | 🎯 Trainer + 🧮 Calculator |
 | Wingspan | Wingspan | Base | ✅ | ✅ | — |
 | | Asia | DLC (req. base) | ✅ | ✅ | — |
 | | Europe | DLC (req. base) | ✅ | ✅ | — |
@@ -124,30 +126,28 @@ content/games/
 │   └── en/rules.md               # English rules
 └── ... (45 games total)
 
-public/data/
-├── games-meta.json               # Lightweight index (metadata only, for chat / system prompt)
-├── cover-manifest.json           # Cover image format map (scanned at build time)
-└── rules/{slug}.json             # Per-game rules (on-demand loading)
+public/data/                       # Generated by prebuild — not the source of truth
+├── games-meta.json               # Lightweight index (chat system prompt)
+├── cover-manifest.json           # Cover image format map
+└── rules/{slug}.json             # Per-game rules (on-demand)
 
 src/
-├── app/[locale]/                 # Page routes
+├── app/[locale]/                 # Routes (costs + games/*/flow|score|trainer|calculator)
 ├── components/
-│   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
-│   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
-│   ├── game/score/               # ScoreTracker, CaboScoreTracker, SeaSaltScoreTracker, JustWildScoreTracker, CardSelector, FeatureInput, ScoreDisplay
-│   ├── game/trainer/             # TenpaiTrainer, PreflopTrainer, PreflopChart, MahjongTile, TileSelector, TrainerStats, InlineTile
-│   ├── game/calculator/          # ScoreCalculator, HandPicker, AgariSelector, MeldMarker, ScoreResult
-│   ├── chat/                     # ChatToggle, ChatIsland (lazy-loaded), ChatDialog, ChatMessages
+│   ├── home/                     # Cards, family cards, cover, sidebar
+│   ├── game/                     # Header, markdown, decision tree, export, related
+│   ├── game/score/               # Generic + Cabo / SeaSalt / JustWild trackers
+│   ├── game/trainer/             # Tenpai / Preflop / Blackjack / Go trainers
+│   ├── game/calculator/          # Riichi han/fu calculator
+│   ├── chat/                     # ChatToggle, ChatIsland (lazy), Dialog, Messages
 │   └── layout/                   # Header, Footer, BackToTop
-├── lib/constants.ts              # Shared constants (categoryGradients, difficultyColors, variantBadge)
-├── lib/content/                  # Content layer (Repository + Factory pattern, with memory cache)
-├── lib/mahjong/                  # Mahjong core library (tiles, winCheck, tenpai, hand generation, shortcode, scoring, handAnalyzer)
-├── lib/remark-mahjong-tiles.ts   # Remark plugin: parses [3m] shortcodes into inline tile components
-├── lib/score/                    # Score tracker (useScoreState hook + localStorage storage)
-├── lib/score/engines/            # Generic scoring engine factory (sea-salt / card-select / card-type / category / feature-calc)
-├── lib/texas-holdem/             # Texas Hold'em core library (GTO preflop strategy tables, scenario generation)
-├── lib/ai/                       # DeepSeekAdapter, ChatStrategies, tool-handlers
-└── types/                        # TypeScript type definitions
+├── lib/content/                  # Repository + Factory
+├── lib/mahjong/                  # Tenpai / scoring / yaku
+├── lib/score/                    # Score hooks + engines
+├── lib/texas-holdem/             # GTO preflop
+├── lib/ai/                       # DeepSeekAdapter (Anthropic SSE), strategies, tools
+├── lib/chat/                     # ChatProvider, error mapping, IndexedDB
+└── types/                        # Shared TypeScript types
 ```
 
 ---
@@ -178,7 +178,7 @@ src/
 | `duration` | `string` | ✅ | Play duration |
 | `difficulty` | `"easy" \| "medium" \| "hard"` | ✅ | Difficulty level |
 | `tags` | `string[]` | ✅ | Tags |
-| `category` | `string` | ✅ | Category (board / card / party etc.) |
+| `category` | `"board" \| "card"` | ✅ | Category (homepage layout) |
 | `family` | `string` |  | Series identifier |
 | `familyOrder` | `number` |  | Sort order within series (0 = base) |
 | `variantType` | `"base" \| "expansion" \| "variant"` |  | Base / expansion / variant |
@@ -218,9 +218,12 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 |-----|-------------|
 | `/` | → Redirects to `/en` |
 | `/en` `/zh` | Homepage: game card grid + global AI chat |
+| `/en/costs` | Cost tracker |
 | `/en/games/catan` | Rule page: header + rules + export + related games + chat |
 | `/en/games/catan/flow` | Interactive decision tree (only if `flow.json` exists) |
 | `/en/games/catan/score` | Score tracker (only if `score.json` exists) |
+| `/en/games/mahjong/trainer` | Trainer (only if `trainer.json` exists) |
+| `/en/games/riichi-mahjong/calculator` | Calculator (only if `calculator.json` exists) |
 
 ---
 
@@ -237,10 +240,10 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 ### Game Rule Page
 
 - GameHeader: title, players, duration, difficulty, tags
-- Action buttons: decision tree (if available) + export (PDF / Markdown)
+- Action buttons: flow / score / trainer / calculator (when configured) + export (PDF / Markdown)
 - MarkdownRenderer: renders rule content
 - RelatedGames: same-series navigation (if family grouping exists)
-- ChatToggle: LLM chat in bottom-right corner
+- ChatToggle: LLM chat (game/global switch; desktop fullscreen)
 
 ### Decision Tree
 
@@ -262,13 +265,15 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 
 | Aspect | Detail |
 |--------|--------|
-| API | DeepSeek API (OpenAI-compatible) |
-| Base URL | `https://api.deepseek.com` |
-| Model | `deepseek-v4-pro` |
-| API Key | User-provided, stored in `localStorage` |
-| Homepage chat | **Global**: LLM fetches any game's rules via tool calls |
-| Game page chat | **Scoped**: system prompt preloaded with full rules |
-| History | IndexedDB, separate history per scope |
+| API | DeepSeek **Anthropic Messages** API (browser direct; no backend) |
+| Base URL | `https://api.deepseek.com/anthropic` |
+| Model | `deepseek-v4-pro` (thinking enabled by default) |
+| API Key | User-provided, stored in IndexedDB (`idb-keyval`) |
+| Homepage chat | **Global**: `get_game_rules` + server-side `web_search` |
+| Game page chat | **Scoped**: rules in system prompt + optional web search |
+| Stream UI | Per content-block activities: thinking / web search / rules / text |
+| History | IndexedDB per scope; thinking must be replayed after tool turns |
+| Note | Web search runs on DeepSeek; `unavailable` is a server-side limit |
 
 ---
 
@@ -280,7 +285,7 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 | **Factory** | `GameFactory.ts` | Assemble Game domain objects |
 | **Strategy** | `GlobalChatStrategy` / `GameChatStrategy` | Different prompts & tools per chat scope |
 | **Adapter** | `DeepSeekAdapter.ts` | Isolate LLM provider, easy to swap |
-| **Context+Provider** | `ChatProvider.tsx` | Manage messages, streaming state, API key |
+| **Context+Provider** | `ChatProvider.tsx` | Messages, stream activities, API key, error mapping |
 
 ---
 
@@ -303,13 +308,15 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 
 ## Key Decisions
 
-1. **Build-time file reads** — `fs.readFileSync` runs only during `next build`; 45 games is trivially fast
-2. **`dangerouslyAllowBrowser: true`** — API key is user-provided, no server; explicitly enable browser-side calls
-3. **Tool call limit** — Max 5 iterations to prevent infinite loops
-4. **No middleware** — next-intl middleware incompatible with `output: 'export'`
-5. **`trailingSlash: true`** — Required for GitHub Pages subdirectory routing
-6. **Family grouping** — `family` field for logical association, `familyOrder` for sorting, `variantType` for display
-7. **Export** — PDF via browser print, Markdown via Blob download, zero external dependencies
+1. **Build-time file reads** — `fs.readFileSync` during `next build`; `public/data/*` is generated
+2. **Lazy chat stack** — Anthropic SSE adapter + UI loaded only when the FAB is opened
+3. **Browser → DeepSeek** — no API routes; user key + CORS; thinking must be echoed after tool calls
+4. **Rules as RSC markdown** — `react-markdown` stays off the client bundle for rule pages
+5. **Split data** — `games-meta.json` + per-slug `rules/*.json`
+6. **No middleware** — incompatible with `output: 'export'`; use `[locale]` routes
+7. **`trailingSlash: true`** — GitHub Pages subdirectory routing
+8. **Family grouping** — `family` / `familyOrder` / `variantType`
+9. **Zero cover 404s** — `cover-manifest.json`; missing covers skip `<img>`
 
 ---
 

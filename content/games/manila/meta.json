@@ -7,5 +7,7 @@
   "duration": "60 min",
   "difficulty": "medium",
   "tags": ["board", "auction", "dice", "worker-placement", "economic"],
-  "category": "board"
+  "category": "board",
+  "bggRank": 1179,
+  "price": 72
 }

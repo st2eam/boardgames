@@ -1,0 +1,168 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. Place the board; remaining coins form the **harbor cash box**.\n2. Each player starts with **30 pesos**.\n3. Accomplices: **3** each (**4** in a 3-player game).\n4. Deal **2 secret shares** each; sort leftover shares by ware face up.\n5. Put all four black-market markers on **0**.\n6. Keep punts, ware loads, and dice beside the board.\n\nThen auction the first **Harbor Master**.",
+        "zh": "1. 放好棋盘；剩余钱币作为**港口钱箱**。\n2. 每位玩家起始 **30 比索**。\n3. 同伙：**各 3 个**（**3 人局各 4 个**）。\n4. 每人暗发 **2 张股份**；剩余股份按货物正面朝上分类摆放。\n5. 四个黑市指示物放在 **0**。\n6. 舢板、货物与骰子放在一旁。\n\n然后进行首次**港务长**竞拍。"
+      },
+      "options": [
+        { "label": { "en": "Voyage Overview", "zh": "航程概览" }, "next": "voyage" },
+        { "label": { "en": "Harbor Master Auction", "zh": "港务长竞拍" }, "next": "auction" },
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" }
+      ]
+    },
+    "voyage": {
+      "title": { "en": "Voyage Overview", "zh": "航程概览" },
+      "content": {
+        "en": "Each **voyage** runs in this order:\n\n1. Auction **Harbor Master**\n2. Harbor Master duties (optional share → load 3 wares → place punts)\n3. **Place & roll** (placement rounds + 3 dice movements)\n4. Profit distribution\n5. Successful wares rise on the black market\n\nThen clear the board and start the next voyage.",
+        "zh": "每一**航程**按此顺序：\n\n1. 竞拍**港务长**\n2. 港务长履职（可选买股份 → 装载 3 种货 → 放置舢板）\n3. **放置与掷骰**（放置轮 + 3 次骰子移动）\n4. 利润分配\n5. 抵达货物在黑市升值\n\n然后清理棋盘，开始下一航程。"
+      },
+      "options": [
+        { "label": { "en": "Harbor Master Auction", "zh": "港务长竞拍" }, "next": "auction" },
+        { "label": { "en": "Harbor Master Duties", "zh": "港务长职责" }, "next": "harbor-duties" },
+        { "label": { "en": "Place & Roll", "zh": "放置与掷骰" }, "next": "place-roll" }
+      ]
+    },
+    "auction": {
+      "title": { "en": "Harbor Master Auction", "zh": "港务长竞拍" },
+      "content": {
+        "en": "- First voyage: oldest player opens (min **1 peso**) or passes.\n- Later: previous Harbor Master opens; if they pass, next clockwise opens.\n- Raise or pass clockwise; once you pass, you are out for this auction.\n- Winner pays the cash box and becomes Harbor Master.\n- No bids → previous Harbor Master keeps the office.\n- You may **loan** against shares to fund a bid.",
+        "zh": "- 第一轮：最年长玩家开价（至少 **1 比索**）或过牌。\n- 之后：由上一任港务长开价；过牌则顺时针下一位开价。\n- 顺时针加价或过牌；过牌后本轮不能再回来。\n- 胜者付钱箱成为港务长。\n- 无人出价 → 上一任连任。\n- 可用股份**贷款**筹集出价。"
+      },
+      "options": [
+        { "label": { "en": "Harbor Master Duties", "zh": "港务长职责" }, "next": "harbor-duties" },
+        { "label": { "en": "Loans", "zh": "贷款" }, "next": "loans" }
+      ]
+    },
+    "harbor-duties": {
+      "title": { "en": "Harbor Master Duties", "zh": "港务长职责" },
+      "content": {
+        "en": "1. **Buy a share (optional):** pay max(current black-market value, **5**) pesos.\n2. **Load goods:** put one ware on each of **3** punts; leave exactly one ware out.\n3. **Place punts:** each on a different route, start spaces **0–5**, and the three numbers must sum to **exactly 9**.\n\nHigher starts = better odds to reach Manila (need to pass space 13).",
+        "zh": "1. **买股份（可选）：** 支付 max(当前黑市价值, **5**) 比索。\n2. **装载货物：** 三艘舢板各装一种货；恰好一种货不上船。\n3. **放置舢板：** 各在不同海路，起始位 **0–5**，且三个数字之和必须**恰好为 9**。\n\n起始位越高，抵达马尼拉（越过 13 格）的概率越大。"
+      },
+      "options": [
+        { "label": { "en": "Place & Roll", "zh": "放置与掷骰" }, "next": "place-roll" },
+        { "label": { "en": "Placement Spaces", "zh": "放置位置" }, "next": "placement" }
+      ]
+    },
+    "place-roll": {
+      "title": { "en": "Place & Roll", "zh": "放置与掷骰" },
+      "content": {
+        "en": "Usually: **3** placement rounds, each followed by a movement round.\n\n**3 players:** **4** placements and **3** movements — do two placements first, then alternate.\n\nEach turn (Harbor Master first): place one accomplice on a vacant space and pay its cost, or **pass** (no more placements this voyage).\n\nThen Harbor Master rolls the three ware dice and advances those punts.",
+        "zh": "通常：**3** 轮放置，每轮后进行一轮移动。\n\n**3 人局：****4** 轮放置与 **3** 轮移动——先连续两轮放置，再交替。\n\n每回合（港务长先）：在空闲位放 1 个同伙并付费，或**放弃**（本航程不再放置）。\n\n然后港务长掷三枚货物骰，移动对应舢板。"
+      },
+      "options": [
+        { "label": { "en": "Placement Spaces", "zh": "放置位置" }, "next": "placement" },
+        { "label": { "en": "Pirates", "zh": "海盗" }, "next": "pirates" },
+        { "label": { "en": "Pilots", "zh": "领航员" }, "next": "pilots" },
+        { "label": { "en": "Arrival & Wrecks", "zh": "抵达与失事" }, "next": "arrival" }
+      ]
+    },
+    "placement": {
+      "title": { "en": "Placement Spaces", "zh": "放置位置" },
+      "content": {
+        "en": "| Space | Goal / risk |\n|-------|-------------|\n| **Ware punt** | Share the printed ware profit if it reaches Manila; nothing if it wrecks. Always take the cheapest empty space on that ware (jade has 4 spaces; others 3). |\n| **Port / shipyard** | Earn the printed payout if a punt lands on that A/B/C slot. |\n| **Pirate boat** | Board after round 2 on 13; plunder after round 3 on 13. |\n| **Pilots** | Nudge punts before the third die roll. |\n| **Insurance** | Free; take **+10** immediately — but you pay shipyard repairs. |",
+        "zh": "| 位置 | 目标 / 风险 |\n|------|-------------|\n| **货物舢板** | 抵达则均分印刷利润；失事则一无所获。须选该货物上最便宜空位（翡翠 4 位，其余 3 位）。 |\n| **港口 / 船坞** | 有船停靠对应 A/B/C 位则拿印刷赔付。 |\n| **海盗船** | 第 2 轮后停 13 可登船；第 3 轮后停 13 可劫掠。 |\n| **领航员** | 第三次掷骰前推动舢板。 |\n| **保险** | 免费；立即 **+10**——但要赔付船坞修理费。 |"
+      },
+      "options": [
+        { "label": { "en": "Pirates", "zh": "海盗" }, "next": "pirates" },
+        { "label": { "en": "Pilots", "zh": "领航员" }, "next": "pilots" },
+        { "label": { "en": "Insurance", "zh": "保险" }, "next": "insurance" },
+        { "label": { "en": "Profits", "zh": "利润分配" }, "next": "profits" }
+      ]
+    },
+    "pirates": {
+      "title": { "en": "Pirates", "zh": "海盗" },
+      "content": {
+        "en": "Triggers only if a punt **ends** a movement round on space **13** and pirates are present.\n\n- **After movement 2 — board:** captain first, then the second pirate; each may take a vacant punt space or stay.\n- **After movement 3 — plunder:** punt accomplices earn nothing; pirates split the ware-load profit. Pirate captain sends each plundered punt to **port** or **shipyard** (port still raises value).\n\nNo pirates on 13 after round 3 → punt goes to the next vacant **port**.\nPilot moves onto 13 do **not** trigger pirates.",
+        "zh": "仅当舢板在某一移动轮**结束时**停在 **13** 格，且海盗船上有人时触发。\n\n- **第 2 轮移动后 — 登船：** 船长优先，再第二海盗；可占空位或留下。\n- **第 3 轮移动后 — 劫掠：** 船上同伙不得分；海盗均分货物利润。海盗船长把每艘被劫船送往**港口**或**船坞**（送港口仍升值）。\n\n第 3 轮后停在 13 但无海盗 → 进入下一个空闲**港口**。\n领航员移到 13 **不**触发海盗。"
+      },
+      "options": [
+        { "label": { "en": "Pilots", "zh": "领航员" }, "next": "pilots" },
+        { "label": { "en": "Arrival & Wrecks", "zh": "抵达与失事" }, "next": "arrival" },
+        { "label": { "en": "Profits", "zh": "利润分配" }, "next": "profits" }
+      ]
+    },
+    "pilots": {
+      "title": { "en": "Pilots", "zh": "领航员" },
+      "content": {
+        "en": "Act after the last placement round, **before** the third die roll. Cannot affect punts already in Manila.\n\n1. **Small pilot:** move one punt **±1**.\n2. **Large pilot:** move one punt up to **±2**, or two punts **±1** each (may re-touch the small pilot’s punt).\n\nMoving past 13 docks in the next vacant port. Each pilot may decline.",
+        "zh": "在最后一轮放置之后、**第三次掷骰之前**行动。不能影响已在马尼拉的船。\n\n1. **小领航：** 移动一艘 **±1**。\n2. **大领航：** 一艘最多 **±2**，或两艘各 **±1**（也可再动小领航动过的船）。\n\n移过 13 即靠港。领航员可以放弃。"
+      },
+      "options": [
+        { "label": { "en": "Arrival & Wrecks", "zh": "抵达与失事" }, "next": "arrival" },
+        { "label": { "en": "Profits", "zh": "利润分配" }, "next": "profits" }
+      ]
+    },
+    "arrival": {
+      "title": { "en": "Arrival & Wrecks", "zh": "抵达与失事" },
+      "content": {
+        "en": "- Past space **13** → Manila. Order: port **A**, then **B**, then **C**.\n- Fail after three movements (and not resolved by pirates) → shipyard **A / B / C**.\n- Extra movement points after docking are discarded.\n- Punts in port accept no new accomplices.",
+        "zh": "- 越过 **13** 格 → 马尼拉。顺序：港口 **A**，再 **B**，再 **C**。\n- 三轮后仍未抵达（且未按海盗规则处理）→ 船坞 **A / B / C**。\n- 靠港后多余点数作废。\n- 已靠港的舢板不能再上同伙。"
+      },
+      "options": [
+        { "label": { "en": "Profits", "zh": "利润分配" }, "next": "profits" },
+        { "label": { "en": "Insurance", "zh": "保险" }, "next": "insurance" }
+      ]
+    },
+    "profits": {
+      "title": { "en": "Profit Distribution", "zh": "利润分配" },
+      "content": {
+        "en": "1. **Pirates** — plundered punts (round 3 on 13): split ware-load profit.\n2. **Ware accomplices** — only if their punt reached Manila: split printed profit.\n3. **Port** — cash box pays printed amount if a punt landed there.\n4. **Shipyard** — insurance agent pays (else cash box).\n\nThen successful wares rise one step on the black market.",
+        "zh": "1. **海盗** — 第 3 轮停 13 被劫掠：均分货物利润。\n2. **货物同伙** — 仅当舢板抵达马尼拉：均分印刷利润。\n3. **港口** — 有船停靠则钱箱支付印刷金额。\n4. **船坞** — 由保险代理人支付（无人则钱箱支付）。\n\n然后成功抵达的货物在黑市前进一格。"
+      },
+      "options": [
+        { "label": { "en": "Insurance", "zh": "保险" }, "next": "insurance" },
+        { "label": { "en": "Loans", "zh": "贷款" }, "next": "loans" },
+        { "label": { "en": "Ware Values", "zh": "货物升值" }, "next": "ware-values" },
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" }
+      ]
+    },
+    "insurance": {
+      "title": { "en": "Insurance", "zh": "保险" },
+      "content": {
+        "en": "Placing on insurance costs **0** and gives **+10 pesos** immediately.\n\nFor **each** punt in the shipyard, the agent pays the printed repair cost to that shipyard accomplice (or to the cash box if empty).\n\nCollect other profits first; take loans if short. Any remaining shortfall is covered by the cash box (not repaid).",
+        "zh": "放保险**免费**，立即获得 **+10 比索**。\n\n**每艘**进船坞的船，代理人按印刷修理费支付给该船坞位同伙（无人则付给钱箱）。\n\n可先领其他利润；不够则贷款。仍不够的部分由钱箱补足（无需偿还）。"
+      },
+      "options": [
+        { "label": { "en": "Loans", "zh": "贷款" }, "next": "loans" },
+        { "label": { "en": "Profits", "zh": "利润分配" }, "next": "profits" }
+      ]
+    },
+    "loans": {
+      "title": { "en": "Loans & Blind Passenger", "zh": "贷款与盲乘客" },
+      "content": {
+        "en": "**Loan:** encumber one share → receive **12** pesos. Repay **15** to free it.\n\nAt game end, each still-encumbered share subtracts **15** from your fortune.\n\n**Blind passenger:** with no cash and no shares left to encumber, place for free only on a vacant **punt** space.",
+        "zh": "**贷款：** 抵押一张股份 → 获得 **12** 比索。偿还 **15** 解除抵押。\n\n游戏结束时，每张仍抵押股份从身家扣 **15**。\n\n**盲乘客：** 无现金且无可抵押股份时，只能免费放到空闲的**舢板**位置。"
+      },
+      "options": [
+        { "label": { "en": "Ware Values", "zh": "货物升值" }, "next": "ware-values" },
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" }
+      ]
+    },
+    "ware-values": {
+      "title": { "en": "Ware Values Rise", "zh": "货物升值" },
+      "content": {
+        "en": "Every ware that reached Manila (including pirate-sent-to-port) moves **one step** up the black market (0 → 5 → 10 → … → 30).\n\nWares that did not arrive stay the same.\n\nClear punts/loads, return accomplices, then auction the next Harbor Master.",
+        "zh": "抵达马尼拉的货物（含海盗送往港口者）在黑市前进**一格**（0 → 5 → 10 → … → 30）。\n\n未抵达者不变。\n\n清理舢板与货物、收回同伙，然后竞拍下一任港务长。"
+      },
+      "options": [
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" },
+        { "label": { "en": "Voyage Overview", "zh": "航程概览" }, "next": "voyage" }
+      ]
+    },
+    "game-end": {
+      "title": { "en": "Game End & Winner", "zh": "游戏结束与获胜" },
+      "content": {
+        "en": "When **any** ware marker reaches **30**, the game ends immediately.\n\n**Fortune** = cash + value of all shares − **15** per encumbered share.\n\nHighest fortune wins.",
+        "zh": "任一货物指示物到达 **30** 时，游戏立即结束。\n\n**身家** = 现金 + 全部股份的黑市价值 − 每张抵押股份 **15**。\n\n身家最高者获胜。"
+      },
+      "options": [
+        { "label": { "en": "Back to Setup", "zh": "返回准备" }, "next": "setup" },
+        { "label": { "en": "Voyage Overview", "zh": "航程概览" }, "next": "voyage" }
+      ]
+    }
+  }
+}

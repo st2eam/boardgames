@@ -2,12 +2,12 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — 45 games (including expansions/variants), interactive decision trees, trainers, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — 46 games (including expansions/variants), interactive decision trees, trainers, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **45 game rules**: web-verified, complete bilingual rules (EN/ZH)
-- **39 interactive decision trees**: step-by-step flow with sidebar outline navigation
+- **46 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **40 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **7 automatic score trackers**: `cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `category` / `feature-calc`, localStorage persistence
 - **5 trainers**: Mahjong/Riichi tenpai, Blackjack basic strategy, Texas Hold'em GTO preflop, Go tsumego
 - **Score calculator**: Riichi Mahjong han/fu/points — tile picker → winning tile → open melds → auto yaku/fu/points
@@ -34,7 +34,7 @@ npm run dev
 npm run build
 ```
 
-> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `45` / `39` flow / `7` score / `5` trainer / `1` calculator). Run `node scripts/print-project-stats.mjs` to verify.
+> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `46` / `40` flow / `7` score / `5` trainer / `1` calculator). Run `node scripts/print-project-stats.mjs` to verify.
 
 ---
 
@@ -77,6 +77,7 @@ npm run build
 | Art Robbery | ✅ | ✅ | — |
 | Odin | ✅ | ✅ | ✅ Score |
 | Halli Galli | ✅ | ✅ | — |
+| Manila | ✅ | ✅ | — |
 | Go | ✅ | ✅ | 🎯 Tsumego Trainer |
 
 ### Series

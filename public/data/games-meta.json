@@ -869,5 +869,23 @@
     "price": 76,
     "bggRank": 7963,
     "slug": "halli-galli"
+  },
+  {
+    "name": {
+      "en": "Manila",
+      "zh": "马尼拉"
+    },
+    "players": "3-5",
+    "duration": "60 min",
+    "difficulty": "medium",
+    "tags": [
+      "board",
+      "auction",
+      "dice",
+      "worker-placement",
+      "economic"
+    ],
+    "category": "board",
+    "slug": "manila"
   }
 ]

@@ -467,7 +467,7 @@
     "family": "splendor",
     "familyOrder": 0,
     "variantType": "base",
-    "price": 0,
+    "price": 8.4,
     "bggRank": 244,
     "slug": "splendor"
   },
@@ -488,7 +488,7 @@
     "familyOrder": 1,
     "variantType": "expansion",
     "requiresBase": true,
-    "price": 21,
+    "price": 12.6,
     "slug": "splendor-cities"
   },
   {

@@ -473,6 +473,25 @@
   },
   {
     "name": {
+      "en": "Splendor: Cities of Splendor",
+      "zh": "璀璨宝石：城市扩展"
+    },
+    "players": "2-4",
+    "duration": "30 min",
+    "difficulty": "medium",
+    "tags": [
+      "engine-building",
+      "set-collection"
+    ],
+    "category": "card",
+    "family": "splendor",
+    "familyOrder": 1,
+    "variantType": "expansion",
+    "requiresBase": true,
+    "slug": "splendor-cities"
+  },
+  {
+    "name": {
       "en": "Splendor: Pokémon",
       "zh": "璀璨宝石：宝可梦版"
     },
@@ -485,7 +504,7 @@
     ],
     "category": "card",
     "family": "splendor",
-    "familyOrder": 1,
+    "familyOrder": 2,
     "variantType": "variant",
     "requiresBase": false,
     "price": 261,

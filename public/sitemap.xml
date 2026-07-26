@@ -266,6 +266,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/splendor-cities/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/splendor-cities/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/splendor-pokemon/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -767,6 +777,16 @@
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/splendor/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/splendor-cities/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/splendor-cities/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

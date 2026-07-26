@@ -1,0 +1,197 @@
+{
+  "startNode": "overview",
+  "nodes": {
+    "overview": {
+      "title": {
+        "en": "Expansion Overview",
+        "zh": "扩展概述"
+      },
+      "content": {
+        "en": "*Cities of Splendor* adds **four independent modules**. Play **only one** per game with the Splendor base game — do not combine modules.\n\nShared component: **first-player tile** (player to their right takes the last turn when the end is triggered).\n\nTip: start with **Cities** — it changes how you win.",
+        "zh": "《城市扩展》含 **四个独立模块**。每次只与本体搭配使用 **其中一个**，不可混搭。\n\n通用组件：**起始玩家标记**（终局触发时，其右手边玩家打最后一手）。\n\n建议先玩 **城市**——会改变胜利方式。"
+      },
+      "options": [
+        {
+          "label": { "en": "I. Cities", "zh": "一、城市" },
+          "next": "cities"
+        },
+        {
+          "label": { "en": "II. Trading Posts", "zh": "二、商站" },
+          "next": "posts"
+        },
+        {
+          "label": { "en": "III. The Orient", "zh": "三、东方" },
+          "next": "orient"
+        },
+        {
+          "label": { "en": "IV. Strongholds", "zh": "四、要塞" },
+          "next": "strongholds"
+        }
+      ]
+    },
+    "cities": {
+      "title": {
+        "en": "Cities – Setup",
+        "zh": "城市 — 准备"
+      },
+      "content": {
+        "en": "**Components:** 7 double-sided city tiles.\n\n1. Do **not** use nobles\n2. Shuffle cities; place **3** face up at random (**any** player count)\n3. Remove unused cities\n\nOtherwise use base-game setup.",
+        "zh": "**组件：** 7 张双面城市板块。\n\n1. **不使用**贵族\n2. 洗混后随机翻开 **3 张**（**任意**人数皆如此）\n3. 其余移出游戏\n\n其余按本体准备。"
+      },
+      "options": [
+        {
+          "label": { "en": "Claiming a City", "zh": "如何获得城市" },
+          "next": "cities-claim"
+        },
+        {
+          "label": { "en": "Back to Modules", "zh": "返回模块列表" },
+          "next": "overview"
+        }
+      ]
+    },
+    "cities-claim": {
+      "title": {
+        "en": "Cities – Claiming",
+        "zh": "城市 — 获得条件"
+      },
+      "content": {
+        "en": "At end of turn, auto-take a city if you have:\n\n- Prestige ≥ the number on the tile; **and**\n- The shown bonus colors/amounts (like nobles)\n\n**Examples:** 13 PP + 4 red + 3 black · 15 PP + 5 same color · 14 PP + 4 green + 4 of another color\n\nQualify for several? Choose **one**.",
+        "zh": "回合结束时，若同时满足则**自动获得**一张城市：\n\n- 声望 ≥ 板块数字；**且**\n- 拥有所示颜色与数量的加成（同贵族判定）\n\n**示例：** 13 声望 + 4 红 + 3 黑 · 15 声望 + 5 同色 · 14 声望 + 4 绿 + 另 4 同色\n\n多张都满足？只选 **1 张**。"
+      },
+      "options": [
+        {
+          "label": { "en": "Cities – Winner", "zh": "城市 — 胜负" },
+          "next": "cities-end"
+        },
+        {
+          "label": { "en": "Back to Cities Setup", "zh": "返回城市准备" },
+          "next": "cities"
+        }
+      ]
+    },
+    "cities-end": {
+      "title": {
+        "en": "Cities – End of Game",
+        "zh": "城市 — 游戏结束"
+      },
+      "content": {
+        "en": "When someone takes a city, **finish the current round**.\n\n- Only one city-taker → that player wins\n- Several city-takers → highest prestige **among them** wins\n\n(Base 15-prestige trigger is replaced by claiming a city.)",
+        "zh": "有人获得城市后，**打完当前这一轮**。\n\n- 仅一人获得 → 该人获胜\n- 多人获得 → 其中**声望最高者**获胜\n\n（不再以本体「达到 15 声望」作为终局触发。）"
+      },
+      "options": [
+        {
+          "label": { "en": "Other Modules", "zh": "其他模块" },
+          "next": "overview"
+        }
+      ]
+    },
+    "posts": {
+      "title": {
+        "en": "Trading Posts – Setup",
+        "zh": "商站 — 准备"
+      },
+      "content": {
+        "en": "**Components:** Route to the Orient board + 20 coats of arms (5 per color).\n\n1. Place the board within reach\n2. Each player takes 5 coats of their color\n3. Use nobles as in the base game",
+        "zh": "**组件：** 「东方之路」面板 + 20 枚纹章（每色 5）。\n\n1. 面板放在方便取用处\n2. 每人拿 5 枚同色纹章\n3. 贵族按本体使用"
+      },
+      "options": [
+        {
+          "label": { "en": "Gaining Powers", "zh": "获得能力" },
+          "next": "posts-powers"
+        },
+        {
+          "label": { "en": "Back to Modules", "zh": "返回模块列表" },
+          "next": "overview"
+        }
+      ]
+    },
+    "posts-powers": {
+      "title": {
+        "en": "Trading Posts – Powers",
+        "zh": "商站 — 能力一览"
+      },
+      "content": {
+        "en": "After your turn (and after any noble), if you meet a requirement, place a coat on that power — keep it for the rest of the game.\n\n| Need | Power |\n|------|--------|\n| 3 red + 1 white | After buying a card, take 1 gem (not the turn you place the coat) |\n| 2 white | When taking 2 same gems, also take 1 other color |\n| 3 blue + 1 black | Each gold counts as 2 gems when buying |\n| 5 green + 1 noble | +5 prestige (once; can end game) |\n| 3 black | +1 prestige per coat on the board (can end game) |\n\nEnd game as in base Splendor.",
+        "zh": "回合结束且贵族结算后，满足要求则放纹章，能力持续到终局。\n\n| 要求 | 能力 |\n|------|------|\n| 3 红 + 1 白 | 买牌后再拿 1 宝石（放置当回合不触发） |\n| 2 白 | 拿 2 同色时再拿 1 其他色 |\n| 3 蓝 + 1 黑 | 购买时每枚黄金当 2 色 |\n| 5 绿 + 1 贵族 | +5 声望（仅一次；可终局） |\n| 3 黑 | 板上每枚己方纹章 +1 声望（可终局） |\n\n终局同本体。"
+      },
+      "options": [
+        {
+          "label": { "en": "Other Modules", "zh": "其他模块" },
+          "next": "overview"
+        }
+      ]
+    },
+    "orient": {
+      "title": {
+        "en": "The Orient – Setup",
+        "zh": "东方 — 准备"
+      },
+      "content": {
+        "en": "**Components:** 30 Orient cards (10 per level).\n\nFor each level: shuffle 10 → reveal **2** to the right of the base row → rest as a deck.\n\nAlways **4 base + 2 Orient** face-up per level (gaps stay if a deck is empty). Replace from the matching deck.",
+        "zh": "**组件：** 30 张东方牌（每等级 10）。\n\n每等级：洗 10 张 → 右侧翻开 **2 张** → 其余成叠。\n\n场上始终每等级 **4 本体 + 2 东方**（牌库空则空位保留）。从对应牌库补牌。"
+      },
+      "options": [
+        {
+          "label": { "en": "Orient Card Effects", "zh": "东方牌效果" },
+          "next": "orient-cards"
+        },
+        {
+          "label": { "en": "Back to Modules", "zh": "返回模块列表" },
+          "next": "overview"
+        }
+      ]
+    },
+    "orient-cards": {
+      "title": {
+        "en": "Orient – Card Effects",
+        "zh": "东方 — 牌效摘要"
+      },
+      "content": {
+        "en": "**Level 1:** double-gold joker for one purchase (then discard) · pair with an owned bonus card for +1 matching bonus\n\n**Level 2:** pair then free level-1 · double bonus of a color · reserve a noble (no gold; only you can host that noble)\n\n**Level 3:** free level-2 · buy by discarding 2 bonuses of the shown color (not from reserve)\n\nEnd game as in base Splendor.",
+        "zh": "**等级 1：** 双黄金（单次购买后弃掉）· 与已有加成牌配对获得同色 +1\n\n**等级 2：** 配对后免费拿等级 1 · 双色加成 · 预留贵族（无黄金；仅你可被该贵族拜访）\n\n**等级 3：** 免费拿等级 2 · 弃 2 点所示色加成才能买（不能弃保留牌）\n\n终局同本体。"
+      },
+      "options": [
+        {
+          "label": { "en": "Other Modules", "zh": "其他模块" },
+          "next": "overview"
+        }
+      ]
+    },
+    "strongholds": {
+      "title": {
+        "en": "Strongholds – Setup & Actions",
+        "zh": "要塞 — 准备与行动"
+      },
+      "content": {
+        "en": "**Components:** 12 strongholds (3 per color). Each player takes 3.\n\nAfter every purchase (before replace), you must:\n\n1. **Place/move** one of your strongholds onto a face-up card with no other color’s stronghold (stacking your own is OK); **or**\n2. **Remove** an opponent’s stronghold and return it.",
+        "zh": "**组件：** 12 座要塞（每色 3）。每人拿 3 座。\n\n每次购买后、补牌前必须：\n\n1. **放置/移动**自己的 1 座到场上明牌（不能已有其他颜色要塞；可叠自己的）；**或**\n2. **移除**对手的 1 座并归还。"
+      },
+      "options": [
+        {
+          "label": { "en": "Occupation & Conquest", "zh": "占领与征服" },
+          "next": "strongholds-powers"
+        },
+        {
+          "label": { "en": "Back to Modules", "zh": "返回模块列表" },
+          "next": "overview"
+        }
+      ]
+    },
+    "strongholds-powers": {
+      "title": {
+        "en": "Strongholds – Powers",
+        "zh": "要塞 — 能力"
+      },
+      "content": {
+        "en": "**Occupation:** Only the owner may buy or reserve a card with their stronghold(s); they reclaim those strongholds when they do.\n\n**Conquest:** If all **3** of your strongholds are on one face-up card, you may buy it **after** your normal action (pay → reclaim → place/remove → replace). Do this before nobles and before the 10-token check.\n\nEnd game as in base Splendor.",
+        "zh": "**占领：** 有要塞的明牌仅所有者可买/保留；买或保留时收回自己的要塞。\n\n**征服：** 自己的 **3 座**都在同一张明牌上时，可在常规行动后再买该牌（付款 → 收回 → 放置或移除 → 补牌）。须在贵族与 10 枚筹码检查之前。\n\n终局同本体。"
+      },
+      "options": [
+        {
+          "label": { "en": "Other Modules", "zh": "其他模块" },
+          "next": "overview"
+        }
+      ]
+    }
+  }
+}

@@ -11,7 +11,7 @@ export class GameFactory {
 
   static async createGameSummary(slug: string): Promise<GameSummary> {
     const meta = await GameRepository.getGameMeta(slug);
-    const hasFlow = (await GameRepository.getFlowData(slug, "en")) !== null;
+    const hasFlow = GameRepository.hasFlowData(slug);
     const hasScore = GameRepository.hasScoreConfig(slug);
     const hasTrainer = GameRepository.hasTrainerConfig(slug);
     const hasCalculator = GameRepository.hasCalculatorConfig(slug);

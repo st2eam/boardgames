@@ -1,7 +1,7 @@
 "use client";
 
 import type { ChatScope } from "@/lib/chat/types";
-import { ChatProvider } from "@/lib/chat/ChatProvider";
+import { ChatProvider } from "@/components/chat/ChatProvider";
 import { ChatDialog } from "./ChatDialog";
 
 interface Props {

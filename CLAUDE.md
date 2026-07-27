@@ -95,7 +95,7 @@ Games can belong to a family (e.g., UNO, Exploding Kittens, Sanguosha, Dirty Pig
 
 ### Chat System
 
-- `ChatProvider` (`src/lib/chat/ChatProvider.tsx`) manages global chat state
+- `ChatProvider` (`src/components/chat/ChatProvider.tsx`) manages global chat state
 - API key stored client-side in IndexedDB via `idb-keyval`
 - Two scopes: `global` (homepage — "Ask about any game") and `game` (game pages with rule context)
 - Floating FAB button + dialog with messages, input, and API key modal
@@ -145,7 +145,7 @@ Custom tracker components are self-contained with their own UI, localStorage per
 **ScoreConfigType** (in `src/types/game.ts`) lists all valid types. To add a new dedicated tracker:
 1. Add the type string to `ScoreConfigType`
 2. Create the component in `src/components/game/score/`
-3. Route it in `score/page.tsx` `ScoreContent`
+3. Register it in `src/components/game/score/registry.tsx`
 4. Set the game's `score.json` to the new type
 
 ### Types

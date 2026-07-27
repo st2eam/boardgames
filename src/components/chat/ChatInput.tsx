@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useChat } from "@/lib/chat/ChatProvider";
+import { useChat } from "@/components/chat/ChatProvider";
 import { useTranslations } from "next-intl";
 
 export function ChatInput() {

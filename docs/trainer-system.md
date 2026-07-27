@@ -5,15 +5,16 @@
 ```
 content/games/<slug>/trainer.json   ← config (data)
 src/lib/<game>/                      ← game logic (question generation, answer checking)
-src/components/game/trainer/         ← UI components
-src/app/[locale]/games/[slug]/trainer/page.tsx  ← page router
+src/components/game/trainer/         ← UI components + registry.tsx (type dispatch)
+src/app/[locale]/games/[slug]/trainer/page.tsx  ← page router (loads config, renders TrainerByType)
 ```
 
 Each trainer is a self-contained system with:
 1. **Config** (`trainer.json`) — declares the trainer type, difficulties, and game-specific settings
 2. **Game library** (`src/lib/<game>/`) — generates scenarios/questions and computes correct answers
 3. **UI component** (`src/components/game/trainer/`) — renders the interactive trainer
-4. **Page route** — all trainers render through `src/app/[locale]/games/[slug]/trainer/page.tsx`
+4. **Registry** — `trainer/registry.tsx` maps `type` → titles, SEO copy, and component
+5. **Page route** — loads config and renders `<TrainerByType />`
 
 ---
 
@@ -44,7 +45,7 @@ Each trainer is a self-contained system with:
 }
 ```
 
-- `type` — matches one of the keys in `TRAINER_TITLES` and `TRAINER_DESCRIPTIONS` in the page router, and the component switch in `page.tsx`
+- `type` — matches one of the keys in `TRAINER_TITLES` / `TRAINER_DESCRIPTIONS` and a `TrainerByType` case in `trainer/registry.tsx`
 - `tileSet` — only used by `tenpai` type (`"standard"` or `"riichi"`)
 - `difficulties[].handSize` — domain-specific; for tenpai it's tile count, for go-tsumego it's board size
 
@@ -52,24 +53,17 @@ Each trainer is a self-contained system with:
 
 ## How the Page Router Works
 
-`src/app/[locale]/games/[slug]/trainer/page.tsx`:
+`src/app/[locale]/games/[slug]/trainer/page.tsx` loads config; dispatch lives in `src/components/game/trainer/registry.tsx`:
 
 ```
-TRAINER_TITLES       — maps type → { en, zh } display name
-TRAINER_DESCRIPTIONS — maps type → { en, zh } SEO description
+TRAINER_TITLES / TRAINER_DESCRIPTIONS — type → { en, zh } for page title + SEO
+TrainerByType                         — type → trainer component
 
 generateStaticParams() → scans all games for trainer.json → pre-renders routes
-TrainerPage()        → reads config.type → renders matching component
+TrainerPage()          → reads config.type → <TrainerByType />
 ```
 
-The component switch at line 109-112 dispatches based on `config.type`:
-```tsx
-{type === "tenpai" && <TenpaiTrainer config={config} locale={locale} />}
-{type === "blackjack-basic-strategy" && <BasicStrategyTrainer locale={locale} />}
-{type === "texas-holdem-preflop" && <PreflopTrainer locale={locale} />}
-{type === "go-tsumego" && <GoTsumegoTrainer config={config as any} locale={locale} />}
-```
-
+Register new trainer types in `registry.tsx` (`TRAINER_TITLES`, `TRAINER_DESCRIPTIONS`, and the `TrainerByType` switch).
 ---
 
 ## Trainer Anatomy (Common Patterns)
@@ -189,24 +183,12 @@ const [scenario, setScenario] = useState<Scenario>(() => generateScenario());
 }
 ```
 
-### Step 2: Register the type in the page router
+### Step 2: Register the type in the registry
 
-In `src/app/[locale]/games/[slug]/trainer/page.tsx`:
+In `src/components/game/trainer/registry.tsx`:
 
-1. Add entries to `TRAINER_TITLES` and `TRAINER_DESCRIPTIONS`:
-```typescript
-const TRAINER_TITLES: Record<string, { en: string; zh: string }> = {
-  // ... existing ...
-  "your-type-key": { en: "Your Trainer Name", zh: "你的训练名称" },
-};
-```
-
-2. Add the component switch case:
-```tsx
-{type === "your-type-key" && <YourTrainer locale={locale} />}
-```
-
-3. Import your component at the top.
+1. Add entries to `TRAINER_TITLES` and `TRAINER_DESCRIPTIONS`
+2. Import your component and add a `case` in `TrainerByType`
 
 ### Step 3: Create the game library
 

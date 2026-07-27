@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Code Modification (The Game Shelf)
 
-Grounded in how this repo actually works. For adding a game end-to-end, use `.cursor/skills/add-game/SKILL.md`. For new trainer types, use `.claude/skills/add-trainer` + `docs/trainer-system.md`. After verify, follow `verify-then-push.mdc`.
+Grounded in how this repo actually works. Before extending features or moving code across layers, read `docs/architecture.md`. For adding a game end-to-end, use `.cursor/skills/add-game/SKILL.md`. For new trainer types, use `.claude/skills/add-trainer` + `docs/trainer-system.md`. After verify, follow `verify-then-push.mdc`.
 
 ## Layers (do not blur)
 
@@ -42,8 +42,8 @@ Static export (`output: "export"`, `basePath: "/boardgames"`, `trailingSlash: tr
 |---------|--------------|------|
 | Rules | `en\|zh/rules.md` | `games/[slug]/page.tsx` |
 | Flow | **root** `flow.json` (bilingual; `startNode`, not `start`) | `…/flow/page.tsx` → `DecisionTree` |
-| Score | `score.json` | `…/score/page.tsx` — dedicated trackers for `cabo-multi` / `sea-salt-multi` / `just-wild-multi`, else `ScoreTracker` + engines |
-| Trainer | `trainer.json` | `…/trainer/page.tsx` + `src/lib/<domain>/` |
+| Score | `score.json` | `…/score/page.tsx` → `score/registry.tsx` (dedicated trackers or `ScoreTracker` + engines) |
+| Trainer | `trainer.json` | `…/trainer/page.tsx` → `trainer/registry.tsx` + `src/lib/<domain>/` |
 | Calculator | `calculator.json` | `…/calculator/page.tsx` |
 
 Shared types live in `src/types/game.ts` (or domain `src/lib/<x>/`). Do not add a parallel `src/lib/content/types.ts`.

@@ -73,9 +73,9 @@ Edit `content/games/<slug>/trainer.json`:
 
 The `type` field is the contract between config, page router, and component. Pick a descriptive kebab-case key.
 
-### B2. Register in page router
+### B2. Register in trainer registry
 
-Edit `src/app/[locale]/games/[slug]/trainer/page.tsx`:
+Edit `src/components/game/trainer/registry.tsx`:
 
 1. **Add display names** to `TRAINER_TITLES`:
    ```ts
@@ -87,14 +87,10 @@ Edit `src/app/[locale]/games/[slug]/trainer/page.tsx`:
    "your-type": { en: "practice X decisions", zh: "练习X决策" },
    ```
 
-3. **Add component switch** in the JSX (after existing cases):
+3. **Add a case** in `TrainerByType` (and import the component):
    ```tsx
-   {type === "your-type" && <YourTrainer locale={locale} />}
-   ```
-
-4. **Add import** at the top:
-   ```tsx
-   import { YourTrainer } from "@/components/game/trainer/your-game/YourTrainer";
+   case "your-type":
+     return <YourTrainer locale={locale} />;
    ```
 
 ### B3. Create game library
@@ -234,7 +230,7 @@ const LABELS: Record<string, { en: string; zh: string }> = {
 Before declaring the task complete:
 
 - [ ] `trainer.json` exists with valid `type`, `difficulties`
-- [ ] Type key is registered in all three places in `page.tsx` (titles, descriptions, component switch)
+- [ ] Type key is registered in `trainer/registry.tsx` (titles, descriptions, `TrainerByType` case)
 - [ ] Component imports are correct
 - [ ] Component uses `"use client"` directive
 - [ ] Component follows the `answering` → `result` phase machine

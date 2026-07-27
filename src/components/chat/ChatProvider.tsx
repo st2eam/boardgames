@@ -10,9 +10,9 @@ import {
   useRef,
   type ReactNode,
 } from "react";
-import type { ChatActivity, ChatMessage, ChatScope } from "./types";
-import { saveMessages, loadMessages, clearHistory as clearStoredHistory } from "./chat-storage";
-import { loadApiKey, saveApiKey } from "./api-key-storage";
+import type { ChatActivity, ChatMessage, ChatScope } from "@/lib/chat/types";
+import { saveMessages, loadMessages, clearHistory as clearStoredHistory } from "@/lib/chat/chat-storage";
+import { loadApiKey, saveApiKey } from "@/lib/chat/api-key-storage";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 import { GlobalChatStrategy } from "@/lib/ai/GlobalChatStrategy";
 import { GameChatStrategy } from "@/lib/ai/GameChatStrategy";

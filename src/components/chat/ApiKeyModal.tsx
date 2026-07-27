@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import { useChat } from "@/lib/chat/ChatProvider";
+import { useChat } from "@/components/chat/ChatProvider";
 import { useTranslations } from "next-intl";
 
 interface Props {

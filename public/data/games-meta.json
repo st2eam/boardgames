@@ -909,5 +909,43 @@
     "bggRank": 1179,
     "price": 72,
     "slug": "manila"
+  },
+  {
+    "name": {
+      "en": "The Lord of the Rings: Duel for Middle-earth",
+      "zh": "魔戒：中洲对决"
+    },
+    "players": "2",
+    "duration": "30 min",
+    "difficulty": "medium",
+    "tags": [
+      "board",
+      "strategy",
+      "duel",
+      "asymmetry"
+    ],
+    "category": "board",
+    "price": 162,
+    "bggRank": 19,
+    "slug": "duel-for-middle-earth"
+  },
+  {
+    "name": {
+      "en": "6 nimmt! 30 Years Anniversary Edition",
+      "zh": "谁是牛头王（30周年纪念版）"
+    },
+    "players": "1-10",
+    "duration": "45 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "family",
+      "party",
+      "hand-management"
+    ],
+    "category": "card",
+    "price": 106,
+    "bggRank": 676,
+    "slug": "6-nimmt-30th-anniversary"
   }
 ]

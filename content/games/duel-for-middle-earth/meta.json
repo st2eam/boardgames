@@ -1,0 +1,13 @@
+{
+  "name": {
+    "en": "The Lord of the Rings: Duel for Middle-earth",
+    "zh": "魔戒：中洲对决"
+  },
+  "players": "2",
+  "duration": "30 min",
+  "difficulty": "medium",
+  "tags": ["board", "strategy", "duel", "asymmetry"],
+  "category": "board",
+  "price": 162,
+  "bggRank": 19
+}

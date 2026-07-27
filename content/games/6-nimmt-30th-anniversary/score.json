@@ -1,0 +1,20 @@
+{
+  "type": "feature-calc",
+  "engine": "feature-calc",
+  "direction": "low-wins",
+  "target": 66,
+  "multiRound": true,
+  "players": { "min": 2, "max": 10 },
+  "features": [
+    {
+      "id": "bullheads",
+      "name": { "en": "Bullheads this round", "zh": "本轮牛头数" },
+      "inputType": "number",
+      "formula": "n",
+      "description": {
+        "en": "1 pt per bullhead on cards taken",
+        "zh": "收走的牌上每个牛头 1 分"
+      }
+    }
+  ]
+}

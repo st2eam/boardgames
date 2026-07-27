@@ -1,0 +1,98 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. Choose **Fellowship** or **Sauron**; take your Units & Fortresses.\n2. Board: **2 Fellowship Units on Arnor**, **2 Sauron Units on Mordor**.\n3. Quest of the Ring track below the board (Nazgûl on Frodo & Sam).\n4. Coins: Fellowship **3**, Sauron **2**.\n5. Alliance token stacks by Race above the board.\n6. **3** Landmark tiles face up + facedown stack.\n7. Shuffle Chapter decks **1 / 2 / 3** separately; lay out Chapter 1 as shown.\n\n**Sauron starts.**",
+        "zh": "1. 选择**远征队**或**索伦**，拿取单位与要塞。\n2. 版图：**阿尔诺 2 个远征队单位**，**魔多 2 个索伦单位**。\n3. 放置魔戒远征轨道（戒灵叠在佛罗多与山姆上）。\n4. 金币：远征队 **3**，索伦 **2**。\n5. 各族结盟标记叠放于版图上方。\n6. **3** 张地标正面 + 背面牌叠。\n7. 分别洗匀章节牌 **1 / 2 / 3**，按图摆放第 1 章。\n\n**索伦先手。**"
+      },
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Costs & Chaining", "zh": "费用与连锁" }, "next": "costs" },
+        { "label": { "en": "Victory", "zh": "胜利条件" }, "next": "victory" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Your Turn", "zh": "你的回合" },
+      "content": {
+        "en": "Choose **one**:\n\n### A. Chapter card\nTake an **available** (uncovered) card → **play** (pay cost, resolve) or **discard**. Then reveal newly free cards.\n\n### B. Landmark tile\nTake a face-up Landmark → pay cost → Fortress on that region + other effects. **Do not** refill a tile this turn.\n\nWhen the last card of a chapter layout is taken → end chapter → set up next → refill Landmarks to 3 if possible.",
+        "zh": "选择 **一项**：\n\n### A. 章节牌\n拿取一张**可用**（未被遮挡）牌 → **打出**（付费并结算）或**弃掉**。然后翻开新露出的牌。\n\n### B. 地标\n拿取一张正面地标 → 付费 → 在对应地区放要塞并结算效果。本回合**不**补地标。\n\n该章布局最后一张被拿走 → 结束本章 → 摆下一章 → 尽量将地标补至 3 张。"
+      },
+      "options": [
+        { "label": { "en": "Costs & Chaining", "zh": "费用与连锁" }, "next": "costs" },
+        { "label": { "en": "Card Colors", "zh": "牌色效果" }, "next": "colors" },
+        { "label": { "en": "Quest of the Ring", "zh": "魔戒远征" }, "next": "quest" },
+        { "label": { "en": "Units & Conflicts", "zh": "单位与冲突" }, "next": "units" }
+      ]
+    },
+    "costs": {
+      "title": { "en": "Costs & Chaining", "zh": "费用与连锁" },
+      "content": {
+        "en": "- **Coins** — pay printed amount to the reserve.\n- **Skills** — need matching Skill symbols in your area; pay **1 Coin per missing Skill**.\n- **Chaining** (Ch. 2+) — matching chaining symbol → play **for free**.\n- **Landmarks** — base cost + **1 Coin per Fortress** you already have on the board.",
+        "zh": "- **金币** — 按牌面支付到供应堆。\n- **技能** — 需要区域中已有技能；每缺 1 个付 **1 金币**。\n- **连锁**（第 2 章起）— 有匹配连锁符号则可**免费**打出。\n- **地标** — 基础费用 + 你已有要塞数 × **1 金币**。"
+      },
+      "options": [
+        { "label": { "en": "Card Colors", "zh": "牌色效果" }, "next": "colors" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    },
+    "colors": {
+      "title": { "en": "Card Colors", "zh": "牌色效果" },
+      "content": {
+        "en": "| Color | Effect |\n|-------|--------|\n| **Grey** | Skills (slash = choose one) |\n| **Yellow** | Immediate Coins |\n| **Blue** | Advance Quest (Rings) |\n| **Green** | Race symbols / alliances |\n| **Red** | Place Units in one of two regions |\n| **Purple** | Ch. 3 maneuvers |\n\n**Landmarks:** Fortress + immediate benefit.",
+        "zh": "| 颜色 | 效果 |\n|------|------|\n| **灰** | 技能（斜杠二选一） |\n| **黄** | 立即金币 |\n| **蓝** | 推进远征（戒指） |\n| **绿** | 种族 / 结盟 |\n| **红** | 在两地区之一放单位 |\n| **紫** | 第 3 章机动 |\n\n**地标：** 要塞 + 立即收益。"
+      },
+      "options": [
+        { "label": { "en": "Quest of the Ring", "zh": "魔戒远征" }, "next": "quest" },
+        { "label": { "en": "Alliances", "zh": "结盟" }, "next": "alliances" },
+        { "label": { "en": "Units & Conflicts", "zh": "单位与冲突" }, "next": "units" }
+      ]
+    },
+    "quest": {
+      "title": { "en": "Quest of the Ring", "zh": "魔戒远征" },
+      "content": {
+        "en": "Blue cards move your piece along the track (1 space per Ring).\n\nBonus spaces → immediate effect when reached/passed.\n\n**Nazgûl rides on Frodo & Sam** — when Fellowship moves, Nazgûl moves too. The gap only **shrinks**.\n\n- Fellowship wins instantly at **Mount Doom**.\n- Sauron wins instantly if Nazgûl **catch** them.",
+        "zh": "蓝牌沿轨道移动（每个戒指 1 格）。\n\n奖励格：到达或经过时立即生效。\n\n**戒灵叠在佛罗多与山姆上** — 远征队移动时戒灵也移动，间距只会**缩短**。\n\n- 远征队抵达**末日火山**立即获胜。\n- 索伦的戒灵**追上**他们立即获胜。"
+      },
+      "options": [
+        { "label": { "en": "Alliances", "zh": "结盟" }, "next": "alliances" },
+        { "label": { "en": "Victory", "zh": "胜利条件" }, "next": "victory" }
+      ]
+    },
+    "alliances": {
+      "title": { "en": "Alliances", "zh": "结盟" },
+      "content": {
+        "en": "From **Green** Race symbols:\n\n- **2 matching** → take top 2 tokens of that Race, keep **1**.\n- **3 different** (once/game) → take top of each, keep **1**.\n\nTokens are public. Gather **6 different** Race symbols (Eagle token counts) → immediate win.",
+        "zh": "来自**绿牌**种族符号：\n\n- **2 个相同** → 拿该族顶上 2 枚标记，保留 **1**。\n- **3 个不同**（每局限 1 次）→ 各族各拿 1 枚，保留 **1**。\n\n标记公开。凑齐 **6 种不同**种族符号（鹰标记也算）→ 立即获胜。"
+      },
+      "options": [
+        { "label": { "en": "Units & Conflicts", "zh": "单位与冲突" }, "next": "units" },
+        { "label": { "en": "Victory", "zh": "胜利条件" }, "next": "victory" }
+      ]
+    },
+    "units": {
+      "title": { "en": "Units & Conflicts", "zh": "单位与冲突" },
+      "content": {
+        "en": "Place/move Units into a region with enemies → **conflict**: each removes 1 Unit until one side has none there.\n\nEnemy Fortresses do **not** block or conflict. **Presence** = Unit and/or Fortress.\n\nPresent in **all 7** regions → immediate win.\n\nIf no instant win after Ch. 3 → most regions wins (tie = shared).",
+        "zh": "向有敌人的地区放置/移动单位 → **冲突**：双方各移除 1 个单位，直到一方清空。\n\n敌方要塞**不**阻挡、不引发冲突。**占领** = 单位和/或要塞。\n\n占领全部 **7** 地区 → 立即获胜。\n\n第 3 章结束仍无即时胜 → 占领最多者胜（平局共享）。"
+      },
+      "options": [
+        { "label": { "en": "Victory", "zh": "胜利条件" }, "next": "victory" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    },
+    "victory": {
+      "title": { "en": "Victory Conditions", "zh": "胜利条件" },
+      "content": {
+        "en": "**Immediate:**\n1. Quest — Mount Doom (Fellowship) / catch (Sauron)\n2. **6 different** Race symbols\n3. Present in **all 7** regions\n\n**Else** after Chapter 3: most regions. Tie → shared win.",
+        "zh": "**即时：**\n1. 远征 — 末日火山（远征队）/ 追上（索伦）\n2. **6 种不同**种族符号\n3. 占领全部 **7** 地区\n\n**否则**第 3 章结束：占领地区最多者胜。平局共享。"
+      },
+      "options": [
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    }
+  }
+}

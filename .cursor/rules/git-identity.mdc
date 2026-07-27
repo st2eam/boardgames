@@ -1,30 +1,29 @@
 ---
-description: Commits in this repo must use the local st2eam identity — never a workplace account.
+description: Commits in this repo must use st2eam / 379403404@qq.com — never a workplace account.
 alwaysApply: true
 ---
 
 # Git identity (this repo only)
 
-All commits in **boardgames** must use this repository’s **local** git identity:
+All commits in **boardgames** must be authored as:
 
 - **name:** `st2eam`
-- **email:** whatever is already set in `git config --local user.email` (do not invent; do not paste personal/corporate emails into rules or chat)
+- **email:** `379403404@qq.com`
 
 ## Before every commit
 
-1. Check local config only (`--local`). Do **not** change `--global` git config.
+1. Ensure local config (do **not** change global git config):
 
 ```bash
-git config --local user.name
-git config --local user.email
+git config --local user.name "st2eam"
+git config --local user.email "379403404@qq.com"
 ```
 
-2. `user.name` must be `st2eam`, and `user.email` must be set. If either is wrong or empty, stop and ask the user — do not fall back to a workplace / corporate account.
+2. If the commit would use any other identity, **stop**, fix local config, then commit.
 
 3. If a wrong-author commit was already created in this session, rewrite it (`commit --amend --reset-author` or rebase) and use `--force-with-lease` only when a history rewrite is required and the user asked (or after a mistaken push under verify-then-push).
 
 ## Do not
 
-- Commit under any workplace or corporate identity
-- Write personal emails, company domains, or other real-world account names into committed docs/rules
+- Commit under a workplace or corporate identity
 - Set `user.name` / `user.email` with `--global` from this project

@@ -79,7 +79,7 @@ npm run build
 | Halli Galli | ✅ | ✅ | — |
 | Manila | ✅ | ✅ | — |
 | The Lord of the Rings: Duel for Middle-earth | ✅ | ✅ | — |
-| 6 nimmt! 30 Years Anniversary Edition | ✅ | ✅ | ✅ Score |
+| 6 nimmt! 30 Years Anniversary Edition | ✅ | ✅ | ✅ Score (multi) |
 | Palm Island | ✅ | ✅ | ✅ Score |
 | Go | ✅ | ✅ | 🎯 Tsumego Trainer |
 

@@ -138,6 +138,7 @@ Score calculators are powered by `content/games/<slug>/score.json`. The `type` f
 | `cabo-multi` | `CaboScoreTracker` | CABO |
 | `sea-salt-multi` | `SeaSaltScoreTracker` | Sea Salt Paper |
 | `just-wild-multi` | `JustWildScoreTracker` | Just Wild (荒野之王) |
+| `nimmt-multi` | `NimmtScoreTracker` | 6 nimmt! (谁是牛头王) |
 | `category` / others | `ScoreTracker` (generic engine-based) | Catan, Carcassonne, etc. |
 
 Custom tracker components are self-contained with their own UI, localStorage persistence, and multi-player support. The generic `ScoreTracker` uses pluggable engines defined in `src/lib/score/engines/`.

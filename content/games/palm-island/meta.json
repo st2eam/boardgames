@@ -1,0 +1,13 @@
+{
+  "name": {
+    "en": "Palm Island",
+    "zh": "棕榈岛"
+  },
+  "players": "1-2",
+  "duration": "15 min",
+  "difficulty": "medium",
+  "tags": ["card", "solo", "strategy", "portable"],
+  "category": "card",
+  "price": 10,
+  "bggRank": 1073
+}

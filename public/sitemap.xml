@@ -541,6 +541,21 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/palm-island/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/palm-island/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/palm-island/score/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/zh/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -1077,6 +1092,21 @@
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/6-nimmt-30th-anniversary/score/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/palm-island/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/palm-island/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/palm-island/score/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

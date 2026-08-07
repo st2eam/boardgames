@@ -323,17 +323,12 @@ export function PlayShell({
   const resolveAiSeat = async (seatId: string): Promise<AiSeat> => {
     const existing = aiRef.current.get(seatId);
     if (existing) return existing;
-    // Prefer mock for reliable play; use DeepSeek only when explicitly keyed later via speak path
-    const seat = createMockLoveLetterSeat(seatId);
-    aiRef.current.set(seatId, seat);
-
-    // Optional: upgrade think to DeepSeek if key present (still falls back on timeout)
     const key = await loadApiKey();
-    if (key && createDeepSeekSeat) {
-      const live = createDeepSeekSeat(seatId, key);
-      aiRef.current.set(seatId, live);
-      return live;
-    }
+    const seat =
+      key && createDeepSeekSeat
+        ? createDeepSeekSeat(seatId, key)
+        : createMockLoveLetterSeat(seatId);
+    aiRef.current.set(seatId, seat);
     return seat;
   };
 
@@ -388,22 +383,38 @@ export function PlayShell({
           setError(result.error);
         }
       } else {
-        let seat = await resolveAiSeat(current);
+        const seat = await resolveAiSeat(current);
+        const isLlm = Boolean(seat.speak);
+        // DeepSeek often needs 20–60s when “thinking”; 10s was aborting live requests.
+        const thinkBudgetMs = isLlm ? 90_000 : 8_000;
         let action: LoveLetterAction;
+        let usedEphemeralMock = false;
         try {
-          // Decide in parallel with a minimum think timer (mock / fast LLM still feel paced).
-          const decide = withTimeout(seat.think(v), 10000, "AI think");
+          const decide = withTimeout(
+            seat.think(v),
+            thinkBudgetMs,
+            "AI think",
+          );
           const [, decided] = await Promise.all([sleep(paceMs), decide]);
           action = decided as LoveLetterAction;
-        } catch {
-          seat = createMockLoveLetterSeat(current);
-          aiRef.current.set(current, seat);
+        } catch (err) {
+          // One-turn safety net only — keep LLM seat cached for the next turn
+          usedEphemeralMock = true;
+          const mock = createMockLoveLetterSeat(current);
           const remaining = Math.max(0, paceMs - (Date.now() - thinkStarted));
           const [decided] = await Promise.all([
-            seat.think(s.getView(current)),
+            mock.think(s.getView(current)),
             remaining > 0 ? sleep(remaining) : Promise.resolve(),
           ]);
           action = decided as LoveLetterAction;
+          const why =
+            err instanceof Error && /timeout/i.test(err.message)
+              ? locale === "zh"
+                ? "LLM 仍在思考超时"
+                : "LLM think timed out"
+              : locale === "zh"
+                ? "LLM 本回合失败"
+                : "LLM think failed";
           setPlayLog((prev) => [
             ...prev,
             {
@@ -411,8 +422,8 @@ export function PlayShell({
               at: Date.now(),
               text:
                 locale === "zh"
-                  ? `${seatNames()[current] ?? current} 改用本地 AI`
-                  : `${seatNames()[current] ?? current} fell back to local AI`,
+                  ? `${seatNames()[current] ?? current}：${why}，本回合暂用本地决策（下回合仍走 LLM）`
+                  : `${seatNames()[current] ?? current}: ${why}; local decision this turn only`,
               tone: "warn",
             },
           ]);
@@ -420,8 +431,8 @@ export function PlayShell({
 
         let result = s.submitAction(action);
         if (!result.ok) {
+          usedEphemeralMock = true;
           const mock = createMockLoveLetterSeat(current);
-          aiRef.current.set(current, mock);
           await sleep(400 + Math.floor(Math.random() * 400));
           const retry = (await mock.think(
             s.getView(current),
@@ -431,11 +442,22 @@ export function PlayShell({
             setError(result.error);
             return;
           }
+          setPlayLog((prev) => [
+            ...prev,
+            {
+              id: `illegal-${Date.now()}`,
+              at: Date.now(),
+              text:
+                locale === "zh"
+                  ? `${seatNames()[current] ?? current}：LLM 出牌非法，本回合改本地补救`
+                  : `${seatNames()[current] ?? current}: illegal LLM action; local fix this turn`,
+              tone: "warn",
+            },
+          ]);
         }
         appendEvents(result.events);
         tick();
 
-        const speakSeat = seat;
         const events = result.events;
         await sleep(350 + Math.floor(Math.random() * 350));
         setThinkingId(null);
@@ -444,21 +466,21 @@ export function PlayShell({
           payload: { type: "ai/thinking", playerId: current, started: false },
         });
 
-        // Only LLM seats speak; mock/local AI stays quiet (no canned chatter).
-        if (speakSeat.speak) {
+        // Speak only when this turn was decided by the LLM seat
+        if (seat.speak && !usedEphemeralMock) {
           try {
             const line = await withTimeout(
-              speakSeat.speak({
+              seat.speak({
                 view: v,
                 lastEvents: events,
                 locale,
               }),
-              8000,
+              45_000,
               "AI speak",
             );
             if (line?.text?.trim()) publishChat(line);
           } catch {
-            // silent on speak failure
+            // silent on speak failure / timeout
           }
         }
 

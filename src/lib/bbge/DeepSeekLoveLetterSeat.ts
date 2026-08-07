@@ -36,21 +36,48 @@ function playsPrincessVoluntarily(
 
 /**
  * Host AiSeat: LLM decides legal play Actions + optional table talk (`speak`).
- * Streams draft via onProgress for Host hover UI.
+ * `locale` controls speak language (default Chinese).
  */
 export function createDeepSeekLoveLetterSeat(
   id: PlayerId,
   apiKey: string,
+  locale = "zh",
 ): AiSeat {
   const adapter = new DeepSeekAdapter(apiKey);
+  const zh = locale !== "en";
   return {
     id,
     async think(view: unknown, opts?: AiThinkOptions): Promise<AiDecision> {
       const retry = opts?.illegalRetry;
       const retryBlock = retry
-        ? `\n\nIMPORTANT — your previous action was REJECTED as illegal.\nError: ${retry.error}\nRejected action JSON:\n${JSON.stringify(retry.rejectedAction)}\nFix the mistake and return a DIFFERENT legal action for the same view. Do not repeat the illegal move.`
+        ? zh
+          ? `\n\n重要——上一动作非法，已被拒绝。\n错误：${retry.error}\n被拒动作：\n${JSON.stringify(retry.rejectedAction)}\n请修正并返回另一个合法动作，不要重复非法操作。`
+          : `\n\nIMPORTANT — your previous action was REJECTED as illegal.\nError: ${retry.error}\nRejected action JSON:\n${JSON.stringify(retry.rejectedAction)}\nFix the mistake and return a DIFFERENT legal action for the same view. Do not repeat the illegal move.`
         : "";
-      const prompt = `You are seat ${id} in Love Letter — play like a sharp, human table player (deduction + timing), not a random bot.
+
+      const speakRule = zh
+        ? `speak 用简体中文短句（牌桌闲话，约 6–20 字），尽量带。不要用英文术语；牌名可用中文（守卫、神父、男爵、侍女、王子、国王、伯爵夫人、公主等）。`
+        : `Optional speak: short natural English table talk.`;
+
+      const prompt = zh
+        ? `你是座位 ${id}，在玩《情书》——像会推理、会抓时机的真人，而不是随机机器人。
+版本：经典(1–8) | 完整(间谍…公主=9 + 宰相) | 扩展(完整 + 主教等；看 card.role)。
+选一个合法动作。守卫/主教猜的点数不能是 1。
+
+策略：
+- 除非手里只剩公主，否则绝不打出公主。
+- 留高位牌（国王/伯爵夫人/王子/公主）；用守卫/神父探信息；侍女保护强牌。
+- 守卫/主教：结合 you.seen 与弃牌堆，猜仍在场的高牌（先公主/国王/王子）。
+- 男爵/女男爵：只在自己更可能更大时对决，否则先收集信息。
+- 王子：后期逼出高威胁；国王：偷已知强牌。
+- 宰相：留下更高的那张。
+- 牌库将尽时收紧；前期可偷看布局。
+
+只输出 JSON。${speakRule}
+{"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","targetIds":["..."]?,"guessRank":number?,"peekTargetId":"...?"},"speak":"中文短句"}
+或 chancellor / acknowledgePriest（bishopRedraw 可含 "redraw":true|false）。
+View JSON:\n${JSON.stringify(view)}${retryBlock}`
+        : `You are seat ${id} in Love Letter — play like a sharp, human table player (deduction + timing), not a random bot.
 Editions: classic (1–8) | full (Spy…Princess=9 + Chancellor) | expansion (full + Bishop etc; use card.role).
 Choose ONE legal action. Guard/Bishop guess ≠1.
 
@@ -63,7 +90,7 @@ Strategy:
 - Chancellor: keep the highest held card.
 - Late deck: tighten; early: peek and set up.
 
-Return ONLY JSON. Optional speak (short table talk):
+Return ONLY JSON. ${speakRule}
 {"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","targetIds":["..."]?,"guessRank":number?,"peekTargetId":"...?"},"speak":"..."}
 or chancellor / acknowledgePriest (bishopRedraw may include "redraw":true|false).
 View JSON:\n${JSON.stringify(view)}${retryBlock}`;
@@ -83,8 +110,9 @@ View JSON:\n${JSON.stringify(view)}${retryBlock}`;
             {
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
-              system:
-                "You are a clever Love Letter player. Output JSON only: one legal action (+ optional speak). Deduce from discards/seen; protect power cards; never volunteer Princess unless it is your only card.",
+              system: zh
+                ? "你是聪明的《情书》真人对手：会推理弃牌/偷看信息，保护高牌，绝不主动打出公主（除非只剩一张）。只输出合法 Action JSON；speak 用简体中文短句。"
+                : "You are a clever Love Letter player. Output JSON only: one legal action (+ optional speak). Deduce from discards/seen; protect power cards; never volunteer Princess unless it is your only card.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 1024,
             },

@@ -271,7 +271,7 @@ export function TexasHoldemTable({
               }}
             />
             <div className="relative z-10 flex h-full min-h-0 flex-col justify-between gap-1 p-2 sm:gap-2 sm:p-3">
-              <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-0.5 [scrollbar-width:none] sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden">
+              <div className="-mx-1 flex items-start gap-1.5 overflow-x-auto px-1 pb-0.5 pt-0.5 [scrollbar-width:none] sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden">
                 {view.seats
                   .filter((s) => s.id !== actorId)
                   .map((s) => (
@@ -756,16 +756,21 @@ function SeatChip({
       }}
       transition={{ duration: 0.25 }}
     >
+      {/* Inside chip: parent overflow clips absolute -top bubbles on mobile. */}
       <AnimatePresence>
         {bubble && (
           <motion.div
             key={bubble.id}
-            initial={{ opacity: 0, y: 6, scale: 0.9 }}
+            initial={{ opacity: 0, y: 4, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -4 }}
-            className="absolute -top-7 left-1/2 z-20 max-w-[10rem] -translate-x-1/2 truncate rounded-full bg-[#3E2723] px-2 py-0.5 font-heading text-[10px] font-bold text-amber-50 shadow-md sm:-top-8 sm:px-2.5 sm:py-1 sm:text-[11px]"
+            exit={{ opacity: 0, y: -2 }}
+            className="relative z-10 mb-1 w-full rounded-lg bg-[#3E2723] px-1.5 py-0.5 text-center font-heading text-[10px] font-bold leading-snug text-amber-50 shadow-sm sm:px-2 sm:py-1 sm:text-[11px]"
           >
-            {bubble.text}
+            <span className="line-clamp-2 break-words">{bubble.text}</span>
+            <span
+              aria-hidden
+              className="absolute left-1/2 top-full -mt-px -translate-x-1/2 border-x-[5px] border-t-[5px] border-x-transparent border-t-[#3E2723]"
+            />
           </motion.div>
         )}
       </AnimatePresence>

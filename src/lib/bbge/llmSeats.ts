@@ -15,7 +15,8 @@ const factories: Record<string, SeatFactory> = {
 
 /**
  * Shelf-side LLM Action seat for a pluginId (undefined → mock only).
- * Locale is closed over so seats can speak in the UI language (Go: zh speak).
+ * Locale is closed over so seats speak in the UI language
+ * (zh/default → 简体中文口语；en → English). Action JSON types stay English.
  */
 export function getLlmSeatFactory(
   pluginId: string,

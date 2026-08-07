@@ -4,14 +4,6 @@
 
 A curated, bilingual reference website for modern board game rules — **50** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
-## Recent updates (2026-08-07)
-
-- **BBGE playables matured**: Love Letter / Texas Hold'em / 6 nimmt! / Go — Host · hotseat · AI · share-link
-- **Smarter AI across all seats**: heuristics + DeepSeek `deepseek-v4-flash` play more like humans (value, fold, selective bluffs); specs in [`docs/games/`](docs/games/)
-- **Hold'em UX**: showdown reveals, mobile board de-dupe, scrollable battle log, cash **Next hand**
-- **Go**: 9×9 / 13×13 / 19×19; in-table Go Teacher (no floating FAB)
-- **6 nimmt!**: classic / pro / fan / buffalo; parallel AI picks + paced reveal
-
 ## Features
 
 - **50 game rules**: web-verified, complete bilingual rules (EN/ZH)

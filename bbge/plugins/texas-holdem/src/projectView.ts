@@ -63,6 +63,8 @@ export function projectHoldemView(
         name: p.name,
         index,
         isButton: index === state.buttonIndex,
+        isSmallBlind: index === state.smallBlindIndex,
+        isBigBlind: index === state.bigBlindIndex,
         stack: p.stack,
         streetBet: p.streetBet,
         handBet: p.handBet,

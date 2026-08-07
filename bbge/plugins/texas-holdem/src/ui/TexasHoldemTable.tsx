@@ -34,6 +34,8 @@ type ArenaView = {
     name: string;
     index: number;
     isButton: boolean;
+    isSmallBlind: boolean;
+    isBigBlind: boolean;
     stack: number;
     streetBet: number;
     folded: boolean;
@@ -456,6 +458,32 @@ export function TexasHoldemTable({
   );
 }
 
+function PositionBadge({
+  kind,
+  label,
+}: {
+  kind: "d" | "sb" | "bb";
+  label: string;
+}) {
+  const tone =
+    kind === "d"
+      ? "bg-white text-[#1a1a1a] ring-1 ring-black/20"
+      : kind === "sb"
+        ? "bg-sky-500 text-white ring-1 ring-sky-700/40"
+        : "bg-rose-600 text-white ring-1 ring-rose-900/40";
+  return (
+    <span
+      title={label}
+      className={[
+        "inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1 font-heading text-[10px] font-black shadow-md",
+        tone,
+      ].join(" ")}
+    >
+      {kind === "d" ? "D" : kind === "sb" ? "SB" : "BB"}
+    </span>
+  );
+}
+
 function SeatChip({
   seat,
   locale,
@@ -479,17 +507,39 @@ function SeatChip({
     <motion.div
       layout
       className={[
-        "relative min-w-[7.5rem] rounded-xl border px-2.5 py-2 shadow-sm",
+        "relative min-w-[7.5rem] rounded-xl border-2 px-2.5 py-2",
         you ? "bg-amber-50/95" : "bg-white/90",
-        active ? "border-accent ring-2 ring-accent/40" : "border-border",
+        active
+          ? "border-amber-400 bg-amber-100/95 shadow-[0_0_0_3px_rgba(196,149,42,0.55),0_0_18px_rgba(251,191,36,0.55)]"
+          : "border-border shadow-sm",
       ].join(" ")}
       animate={{
         opacity: foldedAnim ? 0.5 : 1,
-        scale: !reduce && active && !foldedAnim ? [1, 1.02, 1] : 1,
+        scale: !reduce && active && !foldedAnim ? [1, 1.035, 1] : 1,
         x: !reduce && foldedAnim ? [0, -6, 0] : 0,
       }}
-      transition={{ duration: 0.35 }}
+      transition={
+        active && !foldedAnim && !reduce
+          ? { duration: 1.1, repeat: Infinity, ease: "easeInOut" }
+          : { duration: 0.35 }
+      }
     >
+      <div className="absolute -left-1.5 -top-2 z-10 flex gap-0.5">
+        {seat.isButton && (
+          <PositionBadge kind="d" label={zh ? "庄家 / 按钮" : "Dealer / Button"} />
+        )}
+        {seat.isSmallBlind && (
+          <PositionBadge kind="sb" label={zh ? "小盲" : "Small Blind"} />
+        )}
+        {seat.isBigBlind && (
+          <PositionBadge kind="bb" label={zh ? "大盲" : "Big Blind"} />
+        )}
+      </div>
+      {active && !foldedAnim && (
+        <span className="absolute -right-1 -top-2 z-10 rounded-md bg-amber-500 px-1.5 py-0.5 font-heading text-[9px] font-black uppercase tracking-wide text-white shadow">
+          {zh ? "行动" : "Act"}
+        </span>
+      )}
       <AnimatePresence>
         {bubble && (
           <motion.div
@@ -503,9 +553,8 @@ function SeatChip({
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="flex items-center justify-between gap-1">
+      <div className="flex items-center justify-between gap-1 pt-0.5">
         <p className="truncate font-heading text-xs font-bold text-primary-dark">
-          {seat.isButton ? "Ⓓ " : ""}
           {seat.name}
         </p>
         {thinking && (

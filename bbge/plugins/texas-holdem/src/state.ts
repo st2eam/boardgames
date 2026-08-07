@@ -33,6 +33,10 @@ export interface HoldemState {
   players: HoldemPlayer[];
   /** Seat order clockwise; buttonIndex points at BTN */
   buttonIndex: number;
+  /** Seat that posted SB this hand (HU: same as button) */
+  smallBlindIndex: number;
+  /** Seat that posted BB this hand */
+  bigBlindIndex: number;
   deck: Card[];
   board: Card[];
   /** Burns (not shown) */

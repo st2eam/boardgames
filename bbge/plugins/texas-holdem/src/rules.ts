@@ -314,6 +314,8 @@ function dealAndPostBlinds(state: HoldemState): void {
       ? state.buttonIndex
       : nextFundedIndex(state, state.buttonIndex);
   const bbIdx = nextFundedIndex(state, sbIdx);
+  state.smallBlindIndex = sbIdx;
+  state.bigBlindIndex = bbIdx;
 
   commit(state.players[sbIdx]!, state.smallBlind);
   commit(state.players[bbIdx]!, state.bigBlind);
@@ -360,6 +362,8 @@ export function createHoldemState(
     startingStack,
     players,
     buttonIndex,
+    smallBlindIndex: 0,
+    bigBlindIndex: 0,
     deck,
     board: [],
     burns: [],
@@ -405,6 +409,8 @@ export function continueHoldemMatch(
     bigBlind: prev.bigBlind,
     startingStack: prev.startingStack,
     buttonIndex,
+    smallBlindIndex: 0,
+    bigBlindIndex: 0,
     deck: ctx.rng.shuffle(buildDeck()),
     board: [],
     burns: [],

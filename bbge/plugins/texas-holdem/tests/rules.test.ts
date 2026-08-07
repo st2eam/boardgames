@@ -38,6 +38,15 @@ describe("texas-holdem rules", () => {
     const committed = s.players.reduce((a, p) => a + p.handBet, 0);
     expect(committed).toBe(3); // 1+2
     expect(s.players.every((p) => p.hole.length === 2)).toBe(true);
+    // HU: button posts SB
+    expect(s.smallBlindIndex).toBe(s.buttonIndex);
+    expect(s.bigBlindIndex).toBe((s.buttonIndex + 1) % 2);
+  });
+
+  it("marks SB/BB left of button for 3+ players", () => {
+    const s = setup(3, "blinds-3");
+    expect(s.smallBlindIndex).toBe((s.buttonIndex + 1) % 3);
+    expect(s.bigBlindIndex).toBe((s.buttonIndex + 2) % 3);
   });
 
   it("is deterministic for same seed", () => {

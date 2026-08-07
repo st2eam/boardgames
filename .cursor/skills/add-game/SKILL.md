@@ -38,6 +38,7 @@ content/games/{slug}/
 ├── score.json      # if applicable — score tracker config
 ├── trainer.json    # if applicable — trainer config
 ├── calculator.json # if applicable — score calculator config (e.g., riichi fan/fu)
+├── play.json       # if applicable — BBGE online play binding
 ├── en/
 │   └── rules.md    # required
 └── zh/
@@ -278,6 +279,72 @@ Evaluate whether the game benefits from a dedicated trainer mode. **Create `trai
 
 Currently supported trainer types: `tenpai` (Mahjong-based). For new trainer types, you would need to implement a new engine in `src/`.
 
+### Step 6d: Evaluate and create play.json (BBGE online play — if applicable)
+
+**Create `play.json` only when shipping a real Host-authoritative online table** via the Browser Board Game Engine. Content-only games (rules / flow / score / trainer) do **not** need this.
+
+**Create `play.json` if ANY of these apply (and the user wants play):**
+
+- Players should finish a real match in-browser (Host + invite link / hotseat / AI)
+- Rules are discrete enough for a deterministic plugin (`Action` → `apply` → `Event`)
+- You will implement (or reuse) a `bbge` plugin + table UI
+
+**Skip `play.json` if:**
+
+- Only documenting rules / decision tree / score / trainer
+- No plugin yet (do not add an empty `play.json` “for later”)
+- The game needs engine features not yet in BBGE (ask before inventing a second runtime)
+
+#### Content binding
+
+```json
+{
+  "pluginId": "love-letter",
+  "pluginVersion": "0.1.0"
+}
+```
+
+Path: `content/games/{slug}/play.json`.
+
+Effects when present:
+
+| Surface | Behavior |
+|---------|----------|
+| `GameRepository.hasPlayConfig` | `true` |
+| `GameHeader` | **开始游戏 / Play** is the **first** action button |
+| Homepage card | **即刻开玩 / Play Now** chip |
+| Route | `/[locale]/games/{slug}/play/` (SSG via `generateStaticParams`) |
+
+#### Required companion work (not content-only)
+
+`play.json` alone is not enough. Follow
+[`.cursor/skills/browser-board-game-engine/SKILL.md`](../browser-board-game-engine/SKILL.md)
+and write / update **`docs/games/{slug}.md`** (per-game play design).
+
+Minimum implementation checklist for a new playable slug:
+
+1. **Design** — `docs/games/{slug}.md` (scope, Actions, privacy, AI, UI layout)
+2. **Plugin** — `bbge/plugins/{pluginId}/` pure rules + `projectView` (no network / no DeepSeek)
+3. **Table UI** — prefer **BGA-style DOM** under `plugins/.../ui/` (reference: Love Letter `LoveLetterTable` + `ui/bga/*`); Motion for draw/play
+4. **Shelf wire** — `play.json` + ensure `/play/page.tsx` + `PlayPageClient` can mount the plugin (extend registry if not Love Letter)
+5. **AI (optional)** — Host `AiSeat`: LLM for **legal Actions** via **`deepseek-v4-flash`** (`src/lib/bbge/…Seat.ts`); mock without API key; **no auto chat**
+6. **Tests** — `npm run test:bbge` (determinism, illegal actions, privacy)
+7. **Verify** — `npm run build`, then commit/push per repo rules
+
+Reference ship: Love Letter — [`docs/games/love-letter.md`](../../../docs/games/love-letter.md).
+
+#### Hard lessons (do not regress)
+
+| Topic | Rule |
+|-------|------|
+| Privacy | Host UI projects **local human** seats only — never AI / remote hands |
+| `projectView` | Others get `handCount` + public discards; never full hands |
+| Public events | Do not put private ranks in broadcast Events (e.g. priest peek rank stays in peeker view only) |
+| AI purpose | LLM **plays cards**; optional human chat only — do not burn tokens on auto table-talk |
+| AI model | Play seats: **`deepseek-v4-flash`** (site chat assistant may still use pro) |
+| Layout | Players **left**, felt+hand **center**, log+chat **right**; avoid side-panel scrollbars when possible |
+| Pixi | Optional for future canvas boards; Love Letter path is DOM, not Pixi |
+
 ### Step 7: Update documentation
 
 Update these files to reflect the new game:
@@ -288,7 +355,9 @@ Update these files to reflect the new game:
    - If series member: add to the appropriate series row in "游戏系列 / Series" section
    - Update the game count in the subtitle (e.g. "覆盖 23 款游戏" → "覆盖 24 款游戏")
 
-2. **Update the global AI prompt** if the game count or series info changed noticeably. The prompt is auto-generated from `games-meta.json`, so just running `npm run build` syncs it — no manual edit needed.
+2. **If playable (BBGE):** add/update `docs/games/{slug}.md` and `docs/games/README.md` status row. Keep aligned with the running table UI / Actions.
+
+3. **Update the global AI prompt** if the game count or series info changed noticeably. The prompt is auto-generated from `games-meta.json`, so just running `npm run build` syncs it — no manual edit needed.
 
 ### Step 8: Build and verify
 
@@ -304,6 +373,7 @@ The `prebuild` script (`scripts/generate-game-data.mjs`) auto-generates `public/
 - [ ] Language switcher works on the rule page
 - [ ] Decision tree loads and navigates correctly
 - [ ] Score tracker works (if score.json added)
+- [ ] Play table works (if play.json added): lobby → start → finish a round; host cannot see AI/remote hands
 - [ ] AI chat works with game-specific mode (tests rule context injection)
 
 ### Step 9: Collect user fields + cover reminder (+ bggRank fallback)
@@ -539,10 +609,11 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] `score.json` evaluated — created if game has point-based scoring
 - [ ] `trainer.json` evaluated — created if game has trainable skills
 - [ ] `calculator.json` added for games with score calculators (if applicable)
+- [ ] `play.json` evaluated — only if shipping BBGE online play (+ `docs/games/{slug}.md` + plugin)
 - [ ] Slug registered in `content/games/index.json`
 - [ ] `README.md` and `README-en.md` updated
-- [ ] `npm run build` succeeds
-- [ ] Visual check: card renders, links work, decision tree works, AI chat works
+- [ ] `npm run build` succeeds (`npm run test:bbge` if playable)
+- [ ] Visual check: card renders, links work, decision tree works, AI chat works; Play first in header if `hasPlay`
 - [ ] Reminded user about missing cover / `bggRank` / `price`; applied BGG fallback for rank if still unanswered
 
 ---
@@ -594,3 +665,13 @@ The tenpai trainer generates hands by:
 3. Using `findWaits()` to compute the correct answer
 
 If adding new trainer types, ensure the generation algorithm always produces a solvable puzzle with at least one valid answer.
+
+### play.json / BBGE: do not leak private info on Host
+
+Host browsers hold the full authoritative state. The **UI must still** call `projectView(viewerId)` for the controlling **local** seat only. Never `getView(currentPlayerId)` when current is AI or a remote guest — that paints their hand on the host screen.
+
+Pass-and-play: switch controlling seat only among seats added as local hotseat humans.
+
+### play.json / BBGE: LLM is for Actions
+
+DeepSeek on play seats exists to return legal JSON **Actions** (`deepseek-v4-flash`). Do not treat table chat as the AI feature. Site rules chat (Game Shelf assistant) is separate and may use a different model.

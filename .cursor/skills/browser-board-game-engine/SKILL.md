@@ -70,28 +70,39 @@ Prefer functional updates (Immer). Validate Actions with Zod at boundaries.
 
 ---
 
-## Implementation order
+## V1 slice (approved 2026-08-07)
 
-Do not boil the ocean. Grow the platform in slices:
+Full detail: [architecture.md §11](architecture.md).
+
+| Decision | Value |
+|----------|--------|
+| Approach | A — Shelf + `bbge/*` + PeerJS-like signaling + WebRTC |
+| First game | Love Letter |
+| Multiplayer | Host + share link join from day one |
+| AI | Reusable `AiSeat` on Host; DeepSeek key from chat; think + speak |
+| Replay tools | **Out** — no replay viewer/SDK UI |
+| Entry | `GameHeader` **first** button → `/games/love-letter/play/` |
+
+## Implementation order (v1)
 
 ```
 Task Progress:
-- [ ] 1. packages/core: GameState types, seeded RNG, Action/Event log
-- [ ] 2. packages/runtime: lifecycle Create→Lobby→Playing→Finished→Replay
-- [ ] 3. packages/engine: turns + one domain (cards OR board) first
-- [ ] 4. First plugin: simplest complete loop (e.g. Love Letter or Hold'em heads-up)
-- [ ] 5. packages/ui: Card / Hand / PlayerSeat / Dialog composed by plugin
-- [ ] 6. Offline single-device / hotseat before WebRTC
-- [ ] 7. Host authority + action broadcast + reconnect stubs
-- [ ] 8. Replay from seed + actions
-- [ ] 9. Theme tokens + i18n strings
-- [ ] 10. Second plugin to prove engine has no game knowledge
+- [ ] 1. bbge/core: GameState, seeded RNG, Action/Event envelopes
+- [ ] 2. bbge/runtime: Create→Lobby→Initialize→Playing→Finished (no Replay UI)
+- [ ] 3. bbge/engine: turns + cards (Love Letter needs)
+- [ ] 4. plugin love-letter: full match rules + projectView
+- [ ] 5. Shelf: play.json, hasPlay, GameHeader Play first, /play/ shell
+- [ ] 6. bbge/network: WebRTC data channel + light signaling (room link)
+- [ ] 7. Host authority + action/event broadcast + best-effort rejoin
+- [ ] 8. AiSeat: DeepSeekAdapter reuse, thinking broadcast, table speak
+- [ ] 9. bbge/ui: Card / Hand / PlayerSeat / Dialog / AI activity chrome
+- [ ] 10. Theme tokens + i18n; determinism tests for love-letter
 ```
 
-If the user names a first game, still extract shared primitives into `engine/` /
-`ui/` — never bury rules in runtime.
+Extract shared primitives into `engine/` / `ui/` / `AiSeat` — never bury rules
+or DeepSeek calls inside the Love Letter plugin.
 
-Plugin shape and UI extension points: **[plugin-api.md](plugin-api.md)** (source of truth).
+Plugin shape: **[plugin-api.md](plugin-api.md)**. AiSeat: **[plugin-api.md §16](plugin-api.md)**.
 
 ---
 
@@ -132,15 +143,17 @@ page + i18n into `src/` / `content/` when adding a playable game.
 
 ---
 
-## Definition of done (any slice)
+## Definition of done (v1)
 
-- [ ] No game rules in runtime/network
-- [ ] Deterministic with fixed seed (testable)
-- [ ] Actions validated then applied immutably
-- [ ] UI uses engine components + theme variables
-- [ ] UI skill checklist applied for new surfaces
-- [ ] Replay or state dump reconstructible from seed + actions (when claimed)
-- [ ] New/changed plugins satisfy [plugin-api.md](plugin-api.md) testing DoD
+- [ ] No game rules in runtime/network; no DeepSeek calls inside plugins
+- [ ] Deterministic with fixed seed (automated tests)
+- [ ] Actions validated then applied immutably; views hide private cards
+- [ ] Two browsers can finish Love Letter with ≥1 AI seat
+- [ ] AI thinking status + table speech visible to all peers
+- [ ] Play button first on Love Letter game page when `play.json` present
+- [ ] UI uses engine components + theme variables + companion UI skills
+- [ ] **No** replay viewer / replay tooling shipped
+- [ ] Plugin satisfies [plugin-api.md](plugin-api.md) testing DoD
 
 ---
 

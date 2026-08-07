@@ -414,7 +414,7 @@ game rules stay in `plugins/<pluginId>/`.
 ```
 
 Lifecycle on this route = architecture §4 (`Create → Lobby → …`).  
-Deep links may later accept `?room=` for join; v1 can be offline / hotseat first.
+v1 deep link: shareable room URL (signaling id) for WebRTC join — see §11.
 
 ### 9.4 Separation of concerns
 
@@ -443,7 +443,74 @@ v1: load first-party plugins only.
 
 ---
 
-## 11. Related docs
+## 11. V1 vertical slice (approved)
+
+Decisions from product brainstorm (2026-08-07). Implementation must not expand
+beyond this slice without a new approval.
+
+### 11.1 Goal
+
+From The Game Shelf **Love Letter** page → **开始游戏** (first in `GameHeader`)
+→ Host creates a room → friends join via shareable link → optional **AI seats**
+→ complete one full match.
+
+Stack approach: **A** — Shelf shell + `bbge/*` packages + light signaling
+(PeerJS cloud or equivalent) + Host-authoritative WebRTC data channel. No
+first-party game server (static export constraint).
+
+### 11.2 First game
+
+| Item | Choice |
+|------|--------|
+| Plugin | `love-letter` |
+| Content bind | `content/games/love-letter/play.json` |
+| Route | `/[locale]/games/love-letter/play/` |
+| Engine domains (min) | `cards` + `turns` |
+
+### 11.3 Multiplayer
+
+- Host Browser authoritative; Actions over WebRTC data channel
+- Room join via shareable link (signaling outsourced; e.g. PeerJS)
+- v1 reconnect: best-effort rejoin same room; **no** host migration
+- Trust model: host trusted (see §10)
+
+### 11.4 AI seats (reusable)
+
+- Pattern name: **`AiSeat`** — game-agnostic; plugins do not call DeepSeek
+- Runs **only on Host**; uses the same IndexedDB DeepSeek API key as site chat
+- Reuse `DeepSeekAdapter` + thinking/activity UI patterns from chat
+- Capabilities: `Think(view) → Action` and `Speak(context) →` short table talk
+- Thinking status and speech are broadcast so all peers see them
+- No API key on guests required
+
+Details: [plugin-api.md §16](plugin-api.md).
+
+### 11.5 In scope
+
+- `play.json` + `hasPlay` + Play button first in `GameHeader`
+- `bbge` core / runtime / sync / network (WebRTC+signaling adapter) / minimal ui
+- Love Letter plugin: deal, play, guess, eliminate, victory
+- Lobby: seats, join, add/remove AI, ready, start
+- `projectView` hidden info; reject illegal Actions with UX feedback
+- Determinism tests (seed + action list) — **log-level only**
+
+### 11.6 Explicitly out of scope (v1)
+
+- **Replay viewer / timeline SDK / replay tools** (deterministic action log may
+  still exist internally for tests; no player-facing replay UI)
+- Spectators, matchmaking, ranked, cloud save
+- Host migration; rich disconnect recovery
+- Second game plugin; marketplace; hot-load arbitrary plugins
+- Full board/hex/dice UI kits beyond what Love Letter needs
+
+### 11.7 Success criteria
+
+Two browsers can finish a Love Letter match with at least one human and one AI
+seat; AI shows thinking before acting; AI can post a short table message.
+
+---
+
+## 12. Related docs
 
 - [vision.md](vision.md) — philosophy, subsystems catalog, long-term vision
 - [plugin-api.md](plugin-api.md) — plugin developer handbook

@@ -486,6 +486,7 @@ Score); route is `/[locale]/games/[slug]/play/`. See
 |---|---|
 | `Math.random()` in rules | `ctx.rng` |
 | Fetching APIs inside `applyAction` | Preload in `setup` / assets |
+| Calling DeepSeek / any LLM inside a plugin | Host **`AiSeat`** (§16) |
 | Reading `localStorage` in validate | Pass config via `createGame` |
 | Mutating state in React `useEffect` | `dispatch(Action)` |
 | Encoding networking in plugin | Runtime transport |
@@ -495,6 +496,67 @@ Score); route is `/[locale]/games/[slug]/play/`. See
 
 ## 15. Related docs
 
-- [architecture.md](architecture.md) — modules, data flow, sync, lifecycle
+- [architecture.md](architecture.md) — modules, data flow, sync, lifecycle (§11 = v1 slice)
 - [vision.md](vision.md) — full platform vision
 - [SKILL.md](SKILL.md) — implementation order & golden rules
+
+---
+
+## 16. AiSeat (reusable Host AI — v1)
+
+Game-agnostic seat runner. **Not** part of `GamePlugin`. Runtime/Host owns it;
+plugins only expose legal Actions via normal validate/apply.
+
+### 16.1 Placement
+
+- Executes only on **Host**
+- API key: same IndexedDB DeepSeek key as The Game Shelf chat
+- Transport: AI outputs become normal `Action`s (and optional chat messages)
+  that go through the Host pipeline — guests never need a key
+
+### 16.2 Interface (conceptual)
+
+```ts
+interface AiSeat {
+  id: string; // seat / player id
+  /** Produce a legal Action for the current private view */
+  think(view: unknown, legalHints?: unknown): Promise<Action>;
+  /** Optional short table talk (flavor / bluff); not an Action */
+  speak?(context: AiSpeakContext): Promise<AiChatMessage | null>;
+}
+
+interface AiSpeakContext {
+  view: unknown;
+  lastEvents: Event[];
+  locale: string;
+}
+
+interface AiChatMessage {
+  playerId: PlayerId;
+  text: string;
+  /** Host wall-clock for UI only — must not affect GameState / RNG */
+  at: number;
+}
+
+/** Broadcast to all peers for activity UI (reuse chat thinking patterns) */
+type AiPresenceEvent =
+  | { type: "ai/thinking"; playerId: PlayerId; started: true }
+  | { type: "ai/thinking"; playerId: PlayerId; started: false }
+  | { type: "ai/chat"; message: AiChatMessage };
+```
+
+### 16.3 Implementation notes (Game Shelf)
+
+- Prefer wrapping existing `DeepSeekAdapter` (thinking blocks → `ai/thinking`)
+- Prompting is **seat-policy** code under `bbge` (or `src/lib/ai` shared helper),
+  parameterized by plugin id + compact rules summary — still **outside**
+  `applyAction`
+- Table UI shows thinking activity on that seat; chat line in a shared log
+- Failures (no key / rate limit): surface Host-only error; do not advance turn
+  with a random illegal move
+
+### 16.4 Out of scope for AiSeat v1
+
+- Guest-side LLM
+- Training / fine-tunes
+- Replay of AI thoughts in a replay tool (replay tools are out of v1 entirely)

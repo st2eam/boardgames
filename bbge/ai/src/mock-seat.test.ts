@@ -4,6 +4,24 @@ import { loveLetterPlugin } from "@bbge/love-letter";
 import { createMockLoveLetterSeat } from "./mock-seat";
 
 describe("createMockLoveLetterSeat", () => {
+  it("does not volunteer the Princess when another card exists", async () => {
+    const seat = createMockLoveLetterSeat("ai1");
+    const { action } = await seat.think({
+      edition: "full",
+      currentPlayerId: "ai1",
+      you: {
+        id: "ai1",
+        hand: [
+          { id: "p", rank: 9, role: "princess" },
+          { id: "g", rank: 1, role: "guard" },
+        ],
+      },
+      others: [{ id: "h", eliminated: false, protected: false }],
+    });
+    expect(action.type).toBe("playCard");
+    expect((action.payload as { cardId: string }).cardId).toBe("g");
+  });
+
   it("returns a legal playCard", async () => {
     const state = loveLetterPlugin.createGame(
       {

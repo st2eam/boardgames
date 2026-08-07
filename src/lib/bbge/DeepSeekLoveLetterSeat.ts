@@ -10,6 +10,30 @@ import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 /** Fast model for tabletop Actions — chat site assistant may still use pro. */
 const PLAY_MODEL = "deepseek-v4-flash";
 
+function playsPrincessVoluntarily(
+  view: unknown,
+  action: { type: string; payload?: unknown },
+): boolean {
+  if (action.type !== "playCard") return false;
+  const hand =
+    (view as { you?: { hand?: { id: string; role?: string; rank?: number }[] } })
+      .you?.hand ?? [];
+  if (hand.length <= 1) return false;
+  const cardId = (action.payload as { cardId?: string } | undefined)?.cardId;
+  const card = hand.find((c) => c.id === cardId);
+  if (!card) return false;
+  if (card.role === "princess") return true;
+  // Views without role: classic princess=8, full/expansion=9 and unique max
+  const ranks = hand.map((c) => c.rank ?? 0);
+  const max = Math.max(...ranks);
+  const princessRank = ranks.includes(9) ? 9 : ranks.includes(8) ? 8 : -1;
+  return (
+    card.rank === princessRank &&
+    card.rank === max &&
+    hand.filter((c) => c.rank === princessRank).length === 1
+  );
+}
+
 /**
  * Host AiSeat: LLM decides legal play Actions + optional table talk (`speak`).
  * Streams draft via onProgress for Host hover UI.
@@ -31,6 +55,7 @@ export function createDeepSeekLoveLetterSeat(
 - "full": 21 cards, Spy…Princess=9, Chancellor, 2–6 players
 - "expansion": 37 cards = full + Bishop/Dowager/Constable/Count/Sycophant/Baroness/Cardinal/Jester/Assassin (+3 Guard); keep Spy+Chancellor; 2–8 players; shared ranks; use card.role
 Choose ONE legal action. Effects use role (not unique ranks). Guard/Bishop guess a number ≠1.
+CRITICAL: Never play the Princess (role princess / highest princess rank) unless it is your ONLY card — playing her knocks you out. Prefer any other hand card.
 Return ONLY JSON (action required). Optional speak:
 {"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","targetIds":["..."]?,"guessRank":number?,"peekTargetId":"...?"},"speak":"..."}
 or chancellor / acknowledgePriest (bishopRedraw may include "redraw":true|false).
@@ -53,7 +78,7 @@ View JSON:\n${JSON.stringify(view)}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system:
-                "You play Love Letter. Output JSON only: a legal action, optionally with speak (table talk). cardId must be from your hand. No prose outside JSON.",
+                "You play Love Letter. Output JSON only: a legal action, optionally with speak (table talk). cardId must be from your hand. Never play Princess unless it is your only card. No prose outside JSON.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 1024,
             },
@@ -102,6 +127,15 @@ View JSON:\n${JSON.stringify(view)}${retryBlock}`;
           console.groupEnd();
 
           if (parsed) {
+            if (playsPrincessVoluntarily(view, parsed.action)) {
+              lastErr = "refused voluntary Princess";
+              opts?.onProgress?.({
+                note: "拒绝主动打出公主，重试…",
+                thinkingText: thinkingFinal || undefined,
+                draftText: text,
+              });
+              continue;
+            }
             opts?.onProgress?.({
               note: `已决定：${String(parsed.action.type)}${parsed.speak ? " · speak" : ""}`,
               thinkingText: thinkingFinal || undefined,

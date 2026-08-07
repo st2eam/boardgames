@@ -99,11 +99,20 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
       const others = (view.others ?? []).filter(
         (p) => !p.eliminated && !p.protected,
       );
-      const safe =
-        others.length === 0
-          ? hand.find((c) => NO_TARGET.has(roleOf(c))) ?? hand[0]!
-          : forced ?? hand[0]!;
-      const card = forced ?? safe;
+      // Never volunteer the Princess — playing her knocks you out.
+      const nonPrincess = hand.filter((c) => roleOf(c) !== "princess");
+      const pool = nonPrincess.length > 0 ? nonPrincess : hand;
+      let card = forced;
+      if (!card) {
+        if (others.length === 0) {
+          card =
+            pool.find((c) => NO_TARGET.has(roleOf(c))) ??
+            [...pool].sort((a, b) => a.rank - b.rank)[0]!;
+        } else {
+          // Prefer cheaper discards / soft plays over high court cards
+          card = [...pool].sort((a, b) => a.rank - b.rank)[0]!;
+        }
+      }
       const role = roleOf(card);
 
       const singleTarget = [
@@ -123,9 +132,11 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
       progress(
         forced
           ? "本地启发式：强制打出伯爵夫人"
-          : others.length === 0
-            ? "本地启发式：无人可指向，出安全牌"
-            : `本地启发式：打出 ${role}`,
+          : role === "princess"
+            ? "本地启发式：只剩公主，被迫打出"
+            : others.length === 0
+              ? "本地启发式：无人可指向，出安全牌"
+              : `本地启发式：打出 ${role}`,
       );
 
       if (cardinal && others.length >= 1) {

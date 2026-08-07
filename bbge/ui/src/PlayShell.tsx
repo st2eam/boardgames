@@ -36,6 +36,21 @@ export interface PlayShellProps {
   createDeepSeekSeat?: (id: string, apiKey: string) => AiSeat;
 }
 
+type PeerHost = {
+  destroy: () => void;
+  broadcast?: (m: unknown) => void;
+  send?: (peerId: string, m: unknown) => void;
+  onMessage?: (
+    cb: (msg: { type: string; payload: unknown }, fromPeer?: string) => void,
+  ) => void;
+};
+
+type PeerGuest = {
+  destroy: () => void;
+  send?: (m: unknown) => void;
+  onMessage?: (cb: (msg: { type: string; payload: unknown }) => void) => void;
+};
+
 function newRoomId(): string {
   const bytes = new Uint8Array(6);
   crypto.getRandomValues(bytes);
@@ -71,6 +86,7 @@ export function PlayShell({
   const sessionRef = useRef<HostSession | null>(null);
   const aiRef = useRef<Map<string, AiSeat>>(new Map());
   const peerRef = useRef<{ destroy: () => void } | null>(null);
+
   const tick = useCallback(() => {
     const s = sessionRef.current;
     if (!s) return;
@@ -79,10 +95,28 @@ export function PlayShell({
     setChat(s.getPublicChat());
     if (s.getPhase() !== "lobby") {
       const current = s.getCurrentPlayerId() ?? myId;
-      // Host hotseat: show active seat's private view
       setView(s.getView(isHost ? current : myId));
     }
   }, [myId, isHost]);
+
+  const publishChat = useCallback(
+    (msg: AiChatMessage) => {
+      if (isHost) {
+        sessionRef.current?.pushChat(msg);
+        const host = peerRef.current as PeerHost | null;
+        host?.broadcast?.({ type: "chat", payload: msg });
+        tick();
+      } else {
+        (peerRef.current as PeerGuest | null)?.send?.({
+          type: "chat",
+          payload: msg,
+        });
+        // optimistic local echo until host rebroadcasts
+        setChat((c) => [...c, msg]);
+      }
+    },
+    [isHost, tick],
+  );
 
   // Host init
   useEffect(() => {
@@ -135,12 +169,10 @@ export function PlayShell({
               return;
             }
             for (const [pid, v] of result.views) {
-              // send each peer their view — map peer by playerId convention peerId===playerId for guests
               host.broadcast({ type: "events", payload: result.events });
               host.broadcast({ type: "phase", payload: { phase: s.getPhase() } });
               host.send(pid, { type: "view", payload: v });
             }
-            // also update host UI
             tick();
             void runAiIfNeeded();
           } else if (msg.type === "chat") {
@@ -191,10 +223,21 @@ export function PlayShell({
           if (msg.type === "phase")
             setPhase(msg.payload.phase as "lobby" | "playing" | "finished");
           if (msg.type === "chat") {
-            setChat((c) => [...c, msg.payload]);
+            const line = msg.payload as AiChatMessage;
+            setChat((c) => {
+              // de-dupe optimistic echo
+              if (c.some((x) => x.at === line.at && x.playerId === line.playerId && x.text === line.text)) {
+                return c;
+              }
+              return [...c, line];
+            });
           }
           if (msg.type === "aiPresence") {
-            const p = msg.payload as { type: string; playerId: string; started?: boolean };
+            const p = msg.payload as {
+              type: string;
+              playerId: string;
+              started?: boolean;
+            };
             if (p.type === "ai/thinking") {
               setThinkingId(p.started ? p.playerId : null);
             }
@@ -212,22 +255,30 @@ export function PlayShell({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHost, roomIdFromUrl]);
 
+  const resolveAiSeat = async (seatId: string): Promise<AiSeat> => {
+    const existing = aiRef.current.get(seatId);
+    if (existing) return existing;
+    const key = await loadApiKey();
+    const seat =
+      key && createDeepSeekSeat
+        ? createDeepSeekSeat(seatId, key)
+        : createMockLoveLetterSeat(seatId);
+    aiRef.current.set(seatId, seat);
+    return seat;
+  };
+
   const runAiIfNeeded = async () => {
     const s = sessionRef.current;
     if (!s || s.getPhase() !== "playing") return;
     const current = s.getCurrentPlayerId();
     if (!current || !s.getAiSeatIds().includes(current)) return;
-    let seat = aiRef.current.get(current);
-    if (!seat) {
-      const key = await loadApiKey();
-      if (key && createDeepSeekSeat) {
-        seat = createDeepSeekSeat(current, key);
-      } else {
-        seat = createMockLoveLetterSeat(current);
-      }
-      aiRef.current.set(current, seat);
-    }
+    const seat = await resolveAiSeat(current);
     setThinkingId(current);
+    const host = peerRef.current as PeerHost | null;
+    host?.broadcast?.({
+      type: "aiPresence",
+      payload: { type: "ai/thinking", playerId: current, started: true },
+    });
     try {
       const v = s.getView(current);
       const action = (await seat.think(v)) as LoveLetterAction;
@@ -238,19 +289,32 @@ export function PlayShell({
         return;
       }
       tick();
-      const line = seat.speak
-        ? await seat.speak({ view: v, lastEvents: result.events, locale })
-        : null;
-      if (line) {
-        s.pushChat(line);
-        tick();
+      let line: AiChatMessage | null = null;
+      if (seat.speak) {
+        try {
+          line = await seat.speak({ view: v, lastEvents: result.events, locale });
+        } catch {
+          line = null;
+        }
       }
+      if (!line) {
+        // Always surface something so the table talk panel is never silent after AI acts
+        line = {
+          playerId: current,
+          text: locale === "zh" ? "出完了。" : "Played.",
+          at: Date.now(),
+        };
+      }
+      publishChat(line);
     } catch (e) {
       setError(e instanceof Error ? e.message : "AI failed");
     } finally {
       setThinkingId(null);
+      host?.broadcast?.({
+        type: "aiPresence",
+        payload: { type: "ai/thinking", playerId: current, started: false },
+      });
     }
-    // chain if still AI
     await runAiIfNeeded();
   };
 
@@ -259,7 +323,6 @@ export function PlayShell({
     if (!s) return;
     const id = `ai-${s.getLobby().seats.length}`;
     s.addAiSeat(id, locale === "zh" ? `AI ${id}` : `AI ${id}`);
-    aiRef.current.set(id, createMockLoveLetterSeat(id));
     tick();
   };
 
@@ -274,7 +337,6 @@ export function PlayShell({
   const onStart = async () => {
     const s = sessionRef.current;
     if (!s) return;
-    // ready all humans for hotseat convenience
     for (const seat of s.getLobby().seats) {
       if (seat.kind === "human") s.setReady(seat.id, true);
     }
@@ -289,13 +351,14 @@ export function PlayShell({
 
   const onDispatch = (action: LoveLetterAction) => {
     if (!isHost) {
-      const guest = peerRef.current as { send?: (m: unknown) => void } | null;
-      guest?.send?.({ type: "action", payload: action });
+      (peerRef.current as PeerGuest | null)?.send?.({
+        type: "action",
+        payload: action,
+      });
       return;
     }
     const s = sessionRef.current;
     if (!s) return;
-    // hotseat: allow acting as current player
     const result = s.submitAction(action);
     if (!result.ok) {
       setError(result.error);
@@ -306,16 +369,12 @@ export function PlayShell({
   };
 
   const onChat = (text: string) => {
-    const msg = { playerId: myId, text, at: Date.now() };
-    if (isHost) {
-      sessionRef.current?.pushChat(msg);
-      tick();
-    } else {
-      (peerRef.current as { send?: (m: unknown) => void } | null)?.send?.({
-        type: "chat",
-        payload: msg,
-      });
-    }
+    publishChat({ playerId: myId, text, at: Date.now() });
+  };
+
+  const nameOf = (playerId: string) => {
+    const seat = lobby?.seats.find((s) => s.id === playerId);
+    return seat?.name ?? playerId;
   };
 
   const shareUrl =
@@ -324,46 +383,19 @@ export function PlayShell({
       : "";
 
   return (
-    <div className="space-y-5">
-      <header className="overflow-hidden rounded-3xl border border-border shadow-card">
-        <div className="relative bg-linear-to-br from-[#5D4037] via-[#3E2723] to-[#1a0f0c] px-5 py-6 sm:px-8 sm:py-7">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-30"
-            style={{
-              background:
-                "radial-gradient(ellipse at 80% 20%, #C4952A66, transparent 50%)",
-            }}
-          />
-          <div className="relative">
-            <p className="font-heading text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-              {isHost
-                ? locale === "zh"
-                  ? "房主桌"
-                  : "Host table"
-                : locale === "zh"
-                  ? "已入座"
-                  : "Seated"}
-            </p>
-            <h1 className="mt-1 font-heading text-3xl font-bold tracking-tight text-amber-50 sm:text-4xl">
-              {gameName}
-            </h1>
-            <p className="mt-2 max-w-lg text-sm text-amber-100/75">
-              {isHost
-                ? locale === "zh"
-                  ? "绿绒牌桌已备好 — 邀请好友，或热座开打。"
-                  : "Felt table ready — invite friends or play hotseat."
-                : locale === "zh"
-                  ? "等待房主开战…"
-                  : "Waiting for the host to start…"}
-            </p>
-          </div>
+    <div className="space-y-4">
+      {error && (
+        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-800">
+          {error}
+          <button
+            type="button"
+            className="ml-3 cursor-pointer text-xs font-semibold underline"
+            onClick={() => setError(null)}
+          >
+            {locale === "zh" ? "关闭" : "Dismiss"}
+          </button>
         </div>
-        {error && (
-          <div className="border-t border-red-200 bg-red-50 px-5 py-3 text-sm text-red-800">
-            {error}
-          </div>
-        )}
-      </header>
+      )}
 
       {phase === "lobby" && isHost && (
         <LobbyView
@@ -385,7 +417,10 @@ export function PlayShell({
       {phase === "lobby" && !isHost && (
         <div className="rounded-3xl border border-border bg-white p-6 shadow-card">
           <p className="font-heading text-lg font-bold text-primary-dark">
-            {locale === "zh" ? "等待开局" : "Waiting to start"}
+            {locale === "zh" ? `加入「${gameName}」` : `Joined “${gameName}”`}
+          </p>
+          <p className="mt-1 text-sm text-stone-500">
+            {locale === "zh" ? "等待房主开战…" : "Waiting for the host to start…"}
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             {(lobby?.seats ?? []).map((s) => (
@@ -406,23 +441,24 @@ export function PlayShell({
       )}
 
       {(phase === "playing" || phase === "finished") && view != null ? (
-        <>
-          <TableChrome
-            locale={locale}
-            chat={chat}
-            thinkingId={thinkingId}
-            onSend={onChat}
-          />
-          <LoveLetterTable
-            locale={locale}
-            view={view}
-            myId={myId}
-            hotseat={isHost}
-            disabled={Boolean(thinkingId)}
-            thinkingId={thinkingId}
-            onAction={onDispatch}
-          />
-        </>
+        <LoveLetterTable
+          locale={locale}
+          view={view}
+          myId={myId}
+          hotseat={isHost}
+          disabled={Boolean(thinkingId)}
+          thinkingId={thinkingId}
+          onAction={onDispatch}
+          overlay={
+            <TableChrome
+              locale={locale}
+              chat={chat}
+              thinkingId={thinkingId}
+              onSend={onChat}
+              nameOf={nameOf}
+            />
+          }
+        />
       ) : null}
     </div>
   );

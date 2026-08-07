@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import type { LoveLetterAction } from "../state";
 import {
   LoveLetterPixiArena,
@@ -16,6 +16,8 @@ interface Props {
   disabled?: boolean;
   thinkingId?: string | null;
   onAction: (action: LoveLetterAction) => void;
+  /** Floating chrome (e.g. table talk) over the felt */
+  overlay?: ReactNode;
 }
 
 export function LoveLetterTable({
@@ -26,6 +28,7 @@ export function LoveLetterTable({
   disabled,
   thinkingId,
   onAction,
+  overlay,
 }: Props) {
   const view = viewUnknown as ArenaView;
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
@@ -105,6 +108,11 @@ export function LoveLetterTable({
         onChancellorKeep={chancellorKeep}
         onSelfTarget={() => setSelectedTargetId(actorId)}
       />
+      {overlay ? (
+        <div className="pointer-events-none absolute bottom-3 left-3 z-20">
+          {overlay}
+        </div>
+      ) : null}
     </div>
   );
 }

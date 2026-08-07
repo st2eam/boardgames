@@ -62,7 +62,7 @@ export type LoveLetterAction =
       playerId: PlayerId;
       payload: {
         keepCardId: string;
-        bottomOrderIds: [string, string];
+        bottomOrderIds: string[];
       };
       clientActionId?: string;
     };

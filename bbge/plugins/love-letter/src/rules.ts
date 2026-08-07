@@ -58,6 +58,14 @@ function advanceTurn(state: LoveLetterState): void {
   }
 }
 
+/** End current turn: pass to next living player and draw so the view always has a full hand. */
+function passTurnAndDraw(state: LoveLetterState, events: Event[]): void {
+  if (state.phase !== "playing") return;
+  advanceTurn(state);
+  if (state.phase !== "playing") return;
+  ensureDrawn(state, events);
+}
+
 function finishRound(state: LoveLetterState, events: Event[]): void {
   state.phase = "finished";
   const living = alive(state);
@@ -182,14 +190,16 @@ export function validateLoveLetterAction(
     const held = state.pending.held;
     const ids = new Set(held.map((c) => c.id));
     if (!ids.has(action.payload.keepCardId)) return { error: "keep card not held" };
-    if (action.payload.bottomOrderIds.length !== 2) return { error: "need two bottom cards" };
-    for (const id of action.payload.bottomOrderIds) {
+    const rest = held.filter((c) => c.id !== action.payload.keepCardId).map((c) => c.id);
+    const bottom = action.payload.bottomOrderIds;
+    if (bottom.length !== rest.length) {
+      return { error: `need ${rest.length} bottom card(s)` };
+    }
+    if (new Set(bottom).size !== bottom.length) return { error: "duplicate bottom ids" };
+    for (const id of bottom) {
       if (!ids.has(id) || id === action.payload.keepCardId) {
         return { error: "invalid bottom order" };
       }
-    }
-    if (new Set(action.payload.bottomOrderIds).size !== 2) {
-      return { error: "duplicate bottom ids" };
     }
     return true;
   }
@@ -272,10 +282,10 @@ export function applyLoveLetterAction(
         type: "loveLetter/chancellorResolved",
         payload: { playerId: me.id },
       });
-      if (draft.deck.length === 0 && draft.burn === null) {
+      if (alive(draft).length <= 1) {
         finishRound(draft, events);
       } else {
-        advanceTurn(draft);
+        passTurnAndDraw(draft, events);
       }
       return;
     }
@@ -332,6 +342,14 @@ export function applyLoveLetterAction(
         const d2 = draft.deck.length > 0 || draft.burn ? drawOne(draft) : null;
         if (d2) held.push(d2);
         me.hand = [];
+        if (held.length <= 1) {
+          me.hand = held;
+          events.push({
+            type: "loveLetter/chancellorResolved",
+            payload: { playerId: me.id, auto: true },
+          });
+          break;
+        }
         draft.pending = { type: "chancellor", playerId: me.id, held };
         events.push({
           type: "loveLetter/chancellorPending",
@@ -417,13 +435,9 @@ export function applyLoveLetterAction(
       finishRound(draft, events);
       return;
     }
-    // Round ends when deck empty after a turn completes
-    if (draft.deck.length === 0 && draft.burn === null) {
-      finishRound(draft, events);
-      return;
-    }
+    // Next seat draws immediately so UI/AI always see a 2-card hand (or round ends).
     if (draft.phase === "playing") {
-      advanceTurn(draft);
+      passTurnAndDraw(draft, events);
     }
   });
 

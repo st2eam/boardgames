@@ -2,12 +2,15 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import type { Event } from "@bbge/core";
 import { HostSession, type AiChatMessage, type LobbyState } from "@bbge/runtime";
 import { loveLetterPlugin, type LoveLetterAction } from "@bbge/love-letter";
 import { createMockLoveLetterSeat } from "@bbge/ai";
 import type { AiSeat } from "@bbge/ai";
 import { LobbyView } from "./LobbyView";
 import { TableChrome } from "./TableChrome";
+import { PlayLogSidebar } from "./PlayLogSidebar";
+import { formatPlayEvents, type PlayLogEntry } from "./formatPlayLog";
 
 const LoveLetterTable = dynamic(
   () =>
@@ -63,6 +66,22 @@ function newSeed(): string {
   return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
+function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error(`${label} timeout`)), ms);
+    promise.then(
+      (v) => {
+        clearTimeout(t);
+        resolve(v);
+      },
+      (e) => {
+        clearTimeout(t);
+        reject(e);
+      },
+    );
+  });
+}
+
 export function PlayShell({
   locale,
   gameName,
@@ -79,6 +98,7 @@ export function PlayShell({
   const [view, setView] = useState<unknown>(null);
   const [chat, setChat] = useState<AiChatMessage[]>([]);
   const [thinkingId, setThinkingId] = useState<string | null>(null);
+  const [playLog, setPlayLog] = useState<PlayLogEntry[]>([]);
   const [myId, setMyId] = useState(hostId);
   const [displayName, setDisplayName] = useState(
     locale === "zh" ? "房主" : "Host",
@@ -86,6 +106,21 @@ export function PlayShell({
   const sessionRef = useRef<HostSession | null>(null);
   const aiRef = useRef<Map<string, AiSeat>>(new Map());
   const peerRef = useRef<{ destroy: () => void } | null>(null);
+  const aiRunning = useRef(false);
+
+  const seatNames = useCallback((): Record<string, string> => {
+    const seats = sessionRef.current?.getLobby().seats ?? lobby?.seats ?? [];
+    return Object.fromEntries(seats.map((s) => [s.id, s.name]));
+  }, [lobby]);
+
+  const appendEvents = useCallback(
+    (events: Event[]) => {
+      const lines = formatPlayEvents(events, locale, seatNames());
+      if (lines.length === 0) return;
+      setPlayLog((prev) => [...prev, ...lines].slice(-200));
+    },
+    [locale, seatNames],
+  );
 
   const tick = useCallback(() => {
     const s = sessionRef.current;
@@ -111,7 +146,6 @@ export function PlayShell({
           type: "chat",
           payload: msg,
         });
-        // optimistic local echo until host rebroadcasts
         setChat((c) => [...c, msg]);
       }
     },
@@ -126,12 +160,8 @@ export function PlayShell({
     const session = new HostSession(loveLetterPlugin, {
       seed: newSeed(),
       hostPlayerId: hostId,
-      canStartAi: async () => {
-        const seats = sessionRef.current?.getLobby().seats ?? [];
-        if (!seats.some((x) => x.kind === "ai")) return true;
-        const key = await loadApiKey();
-        return Boolean(key);
-      },
+      // Mock AI always available — DeepSeek is optional enhancement
+      canStartAi: async () => true,
     });
     session.addHumanSeat(hostId, displayName);
     session.setReady(hostId, true);
@@ -153,7 +183,10 @@ export function PlayShell({
           const s = sessionRef.current;
           if (!s) return;
           if (msg.type === "hello") {
-            const { playerId, name } = msg.payload;
+            const { playerId, name } = msg.payload as {
+              playerId: string;
+              name: string;
+            };
             s.addHumanSeat(playerId, name);
             host.broadcast({ type: "lobby", payload: s.getLobby() });
             tick();
@@ -168,6 +201,7 @@ export function PlayShell({
               }
               return;
             }
+            appendEvents(result.events);
             for (const [pid, v] of result.views) {
               host.broadcast({ type: "events", payload: result.events });
               host.broadcast({ type: "phase", payload: { phase: s.getPhase() } });
@@ -176,7 +210,7 @@ export function PlayShell({
             tick();
             void runAiIfNeeded();
           } else if (msg.type === "chat") {
-            s.pushChat(msg.payload);
+            s.pushChat(msg.payload as AiChatMessage);
             host.broadcast({ type: "chat", payload: msg.payload });
             tick();
           }
@@ -222,11 +256,20 @@ export function PlayShell({
           if (msg.type === "view") setView(msg.payload);
           if (msg.type === "phase")
             setPhase(msg.payload.phase as "lobby" | "playing" | "finished");
+          if (msg.type === "events") {
+            appendEvents(msg.payload as Event[]);
+          }
           if (msg.type === "chat") {
             const line = msg.payload as AiChatMessage;
             setChat((c) => {
-              // de-dupe optimistic echo
-              if (c.some((x) => x.at === line.at && x.playerId === line.playerId && x.text === line.text)) {
+              if (
+                c.some(
+                  (x) =>
+                    x.at === line.at &&
+                    x.playerId === line.playerId &&
+                    x.text === line.text,
+                )
+              ) {
                 return c;
               }
               return [...c, line];
@@ -242,7 +285,8 @@ export function PlayShell({
               setThinkingId(p.started ? p.playerId : null);
             }
           }
-          if (msg.type === "actionReject") setError(msg.payload.error);
+          if (msg.type === "actionReject")
+            setError((msg.payload as { error: string }).error);
         });
       } catch (e) {
         setError(e instanceof Error ? e.message : "join failed");
@@ -258,54 +302,107 @@ export function PlayShell({
   const resolveAiSeat = async (seatId: string): Promise<AiSeat> => {
     const existing = aiRef.current.get(seatId);
     if (existing) return existing;
-    const key = await loadApiKey();
-    const seat =
-      key && createDeepSeekSeat
-        ? createDeepSeekSeat(seatId, key)
-        : createMockLoveLetterSeat(seatId);
+    // Prefer mock for reliable play; use DeepSeek only when explicitly keyed later via speak path
+    const seat = createMockLoveLetterSeat(seatId);
     aiRef.current.set(seatId, seat);
+
+    // Optional: upgrade think to DeepSeek if key present (still falls back on timeout)
+    const key = await loadApiKey();
+    if (key && createDeepSeekSeat) {
+      const live = createDeepSeekSeat(seatId, key);
+      aiRef.current.set(seatId, live);
+      return live;
+    }
     return seat;
   };
 
   const runAiIfNeeded = async () => {
+    if (aiRunning.current) return;
     const s = sessionRef.current;
     if (!s || s.getPhase() !== "playing") return;
     const current = s.getCurrentPlayerId();
     if (!current || !s.getAiSeatIds().includes(current)) return;
-    const seat = await resolveAiSeat(current);
-    setThinkingId(current);
+
+    aiRunning.current = true;
     const host = peerRef.current as PeerHost | null;
+    setThinkingId(current);
     host?.broadcast?.({
       type: "aiPresence",
       payload: { type: "ai/thinking", playerId: current, started: true },
     });
+
     try {
       const v = s.getView(current);
-      const action = (await seat.think(v)) as LoveLetterAction;
-      const result = s.submitAction(action);
-      if (!result.ok) {
-        setError(result.error);
-        setThinkingId(null);
-        return;
+      let seat = await resolveAiSeat(current);
+      let action: LoveLetterAction;
+      try {
+        action = (await withTimeout(seat.think(v), 10000, "AI think")) as LoveLetterAction;
+      } catch {
+        seat = createMockLoveLetterSeat(current);
+        aiRef.current.set(current, seat);
+        action = (await seat.think(s.getView(current))) as LoveLetterAction;
+        setPlayLog((prev) => [
+          ...prev,
+          {
+            id: `fallback-${Date.now()}`,
+            at: Date.now(),
+            text:
+              locale === "zh"
+                ? `${seatNames()[current] ?? current} 改用本地 AI`
+                : `${seatNames()[current] ?? current} fell back to local AI`,
+            tone: "warn",
+          },
+        ]);
       }
-      tick();
-      let line: AiChatMessage | null = null;
-      if (seat.speak) {
-        try {
-          line = await seat.speak({ view: v, lastEvents: result.events, locale });
-        } catch {
-          line = null;
+
+      let result = s.submitAction(action);
+      if (!result.ok) {
+        const mock = createMockLoveLetterSeat(current);
+        aiRef.current.set(current, mock);
+        const retry = (await mock.think(s.getView(current))) as LoveLetterAction;
+        result = s.submitAction(retry);
+        if (!result.ok) {
+          setError(result.error);
+          return;
         }
       }
-      if (!line) {
-        // Always surface something so the table talk panel is never silent after AI acts
-        line = {
-          playerId: current,
-          text: locale === "zh" ? "出完了。" : "Played.",
-          at: Date.now(),
-        };
-      }
-      publishChat(line);
+      appendEvents(result.events);
+      tick();
+
+      // Unlock table before speak (speak must never freeze input)
+      setThinkingId(null);
+      host?.broadcast?.({
+        type: "aiPresence",
+        payload: { type: "ai/thinking", playerId: current, started: false },
+      });
+
+      const speakSeat = seat;
+      void (async () => {
+        let line: AiChatMessage | null = null;
+        if (speakSeat.speak) {
+          try {
+            line = await withTimeout(
+              speakSeat.speak({
+                view: v,
+                lastEvents: result.events,
+                locale,
+              }),
+              8000,
+              "AI speak",
+            );
+          } catch {
+            line = null;
+          }
+        }
+        if (!line) {
+          line = {
+            playerId: current,
+            text: locale === "zh" ? "出完了。" : "Played.",
+            at: Date.now(),
+          };
+        }
+        publishChat(line);
+      })();
     } catch (e) {
       setError(e instanceof Error ? e.message : "AI failed");
     } finally {
@@ -314,6 +411,7 @@ export function PlayShell({
         type: "aiPresence",
         payload: { type: "ai/thinking", playerId: current, started: false },
       });
+      aiRunning.current = false;
     }
     await runAiIfNeeded();
   };
@@ -321,16 +419,18 @@ export function PlayShell({
   const onAddAi = () => {
     const s = sessionRef.current;
     if (!s) return;
-    const id = `ai-${s.getLobby().seats.length}`;
-    s.addAiSeat(id, locale === "zh" ? `AI ${id}` : `AI ${id}`);
+    const n = s.getLobby().seats.filter((x) => x.kind === "ai").length + 1;
+    const id = `ai-${n}`;
+    s.addAiSeat(id, locale === "zh" ? `AI ${n}` : `AI ${n}`);
     tick();
   };
 
   const onAddHotseat = () => {
     const s = sessionRef.current;
     if (!s) return;
-    const id = `p-${s.getLobby().seats.length}`;
-    s.addHumanSeat(id, `${locale === "zh" ? "玩家" : "Player"} ${id}`);
+    const n = s.getLobby().seats.length;
+    const id = `p-${n}`;
+    s.addHumanSeat(id, `${locale === "zh" ? "玩家" : "Player"} ${n}`);
     tick();
   };
 
@@ -345,6 +445,14 @@ export function PlayShell({
       setError(r.error);
       return;
     }
+    setPlayLog([
+      {
+        id: `start-${Date.now()}`,
+        at: Date.now(),
+        text: locale === "zh" ? "对局开始" : "Match started",
+        tone: "win",
+      },
+    ]);
     tick();
     await runAiIfNeeded();
   };
@@ -364,6 +472,7 @@ export function PlayShell({
       setError(result.error);
       return;
     }
+    appendEvents(result.events);
     tick();
     void runAiIfNeeded();
   };
@@ -381,6 +490,11 @@ export function PlayShell({
     typeof window !== "undefined" && roomId
       ? `${window.location.origin}${window.location.pathname}?room=${roomId}`
       : "";
+
+  const currentPlayerId =
+    view && typeof view === "object" && view !== null
+      ? ((view as { currentPlayerId?: string }).currentPlayerId ?? null)
+      : null;
 
   return (
     <div className="space-y-4">
@@ -441,24 +555,35 @@ export function PlayShell({
       )}
 
       {(phase === "playing" || phase === "finished") && view != null ? (
-        <LoveLetterTable
-          locale={locale}
-          view={view}
-          myId={myId}
-          hotseat={isHost}
-          disabled={Boolean(thinkingId)}
-          thinkingId={thinkingId}
-          onAction={onDispatch}
-          overlay={
-            <TableChrome
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
+          <div className="min-w-0 flex-1">
+            <LoveLetterTable
               locale={locale}
-              chat={chat}
+              view={view}
+              myId={myId}
+              hotseat={isHost}
+              disabled={Boolean(thinkingId)}
               thinkingId={thinkingId}
-              onSend={onChat}
-              nameOf={nameOf}
+              onAction={onDispatch}
+              overlay={
+                <TableChrome
+                  locale={locale}
+                  chat={chat}
+                  thinkingId={thinkingId}
+                  onSend={onChat}
+                  nameOf={nameOf}
+                />
+              }
             />
-          }
-        />
+          </div>
+          <PlayLogSidebar
+            locale={locale}
+            entries={playLog}
+            currentPlayerId={currentPlayerId}
+            thinkingId={thinkingId}
+            nameOf={nameOf}
+          />
+        </div>
       ) : null}
     </div>
   );

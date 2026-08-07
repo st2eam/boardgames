@@ -67,14 +67,14 @@ export function LoveLetterTable({
 
   const chancellorKeep = (cardId: string) => {
     const held = view.pending?.held ?? [];
+    if (!held.some((c) => c.id === cardId)) return;
     const rest = held.filter((c) => c.id !== cardId);
-    if (rest.length < 2) return;
     onAction({
       type: "resolveChancellor",
       playerId: actorId,
       payload: {
         keepCardId: cardId,
-        bottomOrderIds: [rest[0]!.id, rest[1]!.id],
+        bottomOrderIds: rest.map((c) => c.id),
       },
     });
     setSelectedCardId(null);

@@ -137,7 +137,9 @@ AI turn (Host only):
 - **Table (Playing):** PixiJS WebGL arena + GSAP tweens (`dealIn` / `selectLift` / `moveTo`) + Motion HUD for guess / confirm play
   - Code: `bbge/plugins/love-letter/src/ui/LoveLetterPixiArena.tsx` + `ui/pixi/*`
   - Loaded via `next/dynamic(..., { ssr: false })` from `PlayShell`
-- Table talk: floating overlay on the felt (not a separate row); AI speaks after each AI action (with fallback line if LLM silent)
+- Table talk: floating overlay on the felt; AI speaks after each AI action (mock fallback if LLM silent/timeout)
+- Play log sidebar: human-readable action/settlement stream (`PlayLogSidebar`)
+- After each play, next seat draws immediately so the UI always shows a full hand
 - Card faces/backs: textures from `public/images/bbge/love-letter/` (export pack); procedural Graphics only as fallback
 - Tokens: Shelf warm wood palette; Fredoka labels in Pixi `Text` where needed
 - Play CTA: strongest accent button, **first** in header row

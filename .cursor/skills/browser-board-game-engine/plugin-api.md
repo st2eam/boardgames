@@ -470,6 +470,9 @@ Button lives in `GameHeader` as the **first** feature action (before Flow /
 Score); route is `/[locale]/games/[slug]/play/`. See
 [architecture.md §9](architecture.md).
 
+Product/engine design for each playable game: `docs/games/<slug>.md`
+(e.g. [love-letter.md](../../../docs/games/love-letter.md)).
+
 ---
 
 ## 13. Versioning & compatibility

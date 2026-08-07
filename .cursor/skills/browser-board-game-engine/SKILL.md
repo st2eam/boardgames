@@ -77,11 +77,14 @@ Full detail: [architecture.md §11](architecture.md).
 | Decision | Value |
 |----------|--------|
 | Approach | A — Shelf + `bbge/*` + PeerJS-like signaling + WebRTC |
-| First game | Love Letter |
+| First game | Love Letter (**one round** ends match) |
+| Design doc | [`docs/games/love-letter.md`](../../../docs/games/love-letter.md) |
 | Multiplayer | Host + share link join from day one |
 | AI | Reusable `AiSeat` on Host; DeepSeek key from chat; think + speak |
 | Replay tools | **Out** — no replay viewer/SDK UI |
 | Entry | `GameHeader` **first** button → `/games/love-letter/play/` |
+
+Per-game BBGE designs: [`docs/games/<slug>.md`](../../../docs/games/).
 
 ## Implementation order (v1)
 
@@ -159,6 +162,7 @@ page + i18n into `src/` / `content/` when adding a playable game.
 
 ## Additional resources
 
+- Love Letter v1 design: [`docs/games/love-letter.md`](../../../docs/games/love-letter.md)
 - [architecture.md](architecture.md) — modules, data flow, sync, lifecycle
 - [plugin-api.md](plugin-api.md) — plugin developer handbook
 - [vision.md](vision.md) — platform vision (original full spec)

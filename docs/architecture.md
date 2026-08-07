@@ -40,7 +40,8 @@ Rules:
 
 | Path | Role |
 |------|------|
-| `content/games/` | Source of truth: `index.json`, per-game `meta.json`, `en\|zh/rules.md`, optional `flow.json` / `score.json` / `trainer.json` / `calculator.json` |
+| `content/games/` | Source of truth: `index.json`, per-game `meta.json`, `en\|zh/rules.md`, optional `flow.json` / `score.json` / `trainer.json` / `calculator.json` / `play.json` |
+| `docs/games/<slug>.md` | Per-game **playable (BBGE)** design specs — one file per slug when Play is planned or shipped |
 | `src/app/[locale]/` | **Server Components** — load data, SEO, hand props to client roots |
 | `src/components/` | UI; `"use client"` on interactive pieces (including providers like `ChatProvider`) |
 | `src/lib/content/` | FS loaders (`GameRepository`, `GameFactory`, `markdown`) |
@@ -58,9 +59,18 @@ Rules:
 | Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/components/game/score/registry.tsx) → dedicated trackers or `ScoreTracker` | `src/lib/score/` |
 | Trainer | `trainer.json` | `…/trainer/page.tsx` | [`trainer/registry.tsx`](../src/components/game/trainer/registry.tsx) | `src/lib/<game>/` |
 | Calculator | `calculator.json` | `…/calculator/page.tsx` | `ScoreCalculator` | `src/lib/mahjong/` |
+| Play (BBGE) | `play.json` | `…/play/page.tsx` | PlayShell → bbge runtime + plugin UI; **Play button first** in `GameHeader` | `bbge/*` + `plugins/<pluginId>`; design in [`docs/games/<slug>.md`](games/) |
 | Chat | runtime `public/data` | `ChatToggle` on home/game pages | `components/chat/*` + `ChatProvider` | `src/lib/ai/`, `src/lib/chat/` |
 
 Pattern for gated features: config exists in content → `generateStaticParams` filters → page loads config → registry (or single component) renders client UI.
+
+### Adding a BBGE playable game
+
+1. Write / update design at `docs/games/<slug>.md`
+2. Implement plugin under `bbge` / `plugins/<pluginId>` (see BBGE skill)
+3. Add `content/games/<slug>/play.json` binding `pluginId`
+4. Wire `hasPlay` + `GameHeader` Play link (first) + `play/page.tsx`
+5. Follow [`.cursor/skills/browser-board-game-engine/`](../.cursor/skills/browser-board-game-engine/SKILL.md)
 
 ### Adding a trainer type
 
@@ -96,5 +106,7 @@ Pattern for gated features: config exists in content → `generateStaticParams` 
 | [`CLAUDE.md`](../CLAUDE.md) | Commands, i18n quirks, family system, cover/chat overview |
 | [`.cursor/rules/code-modification.mdc`](../.cursor/rules/code-modification.mdc) | Layer / feature wiring norms while editing |
 | [`docs/trainer-system.md`](trainer-system.md) | Trainer anatomy and how to add types |
-| `.cursor/skills/add-game/SKILL.md` | End-to-end new game / expansion |
+| [`docs/games/`](games/) | Per-game BBGE play designs (`<slug>.md`) |
+| [`.cursor/skills/browser-board-game-engine/`](../.cursor/skills/browser-board-game-engine/SKILL.md) | Playable engine platform |
+| `.cursor/skills/add-game/SKILL.md` | End-to-end new game / expansion (rules content) |
 | `.claude/skills/add-trainer` | New trainer type checklist |

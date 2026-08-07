@@ -466,6 +466,11 @@ first-party game server (static export constraint).
 | Content bind | `content/games/love-letter/play.json` |
 | Route | `/[locale]/games/love-letter/play/` |
 | Engine domains (min) | `cards` + `turns` |
+| Match length | **One round ends the match** (no favor-token multi-round in v1) |
+| Design doc | [`docs/games/love-letter.md`](../../../docs/games/love-letter.md) |
+
+**Convention:** each playable game’s product/engine design lives at
+`docs/games/<slug>.md` (not under `docs/superpowers/specs/`).
 
 ### 11.3 Multiplayer
 
@@ -505,13 +510,16 @@ Details: [plugin-api.md §16](plugin-api.md).
 
 ### 11.7 Success criteria
 
-Two browsers can finish a Love Letter match with at least one human and one AI
-seat; AI shows thinking before acting; AI can post a short table message.
+Two browsers can finish a Love Letter **single round** with at least one human
+and one AI seat; AI shows thinking before acting; AI can post a short table
+message.
 
 ---
 
 ## 12. Related docs
 
+- Per-game design (Love Letter v1): [`docs/games/love-letter.md`](../../../docs/games/love-letter.md)
+- Per-game designs (all): [`docs/games/`](../../../docs/games/)
 - [vision.md](vision.md) — philosophy, subsystems catalog, long-term vision
 - [plugin-api.md](plugin-api.md) — plugin developer handbook
 - [SKILL.md](SKILL.md) — agent workflow & golden rules

@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import type { LoveLetterAction } from "../state";
 import type { ArenaView } from "./types";
-import { cardLabel } from "./cardArt";
+import { cardFaceUrl, cardLabel } from "./cardArt";
 import { CardTile } from "./bga/CardTile";
 import { CardLightbox } from "./bga/CardLightbox";
 import { PriestRevealModal } from "./bga/PriestRevealModal";
@@ -53,8 +54,14 @@ export function LoveLetterTable({
   const [guessRank, setGuessRank] = useState(9);
   const [chatText, setChatText] = useState("");
   const [zoom, setZoom] = useState<ZoomCard | null>(null);
-
+  const [flyPlay, setFlyPlay] = useState<ZoomCard | null>(null);
+  const [drawPulse, setDrawPulse] = useState(false);
+  const [animBusy, setAnimBusy] = useState(false);
+  const prevHandRef = useRef<Set<string>>(new Set());
+  const [newCardIds, setNewCardIds] = useState<Set<string>>(new Set());
   const actorId = hotseat ? view.currentPlayerId : myId;
+  const lastDiscardIdRef = useRef<string | null>(null);
+  const skipDiscardAnimRef = useRef(false);
   const priestPending =
     view.pending?.type === "priestReveal" ? view.pending : null;
   const myPriestReveal =
@@ -65,8 +72,31 @@ export function LoveLetterTable({
   const isMyTurn =
     view.currentPlayerId === actorId && view.phase === "playing";
   const interactive = Boolean(
-    isMyTurn && !disabled && !priestPending && view.pending?.type !== "chancellor",
+    isMyTurn &&
+      !disabled &&
+      !animBusy &&
+      !priestPending &&
+      view.pending?.type !== "chancellor",
   );
+
+  // Detect newly drawn cards → entrance animation
+  useEffect(() => {
+    const hand = view.you?.hand ?? [];
+    const ids = new Set(hand.map((c) => c.id));
+    const prev = prevHandRef.current;
+    const gained = [...ids].filter((id) => !prev.has(id));
+    if (gained.length > 0 && prev.size > 0) {
+      setNewCardIds(new Set(gained));
+      setDrawPulse(true);
+      const t = window.setTimeout(() => {
+        setNewCardIds(new Set());
+        setDrawPulse(false);
+      }, 700);
+      prevHandRef.current = ids;
+      return () => window.clearTimeout(t);
+    }
+    prevHandRef.current = ids;
+  }, [view.you?.hand]);
 
   const selected = useMemo(() => {
     if (!selectedCardId) return null;
@@ -180,18 +210,31 @@ export function LoveLetterTable({
   ]);
 
   const playCard = () => {
-    if (!selectedCardId || !canPlay) return;
-    onAction({
-      type: "playCard",
-      playerId: actorId,
-      payload: {
-        cardId: selectedCardId,
-        targetId: selectedTargetId ?? undefined,
-        guessRank: needsGuess ? guessRank : undefined,
-      },
-    });
-    setSelectedCardId(null);
-    setSelectedTargetId(null);
+    if (!selectedCardId || !canPlay || !selected) return;
+    const payload = {
+      cardId: selectedCardId,
+      targetId: selectedTargetId ?? undefined,
+      guessRank: needsGuess ? guessRank : undefined,
+    };
+    const flying: ZoomCard = {
+      rank: selected.rank,
+      name: selected.name,
+      subtitle: zh ? "打出" : "Play",
+    };
+    setAnimBusy(true);
+    setFlyPlay(flying);
+    skipDiscardAnimRef.current = true;
+    window.setTimeout(() => {
+      onAction({
+        type: "playCard",
+        playerId: actorId,
+        payload,
+      });
+      setSelectedCardId(null);
+      setSelectedTargetId(null);
+      setFlyPlay(null);
+      setAnimBusy(false);
+    }, 480);
   };
 
   const acknowledgePriest = () => {
@@ -218,6 +261,28 @@ export function LoveLetterTable({
     view.selfDiscarded?.[view.selfDiscarded.length - 1] ??
     view.others.flatMap((o) => o.discarded).slice(-1)[0] ??
     null;
+
+  // AI / remote play: brief land animation when a new discard appears
+  useEffect(() => {
+    const id = lastDiscard?.id ?? null;
+    if (!id || id === lastDiscardIdRef.current) {
+      lastDiscardIdRef.current = id;
+      return;
+    }
+    lastDiscardIdRef.current = id;
+    if (skipDiscardAnimRef.current) {
+      skipDiscardAnimRef.current = false;
+      return;
+    }
+    if (animBusy) return;
+    setFlyPlay({
+      rank: lastDiscard!.rank,
+      name: lastDiscard!.name,
+      subtitle: zh ? "出牌" : "Played",
+    });
+    const t = window.setTimeout(() => setFlyPlay(null), 520);
+    return () => window.clearTimeout(t);
+  }, [lastDiscard?.id, lastDiscard, animBusy, zh]);
 
   return (
     <div className="overflow-hidden rounded-2xl border border-[#3E2723]/25 bg-[#efe6d8] shadow-card">
@@ -268,7 +333,7 @@ export function LoveLetterTable({
       <div className="p-3 sm:p-4">
         <StatusBar locale={locale} text={status.text} tone={status.tone} />
 
-        <div className="mt-3 grid gap-3 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div className="mt-3 grid gap-3 lg:grid-cols-[minmax(0,1fr)_300px]">
           {/* Main board column */}
           <div className="space-y-3">
             {/* Felt table */}
@@ -279,6 +344,42 @@ export function LoveLetterTable({
                   "radial-gradient(ellipse at 50% 40%, #2e7d32 0%, #1b5e20 55%, #0d3b12 100%)",
               }}
             >
+              <AnimatePresence>
+                {flyPlay && (
+                  <motion.div
+                    key="fly-play"
+                    className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <motion.img
+                      src={cardFaceUrl(flyPlay.rank)}
+                      alt=""
+                      className="h-[168px] w-[118px] rounded-xl border-2 border-accent object-cover shadow-2xl"
+                      initial={{ y: 140, scale: 0.7, rotate: -8, opacity: 0.4 }}
+                      animate={{ y: 0, scale: 1.05, rotate: 0, opacity: 1 }}
+                      transition={{ type: "spring", stiffness: 260, damping: 18 }}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {drawPulse && (
+                  <motion.div
+                    key="draw-pulse"
+                    className="pointer-events-none absolute left-1/2 top-8 z-10 -translate-x-1/2"
+                    initial={{ opacity: 0, y: -20, scale: 0.6 }}
+                    animate={{ opacity: 1, y: 40, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.45 }}
+                  >
+                    <div className="rounded-full bg-black/45 px-3 py-1 font-heading text-xs font-bold text-amber-50 backdrop-blur">
+                      {zh ? "摸牌" : "Draw"}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               <div
                 className="pointer-events-none absolute inset-0 opacity-[0.07]"
                 style={{
@@ -410,29 +511,46 @@ export function LoveLetterTable({
               </div>
 
               <div className="flex flex-wrap items-end justify-center gap-5 py-3">
-                {(view.you?.hand ?? []).map((c) => (
-                  <CardTile
-                    key={c.id}
-                    locale={locale}
-                    rank={c.rank}
-                    name={c.name}
-                    size="xl"
-                    selected={selectedCardId === c.id}
-                    disabled={!interactive}
-                    onClick={() => {
-                      setSelectedCardId(c.id);
-                      setSelectedTargetId(null);
-                    }}
-                    onZoom={() =>
-                      setZoom({
-                        rank: c.rank,
-                        name: c.name,
-                        subtitle: zh ? "你的手牌" : "Your hand",
-                      })
-                    }
-                    title={`${cardLabel(c, locale)} (${c.rank})`}
-                  />
-                ))}
+                <AnimatePresence mode="popLayout">
+                  {(view.you?.hand ?? []).map((c) => {
+                    const isNew = newCardIds.has(c.id);
+                    return (
+                      <motion.div
+                        key={c.id}
+                        layout
+                        initial={
+                          isNew
+                            ? { y: -90, opacity: 0, scale: 0.45, rotate: -12 }
+                            : false
+                        }
+                        animate={{ y: 0, opacity: 1, scale: 1, rotate: 0 }}
+                        exit={{ y: 40, opacity: 0, scale: 0.6 }}
+                        transition={{ type: "spring", stiffness: 320, damping: 22 }}
+                      >
+                        <CardTile
+                          locale={locale}
+                          rank={c.rank}
+                          name={c.name}
+                          size="xl"
+                          selected={selectedCardId === c.id}
+                          disabled={!interactive}
+                          onClick={() => {
+                            setSelectedCardId(c.id);
+                            setSelectedTargetId(null);
+                          }}
+                          onZoom={() =>
+                            setZoom({
+                              rank: c.rank,
+                              name: c.name,
+                              subtitle: zh ? "你的手牌" : "Your hand",
+                            })
+                          }
+                          title={`${cardLabel(c, locale)} (${c.rank})`}
+                        />
+                      </motion.div>
+                    );
+                  })}
+                </AnimatePresence>
                 {(view.you?.hand.length ?? 0) === 0 && (
                   <p className="py-8 text-sm text-stone-400">
                     {zh ? "手牌为空" : "No cards in hand"}
@@ -495,6 +613,15 @@ export function LoveLetterTable({
                 thinkingId={thinkingId}
                 targetMode={Boolean(interactive && needsTarget)}
                 onSelectTarget={setSelectedTargetId}
+                onZoomDiscard={(c, ownerName) =>
+                  setZoom({
+                    rank: c.rank,
+                    name: c.name,
+                    subtitle: zh
+                      ? `${ownerName} 的出牌`
+                      : `${ownerName}'s discard`,
+                  })
+                }
               />
             </div>
 

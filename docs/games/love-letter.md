@@ -139,6 +139,7 @@ AI turn (Host only):
   - Card art: `public/images/bbge/love-letter/`
 - Interaction: click hand → click target panel (if needed) → Play; Guard guess chips; Chancellor keep confirm
 - Priest: peek opens a confirm modal (turn does not advance until “我看完了”); cards support Zoom / 大图 lightbox
+- Player panels show full discard history (clickable mini faces); hand draw/play use Motion fly-in / play-to-felt animations
 - AI pacing: ~1.4–3s min think UI + gap between seats; LLM think budget ~90s (was 10s — caused false “local AI” fallback while model still streaming)
 - Table talk only from LLM seats on successful LLM turns; local mock stays silent
 - After each play, next seat draws immediately so the hand stays full

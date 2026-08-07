@@ -2,6 +2,13 @@
 
 import { cardBackUrl } from "../cardArt";
 import type { ArenaView } from "../types";
+import { DiscardStrip } from "./DiscardStrip";
+
+type DiscCard = {
+  id: string;
+  rank: number;
+  name?: { en: string; zh: string };
+};
 
 interface Props {
   locale: string;
@@ -11,6 +18,7 @@ interface Props {
   thinkingId?: string | null;
   targetMode: boolean;
   onSelectTarget: (id: string) => void;
+  onZoomDiscard?: (card: DiscCard, ownerName: string) => void;
 }
 
 function Panel({
@@ -19,7 +27,7 @@ function Panel({
   name,
   you,
   handCount,
-  discardedCount,
+  discarded,
   eliminated,
   protected: isProtected,
   active,
@@ -28,13 +36,14 @@ function Panel({
   targetMode,
   seenRank,
   onSelect,
+  onZoomDiscard,
 }: {
   locale: string;
   id: string;
   name: string;
   you?: boolean;
   handCount: number;
-  discardedCount: number;
+  discarded: DiscCard[];
   eliminated: boolean;
   protected: boolean;
   active: boolean;
@@ -43,15 +52,13 @@ function Panel({
   targetMode: boolean;
   seenRank?: number;
   onSelect: () => void;
+  onZoomDiscard?: (card: DiscCard, ownerName: string) => void;
 }) {
   const zh = locale === "zh";
   const clickable = targetMode && !eliminated && !you;
 
   return (
-    <button
-      type="button"
-      disabled={!clickable}
-      onClick={onSelect}
+    <div
       className={[
         "w-full rounded-xl border px-3 py-2.5 text-left transition-all duration-200",
         eliminated
@@ -61,10 +68,17 @@ function Panel({
             : active
               ? "border-accent/70 bg-white shadow-sm"
               : "border-border bg-white/90",
-        clickable ? "cursor-pointer hover:border-accent hover:bg-amber-50/80" : "cursor-default",
       ].join(" ")}
     >
-      <div className="flex items-center gap-2.5">
+      <button
+        type="button"
+        disabled={!clickable}
+        onClick={onSelect}
+        className={[
+          "flex w-full items-center gap-2.5 text-left",
+          clickable ? "cursor-pointer" : "cursor-default",
+        ].join(" ")}
+      >
         <div
           className={[
             "flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-heading text-sm font-bold text-white",
@@ -118,26 +132,36 @@ function Panel({
             </p>
           )}
         </div>
-      </div>
-
-      <div className="mt-2 flex items-center gap-2">
-        <div className="flex -space-x-3">
+        <div className="flex -space-x-2">
           {Array.from({ length: Math.min(handCount, 2) }).map((_, i) => (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               key={`${id}-h-${i}`}
               src={cardBackUrl()}
               alt=""
-              className="h-9 w-6 rounded border border-[#3E2723]/40 object-cover shadow-sm"
+              className="h-8 w-5 rounded border border-[#3E2723]/40 object-cover shadow-sm"
             />
           ))}
-          {handCount === 0 && (
-            <span className="text-[11px] text-stone-400">—</span>
-          )}
         </div>
-        <span className="ml-auto text-[11px] text-stone-500">
-          {zh ? "弃牌" : "Discard"} {discardedCount}
-        </span>
+      </button>
+
+      <div className="mt-2 border-t border-border/70 pt-2">
+        <div className="mb-1 flex items-center justify-between">
+          <p className="font-heading text-[10px] font-bold uppercase tracking-wide text-stone-500">
+            {zh ? "出牌记录" : "Discards"}
+          </p>
+          <span className="text-[10px] text-stone-400">{discarded.length}</span>
+        </div>
+        <DiscardStrip
+          locale={locale}
+          cards={discarded}
+          compact
+          onZoom={
+            onZoomDiscard
+              ? (c) => onZoomDiscard(c, name)
+              : undefined
+          }
+        />
       </div>
 
       {clickable && (
@@ -147,11 +171,11 @@ function Panel({
               ? "✓ 已选为目标"
               : "✓ Targeted"
             : zh
-              ? "点击选择为目标"
-              : "Click to target"}
+              ? "点击头像选择为目标"
+              : "Click avatar to target"}
         </p>
       )}
-    </button>
+    </div>
   );
 }
 
@@ -163,6 +187,7 @@ export function PlayerPanels({
   thinkingId,
   targetMode,
   onSelectTarget,
+  onZoomDiscard,
 }: Props) {
   const zh = locale === "zh";
   const you = view.you;
@@ -179,7 +204,7 @@ export function PlayerPanels({
           name={zh ? "你" : "You"}
           you
           handCount={you.hand.length}
-          discardedCount={view.selfDiscarded?.length ?? 0}
+          discarded={view.selfDiscarded ?? []}
           eliminated={you.eliminated}
           protected={you.protected}
           active={view.currentPlayerId === actorId}
@@ -187,6 +212,7 @@ export function PlayerPanels({
           selected={false}
           targetMode={false}
           onSelect={() => {}}
+          onZoomDiscard={onZoomDiscard}
         />
       )}
       {view.others.map((o) => (
@@ -196,7 +222,7 @@ export function PlayerPanels({
           id={o.id}
           name={o.name}
           handCount={o.handCount}
-          discardedCount={o.discarded.length}
+          discarded={o.discarded}
           eliminated={o.eliminated}
           protected={o.protected}
           active={view.currentPlayerId === o.id}
@@ -205,6 +231,7 @@ export function PlayerPanels({
           targetMode={targetMode}
           seenRank={view.you?.seen?.[o.id]}
           onSelect={() => onSelectTarget(o.id)}
+          onZoomDiscard={onZoomDiscard}
         />
       ))}
     </div>

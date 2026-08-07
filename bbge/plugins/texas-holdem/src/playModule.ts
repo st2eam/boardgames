@@ -1,6 +1,6 @@
 import type { PluginPlayModule } from "@bbge/ui";
-import { createMockTexasHoldemSeat } from "@bbge/ai";
 import { texasHoldemPlugin } from "./plugin";
+import { createAggressiveHoldemSeat } from "./mockSeat";
 import { TexasHoldemTable } from "./ui/TexasHoldemTable";
 import { formatHoldemEvents } from "./ui/formatEvents";
 
@@ -9,6 +9,6 @@ export const texasHoldemPlayModule: PluginPlayModule = {
   plugin: texasHoldemPlugin as PluginPlayModule["plugin"],
   Table: TexasHoldemTable,
   formatEvents: formatHoldemEvents,
-  createMockSeat: createMockTexasHoldemSeat,
+  createMockSeat: createAggressiveHoldemSeat,
   roomIdPrefix: "th",
 };

@@ -25,12 +25,18 @@ export function createDeepSeekTexasHoldemSeat(
       const retryBlock = retry
         ? `\n\nREJECTED illegal action. Error: ${retry.error}\nRejected:\n${JSON.stringify(retry.rejectedAction)}\nReturn a DIFFERENT legal action.`
         : "";
-      const prompt = `You are seat ${id} in No-Limit Texas Hold'em (one cash hand).
-Use view.legal for allowed moves. Actions:
+      const prompt = `You are seat ${id} in No-Limit Texas Hold'em (cash hand). Play LOOSE-AGGRESSIVE for fun.
+Use view.legal only. Actions:
 {"type":"fold"|"check"|"call","playerId":"${id}","payload":{},"speak":"optional"}
 {"type":"raise","playerId":"${id}","payload":{"toAmount":number},"speak":"optional"}
 toAmount = total chips committed THIS STREET after the raise (not the raise delta).
-Optional speak: short first-person (Call / Raise to X / I fold).
+
+Style rules (must follow):
+- Made hand flush / full house / quads / straight / trips / two pair: NEVER open-check if raise is legal. Bet pot-ish or jam. Vs a bet: raise, do not just call/check.
+- Strong pair / overpair / top pair: bet or raise for value; rarely slow-play.
+- Weak air facing a big bet: fold. Do not nit-fold every hand — open-raise decent broadway/pairs.
+- Prefer larger value bets (≈ pot) over min-raise when ahead.
+Optional speak: short first-person trash talk / action line.
 Return ONLY JSON.
 View:\n${JSON.stringify(view)}${retryBlock}`;
 
@@ -46,7 +52,7 @@ View:\n${JSON.stringify(view)}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system:
-                "You play NLHE. Output one legal Action JSON only. Prefer fold/check/call/raise from view.legal.",
+                "You are a splashy NLHE LAG. Output one legal Action JSON only. With flush+ or other strong made hands you MUST bet/raise when legal — never passive check-down.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 512,
             },

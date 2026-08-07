@@ -404,44 +404,67 @@ export function TexasHoldemTable({
                 </button>
               )}
               <div className="flex flex-wrap items-center gap-1.5">
-                <input
-                  type="range"
-                  min={Math.min(view.minRaiseTo, maxRaise)}
-                  max={Math.max(maxRaise, view.minRaiseTo)}
-                  value={Math.min(raiseTo, maxRaise)}
-                  disabled={!interactive || maxRaise <= view.currentBet}
-                  onChange={(e) => setRaiseTo(Number(e.target.value))}
-                  className="w-28 accent-[#C4952A]"
-                />
+                <label className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-600">
+                  <span>{zh ? "加至" : "To"}</span>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min={Math.min(view.minRaiseTo, maxRaise)}
+                    max={Math.max(maxRaise, view.minRaiseTo)}
+                    step={1}
+                    value={Number.isFinite(raiseTo) ? raiseTo : ""}
+                    disabled={!interactive || maxRaise <= view.currentBet}
+                    onChange={(e) => {
+                      const raw = e.target.value;
+                      if (raw === "") {
+                        setRaiseTo(view.minRaiseTo);
+                        return;
+                      }
+                      const n = Number(raw);
+                      if (!Number.isFinite(n)) return;
+                      setRaiseTo(Math.floor(n));
+                    }}
+                    onBlur={() =>
+                      setRaiseTo((v) =>
+                        Math.min(
+                          Math.max(Math.floor(v) || view.minRaiseTo, view.minRaiseTo),
+                          maxRaise,
+                        ),
+                      )
+                    }
+                    className="w-20 rounded-lg border border-border bg-white px-2 py-2 font-heading text-sm font-bold text-primary-dark tabular-nums disabled:opacity-35"
+                  />
+                </label>
                 <button
                   type="button"
                   disabled={!interactive || maxRaise <= view.currentBet}
-                  onClick={() =>
+                  onClick={() => {
+                    const toAmount = Math.min(
+                      Math.max(raiseTo, view.minRaiseTo),
+                      maxRaise,
+                    );
+                    setRaiseTo(toAmount);
                     dispatch({
                       type: "raise",
                       playerId: actorId,
-                      payload: {
-                        toAmount: Math.min(
-                          Math.max(raiseTo, view.minRaiseTo),
-                          maxRaise,
-                        ),
-                      },
-                    })
-                  }
+                      payload: { toAmount },
+                    });
+                  }}
                   className="cursor-pointer rounded-xl bg-accent px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-accent-dark disabled:opacity-35"
                 >
-                  {zh
-                    ? `加注至 ${Math.min(raiseTo, maxRaise)}`
-                    : `Raise to ${Math.min(raiseTo, maxRaise)}`}
+                  {zh ? "加注" : "Raise"}
                 </button>
                 {[2, 3, 4].map((n) => (
                   <button
                     key={n}
                     type="button"
-                    disabled={!interactive}
+                    disabled={!interactive || maxRaise <= view.currentBet}
                     onClick={() =>
                       setRaiseTo(
-                        Math.min(view.potTotal + toCall * n, maxRaise),
+                        Math.min(
+                          Math.max(view.potTotal + toCall * n, view.minRaiseTo),
+                          maxRaise,
+                        ),
                       )
                     }
                     className="cursor-pointer rounded-lg bg-surface px-2 py-1.5 text-[11px] font-bold text-primary-dark hover:bg-primary-light disabled:opacity-35"

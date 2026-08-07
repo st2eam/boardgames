@@ -195,13 +195,13 @@ export function TexasHoldemTable({
             </div>
           </div>
         ) : (
-          <div className="shrink-0 rounded-xl border border-border bg-white/90 px-3 py-2 text-sm text-primary-dark shadow-sm">
-            <p className="font-heading font-semibold">{status}</p>
-            {thinkingId && thinkingDetail ? (
-              <p className="mt-1 max-h-16 overflow-y-auto whitespace-pre-wrap text-[11px] text-stone-500">
-                {thinkingDetail}
-              </p>
-            ) : null}
+          <div className="flex h-14 shrink-0 flex-col justify-center overflow-hidden rounded-xl border border-border bg-white/90 px-3 text-sm text-primary-dark shadow-sm">
+            <p className="truncate font-heading font-semibold leading-tight">
+              {status}
+            </p>
+            <p className="mt-0.5 h-4 truncate text-[11px] leading-tight text-stone-500">
+              {thinkingId && thinkingDetail ? thinkingDetail : "\u00a0"}
+            </p>
           </div>
         )}
 

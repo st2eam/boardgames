@@ -78,6 +78,8 @@ export function TexasHoldemTable({
   const seenLogIds = useRef(new Set<string>());
   const seenChat = useRef(new Set<string>());
   const timers = useRef(new Map<string, number>());
+  const seatsRowRef = useRef<HTMLDivElement>(null);
+  const heroSeatRef = useRef<HTMLDivElement>(null);
   const handNumber = view.handNumber ?? 1;
   const cardSize = mobile ? "md" : "lg";
   const showdownOpen =
@@ -93,6 +95,29 @@ export function TexasHoldemTable({
     for (const t of timers.current.values()) window.clearTimeout(t);
     timers.current.clear();
   }, [handNumber]);
+
+  /** Mobile: keep the acting seat in view (opponents rail or hero chip). */
+  useEffect(() => {
+    if (!mobile || view.phase !== "playing") return;
+    const id = view.currentPlayerId;
+    if (!id) return;
+    const smooth = !reduce;
+    const opts: ScrollIntoViewOptions = {
+      behavior: smooth ? "smooth" : "auto",
+      inline: "center",
+      block: "nearest",
+    };
+    if (id === actorId) {
+      heroSeatRef.current?.scrollIntoView(opts);
+      return;
+    }
+    const row = seatsRowRef.current;
+    if (!row) return;
+    const el = row.querySelector<HTMLElement>(
+      `[data-seat-id="${CSS.escape(id)}"]`,
+    );
+    el?.scrollIntoView(opts);
+  }, [mobile, view.currentPlayerId, view.phase, actorId, reduce, handNumber]);
 
   const showBubble = (seatId: string, id: string, text: string) => {
     const prev = timers.current.get(seatId);

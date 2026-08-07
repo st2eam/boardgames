@@ -116,7 +116,7 @@ GameHeader [开始游戏] → /games/texas-hold-em/play/
 - **Showdown**: center reveal strip; seat hole faces hidden while strip is open (no double boards)
 - **Fold**: cards dim + slide; **bet/raise**: chip stack pulse toward pot
 - Action bar: Fold / Check·Call / Raise (number + slider); **下一手** when finished
-- Mobile: shared `PlaySideSheet` (`70dvh`) + `BattleLogList` auto-scroll; viewport-locked PlayShell
+- Mobile: shared `PlaySideSheet` (`70dvh`) + `BattleLogList` auto-scroll; acting seat scrolls into view in the opponent rail; viewport-locked PlayShell
 
 ---
 

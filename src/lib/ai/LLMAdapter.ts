@@ -42,6 +42,11 @@ export interface ChatParams {
   tools?: ToolDefinition[];
   model?: string;
   maxTokens?: number;
+  /**
+   * DeepSeek V4 defaults to thinking enabled (counts against max_tokens).
+   * Pass `{ type: "disabled" }` for short JSON / Action responses.
+   */
+  thinking?: { type: "enabled" | "disabled" };
 }
 
 /** @deprecated Prefer ChatActivity; kept for simple status fallbacks. */

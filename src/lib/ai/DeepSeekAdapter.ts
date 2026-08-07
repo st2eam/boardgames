@@ -43,6 +43,7 @@ export class DeepSeekAdapter {
       stream: true,
       system: params.system,
       messages: params.messages,
+      ...(params.thinking ? { thinking: params.thinking } : {}),
       ...(params.tools && params.tools.length > 0
         ? { tools: params.tools }
         : {}),

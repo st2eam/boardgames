@@ -42,13 +42,17 @@ View JSON:\n${JSON.stringify(view)}`;
         try {
           let text = "";
           let thinking = "";
+          // V4 thinking is on by default and counts against max_tokens — a 512
+          // budget often finishes with empty content (finishReason: max_tokens).
+          // Play seats need a reliable JSON Action, so disable thinking here.
           const result = await adapter.streamChat(
             {
               model: PLAY_MODEL,
+              thinking: { type: "disabled" },
               system:
                 "You play Love Letter. Output a single JSON action object only. cardId must be from your hand. No prose.",
               messages: [{ role: "user", content: prompt }],
-              maxTokens: 512,
+              maxTokens: 1024,
             },
             (chunk) => {
               if (

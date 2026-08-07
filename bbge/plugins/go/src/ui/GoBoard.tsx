@@ -17,7 +17,21 @@ interface Props {
 
 /** Logical SVG size — CSS scales the element to fill its box. */
 const VIEW = 1000;
-const PADDING = 36;
+/** Stone radius as a fraction of grid spacing. */
+const STONE_RATIO = 0.44;
+/** Extra inset past the stone edge (drop-shadow + stroke + breathing room). */
+const EDGE_EXTRA = 10;
+
+/**
+ * Padding so edge stones (radius + shadow) stay inside the viewBox.
+ * Solves for P in: P >= STONE_RATIO * (VIEW - 2P) / (size-1) + EDGE_EXTRA
+ */
+function paddingForSize(size: number): number {
+  const n = Math.max(1, size - 1);
+  return Math.ceil(
+    (STONE_RATIO * VIEW + EDGE_EXTRA * n) / (n + 2 * STONE_RATIO),
+  );
+}
 
 const STAR_POINTS_9 = [
   [2, 2],
@@ -54,7 +68,8 @@ export function GoBoard({
   ko,
   className = "",
 }: Props) {
-  const spacing = (VIEW - PADDING * 2) / (size - 1);
+  const padding = paddingForSize(size);
+  const spacing = (VIEW - padding * 2) / (size - 1);
 
   const starPoints = useCallback(() => {
     if (size <= 9) return STAR_POINTS_9;
@@ -62,7 +77,7 @@ export function GoBoard({
     return STAR_POINTS_19;
   }, [size]);
 
-  const toSvg = (i: number) => PADDING + i * spacing;
+  const toSvg = (i: number) => padding + i * spacing;
 
   const handleClick = (e: React.MouseEvent<SVGSVGElement>) => {
     if (disabled) return;
@@ -72,21 +87,22 @@ export function GoBoard({
     const y = e.clientY - rect.top;
     const scaleX = VIEW / rect.width;
     const scaleY = VIEW / rect.height;
-    const col = Math.round((x * scaleX - PADDING) / spacing);
-    const row = Math.round((y * scaleY - PADDING) / spacing);
+    const col = Math.round((x * scaleX - padding) / spacing);
+    const row = Math.round((y * scaleY - padding) / spacing);
     if (row >= 0 && row < size && col >= 0 && col < size) {
       onIntersectionClick({ row, col });
     }
   };
 
-  const stoneR = spacing * 0.44;
+  const stoneR = spacing * STONE_RATIO;
+  const shadowOff = Math.min(2.5, stoneR * 0.06);
   const lineW = size >= 19 ? 1.1 : size >= 13 ? 1.3 : 1.6;
   const starR = size >= 19 ? 5 : 6.5;
 
   return (
     <svg
       viewBox={`0 0 ${VIEW} ${VIEW}`}
-      className={`h-full w-full touch-manipulation rounded-lg bg-amber-100 shadow-inner ${
+      className={`h-full w-full touch-manipulation overflow-visible rounded-lg bg-amber-100 shadow-inner ${
         disabled ? "cursor-default" : "cursor-pointer"
       } ${className}`}
       onClick={handleClick}
@@ -142,8 +158,8 @@ export function GoBoard({
         return (
           <g key={`stone-${k}`}>
             <circle
-              cx={cx + 2}
-              cy={cy + 2}
+              cx={cx + shadowOff}
+              cy={cy + shadowOff}
               r={stoneR}
               fill="rgba(0,0,0,0.18)"
             />

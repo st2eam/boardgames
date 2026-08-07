@@ -12,7 +12,18 @@ interface Props {
   solutionStones?: Coord[] | null;
 }
 
-const PADDING = 24;
+const VIEW = 320;
+const STONE_RATIO = 0.44;
+const EDGE_EXTRA = 6;
+
+/** Keep edge stones inside the viewBox (radius + shadow). */
+function paddingForSize(size: number): number {
+  const n = Math.max(1, size - 1);
+  return Math.ceil(
+    (STONE_RATIO * VIEW + EDGE_EXTRA * n) / (n + 2 * STONE_RATIO),
+  );
+}
+
 const STAR_POINTS_9 = [
   [2, 2], [2, 6], [4, 4], [6, 2], [6, 6],
 ];
@@ -25,8 +36,8 @@ const STAR_POINTS_19 = [
 ];
 
 export function GoBoard({ size, stones, onIntersectionClick, disabled, lastMove, solutionStones }: Props) {
-  const viewSize = 320;
-  const spacing = (viewSize - PADDING * 2) / (size - 1);
+  const padding = paddingForSize(size);
+  const spacing = (VIEW - padding * 2) / (size - 1);
 
   const getStarPoints = useCallback(() => {
     if (size <= 9) return STAR_POINTS_9;
@@ -34,7 +45,7 @@ export function GoBoard({ size, stones, onIntersectionClick, disabled, lastMove,
     return STAR_POINTS_19;
   }, [size]);
 
-  const toSvg = (i: number) => PADDING + i * spacing;
+  const toSvg = (i: number) => padding + i * spacing;
 
   const handleClick = (e: React.MouseEvent<SVGSVGElement>) => {
     if (disabled) return;
@@ -42,26 +53,27 @@ export function GoBoard({ size, stones, onIntersectionClick, disabled, lastMove,
     const rect = svg.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const scaleX = viewSize / rect.width;
-    const scaleY = viewSize / rect.height;
-    const col = Math.round((x * scaleX - PADDING) / spacing);
-    const row = Math.round((y * scaleY - PADDING) / spacing);
+    const scaleX = VIEW / rect.width;
+    const scaleY = VIEW / rect.height;
+    const col = Math.round((x * scaleX - padding) / spacing);
+    const row = Math.round((y * scaleY - padding) / spacing);
     if (row >= 0 && row < size && col >= 0 && col < size) {
       onIntersectionClick({ row, col });
     }
   };
 
   const starPoints = getStarPoints();
-  const stoneR = spacing * 0.44;
+  const stoneR = spacing * STONE_RATIO;
+  const shadowOff = Math.min(1.5, stoneR * 0.06);
 
   return (
     <svg
-      viewBox={`0 0 ${viewSize} ${viewSize}`}
-      className="w-full max-w-[320px] cursor-pointer rounded-lg bg-amber-100 shadow-inner"
+      viewBox={`0 0 ${VIEW} ${VIEW}`}
+      className="w-full max-w-[320px] cursor-pointer overflow-visible rounded-lg bg-amber-100 shadow-inner"
       onClick={handleClick}
     >
       {/* Board background */}
-      <rect x={0} y={0} width={viewSize} height={viewSize} rx={8} fill="#e8c26a" />
+      <rect x={0} y={0} width={VIEW} height={VIEW} rx={8} fill="#e8c26a" />
 
       {/* Grid lines */}
       {Array.from({ length: size }, (_, i) => (
@@ -106,7 +118,7 @@ export function GoBoard({ size, stones, onIntersectionClick, disabled, lastMove,
         return (
           <g key={`stone-${k}`}>
             {/* Shadow */}
-            <circle cx={cx + 1.5} cy={cy + 1.5} r={stoneR} fill="rgba(0,0,0,0.15)" />
+            <circle cx={cx + shadowOff} cy={cy + shadowOff} r={stoneR} fill="rgba(0,0,0,0.15)" />
             {/* Stone */}
             <circle
               cx={cx} cy={cy} r={stoneR}

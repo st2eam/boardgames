@@ -350,7 +350,17 @@ export function createAggressiveHoldemSeat(id: PlayerId): AiSeat {
       }
 
       progress(note);
-      return { action: act(id, view, plan) };
+      const action = act(id, view, plan);
+      // Casual Chinese table talk (action JSON types stay English).
+      const speakByPlan: Record<Aggression, string> = {
+        fold: "不要了",
+        check: "过",
+        call: "跟",
+        value: "再加一点",
+        pot: "加压",
+        jam: "全下",
+      };
+      return { action, speak: speakByPlan[plan] };
     },
   };
 }

@@ -259,8 +259,8 @@ export function GoTable({
   return (
     <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-surface">
       {/* Compact chrome — board gets the rest */}
-      <div className="flex min-h-9 shrink-0 items-start gap-1.5 border-b border-border/70 bg-white/90 px-1.5 py-1 sm:gap-2 sm:px-2">
-        <div className="flex min-w-0 flex-1 flex-wrap items-start gap-2 overflow-visible text-[11px] sm:text-xs">
+      <div className="flex h-[4.25rem] shrink-0 items-center gap-1.5 border-b border-border/70 bg-white/90 px-1.5 sm:h-[4.5rem] sm:gap-2 sm:px-2">
+        <div className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto overflow-y-visible text-[11px] sm:text-xs">
           {view.seats.map((s) => {
             const bubble = bubbles[s.id];
             const active =
@@ -268,38 +268,37 @@ export function GoTable({
             return (
               <div
                 key={s.id}
-                className={`relative inline-flex min-w-[5.5rem] max-w-[9rem] flex-col rounded-md px-1.5 py-0.5 ${
+                className={`relative inline-flex h-[3.75rem] w-[6.5rem] shrink-0 flex-col justify-end rounded-md px-1.5 pb-0.5 ${
                   active ? "bg-sky-100 text-sky-950" : "text-stone-600"
                 }`}
               >
-                <AnimatePresence>
-                  {bubble && (
-                    <motion.div
-                      key={bubble.id}
-                      initial={{ opacity: 0, y: 4, scale: 0.96 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -2 }}
-                      className="relative z-10 mb-0.5 w-full rounded-lg bg-[#3E2723] px-1.5 py-0.5 text-center font-heading text-[10px] font-bold leading-snug text-amber-50 shadow-sm"
-                    >
-                      <span className="line-clamp-2 break-words">
-                        {bubble.text}
-                      </span>
-                      <span
-                        aria-hidden
-                        className="absolute left-1/2 top-full -mt-px -translate-x-1/2 border-x-[5px] border-t-[5px] border-x-transparent border-t-[#3E2723]"
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                <span className="inline-flex items-center gap-1">
+                {/* Fixed slot so speak on/off does not resize the chrome */}
+                <div className="relative mb-0.5 h-8 w-full shrink-0">
+                  <AnimatePresence>
+                    {bubble && (
+                      <motion.div
+                        key={bubble.id}
+                        initial={{ opacity: 0, y: 2 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden rounded-lg bg-[#3E2723] px-1 text-center font-heading text-[10px] font-bold leading-tight text-amber-50 shadow-sm"
+                      >
+                        <span className="line-clamp-2 break-words">
+                          {bubble.text}
+                        </span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+                <span className="inline-flex h-4 items-center gap-1">
                   <span
-                    className={`inline-block h-2 w-2 rounded-full ${
+                    className={`inline-block h-2 w-2 shrink-0 rounded-full ${
                       s.color === "black"
                         ? "bg-stone-900"
                         : "bg-white ring-1 ring-stone-400"
                     }`}
                   />
-                  <span className="max-w-[4.5rem] truncate font-medium">
+                  <span className="max-w-[3.75rem] truncate font-medium">
                     {nameOf?.(s.id) ?? s.name}
                   </span>
                   <span className="text-stone-400">{s.captures}</span>

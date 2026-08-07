@@ -746,24 +746,22 @@ function SeatChip({
       }}
       transition={{ duration: 0.25 }}
     >
-      {/* Inside chip: parent overflow clips absolute -top bubbles on mobile. */}
-      <AnimatePresence>
-        {bubble && (
-          <motion.div
-            key={bubble.id}
-            initial={{ opacity: 0, y: 4, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -2 }}
-            className="relative z-10 mb-1 w-full rounded-lg bg-[#3E2723] px-1.5 py-0.5 text-center font-heading text-[10px] font-bold leading-snug text-amber-50 shadow-sm sm:px-2 sm:py-1 sm:text-[11px]"
-          >
-            <span className="line-clamp-2 break-words">{bubble.text}</span>
-            <span
-              aria-hidden
-              className="absolute left-1/2 top-full -mt-px -translate-x-1/2 border-x-[5px] border-t-[5px] border-x-transparent border-t-[#3E2723]"
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Fixed-height slot — speak on/off must not resize the seat chip. */}
+      <div className="relative mb-1 h-8 w-full shrink-0 sm:h-9">
+        <AnimatePresence>
+          {bubble && (
+            <motion.div
+              key={bubble.id}
+              initial={{ opacity: 0, y: 2 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden rounded-lg bg-[#3E2723] px-1.5 text-center font-heading text-[10px] font-bold leading-tight text-amber-50 shadow-sm sm:px-2 sm:text-[11px]"
+            >
+              <span className="line-clamp-2 break-words">{bubble.text}</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
       <div className="flex items-center justify-between gap-1">
         <div className="flex min-w-0 items-center gap-1">
           {(seat.isButton || seat.isSmallBlind || seat.isBigBlind) && (

@@ -805,8 +805,13 @@ export function PlayShell({
     }): Promise<boolean> => {
       const current = decided.playerId;
       const fresh = s.getView(current) as AiActorView;
-      if (!fresh.legal?.length) return true;
-      if (fresh.phase === "selecting" && fresh.you?.hasPlayed) return true;
+      // Only games that expose `legal[]` (holdem / 6 nimmt) use this skip.
+      // Love Letter has no legal[] — `!undefined?.length` used to return true
+      // without submitAction, so AI spun forever appending “正在思考…”.
+      if (Array.isArray(fresh.legal)) {
+        if (!fresh.legal.length) return true;
+        if (fresh.phase === "selecting" && fresh.you?.hasPlayed) return true;
+      }
 
       let action = decided.action;
       let speak = decided.speak;

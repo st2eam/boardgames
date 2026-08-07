@@ -1,6 +1,6 @@
 import type { PluginPlayModule } from "@bbge/ui";
-import { createMockGoSeat } from "@bbge/ai";
 import { goPlugin } from "./plugin";
+import { createStrategicGoSeat } from "./mockSeat";
 import { GoTable } from "./ui/GoTable";
 import { formatGoEvents } from "./ui/formatEvents";
 
@@ -9,6 +9,6 @@ export const goPlayModule: PluginPlayModule = {
   plugin: goPlugin as PluginPlayModule["plugin"],
   Table: GoTable,
   formatEvents: formatGoEvents,
-  createMockSeat: createMockGoSeat,
+  createMockSeat: createStrategicGoSeat,
   roomIdPrefix: "go",
 };

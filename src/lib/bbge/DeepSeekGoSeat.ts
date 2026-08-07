@@ -61,8 +61,13 @@ export function createDeepSeekGoSeat(
         : `speak: required short English teaching comment (one sentence).`;
 
       const prompt = zh
-        ? `你是座位 ${id}，在下围棋，棋力大约业余俱乐部水平，同时是耐心陪练。
-优先厚势与本手；少填自己的眼；有利可提则提；局面已基本定型才停着。
+        ? `你是座位 ${id}，业余俱乐部偏强的真人棋风：会算局部、会抢先手，也会收官。
+思路：
+- 能提子/打吃优先考虑；对方挂棋要应。
+- 序盘占角占边（三·三三/星位点附近），勿乱金井。
+- 中盘跟着上一手附近战斗，兼顾厚味与眼位；别随手填自己的眼。
+- 官子阶段抢大官；双方已基本定型、无明显收益再停着。
+- 不要无故认输。
 动作 JSON（只输出 JSON）：
 {"type":"play","playerId":"${id}","payload":{"row":number,"col":number},"speak":"中文短评"}
 {"type":"pass","playerId":"${id}","payload":{},"speak":"中文短评"}
@@ -71,8 +76,8 @@ row/col 为从盘面左上角起的 0-based 坐标（对应 view.boardAscii / vi
 若 view.legal 含 play 条目则从中选；否则根据 boardAscii 选空点。
 ${speakRule}
 View:\n${JSON.stringify(slimViewForLlm(view))}${retryBlock}`
-        : `You are seat ${id} playing Go (Weiqi) as a patient club-strength opponent / teaching partner.
-Prefer solid shape; avoid filling your own eyes; capture when profitable; pass only when the game looks finished.
+        : `You are seat ${id}: a strong club-level human Go player — tactical, purposeful, not random.
+Priorities: capture / atari when available; answer local threats; open in corners/sides; midgame fight near the last move with solid shape; endgame picks big points; pass only when settled. Do not resign casually. Avoid filling your own eyes.
 Actions:
 {"type":"play","playerId":"${id}","payload":{"row":number,"col":number},"speak":"short comment"}
 {"type":"pass","playerId":"${id}","payload":{},"speak":"short comment"}
@@ -95,8 +100,8 @@ View:\n${JSON.stringify(slimViewForLlm(view))}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system: zh
-                ? "你下围棋并陪练。只输出一个合法 Action 的 JSON。speak 字段必须用简体中文短句。"
-                : "You play Go. Output one legal Action JSON. speak must be a brief English teaching line.",
+                ? "你是有思路的真人围棋对手：算局部、占角边、该提则提。只输出一个合法 Action JSON；speak 用简体中文短句。"
+                : "You are a purposeful human Go opponent. Output one legal Action JSON; speak is a brief English line.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 512,
             },

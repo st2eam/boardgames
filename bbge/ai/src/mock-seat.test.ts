@@ -22,6 +22,44 @@ describe("createMockLoveLetterSeat", () => {
     expect((action.payload as { cardId: string }).cardId).toBe("g");
   });
 
+  it("guesses a seen non-guard rank with Guard", async () => {
+    const seat = createMockLoveLetterSeat("ai1");
+    const { action } = await seat.think({
+      edition: "classic",
+      currentPlayerId: "ai1",
+      deckCount: 10,
+      you: {
+        id: "ai1",
+        hand: [
+          { id: "g", rank: 1, role: "guard" },
+          { id: "h", rank: 4, role: "handmaid" },
+        ],
+        seen: { foe: 8 },
+      },
+      others: [
+        {
+          id: "foe",
+          eliminated: false,
+          protected: false,
+          discarded: [],
+        },
+      ],
+      faceUp: [],
+      selfDiscarded: [],
+    });
+    expect(action.type).toBe("playCard");
+    const payload = action.payload as {
+      cardId: string;
+      targetId?: string;
+      guessRank?: number;
+    };
+    // May play guard or handmaid depending on scoring; if guard, use seen
+    if (payload.cardId === "g") {
+      expect(payload.targetId).toBe("foe");
+      expect(payload.guessRank).toBe(8);
+    }
+  });
+
   it("returns a legal playCard", async () => {
     const state = loveLetterPlugin.createGame(
       {

@@ -50,16 +50,22 @@ export function createDeepSeekLoveLetterSeat(
       const retryBlock = retry
         ? `\n\nIMPORTANT — your previous action was REJECTED as illegal.\nError: ${retry.error}\nRejected action JSON:\n${JSON.stringify(retry.rejectedAction)}\nFix the mistake and return a DIFFERENT legal action for the same view. Do not repeat the illegal move.`
         : "";
-      const prompt = `You are seat ${id} in Love Letter. view.edition is one of:
-- "classic": 16 cards, ranks 1–8 Princess, no Spy/Chancellor, 2–4 players
-- "full": 21 cards, Spy…Princess=9, Chancellor, 2–6 players
-- "expansion": 37 cards = full + Bishop/Dowager/Constable/Count/Sycophant/Baroness/Cardinal/Jester/Assassin (+3 Guard); keep Spy+Chancellor; 2–8 players; shared ranks; use card.role
-Choose ONE legal action. Effects use role (not unique ranks). Guard/Bishop guess a number ≠1.
-CRITICAL: Never play the Princess (role princess / highest princess rank) unless it is your ONLY card — playing her knocks you out. Prefer any other hand card.
-Return ONLY JSON (action required). Optional speak:
+      const prompt = `You are seat ${id} in Love Letter — play like a sharp, human table player (deduction + timing), not a random bot.
+Editions: classic (1–8) | full (Spy…Princess=9 + Chancellor) | expansion (full + Bishop etc; use card.role).
+Choose ONE legal action. Guard/Bishop guess ≠1.
+
+Strategy:
+- NEVER play Princess unless it is your ONLY card.
+- Keep high power (King/Countess/Prince/Princess); spend Guards/Priests for info; Handmaid to protect a strong hold.
+- Guard/Bishop: use you.seen and discarded piles; guess ranks still in play (Princess/King/Prince first).
+- Baron/Baroness: only challenge when you are likely higher; otherwise gather info.
+- Prince: force out likely high threats late; King: steal strong known hands.
+- Chancellor: keep the highest held card.
+- Late deck: tighten; early: peek and set up.
+
+Return ONLY JSON. Optional speak (short table talk):
 {"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","targetIds":["..."]?,"guessRank":number?,"peekTargetId":"...?"},"speak":"..."}
 or chancellor / acknowledgePriest (bishopRedraw may include "redraw":true|false).
-speak: one short first-person sentence. No illegal moves.
 View JSON:\n${JSON.stringify(view)}${retryBlock}`;
 
       let lastErr = "ai failed";
@@ -78,7 +84,7 @@ View JSON:\n${JSON.stringify(view)}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system:
-                "You play Love Letter. Output JSON only: a legal action, optionally with speak (table talk). cardId must be from your hand. Never play Princess unless it is your only card. No prose outside JSON.",
+                "You are a clever Love Letter player. Output JSON only: one legal action (+ optional speak). Deduce from discards/seen; protect power cards; never volunteer Princess unless it is your only card.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 1024,
             },

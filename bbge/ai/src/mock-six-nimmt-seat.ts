@@ -38,7 +38,10 @@ function rowHeads(row: { bullheads: number }[]): number {
   return row.reduce((s, c) => s + c.bullheads, 0);
 }
 
-/** Prefer mid cards that fit without taking; too-low → cheapest row. */
+/**
+ * Human-like 6 nimmt! seat: avoid 5th-card traps, tight fits,
+ * dump dangerous bullheads when forced, hold control highs.
+ */
 export function createMockSixNimmtSeat(id: PlayerId): AiSeat {
   return {
     id,
@@ -48,7 +51,7 @@ export function createMockSixNimmtSeat(id: PlayerId): AiSeat {
       const legal = view.legal ?? [];
 
       if (view.phase === "specials") {
-        progress("本地启发式：开始放置");
+        progress("策略：开始放置");
         return {
           action: {
             type: "beginPlace",
@@ -66,14 +69,18 @@ export function createMockSixNimmtSeat(id: PlayerId): AiSeat {
         for (const a of picks) {
           const card = pool.find((c) => c.id === a.cardId);
           if (!card) continue;
-          const score = -card.bullheads - Math.abs(card.value - 52) * 0.02;
+          // Prefer flexible mids, punish heavy bullheads / extremes
+          let score = 10 - card.bullheads * 3;
+          score -= Math.abs(card.value - 55) * 0.03;
+          if (card.value >= 100) score -= 4;
+          if (card.value <= 10) score -= 1;
           if (score > bestScore) {
             bestScore = score;
             bestId = card.id;
           }
         }
         if (!bestId) throw new Error("no draft pick");
-        progress("本地启发式：选牌");
+        progress("策略：选灵活中牌");
         return {
           action: {
             type: "draftPick",
@@ -86,15 +93,17 @@ export function createMockSixNimmtSeat(id: PlayerId): AiSeat {
       if (view.phase === "chooseRow") {
         const rows = view.rows ?? [];
         let best = 0;
-        let bestH = Infinity;
+        let bestScore = Infinity;
         for (let i = 0; i < rows.length; i++) {
-          const h = rowHeads(rows[i] ?? []);
-          if (h < bestH) {
-            bestH = h;
+          const row = rows[i] ?? [];
+          // Fewest heads, then shortest row (less future risk signal)
+          const score = rowHeads(row) * 10 + row.length;
+          if (score < bestScore) {
+            bestScore = score;
             best = i;
           }
         }
-        progress(`本地启发式：收牛头最少行 ${best + 1}`);
+        progress(`策略：收牛最少行 ${best + 1}`);
         return {
           action: {
             type: "chooseRow",
@@ -107,6 +116,7 @@ export function createMockSixNimmtSeat(id: PlayerId): AiSeat {
       const plays = legal.filter((a) => a.type === "playCard" && a.cardId);
       const hand = view.you?.hand ?? [];
       const rows = view.rows ?? [];
+      const handSize = hand.length;
 
       let bestId = plays[0]?.cardId;
       let bestFlip = false;
@@ -117,20 +127,43 @@ export function createMockSixNimmtSeat(id: PlayerId): AiSeat {
         const value = a.flip && card.flipTo != null ? card.flipTo : card.value;
         let score = 0;
         const fits = rows
-          .map((r, i) => ({ i, end: rowEnd(r), len: r.length }))
+          .map((r, i) => ({
+            i,
+            end: rowEnd(r),
+            len: r.length,
+            heads: rowHeads(r),
+          }))
           .filter((r) => value > r.end);
+
         if (fits.length === 0) {
-          score = -50 - card.bullheads;
+          // Will choose a row — heavily punish own bullheads
+          score = -80 - card.bullheads * 6;
+          // Prefer forcing a take with a low card if hand is large
+          if (handSize >= 6) score += 5;
         } else {
-          const best = fits.reduce((p, c) =>
-            value - c.end < value - p.end ? c : p,
-          );
-          score = 20 - (value - best.end);
-          if (best.len >= 4) score -= 30;
-          score -= card.bullheads;
+          const best = fits.reduce((p, c) => {
+            const gapP = value - p.end;
+            const gapC = value - c.end;
+            if (c.len >= 5) return p;
+            if (p.len >= 5) return c;
+            // Prefer smallest gap; avoid 5th slot (len===4)
+            const penP = (p.len >= 4 ? 100 : 0) + gapP + p.heads * 0.2;
+            const penC = (c.len >= 4 ? 100 : 0) + gapC + c.heads * 0.2;
+            return penC < penP ? c : p;
+          });
+          const gap = value - best.end;
+          score = 40 - gap;
+          if (best.len >= 4) score -= 55; // avoid completing the row
+          if (best.len === 3 && gap <= 3) score -= 8; // leave bait carefully
+          score -= card.bullheads * 1.5;
+          // Keep very high control cards longer when many cards remain
+          if (value >= 90 && handSize >= 5) score -= 12;
+          if (value >= 80 && handSize >= 7) score -= 6;
         }
-        score -= Math.abs(value - 52) * 0.02;
-        if (a.flip) score += 2; // slight preference when it helps
+        if (a.flip) {
+          // Only flip when it clearly improves fit / avoids take
+          score += fits.length ? 4 : 10;
+        }
         if (score > bestScore) {
           bestScore = score;
           bestId = card.id;
@@ -139,14 +172,13 @@ export function createMockSixNimmtSeat(id: PlayerId): AiSeat {
       }
 
       if (!bestId) throw new Error("no legal six-nimmt action");
-      progress("本地启发式：出牌");
+      progress("策略：安全贴牌 / 躲第五张");
       return {
         action: {
           type: "playCard",
           playerId: id,
           payload: { cardId: bestId, flip: bestFlip || undefined },
         } as Action,
-        speak: undefined,
       };
     },
   };

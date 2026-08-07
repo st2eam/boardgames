@@ -11,13 +11,17 @@ type View = {
   size?: number;
   currentPlayerId?: string | null;
   toActColor?: string | null;
+  consecutivePasses?: number;
   you?: { id: string; color: string; captures: number } | null;
-  seats?: { id: string; color: string; captures: number }[];
   legal?: Legal[];
   lastMove?: { row: number; col: number } | null;
+  stones?: Record<string, "black" | "white">;
 };
 
-/** Prefer near last move / center; occasionally pass when board is dense. */
+/**
+ * Fallback Go seat (no board engine import). Prefer plugin
+ * `createStrategicGoSeat` in play.
+ */
 export function createMockGoSeat(id: PlayerId): AiSeat {
   return {
     id,
@@ -31,7 +35,7 @@ export function createMockGoSeat(id: PlayerId): AiSeat {
       }[];
 
       if (view.phase === "finished" || !legal.length) {
-        progress("本地启发式：停着");
+        progress("策略：停着");
         return {
           action: { type: "pass", playerId: id, payload: {} } as Action,
         };
@@ -40,21 +44,33 @@ export function createMockGoSeat(id: PlayerId): AiSeat {
       const size = view.size ?? 9;
       const mid = (size - 1) / 2;
       const last = view.lastMove;
+      const color = view.you?.color ?? view.toActColor ?? "black";
+      const opp = color === "black" ? "white" : "black";
+      const stones = view.stones ?? {};
+
       let best = legal[0]!;
       let bestScore = -Infinity;
 
       for (const m of legal) {
         let score = 0;
-        // Prefer nearer to last move (local fights)
         if (last) {
           const d = Math.abs(m.row - last.row) + Math.abs(m.col - last.col);
           score += Math.max(0, 8 - d) * 3;
         }
-        // Mild center preference early
-        const distMid =
-          Math.abs(m.row - mid) + Math.abs(m.col - mid);
-        score += Math.max(0, size - distMid);
-        // Tiny jitter for variety (deterministic-ish from coords)
+        // Adjacent to opponent stone ≈ fight / atari pressure proxy
+        for (const [dr, dc] of [
+          [-1, 0],
+          [1, 0],
+          [0, -1],
+          [0, 1],
+        ] as const) {
+          if (stones[`${m.row + dr},${m.col + dc}`] === opp) score += 8;
+          if (stones[`${m.row + dr},${m.col + dc}`] === color) score += 2;
+        }
+        const edge = Math.min(m.row, m.col, size - 1 - m.row, size - 1 - m.col);
+        if (edge === 2 || edge === 3) score += 6;
+        const distMid = Math.abs(m.row - mid) + Math.abs(m.col - mid);
+        score += Math.max(0, size - distMid) * 0.4;
         score += ((m.row * 17 + m.col * 31) % 7) * 0.01;
         if (score > bestScore) {
           bestScore = score;
@@ -62,15 +78,18 @@ export function createMockGoSeat(id: PlayerId): AiSeat {
         }
       }
 
-      // Pass only when almost no plays left (teaching autopilot)
-      if (legal.length <= 2 && legal.length < size * size * 0.05) {
-        progress("本地启发式：停着");
+      if (
+        (view.consecutivePasses ?? 0) >= 1 &&
+        legal.length < size &&
+        bestScore < 10
+      ) {
+        progress("策略：停着");
         return {
           action: { type: "pass", playerId: id, payload: {} } as Action,
         };
       }
 
-      progress(`本地启发式：落子 ${best.row},${best.col}`);
+      progress(`策略：落子 ${best.row},${best.col}`);
       return {
         action: {
           type: "play",

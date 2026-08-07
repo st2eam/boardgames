@@ -25,11 +25,20 @@ export function createDeepSeekSixNimmtSeat(
       const retryBlock = retry
         ? `\n\nREJECTED illegal action. Error: ${retry.error}\nRejected:\n${JSON.stringify(retry.rejectedAction)}\nReturn a DIFFERENT legal action.`
         : "";
-      const prompt = `You are seat ${id} in 6 nimmt! (classic). Avoid collecting bullheads.
-Use view.legal. Actions:
-{"type":"playCard","playerId":"${id}","payload":{"cardId":"..."},"speak":"optional"}
+      const prompt = `You are seat ${id} in 6 nimmt! — play like a careful human: minimize bullheads, think ahead.
+Use view.legal only. Actions:
+{"type":"playCard","playerId":"${id}","payload":{"cardId":"...","flip":true?},"speak":"optional"}
 {"type":"chooseRow","playerId":"${id}","payload":{"rowIndex":0|1|2|3},"speak":"optional"}
-When chooseRow: pick the row with fewest bullheads.
+{"type":"draftPick","playerId":"${id}","payload":{"cardId":"..."},"speak":"optional"}
+{"type":"beginPlace","playerId":"${id}","payload":{},"speak":"optional"}
+
+Strategy:
+- Prefer cards that fit a row with the SMALLEST gap; strongly avoid playing the 5th card on a row (you take it).
+- Keep very high "control" cards when your hand is still large; dump awkward mids that would land on len=4 rows.
+- If you must take a row: choose fewest bullheads (then shorter row).
+- Draft: flexible mid values, low bullheads; avoid extreme highs early.
+- Flip tokens only when the flipped face clearly improves the fit.
+
 Return ONLY JSON.
 View:\n${JSON.stringify(view)}${retryBlock}`;
 
@@ -45,7 +54,7 @@ View:\n${JSON.stringify(view)}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system:
-                "You play 6 nimmt!. Output one legal Action JSON only from view.legal.",
+                "You are a thoughtful 6 nimmt! player. Output one legal Action JSON from view.legal. Avoid 5th-card traps; minimize bullheads.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 512,
             },

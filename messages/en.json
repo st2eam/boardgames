@@ -51,7 +51,7 @@
     "gameTitle": "Ask about {game}",
     "placeholder": "Ask about rules...",
     "goTutorTitle": "Go Teacher",
-    "goTutorPlaceholder": "Ask about rules, shape, this tsumego…",
+    "goTutorPlaceholder": "Ask about rules, this position, shape…",
     "goTutorHint": "Try asking your teacher",
     "setApiKey": "Set API Key",
     "apiKeyDescription": "Enter your DeepSeek API key to enable the chat assistant. Your key is stored locally and never sent to our servers.",

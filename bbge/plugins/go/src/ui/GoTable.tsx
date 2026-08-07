@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { PluginTableProps } from "@bbge/ui";
-import { ChatToggle } from "@/components/chat/ChatToggle";
+import { GoTutorPanel } from "@/components/chat/GoTutorPanel";
 import {
   formatGoPlayContext,
   goTutorSuggestedPrompts,
@@ -57,13 +57,10 @@ export function GoTable({
   onAction,
   onRematch,
   playLog = [],
-  chat = [],
-  onChat,
   nameOf,
 }: PluginTableProps) {
   const zh = locale === "zh";
   const view = viewUnknown as GoView;
-  const [chatText, setChatText] = useState("");
   const [confirmResign, setConfirmResign] = useState(false);
 
   const isMyTurn =
@@ -99,6 +96,11 @@ export function GoTable({
       locale,
     });
   }, [view, locale]);
+
+  const suggestedPrompts = useMemo(
+    () => goTutorSuggestedPrompts(locale, "play"),
+    [locale],
+  );
 
   const status = useMemo(() => {
     if (view.phase === "finished") {
@@ -238,84 +240,43 @@ export function GoTable({
 
         <p className="max-w-[480px] text-center text-[11px] leading-relaxed text-stone-500">
           {zh
-            ? "右下角「围棋老师」可边下边问；老师能看到当前棋盘。双方停着后按数目法估算胜负（教学简化）。"
-            : "Use Go Teacher (bottom-right) while you play — it sees this board. Two passes → simplified area score."}
+            ? "右侧可问「围棋老师」（能看到当前棋盘）。双方停着后按数目法估算胜负（教学简化）。"
+            : "Ask the Go Teacher in the side panel — it sees this board. Two passes → simplified area score."}
         </p>
       </div>
 
-      <aside className="flex min-h-0 w-full shrink-0 flex-col gap-2 overflow-hidden rounded-2xl border border-border bg-white p-3 shadow-card lg:w-72">
-        <p className="shrink-0 font-heading text-xs font-bold text-stone-500">
-          {zh ? "战报" : "Log"}
-        </p>
-        <div className="min-h-0 flex-1 space-y-1 overflow-y-auto text-[11px] leading-snug">
-          {playLog.length === 0 && (
-            <p className="text-stone-400">{zh ? "对局开始" : "Game start"}</p>
-          )}
-          {playLog.map((e) => (
-            <div
-              key={e.id}
-              className={`whitespace-pre-wrap rounded-md px-1.5 py-1 ${
-                e.tone === "win"
-                  ? "bg-emerald-50 text-emerald-900"
-                  : e.tone === "warn"
-                    ? "bg-amber-50 text-amber-950"
-                    : "bg-surface text-primary-dark"
-              }`}
-            >
-              {e.text}
-            </div>
-          ))}
-        </div>
-
-        {onChat && (
-          <form
-            className="flex shrink-0 gap-1"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const t = chatText.trim();
-              if (!t) return;
-              onChat(t);
-              setChatText("");
-            }}
-          >
-            <input
-              className="min-w-0 flex-1 rounded-lg border border-border px-2 py-1.5 text-xs"
-              value={chatText}
-              onChange={(e) => setChatText(e.target.value)}
-              placeholder={zh ? "桌边闲聊…" : "Table chat…"}
-            />
-            <button
-              type="submit"
-              className="cursor-pointer rounded-lg bg-primary px-2.5 py-1.5 text-xs font-bold text-white"
-            >
-              {zh ? "发送" : "Send"}
-            </button>
-          </form>
-        )}
-        {chat.length > 0 && (
-          <div className="max-h-20 shrink-0 overflow-y-auto text-[10px] text-stone-500">
-            {chat.slice(-6).map((m, i) => (
-              <p key={`${m.at}-${i}`}>
-                <span className="font-semibold">
-                  {nameOf?.(m.playerId) ?? m.playerId}
-                </span>
-                : {m.text}
-              </p>
+      <aside className="flex min-h-0 w-full shrink-0 flex-col gap-2 overflow-hidden rounded-2xl border border-border bg-white p-3 shadow-card lg:w-80">
+        <div className="flex max-h-[28%] min-h-[4.5rem] shrink-0 flex-col overflow-hidden">
+          <p className="mb-1 shrink-0 font-heading text-xs font-bold text-stone-500">
+            {zh ? "战报" : "Log"}
+          </p>
+          <div className="min-h-0 flex-1 space-y-1 overflow-y-auto text-[11px] leading-snug">
+            {playLog.length === 0 && (
+              <p className="text-stone-400">{zh ? "对局开始" : "Game start"}</p>
+            )}
+            {playLog.map((e) => (
+              <div
+                key={e.id}
+                className={`whitespace-pre-wrap rounded-md px-1.5 py-1 ${
+                  e.tone === "win"
+                    ? "bg-emerald-50 text-emerald-900"
+                    : e.tone === "warn"
+                      ? "bg-amber-50 text-amber-950"
+                      : "bg-surface text-primary-dark"
+                }`}
+              >
+                {e.text}
+              </div>
             ))}
           </div>
-        )}
-      </aside>
+        </div>
 
-      <ChatToggle
-        scope={{
-          type: "game",
-          slug: "go",
-          gameName: zh ? "围棋" : "Go",
-          boardContext,
-          suggestedPrompts: goTutorSuggestedPrompts(locale, "play"),
-        }}
-        locale={locale}
-      />
+        <GoTutorPanel
+          locale={locale}
+          boardContext={boardContext}
+          suggestedPrompts={suggestedPrompts}
+        />
+      </aside>
     </div>
   );
 }

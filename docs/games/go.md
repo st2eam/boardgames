@@ -7,7 +7,7 @@
 | **Editions** | **`9x9`** (default) · **`13x13`** · **`19x19`** |
 | **Players** | Exactly **2** |
 | **Play UI** | DOM board (`GoTable` + SVG `GoBoard`) |
-| **Teacher** | Shelf `ChatToggle` + `GoTutorStrategy` with live `boardAscii` |
+| **Teacher** | In-sidebar `GoTutorPanel` + `GoTutorStrategy` (no FAB); live `boardAscii` |
 
 Platform: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/).
 
@@ -15,7 +15,7 @@ Platform: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/bro
 
 ## Goal
 
-Rules / trainer → **开始游戏** → lobby pick board size → human vs AI (or hotseat) → click intersections to play → **围棋老师** FAB for coaching while the game runs.
+Rules / trainer → **开始游戏** → lobby pick board size → human vs AI (or hotseat) → click intersections to play → ask **围棋老师** in the side panel while the game runs.
 
 ---
 
@@ -45,4 +45,4 @@ Rules / trainer → **开始游戏** → lobby pick board size → human vs AI (
 
 - Mock heuristic seat (no API key)
 - Optional `DeepSeekGoSeat` (`deepseek-v4-flash`) for legal Actions + short `speak`
-- **Go Teacher** chat is separate from table chat: tutoring persona with live board context (does not auto-pick moves unless asked)
+- **Go Teacher** lives in the play sidebar input (no floating chat button); tutoring persona with live board context (does not auto-pick moves unless asked)

@@ -1,13 +1,30 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { HostSession, type AiChatMessage, type LobbyState } from "@bbge/runtime";
 import { loveLetterPlugin, type LoveLetterAction } from "@bbge/love-letter";
 import { createMockLoveLetterSeat } from "@bbge/ai";
 import type { AiSeat } from "@bbge/ai";
 import { LobbyView } from "./LobbyView";
-import { LoveLetterTable } from "../../plugins/love-letter/src/ui/LoveLetterTable";
 import { TableChrome } from "./TableChrome";
+
+const LoveLetterTable = dynamic(
+  () =>
+    import("../../plugins/love-letter/src/ui/LoveLetterTable").then(
+      (m) => m.LoveLetterTable,
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-[420px] items-center justify-center rounded-[1.5rem] border-4 border-[#3E2723] bg-[#1a120e]">
+        <p className="font-heading text-sm font-semibold text-accent animate-pulse">
+          Loading table…
+        </p>
+      </div>
+    ),
+  },
+);
 
 export interface PlayShellProps {
   locale: string;

@@ -64,9 +64,11 @@ compose engine components; they do not hardcode colors or one-off chrome.
 
 ## Default stack
 
-TypeScript · React · Vite · PixiJS · Framer Motion · WebRTC · IndexedDB · Immer · Zod
+TypeScript · React · PixiJS · GSAP · Motion · WebRTC · IndexedDB · Immer · Zod  
+(Shelf host: Next static export; BBGE play tables use Pixi canvas, not DOM-only cards.)
 
-Prefer functional updates (Immer). Validate Actions with Zod at boundaries.
+Prefer functional updates (Immer). Validate Actions with Zod at boundaries.  
+Play UIs: `next/dynamic(..., { ssr: false })` for Pixi stages.
 
 ---
 

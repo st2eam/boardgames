@@ -4,10 +4,11 @@ Per-game design for the Browser Board Game Engine playable slice.
 Platform contracts: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/).
 Shelf architecture: [`docs/architecture.md`](../architecture.md).
 
-**Status:** Implementing on `main` (scaffold + Love Letter Full Game plugin + play route live)  
+**Status:** Playable on `main` — PixiJS table + GSAP card motion + Motion HUD  
 **Convention:** Playable game designs live at `docs/games/<slug>.md`.
 
-> Rules engine matches site **Full Game** (Princess = 9, 21 cards incl. Chancellor/Spy), not classic 8-rank only.
+> Rules engine matches site **Full Game** (Princess = 9, 21 cards incl. Chancellor/Spy), not classic 8-rank only.  
+> Play surface: `LoveLetterPixiArena` (WebGL) — not DOM card buttons.
 
 ---
 
@@ -131,10 +132,12 @@ AI turn (Host only):
 
 ### 6.2 UI
 
-- Lobby: seat list, AI controls, ready, copy link
-- Table: seat ring, hand, discard, turn highlight, play/target controls
+- Lobby: React seat cards, AI controls, ready, copy link (non-Pixi)
+- **Table (Playing):** PixiJS WebGL arena + GSAP tweens (`dealIn` / `selectLift` / `moveTo`) + Motion HUD for guess / confirm play
+  - Code: `bbge/plugins/love-letter/src/ui/LoveLetterPixiArena.tsx` + `ui/pixi/*`
+  - Loaded via `next/dynamic(..., { ssr: false })` from `PlayShell`
 - Shared table chat log: AI speech; humans may send short messages too
-- Tokens: Shelf `primary` / `accent` / `surface`; companion UI skills for polish
+- Tokens: Shelf warm wood palette inside procedural card art; Fredoka labels in Pixi `Text`
 - Play CTA: strongest accent button, **first** in header row
 
 ### 6.3 Content bind

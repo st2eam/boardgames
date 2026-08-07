@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   basePath: "/boardgames",
   trailingSlash: true,
   images: { unoptimized: true },
+  transpilePackages: ["pixi.js", "@pixi/react", "gsap"],
   // Allow importing BBGE packages from /bbge outside src/
   experimental: {
     externalDir: true,

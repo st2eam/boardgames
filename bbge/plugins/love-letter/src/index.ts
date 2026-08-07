@@ -6,3 +6,4 @@ export type {
 } from "./state";
 export { RANK_NAME, type CardRank } from "./cards";
 export { projectLoveLetterView } from "./projectView";
+export { LoveLetterTable } from "./ui/LoveLetterTable";

@@ -31,7 +31,8 @@ function mixUnit(seed: string): number {
 }
 
 /**
- * Fallback TAG-ish mock. Prefer plugin `createAggressiveHoldemSeat` in play.
+ * Fallback aggressive / pot-odds mock.
+ * Prefer plugin `createAggressiveHoldemSeat` in play.
  */
 export function createMockTexasHoldemSeat(id: PlayerId): AiSeat {
   return {
@@ -79,36 +80,48 @@ export function createMockTexasHoldemSeat(id: PlayerId): AiSeat {
       };
 
       if (strong && has("raise")) {
-        progress("TAG启发式：价值加压");
+        progress("激进启发式：好牌加压");
         return raise(toCall > pot ? "jam" : toCall > 0 ? "pot" : mix < 0.3 ? "value" : "pot");
       }
 
       if (has("raise") && toCall === 0 && looksPair(hole, board)) {
-        progress("TAG启发式：持续下注");
+        progress("激进启发式：价值下注");
         return raise("value");
       }
 
       if (has("raise") && toCall === 0 && (draw || (air && street === "river" && mix < 0.22))) {
-        progress(draw ? "TAG启发式：半诈唬" : "TAG启发式：河流诈唬");
+        progress(draw ? "激进启发式：听牌加压" : "激进启发式：河流施压");
         return raise("value");
       }
 
-      if (has("raise") && toCall > 0 && toCall <= pot * 0.5 && (strong || draw) && mix < 0.45) {
-        progress("TAG启发式：加注");
+      // Pot-odds: enter or raise when the price is fair
+      if (
+        has("raise") &&
+        toCall > 0 &&
+        toCall <= pot * 0.55 &&
+        (strong || draw || looksPair(hole, board) || toCall <= pot * 0.2) &&
+        mix < 0.5
+      ) {
+        progress("激进启发式：赔率合适加压");
         return raise("value");
       }
 
-      if (has("call") && toCall > 0 && toCall <= pot * 0.35 && (strong || looksPair(hole, board) || draw)) {
-        progress("TAG启发式：跟注");
+      if (
+        has("call") &&
+        toCall > 0 &&
+        toCall <= pot * 0.45 &&
+        (strong || looksPair(hole, board) || draw || toCall <= pot * 0.22)
+      ) {
+        progress("激进启发式：赔率合适跟注");
         return { action: { type: "call", playerId: id, payload: {} } as Action };
       }
 
       if (has("check")) {
-        progress("TAG启发式：过牌");
+        progress("激进启发式：过牌");
         return { action: { type: "check", playerId: id, payload: {} } as Action };
       }
       if (has("fold")) {
-        progress("TAG启发式：弃牌");
+        progress("激进启发式：弃牌");
         return { action: { type: "fold", playerId: id, payload: {} } as Action };
       }
       if (has("call")) {

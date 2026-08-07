@@ -213,7 +213,7 @@ export function GoTable({
           <button
             type="button"
             onClick={() => setSideOpen(true)}
-            className="cursor-pointer rounded-md border border-border bg-white px-2 py-1 text-[11px] font-semibold text-primary-dark hover:bg-stone-50 sm:text-xs"
+            className="min-h-9 cursor-pointer touch-manipulation rounded-md border border-border bg-white px-2.5 py-1.5 text-[11px] font-semibold text-primary-dark hover:bg-stone-50 active:scale-[0.98] sm:text-xs"
           >
             {zh ? "战报" : "Log"}
             {(playLog?.length ?? 0) > 0 || (chat?.length ?? 0) > 0

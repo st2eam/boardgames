@@ -10,6 +10,8 @@ export type ThinkingStatusBannerProps = {
   tone?: ThinkingStatusTone;
   /** AI thinking stream — tap to expand. */
   detail?: string | null;
+  /** Dark felt tables (e.g. CABO). */
+  inverse?: boolean;
   className?: string;
 };
 
@@ -21,12 +23,20 @@ export function ThinkingStatusBanner({
   text,
   tone = "idle",
   detail,
+  inverse = false,
   className,
 }: ThinkingStatusBannerProps) {
   const zh = locale === "zh";
   const [open, setOpen] = useState(false);
-  const bar =
-    tone === "you"
+  const bar = inverse
+    ? tone === "you"
+      ? "border-amber-300/50 bg-amber-950/55 text-amber-50"
+      : tone === "wait"
+        ? "border-sky-300/40 bg-sky-950/50 text-sky-50"
+        : tone === "done"
+          ? "border-emerald-300/40 bg-emerald-950/50 text-emerald-50"
+          : "border-white/20 bg-black/30 text-white"
+    : tone === "you"
       ? "border-accent bg-amber-50 text-amber-950"
       : tone === "wait"
         ? "border-sky-200 bg-sky-50 text-sky-950"
@@ -60,17 +70,24 @@ export function ThinkingStatusBanner({
             tone === "you"
               ? "bg-accent animate-pulse"
               : tone === "wait"
-                ? "bg-sky-500 animate-pulse"
+                ? "bg-sky-400 animate-pulse"
                 : tone === "done"
-                  ? "bg-emerald-500"
-                  : "bg-stone-400",
+                  ? "bg-emerald-400"
+                  : inverse
+                    ? "bg-white/50"
+                    : "bg-stone-400",
           ].join(" ")}
         />
         <div className="min-w-0 flex-1">
           <p className="truncate font-heading text-sm font-semibold leading-tight sm:text-base">
             {text}
           </p>
-          <p className="mt-0.5 truncate text-[11px] leading-tight opacity-55">
+          <p
+            className={[
+              "mt-0.5 truncate text-[11px] leading-tight",
+              inverse ? "text-white/55" : "opacity-55",
+            ].join(" ")}
+          >
             {detail
               ? open
                 ? zh
@@ -85,11 +102,28 @@ export function ThinkingStatusBanner({
       </button>
 
       {detail && open ? (
-        <div className="mt-1.5 max-h-40 overflow-hidden rounded-lg border border-sky-200/80 bg-white p-2.5 text-left shadow-sm sm:max-h-56">
-          <p className="mb-1 font-heading text-[10px] font-bold uppercase tracking-wide text-sky-700">
+        <div
+          className={[
+            "mt-1.5 max-h-40 overflow-hidden rounded-lg p-2.5 text-left shadow-sm sm:max-h-56",
+            inverse
+              ? "border border-white/15 bg-black/40"
+              : "border border-sky-200/80 bg-white",
+          ].join(" ")}
+        >
+          <p
+            className={[
+              "mb-1 font-heading text-[10px] font-bold uppercase tracking-wide",
+              inverse ? "text-sky-200" : "text-sky-700",
+            ].join(" ")}
+          >
             {zh ? "当前思路" : "Current thoughts"}
           </p>
-          <pre className="max-h-32 overflow-y-auto overscroll-contain whitespace-pre-wrap break-words font-sans text-[12px] leading-relaxed text-stone-700 sm:max-h-44">
+          <pre
+            className={[
+              "max-h-32 overflow-y-auto overscroll-contain whitespace-pre-wrap break-words font-sans text-[12px] leading-relaxed sm:max-h-44",
+              inverse ? "text-white/85" : "text-stone-700",
+            ].join(" ")}
+          >
             {detail}
           </pre>
         </div>

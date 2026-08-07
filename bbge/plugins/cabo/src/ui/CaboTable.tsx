@@ -502,7 +502,7 @@ export function CaboTable({
           <button
             type="button"
             onClick={() => setSideOpen(true)}
-            className="rounded-lg border border-white/20 px-2 py-1 text-[11px] hover:bg-white/10"
+            className="min-h-9 cursor-pointer touch-manipulation rounded-lg border border-white/20 px-2.5 py-1.5 text-[11px] font-semibold hover:bg-white/10 active:scale-[0.98]"
           >
             {zh ? "战报" : "Log"}
           </button>
@@ -515,7 +515,7 @@ export function CaboTable({
           text={status}
           tone={statusTone}
           detail={thinkingSet.size > 0 ? thinkingDetail : null}
-          className="border-white/20 bg-black/25 text-white [&_button]:text-white [&_p]:text-white [&_span]:text-white/70"
+          inverse
         />
 
         <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto">

@@ -435,6 +435,18 @@ export function TexasHoldemTable({
                     className="w-20 rounded-lg border border-border bg-white px-2 py-2 font-heading text-sm font-bold text-primary-dark tabular-nums disabled:opacity-35"
                   />
                 </label>
+                <input
+                  type="range"
+                  min={Math.min(view.minRaiseTo, maxRaise)}
+                  max={Math.max(maxRaise, view.minRaiseTo)}
+                  value={Math.min(
+                    Math.max(raiseTo, view.minRaiseTo),
+                    Math.max(maxRaise, view.minRaiseTo),
+                  )}
+                  disabled={!interactive || maxRaise <= view.currentBet}
+                  onChange={(e) => setRaiseTo(Number(e.target.value))}
+                  className="w-28 accent-[#C4952A] disabled:opacity-35"
+                />
                 <button
                   type="button"
                   disabled={!interactive || maxRaise <= view.currentBet}

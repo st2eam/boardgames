@@ -4,7 +4,7 @@ import { createDeepSeekTexasHoldemSeat } from "./DeepSeekTexasHoldemSeat";
 import { createDeepSeekSixNimmtSeat } from "./DeepSeekSixNimmtSeat";
 import { createDeepSeekGoSeat } from "./DeepSeekGoSeat";
 
-type SeatFactory = (id: string, apiKey: string) => AiSeat;
+type SeatFactory = (id: string, apiKey: string, locale?: string) => AiSeat;
 
 const factories: Record<string, SeatFactory> = {
   "love-letter": createDeepSeekLoveLetterSeat,
@@ -13,9 +13,15 @@ const factories: Record<string, SeatFactory> = {
   go: createDeepSeekGoSeat,
 };
 
-/** Shelf-side LLM Action seat for a pluginId (undefined → mock only). */
+/**
+ * Shelf-side LLM Action seat for a pluginId (undefined → mock only).
+ * Locale is closed over so seats can speak in the UI language (Go: zh speak).
+ */
 export function getLlmSeatFactory(
   pluginId: string,
-): SeatFactory | undefined {
-  return factories[pluginId];
+  locale?: string,
+): ((id: string, apiKey: string) => AiSeat) | undefined {
+  const factory = factories[pluginId];
+  if (!factory) return undefined;
+  return (id, apiKey) => factory(id, apiKey, locale);
 }

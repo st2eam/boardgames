@@ -77,7 +77,7 @@ export function PlayPageClient({
         edition={edition}
         roomIdFromUrl={room}
         loadApiKey={loadApiKey}
-        createDeepSeekSeat={getLlmSeatFactory(pluginId)}
+        createDeepSeekSeat={getLlmSeatFactory(pluginId, locale)}
       />
     </div>
   );

@@ -1,5 +1,6 @@
 import type { PlayerId } from "@bbge/core";
 import type { AiDecision, AiSeat, AiThinkOptions } from "@bbge/ai";
+import { chooseGoPolicyAction, type GoPolicyView } from "@bbge/go/policy";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 import { battleLogPromptBlock } from "@/lib/bbge/aiBattleLog";
 
@@ -14,31 +15,9 @@ function extractJson(text: string): unknown {
   return JSON.parse(raw.slice(start, end + 1));
 }
 
-type Legal = { type: string; row?: number; col?: number };
-
-/** Drop huge play lists on 19×19 — model reads boardAscii; host still validates. */
-function slimViewForLlm(view: unknown): unknown {
-  const v = view as {
-    size?: number;
-    legal?: Legal[];
-    boardAscii?: string;
-    ko?: { row: number; col: number } | null;
-  };
-  const plays = (v.legal ?? []).filter((a) => a.type === "play");
-  if (plays.length <= 80) return view;
-  const meta = (v.legal ?? []).filter((a) => a.type !== "play");
-  return {
-    ...v,
-    legal: meta,
-    legalPlayCount: plays.length,
-    note:
-      "legal play list omitted (too many). Pick an empty · on boardAscii that is not suicide/ko; row/col 0-based from top-left.",
-  };
-}
-
 /**
- * Host AiSeat for Go. `locale` controls table-talk language (`speak`).
- * Defaults to Chinese — this product’s primary audience.
+ * Hybrid Go seat: mathematical policy picks the Action; LLM only writes `speak`.
+ * Pure LLM move selection was too weak for playable Go.
  */
 export function createDeepSeekGoSeat(
   id: PlayerId,
@@ -50,105 +29,72 @@ export function createDeepSeekGoSeat(
   return {
     id,
     async think(view: unknown, opts?: AiThinkOptions): Promise<AiDecision> {
-      const retry = opts?.illegalRetry;
-      const retryBlock = retry
-        ? zh
-          ? `\n\n上一手非法，已被拒绝。错误：${retry.error}\n被拒动作：\n${JSON.stringify(retry.rejectedAction)}\n请返回另一个合法动作。`
-          : `\n\nREJECTED illegal action. Error: ${retry.error}\nRejected:\n${JSON.stringify(retry.rejectedAction)}\nReturn a DIFFERENT legal action.`
-        : "";
+      opts?.onProgress?.({
+        note: zh ? "气数/打吃/目数评估中…" : "Liberty / atari / area eval…",
+      });
+      const choice = chooseGoPolicyAction(view as GoPolicyView, id);
+      opts?.onProgress?.({ note: choice.note });
 
-      const speakRule = zh
-        ? `speak 必须用简体中文，1 句短评（约 8–24 字），像陪练老师随口说：点出意图即可，勿长篇。每手都要带 speak。`
-        : `speak: required short English teaching comment (one sentence).`;
       const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
+      const action = choice.action;
+      const v = view as GoPolicyView & { boardAscii?: string; size?: number };
 
       const prompt = zh
-        ? `你是座位 ${id}，业余俱乐部偏强的真人棋风：会算局部、会抢先手，也会收官。
-思路：
-- 能提子/打吃优先考虑；对方挂棋要应。
-- 序盘占角占边（三·三三/星位点附近），勿乱金井。
-- 中盘跟着上一手附近战斗，兼顾厚味与眼位；别随手填自己的眼。
-- 官子阶段抢大官；双方都已收完、局面互定型时再 pass（双方互停结束数子）。
-- 局面明显大劣、已无争夺余地时直接 resign，不要反复 pass 拖时间。
-- 结合战报里双方落子顺序理解战斗脉络。
-动作 JSON（只输出 JSON）：
-{"type":"play","playerId":"${id}","payload":{"row":number,"col":number},"speak":"中文短评"}
-{"type":"pass","playerId":"${id}","payload":{},"speak":"中文短评"}
-{"type":"resign","playerId":"${id}","payload":{},"speak":"中文短评"}
-row/col 为从盘面左上角起的 0-based 坐标（对应 view.boardAscii / view.stones）。
-若 view.legal 含 play 条目则从中选；否则根据 boardAscii 选空点。
-${speakRule}
-View:\n${JSON.stringify(slimViewForLlm(view))}${logBlock}${retryBlock}`
-        : `You are seat ${id}: a strong club-level human Go player — tactical, purposeful, not random.
-Priorities: capture / atari when available; answer local threats; open in corners/sides; midgame fight near the last move with solid shape; endgame picks big points.
-Pass only when both sides are settled (mutual pass to score). If you are clearly lost with no fight left, resign — do not keep passing every turn.
-Avoid filling your own eyes. Use the battle log of moves to follow the fight.
-Actions:
-{"type":"play","playerId":"${id}","payload":{"row":number,"col":number},"speak":"short comment"}
-{"type":"pass","playerId":"${id}","payload":{},"speak":"short comment"}
-{"type":"resign","playerId":"${id}","payload":{},"speak":"short comment"}
-row/col are 0-based from the top-left of view.boardAscii / view.stones.
-If view.legal includes play entries, choose one of them; otherwise pick from boardAscii.
-${speakRule}
-Return ONLY JSON.
-View:\n${JSON.stringify(slimViewForLlm(view))}${logBlock}${retryBlock}`;
+        ? `你是座位 ${id} 的围棋陪练，落子已由气数/打吃/中国规则目数启发式选定，你只负责一句桌边短评。
+已定动作（不要改）：
+${JSON.stringify(action)}
+策略摘要：${choice.note}
+盘面（供你说话参考）：
+${v.boardAscii ?? "(no ascii)"}
+${logBlock}
+只输出 JSON：{"speak":"简体中文短评，约 8–24 字，点出意图，勿长篇，勿改坐标"}`
+        : `You are seat ${id}. The move was chosen by a liberty/atari/area heuristic — you ONLY write table talk.
+Fixed action (do not change):
+${JSON.stringify(action)}
+Policy note: ${choice.note}
+Board:
+${v.boardAscii ?? "(no ascii)"}
+${logBlock}
+Return ONLY JSON: {"speak":"one short English teaching line"}`;
 
-      let lastErr = "ai failed";
-      for (let attempt = 0; attempt < 3; attempt++) {
-        opts?.onProgress?.({
-          note: `deepseek-v4-flash · ${attempt + 1}/3`,
-        });
-        try {
-          let text = "";
-          await adapter.streamChat(
-            {
-              model: PLAY_MODEL,
-              thinking: { type: "disabled" },
-              system: zh
-                ? "你是有思路的真人围棋对手：算局部、占角边、该提则提；大劣时认输，别反复停棋。只输出一个合法 Action JSON；speak 用简体中文短句。"
-                : "You are a purposeful human Go opponent. Resign when clearly lost instead of passing forever. Output one legal Action JSON; speak is a brief English line.",
-              messages: [{ role: "user", content: prompt }],
-              maxTokens: 512,
-            },
-            (chunk) => {
-              if (chunk.content) {
-                text += chunk.content;
-                opts?.onProgress?.({
-                  note: zh ? "生成落子 JSON…" : "Writing move JSON…",
-                  draftText: text,
-                });
-              }
-            },
-          );
-          const obj = extractJson(text) as {
-            type: string;
-            payload?: Record<string, unknown>;
-            speak?: string;
-          };
-          if (!obj?.type) throw new Error("bad shape");
-          const speak =
-            typeof obj.speak === "string" ? obj.speak.trim() : undefined;
-          opts?.onProgress?.({
-            note: zh ? `已决定：${obj.type}` : `Decided: ${obj.type}`,
-            draftText: text,
-            thinkingText: speak,
-          });
-          return {
-            action: {
-              type: obj.type,
-              playerId: id,
-              payload: obj.payload ?? {},
-            },
-            speak,
-          };
-        } catch (e) {
-          lastErr = e instanceof Error ? e.message : "ai error";
-          opts?.onProgress?.({
-            note: zh ? `失败：${lastErr}` : `Failed: ${lastErr}`,
-          });
+      let speak: string | undefined;
+      try {
+        let text = "";
+        await adapter.streamChat(
+          {
+            model: PLAY_MODEL,
+            thinking: { type: "disabled" },
+            system: zh
+              ? "你只输出 JSON：{\"speak\":\"…\"}。不要输出落子，不要改动已定动作。"
+              : 'Output only JSON: {"speak":"..."}. Do not choose a move.',
+            messages: [{ role: "user", content: prompt }],
+            maxTokens: 160,
+          },
+          (chunk) => {
+            if (chunk.content) {
+              text += chunk.content;
+              opts?.onProgress?.({
+                note: zh ? "生成评语…" : "Writing speak…",
+                draftText: text,
+              });
+            }
+          },
+        );
+        const obj = extractJson(text) as { speak?: string };
+        if (typeof obj.speak === "string" && obj.speak.trim()) {
+          speak = obj.speak.trim();
         }
+      } catch {
+        // Speak is optional — policy move still stands.
       }
-      throw new Error(lastErr);
+
+      opts?.onProgress?.({
+        note: zh
+          ? `已定：${action.type}${speak ? " · 有评语" : ""}`
+          : `Decided: ${action.type}${speak ? " · speak" : ""}`,
+        thinkingText: speak,
+      });
+      return { action, speak };
     },
   };
 }

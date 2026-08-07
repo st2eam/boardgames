@@ -32,7 +32,7 @@ All playables use Host-only `AiSeat`: DeepSeek `deepseek-v4-flash` when a key is
 | `love-letter` | Keep power cards; Guard/Bishop use `seen` + discards; Handmaid protects highs; never volunteer Princess | Clever human — deduction + timing + battle log |
 | `texas-holdem` | Aggressive pot-odds: smash strong hands; with air/draws call or raise when the price is right (not tight-TAG) | Same — value hard, enter on pot odds |
 | `six-nimmt` | Avoid 5th-card traps; smallest-gap fits; choose lowest-bullhead rows when forced | Careful human — minimize heads, use log to anticipate rows |
-| `go` | Prefer captures / local answers; opening corners·sides; pass when quiet | Club-strength purposeful opponent (+ in-table Go Teacher) |
+| `go` | Liberty/atari/area policy (+ resign when lost) | Hybrid: policy moves + LLM speak (+ Go Teacher) |
 
 **UI:** battle logs use shared `@bbge/ui` `BattleLogList` + mobile `PlaySideSheet` (`70dvh`).
 

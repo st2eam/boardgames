@@ -14,3 +14,9 @@ export {
 } from "./state";
 export { goEditionOptions, legalActions } from "./rules";
 export { boardToAscii, tryPlay, listLegalPlays } from "./board";
+export {
+  chooseGoPolicyAction,
+  type GoPolicyChoice,
+  type GoPolicyView,
+} from "./policy";
+export { createStrategicGoSeat } from "./mockSeat";

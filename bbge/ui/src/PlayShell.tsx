@@ -679,9 +679,9 @@ export function PlayShell({
   const Table = mod.Table;
 
   return (
-    <div className="space-y-4">
+    <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
       {error && (
-        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-800">
+        <div className="shrink-0 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-800">
           {error}
           <button
             type="button"
@@ -694,31 +694,33 @@ export function PlayShell({
       )}
 
       {phase === "lobby" && isHost && (
-        <LobbyView
-          locale={locale}
-          lobby={lobby}
-          shareUrl={shareUrl}
-          displayName={displayName}
-          onDisplayName={setDisplayName}
-          onAddAi={onAddAi}
-          onAddHotseat={onAddHotseat}
-          onStart={() => void onStart()}
-          onReady={() => {
-            sessionRef.current?.setReady(hostId, true);
-            tick();
-          }}
-        />
+        <div className="min-h-0 flex-1 overflow-hidden">
+          <LobbyView
+            locale={locale}
+            lobby={lobby}
+            shareUrl={shareUrl}
+            displayName={displayName}
+            onDisplayName={setDisplayName}
+            onAddAi={onAddAi}
+            onAddHotseat={onAddHotseat}
+            onStart={() => void onStart()}
+            onReady={() => {
+              sessionRef.current?.setReady(hostId, true);
+              tick();
+            }}
+          />
+        </div>
       )}
 
       {phase === "lobby" && !isHost && (
-        <div className="rounded-3xl border border-border bg-white p-6 shadow-card">
-          <p className="font-heading text-lg font-bold text-primary-dark">
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-white p-5 shadow-card">
+          <p className="shrink-0 font-heading text-lg font-bold text-primary-dark">
             {locale === "zh" ? `加入「${gameName}」` : `Joined “${gameName}”`}
           </p>
-          <p className="mt-1 text-sm text-stone-500">
+          <p className="mt-1 shrink-0 text-sm text-stone-500">
             {locale === "zh" ? "等待房主开战…" : "Waiting for the host to start…"}
           </p>
-          <div className="mt-4 flex flex-wrap gap-3">
+          <div className="mt-3 min-h-0 flex-1 space-y-2 overflow-y-auto">
             {(lobby?.seats ?? []).map((s) => (
               <div
                 key={s.id}
@@ -737,20 +739,22 @@ export function PlayShell({
       )}
 
       {(phase === "playing" || phase === "finished") && view != null ? (
-        <Table
-          locale={locale}
-          view={view}
-          myId={controllingId}
-          disabled={Boolean(thinkingId)}
-          thinkingId={thinkingId}
-          thinkingDetail={thinkingDetail}
-          onAction={onDispatch}
-          onRematch={isHost ? onRematch : undefined}
-          playLog={playLog}
-          chat={chat}
-          onChat={onChat}
-          nameOf={nameOf}
-        />
+        <div className="min-h-0 flex-1 overflow-hidden">
+          <Table
+            locale={locale}
+            view={view}
+            myId={controllingId}
+            disabled={Boolean(thinkingId)}
+            thinkingId={thinkingId}
+            thinkingDetail={thinkingDetail}
+            onAction={onDispatch}
+            onRematch={isHost ? onRematch : undefined}
+            playLog={playLog}
+            chat={chat}
+            onChat={onChat}
+            nameOf={nameOf}
+          />
+        </div>
       ) : null}
     </div>
   );

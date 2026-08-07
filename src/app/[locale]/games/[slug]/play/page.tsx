@@ -53,12 +53,13 @@ export default async function PlayPage({ params }: Props) {
 
   const gameName = meta.name[locale as "en" | "zh"] ?? meta.name.en;
 
+  // Viewport-locked shell: no page scrollbar. Overflow scrolls inside panels.
   return (
-    <div className="mx-auto w-full max-w-6xl px-3 py-6 sm:px-6 lg:px-8">
-      <div className="mb-6">
+    <div className="mx-auto flex h-[calc(100dvh-3.75rem)] w-full max-w-6xl flex-col overflow-hidden px-3 py-2 sm:px-6 lg:px-8">
+      <div className="mb-2 shrink-0">
         <Link
           href={`/${locale}/games/${slug}/`}
-          className="inline-flex items-center gap-1.5 text-sm text-accent hover:text-accent/80 transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-accent transition-colors hover:text-accent/80"
         >
           <svg
             className="h-3.5 w-3.5"
@@ -77,14 +78,20 @@ export default async function PlayPage({ params }: Props) {
           {gameName}
         </Link>
       </div>
-      <Suspense fallback={<p className="text-sm text-stone-500">Loading…</p>}>
-        <PlayPageClient
-          locale={locale}
-          slug={slug}
-          gameName={gameName}
-          pluginId={playConfig.pluginId}
-        />
-      </Suspense>
+      <div className="min-h-0 flex-1 overflow-hidden">
+        <Suspense
+          fallback={
+            <p className="text-sm text-stone-500">Loading…</p>
+          }
+        >
+          <PlayPageClient
+            locale={locale}
+            slug={slug}
+            gameName={gameName}
+            pluginId={playConfig.pluginId}
+          />
+        </Suspense>
+      </div>
     </div>
   );
 }

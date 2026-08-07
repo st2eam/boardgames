@@ -1,9 +1,13 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 export function Footer() {
   const t = useTranslations();
+  const pathname = usePathname();
+  // Play UI is viewport-locked — footer would force a page scrollbar.
+  if (/\/games\/[^/]+\/play\/?$/.test(pathname)) return null;
 
   return (
     <footer className="border-t border-border bg-primary-light/30">

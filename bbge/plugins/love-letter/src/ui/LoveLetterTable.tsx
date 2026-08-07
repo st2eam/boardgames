@@ -323,7 +323,7 @@ export function LoveLetterTable({
   }, [lastDiscard?.id, lastDiscard, animBusy, zh]);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-[#3E2723]/25 bg-[#efe6d8] shadow-card">
+    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/25 bg-[#efe6d8] shadow-card">
       {myPriestReveal && priestPending.rank !== undefined && (
         <PriestRevealModal
           locale={locale}
@@ -353,7 +353,7 @@ export function LoveLetterTable({
       )}
 
       {/* Top chrome — BGA-like title strip */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#3E2723]/15 bg-[#5D4037] px-4 py-2.5 text-amber-50">
+      <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-[#3E2723]/15 bg-[#5D4037] px-4 py-2.5 text-amber-50">
         <p className="font-heading text-sm font-bold tracking-wide">
           {zh ? "情书 · 在线桌" : "Love Letter · Table"}
         </p>
@@ -368,16 +368,18 @@ export function LoveLetterTable({
         </div>
       </div>
 
-      <div className="p-2.5 sm:p-3">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden p-2.5 sm:p-3">
+        <div className="shrink-0">
         <StatusBar
           locale={locale}
           text={status.text}
           tone={status.tone}
           detail={thinkingId ? thinkingDetail : null}
         />
+        </div>
 
         {view.phase === "finished" && (
-          <div className="mt-2.5 flex flex-wrap items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/80 px-3 py-2.5">
+          <div className="mt-2.5 flex shrink-0 flex-wrap items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/80 px-3 py-2.5">
             <p className="min-w-0 flex-1 text-sm text-emerald-950">
               {zh
                 ? "本局已结束。可保留座位再开一局。"
@@ -400,32 +402,34 @@ export function LoveLetterTable({
         )}
 
         {/* Left: players · Center: table · Right: log + chat */}
-        <div className="mt-2.5 grid gap-2.5 lg:grid-cols-[220px_minmax(0,1fr)_240px] lg:items-start">
-          {/* Left — player list */}
-          <aside className="order-2 overflow-hidden rounded-2xl border border-border bg-white/95 p-2.5 shadow-sm lg:order-1">
-            <PlayerPanels
-              locale={locale}
-              view={view}
-              actorId={actorId}
-              selectedTargetId={selectedTargetId}
-              thinkingId={thinkingId}
-              targetMode={Boolean(interactive && needsTarget)}
-              bubbles={bubbles}
-              onSelectTarget={setSelectedTargetId}
-              onZoomDiscard={(c, ownerName) =>
-                setZoom({
-                  rank: c.rank,
-                  name: c.name,
-                  subtitle: zh
-                    ? `${ownerName} 的出牌`
-                    : `${ownerName}'s discard`,
-                })
-              }
-            />
+        <div className="mt-2.5 grid min-h-0 flex-1 gap-2.5 overflow-y-auto lg:grid-cols-[220px_minmax(0,1fr)_240px] lg:items-stretch lg:overflow-hidden">
+          {/* Left — player list (scrolls inside when many seats) */}
+          <aside className="order-2 flex min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-white/95 p-2.5 shadow-sm lg:order-1">
+            <div className="min-h-0 flex-1 overflow-y-auto">
+              <PlayerPanels
+                locale={locale}
+                view={view}
+                actorId={actorId}
+                selectedTargetId={selectedTargetId}
+                thinkingId={thinkingId}
+                targetMode={Boolean(interactive && needsTarget)}
+                bubbles={bubbles}
+                onSelectTarget={setSelectedTargetId}
+                onZoomDiscard={(c, ownerName) =>
+                  setZoom({
+                    rank: c.rank,
+                    name: c.name,
+                    subtitle: zh
+                      ? `${ownerName} 的出牌`
+                      : `${ownerName}'s discard`,
+                  })
+                }
+              />
+            </div>
           </aside>
 
           {/* Center — board + hand */}
-          <div className="order-1 space-y-2.5 lg:order-2">
+          <div className="order-1 min-h-0 space-y-2.5 overflow-y-auto lg:order-2">
             {/* Felt table */}
             <div
               className="relative overflow-hidden rounded-2xl border-[5px] border-[#4E342E] shadow-inner"
@@ -692,15 +696,15 @@ export function LoveLetterTable({
             </div>
           </div>
 
-          {/* Right — log + chat (clipped recent lines, no scrollbars) */}
-          <aside className="order-3 flex flex-col gap-2.5 overflow-hidden">
-            <div className="overflow-hidden rounded-2xl border border-border bg-white/95 shadow-sm">
-              <div className="border-b border-border px-2.5 py-1.5">
+          {/* Right — log + chat (scroll inside panels if needed) */}
+          <aside className="order-3 flex min-h-0 flex-col gap-2.5 overflow-hidden">
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-white/95 shadow-sm">
+              <div className="shrink-0 border-b border-border px-2.5 py-1.5">
                 <p className="font-heading text-[11px] font-bold uppercase tracking-wide text-stone-500">
                   {zh ? "对局记录" : "Game log"}
                 </p>
               </div>
-              <div className="space-y-1 px-2 py-1.5">
+              <div className="min-h-0 flex-1 space-y-1 overflow-y-auto px-2 py-1.5">
                 {playLog.length === 0 && (
                   <p className="px-1 py-2 text-[11px] text-stone-400">
                     {zh ? "行动会出现在这里" : "Actions appear here"}
@@ -724,13 +728,13 @@ export function LoveLetterTable({
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-2xl border border-border bg-white/95 shadow-sm">
-              <div className="border-b border-border px-2.5 py-1.5">
+            <div className="flex max-h-[45%] min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-white/95 shadow-sm">
+              <div className="shrink-0 border-b border-border px-2.5 py-1.5">
                 <p className="font-heading text-[11px] font-bold uppercase tracking-wide text-stone-500">
                   {zh ? "桌边聊天" : "Table talk"}
                 </p>
               </div>
-              <div className="space-y-1 px-2 py-1.5">
+              <div className="min-h-0 flex-1 space-y-1 overflow-y-auto px-2 py-1.5">
                 {chat.length === 0 && (
                   <p className="px-1 text-[11px] text-stone-400">
                     {zh
@@ -752,7 +756,7 @@ export function LoveLetterTable({
               </div>
               {onChat && (
                 <form
-                  className="flex gap-1 border-t border-border p-1.5"
+                  className="flex shrink-0 gap-1 border-t border-border p-1.5"
                   onSubmit={(e) => {
                     e.preventDefault();
                     if (!chatText.trim()) return;

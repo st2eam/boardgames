@@ -71,8 +71,8 @@ export function LobbyView({
   const hostId = lobby?.hostPlayerId;
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-[#3E2723]/20 bg-[#efe6d8] shadow-card">
-      <div className="flex items-center justify-between gap-3 border-b border-[#3E2723]/15 bg-[#5D4037] px-4 py-3 text-amber-50">
+    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/20 bg-[#efe6d8] shadow-card">
+      <div className="flex shrink-0 items-center justify-between gap-3 border-b border-[#3E2723]/15 bg-[#5D4037] px-4 py-3 text-amber-50">
         <div>
           <p className="font-heading text-xs font-semibold uppercase tracking-wider text-accent">
             {zh ? "大厅" : "Lobby"}
@@ -86,9 +86,9 @@ export function LobbyView({
         </p>
       </div>
 
-      <div className="grid gap-4 p-4 lg:grid-cols-[minmax(0,1fr)_280px]">
-        <div className="space-y-4 rounded-2xl border border-border bg-white/95 p-4 shadow-sm">
-          <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid min-h-0 flex-1 gap-4 overflow-hidden p-4 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div className="flex min-h-0 flex-col space-y-4 overflow-y-auto rounded-2xl border border-border bg-white/95 p-4 shadow-sm">
+          <div className="grid shrink-0 gap-3 sm:grid-cols-2">
             <label className="block">
               <span className="mb-1 block font-heading text-xs font-bold text-stone-500">
                 {zh ? "显示名称" : "Display name"}
@@ -120,7 +120,7 @@ export function LobbyView({
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 border-t border-border pt-4">
+          <div className="flex shrink-0 flex-wrap gap-2 border-t border-border pt-4">
             <button
               type="button"
               onClick={onAddHotseat}
@@ -152,19 +152,21 @@ export function LobbyView({
           </div>
         </div>
 
-        <aside className="space-y-2 rounded-2xl border border-border bg-white/95 p-3 shadow-sm">
-          <p className="px-0.5 font-heading text-xs font-bold uppercase tracking-wide text-stone-500">
+        <aside className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-white/95 p-3 shadow-sm">
+          <p className="shrink-0 px-0.5 pb-2 font-heading text-xs font-bold uppercase tracking-wide text-stone-500">
             {zh ? "座位" : "Seats"} · {lobby?.seats.length ?? 0}
           </p>
-          {(lobby?.seats ?? []).map((s) => (
-            <SeatCard
-              key={s.id}
-              name={s.name}
-              kind={s.kind}
-              ready={s.ready}
-              host={s.id === hostId}
-            />
-          ))}
+          <div className="min-h-0 flex-1 space-y-2 overflow-y-auto">
+            {(lobby?.seats ?? []).map((s) => (
+              <SeatCard
+                key={s.id}
+                name={s.name}
+                kind={s.kind}
+                ready={s.ready}
+                host={s.id === hostId}
+              />
+            ))}
+          </div>
         </aside>
       </div>
     </div>

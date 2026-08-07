@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { PlayShell } from "@bbge/ui";
 import { loadApiKey } from "@/lib/chat/api-key-storage";
@@ -19,15 +20,31 @@ export function PlayPageClient({ locale, slug, gameName, pluginId }: Props) {
   const search = useSearchParams();
   const room = search.get("room");
 
+  // Lock document scroll on play — overflow only inside seat/log containers.
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtml = html.style.overflow;
+    const prevBody = body.style.overflow;
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    return () => {
+      html.style.overflow = prevHtml;
+      body.style.overflow = prevBody;
+    };
+  }, []);
+
   return (
-    <PlayShell
-      locale={locale}
-      slug={slug}
-      gameName={gameName}
-      pluginId={pluginId}
-      roomIdFromUrl={room}
-      loadApiKey={loadApiKey}
-      createDeepSeekSeat={getLlmSeatFactory(pluginId)}
-    />
+    <div className="h-full min-h-0 overflow-hidden">
+      <PlayShell
+        locale={locale}
+        slug={slug}
+        gameName={gameName}
+        pluginId={pluginId}
+        roomIdFromUrl={room}
+        loadApiKey={loadApiKey}
+        createDeepSeekSeat={getLlmSeatFactory(pluginId)}
+      />
+    </div>
   );
 }

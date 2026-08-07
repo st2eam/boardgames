@@ -493,9 +493,10 @@ Details: [plugin-api.md §16](plugin-api.md).
 ### 11.5 In scope
 
 - `play.json` + `hasPlay` + Play button first in `GameHeader`
-- `bbge` core / runtime / sync / network (WebRTC+signaling adapter) / minimal ui
+- `bbge` core / runtime / sync / network (WebRTC+signaling adapter) / UI
 - Love Letter plugin: deal, play, guess, eliminate, victory
-- Lobby: seats, join, add/remove AI, ready, start
+- **Play table:** PixiJS WebGL + GSAP card tweens + Motion HUD (`LoveLetterPixiArena`)
+- Lobby: seats, join, add/remove AI, ready, start (React; not Pixi)
 - `projectView` hidden info; reject illegal Actions with UX feedback
 - Determinism tests (seed + action list) — **log-level only**
 

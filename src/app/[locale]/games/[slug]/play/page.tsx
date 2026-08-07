@@ -55,8 +55,8 @@ export default async function PlayPage({ params }: Props) {
 
   // Viewport-locked shell: no page scrollbar. Overflow scrolls inside panels.
   return (
-    <div className="mx-auto flex h-[calc(100dvh-3.75rem)] w-full max-w-6xl flex-col overflow-hidden px-3 py-2 sm:px-6 lg:px-8">
-      <div className="mb-2 shrink-0">
+    <div className="mx-auto flex h-[calc(100dvh-3.75rem)] w-full max-w-6xl flex-col overflow-hidden px-1.5 py-1 sm:px-6 sm:py-2 lg:px-8">
+      <div className="mb-1 shrink-0 sm:mb-2">
         <Link
           href={`/${locale}/games/${slug}/`}
           className="inline-flex items-center gap-1.5 text-sm text-accent transition-colors hover:text-accent/80"

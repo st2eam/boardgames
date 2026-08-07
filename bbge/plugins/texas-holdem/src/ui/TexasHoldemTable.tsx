@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
+import { useIsMobileLayout } from "@bbge/ui";
 import { PlayingCard } from "./PlayingCard";
 
 type SeatBubble = { id: string; text: string };
@@ -65,16 +66,20 @@ export function TexasHoldemTable({
   const view = viewUnknown as ArenaView;
   const zh = locale === "zh";
   const reduce = useReducedMotion();
+  const mobile = useIsMobileLayout();
   const actorId = myId;
   const [raiseTo, setRaiseTo] = useState(view.minRaiseTo ?? view.bigBlind * 2);
   const [chatText, setChatText] = useState("");
   const [bubbles, setBubbles] = useState<Record<string, SeatBubble>>({});
+  const [sideOpen, setSideOpen] = useState(false);
+  const [statusOpen, setStatusOpen] = useState(false);
   const seenLogIds = useRef(new Set<string>());
   const seenChat = useRef(new Set<string>());
   const timers = useRef(new Map<string, number>());
   const boardKey = view.board.map((c) => c.id).join(",");
   const handNumber = view.handNumber ?? 1;
   const [boardPulse, setBoardPulse] = useState(0);
+  const cardSize = mobile ? "md" : "lg";
 
   useEffect(() => {
     setRaiseTo(Math.max(view.minRaiseTo, view.currentBet + view.bigBlind));
@@ -84,7 +89,6 @@ export function TexasHoldemTable({
     setBoardPulse((n) => n + 1);
   }, [boardKey]);
 
-  // New hand: clear leftover fold bubbles / opacity from previous street
   useEffect(() => {
     setBubbles({});
     for (const t of timers.current.values()) window.clearTimeout(t);
@@ -136,12 +140,13 @@ export function TexasHoldemTable({
   const interactive = isMyTurn && !disabled;
   const toCall = view.you?.toCall ?? 0;
   const maxRaise = (view.you?.streetBet ?? 0) + (view.you?.stack ?? 0);
+  const canRaise = interactive && maxRaise > view.currentBet;
 
   const status = useMemo(() => {
     if (view.phase === "finished") {
       return zh
-        ? `本手结束 · 胜者 ${view.winners.map((id) => nameOf?.(id) ?? id).join("、")} · 等待房主开下一手`
-        : `Hand over · ${view.winners.map((id) => nameOf?.(id) ?? id).join(", ")} · waiting for host`;
+        ? `本手结束 · 胜者 ${view.winners.map((id) => nameOf?.(id) ?? id).join("、")}`
+        : `Hand over · ${view.winners.map((id) => nameOf?.(id) ?? id).join(", ")}`;
     }
     if (thinkingId) {
       return zh
@@ -160,15 +165,34 @@ export function TexasHoldemTable({
 
   const dispatch = (action: Action) => onAction(action);
 
-  const seatsAround = view.seats;
+  const submitRaise = () => {
+    const toAmount = Math.min(Math.max(raiseTo, view.minRaiseTo), maxRaise);
+    setRaiseTo(toAmount);
+    dispatch({
+      type: "raise",
+      playerId: actorId,
+      payload: { toAmount },
+    });
+  };
+
+  const sidePanel = (
+    <SidePanel
+      zh={zh}
+      playLog={playLog}
+      chat={chat}
+      chatText={chatText}
+      setChatText={setChatText}
+      onChat={onChat}
+    />
+  );
 
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/25 bg-[#efe6d8] shadow-card">
-      <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-[#3E2723]/15 bg-[#5D4037] px-4 py-2.5 text-amber-50">
+      <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-[#3E2723]/15 bg-[#5D4037] px-3 py-2 text-amber-50 sm:px-4 sm:py-2.5">
         <p className="font-heading text-sm font-bold tracking-wide">
           {zh ? "德州扑克 · 现金桌" : "Texas Hold'em · Cash"}
         </p>
-        <div className="flex flex-wrap gap-3 text-xs text-amber-100/85">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-amber-100/85 sm:gap-3">
           <span>
             {zh ? "盲注" : "Blinds"}{" "}
             <strong className="text-accent">
@@ -180,29 +204,57 @@ export function TexasHoldemTable({
             <strong className="text-accent">{view.potTotal}</strong>
           </span>
           <span className="uppercase tracking-wide">{view.street}</span>
+          {mobile && (
+            <button
+              type="button"
+              onClick={() => setSideOpen(true)}
+              className="cursor-pointer rounded-lg bg-white/15 px-2.5 py-1 font-heading text-[11px] font-bold text-amber-50 hover:bg-white/25"
+            >
+              {zh ? "战报" : "Log"}
+            </button>
+          )}
         </div>
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden p-2.5 sm:p-3">
-        <div
+      <div className="flex min-h-0 flex-1 flex-col gap-1.5 overflow-hidden p-1.5 sm:gap-2 sm:p-3">
+        <button
+          type="button"
+          onClick={() =>
+            thinkingId && thinkingDetail
+              ? setStatusOpen((v) => !v)
+              : undefined
+          }
           className={[
-            "flex h-14 shrink-0 flex-col justify-center overflow-hidden rounded-xl border px-3 text-sm shadow-sm",
+            "flex min-h-11 shrink-0 flex-col justify-center overflow-hidden rounded-xl border px-3 py-1.5 text-left text-sm shadow-sm",
             view.phase === "finished"
               ? "border-emerald-200 bg-emerald-50 text-emerald-950"
               : "border-border bg-white/90 text-primary-dark",
+            thinkingId && thinkingDetail ? "cursor-pointer" : "cursor-default",
           ].join(" ")}
         >
           <p className="truncate font-heading font-semibold leading-tight">
             {status}
           </p>
-          <p className="mt-0.5 h-4 truncate text-[11px] leading-tight text-stone-500">
-            {thinkingId && thinkingDetail ? thinkingDetail : "\u00a0"}
+          <p className="mt-0.5 truncate text-[11px] leading-tight text-stone-500">
+            {thinkingId && thinkingDetail
+              ? statusOpen
+                ? zh
+                  ? "点按收起思路"
+                  : "Tap to hide thoughts"
+                : zh
+                  ? "点按查看思路"
+                  : "Tap for thoughts"
+              : "\u00a0"}
           </p>
-        </div>
+          {statusOpen && thinkingDetail && (
+            <pre className="mt-1 max-h-28 overflow-y-auto whitespace-pre-wrap break-words border-t border-border/60 pt-1 font-sans text-[11px] leading-relaxed text-stone-700">
+              {thinkingDetail}
+            </pre>
+          )}
+        </button>
 
         <div className="grid min-h-0 flex-1 gap-2 overflow-hidden lg:grid-cols-[1fr_220px]">
-          {/* Felt */}
-          <div className="relative min-h-0 overflow-hidden rounded-2xl border-[6px] border-[#4E342E] shadow-inner">
+          <div className="relative min-h-0 overflow-hidden rounded-xl border-[4px] border-[#4E342E] shadow-inner sm:rounded-2xl sm:border-[6px]">
             <div
               className="absolute inset-0"
               style={{
@@ -210,10 +262,9 @@ export function TexasHoldemTable({
                   "radial-gradient(ellipse at 50% 45%, #2e7d32 0%, #1b5e20 50%, #0d3b12 100%)",
               }}
             />
-            {/* Seats */}
-            <div className="relative z-10 flex h-full min-h-[280px] flex-col justify-between p-3">
-              <div className="flex flex-wrap justify-center gap-2">
-                {seatsAround
+            <div className="relative z-10 flex h-full min-h-0 flex-col justify-between gap-1 p-2 sm:gap-2 sm:p-3">
+              <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-0.5 [scrollbar-width:none] sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden">
+                {view.seats
                   .filter((s) => s.id !== actorId)
                   .map((s) => (
                     <SeatChip
@@ -224,15 +275,15 @@ export function TexasHoldemTable({
                       thinking={thinkingId === s.id}
                       bubble={bubbles[s.id]}
                       foldedAnim={s.folded}
+                      compact={mobile}
                     />
                   ))}
               </div>
 
-              {/* Board */}
-              <div className="flex flex-col items-center gap-2 py-2">
+              <div className="flex flex-col items-center gap-1.5 py-1 sm:gap-2 sm:py-2">
                 <motion.div
                   key={boardPulse}
-                  className="flex flex-wrap justify-center gap-1.5"
+                  className="flex flex-wrap justify-center gap-1 sm:gap-1.5"
                   initial={reduce ? false : { scale: 0.92 }}
                   animate={{ scale: 1 }}
                 >
@@ -242,25 +293,21 @@ export function TexasHoldemTable({
                         key={c.id}
                         rank={c.rank}
                         suit={c.suit}
-                        size="lg"
+                        size={cardSize}
                         flip
                         dealDelay={reduce ? 0 : i * 0.08}
                       />
                     ))}
                   </AnimatePresence>
                   {view.board.length === 0 && (
-                    <p className="font-heading text-sm font-bold text-emerald-100/70">
+                    <p className="font-heading text-xs font-bold text-emerald-100/70 sm:text-sm">
                       {zh ? "等待翻牌" : "Waiting for flop"}
                     </p>
                   )}
                 </motion.div>
                 <motion.div
-                  className="rounded-full bg-black/35 px-4 py-1 font-heading text-sm font-bold text-amber-100 backdrop-blur"
-                  animate={
-                    reduce
-                      ? undefined
-                      : { scale: [1, 1.04, 1] }
-                  }
+                  className="rounded-full bg-black/35 px-3 py-1 font-heading text-xs font-bold text-amber-100 backdrop-blur sm:px-4 sm:text-sm"
+                  animate={reduce ? undefined : { scale: [1, 1.04, 1] }}
                   transition={{ duration: 0.45 }}
                   key={view.potTotal}
                 >
@@ -268,8 +315,7 @@ export function TexasHoldemTable({
                 </motion.div>
               </div>
 
-              {/* Hero */}
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center gap-1.5 sm:gap-2">
                 {view.you && (
                   <SeatChip
                     key={`hero-h${handNumber}`}
@@ -283,15 +329,16 @@ export function TexasHoldemTable({
                     bubble={bubbles[actorId]}
                     foldedAnim={view.you.folded}
                     you
+                    compact={mobile}
                   />
                 )}
-                <div className="flex gap-2" key={`hole-h${handNumber}`}>
+                <div className="flex gap-1.5 sm:gap-2" key={`hole-h${handNumber}`}>
                   {(view.you?.hole ?? []).map((c, i) => (
                     <PlayingCard
                       key={c.id}
                       rank={c.rank}
                       suit={c.suit}
-                      size="lg"
+                      size={cardSize}
                       folded={view.you?.folded}
                       dealDelay={reduce ? 0 : 0.05 * i}
                     />
@@ -301,92 +348,68 @@ export function TexasHoldemTable({
             </div>
           </div>
 
-          {/* Side panel */}
-          <aside className="flex min-h-0 flex-col gap-2 overflow-hidden">
-            <div className="min-h-0 flex-1 overflow-y-auto rounded-xl border border-border bg-white/95 p-2 text-[11px]">
-              <p className="mb-1 font-heading text-xs font-bold text-stone-500">
-                {zh ? "战报" : "Log"}
-              </p>
-              {playLog.map((e) => (
-                <p
-                  key={e.id}
-                  className={
-                    e.tone === "win"
-                      ? "text-emerald-700"
-                      : e.tone === "warn"
-                        ? "text-amber-700"
-                        : "text-stone-600"
-                  }
-                >
-                  {e.text}
-                </p>
-              ))}
-            </div>
-            {onChat && (
-              <form
-                className="flex gap-1"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const t = chatText.trim();
-                  if (!t) return;
-                  onChat(t);
-                  setChatText("");
-                }}
-              >
-                <input
-                  className="min-w-0 flex-1 rounded-lg border border-border px-2 py-1.5 text-xs"
-                  value={chatText}
-                  onChange={(e) => setChatText(e.target.value)}
-                  placeholder={zh ? "桌边闲聊…" : "Table chat…"}
-                />
-                <button
-                  type="submit"
-                  className="cursor-pointer rounded-lg bg-primary px-2 py-1.5 text-xs font-bold text-white"
-                >
-                  {zh ? "发送" : "Send"}
-                </button>
-              </form>
-            )}
+          <aside className="hidden min-h-0 flex-col gap-2 overflow-hidden lg:flex">
+            {sidePanel}
           </aside>
         </div>
 
-        {/* Action bar — next-hand sits bottom-right with the betting controls */}
-        <div className="shrink-0 rounded-xl border border-border bg-white/95 p-2.5 shadow-sm">
-          <div className="flex flex-wrap items-end gap-2">
-            <button
-              type="button"
-              disabled={!interactive}
-              onClick={() =>
-                dispatch({ type: "fold", playerId: actorId, payload: {} })
-              }
-              className="cursor-pointer rounded-xl bg-stone-700 px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-stone-800 disabled:opacity-35"
-            >
-              {zh ? "弃牌" : "Fold"}
-            </button>
-            {toCall <= 0 ? (
+        {/* Action bar */}
+        <div className="shrink-0 rounded-xl border border-border bg-white/95 p-2 shadow-sm sm:p-2.5">
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-wrap items-stretch gap-1.5 sm:items-end sm:gap-2">
               <button
                 type="button"
                 disabled={!interactive}
                 onClick={() =>
-                  dispatch({ type: "check", playerId: actorId, payload: {} })
+                  dispatch({ type: "fold", playerId: actorId, payload: {} })
                 }
-                className="cursor-pointer rounded-xl bg-emerald-700 px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-emerald-800 disabled:opacity-35"
+                className="min-h-11 flex-1 cursor-pointer rounded-xl bg-stone-700 px-3 py-2.5 font-heading text-sm font-bold text-white hover:bg-stone-800 disabled:opacity-35 sm:flex-none sm:px-4"
               >
-                {zh ? "过牌" : "Check"}
+                {zh ? "弃牌" : "Fold"}
               </button>
-            ) : (
-              <button
-                type="button"
-                disabled={!interactive}
-                onClick={() =>
-                  dispatch({ type: "call", playerId: actorId, payload: {} })
-                }
-                className="cursor-pointer rounded-xl bg-emerald-700 px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-emerald-800 disabled:opacity-35"
-              >
-                {zh ? `跟注 ${toCall}` : `Call ${toCall}`}
-              </button>
-            )}
-            <div className="flex flex-wrap items-center gap-1.5">
+              {toCall <= 0 ? (
+                <button
+                  type="button"
+                  disabled={!interactive}
+                  onClick={() =>
+                    dispatch({ type: "check", playerId: actorId, payload: {} })
+                  }
+                  className="min-h-11 flex-1 cursor-pointer rounded-xl bg-emerald-700 px-3 py-2.5 font-heading text-sm font-bold text-white hover:bg-emerald-800 disabled:opacity-35 sm:flex-none sm:px-4"
+                >
+                  {zh ? "过牌" : "Check"}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  disabled={!interactive}
+                  onClick={() =>
+                    dispatch({ type: "call", playerId: actorId, payload: {} })
+                  }
+                  className="min-h-11 flex-1 cursor-pointer rounded-xl bg-emerald-700 px-3 py-2.5 font-heading text-sm font-bold text-white hover:bg-emerald-800 disabled:opacity-35 sm:flex-none sm:px-4"
+                >
+                  {zh ? `跟注 ${toCall}` : `Call ${toCall}`}
+                </button>
+              )}
+              {view.phase === "finished" && (
+                <div className="ml-auto flex min-h-11 items-center">
+                  {onRematch ? (
+                    <button
+                      type="button"
+                      onClick={onRematch}
+                      className="min-h-11 cursor-pointer rounded-xl bg-accent px-5 py-2.5 font-heading text-sm font-bold text-white hover:bg-accent-dark"
+                    >
+                      {zh ? "下一手" : "Next hand"}
+                    </button>
+                  ) : (
+                    <span className="px-1 text-xs text-stone-500">
+                      {zh ? "等待房主…" : "Waiting…"}
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-1.5 border-t border-border/70 pt-2">
               <label className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-600">
                 <span>{zh ? "加至" : "To"}</span>
                 <input
@@ -396,7 +419,7 @@ export function TexasHoldemTable({
                   max={Math.max(maxRaise, view.minRaiseTo)}
                   step={1}
                   value={Number.isFinite(raiseTo) ? raiseTo : ""}
-                  disabled={!interactive || maxRaise <= view.currentBet}
+                  disabled={!canRaise}
                   onChange={(e) => {
                     const raw = e.target.value;
                     if (raw === "") {
@@ -418,7 +441,7 @@ export function TexasHoldemTable({
                       ),
                     )
                   }
-                  className="w-20 rounded-lg border border-border bg-white px-2 py-2 font-heading text-sm font-bold text-primary-dark tabular-nums disabled:opacity-35"
+                  className="w-[4.5rem] rounded-lg border border-border bg-white px-2 py-2.5 font-heading text-sm font-bold text-primary-dark tabular-nums disabled:opacity-35 sm:w-20"
                 />
               </label>
               <input
@@ -429,26 +452,15 @@ export function TexasHoldemTable({
                   Math.max(raiseTo, view.minRaiseTo),
                   Math.max(maxRaise, view.minRaiseTo),
                 )}
-                disabled={!interactive || maxRaise <= view.currentBet}
+                disabled={!canRaise}
                 onChange={(e) => setRaiseTo(Number(e.target.value))}
-                className="w-28 accent-[#C4952A] disabled:opacity-35"
+                className="min-w-0 flex-1 accent-[#C4952A] disabled:opacity-35 sm:max-w-[10rem] sm:flex-none sm:w-28"
               />
               <button
                 type="button"
-                disabled={!interactive || maxRaise <= view.currentBet}
-                onClick={() => {
-                  const toAmount = Math.min(
-                    Math.max(raiseTo, view.minRaiseTo),
-                    maxRaise,
-                  );
-                  setRaiseTo(toAmount);
-                  dispatch({
-                    type: "raise",
-                    playerId: actorId,
-                    payload: { toAmount },
-                  });
-                }}
-                className="cursor-pointer rounded-xl bg-accent px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-accent-dark disabled:opacity-35"
+                disabled={!canRaise}
+                onClick={submitRaise}
+                className="min-h-11 cursor-pointer rounded-xl bg-accent px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-accent-dark disabled:opacity-35"
               >
                 {zh ? "加注" : "Raise"}
               </button>
@@ -456,7 +468,7 @@ export function TexasHoldemTable({
                 <button
                   key={n}
                   type="button"
-                  disabled={!interactive || maxRaise <= view.currentBet}
+                  disabled={!canRaise}
                   onClick={() =>
                     setRaiseTo(
                       Math.min(
@@ -465,32 +477,115 @@ export function TexasHoldemTable({
                       ),
                     )
                   }
-                  className="cursor-pointer rounded-lg bg-surface px-2 py-1.5 text-[11px] font-bold text-primary-dark hover:bg-primary-light disabled:opacity-35"
+                  className="min-h-9 cursor-pointer rounded-lg bg-surface px-2.5 py-1.5 text-[11px] font-bold text-primary-dark hover:bg-primary-light disabled:opacity-35"
                 >
                   {n}x
                 </button>
               ))}
             </div>
-            {view.phase === "finished" && (
-              <div className="ml-auto flex items-center">
-                {onRematch ? (
-                  <button
-                    type="button"
-                    onClick={onRematch}
-                    className="cursor-pointer rounded-xl bg-accent px-5 py-2.5 font-heading text-sm font-bold text-white hover:bg-accent-dark"
-                  >
-                    {zh ? "下一手" : "Next hand"}
-                  </button>
-                ) : (
-                  <span className="px-1 text-xs text-stone-500">
-                    {zh ? "等待房主开下一手…" : "Waiting for host…"}
-                  </span>
-                )}
-              </div>
-            )}
           </div>
         </div>
       </div>
+
+      {mobile && sideOpen && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/45 p-0 sm:items-center sm:p-4">
+          <button
+            type="button"
+            aria-label={zh ? "关闭" : "Close"}
+            className="absolute inset-0 cursor-pointer"
+            onClick={() => setSideOpen(false)}
+          />
+          <div className="relative z-10 flex max-h-[70dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-[#efe6d8] shadow-2xl sm:max-h-[80dvh] sm:max-w-md sm:rounded-2xl">
+            <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
+              <p className="font-heading text-sm font-bold text-primary-dark">
+                {zh ? "战报 / 聊天" : "Log / Chat"}
+              </p>
+              <button
+                type="button"
+                onClick={() => setSideOpen(false)}
+                className="cursor-pointer rounded-lg bg-surface px-3 py-1.5 text-xs font-bold text-primary-dark"
+              >
+                {zh ? "关闭" : "Close"}
+              </button>
+            </div>
+            <div className="min-h-0 flex-1 overflow-hidden p-3">{sidePanel}</div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SidePanel({
+  zh,
+  playLog,
+  chat,
+  chatText,
+  setChatText,
+  onChat,
+}: {
+  zh: boolean;
+  playLog: PluginTableProps["playLog"];
+  chat: PluginTableProps["chat"];
+  chatText: string;
+  setChatText: (v: string) => void;
+  onChat?: PluginTableProps["onChat"];
+}) {
+  return (
+    <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
+      <div className="min-h-0 flex-1 overflow-y-auto rounded-xl border border-border bg-white/95 p-2 text-[11px]">
+        <p className="mb-1 font-heading text-xs font-bold text-stone-500">
+          {zh ? "战报" : "Log"}
+        </p>
+        {(playLog ?? []).map((e) => (
+          <p
+            key={e.id}
+            className={
+              e.tone === "win"
+                ? "text-emerald-700"
+                : e.tone === "warn"
+                  ? "text-amber-700"
+                  : "text-stone-600"
+            }
+          >
+            {e.text}
+          </p>
+        ))}
+      </div>
+      {onChat && (
+        <form
+          className="flex gap-1"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const t = chatText.trim();
+            if (!t) return;
+            onChat(t);
+            setChatText("");
+          }}
+        >
+          <input
+            className="min-w-0 flex-1 rounded-lg border border-border px-2 py-2 text-xs"
+            value={chatText}
+            onChange={(e) => setChatText(e.target.value)}
+            placeholder={zh ? "桌边闲聊…" : "Table chat…"}
+          />
+          <button
+            type="submit"
+            className="cursor-pointer rounded-lg bg-primary px-3 py-2 text-xs font-bold text-white"
+          >
+            {zh ? "发送" : "Send"}
+          </button>
+        </form>
+      )}
+      {(chat ?? []).length > 0 && (
+        <div className="max-h-24 overflow-y-auto rounded-lg border border-border bg-white/80 px-2 py-1 text-[11px] text-stone-600 lg:hidden">
+          {(chat ?? []).slice(-8).map((m, i) => (
+            <p key={`${m.playerId}-${m.at}-${i}`}>
+              <span className="font-semibold">{m.playerId}</span>: {m.text}
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -529,6 +624,7 @@ function SeatChip({
   bubble,
   foldedAnim,
   you,
+  compact,
 }: {
   seat: ArenaView["seats"][0];
   locale: string;
@@ -537,14 +633,15 @@ function SeatChip({
   bubble?: SeatBubble;
   foldedAnim: boolean;
   you?: boolean;
+  compact?: boolean;
 }) {
   const zh = locale === "zh";
-  const reduce = useReducedMotion();
   return (
     <motion.div
       layout
       className={[
-        "relative min-w-[7.5rem] rounded-xl border-2 px-2.5 py-2",
+        "relative shrink-0 rounded-xl border-2 px-2 py-1.5 sm:px-2.5 sm:py-2",
+        compact ? "min-w-[6.25rem] max-w-[9rem]" : "min-w-[7.5rem]",
         you ? "bg-amber-50/95" : "bg-white/90",
         active
           ? "border-amber-400 bg-amber-100/95 shadow-[0_0_0_3px_rgba(196,149,42,0.55),0_0_18px_rgba(251,191,36,0.55)]"
@@ -562,7 +659,7 @@ function SeatChip({
             initial={{ opacity: 0, y: 6, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4 }}
-            className="absolute -top-8 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#3E2723] px-2.5 py-1 font-heading text-[11px] font-bold text-amber-50 shadow-md"
+            className="absolute -top-7 left-1/2 z-20 max-w-[10rem] -translate-x-1/2 truncate rounded-full bg-[#3E2723] px-2 py-0.5 font-heading text-[10px] font-bold text-amber-50 shadow-md sm:-top-8 sm:px-2.5 sm:py-1 sm:text-[11px]"
           >
             {bubble.text}
           </motion.div>
@@ -595,8 +692,8 @@ function SeatChip({
         )}
       </div>
       <p className="text-[11px] text-stone-600">
-        {zh ? "筹码" : "Stack"} {seat.stack}
-        {seat.streetBet > 0 ? ` · bet ${seat.streetBet}` : ""}
+        {compact ? seat.stack : `${zh ? "筹码" : "Stack"} ${seat.stack}`}
+        {seat.streetBet > 0 ? ` · ${seat.streetBet}` : ""}
       </p>
       {seat.allIn && (
         <p className="text-[10px] font-bold text-red-700">ALL-IN</p>
@@ -606,7 +703,7 @@ function SeatChip({
           {zh ? seat.handCategory.zh : seat.handCategory.en}
         </p>
       )}
-      {!you && (
+      {!you && !compact && (
         <div className="mt-1 flex gap-0.5">
           {(seat.hole ?? []).map((c) => (
             <PlayingCard
@@ -619,6 +716,11 @@ function SeatChip({
             />
           ))}
         </div>
+      )}
+      {!you && compact && (seat.hole?.length ?? 0) > 0 && (
+        <p className="mt-0.5 text-[10px] text-stone-400">
+          {seat.folded ? (zh ? "已弃" : "Folded") : "🂠🂠"}
+        </p>
       )}
     </motion.div>
   );

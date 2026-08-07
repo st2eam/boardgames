@@ -26,6 +26,8 @@ interface Props {
   targetMode: boolean;
   /** Active speech bubbles keyed by seat id */
   bubbles?: Record<string, SeatBubble>;
+  /** stack = desktop list; rail = mobile horizontal scroll */
+  variant?: "stack" | "rail";
   onSelectTarget: (id: string) => void;
   onZoomDiscard?: (card: DiscCard, ownerName: string) => void;
 }
@@ -46,6 +48,7 @@ function Panel({
   seenRank,
   revealedRank,
   bubble,
+  rail,
   onSelect,
   onZoomDiscard,
 }: {
@@ -65,6 +68,7 @@ function Panel({
   /** Final-hand reveal at round end */
   revealedRank?: number;
   bubble?: SeatBubble | null;
+  rail?: boolean;
   onSelect: () => void;
   onZoomDiscard?: (card: DiscCard, ownerName: string) => void;
 }) {
@@ -74,7 +78,8 @@ function Panel({
   return (
     <div
       className={[
-        "w-full rounded-lg border px-2 py-1.5 text-left transition-all duration-200",
+        "rounded-lg border px-2 py-1.5 text-left transition-all duration-200",
+        rail ? "w-[9.5rem] shrink-0" : "w-full",
         eliminated
           ? "border-stone-200 bg-stone-100 opacity-55"
           : selected
@@ -177,16 +182,23 @@ function Panel({
         ) : null}
       </div>
 
-      <div className="mt-1.5 border-t border-border/60 pt-1.5">
-        <DiscardStrip
-          locale={locale}
-          cards={discarded}
-          compact
-          onZoom={
-            onZoomDiscard ? (c) => onZoomDiscard(c, name) : undefined
-          }
-        />
-      </div>
+      {!rail && (
+        <div className="mt-1.5 border-t border-border/60 pt-1.5">
+          <DiscardStrip
+            locale={locale}
+            cards={discarded}
+            compact
+            onZoom={
+              onZoomDiscard ? (c) => onZoomDiscard(c, name) : undefined
+            }
+          />
+        </div>
+      )}
+      {rail && discarded.length > 0 && (
+        <p className="mt-1 truncate text-[9px] text-stone-400">
+          {zh ? `弃 ${discarded.map((c) => c.rank).join("·")}` : `disc ${discarded.map((c) => c.rank).join("·")}`}
+        </p>
+      )}
 
       {clickable && (
         <p className="mt-1 text-[9px] font-semibold text-accent">
@@ -211,17 +223,21 @@ export function PlayerPanels({
   thinkingId,
   targetMode,
   bubbles = {},
+  variant = "stack",
   onSelectTarget,
   onZoomDiscard,
 }: Props) {
   const zh = locale === "zh";
   const you = view.you;
+  const rail = variant === "rail";
 
   return (
-    <div className="space-y-1.5">
-      <p className="px-0.5 font-heading text-[11px] font-bold uppercase tracking-wide text-stone-500">
-        {zh ? "玩家" : "Players"}
-      </p>
+    <div className={rail ? "flex gap-1.5 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" : "space-y-1.5"}>
+      {!rail && (
+        <p className="px-0.5 font-heading text-[11px] font-bold uppercase tracking-wide text-stone-500">
+          {zh ? "玩家" : "Players"}
+        </p>
+      )}
       {you && (
         <Panel
           locale={locale}
@@ -242,6 +258,7 @@ export function PlayerPanels({
               : undefined
           }
           bubble={bubbles[you.id]}
+          rail={rail}
           onSelect={() => {}}
           onZoomDiscard={onZoomDiscard}
         />
@@ -267,6 +284,7 @@ export function PlayerPanels({
               : undefined
           }
           bubble={bubbles[o.id]}
+          rail={rail}
           onSelect={() => onSelectTarget(o.id)}
           onZoomDiscard={onZoomDiscard}
         />

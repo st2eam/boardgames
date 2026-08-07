@@ -118,8 +118,8 @@ export function LobbyView({
         </p>
       </div>
 
-      <div className="grid min-h-0 flex-1 gap-4 overflow-hidden p-4 lg:grid-cols-[minmax(0,1fr)_280px]">
-        <div className="flex min-h-0 flex-col space-y-4 overflow-y-auto rounded-2xl border border-border bg-white/95 p-4 shadow-sm">
+      <div className="grid min-h-0 flex-1 gap-3 overflow-hidden p-2.5 sm:gap-4 sm:p-4 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div className="flex min-h-0 flex-col space-y-3 overflow-y-auto rounded-2xl border border-border bg-white/95 p-3 shadow-sm sm:space-y-4 sm:p-4">
           {stakes && (
             <div className="shrink-0 rounded-xl border border-border bg-surface/80 p-3">
               <p className="mb-2 font-heading text-xs font-bold text-stone-500">

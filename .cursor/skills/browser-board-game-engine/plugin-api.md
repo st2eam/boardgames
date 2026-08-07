@@ -543,42 +543,39 @@ plugins only expose legal Actions via normal validate/apply.
 ### 16.2 Interface (conceptual)
 
 ```ts
+interface AiThinkOptions {
+  onProgress?: (p: AiThinkProgress) => void;
+  illegalRetry?: { rejectedAction: Action; error: string };
+  /** Chronological play-log lines (all seats) — PlayShell injects */
+  battleLog?: string[];
+}
+
+interface AiDecision {
+  action: Action;
+  speak?: string; // optional table talk / bubble
+}
+
 interface AiSeat {
-  id: string; // seat / player id
-  /** Produce a legal Action for the current private view */
-  think(view: unknown, legalHints?: unknown): Promise<Action>;
-  /** Optional short table talk (flavor / bluff); not an Action */
+  id: string;
+  think(view: unknown, opts?: AiThinkOptions): Promise<AiDecision>;
   speak?(context: AiSpeakContext): Promise<AiChatMessage | null>;
 }
-
-interface AiSpeakContext {
-  view: unknown;
-  lastEvents: Event[];
-  locale: string;
-}
-
-interface AiChatMessage {
-  playerId: PlayerId;
-  text: string;
-  /** Host wall-clock for UI only — must not affect GameState / RNG */
-  at: number;
-}
-
-/** Broadcast to all peers for activity UI (reuse chat thinking patterns) */
-type AiPresenceEvent =
-  | { type: "ai/thinking"; playerId: PlayerId; started: true }
-  | { type: "ai/thinking"; playerId: PlayerId; started: false }
-  | { type: "ai/chat"; message: AiChatMessage };
 ```
+
+Canonical types: `bbge/ai/src/ai-seat.ts`.
 
 ### 16.3 Implementation notes (Game Shelf)
 
 - Prefer wrapping existing `DeepSeekAdapter` (thinking blocks → `ai/thinking`)
-- Prompting is **seat-policy** code under Shelf / `bbge/ai` (e.g.
-  `DeepSeekLoveLetterSeat`), parameterized by plugin — still **outside**
-  `applyAction`
-- Love Letter: model **`deepseek-v4-flash`**; LLM job is **Actions**, not chat
-- Table UI shows thinking activity on that seat
+- Prompting is **seat-policy** under Shelf (`src/lib/bbge/DeepSeek*Seat.ts`),
+  mapped in `llmSeats.ts` — still **outside** `applyAction`
+- Model **`deepseek-v4-flash`**, `thinking: disabled`; LLM job is **Actions** +
+  optional `speak` (locale: zh → 简体中文口语; JSON `type` stays English)
+- **`opts.battleLog`**: PlayShell passes recent `formatEvents` texts for every
+  seat. New DeepSeek seats **must** append `battleLogPromptBlock` from
+  `src/lib/bbge/aiBattleLog.ts`
+- Table UI: thinking activity on that seat; battle log via `BattleLogList` /
+  `PlaySideSheet`
 - **No API key:** Host may still add AI seats — **mock** heuristic
 - **LLM timeout / bad output:** ephemeral mock for **that turn only**; do not
   permanently demote the LLM seat

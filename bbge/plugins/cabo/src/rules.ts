@@ -226,11 +226,14 @@ function applySwap(
     }
   }
 
+  // Bezier 2e: cards taken from the discard pile stay face up in tableau.
+  const stayFaceUp = draw.source === "discard";
+
   if (indices.length === 1) {
     const i = indices[0]!;
     const old = me.slots[i]!;
     draft.discard.push(old.card);
-    me.slots[i] = { card: draw.card, faceUp: false };
+    me.slots[i] = { card: draw.card, faceUp: stayFaceUp };
     draft.pendingDraw = null;
     events.push({
       type: "cabo/swapped",
@@ -239,6 +242,7 @@ function applySwap(
         slotIndices: indices,
         success: true,
         discarded: [old.card.value],
+        faceUp: stayFaceUp,
       },
     });
     endTurn(draft, events);
@@ -256,7 +260,7 @@ function applySwap(
       me.slots.splice(i, 1);
     }
     const insertAt = Math.min(...indices);
-    me.slots.splice(insertAt, 0, { card: draw.card, faceUp: false });
+    me.slots.splice(insertAt, 0, { card: draw.card, faceUp: stayFaceUp });
     draft.pendingDraw = null;
     events.push({
       type: "cabo/swapped",
@@ -265,6 +269,7 @@ function applySwap(
         slotIndices: indices,
         success: true,
         discarded: values,
+        faceUp: stayFaceUp,
       },
     });
     endTurn(draft, events);
@@ -274,7 +279,7 @@ function applySwap(
   for (const i of indices) {
     me.slots[i]!.faceUp = true;
   }
-  me.slots.push({ card: draw.card, faceUp: false });
+  me.slots.push({ card: draw.card, faceUp: stayFaceUp });
   draft.pendingDraw = null;
 
   if (indices.length >= 3 && draft.deck.length > 0) {
@@ -410,13 +415,13 @@ export function continueCaboMatch(
 
 export function currentActorId(state: CaboState): PlayerId | null {
   if (state.phase === "finished") return null;
+  if (state.pendingModal) return state.pendingModal.playerId;
   if (state.phase === "setupPeek") {
     for (const id of state.turnOrder) {
       if (!state.setupPeeks[id]?.length) return id;
     }
     return state.turnOrder[0] ?? null;
   }
-  if (state.pendingModal) return state.pendingModal.playerId;
   if (state.pendingAbility) return currentId(state);
   if (state.pendingDraw) return currentId(state);
   if (state.phase === "caboFinalTurns") {
@@ -432,6 +437,10 @@ export function legalActions(
   const actor = currentActorId(state);
   if (actor !== playerId) return [];
 
+  if (state.pendingModal?.playerId === playerId) {
+    return [{ type: "acknowledgeModal", playerId, payload: {} }];
+  }
+
   if (state.phase === "setupPeek") {
     return [
       {
@@ -440,10 +449,6 @@ export function legalActions(
         payload: { slotIndices: [] },
       },
     ];
-  }
-
-  if (state.pendingModal?.playerId === playerId) {
-    return [{ type: "acknowledgeModal", playerId, payload: {} }];
   }
 
   if (state.pendingAbility) {
@@ -501,20 +506,22 @@ export function legalActions(
     const faceDown = me.slots
       .map((s, i) => (!s.faceUp ? i : -1))
       .filter((i) => i >= 0);
-    const acts: Omit<CaboAction, "clientActionId">[] = [
-      {
-        type: "discardDrawn",
-        playerId,
-        payload: {},
-      },
-    ];
-    const ak = abilityKind(state.pendingDraw.card.value);
-    if (state.pendingDraw.source === "deck" && ak) {
+    const acts: Omit<CaboAction, "clientActionId">[] = [];
+    // Discard-pile takes must replace a face-down card (cannot re-discard).
+    if (state.pendingDraw.source === "deck") {
       acts.push({
         type: "discardDrawn",
         playerId,
-        payload: { useAbility: true },
+        payload: {},
       });
+      const ak = abilityKind(state.pendingDraw.card.value);
+      if (ak) {
+        acts.push({
+          type: "discardDrawn",
+          playerId,
+          payload: { useAbility: true },
+        });
+      }
     }
     if (faceDown.length > 0) {
       acts.push({
@@ -599,11 +606,12 @@ export function validateCaboAction(
 
   if (action.type === "discardDrawn") {
     if (!state.pendingDraw) return { error: "no drawn card" };
+    if (state.pendingDraw.source !== "deck") {
+      return { error: "must swap discard take" };
+    }
     if (action.payload.useAbility) {
       const ak = abilityKind(state.pendingDraw.card.value);
-      if (state.pendingDraw.source !== "deck" || !ak) {
-        return { error: "no ability" };
-      }
+      if (!ak) return { error: "no ability" };
     }
     return true;
   }
@@ -680,19 +688,20 @@ export function applyCaboAction(
         if (idx.length !== SETUP_PEEKS) throw new Error("need two slots");
         draft.setupPeeks[action.playerId] = idx;
         const me = player(draft, action.playerId);
+        const values = idx.map((i) => me.slots[i]!.card.value);
         for (const i of idx) {
           if (!me.knownSlots.includes(i)) me.knownSlots.push(i);
         }
+        draft.pendingModal = {
+          type: "setupPeek",
+          playerId: action.playerId,
+          slotIndices: idx,
+          values,
+        };
         events.push({
           type: "cabo/setupPeeked",
           payload: { playerId: action.playerId, slotIndices: idx },
         });
-        if (allSetupDone(draft)) {
-          draft.phase = "playing";
-          events.push({ type: "cabo/roundStarted", payload: { round: draft.round } });
-        } else {
-          advanceSetupTurn(draft);
-        }
         return;
       }
 
@@ -825,11 +834,24 @@ export function applyCaboAction(
       }
 
       if (action.type === "acknowledgeModal") {
+        const modalType = draft.pendingModal?.type;
         draft.pendingModal = null;
         events.push({
           type: "cabo/modalAcked",
-          payload: { playerId: action.playerId },
+          payload: { playerId: action.playerId, modalType },
         });
+        if (modalType === "setupPeek") {
+          if (allSetupDone(draft)) {
+            draft.phase = "playing";
+            events.push({
+              type: "cabo/roundStarted",
+              payload: { round: draft.round },
+            });
+          } else {
+            advanceSetupTurn(draft);
+          }
+          return;
+        }
         endTurn(draft, events);
         return;
       }

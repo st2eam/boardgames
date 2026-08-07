@@ -14,7 +14,7 @@ import { produce } from "immer";
 function finishSetup(state: CaboState): CaboState {
   let s = state;
   for (const p of s.players) {
-    const r = applyCaboAction(
+    const peeked = applyCaboAction(
       s,
       {
         type: "setupPeek",
@@ -23,7 +23,13 @@ function finishSetup(state: CaboState): CaboState {
       },
       { rng: createRng("x") },
     );
-    s = r.state;
+    s = peeked.state;
+    const ack = applyCaboAction(
+      s,
+      { type: "acknowledgeModal", playerId: p.id, payload: {} },
+      { rng: createRng("x") },
+    );
+    s = ack.state;
   }
   return s;
 }
@@ -57,6 +63,91 @@ describe("CABO deck and setup", () => {
     );
     expect(state.phase).toBe("playing");
     expect(state.players[0]!.knownSlots).toEqual([0, 1]);
+  });
+
+  it("shows setup peek in a modal then covers cards after ack", () => {
+    let state = createCaboState(
+      {
+        playerIds: ["a", "b"],
+        playerNames: { a: "A", b: "B" },
+        seed: "cabo-peek-modal",
+      },
+      { rng: createRng("cabo-peek-modal") },
+    );
+    const peeked = applyCaboAction(
+      state,
+      {
+        type: "setupPeek",
+        playerId: "a",
+        payload: { slotIndices: [0, 1] },
+      },
+      { rng: createRng("x") },
+    );
+    state = peeked.state;
+    expect(state.pendingModal?.type).toBe("setupPeek");
+    expect(state.pendingModal?.values?.length).toBe(2);
+    expect(state.phase).toBe("setupPeek");
+
+    const view = caboPlugin.projectView(state, "a") as {
+      you: { slots: { value: number | null; faceUp: boolean }[] };
+      pendingModal: { values?: number[] } | null;
+    };
+    expect(view.pendingModal?.values?.length).toBe(2);
+    expect(view.you.slots[0]!.value).not.toBeNull();
+    expect(view.you.slots[0]!.faceUp).toBe(false);
+
+    const ack = applyCaboAction(
+      state,
+      { type: "acknowledgeModal", playerId: "a", payload: {} },
+      { rng: createRng("x") },
+    );
+    state = ack.state;
+    expect(state.pendingModal).toBeNull();
+    const after = caboPlugin.projectView(state, "a") as {
+      you: { slots: { value: number | null; faceUp: boolean }[] };
+    };
+    expect(after.you.slots[0]!.value).toBeNull();
+    expect(after.you.slots[1]!.value).toBeNull();
+    expect(state.players[0]!.knownSlots).toEqual([0, 1]);
+  });
+
+  it("keeps discard-pile swaps face up", () => {
+    let state = finishSetup(
+      createCaboState(
+        {
+          playerIds: ["a", "b"],
+          playerNames: { a: "A", b: "B" },
+          seed: "cabo-disc-up",
+        },
+        { rng: createRng("cabo-disc-up") },
+      ),
+    );
+    state = produce(state, (draft) => {
+      draft.currentIndex = draft.turnOrder.indexOf("a");
+      draft.discard = [{ id: "d1", value: 3 }];
+      draft.players[0]!.slots = [
+        { card: { id: "a0", value: 9 }, faceUp: false },
+        { card: { id: "a1", value: 9 }, faceUp: false },
+        { card: { id: "a2", value: 9 }, faceUp: false },
+        { card: { id: "a3", value: 9 }, faceUp: false },
+      ];
+    });
+    state = applyCaboAction(
+      state,
+      { type: "drawDiscard", playerId: "a", payload: {} },
+      { rng: createRng("x") },
+    ).state;
+    state = applyCaboAction(
+      state,
+      {
+        type: "swapWithDrawn",
+        playerId: "a",
+        payload: { slotIndices: [0] },
+      },
+      { rng: createRng("x") },
+    ).state;
+    expect(state.players[0]!.slots[0]!.card.value).toBe(3);
+    expect(state.players[0]!.slots[0]!.faceUp).toBe(true);
   });
 });
 

@@ -25,6 +25,18 @@ describe("createMockCaboSeat", () => {
     expect(d.action.type).toBe("acknowledgeModal");
   });
 
+  it("acknowledges setup peek modal before another peek", async () => {
+    const seat = createMockCaboSeat("ai1");
+    const d = await seat.think({
+      phase: "setupPeek",
+      setupPeeksDone: true,
+      currentPlayerId: "ai1",
+      pendingModal: { type: "setupPeek", values: [2, 7] },
+      legal: [{ type: "acknowledgeModal" }],
+    });
+    expect(d.action.type).toBe("acknowledgeModal");
+  });
+
   it("draws from deck when legal", async () => {
     const seat = createMockCaboSeat("ai1");
     const d = await seat.think({

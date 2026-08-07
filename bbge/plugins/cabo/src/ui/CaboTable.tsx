@@ -44,8 +44,10 @@ type ArenaView = {
   pendingModal: {
     type: string;
     slotIndex?: number;
+    slotIndices?: number[];
     targetPlayerId?: string;
     value?: number;
+    values?: number[];
     waiting?: boolean;
   } | null;
   roundScores: Record<string, number> | null;
@@ -155,7 +157,13 @@ export function CaboTable({
 
   useEffect(() => {
     setSelectedSlots([]);
-  }, [view.phase, view.round, view.pendingDraw?.cardId, view.currentPlayerId]);
+  }, [
+    view.phase,
+    view.round,
+    view.pendingDraw?.cardId,
+    view.currentPlayerId,
+    view.pendingModal?.type,
+  ]);
 
   const dispatch = (action: Action) => onAction(action);
 
@@ -165,10 +173,16 @@ export function CaboTable({
     );
   };
 
+  const modalValues =
+    view.pendingModal?.values?.length
+      ? view.pendingModal.values
+      : view.pendingModal?.value != null
+        ? [view.pendingModal.value]
+        : [];
   const modalVisible =
-    view.pendingModal &&
-    !view.pendingModal.waiting &&
-    view.pendingModal.value != null;
+    Boolean(view.pendingModal) &&
+    !view.pendingModal?.waiting &&
+    modalValues.length > 0;
 
   const phaseLabel = useMemo(() => {
     if (view.phase === "setupPeek") return zh ? "开局偷看 2 张" : "Setup peek (2)";
@@ -269,8 +283,10 @@ export function CaboTable({
               seat.isYou &&
                 isMyTurn &&
                 !disabled &&
+                !view.pendingModal &&
                 ((view.phase === "setupPeek" && !view.setupPeeksDone) ||
-                  (view.pendingDraw && !slot.faceUp)),
+                  (view.pendingDraw && !slot.faceUp) ||
+                  (view.pendingAbility?.kind === "peek" && !slot.faceUp)),
             );
             return (
               <CaboCard
@@ -323,18 +339,9 @@ export function CaboTable({
       );
     }
 
-    if (view.pendingModal && view.pendingModal.value != null) {
-      return (
-        <button
-          type="button"
-          onClick={() =>
-            dispatch({ type: "acknowledgeModal", playerId: actorId, payload: {} })
-          }
-          className="rounded-xl bg-accent px-4 py-2 font-heading text-sm font-bold text-[#1a120e]"
-        >
-          {zh ? "知道了" : "Got it"}
-        </button>
-      );
+    if (view.pendingModal && modalValues.length > 0) {
+      // Modal overlay owns the confirm CTA.
+      return null;
     }
 
     if (view.pendingAbility) {
@@ -581,23 +588,30 @@ export function CaboTable({
                   ? zh
                     ? "间谍偷看"
                     : "Spy"
-                  : zh
-                    ? "偷看"
-                    : "Peek"}
+                  : view.pendingModal!.type === "setupPeek"
+                    ? zh
+                      ? "开局偷看"
+                      : "Setup peek"
+                    : zh
+                      ? "偷看"
+                      : "Peek"}
               </h3>
               <p className="mt-2 text-sm text-stone-600">
-                {zh ? "你看到了：" : "You saw:"}{" "}
+                {zh ? "记住这些牌，确认后会盖回：" : "Memorize, then cover:"}{" "}
                 <strong className="text-lg text-accent">
-                  {view.pendingModal!.value}
+                  {modalValues.join(zh ? "、" : ", ")}
                 </strong>
               </p>
-              <div className="mt-4 flex justify-center">
-                <CaboCard
-                  locale={locale}
-                  value={view.pendingModal!.value ?? null}
-                  faceDown={false}
-                  size="md"
-                />
+              <div className="mt-4 flex flex-wrap justify-center gap-2">
+                {modalValues.map((v, i) => (
+                  <CaboCard
+                    key={`peek-${i}-${v}`}
+                    locale={locale}
+                    value={v}
+                    faceDown={false}
+                    size="md"
+                  />
+                ))}
               </div>
               <button
                 type="button"
@@ -608,9 +622,9 @@ export function CaboTable({
                     payload: {},
                   })
                 }
-                className="mt-4 w-full rounded-xl bg-accent py-2 font-heading font-bold text-[#1a120e]"
+                className="mt-4 min-h-11 w-full cursor-pointer touch-manipulation rounded-xl bg-accent py-2.5 font-heading font-bold text-[#1a120e] active:scale-[0.98]"
               >
-                {zh ? "知道了" : "Got it"}
+                {zh ? "确认并盖回" : "Confirm & cover"}
               </button>
             </div>
           </motion.div>

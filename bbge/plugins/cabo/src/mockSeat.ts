@@ -6,7 +6,12 @@ type View = {
   currentPlayerId?: string | null;
   pendingDraw?: { source?: string; value?: number | null; cardId?: string | null } | null;
   pendingAbility?: { kind?: string } | null;
-  pendingModal?: { type?: string; value?: number; waiting?: boolean } | null;
+  pendingModal?: {
+    type?: string;
+    value?: number;
+    values?: number[];
+    waiting?: boolean;
+  } | null;
   setupPeeksDone?: boolean;
   you?: {
     slots?: { slotIndex: number; value: number | null; faceUp: boolean; knownToYou?: boolean }[];
@@ -59,7 +64,23 @@ export function createMockCaboSeat(id: PlayerId): AiSeat {
       const progress = (note: string) => opts?.onProgress?.({ note });
       const legal = view.legal ?? [];
 
-      if (view.phase === "setupPeek") {
+      if (
+        view.pendingModal &&
+        !view.pendingModal.waiting &&
+        (view.pendingModal.value != null ||
+          (view.pendingModal.values?.length ?? 0) > 0 ||
+          legal.some((a) => a.type === "acknowledgeModal"))
+      ) {
+        return {
+          action: {
+            type: "acknowledgeModal",
+            playerId: id,
+            payload: {},
+          } as Action,
+        };
+      }
+
+      if (view.phase === "setupPeek" && !view.setupPeeksDone) {
         const slots = view.you?.slots ?? [];
         const picks = [0, 1].filter((i) => i < slots.length);
         if (slots.length >= 4) {
@@ -74,16 +95,6 @@ export function createMockCaboSeat(id: PlayerId): AiSeat {
             type: "setupPeek",
             playerId: id,
             payload: { slotIndices: picks },
-          } as Action,
-        };
-      }
-
-      if (view.pendingModal && view.pendingModal.value != null) {
-        return {
-          action: {
-            type: "acknowledgeModal",
-            playerId: id,
-            payload: {},
           } as Action,
         };
       }

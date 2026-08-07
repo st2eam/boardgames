@@ -34,12 +34,16 @@ export interface PendingAbility {
 }
 
 export interface PendingModal {
-  type: "peekOwn" | "spyOther";
+  type: "peekOwn" | "spyOther" | "setupPeek";
   /** Who must acknowledge */
   playerId: PlayerId;
   targetPlayerId?: PlayerId;
-  slotIndex: number;
-  value: number;
+  /** Single-card peek / spy */
+  slotIndex?: number;
+  value?: number;
+  /** Setup peek of two cards */
+  slotIndices?: number[];
+  values?: number[];
 }
 
 export interface CaboState {

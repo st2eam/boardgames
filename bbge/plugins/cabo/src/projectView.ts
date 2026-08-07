@@ -13,26 +13,34 @@ function pubSlot(
 ) {
   const isOwner = viewerId === ownerId;
   const known =
-    isOwner && state.players.find((p) => p.id === ownerId)?.knownSlots.includes(slotIndex);
-  const showFace =
-    roundReveal ||
-    slot.faceUp ||
-    (isOwner && known) ||
-    (state.pendingModal?.playerId === viewerId &&
-      state.pendingModal.type === "peekOwn" &&
-      state.pendingModal.slotIndex === slotIndex &&
+    isOwner &&
+    Boolean(
+      state.players
+        .find((p) => p.id === ownerId)
+        ?.knownSlots.includes(slotIndex),
+    );
+  const modal = state.pendingModal;
+  const modalReveal =
+    modal?.playerId === viewerId &&
+    ((modal.type === "peekOwn" &&
+      modal.slotIndex === slotIndex &&
       isOwner) ||
-    (state.pendingModal?.playerId === viewerId &&
-      state.pendingModal.type === "spyOther" &&
-      state.pendingModal.targetPlayerId === ownerId &&
-      state.pendingModal.slotIndex === slotIndex);
+      (modal.type === "setupPeek" &&
+        Boolean(modal.slotIndices?.includes(slotIndex)) &&
+        isOwner) ||
+      (modal.type === "spyOther" &&
+        modal.targetPlayerId === ownerId &&
+        modal.slotIndex === slotIndex));
+  // Peeked knowledge stays in knownSlots for AI; UI only shows faces while
+  // the confirm modal is open (or when the slot is permanently face-up).
+  const showFace = roundReveal || slot.faceUp || modalReveal;
 
   return {
     slotIndex,
     value: showFace ? slot.card.value : null,
     faceUp: slot.faceUp || roundReveal,
     cardId: showFace ? slot.card.id : null,
-    knownToYou: Boolean(isOwner && known),
+    knownToYou: known,
   };
 }
 
@@ -57,24 +65,25 @@ export function projectCaboView(state: CaboState, viewerId: PlayerId | null) {
       ? state.discard[state.discard.length - 1]!.value
       : null,
     discardCount: state.discard.length,
-    pendingDraw:
-      state.pendingDraw && viewerId === actor
+    pendingDraw: state.pendingDraw
+      ? viewerId === actor || state.pendingDraw.source === "discard"
         ? {
             source: state.pendingDraw.source,
             value: state.pendingDraw.card.value,
             cardId: state.pendingDraw.card.id,
           }
-        : state.pendingDraw
-          ? { source: state.pendingDraw.source, value: null, cardId: null }
-          : null,
+        : { source: state.pendingDraw.source, value: null, cardId: null }
+      : null,
     pendingAbility: state.pendingAbility,
     pendingModal:
       state.pendingModal?.playerId === viewerId
         ? {
             type: state.pendingModal.type,
             slotIndex: state.pendingModal.slotIndex,
+            slotIndices: state.pendingModal.slotIndices,
             targetPlayerId: state.pendingModal.targetPlayerId,
             value: state.pendingModal.value,
+            values: state.pendingModal.values,
           }
         : state.pendingModal
           ? { type: state.pendingModal.type, waiting: true }

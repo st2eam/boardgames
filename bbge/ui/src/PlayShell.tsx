@@ -276,7 +276,9 @@ export function PlayShell({
       ? 2
       : isNimmt
         ? maxPlayersForMode(normalizeNimmtMode(edition))
-        : maxSeatsForLlEdition(normalizeLlEdition(edition));
+        : isLoveLetter
+          ? maxSeatsForLlEdition(normalizeLlEdition(edition))
+          : mod.plugin.metadata.maxPlayers;
   const showEditions = isLoveLetter || isNimmt || isGo;
   const [roomId, setRoomId] = useState(roomIdFromUrl ?? "");
   const [error, setError] = useState<string | null>(null);

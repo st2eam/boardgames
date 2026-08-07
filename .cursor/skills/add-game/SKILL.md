@@ -349,9 +349,10 @@ Minimum implementation checklist for a new playable slug:
 3. **Table UI** — implement `PluginTableProps` (BGA-style DOM recommended)
 4. **Play module** — export `PluginPlayModule` (`id`, `plugin`, `Table`, `formatEvents`, `createMockSeat`, optional `tryAutoAiAction`)
 5. **Register** — `registerPlayModule(...)` in `src/lib/bbge/registerPlayPlugins.ts` (do **not** edit `PlayShell` per game)
-6. **LLM (optional)** — map `pluginId` → seat factory in `src/lib/bbge/llmSeats.ts` (`deepseek-v4-flash`, Actions only)
-7. **Shelf** — `play.json` `{ pluginId, pluginVersion [, defaultEdition, editions] }`
-8. **Tests / verify** — `npm run test:bbge` + `npm run build`
+6. **LLM (optional)** — map `pluginId` → seat factory in `src/lib/bbge/llmSeats.ts` (`deepseek-v4-flash`, Actions only; accept `locale`)
+7. **Battle log → AI** — DeepSeek seat must read `opts.battleLog` (PlayShell injects it; use `battleLogPromptBlock` from `src/lib/bbge/aiBattleLog.ts`)
+8. **Shelf** — `play.json` `{ pluginId, pluginVersion [, defaultEdition, editions] }`
+9. **Tests / verify** — `npm run test:bbge` + `npm run build` → **push `main` directly**
 
 Reference: Love Letter `loveLetterPlayModule` + [`docs/games/love-letter.md`](../../../docs/games/love-letter.md).
 
@@ -362,8 +363,12 @@ Reference: Love Letter `loveLetterPlayModule` + [`docs/games/love-letter.md`](..
 | Privacy | Host UI projects **local human** seats only — never AI / remote hands |
 | `projectView` | Others get `handCount` + public discards; never full hands (except finished reveal / standings) |
 | Public events | Do not put private ranks in broadcast Events (e.g. priest peek rank stays in peeker view only) |
-| AI purpose | LLM **plays cards** + optional `speak` field; Host falls back to event bubble text |
+| AI purpose | LLM **plays Actions** + optional `speak`; Host falls back to event bubble text |
 | AI model | Play seats: **`deepseek-v4-flash`**, `thinking: disabled` for Action JSON |
+| AI battle log | PlayShell passes chronological `battleLog: string[]` (every seat’s recent actions). **Every new DeepSeek seat must append it** via `battleLogPromptBlock` so the model can read the table |
+| AI speak language | Default **简体中文** when `locale !== "en"`; casual table talk — Action JSON `type` stays English (`fold`/`playCard`/…), speak text should avoid English jargon |
+| Battle log UI | Use shared **`BattleLogList`** + **`PlaySideSheet`** from `@bbge/ui` (fixed `70dvh` mobile sheet). Do **not** hand-roll a max-height-only log that cannot scroll |
+| Seat bubbles | `formatEvents` → `speakerId` + `bubble`; keep bubbles **inside** seat chrome on mobile (overflow parents clip absolute `-top-*` bubbles) |
 | Editions | Prefer one plugin + `edition` config over forking plugins for close variants |
 | Layout | Viewport-locked play page; scroll **inside** seat/log panels only |
 | Pixi | Optional for future canvas boards; Love Letter path is DOM, not Pixi |
@@ -698,3 +703,15 @@ Pass-and-play: switch controlling seat only among seats added as local hotseat h
 ### play.json / BBGE: LLM is for Actions
 
 DeepSeek on play seats exists to return legal JSON **Actions** (`deepseek-v4-flash`). Do not treat table chat as the AI feature. Site rules chat (Game Shelf assistant) is separate and may use a different model.
+
+### play.json / BBGE: battle log in the prompt
+
+`PlayShell` already feeds every AI `think()` call with `opts.battleLog` — recent `formatEvents` lines for **all players** (UI-only “thinking…” lines stripped). New LLM seats **must** include that block in the user prompt (`battleLogPromptBlock`). Skipping it makes the AI blind to prior rounds.
+
+### play.json / BBGE: shared log UI
+
+Mobile/desktop battle logs must use `@bbge/ui` `BattleLogList` (auto-scroll + `overflow-y-auto` + `scrollbar-gutter`) inside a height-bounded flex parent. Mobile sheets use `PlaySideSheet` (`h-[70dvh]`). A parent with only `max-h-*` and no fixed height often never scrolls — that was the 6 nimmt! bug vs Hold’em.
+
+### Git: push `main` directly
+
+For this repo, after verify (`test:bbge` / `build`), **commit and push `origin/main`**. Do not open a feature-branch PR unless the user asks.

@@ -82,8 +82,8 @@ Full detail: [architecture.md §11](architecture.md).
 | Playable | Love Letter; Texas Hold'em; **6 nimmt!** classic (2–10) |
 | Design doc | [`docs/games/love-letter.md`](../../../docs/games/love-letter.md) |
 | Multiplayer | Host + share link join from day one |
-| AI | Reusable `AiSeat` on Host; `deepseek-v4-flash` + optional `speak`; mock without key |
-| Play UI | BGA-style DOM table (`LoveLetterTable`); Motion draw/play; viewport-locked |
+| AI | Reusable `AiSeat` on Host; `deepseek-v4-flash` + optional `speak`; `opts.battleLog` from PlayShell; mock without key |
+| Play UI | BGA-style DOM table; shared `BattleLogList` / `PlaySideSheet`; Motion; viewport-locked |
 | Replay tools | **Out** — no replay viewer/SDK UI |
 | Entry | `GameHeader` **开始游戏** → lobby **经典/完整/拓展** → `?edition=` |
 
@@ -124,16 +124,18 @@ Do **not** hardcode a second game inside `PlayShell.tsx`.
 1. Design     → docs/games/<slug>.md (+ docs/games/README.md)
 2. Plugin     → bbge/plugins/<pluginId>/ (rules, state, projectView, tests)
 3. Table UI   → plugins/.../ui/ implementing PluginTableProps
+                 (BattleLogList + PlaySideSheet for 战报)
 4. Play module → export PluginPlayModule { id, plugin, Table, formatEvents,
                   createMockSeat, tryAutoAiAction? }
 5. Register   → src/lib/bbge/registerPlayPlugins.ts → registerPlayModule(...)
 6. LLM (opt.) → src/lib/bbge/llmSeats.ts map pluginId → flash Action seat
+                 (locale-aware speak; append opts.battleLog via battleLogPromptBlock)
 7. Shelf      → content/games/<slug>/play.json { pluginId, pluginVersion }
-8. Verify     → npm run test:bbge && npm run build → commit/push
+8. Verify     → npm run test:bbge && npm run build → push origin/main
 ```
 
 **PluginPlayModule** (`bbge/ui` registry): rules + table + event log + mock AI.  
-**PlayShell** owns lobby / PeerJS / HostSession / privacy / AI pacing only.
+**PlayShell** owns lobby / PeerJS / HostSession / privacy / AI pacing / **battleLog injection** only.
 
 **Conventions (all turn-based plugins):**
 
@@ -141,7 +143,23 @@ Do **not** hardcode a second game inside `PlayShell.tsx`.
 - `createGame({ playerIds, playerNames, seed }, ctx)`
 - Private info only in viewer projection; Host UI uses local seats only
 - LLM seats output legal **Actions** (`deepseek-v4-flash`); no auto chat
+- **`formatEvents`** must produce per-player action lines (these become AI `battleLog`)
+- DeepSeek factory `(id, apiKey, locale?)` — `speak` in 简体中文 when `locale !== "en"`
+- DeepSeek `think` **must** include `battleLogPromptBlock(opts?.battleLog, zh)`
+- Table 战报: `@bbge/ui` `BattleLogList` + mobile `PlaySideSheet` (`70dvh`) — do not invent a third scroller
 - Prefer DOM + Motion; Pixi only when the board needs a canvas
+
+### AI seats + battle log (normative)
+
+| Piece | Where | Rule |
+|-------|--------|------|
+| `AiThinkOptions.battleLog` | `@bbge/ai` | `string[]` of chronological play-log texts |
+| Inject | `PlayShell` | Snapshot before `think`; strips `think-*` / `fallback-*` / `illegal*` UI noise; last ~100 lines |
+| Prompt helper | `src/lib/bbge/aiBattleLog.ts` | `battleLogPromptBlock(log, zh)` |
+| LLM map | `src/lib/bbge/llmSeats.ts` | Close over `locale` for every factory |
+| Mock | plugin `createMockSeat` | Deterministic (hash mix, no `Math.random`); optional Chinese `speak` |
+
+When adding a game: if the LLM cannot see prior rounds / other seats’ actions, you forgot the battle-log block.
 
 Reference: [`docs/games/love-letter.md`](../../../docs/games/love-letter.md) + `loveLetterPlayModule`.
 

@@ -47,7 +47,7 @@ Rules / trainer → **开始游戏** → lobby pick board size → human vs AI (
 |-------|----------|
 | Mock (`createStrategicGoSeat`) | Prefer captures / atari answers; open near corners·sides; fight locally around `lastMove`; pass when quiet |
 | Fallback (`@bbge/ai` mock) | Same bias without `tryPlay` (adjacency heuristics) |
-| LLM (`DeepSeekGoSeat`) | Club-strength purposeful opponent; `speak` follows locale (`zh` → 简体中文) |
+| LLM (`DeepSeekGoSeat`) | Club-strength purposeful opponent; `speak` follows locale (`zh` → 简体中文); `opts.battleLog` of moves |
 | Teacher | In-table `GoTutorPanel` (no floating FAB); live `boardAscii`; tutoring only — does not auto-move unless asked |
 
 Board fills the play viewport; status banner height is pinned to avoid layout jump.

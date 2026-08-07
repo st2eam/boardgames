@@ -86,8 +86,9 @@ GameHeader [开始游戏] → /play/?edition=<default>
 | Layer | Behavior |
 |-------|----------|
 | Mock (`createMockLoveLetterSeat`) | Keep Princess/King/Countess; spend Guard/Priest for info; Handmaid protects highs; Guard/Bishop guess from `seen` + discards; Chancellor keeps highest |
-| LLM | Clever human table player — deduction, timing, never volunteer Princess |
+| LLM | Clever human — deduction, timing, never volunteer Princess; Chinese `speak`; `opts.battleLog` of every seat |
 | Hard rule | Never play Princess unless it is the only card |
+| Log UI | Shared `BattleLogList` + `PlaySideSheet` |
 
 ---
 

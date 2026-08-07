@@ -70,10 +70,11 @@ Follow **[add-game Step 6d](../.cursor/skills/add-game/SKILL.md)** + **[BBGE ski
 
 1. Design `docs/games/<slug>.md`
 2. Plugin + `PluginPlayModule` under `bbge/plugins/<pluginId>/`
-3. `registerPlayModule` in `src/lib/bbge/registerPlayPlugins.ts` (PlayShell stays generic)
-4. Optional LLM factory in `src/lib/bbge/llmSeats.ts`
-5. `content/games/<slug>/play.json` → `pluginId`
-6. `npm run test:bbge` + `npm run build`
+3. Table UI uses shared `BattleLogList` + `PlaySideSheet` for 战报
+4. `registerPlayModule` in `src/lib/bbge/registerPlayPlugins.ts` (PlayShell stays generic)
+5. Optional LLM factory in `src/lib/bbge/llmSeats.ts` (locale-aware `speak`; append `opts.battleLog`)
+6. `content/games/<slug>/play.json` → `pluginId`
+7. `npm run test:bbge` + `npm run build` → push `origin/main`
 
 ### Adding a trainer type
 

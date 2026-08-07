@@ -8,13 +8,14 @@ docs/games/<slug>.md
 
 | File | Game | Status |
 |------|------|--------|
-| [love-letter.md](love-letter.md) | Love Letter — classic / full / expansion | Shipped — strategic mock + LLM seat |
-| [texas-hold-em.md](texas-hold-em.md) | Texas Hold'em — NLHE cash session (2–9) | Shipped — showdown reveal, TAG/GTO AI, mobile polish |
-| [6-nimmt-30th-anniversary.md](6-nimmt-30th-anniversary.md) | 6 nimmt! — classic / pro / fan / buffalo | Shipped — trap-aware mock + LLM seat |
-| [go.md](go.md) | Go — 9×9 / 13×13 / 19×19 | Shipped — capture-first mock + Go Teacher |
+| [love-letter.md](love-letter.md) | Love Letter — classic / full / expansion | Shipped — strategic mock + LLM + battleLog |
+| [texas-hold-em.md](texas-hold-em.md) | Texas Hold'em — NLHE cash session (2–9) | Shipped — aggressive pot-odds AI, bubbles, shared log UI |
+| [6-nimmt-30th-anniversary.md](6-nimmt-30th-anniversary.md) | 6 nimmt! — classic / pro / fan / buffalo | Shipped — trap-aware mock + LLM + shared log scroll |
+| [go.md](go.md) | Go — 9×9 / 13×13 / 19×19 | Shipped — capture-first mock + Go Teacher + battleLog |
 
 Platform skill: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/SKILL.md).  
-Shelf feature map: [`docs/architecture.md`](../architecture.md).
+Shelf feature map: [`docs/architecture.md`](../architecture.md).  
+Add-game skill (content + play checklist): [`.cursor/skills/add-game/SKILL.md`](../../.cursor/skills/add-game/SKILL.md).
 
 Keep these docs aligned with the running Play UI and plugin Actions when behavior changes.
 
@@ -24,11 +25,15 @@ Keep these docs aligned with the running Play UI and plugin Actions when behavio
 
 All playables use Host-only `AiSeat`: DeepSeek `deepseek-v4-flash` when a key is present, else the plugin/mock heuristic. Illegal LLM actions get one feedback retry, then mock fallback.
 
+**Every LLM `think` receives `opts.battleLog`** — chronological `formatEvents` lines for all seats (recent ~100; UI “thinking…” noise stripped). New DeepSeek seats **must** append `battleLogPromptBlock` (`src/lib/bbge/aiBattleLog.ts`). `speak` defaults to 简体中文 when `locale !== "en"` (Action JSON types stay English).
+
 | Plugin | Mock / heuristic | LLM persona |
 |--------|------------------|-------------|
-| `love-letter` | Keep power cards; Guard/Bishop use `seen` + discards; Handmaid protects highs; never volunteer Princess | Clever human table player — deduction + timing |
-| `texas-holdem` | TAG / GTO-flavoured: value-bet made hands, fold junk to heat, semi-bluff draws, selective river blocker bluffs (deterministic mix) | Mature TAG — balanced value + bluffs, not LAG splash |
-| `six-nimmt` | Avoid 5th-card traps; smallest-gap fits; choose lowest-bullhead rows when forced | Careful human — minimize heads, think ahead |
+| `love-letter` | Keep power cards; Guard/Bishop use `seen` + discards; Handmaid protects highs; never volunteer Princess | Clever human — deduction + timing + battle log |
+| `texas-holdem` | Aggressive pot-odds: smash strong hands; with air/draws call or raise when the price is right (not tight-TAG) | Same — value hard, enter on pot odds |
+| `six-nimmt` | Avoid 5th-card traps; smallest-gap fits; choose lowest-bullhead rows when forced | Careful human — minimize heads, use log to anticipate rows |
 | `go` | Prefer captures / local answers; opening corners·sides; pass when quiet | Club-strength purposeful opponent (+ in-table Go Teacher) |
+
+**UI:** battle logs use shared `@bbge/ui` `BattleLogList` + mobile `PlaySideSheet` (`70dvh`).
 
 Mocks must stay **deterministic** (no `Math.random()`); use hash mixes over seat/cards/street when mixing frequencies.

@@ -14,7 +14,7 @@ UI skill: `.claude/skills/ui-ux-pro-max` (felt table, clear bet affordances, mot
 | **Players** | **2–9** |
 | **Play UI** | BGA-style DOM oval table + Motion (deal / flip / fold / bet) |
 | **Card art** | `public/images/bbge/texas-holdem/*` from `texas-hold-em-cards.zip` |
-| **AI** | TAG / GTO-flavoured mock (`createAggressiveHoldemSeat`) + DeepSeek TAG prompt |
+| **AI** | Aggressive pot-odds mock (`createAggressiveHoldemSeat`) + DeepSeek; `battleLog` in prompt |
 
 ---
 
@@ -32,8 +32,8 @@ until the room is dissolved.
 |-------|--------|
 | Approach | A — PlayShell + `bbge/plugins/texas-holdem` + PeerJS |
 | Stakes | Lobby **custom**: `smallBlind`, `bigBlind`, `startingStack` (defaults 1/2/200) |
-| AI | Host DeepSeek `deepseek-v4-flash` + TAG mock; illegal → feedback retry once |
-| Bubbles | Every bet action shows seat bubble (`Call`, `Raise to X`, `I fold`, …) |
+| AI | Host DeepSeek `deepseek-v4-flash` + aggressive pot-odds mock; illegal → feedback retry once; `opts.battleLog` |
+| Bubbles | Every bet action shows seat bubble（中文：弃牌 / 过牌 / 跟注 / 加注至…）inside seat chip |
 | Motion | Deal-in, board flip, fold slide, chip/bet pulse (Motion) |
 | Showdown | Contested hands reveal in center strip + seat faces; fold-wins stay hidden |
 | Out | Tournament, straddle, ante, timers, Pixi |
@@ -64,13 +64,13 @@ Synced via `HostSession.setGameConfig` + lobby broadcast (like Love Letter editi
 
 ---
 
-## 5. AI (TAG / GTO-ish)
+## 5. AI (aggressive + pot odds)
 
 | Layer | Behavior |
 |-------|----------|
-| Mock | Value-bet flush+ / strong made hands; fold air to heat; semi-bluff draws; river blocker bluffs via deterministic mix |
-| LLM | Mature tight-aggressive human — pot/2⁄3 sizing, selective bluffs, no check-down with obvious value |
-| Fallback | `@bbge/ai` `createMockTexasHoldemSeat` mirrors TAG bias |
+| Mock | Smash strong made hands; with air/draws call or raise when pot odds are good; river blocker bluffs via deterministic mix |
+| LLM | Same persona — not tight-TAG; Chinese `speak`; uses battle log of every seat |
+| Fallback | `@bbge/ai` `createMockTexasHoldemSeat` mirrors pot-odds bias |
 
 ---
 
@@ -116,7 +116,7 @@ GameHeader [开始游戏] → /games/texas-hold-em/play/
 - **Showdown**: center reveal strip; seat hole faces hidden while strip is open (no double boards)
 - **Fold**: cards dim + slide; **bet/raise**: chip stack pulse toward pot
 - Action bar: Fold / Check·Call / Raise (number + slider); **下一手** when finished
-- Mobile: battle-log sheet `70dvh` + auto-scroll to latest; viewport-locked PlayShell
+- Mobile: shared `PlaySideSheet` (`70dvh`) + `BattleLogList` auto-scroll; viewport-locked PlayShell
 
 ---
 

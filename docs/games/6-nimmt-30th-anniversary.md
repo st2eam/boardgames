@@ -66,8 +66,9 @@ play until end condition → host rematch (same mode).
 | Layer | Behavior |
 |-------|----------|
 | Mock (`createMockSixNimmtSeat`) | Smallest-gap fits; strongly avoid 5th-card takes; hold high control cards early; forced take → fewest bullheads |
-| LLM | Careful human — minimize heads, think one street ahead; flip only when it clearly helps |
+| LLM | Careful human — minimize heads; uses `opts.battleLog` of every seat’s plays/takes; Chinese `speak` |
 | Timing | Selecting phase: AI thinks in parallel; paced one-by-one reveal animation |
+| Log UI | Shared `BattleLogList` + `PlaySideSheet` (scores shrink; log scrolls) |
 
 ---
 

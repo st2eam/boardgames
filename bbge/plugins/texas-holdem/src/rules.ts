@@ -263,6 +263,11 @@ function showdown(state: HoldemState, events: Event[]): void {
       showdown: show.map((s) => ({
         playerId: s.playerId,
         score: s.score,
+        hole: s.hole.map((c) => ({
+          id: c.id,
+          rank: c.rank,
+          suit: c.suit,
+        })),
       })),
     },
   });

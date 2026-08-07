@@ -324,6 +324,72 @@ export function TexasHoldemTable({
                 >
                   {zh ? "底池" : "Pot"} {view.potTotal}
                 </motion.div>
+                {view.phase === "finished" &&
+                  view.seats.some(
+                    (s) =>
+                      !s.folded && s.hole.some((c) => c.rank != null),
+                  ) && (
+                    <div className="mt-0.5 flex max-w-full flex-wrap justify-center gap-2 sm:gap-3">
+                      {view.seats
+                        .filter(
+                          (s) =>
+                            !s.folded &&
+                            s.hole.some((c) => c.rank != null),
+                        )
+                        .map((s) => {
+                          const cat = s.handCategory
+                            ? zh
+                              ? s.handCategory.zh
+                              : s.handCategory.en
+                            : null;
+                          const won = (s.wonAmount ?? 0) > 0;
+                          return (
+                            <motion.div
+                              key={`sd-${s.id}-h${handNumber}`}
+                              className={[
+                                "rounded-xl border px-2 py-1.5 backdrop-blur sm:px-2.5",
+                                won
+                                  ? "border-amber-300/80 bg-amber-100/90"
+                                  : "border-white/25 bg-black/40",
+                              ].join(" ")}
+                              initial={
+                                reduce ? false : { opacity: 0, y: 8 }
+                              }
+                              animate={{ opacity: 1, y: 0 }}
+                            >
+                              <p
+                                className={[
+                                  "mb-1 truncate text-center font-heading text-[10px] font-bold sm:text-[11px]",
+                                  won
+                                    ? "text-amber-950"
+                                    : "text-amber-50",
+                                ].join(" ")}
+                              >
+                                {s.id === actorId
+                                  ? zh
+                                    ? "你"
+                                    : "You"
+                                  : s.name}
+                                {cat ? ` · ${cat}` : ""}
+                                {won ? ` +${s.wonAmount}` : ""}
+                              </p>
+                              <div className="flex justify-center gap-0.5 sm:gap-1">
+                                {s.hole.map((c, i) => (
+                                  <PlayingCard
+                                    key={`${c.id}-show`}
+                                    rank={c.rank}
+                                    suit={c.suit}
+                                    size={mobile ? "sm" : "md"}
+                                    flip
+                                    dealDelay={reduce ? 0 : 0.06 * i}
+                                  />
+                                ))}
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                    </div>
+                  )}
               </div>
 
               <div className="flex flex-col items-center gap-1.5 sm:gap-2">
@@ -647,6 +713,10 @@ function SeatChip({
   compact?: boolean;
 }) {
   const zh = locale === "zh";
+  const revealed = seat.hole?.some((c) => c.rank != null) ?? false;
+  const showHoleCards = !you && (!compact || revealed);
+  const showHolePlaceholder =
+    !you && compact && !revealed && (seat.hole?.length ?? 0) > 0;
   return (
     <motion.div
       layout
@@ -719,24 +789,25 @@ function SeatChip({
           {zh ? seat.handCategory.zh : seat.handCategory.en}
         </p>
       )}
-      {!you && !compact && (
+      {showHolePlaceholder && (
+        <p className="mt-0.5 text-[10px] text-stone-400">
+          {seat.folded ? (zh ? "已弃" : "Folded") : "🂠🂠"}
+        </p>
+      )}
+      {showHoleCards && (
         <div className="mt-1 flex gap-0.5">
           {(seat.hole ?? []).map((c) => (
             <PlayingCard
-              key={c.id}
+              key={`${c.id}-${c.rank != null ? "up" : "dn"}`}
               rank={c.rank}
               suit={c.suit}
               faceDown={c.rank == null}
               size="sm"
               folded={foldedAnim}
+              flip={revealed && c.rank != null}
             />
           ))}
         </div>
-      )}
-      {!you && compact && (seat.hole?.length ?? 0) > 0 && (
-        <p className="mt-0.5 text-[10px] text-stone-400">
-          {seat.folded ? (zh ? "已弃" : "Folded") : "🂠🂠"}
-        </p>
       )}
     </motion.div>
   );

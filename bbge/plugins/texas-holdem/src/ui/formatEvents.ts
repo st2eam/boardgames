@@ -1,11 +1,26 @@
 import type { Event } from "@bbge/core";
 import type { PlayLogEntry } from "@bbge/ui";
+import { CATEGORY_NAME } from "../handEval";
+import { cardCode, type Card } from "../cards";
 
 function nameOf(
   id: string,
   names?: Record<string, string>,
 ): string {
   return names?.[id] ?? id;
+}
+
+function holeLabel(
+  hole: { id: string; rank?: number; suit?: string }[] | undefined,
+): string {
+  if (!hole?.length) return "";
+  return hole
+    .map((c) =>
+      c.rank != null && c.suit
+        ? cardCode({ id: c.id, rank: c.rank, suit: c.suit } as Card)
+        : "??",
+    )
+    .join(" ");
 }
 
 export function formatHoldemEvents(
@@ -93,6 +108,14 @@ export function formatHoldemEvents(
       const winners = (p.winners as string[]) ?? [];
       const pot = typeof p.pot === "number" ? p.pot : null;
       const amounts = (p.amounts as Record<string, number> | undefined) ?? {};
+      const reason = p.reason as string | undefined;
+      const showdown = (p.showdown as
+        | {
+            playerId: string;
+            score: number[];
+            hole?: { id: string; rank: number; suit: string }[];
+          }[]
+        | undefined) ?? [];
       const awardBits = winners
         .map((id) => {
           const n = amounts[id];
@@ -110,6 +133,24 @@ export function formatHoldemEvents(
           : `Hand over · ${awardBits}${pot != null ? ` · pot ${pot}` : ""}`,
         tone: "win",
       });
+      if (reason === "showdown" && showdown.length > 0) {
+        for (const s of showdown) {
+          const cat = CATEGORY_NAME[
+            (s.score?.[0] ?? 0) as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+          ];
+          const cards = holeLabel(s.hole);
+          out.push({
+            id: `show-${s.playerId}-${at}-${out.length}`,
+            at,
+            speakerId: s.playerId,
+            bubble: zh ? "亮牌" : "Show",
+            text: zh
+              ? `${nameOf(s.playerId, names)} 亮牌 ${cards}${cat ? ` · ${cat.zh}` : ""}`
+              : `${nameOf(s.playerId, names)} shows ${cards}${cat ? ` · ${cat.en}` : ""}`,
+            tone: "info",
+          });
+        }
+      }
     }
   }
   return out;

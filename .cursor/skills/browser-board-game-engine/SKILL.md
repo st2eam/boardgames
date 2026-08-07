@@ -13,11 +13,20 @@ description: >-
 
 Build a **platform**, not a single game. Game rules live only in plugins.
 
-Full architecture (philosophy, packages, subsystems, long-term vision):
-[architecture.md](architecture.md) — **read it before designing or implementing**.
-
 This skill is for the **playable engine**. Do not confuse with The Game Shelf
 content skill [add-game](../add-game/SKILL.md) (rules site Markdown/meta only).
+
+---
+
+## Docs (read before implementing)
+
+| Doc | Purpose |
+|-----|---------|
+| [architecture.md](architecture.md) | Modules, data flow, sync, lifecycle |
+| [plugin-api.md](plugin-api.md) | Plugin handbook: Action / Event / GameState / UI / hooks |
+| [vision.md](vision.md) | Philosophy, subsystem catalog, long-term vision |
+
+**Order:** skim golden rules below → read `architecture.md` for the slice you touch → read `plugin-api.md` when writing or changing a plugin.
 
 ---
 
@@ -82,30 +91,7 @@ Task Progress:
 If the user names a first game, still extract shared primitives into `engine/` /
 `ui/` — never bury rules in runtime.
 
----
-
-## Plugin contract (minimum)
-
-```ts
-interface GamePlugin {
-  id: string;
-  name: string;
-  version: string;
-  author?: string;
-  metadata: Record<string, unknown>;
-  setup(): void | Promise<void>;
-  createGame(config: unknown): unknown; // initial GameState
-  validateAction(state: unknown, action: unknown, ctx: unknown): true | { error: string };
-  applyAction(state: unknown, action: unknown, ctx: unknown): unknown; // next state
-  onTurnStart?(state: unknown, ctx: unknown): unknown;
-  onTurnEnd?(state: unknown, ctx: unknown): unknown;
-  checkVictory(state: unknown): unknown | null;
-  serialize(state: unknown): string;
-  deserialize(payload: string): unknown;
-}
-```
-
-Plugins: state only. No networking, no DOM/Pixi writes inside `applyAction`.
+Plugin shape and UI extension points: **[plugin-api.md](plugin-api.md)** (source of truth).
 
 ---
 
@@ -116,6 +102,8 @@ Player → Action → Host validate → applyAction → Events → Broadcast →
 ```
 
 UI and Pixi subscribe to Events / state snapshots. They never mutate GameState.
+
+Details: [architecture.md §5–§6](architecture.md).
 
 ---
 
@@ -148,10 +136,13 @@ to integrate playable routes.
 - [ ] UI uses engine components + theme variables
 - [ ] UI skill checklist applied for new surfaces
 - [ ] Replay or state dump reconstructible from seed + actions (when claimed)
+- [ ] New/changed plugins satisfy [plugin-api.md](plugin-api.md) testing DoD
 
 ---
 
 ## Additional resources
 
-- Full BBGE architecture (verbatim platform spec): [architecture.md](architecture.md)
+- [architecture.md](architecture.md) — modules, data flow, sync, lifecycle
+- [plugin-api.md](plugin-api.md) — plugin developer handbook
+- [vision.md](vision.md) — platform vision (original full spec)
 - Game Shelf content (rules site, not BBGE): [../add-game/SKILL.md](../add-game/SKILL.md)

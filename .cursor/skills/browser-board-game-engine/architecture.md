@@ -1,931 +1,355 @@
-# Browser Board Game Engine (BBGE)
+# BBGE Architecture
 
-## Identity
-
-You are a senior game engine architect.
-
-Your goal is **NOT** to build a single game.
-
-Your goal is to build a **Browser Native Board Game Platform** capable of running any tabletop game.
-
-The platform should be modular, plugin-based, deterministic, multiplayer-first, and completely browser-native.
-
-Target games include but are not limited to:
-
-- Texas Hold'em
-- Omaha
-- Squid Hold'em
-- Avalon
-- Love Letter
-- Carcassonne
-- Catan
-- Splendor
-- Rummikub
-- Uno
-- Chess
-- Checkers
-- Mahjong
-- Dominion
-- Wingspan
-- Terraforming Mars
-- Custom board games
-
-The engine should never assume a specific game.
-
-Everything game-specific must live inside plugins.
+Technical architecture for the Browser Board Game Engine: modules, data flow,
+synchronization, and lifecycle. Platform vision and package catalog live in
+[vision.md](vision.md). Plugin contracts live in [plugin-api.md](plugin-api.md).
 
 ---
 
-# Core Philosophy
+## 1. Design constraints
 
-Browser is the runtime.
-
-Host Browser is the authoritative server.
-
-Plugins define rules.
-
-Engine provides infrastructure.
-
-UI is reusable.
-
-Everything is event-driven.
-
-Everything is deterministic.
-
-Everything is replayable.
+| Constraint | Implication |
+|---|---|
+| Browser is the runtime | No Node game server required for core play |
+| Host Browser is authoritative | One peer owns validation + state transitions |
+| Plugins define rules | Runtime/network/UI never encode game logic |
+| Immutable state | Every accepted Action yields a new `GameState` |
+| Deterministic RNG | Seeded PRNG only; identical seed + actions ⇒ identical game |
+| Event-driven | Side effects for UI/audio/replay come from Events |
+| Sync lean | Prefer Actions / Events / Diffs over full-state spam |
 
 ---
 
-# High-Level Architecture
+## 2. Layered system map
 
 ```
-Browser Board Game Engine
-
-├── Runtime
-├── Networking
-├── Synchronization
-├── Plugin System
-├── Animation Engine
-├── UI Framework
-├── Asset System
-├── Audio System
-├── Replay System
-├── AI Interface
-├── Persistence
-├── Theme System
-└── Developer SDK
-
-Games
-
-├── Texas Hold'em
-├── Avalon
-├── Carcassonne
-├── Catan
-├── Love Letter
-└── ...
+┌─────────────────────────────────────────────────────────────┐
+│  UI Framework · Theme · Audio · Animation (presentational) │
+├─────────────────────────────────────────────────────────────┤
+│  Runtime (lifecycle, host loop, plugin host, RNG, replay)  │
+├─────────────────────────────────────────────────────────────┤
+│  Plugin (rules only)  │  Engine domains (cards/board/…)     │
+├─────────────────────────────────────────────────────────────┤
+│  Core: State · Actions · Events · Types · Zod schemas       │
+├─────────────────────────────────────────────────────────────┤
+│  Sync · Network · Persistence · Assets · AI adapter         │
+└─────────────────────────────────────────────────────────────┘
 ```
 
----
+**Dependency rules**
 
-# Design Goals
-
-The engine should support:
-
-- any number of players
-- turn based games
-- simultaneous games
-- real time games
-- cards
-- dice
-- resources
-- tiles
-- boards
-- hex maps
-- square maps
-- free placement
-- hidden information
-- public information
-- spectators
-- replay
-- AI
-- save/load
-- plugin hot loading
+- `ui` → may read state/events; must not call `applyAction` except via Runtime API
+- `plugins` → `core` + `engine` helpers only; never `network` / `ui` / DOM
+- `runtime` → loads plugin, owns host loop; never embeds game-specific rules
+- `network` / `sync` → transport Actions/Events/Diffs/Snapshots; never interpret rules
 
 ---
 
-# Runtime
+## 3. Module responsibilities
 
-Runtime is responsible for:
+### 3.1 Core (`packages/core`)
 
-Game lifecycle
+- Shared TypeScript types: `GameState`, `Action`, `Event`, `PlayerId`, `Phase`
+- Seeded PRNG (`createRng(seed)`)
+- Immutable update helpers (Immer-friendly patterns)
+- Action/Event envelope schemas (Zod)
+- Pure utilities (id generation from counters/seed — not `Math.random()`)
 
-Player lifecycle
+### 3.2 Runtime (`packages/runtime`)
 
-Turn lifecycle
+Owns:
 
-State updates
+- Session lifecycle (Create → … → Replay)
+- Player join/leave in lobby and in-game policies (generic seats, not game roles)
+- Plugin load / hot-reload boundary
+- Host action pipeline: validate → apply → emit → record → broadcast
+- Clock for timed turns (optional); still deterministic when timeouts become Actions
+- Wiring to sync, replay, persistence
 
-Plugin loading
+Does **not** own: victory conditions, legal moves, scoring formulas.
 
-Random number generation
+### 3.3 Engine domains (`packages/engine/*`)
 
-Replay recording
+Reusable **rule-agnostic** primitives plugins compose:
 
-Synchronization
+| Domain | Provides |
+|---|---|
+| `turns` | Sequential / simultaneous / priority / reaction windows |
+| `cards` | Deck, hand, zones, shuffle (seeded), draw, discard |
+| `board` | Rect / hex / graph / free placement coordinates |
+| `tiles` | Rotation, adjacency helpers, snapping metadata |
+| `dice` | Dn faces, weighted rolls via RNG |
+| `resources` | Generic counters / banks |
+| `actions` | Common action factories / reducer helpers |
 
-Persistence
+Engine code must stay game-agnostic (e.g. “draw from deck”, not “Love Letter discard”).
 
-The runtime never contains game rules.
+### 3.4 Events (`packages/events`)
+
+- Append-only event log
+- Typed event bus for local subscribers (UI, audio, debug)
+- Serialization for network/replay
+
+### 3.5 Sync (`packages/sync`)
+
+- Action ordering (host sequence numbers)
+- Diff generation / application
+- Snapshot create/restore for join/reconnect
+- Conflict policy: host wins; clients reconcile by applying host stream
+
+### 3.6 Network (`packages/network`)
+
+Transports only:
+
+- WebRTC / WebSocket / Offline / LAN adapters
+- Heartbeat, reconnect, host migration hooks
+- Envelope: `{ type, seq, payload }` — no rule knowledge
+
+### 3.7 Replay (`packages/replay`)
+
+Records: `seed`, ordered `Action[]`, optional `Event[]`, timeline markers.
+Reconstruct: `createGame(seed)` + fold `applyAction` in order.
+
+### 3.8 Persistence (`packages/…` or runtime module)
+
+- IndexedDB autosave / manual save
+- Import/export of replay or serialized state
+- Cloud sync is an adapter, not a core dependency
+
+### 3.9 UI / Animation / Theme / Assets / Audio
+
+Presentational. Subscribe to projected view models derived from public state +
+local private knowledge. Animations are declarative reactions to Events.
+Themes use CSS variables; plugins do not hardcode colors.
+
+### 3.10 AI
+
+`Think(view: GameView) → Action`. Same Action path as humans; host validates.
+
+### 3.11 SDK
+
+Inspectors, replay viewer, generators, tests — developer-facing, not required at runtime for players.
 
 ---
 
-# Lifecycle
+## 4. Lifecycle
 
-Every game follows:
+### 4.1 Session phases
 
 ```
-Create
-
-↓
-
-Lobby
-
-↓
-
-Initialize
-
-↓
-
-Start
-
-↓
-
-Playing
-
-↓
-
-Paused
-
-↓
-
-Finished
-
-↓
-
-Replay
+Create → Lobby → Initialize → Start → Playing ⇄ Paused → Finished → Replay
 ```
 
----
+| Phase | Who acts | State |
+|---|---|---|
+| **Create** | Host / SDK | Allocate session id, choose plugin + config, seed |
+| **Lobby** | Host + clients | Seats, ready flags, options; no rules yet |
+| **Initialize** | Runtime + plugin | `plugin.setup()` + `plugin.createGame(config)` → initial `GameState` |
+| **Start** | Runtime | Transition to Playing; emit `GameStarted` |
+| **Playing** | Players via Actions | Host pipeline; turns/phases owned by state + plugin |
+| **Paused** | Host / system | Freeze acceptance of game Actions (or queue) |
+| **Finished** | Plugin `checkVictory` | Terminal; no further game Actions |
+| **Replay** | Local / spectator | Deterministic rebuild; UI scrub timeline |
 
-# Game State
+### 4.2 Turn lifecycle (inside Playing)
 
-Every game owns one immutable GameState.
-
-```
-GameState
-
-Players
-
-Board
-
-Objects
-
-Resources
-
-Cards
-
-RandomSeed
-
-Turn
-
-Phase
-
-History
-```
-
-GameState is immutable.
-
-Every action produces a new state.
-
----
-
-# Action Model
-
-Clients never modify state.
-
-Clients only submit Actions.
+Generic turn machinery (engine `turns`) coordinates:
 
 ```
-Player
-
-↓
-
-Action
-
-↓
-
-Host
-
-↓
-
-Validation
-
-↓
-
-State Update
-
-↓
-
-Broadcast
+TurnStarted → (optional reaction window) → Player Action(s) → TurnEnded → next
 ```
 
-Examples
+Plugin hooks: `onTurnStart` / `onTurnEnd` may return updated state or no-op.
+Simultaneous / priority / interrupt modes are engine configurations, not
+hardcoded game names.
 
-Texas Hold'em
+### 4.3 Player lifecycle
 
-Raise
+```
+Joined (lobby) → Seated → Active → (Disconnected → Reconnecting) → Left / Eliminated
+```
 
-Fold
-
-Check
-
-Call
-
-Carcassonne
-
-PlaceTile
-
-PlaceMeeple
-
-Catan
-
-BuildRoad
-
-BuildSettlement
-
-Trade
-
-RollDice
-
-Love Letter
-
-PlayCard
-
-GuessPlayer
-
-Everything is an Action.
+Disconnection is a network concern; elimination is a plugin state concern.
+Runtime exposes seat slots; plugin maps seats to roles/factions if needed.
 
 ---
 
-# Event Model
+## 5. Data flow
 
-Everything emits Events.
+### 5.1 Happy path (host authority)
 
-Examples
+```
+┌────────┐  Action   ┌────────┐  validate   ┌────────┐
+│ Client │ ────────► │  Host  │ ──────────► │ Plugin │
+└────────┘           │Runtime │             └───┬────┘
+                     └────┬───┘                 │ apply
+                          │                     ▼
+                          │              new GameState
+                          │                     │
+                          │◄──── Events ────────┘
+                          │
+                          ├─► Replay log (seed + actions + events)
+                          ├─► Sync (action ack / events / diff)
+                          └─► Broadcast → Clients → UI / Audio
+```
 
-PlayerJoined
+Rules:
 
-PlayerLeft
+1. Clients never mutate authoritative state.
+2. Host runs `validateAction` then `applyAction` (pure wrt I/O).
+3. Only Host’s accepted Actions advance the shared timeline.
+4. UI renders from state projections + event stream.
 
-TurnStarted
+### 5.2 Offline / hotseat
 
-TurnEnded
+Same pipeline; “network” is an in-process loopback transport.
+Multiple local seats submit Actions to the same Host Runtime.
 
-CardDrawn
+### 5.3 Hidden information
 
-CardPlayed
+Authoritative `GameState` may contain private fields.
 
-TilePlaced
+- Host holds full state.
+- Clients receive **filtered views** (`GameView`) + public Events.
+- Replay tools may use full state locally when authorized (owner / debug).
 
-DiceRolled
+Never rely on “security through obscurity” in the client for competitive integrity
+when peers are untrusted; for casual browser-host play, document trust model:
+**host is trusted**.
 
-MeeplePlaced
+### 5.4 Persistence path
 
-RoadBuilt
+```
+Runtime snapshot OR (seed + actions) → serialize → IndexedDB / file
+load → deserialize / replay fold → restore phase
+```
 
-ResourceCollected
-
-WinnerDeclared
-
-Events are append-only.
-
-Events are replayable.
-
----
-
-# Networking
-
-Networking layer is game independent.
-
-Supports
-
-WebRTC
-
-WebSocket
-
-Offline
-
-LAN
-
-Internet
-
-Host Browser
-
-Authoritative state
-
-Delta synchronization
-
-Snapshot synchronization
-
-Host migration
-
-Reconnect
-
-Heartbeat
-
-Latency compensation
+Prefer seed + actions for long-term fidelity; snapshots for fast resume.
 
 ---
 
-# Synchronization
+## 6. Synchronization
 
-Never synchronize full state.
+### 6.1 What travels on the wire
 
-Synchronize:
+| Payload | When |
+|---|---|
+| **Action** (+ host `seq`) | Every accepted (or rejected with reason) player intent |
+| **Event** | After apply, for animation/UX; may be derived client-side in strict mode |
+| **Diff** | Bandwidth optimization between snapshots |
+| **Snapshot** | Join mid-game, reconnect, desync recovery |
 
-Actions
+Never sync “full state every frame.”
 
-Events
+### 6.2 Ordering
 
-Diffs
+- Host assigns monotonic `seq` to accepted Actions.
+- Clients apply in `seq` order; buffer gaps; request snapshot on hole timeout.
+- Rejected Actions return `{ seq?, error }` and do not advance state.
 
-Snapshots only when needed.
+### 6.3 Delta vs snapshot
 
----
+```
+normal play:  Action stream (± Events)
+catch-up:     Snapshot @ seq N + Actions N+1…
+desync:       Client requests Snapshot; discard local speculative state
+```
 
-# Replay
+### 6.4 Host migration
 
-Replay is generated automatically.
+1. Freeze Action acceptance.
+2. Elect new host (pre-agreed policy).
+3. New host takes last committed snapshot + log.
+4. Peers reconnect; resume with snapshot + seq.
 
-Replay records only:
+Migration must not re-roll RNG or re-apply Actions out of order.
 
-Seed
+### 6.5 Latency
 
-Actions
-
-Events
-
-Timeline
-
-Game can always be reconstructed.
-
----
-
-# RNG
-
-Every game uses deterministic RNG.
-
-Random source:
-
-Seeded PRNG
-
-Never use Math.random().
-
-Replay must generate identical games.
+- Optimistic local UI only for **non-authoritative** feedback (hover, drag ghost).
+- Commit visuals on host ack / event.
+- Timed turns: timeout fires as a Host-generated Action so it stays in the log.
 
 ---
 
-# Plugin System
+## 7. Determinism & replay
 
-Every game is a Plugin.
+### 7.1 Inputs that define a game
 
-Plugin interface
+```
+pluginId + pluginVersion + gameConfig + seed + Action[] (ordered)
+```
+
+Same inputs ⇒ same `GameState` sequence and Event log (modulo pure presentation Events).
+
+### 7.2 RNG
 
 ```ts
-interface GamePlugin {
-
-id
-
-name
-
-version
-
-author
-
-metadata
-
-setup()
-
-createGame()
-
-validateAction()
-
-applyAction()
-
-onTurnStart()
-
-onTurnEnd()
-
-checkVictory()
-
-serialize()
-
-deserialize()
-
-}
+// conceptual
+const rng = createRng(seed);
+// plugin/engine: rng.next(), rng.shuffle(array)
+// forbidden: Math.random(), Date.now() in applyAction
 ```
 
-Plugins never touch networking.
+Time-based effects must enter the system as Actions (e.g. `Timeout`) with host clock policy documented.
 
-Plugins never touch rendering directly.
-
-Plugins only modify state.
-
----
-
-# UI Framework
-
-Engine provides reusable components.
-
-Card
-
-Deck
-
-Hand
-
-Board
-
-Grid
-
-HexGrid
-
-Dice
-
-Token
-
-Meeple
-
-Chip
-
-Avatar
-
-Dialog
-
-Popup
-
-Timer
-
-Counter
-
-Button
-
-PlayerSeat
-
-ScoreBoard
-
-Notification
-
-Plugins compose these components.
-
----
-
-# Board Engine
-
-Supports
-
-No Board
-
-Rectangle Grid
-
-Hex Grid
-
-Circular Table
-
-Free Placement
-
-Graph
-
-Custom Coordinate System
-
----
-
-# Card Engine
-
-Supports
-
-Deck
-
-Draw
-
-Discard
-
-Shuffle
-
-Reveal
-
-Peek
-
-Hand
-
-Public Zone
-
-Private Zone
-
-Shared Zone
-
-Card animation
-
-Card stacking
-
----
-
-# Tile Engine
-
-Supports
-
-Square Tiles
-
-Hex Tiles
-
-Rotation
-
-Connection Rules
-
-Adjacency
-
-Terrain
-
-Automatic snapping
-
----
-
-# Dice Engine
-
-Supports
-
-D4
-
-D6
-
-D8
-
-D10
-
-D12
-
-D20
-
-Custom Dice
-
-Weighted Dice
-
-Animated rolling
-
----
-
-# Resource Engine
-
-Supports
-
-Resources
-
-Currency
-
-Tokens
-
-Victory Points
-
-Food
-
-Wood
-
-Brick
-
-Ore
-
-Energy
-
-Mana
-
-Anything
-
-Resources are generic objects.
-
----
-
-# Turn Engine
-
-Supports
-
-Sequential
-
-Simultaneous
-
-Priority Queue
-
-Reaction Windows
-
-Interrupts
-
-Timed Turns
-
----
-
-# Animation Engine
-
-Supports
-
-Move
-
-Rotate
-
-Scale
-
-Fade
-
-Glow
-
-Flip
-
-Bounce
-
-Shake
-
-Path Animation
-
-Physics Animation
-
-Animations are declarative.
-
----
-
-# Theme System
-
-Supports
-
-Casino
-
-Fantasy
-
-Sci-Fi
-
-Minimal
-
-Dark
-
-Light
-
-Custom CSS Variables
-
-Plugins never hardcode colors.
-
----
-
-# Asset System
-
-Supports
-
-SVG
-
-PNG
-
-WebP
-
-Audio
-
-Fonts
-
-Localization
-
-Lazy Loading
-
-Asset Bundles
-
----
-
-# Audio
-
-Supports
-
-Background Music
-
-UI Sounds
-
-Card Sounds
-
-Dice Sounds
-
-Voice
-
-Spatial Audio
-
----
-
-# Localization
-
-Everything supports i18n.
-
-No hardcoded strings.
-
----
-
-# AI
-
-AI interface
+### 7.3 Replay reconstruction
 
 ```
-Think(GameState)
-
-↓
-
-Action
+state0 = plugin.createGame(config, seed)
+for action in actions:
+  assert plugin.validateAction(state, action)
+  state = plugin.applyAction(state, action)
 ```
 
-Supports
-
-Rule AI
-
-Heuristic AI
-
-Monte Carlo
-
-MCTS
-
-CFR
-
-LLM AI
-
-Remote AI
+UI scrubbing seeks by rebuilding or by cached snapshots at keyframes.
 
 ---
 
-# Save System
-
-Supports
-
-Auto Save
-
-Manual Save
-
-Cloud Sync
-
-Local IndexedDB
-
-Import
-
-Export
-
----
-
-# Developer SDK
-
-Provide utilities:
-
-State Inspector
-
-Replay Viewer
-
-Plugin Generator
-
-Board Editor
-
-Card Editor
-
-Asset Pipeline
-
-Testing Utilities
-
-Debug Overlay
-
----
-
-# Code Style
-
-Use
-
-TypeScript
-
-React
-
-Vite
-
-PixiJS
-
-Framer Motion
-
-WebRTC
-
-IndexedDB
-
-Immer
-
-Zod
-
-Never use mutable state.
-
-Prefer functional programming.
-
----
-
-# Folder Structure
+## 8. Package layout (target)
 
 ```
 packages/
-
-core/
-runtime/
-network/
-sync/
-events/
-state/
-replay/
-animation/
-audio/
-assets/
-plugins/
-
-engine/
-board/
-cards/
-tiles/
-dice/
-resources/
-turns/
-actions/
-
-ui/
-board/
-card/
-token/
-dice/
-dialog/
-player/
-overlay/
-
-sdk/
-
-plugins/
-texas-holdem/
-avalon/
-love-letter/
-carcassonne/
-catan/
-splendor/
-custom/
-
+  core/          # types, rng, schemas
+  runtime/       # lifecycle + host loop
+  network/       # transports
+  sync/          # seq, diff, snapshot
+  events/        # event log + bus
+  state/         # optional shared state helpers
+  replay/
+  animation/
+  audio/
+  assets/
+  plugins/       # plugin loader (not game rules)
+  engine/        # board cards tiles dice resources turns actions
+  ui/
+  sdk/
+plugins/         # texas-holdem, avalon, love-letter, …
 themes/
-
 examples/
-
 docs/
 ```
 
----
-
-# Golden Rules
-
-1. Engine never knows game rules.
-
-2. Plugins never know networking.
-
-3. Rendering never modifies state.
-
-4. State is immutable.
-
-5. Actions are deterministic.
-
-6. Events are replayable.
-
-7. RNG is seeded.
-
-8. Everything is plugin-driven.
-
-9. Everything runs in browser.
-
-10. Every game should work offline whenever possible.
-
-11. Every feature should be reusable across games.
-
-12. The engine should feel like "Unity for Browser Board Games."
+Scaffold inside this monorepo as `bbge/` or top-level `packages/` without
+touching Game Shelf `content/games/` unless integrating playable routes.
 
 ---
 
-# Long-Term Vision
+## 9. Trust & security notes
 
-The Browser Board Game Engine should become a universal browser-native tabletop platform.
+| Mode | Trust |
+|---|---|
+| Offline / hotseat | Single device trusted |
+| Friend host (WebRTC) | Host trusted; clients trust host state |
+| Competitive ranked (future) | Needs independent authority or TEE — out of v1 scope |
 
-Developers should be able to create an entirely new board game by writing a plugin without modifying the engine.
+Plugin code should be treated as untrusted for marketplace scenarios (sandbox later).
+v1: load first-party plugins only.
 
-The engine should eventually support:
-- Community Workshop
-- Plugin Marketplace
-- Visual Rule Editor
-- Online Matchmaking
-- Tournament System
-- Spectator Mode
-- Cross-device synchronization
-- Mobile/Desktop/PWA support
-- AI-assisted game creation
-- Rule scripting and sandboxed modding
+---
 
-The ultimate goal is to provide an open, extensible, deterministic, browser-first platform where any tabletop game can be implemented, shared, and played with minimal effort.
+## 10. Related docs
+
+- [vision.md](vision.md) — philosophy, subsystems catalog, long-term vision
+- [plugin-api.md](plugin-api.md) — plugin developer handbook
+- [SKILL.md](SKILL.md) — agent workflow & golden rules

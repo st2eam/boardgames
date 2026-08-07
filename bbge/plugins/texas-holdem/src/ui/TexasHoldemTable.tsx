@@ -562,7 +562,7 @@ export function TexasHoldemTable({
             className="absolute inset-0 cursor-pointer"
             onClick={() => setSideOpen(false)}
           />
-          <div className="relative z-10 flex max-h-[70dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-[#efe6d8] shadow-2xl sm:max-h-[80dvh] sm:max-w-md sm:rounded-2xl">
+          <div className="relative z-10 flex h-[70dvh] max-h-[70dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-[#efe6d8] shadow-2xl sm:h-auto sm:max-h-[80dvh] sm:max-w-md sm:rounded-2xl">
             <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
               <p className="font-heading text-sm font-bold text-primary-dark">
                 {zh ? "战报 / 聊天" : "Log / Chat"}
@@ -575,7 +575,9 @@ export function TexasHoldemTable({
                 {zh ? "关闭" : "Close"}
               </button>
             </div>
-            <div className="min-h-0 flex-1 overflow-hidden p-3">{sidePanel}</div>
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden p-3">
+              {sidePanel}
+            </div>
           </div>
         </div>
       )}
@@ -598,12 +600,33 @@ function SidePanel({
   setChatText: (v: string) => void;
   onChat?: PluginTableProps["onChat"];
 }) {
+  const logRef = useRef<HTMLDivElement>(null);
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = logRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [playLog]);
+
+  useEffect(() => {
+    const el = chatRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [chat]);
+
   return (
     <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
-      <div className="min-h-0 flex-1 overflow-y-auto rounded-xl border border-border bg-white/95 p-2 text-[11px]">
+      <div
+        ref={logRef}
+        className="min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain rounded-xl border border-border bg-white/95 p-2 text-[11px] [scrollbar-gutter:stable]"
+      >
         <p className="mb-1 font-heading text-xs font-bold text-stone-500">
           {zh ? "战报" : "Log"}
         </p>
+        {(playLog ?? []).length === 0 && (
+          <p className="text-stone-400">
+            {zh ? "行动会出现在这里" : "Actions appear here"}
+          </p>
+        )}
         {(playLog ?? []).map((e) => (
           <p
             key={e.id}
@@ -621,7 +644,7 @@ function SidePanel({
       </div>
       {onChat && (
         <form
-          className="flex gap-1"
+          className="flex shrink-0 gap-1"
           onSubmit={(e) => {
             e.preventDefault();
             const t = chatText.trim();
@@ -631,21 +654,24 @@ function SidePanel({
           }}
         >
           <input
-            className="min-w-0 flex-1 rounded-lg border border-border px-2 py-2 text-xs"
+            className="min-h-11 min-w-0 flex-1 rounded-lg border border-border px-2 py-2 text-xs"
             value={chatText}
             onChange={(e) => setChatText(e.target.value)}
             placeholder={zh ? "桌边闲聊…" : "Table chat…"}
           />
           <button
             type="submit"
-            className="cursor-pointer rounded-lg bg-primary px-3 py-2 text-xs font-bold text-white"
+            className="min-h-11 cursor-pointer rounded-lg bg-primary px-3 py-2 text-xs font-bold text-white"
           >
             {zh ? "发送" : "Send"}
           </button>
         </form>
       )}
       {(chat ?? []).length > 0 && (
-        <div className="max-h-24 overflow-y-auto rounded-lg border border-border bg-white/80 px-2 py-1 text-[11px] text-stone-600 lg:hidden">
+        <div
+          ref={chatRef}
+          className="max-h-24 shrink-0 touch-pan-y overflow-y-auto overscroll-contain rounded-lg border border-border bg-white/80 px-2 py-1 text-[11px] text-stone-600 lg:hidden"
+        >
           {(chat ?? []).slice(-8).map((m, i) => (
             <p key={`${m.playerId}-${m.at}-${i}`}>
               <span className="font-semibold">{m.playerId}</span>: {m.text}

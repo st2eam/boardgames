@@ -309,9 +309,21 @@ export function PlayShell({
   const [playLog, setPlayLog] = useState<PlayLogEntry[]>([]);
   const [myId, setMyId] = useState(hostId);
   const [controllingId, setControllingId] = useState(hostId);
-  const [displayName, setDisplayName] = useState(
-    locale === "zh" ? "房主" : "Host",
+  const [displayName, setDisplayName] = useState(() =>
+    roomIdFromUrl
+      ? locale === "zh"
+        ? "玩家"
+        : "Player"
+      : locale === "zh"
+        ? "房主"
+        : "Host",
   );
+  /** Host: last remote join toast */
+  const [joinNotice, setJoinNotice] = useState<string | null>(null);
+  /** Guest: connection lifecycle for the waiting screen */
+  const [guestStatus, setGuestStatus] = useState<
+    "connecting" | "joined" | "error"
+  >("connecting");
   const sessionRef = useRef<HostSession | null>(null);
   const modRef = useRef<PluginPlayModule>(mod);
   modRef.current = mod;
@@ -463,8 +475,21 @@ export function PlayShell({
               playerId: string;
               name: string;
             };
-            s.addHumanSeat(playerId, name);
-            host.broadcast({ type: "lobby", payload: s.getLobby() });
+            const label = (name || "").trim() || playerId;
+            s.addHumanSeat(playerId, label);
+            s.setReady(playerId, true);
+            const lobbySnap = s.getLobby();
+            // Prefer direct send so the joiner always gets seats even if
+            // broadcast races the connection map.
+            if (fromPeer) {
+              host.send(fromPeer, { type: "lobby", payload: lobbySnap });
+            }
+            host.broadcast({ type: "lobby", payload: lobbySnap });
+            setJoinNotice(
+              locale === "zh"
+                ? `${label} 已加入房间`
+                : `${label} joined the room`,
+            );
             tick();
           } else if (msg.type === "action") {
             const result = s.submitAction(msg.payload as Action);
@@ -530,6 +555,7 @@ export function PlayShell({
     let cancelled = false;
     const guestId = `g-${Math.random().toString(36).slice(2, 8)}`;
     setMyId(guestId);
+    setGuestStatus("connecting");
     (async () => {
       try {
         const { createPeerRoomGuest } = await import("@bbge/network");
@@ -539,14 +565,12 @@ export function PlayShell({
           return;
         }
         peerRef.current = guest;
-        guest.send({
-          type: "hello",
-          payload: { playerId: guestId, name: displayName || guestId },
-        });
+        // Register handler BEFORE hello — host replies with lobby immediately.
         guest.onMessage((msg) => {
           if (msg.type === "lobby") {
             const lb = msg.payload as LobbyState;
             setLobby(lb);
+            setGuestStatus("joined");
             if (typeof lb.edition === "string" && lb.edition) {
               setEdition(
                 pluginId === "six-nimmt"
@@ -617,8 +641,22 @@ export function PlayShell({
           if (msg.type === "actionReject")
             setError((msg.payload as { error: string }).error);
         });
+        guest.send({
+          type: "hello",
+          payload: {
+            playerId: guestId,
+            name: displayName.trim() || guestId,
+          },
+        });
       } catch (e) {
-        setError(e instanceof Error ? e.message : "join failed");
+        setGuestStatus("error");
+        setError(
+          e instanceof Error
+            ? locale === "zh"
+              ? `加入失败：${e.message}（请确认房主页面仍开着，且链接里的房间号一致）`
+              : `Join failed: ${e.message}`
+            : "join failed",
+        );
       }
     })();
     return () => {
@@ -1288,12 +1326,16 @@ export function PlayShell({
     return seat?.name ?? playerId;
   };
 
-  const shareUrl =
-    typeof window !== "undefined" && roomId
-      ? `${window.location.origin}${window.location.pathname}?room=${roomId}`
-      : "";
+  const shareUrl = (() => {
+    if (typeof window === "undefined" || !roomId) return "";
+    const url = new URL(window.location.href);
+    url.searchParams.set("room", roomId);
+    if (edition) url.searchParams.set("edition", edition);
+    return url.toString();
+  })();
 
   const Table = mod.Table;
+  const zhUi = locale === "zh";
 
   return (
     <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
@@ -1305,7 +1347,19 @@ export function PlayShell({
             className="ml-3 cursor-pointer text-xs font-semibold underline"
             onClick={() => setError(null)}
           >
-            {locale === "zh" ? "关闭" : "Dismiss"}
+            {zhUi ? "关闭" : "Dismiss"}
+          </button>
+        </div>
+      )}
+      {isHost && joinNotice && (
+        <div className="shrink-0 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-sm text-emerald-900">
+          {joinNotice}
+          <button
+            type="button"
+            className="ml-3 cursor-pointer text-xs font-semibold underline"
+            onClick={() => setJoinNotice(null)}
+          >
+            {zhUi ? "关闭" : "Dismiss"}
           </button>
         </div>
       )}
@@ -1404,23 +1458,82 @@ export function PlayShell({
       {phase === "lobby" && !isHost && (
         <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-white p-5 shadow-card">
           <p className="shrink-0 font-heading text-lg font-bold text-primary-dark">
-            {locale === "zh" ? `加入「${gameName}」` : `Joined “${gameName}”`}
+            {zhUi ? `加入「${gameName}」` : `Joining “${gameName}”`}
           </p>
           <p className="mt-1 shrink-0 text-sm text-stone-500">
-            {locale === "zh" ? "等待房主开战…" : "Waiting for the host to start…"}
+            {guestStatus === "connecting"
+              ? zhUi
+                ? "正在连接房主…"
+                : "Connecting to host…"
+              : guestStatus === "error"
+                ? zhUi
+                  ? "连接失败，请检查链接或让房主重新分享"
+                  : "Connection failed — check the link / ask host to reshare"
+                : zhUi
+                  ? "已进入房间 · 等待房主开战…"
+                  : "In lobby · waiting for host to start…"}
           </p>
-          <div className="mt-3 min-h-0 flex-1 space-y-2 overflow-y-auto">
+          <label className="mt-3 block shrink-0">
+            <span className="mb-1 block text-xs font-semibold text-stone-500">
+              {zhUi ? "你的昵称（下次刷新链接后生效）" : "Your name"}
+            </span>
+            <input
+              className="w-full max-w-xs rounded-lg border border-border px-3 py-2 text-sm"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              placeholder={zhUi ? "玩家" : "Player"}
+            />
+          </label>
+          <div className="mt-4 min-h-0 flex-1 space-y-2 overflow-y-auto">
+            <p className="text-xs font-semibold uppercase tracking-wide text-stone-400">
+              {zhUi
+                ? `座位 ${lobby?.seats.length ?? 0}`
+                : `Seats ${lobby?.seats.length ?? 0}`}
+            </p>
+            {guestStatus === "connecting" && !(lobby?.seats.length) && (
+              <p className="rounded-xl bg-surface px-3 py-3 text-sm text-stone-500">
+                {zhUi
+                  ? "连接成功后会显示房主与其他玩家…"
+                  : "Seats appear once the host answers…"}
+              </p>
+            )}
             {(lobby?.seats ?? []).map((s) => (
               <div
                 key={s.id}
-                className="flex items-center gap-2 rounded-2xl border border-border bg-surface px-3 py-2"
+                className={`flex items-center gap-2 rounded-2xl border px-3 py-2 ${
+                  s.id === myId
+                    ? "border-sky-300 bg-sky-50"
+                    : "border-border bg-surface"
+                }`}
               >
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary font-heading text-sm font-bold text-white">
                   {s.name.slice(0, 1)}
                 </span>
-                <span className="text-sm font-medium text-primary-dark">
-                  {s.name}
-                </span>
+                <div className="min-w-0 flex-1">
+                  <span className="text-sm font-medium text-primary-dark">
+                    {s.name}
+                  </span>
+                  <p className="text-[11px] text-stone-500">
+                    {s.id === lobby?.hostPlayerId
+                      ? zhUi
+                        ? "房主"
+                        : "Host"
+                      : s.id === myId
+                        ? zhUi
+                          ? "你"
+                          : "You"
+                        : s.kind === "ai"
+                          ? "AI"
+                          : zhUi
+                            ? "玩家"
+                            : "Player"}
+                  </p>
+                </div>
+                {s.ready && (
+                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-800">
+                    ✓
+                  </span>
+                )}
               </div>
             ))}
           </div>

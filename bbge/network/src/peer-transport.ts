@@ -10,7 +10,11 @@ type DataConn = {
 
 type Handler = (msg: WireMessage, fromPeer?: string) => void;
 
-/** PeerJS-backed room. Loaded dynamically so Next SSR never touches peerjs. */
+/**
+ * PeerJS-backed room. Loaded dynamically so Next SSR never touches peerjs.
+ * Inbound messages are buffered until `onMessage` is registered (avoids the
+ * classic race: guest hello → host lobby reply before guest handler exists).
+ */
 export async function createPeerRoomHost(roomId: string): Promise<{
   roomId: string;
   onMessage: (cb: Handler) => void;
@@ -26,16 +30,35 @@ export async function createPeerRoomHost(roomId: string): Promise<{
   });
   const conns = new Map<string, DataConn>();
   let handler: Handler | null = null;
+  const pending: { msg: WireMessage; fromPeer?: string }[] = [];
+
+  const deliver = (msg: WireMessage, fromPeer?: string) => {
+    if (handler) handler(msg, fromPeer);
+    else pending.push({ msg, fromPeer });
+  };
 
   peer.on("connection", (conn) => {
     const c = conn as unknown as DataConn;
-    c.on("open", (() => {
+    const attach = () => {
       conns.set(c.peer, c);
       c.on("data", ((data: unknown) => {
         const msg = parseWireMessage(data);
-        if (msg && handler) handler(msg, c.peer);
+        if (msg) deliver(msg, c.peer);
       }) as never);
-    }) as never);
+    };
+    // PeerJS may fire open before we subscribe — also attach on next tick check.
+    c.on("open", (() => attach()) as never);
+    // If already open when connection event fires:
+    queueMicrotask(() => {
+      // open may have already run; ensure conn is tracked
+      if (!conns.has(c.peer)) {
+        try {
+          attach();
+        } catch {
+          /* wait for open */
+        }
+      }
+    });
     c.on("close", (() => conns.delete(c.peer)) as never);
   });
 
@@ -43,6 +66,10 @@ export async function createPeerRoomHost(roomId: string): Promise<{
     roomId,
     onMessage(cb) {
       handler = cb;
+      if (pending.length) {
+        const batch = pending.splice(0, pending.length);
+        for (const item of batch) cb(item.msg, item.fromPeer);
+      }
     },
     send(peerId, msg) {
       conns.get(peerId)?.send(msg);
@@ -80,14 +107,21 @@ export async function createPeerRoomGuest(roomId: string): Promise<{
     peer.on("error", (err) => reject(err));
   });
   let handler: ((msg: WireMessage) => void) | null = null;
+  const pending: WireMessage[] = [];
   conn.on("data", ((data: unknown) => {
     const msg = parseWireMessage(data);
-    if (msg && handler) handler(msg);
+    if (!msg) return;
+    if (handler) handler(msg);
+    else pending.push(msg);
   }) as never);
   return {
     peerId: peer.id!,
     onMessage(cb) {
       handler = cb;
+      if (pending.length) {
+        const batch = pending.splice(0, pending.length);
+        for (const msg of batch) cb(msg);
+      }
     },
     send(msg) {
       conn.send(msg);

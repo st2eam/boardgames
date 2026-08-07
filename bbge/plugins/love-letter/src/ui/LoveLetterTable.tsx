@@ -5,9 +5,17 @@ import type { LoveLetterAction } from "../state";
 import type { ArenaView } from "./types";
 import { cardLabel } from "./cardArt";
 import { CardTile } from "./bga/CardTile";
+import { CardLightbox } from "./bga/CardLightbox";
+import { PriestRevealModal } from "./bga/PriestRevealModal";
 import { StatusBar } from "./bga/StatusBar";
 import { PlayerPanels } from "./bga/PlayerPanels";
 import type { AiChatMessage } from "@bbge/runtime";
+
+type ZoomCard = {
+  rank: number;
+  name?: { en: string; zh: string };
+  subtitle?: string;
+};
 
 type LogLine = { id: string; text: string; tone?: "info" | "warn" | "win" };
 
@@ -44,20 +52,32 @@ export function LoveLetterTable({
   const [selectedTargetId, setSelectedTargetId] = useState<string | null>(null);
   const [guessRank, setGuessRank] = useState(9);
   const [chatText, setChatText] = useState("");
+  const [zoom, setZoom] = useState<ZoomCard | null>(null);
 
   const actorId = hotseat ? view.currentPlayerId : myId;
+  const priestPending =
+    view.pending?.type === "priestReveal" ? view.pending : null;
+  const myPriestReveal =
+    priestPending &&
+    priestPending.playerId === actorId &&
+    priestPending.rank !== undefined;
+
   const isMyTurn =
     view.currentPlayerId === actorId && view.phase === "playing";
-  const interactive = Boolean(isMyTurn && !disabled);
+  const interactive = Boolean(
+    isMyTurn && !disabled && !priestPending && view.pending?.type !== "chancellor",
+  );
 
   const selected = useMemo(() => {
     if (!selectedCardId) return null;
+    const held =
+      view.pending?.type === "chancellor" ? view.pending.held : undefined;
     return (
       view.you?.hand.find((c) => c.id === selectedCardId) ??
-      view.pending?.held?.find((c) => c.id === selectedCardId) ??
+      held?.find((c) => c.id === selectedCardId) ??
       null
     );
-  }, [selectedCardId, view.you?.hand, view.pending?.held]);
+  }, [selectedCardId, view.you?.hand, view.pending]);
 
   const needsTarget =
     selected != null && [1, 2, 3, 5, 7].includes(selected.rank);
@@ -65,7 +85,6 @@ export function LoveLetterTable({
   const canPlay =
     interactive &&
     selectedCardId &&
-    view.pending?.type !== "chancellor" &&
     (!needsTarget || selectedTargetId);
 
   const status = useMemo(() => {
@@ -75,6 +94,22 @@ export function LoveLetterTable({
         text: zh
           ? `本局结束 · 胜者 ${view.winners.map((id) => nameOf?.(id) ?? id).join("、")}`
           : `Round over · ${view.winners.map((id) => nameOf?.(id) ?? id).join(", ")}`,
+      };
+    }
+    if (priestPending) {
+      if (myPriestReveal) {
+        return {
+          tone: "you" as const,
+          text: zh
+            ? "神父：查看偷看结果，确认后回合继续"
+            : "Priest: review the peeked card, then confirm",
+        };
+      }
+      return {
+        tone: "wait" as const,
+        text: zh
+          ? `等待 ${nameOf?.(priestPending.playerId) ?? priestPending.playerId} 确认偷看…`
+          : `Waiting for ${nameOf?.(priestPending.playerId) ?? priestPending.playerId} to finish peeking…`,
       };
     }
     if (view.pending?.type === "chancellor" && view.pending.playerId === actorId) {
@@ -140,6 +175,8 @@ export function LoveLetterTable({
     locale,
     zh,
     nameOf,
+    priestPending,
+    myPriestReveal,
   ]);
 
   const playCard = () => {
@@ -157,8 +194,13 @@ export function LoveLetterTable({
     setSelectedTargetId(null);
   };
 
+  const acknowledgePriest = () => {
+    onAction({ type: "acknowledgePriest", playerId: actorId, payload: {} });
+  };
+
   const chancellorKeep = (cardId: string) => {
-    const held = view.pending?.held ?? [];
+    if (view.pending?.type !== "chancellor") return;
+    const held = view.pending.held ?? [];
     if (!held.some((c) => c.id === cardId)) return;
     const rest = held.filter((c) => c.id !== cardId);
     onAction({
@@ -179,6 +221,34 @@ export function LoveLetterTable({
 
   return (
     <div className="overflow-hidden rounded-2xl border border-[#3E2723]/25 bg-[#efe6d8] shadow-card">
+      {myPriestReveal && priestPending.rank !== undefined && (
+        <PriestRevealModal
+          locale={locale}
+          targetName={nameOf?.(priestPending.targetId) ?? priestPending.targetId}
+          rank={priestPending.rank}
+          name={priestPending.name}
+          onConfirm={acknowledgePriest}
+          onZoom={() =>
+            setZoom({
+              rank: priestPending.rank!,
+              name: priestPending.name,
+              subtitle: zh
+                ? `${nameOf?.(priestPending.targetId) ?? priestPending.targetId} 的手牌`
+                : `${nameOf?.(priestPending.targetId) ?? priestPending.targetId}'s hand`,
+            })
+          }
+        />
+      )}
+      {zoom && (
+        <CardLightbox
+          locale={locale}
+          rank={zoom.rank}
+          name={zoom.name}
+          subtitle={zoom.subtitle}
+          onClose={() => setZoom(null)}
+        />
+      )}
+
       {/* Top chrome — BGA-like title strip */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#3E2723]/15 bg-[#5D4037] px-4 py-2.5 text-amber-50">
         <p className="font-heading text-sm font-bold tracking-wide">
@@ -231,8 +301,15 @@ export function LoveLetterTable({
                           locale={locale}
                           rank={c.rank}
                           name={c.name}
-                          size="sm"
+                          size="md"
                           disabled
+                          onZoom={() =>
+                            setZoom({
+                              rank: c.rank,
+                              name: c.name,
+                              subtitle: zh ? "公开牌" : "Face-up",
+                            })
+                          }
                         />
                       ))}
                     </div>
@@ -252,20 +329,29 @@ export function LoveLetterTable({
                           locale={locale}
                           rank={c.rank}
                           name={c.name}
-                          size="md"
+                          size="lg"
                           selected={selectedCardId === c.id}
                           disabled={
                             !(
-                              interactive &&
+                              isMyTurn &&
+                              !disabled &&
                               view.pending?.playerId === actorId
                             )
                           }
                           onClick={() => setSelectedCardId(c.id)}
+                          onZoom={() =>
+                            setZoom({
+                              rank: c.rank,
+                              name: c.name,
+                              subtitle: zh ? "大臣选留" : "Chancellor",
+                            })
+                          }
                         />
                       ))}
                     </div>
                     {selectedCardId &&
-                      interactive &&
+                      isMyTurn &&
+                      !disabled &&
                       view.pending.playerId === actorId && (
                         <button
                           type="button"
@@ -290,8 +376,15 @@ export function LoveLetterTable({
                           locale={locale}
                           rank={lastDiscard.rank}
                           name={lastDiscard.name}
-                          size="md"
+                          size="lg"
                           disabled
+                          onZoom={() =>
+                            setZoom({
+                              rank: lastDiscard.rank,
+                              name: lastDiscard.name,
+                              subtitle: zh ? "最近弃牌" : "Last discard",
+                            })
+                          }
                         />
                         <span className="font-heading text-[11px] font-semibold text-emerald-50/90">
                           {zh ? "最近弃牌" : "Last discard"}
@@ -316,20 +409,27 @@ export function LoveLetterTable({
                 )}
               </div>
 
-              <div className="flex flex-wrap items-end justify-center gap-4 py-2">
+              <div className="flex flex-wrap items-end justify-center gap-5 py-3">
                 {(view.you?.hand ?? []).map((c) => (
                   <CardTile
                     key={c.id}
                     locale={locale}
                     rank={c.rank}
                     name={c.name}
-                    size="lg"
+                    size="xl"
                     selected={selectedCardId === c.id}
-                    disabled={!interactive || view.pending?.type === "chancellor"}
+                    disabled={!interactive}
                     onClick={() => {
                       setSelectedCardId(c.id);
                       setSelectedTargetId(null);
                     }}
+                    onZoom={() =>
+                      setZoom({
+                        rank: c.rank,
+                        name: c.name,
+                        subtitle: zh ? "你的手牌" : "Your hand",
+                      })
+                    }
                     title={`${cardLabel(c, locale)} (${c.rank})`}
                   />
                 ))}

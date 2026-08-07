@@ -9,6 +9,13 @@ import { prepareLoveLetterTurn } from "@bbge/love-letter";
 
 function pickAction(state: LoveLetterState): LoveLetterAction | null {
   if (state.phase !== "playing") return null;
+  if (state.pending?.type === "priestReveal") {
+    return {
+      type: "acknowledgePriest",
+      playerId: state.pending.playerId,
+      payload: {},
+    };
+  }
   if (state.pending?.type === "chancellor") {
     const held = state.pending.held;
     const keep = held[0]!;
@@ -18,7 +25,7 @@ function pickAction(state: LoveLetterState): LoveLetterAction | null {
       playerId: state.pending.playerId,
       payload: {
         keepCardId: keep.id,
-        bottomOrderIds: [rest[0]!.id, rest[1]!.id],
+        bottomOrderIds: rest.map((c) => c.id),
       },
     };
   }

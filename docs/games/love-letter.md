@@ -138,6 +138,7 @@ AI turn (Host only):
   - Code: `bbge/plugins/love-letter/src/ui/LoveLetterTable.tsx` + `ui/bga/*`
   - Card art: `public/images/bbge/love-letter/`
 - Interaction: click hand → click target panel (if needed) → Play; Guard guess chips; Chancellor keep confirm
+- Priest: peek opens a confirm modal (turn does not advance until “我看完了”); cards support Zoom / 大图 lightbox
 - AI pacing: ~1.4–3s think + gap between AI seats; table talk after each AI act
 - After each play, next seat draws immediately so the hand stays full
 - Play CTA: strongest accent button, **first** in header row

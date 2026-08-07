@@ -4,7 +4,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import type { Event } from "@bbge/core";
 import { HostSession, type AiChatMessage, type LobbyState } from "@bbge/runtime";
-import { loveLetterPlugin, type LoveLetterAction } from "@bbge/love-letter";
+import {
+  loveLetterPlugin,
+  type LoveLetterAction,
+  type LoveLetterState,
+} from "@bbge/love-letter";
 import { createMockLoveLetterSeat } from "@bbge/ai";
 import type { AiSeat } from "@bbge/ai";
 import { LobbyView } from "./LobbyView";
@@ -115,7 +119,9 @@ export function PlayShell({
   const [displayName, setDisplayName] = useState(
     locale === "zh" ? "房主" : "Host",
   );
-  const sessionRef = useRef<HostSession | null>(null);
+  const sessionRef = useRef<HostSession<LoveLetterState, LoveLetterAction> | null>(
+    null,
+  );
   const aiRef = useRef<Map<string, AiSeat>>(new Map());
   const peerRef = useRef<{ destroy: () => void } | null>(null);
   const aiRunning = useRef(false);
@@ -169,12 +175,15 @@ export function PlayShell({
     if (!isHost) return;
     const rid = newRoomId();
     setRoomId(rid);
-    const session = new HostSession(loveLetterPlugin, {
+    const session = new HostSession<LoveLetterState, LoveLetterAction>(
+      loveLetterPlugin,
+      {
       seed: newSeed(),
       hostPlayerId: hostId,
       // Mock AI always available — DeepSeek is optional enhancement
       canStartAi: async () => true,
-    });
+    },
+    );
     session.addHumanSeat(hostId, displayName);
     session.setReady(hostId, true);
     sessionRef.current = session;
@@ -357,89 +366,111 @@ export function PlayShell({
     ]);
 
     try {
-      const v = s.getView(current);
-      let seat = await resolveAiSeat(current);
-      let action: LoveLetterAction;
-      try {
-        // Decide in parallel with a minimum think timer (mock / fast LLM still feel paced).
-        const decide = withTimeout(seat.think(v), 10000, "AI think");
-        const [, decided] = await Promise.all([sleep(paceMs), decide]);
-        action = decided as LoveLetterAction;
-      } catch {
-        seat = createMockLoveLetterSeat(current);
-        aiRef.current.set(current, seat);
-        const remaining = Math.max(0, paceMs - (Date.now() - thinkStarted));
-        const [decided] = await Promise.all([
-          seat.think(s.getView(current)),
-          remaining > 0 ? sleep(remaining) : Promise.resolve(),
-        ]);
-        action = decided as LoveLetterAction;
-        setPlayLog((prev) => [
-          ...prev,
-          {
-            id: `fallback-${Date.now()}`,
-            at: Date.now(),
-            text:
-              locale === "zh"
-                ? `${seatNames()[current] ?? current} 改用本地 AI`
-                : `${seatNames()[current] ?? current} fell back to local AI`,
-            tone: "warn",
-          },
-        ]);
-      }
-
-      let result = s.submitAction(action);
-      if (!result.ok) {
-        const mock = createMockLoveLetterSeat(current);
-        aiRef.current.set(current, mock);
-        await sleep(400 + Math.floor(Math.random() * 400));
-        const retry = (await mock.think(s.getView(current))) as LoveLetterAction;
-        result = s.submitAction(retry);
-        if (!result.ok) {
-          setError(result.error);
-          return;
-        }
-      }
-      appendEvents(result.events);
-      tick();
-
-      const speakSeat = seat;
-      const events = result.events;
-      // Brief beat after the play lands, then clear thinking and let them “talk”
-      await sleep(350 + Math.floor(Math.random() * 350));
-      setThinkingId(null);
-      host?.broadcast?.({
-        type: "aiPresence",
-        payload: { type: "ai/thinking", playerId: current, started: false },
-      });
-
-      let line: AiChatMessage | null = null;
-      if (speakSeat.speak) {
-        try {
-          line = await withTimeout(
-            speakSeat.speak({
-              view: v,
-              lastEvents: events,
-              locale,
-            }),
-            8000,
-            "AI speak",
-          );
-        } catch {
-          line = null;
-        }
-      }
-      if (!line) {
-        line = {
+      const v = s.getView(current) as {
+        pending?: { type?: string; playerId?: string };
+      };
+      // Priest reveal: AI "looks" then acknowledges — no LLM needed
+      if (
+        v.pending?.type === "priestReveal" &&
+        v.pending.playerId === current
+      ) {
+        await sleep(1600 + Math.floor(Math.random() * 1200));
+        const result = s.submitAction({
+          type: "acknowledgePriest",
           playerId: current,
-          text: locale === "zh" ? "出完了。" : "Played.",
-          at: Date.now(),
-        };
-      }
-      publishChat(line);
+          payload: {},
+        } as LoveLetterAction);
+        if (result.ok) {
+          appendEvents(result.events);
+          tick();
+          await sleep(aiBetweenPlaysMs());
+        } else {
+          setError(result.error);
+        }
+      } else {
+        let seat = await resolveAiSeat(current);
+        let action: LoveLetterAction;
+        try {
+          // Decide in parallel with a minimum think timer (mock / fast LLM still feel paced).
+          const decide = withTimeout(seat.think(v), 10000, "AI think");
+          const [, decided] = await Promise.all([sleep(paceMs), decide]);
+          action = decided as LoveLetterAction;
+        } catch {
+          seat = createMockLoveLetterSeat(current);
+          aiRef.current.set(current, seat);
+          const remaining = Math.max(0, paceMs - (Date.now() - thinkStarted));
+          const [decided] = await Promise.all([
+            seat.think(s.getView(current)),
+            remaining > 0 ? sleep(remaining) : Promise.resolve(),
+          ]);
+          action = decided as LoveLetterAction;
+          setPlayLog((prev) => [
+            ...prev,
+            {
+              id: `fallback-${Date.now()}`,
+              at: Date.now(),
+              text:
+                locale === "zh"
+                  ? `${seatNames()[current] ?? current} 改用本地 AI`
+                  : `${seatNames()[current] ?? current} fell back to local AI`,
+              tone: "warn",
+            },
+          ]);
+        }
 
-      // Space out consecutive AI turns so the table doesn't cascade instantly
-      await sleep(aiBetweenPlaysMs());
+        let result = s.submitAction(action);
+        if (!result.ok) {
+          const mock = createMockLoveLetterSeat(current);
+          aiRef.current.set(current, mock);
+          await sleep(400 + Math.floor(Math.random() * 400));
+          const retry = (await mock.think(
+            s.getView(current),
+          )) as LoveLetterAction;
+          result = s.submitAction(retry);
+          if (!result.ok) {
+            setError(result.error);
+            return;
+          }
+        }
+        appendEvents(result.events);
+        tick();
+
+        const speakSeat = seat;
+        const events = result.events;
+        await sleep(350 + Math.floor(Math.random() * 350));
+        setThinkingId(null);
+        host?.broadcast?.({
+          type: "aiPresence",
+          payload: { type: "ai/thinking", playerId: current, started: false },
+        });
+
+        let line: AiChatMessage | null = null;
+        if (speakSeat.speak) {
+          try {
+            line = await withTimeout(
+              speakSeat.speak({
+                view: v,
+                lastEvents: events,
+                locale,
+              }),
+              8000,
+              "AI speak",
+            );
+          } catch {
+            line = null;
+          }
+        }
+        if (!line) {
+          line = {
+            playerId: current,
+            text: locale === "zh" ? "出完了。" : "Played.",
+            at: Date.now(),
+          };
+        }
+        publishChat(line);
+
+        await sleep(aiBetweenPlaysMs());
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "AI failed");
     } finally {

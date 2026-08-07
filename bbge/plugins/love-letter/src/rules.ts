@@ -182,6 +182,14 @@ export function validateLoveLetterAction(
 ): true | { error: string; code?: string } {
   if (state.phase !== "playing") return { error: "game finished", code: "finished" };
 
+  if (action.type === "acknowledgePriest") {
+    if (!state.pending || state.pending.type !== "priestReveal") {
+      return { error: "no priest reveal pending" };
+    }
+    if (action.playerId !== state.pending.playerId) return { error: "not your reveal" };
+    return true;
+  }
+
   if (action.type === "resolveChancellor") {
     if (!state.pending || state.pending.type !== "chancellor") {
       return { error: "no chancellor pending" };
@@ -267,6 +275,23 @@ export function applyLoveLetterAction(
 ): { state: LoveLetterState; events: Event[] } {
   const events: Event[] = [];
   const next = produce(state, (draft) => {
+    if (action.type === "acknowledgePriest") {
+      const pending = draft.pending;
+      if (!pending || pending.type !== "priestReveal") return;
+      if (action.playerId !== pending.playerId) return;
+      draft.pending = null;
+      events.push({
+        type: "loveLetter/priestAcknowledged",
+        payload: { playerId: action.playerId, targetId: pending.targetId },
+      });
+      if (alive(draft).length <= 1) {
+        finishRound(draft, events);
+      } else if (draft.phase === "playing") {
+        passTurnAndDraw(draft, events);
+      }
+      return;
+    }
+
     if (action.type === "resolveChancellor") {
       const pending = draft.pending;
       if (!pending || pending.type !== "chancellor") return;
@@ -408,11 +433,17 @@ export function applyLoveLetterAction(
         const t = player(draft, targetId!);
         const seen = t.hand[0]!.rank;
         me.seen[t.id] = seen;
+        draft.pending = {
+          type: "priestReveal",
+          playerId: me.id,
+          targetId: t.id,
+          rank: seen,
+        };
         events.push({
           type: "loveLetter/priestPeek",
           payload: { viewerId: me.id, targetId: t.id, rank: seen },
         });
-        break;
+        return;
       }
       case 1: {
         if (fizzleOthers()) break;

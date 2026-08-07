@@ -26,6 +26,7 @@ function Panel({
   thinking,
   selected,
   targetMode,
+  seenRank,
   onSelect,
 }: {
   locale: string;
@@ -40,6 +41,7 @@ function Panel({
   thinking: boolean;
   selected: boolean;
   targetMode: boolean;
+  seenRank?: number;
   onSelect: () => void;
 }) {
   const zh = locale === "zh";
@@ -110,6 +112,11 @@ function Panel({
                 : " · Protected"
               : ""}
           </p>
+          {seenRank !== undefined && !eliminated && (
+            <p className="mt-0.5 text-[11px] font-semibold text-violet-700">
+              {zh ? `偷看过：${seenRank}` : `Peeked: ${seenRank}`}
+            </p>
+          )}
         </div>
       </div>
 
@@ -196,6 +203,7 @@ export function PlayerPanels({
           thinking={thinkingId === o.id}
           selected={selectedTargetId === o.id}
           targetMode={targetMode}
+          seenRank={view.you?.seen?.[o.id]}
           onSelect={() => onSelectTarget(o.id)}
         />
       ))}

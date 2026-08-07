@@ -27,6 +27,9 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
     id,
     async think(viewUnknown: unknown): Promise<Action> {
       const view = viewUnknown as View;
+      if (view.pending?.type === "priestReveal" && view.pending.playerId === id) {
+        return { type: "acknowledgePriest", playerId: id, payload: {} };
+      }
       if (view.pending?.type === "chancellor" && view.pending.playerId === id) {
         const held = view.pending.held ?? [];
         const keep = held[0]!;

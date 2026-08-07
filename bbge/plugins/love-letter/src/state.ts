@@ -20,6 +20,13 @@ export type PendingChoice =
       playerId: PlayerId;
       held: Card[];
     }
+  | {
+      /** Priest: viewer must acknowledge the peeked card before the turn advances */
+      type: "priestReveal";
+      playerId: PlayerId;
+      targetId: PlayerId;
+      rank: number;
+    }
   | null;
 
 export interface LoveLetterState {
@@ -64,5 +71,11 @@ export type LoveLetterAction =
         keepCardId: string;
         bottomOrderIds: string[];
       };
+      clientActionId?: string;
+    }
+  | {
+      type: "acknowledgePriest";
+      playerId: PlayerId;
+      payload: Record<string, never>;
       clientActionId?: string;
     };

@@ -4,17 +4,27 @@ export type ArenaCard = {
   name?: { en: string; zh: string };
 };
 
+export type ArenaPending =
+  | {
+      type: "chancellor";
+      playerId: string;
+      held?: ArenaCard[];
+    }
+  | {
+      type: "priestReveal";
+      playerId: string;
+      targetId: string;
+      rank?: number;
+      name?: { en: string; zh: string };
+    };
+
 export type ArenaView = {
   phase: string;
   winners: string[];
   currentPlayerId: string;
   deckCount: number;
   faceUp: ArenaCard[];
-  pending: {
-    type: string;
-    playerId: string;
-    held?: ArenaCard[];
-  } | null;
+  pending: ArenaPending | null;
   you: {
     id: string;
     hand: ArenaCard[];

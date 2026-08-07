@@ -89,8 +89,13 @@ export function formatPlayEvents(
         break;
       case "loveLetter/priestPeek":
         text = zh
-          ? `${nameOf(String(p.viewerId), names)} 偷看了 ${nameOf(String(p.targetId), names)}`
-          : `${nameOf(String(p.viewerId), names)} peeked at ${nameOf(String(p.targetId), names)}`;
+          ? `${nameOf(String(p.viewerId), names)} 偷看了 ${nameOf(String(p.targetId), names)} 的手牌（待确认）`
+          : `${nameOf(String(p.viewerId), names)} peeked at ${nameOf(String(p.targetId), names)} (confirming)`;
+        break;
+      case "loveLetter/priestAcknowledged":
+        text = zh
+          ? `${nameOf(String(p.playerId), names)} 确认偷看结果`
+          : `${nameOf(String(p.playerId), names)} acknowledged the peek`;
         break;
       case "loveLetter/baronCompare":
         text = zh

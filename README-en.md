@@ -10,7 +10,7 @@ A curated, bilingual reference website for modern board game rules — **50** ga
 - **44 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **9 automatic score trackers**: `cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` / `category` / `feature-calc`, etc.
 - **5 trainers**: Mahjong/Riichi tenpai, Blackjack basic strategy, Texas Hold'em GTO preflop, Go tsumego
-- **4 BBGE online playables**: Love Letter, Texas Hold'em cash, 6 nimmt! modes, Go boards — designs in [`docs/games/`](docs/games/)
+- **5 BBGE online playables**: Love Letter, Texas Hold'em, 6 nimmt!, Go, CABO — designs in [`docs/games/`](docs/games/)
 - **Score calculator**: Riichi Mahjong han/fu/points — tile picker → winning tile → open melds → auto yaku/fu/points
 - **Game family grouping**: UNO, Drecksau, LotTK, Exploding Kittens, Splendor, Sea Salt & Paper, Catan, Carcassonne, Wingspan, Mahjong, Love Letter
 - **DLC / variant support**: stacked family cards for expansions and standalone variants

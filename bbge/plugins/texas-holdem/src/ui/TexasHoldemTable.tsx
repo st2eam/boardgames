@@ -184,37 +184,21 @@ export function TexasHoldemTable({
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden p-2.5 sm:p-3">
-        {view.phase === "finished" ? (
-          <div className="shrink-0 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-950">
-            <div className="flex flex-wrap items-center gap-3">
-              <p className="min-w-0 flex-1 font-heading text-sm font-semibold">
-                {status}
-              </p>
-              {onRematch ? (
-                <button
-                  type="button"
-                  onClick={onRematch}
-                  className="cursor-pointer rounded-xl bg-accent px-5 py-2 font-heading text-sm font-bold text-white hover:bg-accent-dark"
-                >
-                  {zh ? "下一手" : "Next hand"}
-                </button>
-              ) : (
-                <span className="text-xs text-emerald-800/70">
-                  {zh ? "等待房主开下一手…" : "Waiting for host to deal…"}
-                </span>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div className="flex h-14 shrink-0 flex-col justify-center overflow-hidden rounded-xl border border-border bg-white/90 px-3 text-sm text-primary-dark shadow-sm">
-            <p className="truncate font-heading font-semibold leading-tight">
-              {status}
-            </p>
-            <p className="mt-0.5 h-4 truncate text-[11px] leading-tight text-stone-500">
-              {thinkingId && thinkingDetail ? thinkingDetail : "\u00a0"}
-            </p>
-          </div>
-        )}
+        <div
+          className={[
+            "flex h-14 shrink-0 flex-col justify-center overflow-hidden rounded-xl border px-3 text-sm shadow-sm",
+            view.phase === "finished"
+              ? "border-emerald-200 bg-emerald-50 text-emerald-950"
+              : "border-border bg-white/90 text-primary-dark",
+          ].join(" ")}
+        >
+          <p className="truncate font-heading font-semibold leading-tight">
+            {status}
+          </p>
+          <p className="mt-0.5 h-4 truncate text-[11px] leading-tight text-stone-500">
+            {thinkingId && thinkingDetail ? thinkingDetail : "\u00a0"}
+          </p>
+        </div>
 
         <div className="grid min-h-0 flex-1 gap-2 overflow-hidden lg:grid-cols-[1fr_220px]">
           {/* Felt */}
@@ -366,128 +350,146 @@ export function TexasHoldemTable({
           </aside>
         </div>
 
-        {/* Action bar */}
-        {view.phase === "playing" && (
-          <div className="shrink-0 rounded-xl border border-border bg-white/95 p-2.5 shadow-sm">
-            <div className="flex flex-wrap items-end gap-2">
+        {/* Action bar — next-hand sits bottom-right with the betting controls */}
+        <div className="shrink-0 rounded-xl border border-border bg-white/95 p-2.5 shadow-sm">
+          <div className="flex flex-wrap items-end gap-2">
+            <button
+              type="button"
+              disabled={!interactive}
+              onClick={() =>
+                dispatch({ type: "fold", playerId: actorId, payload: {} })
+              }
+              className="cursor-pointer rounded-xl bg-stone-700 px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-stone-800 disabled:opacity-35"
+            >
+              {zh ? "弃牌" : "Fold"}
+            </button>
+            {toCall <= 0 ? (
               <button
                 type="button"
                 disabled={!interactive}
                 onClick={() =>
-                  dispatch({ type: "fold", playerId: actorId, payload: {} })
+                  dispatch({ type: "check", playerId: actorId, payload: {} })
                 }
-                className="cursor-pointer rounded-xl bg-stone-700 px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-stone-800 disabled:opacity-35"
+                className="cursor-pointer rounded-xl bg-emerald-700 px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-emerald-800 disabled:opacity-35"
               >
-                {zh ? "弃牌" : "Fold"}
+                {zh ? "过牌" : "Check"}
               </button>
-              {toCall <= 0 ? (
-                <button
-                  type="button"
-                  disabled={!interactive}
-                  onClick={() =>
-                    dispatch({ type: "check", playerId: actorId, payload: {} })
-                  }
-                  className="cursor-pointer rounded-xl bg-emerald-700 px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-emerald-800 disabled:opacity-35"
-                >
-                  {zh ? "过牌" : "Check"}
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  disabled={!interactive}
-                  onClick={() =>
-                    dispatch({ type: "call", playerId: actorId, payload: {} })
-                  }
-                  className="cursor-pointer rounded-xl bg-emerald-700 px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-emerald-800 disabled:opacity-35"
-                >
-                  {zh ? `跟注 ${toCall}` : `Call ${toCall}`}
-                </button>
-              )}
-              <div className="flex flex-wrap items-center gap-1.5">
-                <label className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-600">
-                  <span>{zh ? "加至" : "To"}</span>
-                  <input
-                    type="number"
-                    inputMode="numeric"
-                    min={Math.min(view.minRaiseTo, maxRaise)}
-                    max={Math.max(maxRaise, view.minRaiseTo)}
-                    step={1}
-                    value={Number.isFinite(raiseTo) ? raiseTo : ""}
-                    disabled={!interactive || maxRaise <= view.currentBet}
-                    onChange={(e) => {
-                      const raw = e.target.value;
-                      if (raw === "") {
-                        setRaiseTo(view.minRaiseTo);
-                        return;
-                      }
-                      const n = Number(raw);
-                      if (!Number.isFinite(n)) return;
-                      setRaiseTo(Math.floor(n));
-                    }}
-                    onBlur={() =>
-                      setRaiseTo((v) =>
-                        Math.min(
-                          Math.max(Math.floor(v) || view.minRaiseTo, view.minRaiseTo),
-                          maxRaise,
-                        ),
-                      )
-                    }
-                    className="w-20 rounded-lg border border-border bg-white px-2 py-2 font-heading text-sm font-bold text-primary-dark tabular-nums disabled:opacity-35"
-                  />
-                </label>
+            ) : (
+              <button
+                type="button"
+                disabled={!interactive}
+                onClick={() =>
+                  dispatch({ type: "call", playerId: actorId, payload: {} })
+                }
+                className="cursor-pointer rounded-xl bg-emerald-700 px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-emerald-800 disabled:opacity-35"
+              >
+                {zh ? `跟注 ${toCall}` : `Call ${toCall}`}
+              </button>
+            )}
+            <div className="flex flex-wrap items-center gap-1.5">
+              <label className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-600">
+                <span>{zh ? "加至" : "To"}</span>
                 <input
-                  type="range"
+                  type="number"
+                  inputMode="numeric"
                   min={Math.min(view.minRaiseTo, maxRaise)}
                   max={Math.max(maxRaise, view.minRaiseTo)}
-                  value={Math.min(
-                    Math.max(raiseTo, view.minRaiseTo),
-                    Math.max(maxRaise, view.minRaiseTo),
-                  )}
+                  step={1}
+                  value={Number.isFinite(raiseTo) ? raiseTo : ""}
                   disabled={!interactive || maxRaise <= view.currentBet}
-                  onChange={(e) => setRaiseTo(Number(e.target.value))}
-                  className="w-28 accent-[#C4952A] disabled:opacity-35"
+                  onChange={(e) => {
+                    const raw = e.target.value;
+                    if (raw === "") {
+                      setRaiseTo(view.minRaiseTo);
+                      return;
+                    }
+                    const n = Number(raw);
+                    if (!Number.isFinite(n)) return;
+                    setRaiseTo(Math.floor(n));
+                  }}
+                  onBlur={() =>
+                    setRaiseTo((v) =>
+                      Math.min(
+                        Math.max(
+                          Math.floor(v) || view.minRaiseTo,
+                          view.minRaiseTo,
+                        ),
+                        maxRaise,
+                      ),
+                    )
+                  }
+                  className="w-20 rounded-lg border border-border bg-white px-2 py-2 font-heading text-sm font-bold text-primary-dark tabular-nums disabled:opacity-35"
                 />
+              </label>
+              <input
+                type="range"
+                min={Math.min(view.minRaiseTo, maxRaise)}
+                max={Math.max(maxRaise, view.minRaiseTo)}
+                value={Math.min(
+                  Math.max(raiseTo, view.minRaiseTo),
+                  Math.max(maxRaise, view.minRaiseTo),
+                )}
+                disabled={!interactive || maxRaise <= view.currentBet}
+                onChange={(e) => setRaiseTo(Number(e.target.value))}
+                className="w-28 accent-[#C4952A] disabled:opacity-35"
+              />
+              <button
+                type="button"
+                disabled={!interactive || maxRaise <= view.currentBet}
+                onClick={() => {
+                  const toAmount = Math.min(
+                    Math.max(raiseTo, view.minRaiseTo),
+                    maxRaise,
+                  );
+                  setRaiseTo(toAmount);
+                  dispatch({
+                    type: "raise",
+                    playerId: actorId,
+                    payload: { toAmount },
+                  });
+                }}
+                className="cursor-pointer rounded-xl bg-accent px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-accent-dark disabled:opacity-35"
+              >
+                {zh ? "加注" : "Raise"}
+              </button>
+              {[2, 3, 4].map((n) => (
                 <button
+                  key={n}
                   type="button"
                   disabled={!interactive || maxRaise <= view.currentBet}
-                  onClick={() => {
-                    const toAmount = Math.min(
-                      Math.max(raiseTo, view.minRaiseTo),
-                      maxRaise,
-                    );
-                    setRaiseTo(toAmount);
-                    dispatch({
-                      type: "raise",
-                      playerId: actorId,
-                      payload: { toAmount },
-                    });
-                  }}
-                  className="cursor-pointer rounded-xl bg-accent px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-accent-dark disabled:opacity-35"
+                  onClick={() =>
+                    setRaiseTo(
+                      Math.min(
+                        Math.max(view.potTotal + toCall * n, view.minRaiseTo),
+                        maxRaise,
+                      ),
+                    )
+                  }
+                  className="cursor-pointer rounded-lg bg-surface px-2 py-1.5 text-[11px] font-bold text-primary-dark hover:bg-primary-light disabled:opacity-35"
                 >
-                  {zh ? "加注" : "Raise"}
+                  {n}x
                 </button>
-                {[2, 3, 4].map((n) => (
-                  <button
-                    key={n}
-                    type="button"
-                    disabled={!interactive || maxRaise <= view.currentBet}
-                    onClick={() =>
-                      setRaiseTo(
-                        Math.min(
-                          Math.max(view.potTotal + toCall * n, view.minRaiseTo),
-                          maxRaise,
-                        ),
-                      )
-                    }
-                    className="cursor-pointer rounded-lg bg-surface px-2 py-1.5 text-[11px] font-bold text-primary-dark hover:bg-primary-light disabled:opacity-35"
-                  >
-                    {n}x
-                  </button>
-                ))}
-              </div>
+              ))}
             </div>
+            {view.phase === "finished" && (
+              <div className="ml-auto flex items-center">
+                {onRematch ? (
+                  <button
+                    type="button"
+                    onClick={onRematch}
+                    className="cursor-pointer rounded-xl bg-accent px-5 py-2.5 font-heading text-sm font-bold text-white hover:bg-accent-dark"
+                  >
+                    {zh ? "下一手" : "Next hand"}
+                  </button>
+                ) : (
+                  <span className="px-1 text-xs text-stone-500">
+                    {zh ? "等待房主开下一手…" : "Waiting for host…"}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

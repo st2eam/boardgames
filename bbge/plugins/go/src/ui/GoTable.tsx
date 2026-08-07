@@ -163,14 +163,14 @@ export function GoTable({
           ))}
         </div>
 
-        <p className="w-full max-w-[480px] rounded-xl border border-amber-200/80 bg-amber-50 px-3 py-2 text-center text-xs font-medium text-amber-950">
-          {status}
-          {thinkingDetail && thinkingId ? (
-            <span className="mt-1 block text-[10px] font-normal text-amber-800/80 line-clamp-2">
-              {thinkingDetail}
-            </span>
-          ) : null}
-        </p>
+        <div className="flex h-14 w-full max-w-[480px] shrink-0 flex-col justify-center overflow-hidden rounded-xl border border-amber-200/80 bg-amber-50 px-3 text-center">
+          <p className="truncate text-xs font-medium leading-5 text-amber-950">
+            {status}
+          </p>
+          <p className="h-4 truncate text-[10px] font-normal leading-4 text-amber-800/80">
+            {thinkingId && thinkingDetail ? thinkingDetail : "\u00a0"}
+          </p>
+        </div>
 
         <GoBoard
           size={view.size}

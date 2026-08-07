@@ -515,14 +515,8 @@ function SeatChip({
       ].join(" ")}
       animate={{
         opacity: foldedAnim ? 0.5 : 1,
-        scale: !reduce && active && !foldedAnim ? [1, 1.035, 1] : 1,
-        x: !reduce && foldedAnim ? [0, -6, 0] : 0,
       }}
-      transition={
-        active && !foldedAnim && !reduce
-          ? { duration: 1.1, repeat: Infinity, ease: "easeInOut" }
-          : { duration: 0.35 }
-      }
+      transition={{ duration: 0.25 }}
     >
       <div className="absolute -left-1.5 -top-2 z-10 flex gap-0.5">
         {seat.isButton && (

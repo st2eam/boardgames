@@ -4,7 +4,16 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
-import { BattleLogList, PlaySideSheet, useIsMobileLayout } from "@bbge/ui";
+import {
+  MatchResultBar,
+  PlayFeltFrame,
+  PlayLogChatPanel,
+  PlaySideSheet,
+  PlayTableShell,
+  useIsMobileLayout,
+  useScrollActiveSeatIntoView,
+  useSeatBubbles,
+} from "@bbge/ui";
 import type { LoveLetterAction } from "../state";
 import { targetSpec, type ArenaView } from "./types";
 import { cardFaceUrl, cardLabel } from "./cardArt";
@@ -12,7 +21,7 @@ import { CardTile } from "./bga/CardTile";
 import { CardLightbox } from "./bga/CardLightbox";
 import { PriestRevealModal } from "./bga/PriestRevealModal";
 import { StatusBar } from "./bga/StatusBar";
-import { PlayerPanels, type SeatBubble } from "./bga/PlayerPanels";
+import { PlayerPanels } from "./bga/PlayerPanels";
 
 type ZoomCard = {
   rank: number;
@@ -24,8 +33,6 @@ type ZoomCard = {
 function cardRole(c: { rank: number; role?: string } | null | undefined): string {
   return c?.role ?? "";
 }
-
-const BUBBLE_MS = 4200;
 
 export function LoveLetterTable({
   locale,
@@ -55,91 +62,34 @@ export function LoveLetterTable({
   const [selectedTargetIds, setSelectedTargetIds] = useState<string[]>([]);
   const [peekTargetId, setPeekTargetId] = useState<string | null>(null);
   const [guessRank, setGuessRank] = useState(9);
-  const [chatText, setChatText] = useState("");
   const [zoom, setZoom] = useState<ZoomCard | null>(null);
   const [flyPlay, setFlyPlay] = useState<ZoomCard | null>(null);
   const [drawPulse, setDrawPulse] = useState(false);
   const [animBusy, setAnimBusy] = useState(false);
   const prevHandRef = useRef<Set<string>>(new Set());
   const [newCardIds, setNewCardIds] = useState<Set<string>>(new Set());
-  const [bubbles, setBubbles] = useState<Record<string, SeatBubble>>({});
   const [sideOpen, setSideOpen] = useState(false);
   const mobile = useIsMobileLayout();
   const reduce = useReducedMotion();
+  const roundKey = view.roundNumber ?? 1;
+  const bubbles = useSeatBubbles({ playLog, chat, resetKey: roundKey });
   const handSize = mobile ? "md" : "xl";
   const feltMd = mobile ? "sm" : "md";
   const feltLg = mobile ? "md" : "lg";
-  const seenLogIdsRef = useRef<Set<string>>(new Set());
-  const seenChatKeysRef = useRef<Set<string>>(new Set());
-  const bubbleTimersRef = useRef<Map<string, number>>(new Map());
   const seatsRailRef = useRef<HTMLDivElement>(null);
   const seatsStackRef = useRef<HTMLDivElement>(null);
+  useScrollActiveSeatIntoView({
+    activeSeatId: view.currentPlayerId,
+    enabled: view.phase === "playing",
+    smooth: !reduce,
+    roots: [seatsRailRef, seatsStackRef],
+    resetKey: roundKey,
+  });
   // PlayShell switches myId among local hotseat humans only — never AI / remote.
   const actorId = myId;
   const lastDiscardIdRef = useRef<string | null>(null);
   const skipDiscardAnimRef = useRef(false);
 
-  /** Keep the acting seat in view (mobile rail / desktop stack). */
-  useEffect(() => {
-    if (view.phase !== "playing") return;
-    const id = view.currentPlayerId;
-    if (!id) return;
-    const opts: ScrollIntoViewOptions = {
-      behavior: reduce ? "auto" : "smooth",
-      inline: "center",
-      block: "nearest",
-    };
-    const root = mobile ? seatsRailRef.current : seatsStackRef.current;
-    if (!root) return;
-    const el = root.querySelector<HTMLElement>(
-      `[data-seat-id="${CSS.escape(id)}"]`,
-    );
-    el?.scrollIntoView(opts);
-  }, [mobile, view.currentPlayerId, view.phase, reduce, view.deckCount]);
-
-  const showBubble = (seatId: string, id: string, text: string) => {
-    const prevTimer = bubbleTimersRef.current.get(seatId);
-    if (prevTimer) window.clearTimeout(prevTimer);
-    setBubbles((m) => ({ ...m, [seatId]: { id, text } }));
-    const t = window.setTimeout(() => {
-      setBubbles((m) => {
-        if (m[seatId]?.id !== id) return m;
-        const next = { ...m };
-        delete next[seatId];
-        return next;
-      });
-      bubbleTimersRef.current.delete(seatId);
-    }, BUBBLE_MS);
-    bubbleTimersRef.current.set(seatId, t);
-  };
-
-  // Action bubbles from play log (first-person lines on PlayLogEntry)
-  useEffect(() => {
-    for (const e of playLog) {
-      if (seenLogIdsRef.current.has(e.id)) continue;
-      seenLogIdsRef.current.add(e.id);
-      if (e.speakerId && e.bubble) {
-        showBubble(e.speakerId, e.id, e.bubble);
-      }
-    }
-  }, [playLog]);
-
-  // Chat reuses the same avatar bubbles
-  useEffect(() => {
-    for (const m of chat) {
-      const key = `${m.playerId}-${m.at}-${m.text}`;
-      if (seenChatKeysRef.current.has(key)) continue;
-      seenChatKeysRef.current.add(key);
-      showBubble(m.playerId, `chat-${key}`, m.text);
-    }
-  }, [chat]);
-
-  useEffect(() => {
-    return () => {
-      for (const t of bubbleTimersRef.current.values()) window.clearTimeout(t);
-      bubbleTimersRef.current.clear();
-    };
-  }, []);
   const priestPending =
     view.pending?.type === "priestReveal" ? view.pending : null;
   const baronessPending =
@@ -237,12 +187,6 @@ export function LoveLetterTable({
       return [...prev, id];
     });
   };
-
-  const chatRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = chatRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
-  }, [chat]);
 
   const status = useMemo(() => {
     if (view.phase === "finished") {
@@ -454,8 +398,39 @@ export function LoveLetterTable({
     return () => window.clearTimeout(t);
   }, [lastDiscard?.id, lastDiscard, animBusy, zh]);
 
+  const tableTitle = zh
+    ? edition === "classic"
+      ? "情书经典版 · 在线桌"
+      : edition === "expansion"
+        ? "情书拓展版 · 在线桌"
+        : "情书完整版 · 在线桌"
+    : edition === "classic"
+      ? "Love Letter Classic · Table"
+      : edition === "expansion"
+        ? "Love Letter Expansion · Table"
+        : "Love Letter Full · Table";
+  const rematchLabel =
+    view.matchOver || view.endReason === "hearts"
+      ? zh
+        ? "再来一局"
+        : "Play again"
+      : zh
+        ? "下一轮"
+        : "Next round";
+  const sidePanel = (
+    <PlayLogChatPanel
+      locale={locale}
+      playLog={playLog}
+      chat={chat}
+      onChat={onChat}
+      nameOf={nameOf}
+      logVariant="chip"
+      placeholder={zh ? "说一句…" : "Say…"}
+    />
+  );
+
   return (
-    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/25 bg-[#efe6d8] shadow-card">
+    <>
       {myPriestReveal && priestPending.rank !== undefined && (
         <PriestRevealModal
           locale={locale}
@@ -565,42 +540,22 @@ export function LoveLetterTable({
         />
       )}
 
-      {/* Top chrome — BGA-like title strip */}
-      <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-[#3E2723]/15 bg-[#5D4037] px-3 py-2 text-amber-50 sm:px-4 sm:py-2.5">
-        <p className="font-heading text-sm font-bold tracking-wide">
-          {zh
-            ? edition === "classic"
-              ? "情书经典版 · 在线桌"
-              : edition === "expansion"
-                ? "情书拓展版 · 在线桌"
-                : "情书完整版 · 在线桌"
-            : edition === "classic"
-              ? "Love Letter Classic · Table"
-              : edition === "expansion"
-                ? "Love Letter Expansion · Table"
-                : "Love Letter Full · Table"}
-        </p>
-        <div className="flex flex-wrap items-center gap-2 text-xs text-amber-100/85 sm:gap-3">
-          <span>
-            {zh ? "牌堆" : "Deck"}{" "}
-            <strong className="font-heading text-accent">{view.deckCount}</strong>
-          </span>
-          <span>
-            {zh ? "公开牌" : "Face-up"} {view.faceUp.length}
-          </span>
-          {mobile && (
-            <button
-              type="button"
-              onClick={() => setSideOpen(true)}
-              className="cursor-pointer rounded-lg bg-white/15 px-2.5 py-1 font-heading text-[11px] font-bold text-amber-50 hover:bg-white/25"
-            >
-              {zh ? "战报" : "Log"}
-            </button>
-          )}
-        </div>
-      </div>
-
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden p-1.5 sm:p-3">
+      <PlayTableShell
+        locale={locale}
+        title={tableTitle}
+        onOpenLog={mobile ? () => setSideOpen(true) : undefined}
+        toolbarExtra={
+          <>
+            <span>
+              {zh ? "牌堆" : "Deck"}{" "}
+              <strong className="font-heading text-accent">{view.deckCount}</strong>
+            </span>
+            <span>
+              {zh ? "公开牌" : "Face-up"} {view.faceUp.length}
+            </span>
+          </>
+        }
+      >
         {view.phase === "finished" ? (
           <div
             className="shrink-0 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-950 shadow-sm"
@@ -611,31 +566,11 @@ export function LoveLetterTable({
               <p className="min-w-0 flex-1 font-heading text-sm font-semibold leading-snug sm:text-base">
                 {status.text}
               </p>
-              {onRematch ? (
-                <button
-                  type="button"
-                  onClick={onRematch}
-                  className="cursor-pointer rounded-xl bg-accent px-5 py-2 font-heading text-sm font-bold text-white shadow-card transition-colors hover:bg-accent-dark"
-                >
-                  {view.matchOver || view.endReason === "hearts"
-                    ? zh
-                      ? "再来一局"
-                      : "Play again"
-                    : zh
-                      ? "下一轮"
-                      : "Next round"}
-                </button>
-              ) : (
-                <span className="text-xs font-medium text-emerald-800/70">
-                  {view.matchOver || view.endReason === "hearts"
-                    ? zh
-                      ? "等待房主再开一局…"
-                      : "Waiting for host…"
-                    : zh
-                      ? "等待房主开下一轮…"
-                      : "Waiting for next round…"}
-                </span>
-              )}
+              <MatchResultBar
+                locale={locale}
+                onRematch={onRematch}
+                label={rematchLabel}
+              />
             </div>
             {(view.standings?.length ?? 0) > 0 && (
               <div className="mt-2.5 overflow-x-auto rounded-lg border border-emerald-200/80 bg-white/70">
@@ -724,7 +659,7 @@ export function LoveLetterTable({
         )}
 
         {/* Mobile: players rail on top · Desktop: left list · Center table · Right log */}
-        <div className="mt-1.5 flex min-h-0 flex-1 flex-col gap-1.5 overflow-hidden sm:mt-2.5 sm:gap-2.5 lg:grid lg:grid-cols-[220px_minmax(0,1fr)_240px] lg:items-stretch">
+        <div className="flex min-h-0 flex-1 flex-col gap-1.5 overflow-hidden sm:gap-2.5 lg:grid lg:grid-cols-[220px_minmax(0,1fr)_240px] lg:items-stretch">
           {mobile && (
             <div
               className={[
@@ -815,13 +750,14 @@ export function LoveLetterTable({
           {/* Center — board + hand */}
           <div className="order-1 flex min-h-0 flex-1 flex-col gap-1.5 overflow-hidden sm:gap-2 lg:order-2">
             {/* Felt table */}
-            <div
-              className="relative min-h-[120px] flex-1 overflow-hidden rounded-2xl border-[5px] border-[#4E342E] shadow-inner"
-              style={{
-                background:
-                  "radial-gradient(ellipse at 50% 40%, #2e7d32 0%, #1b5e20 55%, #0d3b12 100%)",
-              }}
-            >
+            <PlayFeltFrame className="min-h-[120px] flex-1">
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 50% 40%, #2e7d32 0%, #1b5e20 55%, #0d3b12 100%)",
+                }}
+              />
               <AnimatePresence>
                 {flyPlay && (
                   <motion.div
@@ -978,7 +914,7 @@ export function LoveLetterTable({
                   </div>
                 )}
               </div>
-            </div>
+            </PlayFeltFrame>
 
             {/* Hand dock */}
             <div className="shrink-0 rounded-xl border border-border bg-white/95 p-2 shadow-sm sm:rounded-2xl sm:p-3">
@@ -1108,119 +1044,21 @@ export function LoveLetterTable({
           </div>
 
           {/* Right — log + chat (desktop) */}
-          <aside className="order-3 hidden min-h-0 flex-col gap-2.5 overflow-hidden lg:flex">
-            <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-white/95 shadow-sm">
-              <div className="shrink-0 border-b border-border px-2.5 py-1.5">
-                <p className="font-heading text-[11px] font-bold uppercase tracking-wide text-stone-500">
-                  {zh ? "对局记录" : "Game log"}
-                </p>
-              </div>
-              <BattleLogList
-                locale={locale}
-                entries={playLog}
-                variant="chip"
-                className="px-2 py-1.5"
-              />
-            </div>
-
-            <div className="flex max-h-[45%] min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-white/95 shadow-sm">
-              <div className="shrink-0 border-b border-border px-2.5 py-1.5">
-                <p className="font-heading text-[11px] font-bold uppercase tracking-wide text-stone-500">
-                  {zh ? "桌边聊天" : "Table talk"}
-                </p>
-              </div>
-              <div
-                ref={chatRef}
-                className="min-h-0 flex-1 space-y-1 overflow-y-auto px-2 py-1.5"
-              >
-                {chat.length === 0 && (
-                  <p className="px-1 text-[11px] text-stone-400">
-                    {zh
-                      ? "可选：打字聊天（AI 负责出牌，也可桌边发言）"
-                      : "Optional chat — AI plays and may speak"}
-                  </p>
-                )}
-                {chat.map((m, i) => (
-                  <div
-                    key={`${m.at}-${i}`}
-                    className="rounded-md bg-surface px-1.5 py-1 text-[11px]"
-                  >
-                    <span className="font-heading text-[10px] font-bold text-accent">
-                      {nameOf?.(m.playerId) ?? m.playerId}
-                    </span>
-                    <p className="text-primary-dark">{m.text}</p>
-                  </div>
-                ))}
-              </div>
-              {onChat && (
-                <form
-                  className="flex shrink-0 gap-1 border-t border-border p-1.5"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    if (!chatText.trim()) return;
-                    onChat(chatText.trim());
-                    setChatText("");
-                  }}
-                >
-                  <input
-                    className="min-w-0 flex-1 rounded-lg border border-border bg-surface px-2 py-1.5 text-xs"
-                    value={chatText}
-                    onChange={(e) => setChatText(e.target.value)}
-                    placeholder={zh ? "说一句…" : "Say…"}
-                  />
-                  <button
-                    type="submit"
-                    className="cursor-pointer rounded-lg bg-primary px-2.5 py-1.5 font-heading text-xs font-bold text-white"
-                  >
-                    {zh ? "发" : "Go"}
-                  </button>
-                </form>
-              )}
-            </div>
+          <aside className="order-3 hidden min-h-0 flex-col overflow-hidden lg:flex">
+            {sidePanel}
           </aside>
         </div>
-      </div>
 
-      <PlaySideSheet
-        locale={locale}
-        open={Boolean(mobile && sideOpen)}
-        onClose={() => setSideOpen(false)}
-        title={zh ? "战报 / 聊天" : "Log / Chat"}
-      >
-        <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
-          <BattleLogList
-            locale={locale}
-            entries={playLog}
-            variant="chip"
-            className="rounded-xl border border-border bg-white/95 px-2 py-1.5"
-          />
-          {onChat && (
-            <form
-              className="flex shrink-0 gap-1 border-t border-border bg-white/90 pt-2"
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (!chatText.trim()) return;
-                onChat(chatText.trim());
-                setChatText("");
-              }}
-            >
-              <input
-                className="min-h-11 min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 py-2 text-sm"
-                value={chatText}
-                onChange={(e) => setChatText(e.target.value)}
-                placeholder={zh ? "说一句…" : "Say…"}
-              />
-              <button
-                type="submit"
-                className="min-h-11 cursor-pointer rounded-lg bg-primary px-4 py-2 font-heading text-sm font-bold text-white"
-              >
-                {zh ? "发送" : "Send"}
-              </button>
-            </form>
-          )}
-        </div>
-      </PlaySideSheet>
-    </div>
+        <PlaySideSheet
+          locale={locale}
+          open={Boolean(mobile && sideOpen)}
+          onClose={() => setSideOpen(false)}
+          title={zh ? "战报 / 聊天" : "Log / Chat"}
+        >
+          {sidePanel}
+        </PlaySideSheet>
+      </PlayTableShell>
+    </>
   );
 }
 

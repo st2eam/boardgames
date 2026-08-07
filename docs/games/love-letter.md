@@ -187,6 +187,7 @@ AI thinking visible before act; AI can post a short table message.
 
 ---
 
-## 11. Implementation order (pointer)
+## 11. Implementation
 
-Canonical checklist: [BBGE SKILL.md](../../.cursor/skills/browser-board-game-engine/SKILL.md) (V1 slice).
+- Plan: [`docs/superpowers/plans/2026-08-07-bbge-love-letter-v1.md`](../superpowers/plans/2026-08-07-bbge-love-letter-v1.md)
+- Skill checklist: [BBGE SKILL.md](../../.cursor/skills/browser-board-game-engine/SKILL.md) (V1 slice)

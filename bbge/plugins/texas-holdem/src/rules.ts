@@ -251,6 +251,69 @@ function afterAction(state: HoldemState, events: Event[]): void {
   }
 }
 
+function nextFundedIndex(state: HoldemState, from: number): number {
+  const n = state.players.length;
+  for (let i = 1; i <= n; i++) {
+    const idx = (from + i) % n;
+    if (state.players[idx]!.stack > 0) return idx;
+  }
+  return from;
+}
+
+/** Deal holes, post blinds, set toAct — shared by create + next hand. Deck must already be shuffled. */
+function dealAndPostBlinds(state: HoldemState): void {
+  const n = state.players.length;
+  const funded = state.players.filter((p) => p.stack > 0);
+  if (funded.length < 2) {
+    state.phase = "finished";
+    return;
+  }
+
+  for (const p of state.players) {
+    p.hole = [];
+    p.folded = p.stack <= 0;
+    p.allIn = false;
+    p.streetBet = 0;
+    p.handBet = 0;
+    p.acted = false;
+  }
+
+  state.board = [];
+  state.burns = [];
+  state.pots = [];
+  state.winners = [];
+  state.showdown = undefined;
+  state.lastAction = undefined;
+  state.street = "preflop";
+  state.phase = "playing";
+  state.minRaiseTo = state.bigBlind;
+
+  for (let r = 0; r < 2; r++) {
+    for (let i = 1; i <= n; i++) {
+      const idx = (state.buttonIndex + i) % n;
+      const p = state.players[idx]!;
+      if (p.stack <= 0) continue;
+      const c = state.deck.shift();
+      if (c) p.hole.push(c);
+    }
+  }
+
+  const fundedCount = funded.length;
+  const sbIdx =
+    fundedCount === 2
+      ? state.buttonIndex
+      : nextFundedIndex(state, state.buttonIndex);
+  const bbIdx = nextFundedIndex(state, sbIdx);
+
+  commit(state.players[sbIdx]!, state.smallBlind);
+  commit(state.players[bbIdx]!, state.bigBlind);
+  state.currentBet = state.players[bbIdx]!.streetBet;
+  state.minRaiseTo = state.currentBet + state.bigBlind;
+  state.players[sbIdx]!.acted = false;
+  state.players[bbIdx]!.acted = false;
+  state.toActIndex = firstToActPreflop(state);
+}
+
 export function createHoldemState(
   config: HoldemConfig,
   ctx: ApplyContext,
@@ -276,14 +339,6 @@ export function createHoldemState(
     acted: false,
   }));
 
-  // Deal 2 hole cards each, starting left of button
-  for (let r = 0; r < 2; r++) {
-    for (let i = 1; i <= ids.length; i++) {
-      const idx = (buttonIndex + i) % ids.length;
-      players[idx]!.hole.push(deck.shift()!);
-    }
-  }
-
   const state: HoldemState = {
     schemaVersion: 1,
     pluginId: "texas-holdem",
@@ -305,25 +360,54 @@ export function createHoldemState(
     winners: [],
   };
 
-  const sbIdx =
-    ids.length === 2
-      ? buttonIndex
-      : (buttonIndex + 1) % ids.length;
-  const bbIdx =
-    ids.length === 2
-      ? (buttonIndex + 1) % ids.length
-      : (buttonIndex + 2) % ids.length;
+  dealAndPostBlinds(state);
+  return state;
+}
 
-  commit(players[sbIdx]!, smallBlind);
-  commit(players[bbIdx]!, bigBlind);
-  state.currentBet = bigBlind;
-  state.minRaiseTo = bigBlind * 2;
-  // Blinds don't count as voluntary act for closing (except HU edge cases:
-  // BB still needs option if all limp). Mark blinds unacted.
-  players[sbIdx]!.acted = false;
-  players[bbIdx]!.acted = false;
+/**
+ * Same room / seats / stacks → rotate button → new hand.
+ * Keeps the cash session alive until the host dissolves the room.
+ */
+export function continueHoldemMatch(
+  prev: HoldemState,
+  ctx: ApplyContext,
+): HoldemState {
+  const funded = prev.players.filter((p) => p.stack > 0);
+  if (funded.length < 2) {
+    throw new Error("not enough players with chips for another hand");
+  }
+  const n = prev.players.length;
+  let buttonIndex = (prev.buttonIndex + 1) % n;
+  for (let i = 0; i < n; i++) {
+    if (prev.players[buttonIndex]!.stack > 0) break;
+    buttonIndex = (buttonIndex + 1) % n;
+  }
 
-  state.toActIndex = firstToActPreflop(state);
+  const state: HoldemState = {
+    ...prev,
+    seed: prev.seed,
+    buttonIndex,
+    deck: ctx.rng.shuffle(buildDeck()),
+    board: [],
+    burns: [],
+    pots: [],
+    winners: [],
+    showdown: undefined,
+    lastAction: undefined,
+    players: prev.players.map((p) => ({
+      ...p,
+      hole: [],
+      folded: false,
+      allIn: false,
+      streetBet: 0,
+      handBet: 0,
+      acted: false,
+    })),
+  };
+  dealAndPostBlinds(state);
+  if (state.phase !== "playing") {
+    throw new Error("not enough players with chips for another hand");
+  }
   return state;
 }
 

@@ -804,15 +804,24 @@ export function PlayShell({
     aiRunning.current = false;
     setThinkingId(null);
     setThinkingDetail(null);
-    setPlayLog([
-      {
-        id: `rematch-${Date.now()}`,
-        at: Date.now(),
-        text: locale === "zh" ? "再来一局 · 重新发牌" : "Play again · new deal",
-        tone: "win",
-      },
-    ]);
-    setChat([]);
+    const line = {
+      id: `rematch-${Date.now()}`,
+      at: Date.now(),
+      text: isHoldem
+        ? locale === "zh"
+          ? "下一手 · 房主发牌"
+          : "Next hand · host dealt"
+        : locale === "zh"
+          ? "再来一局 · 重新发牌"
+          : "Play again · new deal",
+      tone: "win" as const,
+    };
+    if (isHoldem) {
+      setPlayLog((prev) => [...prev, line]);
+    } else {
+      setPlayLog([line]);
+      setChat([]);
+    }
     const host = peerRef.current as PeerHost | null;
     host?.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
     for (const [pid, v] of result.views) {

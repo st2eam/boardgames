@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { createRng } from "@bbge/core";
 import {
   applyHoldemAction,
+  continueHoldemMatch,
   createHoldemState,
   validateHoldemAction,
 } from "../src/rules";
@@ -80,5 +81,35 @@ describe("texas-holdem rules", () => {
     }
     expect(s.phase).toBe("finished");
     expect(s.winners.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("continues cash session with carried stacks and rotated button", () => {
+    let s = setup(3, "cash-1");
+    for (let i = 0; i < 40 && s.phase === "playing"; i++) {
+      const pid = s.players[s.toActIndex]!.id;
+      const fold: HoldemAction = { type: "fold", playerId: pid, payload: {} };
+      if (validateHoldemAction(s, fold) === true) s = act(s, fold);
+      else {
+        const call: HoldemAction = { type: "call", playerId: pid, payload: {} };
+        if (validateHoldemAction(s, call) === true) s = act(s, call);
+        else {
+          const check: HoldemAction = {
+            type: "check",
+            playerId: pid,
+            payload: {},
+          };
+          s = act(s, check);
+        }
+      }
+    }
+    expect(s.phase).toBe("finished");
+    const chips = s.players.reduce((a, p) => a + p.stack, 0);
+    const btn = s.buttonIndex;
+    const next = continueHoldemMatch(s, { rng: createRng("cash-2") });
+    expect(next.phase).toBe("playing");
+    expect(next.buttonIndex).toBe((btn + 1) % 3);
+    expect(next.players.reduce((a, p) => a + p.stack + p.handBet, 0)).toBe(
+      chips,
+    );
   });
 });

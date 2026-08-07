@@ -2,6 +2,7 @@ import type { ApplyContext, GamePlugin } from "@bbge/core";
 import {
   applyHoldemAction,
   checkHoldemVictory,
+  continueHoldemMatch,
   createHoldemState,
   validateHoldemAction,
 } from "./rules";
@@ -12,7 +13,9 @@ export const texasHoldemPlugin: GamePlugin<
   HoldemState,
   HoldemAction,
   HoldemConfig
-> = {
+> & {
+  continueMatch: typeof continueHoldemMatch;
+} = {
   id: "texas-holdem",
   name: "Texas Hold'em",
   version: "0.1.0",
@@ -29,6 +32,9 @@ export const texasHoldemPlugin: GamePlugin<
       ctx,
     );
   },
+
+  /** Cash session: keep stacks, rotate button, deal next hand. */
+  continueMatch: continueHoldemMatch,
 
   validateAction(state, action) {
     return validateHoldemAction(state, action);

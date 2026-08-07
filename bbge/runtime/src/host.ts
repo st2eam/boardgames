@@ -165,7 +165,8 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
 
   /**
    * Same seats → new seed → new deal. Only from `finished`.
-   * Returns fresh projected views for every seat.
+   * If the plugin defines `continueMatch` (e.g. Hold'em cash session),
+   * stacks/session state are preserved and chat is kept.
    */
   rematch(seed: string): SubmitOk | SubmitErr {
     if (this.phase !== "finished") {
@@ -175,6 +176,32 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
       return { ok: false, error: "not enough players" };
     }
     this.lobby.seed = seed;
+
+    const cont = (
+      this.plugin as GamePlugin<TState, TAction, unknown> & {
+        continueMatch?: (
+          state: TState,
+          ctx: { rng: ReturnType<typeof createRng> },
+        ) => TState;
+      }
+    ).continueMatch;
+
+    if (typeof cont === "function" && this.state) {
+      try {
+        this.state = cont(this.state, { rng: createRng(seed) });
+      } catch (e) {
+        return {
+          ok: false,
+          error: e instanceof Error ? e.message : "cannot continue match",
+        };
+      }
+      this.seq = 0;
+      this.phase = "playing";
+      const victory = this.plugin.checkVictory(this.state);
+      if (victory) this.phase = "finished";
+      return { ok: true, events: [], views: this.allViews(), seq: this.seq };
+    }
+
     this.chat = [];
     this.dealMatch();
     return { ok: true, events: [], views: this.allViews(), seq: this.seq };

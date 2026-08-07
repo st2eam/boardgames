@@ -2,6 +2,7 @@ export { texasHoldemPlugin } from "./plugin";
 export { texasHoldemPlayModule } from "./playModule";
 export {
   createHoldemState,
+  continueHoldemMatch,
   applyHoldemAction,
   validateHoldemAction,
   legalActions,

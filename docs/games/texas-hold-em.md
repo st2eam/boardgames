@@ -10,7 +10,7 @@ UI skill: `.claude/skills/ui-ux-pro-max` (felt table, clear bet affordances, mot
 | **Status** | Shipped on `main` — playable Host / hotseat / AI |
 | **Slug** | `texas-hold-em` |
 | **Plugin** | `texas-holdem` |
-| **Match** | **One cash hand** NLHE → settle stacks → rematch |
+| **Match** | **Cash session**: hands repeat until host leaves; host deals **下一手** |
 | **Players** | **2–9** |
 | **Play UI** | BGA-style DOM oval table + Motion (deal / flip / fold / bet) |
 | **Card art** | `public/images/bbge/texas-holdem/*` from `texas-hold-em-cards.zip` |
@@ -20,7 +20,8 @@ UI skill: `.claude/skills/ui-ux-pro-max` (felt table, clear bet affordances, mot
 ## 1. Goal
 
 Rules page → **开始游戏** → lobby (custom SB/BB/stack) → Host room →
-hotseat / AI / share-link → **one hand** ends → showdown / fold-win → rematch.
+hotseat / AI / share-link → hand ends → host **下一手** (stacks carry, button rotates)
+until the room is dissolved.
 
 ---
 
@@ -33,7 +34,7 @@ hotseat / AI / share-link → **one hand** ends → showdown / fold-win → rema
 | AI | Host DeepSeek `deepseek-v4-flash` + mock; illegal → feedback retry once |
 | Bubbles | Every bet action shows seat bubble (`Call`, `Raise to X`, `I fold`, …) |
 | Motion | Deal-in, board flip, fold slide, chip/bet pulse (Motion) |
-| Out | Multi-hand session, tournament, straddle, ante, timers, Pixi |
+| Out | Tournament, straddle, ante, timers, Pixi |
 
 ---
 

@@ -129,8 +129,8 @@ export function TexasHoldemTable({
   const status = useMemo(() => {
     if (view.phase === "finished") {
       return zh
-        ? `本手结束 · 胜者 ${view.winners.map((id) => nameOf?.(id) ?? id).join("、")}`
-        : `Hand over · ${view.winners.map((id) => nameOf?.(id) ?? id).join(", ")}`;
+        ? `本手结束 · 胜者 ${view.winners.map((id) => nameOf?.(id) ?? id).join("、")} · 等待房主开下一手`
+        : `Hand over · ${view.winners.map((id) => nameOf?.(id) ?? id).join(", ")} · waiting for host`;
     }
     if (thinkingId) {
       return zh
@@ -185,11 +185,11 @@ export function TexasHoldemTable({
                   onClick={onRematch}
                   className="cursor-pointer rounded-xl bg-accent px-5 py-2 font-heading text-sm font-bold text-white hover:bg-accent-dark"
                 >
-                  {zh ? "再来一局" : "Play again"}
+                  {zh ? "下一手" : "Next hand"}
                 </button>
               ) : (
                 <span className="text-xs text-emerald-800/70">
-                  {zh ? "等待房主…" : "Waiting for host…"}
+                  {zh ? "等待房主开下一手…" : "Waiting for host to deal…"}
                 </span>
               )}
             </div>

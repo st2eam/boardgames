@@ -8,8 +8,6 @@ import { loveLetterPlugin, type LoveLetterAction } from "@bbge/love-letter";
 import { createMockLoveLetterSeat } from "@bbge/ai";
 import type { AiSeat } from "@bbge/ai";
 import { LobbyView } from "./LobbyView";
-import { TableChrome } from "./TableChrome";
-import { PlayLogSidebar } from "./PlayLogSidebar";
 import { formatPlayEvents, type PlayLogEntry } from "./formatPlayLog";
 
 const LoveLetterTable = dynamic(
@@ -530,11 +528,6 @@ export function PlayShell({
       ? `${window.location.origin}${window.location.pathname}?room=${roomId}`
       : "";
 
-  const currentPlayerId =
-    view && typeof view === "object" && view !== null
-      ? ((view as { currentPlayerId?: string }).currentPlayerId ?? null)
-      : null;
-
   return (
     <div className="space-y-4">
       {error && (
@@ -594,35 +587,19 @@ export function PlayShell({
       )}
 
       {(phase === "playing" || phase === "finished") && view != null ? (
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-          <div className="min-w-0 flex-1">
-            <LoveLetterTable
-              locale={locale}
-              view={view}
-              myId={myId}
-              hotseat={isHost}
-              disabled={Boolean(thinkingId)}
-              thinkingId={thinkingId}
-              onAction={onDispatch}
-              overlay={
-                <TableChrome
-                  locale={locale}
-                  chat={chat}
-                  thinkingId={thinkingId}
-                  onSend={onChat}
-                  nameOf={nameOf}
-                />
-              }
-            />
-          </div>
-          <PlayLogSidebar
-            locale={locale}
-            entries={playLog}
-            currentPlayerId={currentPlayerId}
-            thinkingId={thinkingId}
-            nameOf={nameOf}
-          />
-        </div>
+        <LoveLetterTable
+          locale={locale}
+          view={view}
+          myId={myId}
+          hotseat={isHost}
+          disabled={Boolean(thinkingId)}
+          thinkingId={thinkingId}
+          onAction={onDispatch}
+          playLog={playLog}
+          chat={chat}
+          onChat={onChat}
+          nameOf={nameOf}
+        />
       ) : null}
     </div>
   );

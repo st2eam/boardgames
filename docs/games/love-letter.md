@@ -134,15 +134,12 @@ AI turn (Host only):
 ### 6.2 UI
 
 - Lobby: React seat cards, AI controls, ready, copy link (non-Pixi)
-- **Table (Playing):** PixiJS WebGL arena + GSAP tweens (`dealIn` / `selectLift` / `moveTo`) + Motion HUD for guess / confirm play
-  - Code: `bbge/plugins/love-letter/src/ui/LoveLetterPixiArena.tsx` + `ui/pixi/*`
-  - Loaded via `next/dynamic(..., { ssr: false })` from `PlayShell`
-- Table talk: floating overlay on the felt; AI speaks after each AI action (mock fallback if LLM silent/timeout)
-- AI pacing: every seat (including local mock) waits ~1.4–3s “thinking” before playing, then a short gap before the next AI acts
-- Play log sidebar: human-readable action/settlement stream (`PlayLogSidebar`)
-- After each play, next seat draws immediately so the UI always shows a full hand
-- Card faces/backs: textures from `public/images/bbge/love-letter/` (export pack); procedural Graphics only as fallback
-- Tokens: Shelf warm wood palette; Fredoka labels in Pixi `Text` where needed
+- **Table (Playing):** BGA-inspired DOM table — status bar, green felt center, large clickable hand, right-side player panels + log + chat
+  - Code: `bbge/plugins/love-letter/src/ui/LoveLetterTable.tsx` + `ui/bga/*`
+  - Card art: `public/images/bbge/love-letter/`
+- Interaction: click hand → click target panel (if needed) → Play; Guard guess chips; Chancellor keep confirm
+- AI pacing: ~1.4–3s think + gap between AI seats; table talk after each AI act
+- After each play, next seat draws immediately so the hand stays full
 - Play CTA: strongest accent button, **first** in header row
 
 ### 6.3 Content bind

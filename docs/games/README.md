@@ -8,7 +8,7 @@ docs/games/<slug>.md
 
 | File | Game | Status |
 |------|------|--------|
-| [love-letter.md](love-letter.md) | Love Letter — classic / full / expansion | Shipped — strategic mock + LLM + battleLog |
+| [love-letter.md](love-letter.md) | Love Letter — classic / full / expansion | Shipped — multi-round ♥ match + AI + battleLog |
 | [texas-hold-em.md](texas-hold-em.md) | Texas Hold'em — NLHE cash session (2–9) | Shipped — aggressive pot-odds AI, bubbles, shared log UI |
 | [6-nimmt-30th-anniversary.md](6-nimmt-30th-anniversary.md) | 6 nimmt! — classic / pro / fan / buffalo | Shipped — trap-aware mock + LLM + shared log scroll |
 | [go.md](go.md) | Go — 9×9 / 13×13 / 19×19 | Shipped — capture-first mock + Go Teacher + battleLog |

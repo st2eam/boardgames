@@ -5,7 +5,13 @@ import { createDeepSeekSixNimmtSeat } from "./DeepSeekSixNimmtSeat";
 import { createDeepSeekGoSeat } from "./DeepSeekGoSeat";
 import { createDeepSeekCaboSeat } from "./DeepSeekCaboSeat";
 
-type SeatFactory = (id: string, apiKey: string, locale?: string) => AiSeat;
+type SeatFactory = (
+  id: string,
+  apiKey: string,
+  locale?: string,
+  /** Content slug for `/data/rules/<slug>.json` (may differ from pluginId). */
+  slug?: string,
+) => AiSeat;
 
 const factories: Record<string, SeatFactory> = {
   "love-letter": createDeepSeekLoveLetterSeat,
@@ -17,14 +23,15 @@ const factories: Record<string, SeatFactory> = {
 
 /**
  * Shelf-side LLM Action seat for a pluginId (undefined → mock only).
- * Locale is closed over so seats speak in the UI language
- * (zh/default → 简体中文口语；en → English). Action JSON types stay English.
+ * Locale + content slug are closed over so seats speak in the UI language
+ * and load on-site rules (same JSON as chat). Action JSON types stay English.
  */
 export function getLlmSeatFactory(
   pluginId: string,
   locale?: string,
+  slug?: string,
 ): ((id: string, apiKey: string) => AiSeat) | undefined {
   const factory = factories[pluginId];
   if (!factory) return undefined;
-  return (id, apiKey) => factory(id, apiKey, locale);
+  return (id, apiKey) => factory(id, apiKey, locale, slug);
 }

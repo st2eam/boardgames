@@ -7,6 +7,10 @@ import {
 } from "@bbge/ai";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 import { battleLogPromptBlock } from "@/lib/bbge/aiBattleLog";
+import {
+  gameRulesSystemBlock,
+  loadGameRulesMarkdown,
+} from "@/lib/bbge/aiGameRules";
 
 /** Fast model for tabletop Actions — chat site assistant may still use pro. */
 const PLAY_MODEL = "deepseek-v4-flash";
@@ -43,6 +47,7 @@ export function createDeepSeekLoveLetterSeat(
   id: PlayerId,
   apiKey: string,
   locale = "zh",
+  slug = "love-letter",
 ): AiSeat {
   const adapter = new DeepSeekAdapter(apiKey);
   const zh = locale !== "en";
@@ -60,6 +65,8 @@ export function createDeepSeekLoveLetterSeat(
         ? `speak 用简体中文短句（牌桌闲话，约 6–20 字），尽量带。不要用英文术语；牌名可用中文（守卫、神父、男爵、侍女、王子、国王、伯爵夫人、公主等）。`
         : `Optional speak: short natural English table talk.`;
       const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
+      const rules = await loadGameRulesMarkdown(slug, locale);
+      const rulesBlock = gameRulesSystemBlock(rules, zh);
 
       const prompt = zh
         ? `你是座位 ${id}，在玩《情书》——像会推理、会抓时机的真人，而不是随机机器人。
@@ -113,8 +120,8 @@ View JSON:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system: zh
-                ? "你是聪明的《情书》真人对手：会推理弃牌/偷看信息，保护高牌，绝不主动打出公主（除非只剩一张）。只输出合法 Action JSON；speak 用简体中文短句。"
-                : "You are a clever Love Letter player. Output JSON only: one legal action (+ optional speak). Deduce from discards/seen; protect power cards; never volunteer Princess unless it is your only card.",
+                ? `你是聪明的《情书》真人对手：会推理弃牌/偷看信息，保护高牌，绝不主动打出公主（除非只剩一张）。只输出合法 Action JSON；speak 用简体中文短句。${rulesBlock}`
+                : `You are a clever Love Letter player. Output JSON only: one legal action (+ optional speak). Deduce from discards/seen; protect power cards; never volunteer Princess unless it is your only card.${rulesBlock}`,
               messages: [{ role: "user", content: prompt }],
               maxTokens: 1024,
             },

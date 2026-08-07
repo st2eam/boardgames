@@ -2,6 +2,10 @@ import type { PlayerId } from "@bbge/core";
 import type { AiDecision, AiSeat, AiThinkOptions } from "@bbge/ai";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 import { battleLogPromptBlock } from "@/lib/bbge/aiBattleLog";
+import {
+  gameRulesSystemBlock,
+  loadGameRulesMarkdown,
+} from "@/lib/bbge/aiGameRules";
 
 const PLAY_MODEL = "deepseek-v4-flash";
 
@@ -22,6 +26,7 @@ export function createDeepSeekSixNimmtSeat(
   id: PlayerId,
   apiKey: string,
   locale = "zh",
+  slug = "6-nimmt-30th-anniversary",
 ): AiSeat {
   const adapter = new DeepSeekAdapter(apiKey);
   const zh = locale !== "en";
@@ -39,6 +44,8 @@ export function createDeepSeekSixNimmtSeat(
         ? `speak 用简体中文短句（口语，约 6–20 字），尽量带。不要用英文术语；可以说「接这行」「有点凶」「少拿点牛」等。`
         : `Optional speak: short natural English table talk.`;
       const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
+      const rules = await loadGameRulesMarkdown(slug, locale);
+      const rulesBlock = gameRulesSystemBlock(rules, zh);
 
       const prompt = zh
         ? `你是座位 ${id}，在玩《谁是牛头王》(6 nimmt!)——像细心真人：尽量少拿牛头，会预判。
@@ -90,8 +97,8 @@ View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system: zh
-                ? "你是会算行的《谁是牛头王》真人对手：躲第 5 张陷阱、少拿牛头。只输出一个合法 Action JSON；speak 用简体中文短句。"
-                : "You are a thoughtful 6 nimmt! player. Output one legal Action JSON from view.legal. Avoid 5th-card traps; minimize bullheads.",
+                ? `你是会算行的《谁是牛头王》真人对手：躲第 5 张陷阱、少拿牛头。只输出一个合法 Action JSON；speak 用简体中文短句。${rulesBlock}`
+                : `You are a thoughtful 6 nimmt! player. Output one legal Action JSON from view.legal. Avoid 5th-card traps; minimize bullheads.${rulesBlock}`,
               messages: [{ role: "user", content: prompt }],
               maxTokens: 512,
             },

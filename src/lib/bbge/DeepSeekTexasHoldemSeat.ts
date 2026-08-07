@@ -2,6 +2,10 @@ import type { PlayerId } from "@bbge/core";
 import type { AiDecision, AiSeat, AiThinkOptions } from "@bbge/ai";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 import { battleLogPromptBlock } from "@/lib/bbge/aiBattleLog";
+import {
+  gameRulesSystemBlock,
+  loadGameRulesMarkdown,
+} from "@/lib/bbge/aiGameRules";
 
 const PLAY_MODEL = "deepseek-v4-flash";
 
@@ -22,6 +26,7 @@ export function createDeepSeekTexasHoldemSeat(
   id: PlayerId,
   apiKey: string,
   locale = "zh",
+  slug = "texas-hold-em",
 ): AiSeat {
   const adapter = new DeepSeekAdapter(apiKey);
   const zh = locale !== "en";
@@ -48,6 +53,8 @@ You are playing people: bluff, reverse-tell, stay vague — deceive, don't annou
 Prefer plain words over jargon (check/raise/fold/call).`;
 
       const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
+      const rules = await loadGameRulesMarkdown(slug, locale);
+      const rulesBlock = gameRulesSystemBlock(rules, zh);
 
       const prompt = zh
         ? `你是座位 ${id}，无限注德州扑克现金桌。打激进、看赔率的真人风格——不要 TAG（别动不动弃牌），也不要无脑疯打。
@@ -88,8 +95,8 @@ View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system: zh
-                ? "你是激进、会算赔率的真人德州对手：好牌狠打，没牌时赔率合适就跟或加压。只输出一个合法 Action JSON；speak 用简体中文口语，每次说法不同，可以骗人唬人，别当牌谱解说员。"
-                : "You are an aggressive pot-odds-aware NLHE player. Output one legal Action JSON; speak is varied natural table talk — you may bluff, don't narrate your hand like a commentator.",
+                ? `你是激进、会算赔率的真人德州对手：好牌狠打，没牌时赔率合适就跟或加压。只输出一个合法 Action JSON；speak 用简体中文口语，每次说法不同，可以骗人唬人，别当牌谱解说员。${rulesBlock}`
+                : `You are an aggressive pot-odds-aware NLHE player. Output one legal Action JSON; speak is varied natural table talk — you may bluff, don't narrate your hand like a commentator.${rulesBlock}`,
               messages: [{ role: "user", content: prompt }],
               maxTokens: 512,
             },

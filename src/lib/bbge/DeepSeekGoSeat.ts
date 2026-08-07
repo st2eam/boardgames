@@ -3,6 +3,10 @@ import type { AiDecision, AiSeat, AiThinkOptions } from "@bbge/ai";
 import { chooseGoPolicyAction, type GoPolicyView } from "@bbge/go/policy";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 import { battleLogPromptBlock } from "@/lib/bbge/aiBattleLog";
+import {
+  gameRulesSystemBlock,
+  loadGameRulesMarkdown,
+} from "@/lib/bbge/aiGameRules";
 
 const PLAY_MODEL = "deepseek-v4-flash";
 
@@ -23,6 +27,7 @@ export function createDeepSeekGoSeat(
   id: PlayerId,
   apiKey: string,
   locale = "zh",
+  slug = "go",
 ): AiSeat {
   const adapter = new DeepSeekAdapter(apiKey);
   const zh = locale !== "en";
@@ -36,6 +41,8 @@ export function createDeepSeekGoSeat(
       opts?.onProgress?.({ note: choice.note });
 
       const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
+      const rules = await loadGameRulesMarkdown(slug, locale);
+      const rulesBlock = gameRulesSystemBlock(rules, zh);
       const action = choice.action;
       const v = view as GoPolicyView & { boardAscii?: string; size?: number };
 
@@ -65,8 +72,8 @@ Return ONLY JSON: {"speak":"one short English teaching line"}`;
             model: PLAY_MODEL,
             thinking: { type: "disabled" },
             system: zh
-              ? "你只输出 JSON：{\"speak\":\"…\"}。不要输出落子，不要改动已定动作。"
-              : 'Output only JSON: {"speak":"..."}. Do not choose a move.',
+              ? `你只输出 JSON：{"speak":"…"}。不要输出落子，不要改动已定动作。评语可参考站内规则术语。${rulesBlock}`
+              : `Output only JSON: {"speak":"..."}. Do not choose a move. Table talk may use on-site rules terminology.${rulesBlock}`,
             messages: [{ role: "user", content: prompt }],
             maxTokens: 160,
           },

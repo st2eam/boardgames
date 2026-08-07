@@ -10,7 +10,7 @@
 - **44 款交互式决策树**：分步交互流程，含侧边栏目录导航
 - **9 款自动计分器**：`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` / `category` / `feature-calc` 等，支持多人同屏计分，localStorage 持久化
 - **5 款训练器**：麻将/日麻听牌、21 点基本策略、德州扑克 GTO 翻前、围棋死活题
-- **4 款 BBGE 在线对局**：情书（经典/完整/拓展）、德州扑克现金桌、谁是牛头王（多模式）、围棋（三棋盘）— 设计规范 [`docs/games/`](docs/games/)
+- **5 款 BBGE 在线对局**：情书、德州扑克、谁是牛头王、围棋、CABO — 设计规范 [`docs/games/`](docs/games/)
 - **番符计算器**：日麻番数/符数/点数自动计算器，可视化选牌（14 张）→ 指定和牌 → 标记副露 → 自动拆解牌型、检测役种、计算符数与点数
 - **游戏系列分组**：UNO、脏小猪、三国杀、爆炸猫、璀璨宝石、海盐折纸、卡坦岛、卡卡颂、展翅翱翔、麻将、情书等系列以堆叠卡片效果展示
 - **DLC / 变体支持**：小猪选美、不臣之君、风云际会、黑盒版、UNO Flip、UNO 无情出击、UNO DOS、璀璨宝石城市扩展、璀璨宝石宝可梦版、盐趣倍增、中国版图、卡卡颂河流、情书珍藏版、展翅翱翔扩展等
@@ -35,7 +35,7 @@ npm run dev
 npm run build
 ```
 
-> **维护提示**：新增/调整游戏后，请同步更新下方「游戏清单」与文首数量（当前：`50` 游戏 / `44` 决策树 / `9` 计分 / `5` 训练器 / `1` 计算器 / `4` BBGE 对局）。可用 `node scripts/print-project-stats.mjs` 快速核对。BBGE 行为变更请同步 [`docs/games/<slug>.md`](docs/games/)。
+> **维护提示**：新增/调整游戏后，请同步更新下方「游戏清单」与文首数量（当前：`50` 游戏 / `44` 决策树 / `9` 计分 / `5` 训练器 / `1` 计算器 / `5` BBGE 对局）。可用 `node scripts/print-project-stats.mjs` 快速核对。BBGE 行为变更请同步 [`docs/games/<slug>.md`](docs/games/)。
 
 ---
 
@@ -242,10 +242,11 @@ src/
 
 | 游戏 | 规范 | 要点 |
 |------|------|------|
-| 情书 | [`docs/games/love-letter.md`](docs/games/love-letter.md) | 经典 / 完整 / 拓展；策略 AI |
-| 德州扑克 | [`docs/games/texas-hold-em.md`](docs/games/texas-hold-em.md) | 现金桌多手；摊牌亮牌；TAG/GTO AI |
+| 情书 | [`docs/games/love-letter.md`](docs/games/love-letter.md) | 经典 / 完整 / 拓展；多轮 ♥；策略 AI |
+| 德州扑克 | [`docs/games/texas-hold-em.md`](docs/games/texas-hold-em.md) | 现金桌多手；摊牌亮牌；激进赔率 AI |
 | 谁是牛头王 | [`docs/games/6-nimmt-30th-anniversary.md`](docs/games/6-nimmt-30th-anniversary.md) | 多模式；躲第五张启发式 |
-| 围棋 | [`docs/games/go.md`](docs/games/go.md) | 9/13/19；提子优先；桌内围棋老师 |
+| 围棋 | [`docs/games/go.md`](docs/games/go.md) | 9/13/19；气数/打吃策略 + LLM 评语 |
+| CABO | [`docs/games/cabo.md`](docs/games/cabo.md) | 2–4 人；记忆换牌；累计 100；卡图素材包 |
 
 平台约定：Host 权威、确定性 Action、插件无网络；详见 [BBGE skill](.cursor/skills/browser-board-game-engine/SKILL.md)。
 

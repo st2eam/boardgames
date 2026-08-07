@@ -236,10 +236,11 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 
 | Game | Spec | Highlights |
 |------|------|------------|
-| Love Letter | [`docs/games/love-letter.md`](docs/games/love-letter.md) | Classic / full / expansion; strategic AI |
-| Texas Hold'em | [`docs/games/texas-hold-em.md`](docs/games/texas-hold-em.md) | Cash multi-hand; showdown reveal; TAG/GTO AI |
+| Love Letter | [`docs/games/love-letter.md`](docs/games/love-letter.md) | Classic / full / expansion; multi-round ♥ |
+| Texas Hold'em | [`docs/games/texas-hold-em.md`](docs/games/texas-hold-em.md) | Cash multi-hand; showdown reveal |
 | 6 nimmt! | [`docs/games/6-nimmt-30th-anniversary.md`](docs/games/6-nimmt-30th-anniversary.md) | Multi-mode; trap-aware heuristics |
-| Go | [`docs/games/go.md`](docs/games/go.md) | 9/13/19; capture-first; in-table Go Teacher |
+| Go | [`docs/games/go.md`](docs/games/go.md) | 9/13/19; liberty/atari policy + LLM speak |
+| CABO | [`docs/games/cabo.md`](docs/games/cabo.md) | 2–4; memory swaps; race to 100; card art pack |
 
 Platform: Host authority, deterministic Actions, plugins never talk to the network — see [BBGE skill](.cursor/skills/browser-board-game-engine/SKILL.md).
 

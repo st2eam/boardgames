@@ -65,7 +65,7 @@ function GoTutorPanelInner({
   };
 
   return (
-    <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border bg-stone-50/80">
+    <div className="relative flex h-full min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border bg-stone-50/80">
       <div className="flex shrink-0 items-center justify-between border-b border-border/80 px-2.5 py-1.5">
         <p className="font-heading text-xs font-bold text-primary-dark">
           {t("goTutorTitle")}
@@ -88,7 +88,7 @@ function GoTutorPanelInner({
         </div>
       </div>
 
-      <div className="min-h-0 flex-1 overflow-hidden [&_.px-4]:px-2 [&_.py-4]:py-2 [&_.text-sm]:text-xs">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden [&_.px-4]:px-2 [&_.py-4]:py-2 [&_.text-sm]:text-xs">
         <ChatMessages />
       </div>
 

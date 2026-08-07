@@ -222,8 +222,8 @@ export function ChatDialog({ title, isExpanded = false, onToggleExpand }: Props)
       aria-label={headerTitle}
       className={
         isExpanded
-          ? "flex h-dvh flex-col overflow-hidden border-0 bg-white shadow-none"
-          : "flex h-dvh flex-col overflow-hidden border-0 bg-white shadow-none sm:h-[min(520px,calc(100dvh-7rem))] sm:rounded-2xl sm:border sm:border-stone-200/80 sm:shadow-2xl sm:shadow-stone-400/15"
+          ? "flex h-full min-h-0 flex-col overflow-hidden border-0 bg-white shadow-none"
+          : "flex h-full min-h-0 flex-col overflow-hidden border-0 bg-white shadow-none sm:h-[min(520px,calc(100dvh-7rem))] sm:rounded-2xl sm:border sm:border-stone-200/80 sm:shadow-2xl sm:shadow-stone-400/15"
       }
     >
       {/* Header */}

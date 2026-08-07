@@ -64,8 +64,8 @@ export function ChatToggle({ scope, locale }: Props) {
             transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
             className={
               isExpanded
-                ? "fixed inset-0 z-50 flex flex-col"
-                : "fixed inset-0 z-50 flex flex-col sm:inset-auto sm:bottom-[88px] sm:right-4 sm:h-auto sm:w-[calc(100vw-2rem)] sm:max-w-[400px] sm:origin-bottom-right"
+                ? "fixed inset-0 z-50 flex min-h-0 flex-col"
+                : "fixed inset-0 z-50 flex min-h-0 flex-col sm:inset-auto sm:bottom-[88px] sm:right-4 sm:h-[min(520px,calc(100dvh-7rem))] sm:w-[calc(100vw-2rem)] sm:max-w-[400px] sm:origin-bottom-right"
             }
           >
             <LazyChatIsland

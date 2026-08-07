@@ -345,7 +345,7 @@ export function ChatMessages() {
   return (
     <div
       ref={scrollContainerRef}
-      className="flex-1 overflow-y-auto"
+      className="min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain [scrollbar-gutter:stable]"
       aria-live="polite"
     >
       {!hasMessages && !isStreaming ? (

@@ -434,7 +434,7 @@ export function GoTable({
             aria-label={zh ? "关闭老师面板" : "Close tutor"}
             onClick={() => setPanelOpen(false)}
           />
-          <aside className="absolute inset-y-9 right-0 z-30 flex w-[min(100%,22rem)] flex-col border-l border-border bg-white shadow-xl sm:inset-y-9">
+          <aside className="absolute bottom-0 right-0 top-[4.25rem] z-30 flex w-full max-w-full flex-col border-l border-border bg-white shadow-xl sm:top-[4.5rem] sm:w-[min(100%,22rem)]">
             <div className="flex h-8 shrink-0 items-center justify-between border-b border-border px-2">
               <span className="text-xs font-bold text-primary-dark">
                 {zh ? "围棋老师" : "Go Teacher"}
@@ -447,7 +447,7 @@ export function GoTable({
                 {zh ? "收起" : "Close"}
               </button>
             </div>
-            <div className="min-h-0 flex-1 p-2">
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden p-2">
               <GoTutorPanel
                 locale={locale}
                 boardContext={boardContext}

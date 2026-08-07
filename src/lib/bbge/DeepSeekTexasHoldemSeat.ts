@@ -25,18 +25,19 @@ export function createDeepSeekTexasHoldemSeat(
       const retryBlock = retry
         ? `\n\nREJECTED illegal action. Error: ${retry.error}\nRejected:\n${JSON.stringify(retry.rejectedAction)}\nReturn a DIFFERENT legal action.`
         : "";
-      const prompt = `You are seat ${id} in No-Limit Texas Hold'em (cash hand). Play LOOSE-AGGRESSIVE for fun.
+      const prompt = `You are seat ${id} in No-Limit Texas Hold'em (cash). Play like a mature tight-aggressive (TAG) human with GTO-inspired balance — not a maniac, not a nit.
 Use view.legal only. Actions:
 {"type":"fold"|"check"|"call","playerId":"${id}","payload":{},"speak":"optional"}
 {"type":"raise","playerId":"${id}","payload":{"toAmount":number},"speak":"optional"}
 toAmount = total chips committed THIS STREET after the raise (not the raise delta).
 
-Style rules (must follow):
-- Made hand flush / full house / quads / straight / trips / two pair: NEVER open-check if raise is legal. Bet pot-ish or jam. Vs a bet: raise, do not just call/check.
-- Strong pair / overpair / top pair: bet or raise for value; rarely slow-play.
-- Weak air facing a big bet: fold. Do not nit-fold every hand — open-raise decent broadway/pairs.
-- Prefer larger value bets (≈ pot) over min-raise when ahead.
-Optional speak: short first-person trash talk / action line.
+Strategy (follow):
+- Preflop: open a solid TAG range (pairs, broadway, suited connectors). Fold junk to raises. 3-bet premiums; mix light 3-bets/steal in position.
+- Value: with flush / straight / trips / two pair / strong top pair, usually bet ~2/3–pot. Do NOT check down obvious value. Vs small bets raise for value; vs huge bets size down or call sometimes.
+- Bluffs: semi-bluff strong draws; on river when checked to, sometimes bluff with blockers/scare cards (~20–30% of air). Do not bluff-call off stacks with nothing.
+- Facing aggression with medium strength: fold more often (TAG). Avoid spewy calls.
+- Bet sizing: prefer 55–75% pot for c-bets/value; jam mainly when SPR is low or holding the nuts vs resistance.
+Optional speak: short natural table talk (not cartoon villain).
 Return ONLY JSON.
 View:\n${JSON.stringify(view)}${retryBlock}`;
 
@@ -52,7 +53,7 @@ View:\n${JSON.stringify(view)}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system:
-                "You are a splashy NLHE LAG. Output one legal Action JSON only. With flush+ or other strong made hands you MUST bet/raise when legal — never passive check-down.",
+                "You are a skilled TAG NLHE player with GTO-aware balance: value-bet strong hands, fold junk to heat, and mix selective bluffs/semi-bluffs. Output one legal Action JSON only.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 512,
             },

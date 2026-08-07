@@ -1,6 +1,6 @@
 import type { Action, PlayerId } from "@bbge/core";
 import type { AiSeat } from "@bbge/ai";
-import type { Card } from "./cards";
+import type { Card, Suit } from "./cards";
 import { bestHandScore } from "./handEval";
 
 type VCard = { id: string; rank?: number; suit?: string };
@@ -22,7 +22,10 @@ type View = {
   minRaiseTo?: number;
   potTotal?: number;
   currentBet?: number;
+  seats?: { id: string; folded?: boolean }[];
 };
+
+type Aggression = "jam" | "pot" | "value" | "call" | "check" | "fold";
 
 function asCards(list: VCard[] | undefined): Card[] {
   const out: Card[] = [];
@@ -37,8 +40,21 @@ function asCards(list: VCard[] | undefined): Card[] {
   return out;
 }
 
-/** How hard to press: jam > pot > value. */
-type Aggression = "jam" | "pot" | "value" | "call" | "check" | "fold";
+/** Deterministic 0..1 mix from seat + cards (no Math.random). */
+function mixUnit(seed: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return (h >>> 0) / 4294967296;
+}
+
+function mixSeed(id: string, hole: Card[], board: Card[], street: string): string {
+  return [id, street, ...hole.map((c) => c.id), ...board.map((c) => c.id)].join(
+    "|",
+  );
+}
 
 function raiseTarget(view: View, style: "jam" | "pot" | "value"): number {
   const streetBet = view.you?.streetBet ?? 0;
@@ -56,15 +72,68 @@ function raiseTarget(view: View, style: "jam" | "pot" | "value"): number {
   if (style === "jam") {
     target = maxTo;
   } else if (style === "pot") {
-    // Pot-sized bet/raise after calling any outstanding amount.
-    target = streetBet + toCall + Math.max(pot + toCall, bb * 6);
+    target = streetBet + toCall + Math.max(pot + toCall, bb * 5);
   } else {
-    target = streetBet + toCall + Math.max(Math.floor(pot * 0.66), bb * 4);
+    // ~2/3 pot — common TAG / GTO-ish c-bet size
+    target = streetBet + toCall + Math.max(Math.floor((pot + toCall) * 0.66), bb * 3);
   }
   return Math.min(maxTo, Math.max(minTo, Math.floor(target)));
 }
 
-function preflopPlan(hole: Card[], toCall: number, bb: number): Aggression {
+function activeCount(view: View): number {
+  const seats = view.seats ?? [];
+  if (!seats.length) return 2;
+  return Math.max(2, seats.filter((s) => !s.folded).length);
+}
+
+function hasFlushDraw(hole: Card[], board: Card[]): boolean {
+  if (board.length < 3 || board.length > 4) return false;
+  const suits = new Map<Suit, number>();
+  for (const c of [...hole, ...board]) {
+    suits.set(c.suit, (suits.get(c.suit) ?? 0) + 1);
+  }
+  // Exactly 4 to a suit with at least one hole card in that suit
+  for (const [suit, n] of suits) {
+    if (n === 4 && hole.some((c) => c.suit === suit)) return true;
+  }
+  return false;
+}
+
+function hasOpenEndedStraightDraw(hole: Card[], board: Card[]): boolean {
+  if (board.length < 3 || board.length > 4) return false;
+  const ranks = [...new Set([...hole, ...board].map((c) => c.rank))].sort(
+    (a, b) => a - b,
+  );
+  // Wheel draw pieces
+  const set = new Set(ranks);
+  if (set.has(14)) set.add(1);
+  const uniq = [...set].sort((a, b) => a - b);
+  for (let i = 0; i < uniq.length; i++) {
+    const window = uniq.filter((r) => r >= uniq[i]! && r <= uniq[i]! + 3);
+    if (window.length === 4) {
+      // 4 ranks in a 4-span → OESD-ish; require a hole card participates
+      const needed = [uniq[i]!, uniq[i]! + 1, uniq[i]! + 2, uniq[i]! + 3];
+      if (hole.some((c) => needed.includes(c.rank) || (c.rank === 14 && needed.includes(1)))) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function boardFlushPossible(board: Card[]): boolean {
+  const suits = new Map<string, number>();
+  for (const c of board) suits.set(c.suit, (suits.get(c.suit) ?? 0) + 1);
+  return [...suits.values()].some((n) => n >= 3);
+}
+
+function preflopPlan(
+  hole: Card[],
+  toCall: number,
+  bb: number,
+  mix: number,
+  multiway: boolean,
+): Aggression {
   if (hole.length < 2) return toCall > 0 ? "fold" : "check";
   const [a, b] = [...hole].sort((x, y) => y.rank - x.rank);
   const hi = a!.rank;
@@ -73,50 +142,133 @@ function preflopPlan(hole: Card[], toCall: number, bb: number): Aggression {
   const suited = a!.suit === b!.suit;
   const gap = hi - lo;
 
-  // Premium: always press
-  if (pair && hi >= 10) return "pot";
-  if (hi === 14 && lo >= 12) return "pot"; // AK AQ
-  if (hi === 14 && lo === 11 && suited) return "pot"; // AJs
-  if (pair && hi >= 7) return toCall === 0 ? "value" : toCall <= bb * 6 ? "call" : "fold";
-
-  // Strong speculative / broadway
-  if (hi === 14 && lo >= 10) return toCall === 0 ? "value" : toCall <= bb * 4 ? "call" : "fold";
-  if (suited && gap <= 2 && hi >= 10) {
-    return toCall === 0 ? "value" : toCall <= bb * 3 ? "call" : "fold";
-  }
-  if (pair) return toCall === 0 ? "check" : toCall <= bb * 3 ? "call" : "fold";
-
-  if (toCall === 0) return "check";
-  if (toCall <= bb * 2 && (hi >= 12 || suited)) return "call";
-  return "fold";
-}
-
-function postflopPlan(category: number, toCall: number, pot: number): Aggression {
-  // Monster: never slow-play forever — jam or pot.
-  if (category >= 5) return toCall > 0 ? "jam" : "pot"; // flush+
-  if (category >= 3) return toCall > 0 ? "pot" : "pot"; // trips / straight
-  if (category >= 2) {
-    // Two pair — value bet; raise vs small bets
+  // Premiums — open / 3-bet for value
+  if (pair && hi >= 12) return toCall > bb * 8 ? "jam" : "pot"; // QQ+
+  if (hi === 14 && lo === 13) return toCall > bb * 10 ? "jam" : "pot"; // AK
+  if (hi === 14 && lo === 12 && suited) return "pot"; // AQs
+  if (pair && hi >= 9) {
     if (toCall === 0) return "value";
-    if (toCall <= pot) return "pot";
-    return "call";
-  }
-  if (category >= 1) {
-    if (toCall === 0) return "value";
-    if (toCall <= Math.max(pot * 0.5, 1)) return "call";
+    if (toCall <= bb * 8) return mix < 0.35 ? "pot" : "call"; // occasional 3-bet
     return "fold";
   }
-  // Air
-  if (toCall === 0) return "check";
-  if (toCall <= pot * 0.15) return "call";
+  if (hi === 14 && lo >= 11) {
+    if (toCall === 0) return "value";
+    if (toCall <= bb * 6) return mix < 0.25 ? "pot" : "call";
+    return "fold";
+  }
+
+  // TAG open range: suited broadway, medium pairs, suited connectors
+  if (toCall === 0) {
+    if (pair && hi >= 5) return "value";
+    if (suited && hi === 14 && lo >= 9) return "value"; // A9s+
+    if (suited && hi >= 12 && lo >= 10) return "value"; // KQs KJs QJs
+    if (suited && gap <= 2 && hi >= 9 && hi <= 12) return "value"; // T9s–QTs
+    // Light steal bluff open ~18% of remaining trash in heads-up-ish
+    if (!multiway && mix < 0.18 && hi >= 11) return "value";
+    return "check";
+  }
+
+  // Facing a raise — tighten up
+  if (pair && hi >= 6 && toCall <= bb * 5) return "call";
+  if (suited && hi === 14 && lo >= 10 && toCall <= bb * 4) return "call";
+  if (suited && gap <= 1 && hi >= 10 && toCall <= bb * 3) return "call";
+  // Occasional flat/3-bet bluff with Axs
+  if (suited && hi === 14 && lo <= 9 && toCall <= bb * 3 && mix < 0.12) {
+    return mix < 0.04 ? "pot" : "call";
+  }
   return "fold";
 }
 
-function act(
-  id: PlayerId,
-  view: View,
-  plan: Aggression,
-): Action {
+function postflopPlan(opts: {
+  category: number;
+  toCall: number;
+  pot: number;
+  bb: number;
+  mix: number;
+  street: string;
+  hole: Card[];
+  board: Card[];
+  stack: number;
+}): Aggression {
+  const {
+    category,
+    toCall,
+    pot,
+    bb,
+    mix,
+    street,
+    hole,
+    board,
+    stack,
+  } = opts;
+  const spr = pot > 0 ? stack / pot : 99;
+  const fd = hasFlushDraw(hole, board);
+  const oesd = hasOpenEndedStraightDraw(hole, board);
+  const draw = fd || oesd;
+
+  // Nutty value — mostly bet; rare trap with boats+ when checked to
+  if (category >= 6) {
+    if (toCall === 0 && mix < 0.12) return "check"; // rare slow-play
+    if (toCall > 0) return spr < 2 || toCall > pot ? "jam" : "pot";
+    return spr < 1.5 ? "jam" : "pot";
+  }
+  if (category >= 5) {
+    // Flush: almost always value-bet; don't check-down
+    if (toCall === 0) return mix < 0.2 ? "value" : "pot";
+    // Raise vs bets for value; call huge overbets sometimes
+    if (toCall > pot * 1.5 && mix < 0.35) return "call";
+    return spr < 2 ? "jam" : "pot";
+  }
+  if (category >= 3) {
+    if (toCall === 0) return "value";
+    if (toCall <= pot) return mix < 0.55 ? "pot" : "call";
+    return toCall <= pot * 1.2 ? "call" : "fold";
+  }
+  if (category >= 2) {
+    if (toCall === 0) return "value";
+    if (toCall <= pot * 0.75) return mix < 0.4 ? "value" : "call";
+    if (toCall <= pot) return "call";
+    return "fold";
+  }
+  if (category >= 1) {
+    // One pair — TAG: c-bet dry-ish, fold to heat
+    if (toCall === 0) {
+      if (street === "river") return mix < 0.55 ? "value" : "check";
+      return mix < 0.7 ? "value" : "check";
+    }
+    if (toCall <= Math.max(pot * 0.35, bb * 2)) return "call";
+    if (toCall <= pot * 0.55 && mix < 0.3) return "call";
+    return "fold";
+  }
+
+  // Air — fold to aggression; selective bluffs / semi-bluffs
+  if (toCall > 0) {
+    if (draw && toCall <= pot * 0.45 && street !== "river") {
+      return mix < 0.4 ? "value" : "call"; // semi-bluff raise or peel
+    }
+    if (toCall <= pot * 0.12 && mix < 0.15) return "call"; // rare float
+    return "fold";
+  }
+
+  // Checked to us with air
+  if (draw && street !== "river") {
+    return mix < 0.55 ? "value" : "check"; // semi-bluff
+  }
+  if (street === "river") {
+    // Blocker / scare-card bluffs ~25–30%
+    const hasAce = hole.some((c) => c.rank === 14);
+    const flushBoard = boardFlushPossible(board);
+    const blocker = hasAce || (flushBoard && hole.some((c) => board.some((b) => b.suit === c.suit)));
+    if (blocker && mix < 0.3) return "value";
+    if (!blocker && mix < 0.16) return "value";
+    return "check";
+  }
+  // Flop/turn pure air: small probe bluff sometimes
+  if (mix < 0.22) return "value";
+  return "check";
+}
+
+function act(id: PlayerId, view: View, plan: Aggression): Action {
   const legal = view.legal ?? [];
   const has = (t: string) => legal.some((a) => a.type === t);
 
@@ -132,12 +284,8 @@ function act(
         payload: { toAmount },
       };
     }
-    if (has("call")) {
-      return { type: "call", playerId: id, payload: {} };
-    }
-    if (has("check")) {
-      return { type: "check", playerId: id, payload: {} };
-    }
+    if (has("call")) return { type: "call", playerId: id, payload: {} };
+    if (has("check")) return { type: "check", playerId: id, payload: {} };
   }
 
   if (plan === "call") {
@@ -147,7 +295,7 @@ function act(
 
   if (plan === "check") {
     if (has("check")) return { type: "check", playerId: id, payload: {} };
-    if (has("call") && (view.you?.toCall ?? 0) <= (view.bigBlind ?? 2) * 2) {
+    if (has("call") && (view.you?.toCall ?? 0) <= (view.bigBlind ?? 2)) {
       return { type: "call", playerId: id, payload: {} };
     }
   }
@@ -159,8 +307,9 @@ function act(
 }
 
 /**
- * Aggressive cash-game mock: value-bets made hands hard.
- * Flush+ never open-checks when a raise is legal.
+ * Tight-aggressive / GTO-flavoured mock:
+ * value-bets strong made hands, folds junk to heat, mixes in
+ * semi-bluffs and selective river bluffs (deterministic mix).
  */
 export function createAggressiveHoldemSeat(id: PlayerId): AiSeat {
   return {
@@ -173,28 +322,30 @@ export function createAggressiveHoldemSeat(id: PlayerId): AiSeat {
       const toCall = view.you?.toCall ?? 0;
       const bb = view.bigBlind ?? 2;
       const pot = view.potTotal ?? 0;
+      const street = view.street ?? (board.length >= 5 ? "river" : board.length === 4 ? "turn" : board.length === 3 ? "flop" : "preflop");
+      const unit = mixUnit(mixSeed(id, hole, board, street));
+      const multiway = activeCount(view) > 2;
 
       let plan: Aggression;
       let note: string;
 
       if (board.length >= 3 && hole.length === 2) {
         const { category } = bestHandScore([...hole, ...board]);
-        plan = postflopPlan(category, toCall, pot);
-        note = `本地启发式：牌力 ${category} → ${plan}`;
+        plan = postflopPlan({
+          category,
+          toCall,
+          pot,
+          bb,
+          mix: unit,
+          street,
+          hole,
+          board,
+          stack: view.you?.stack ?? 0,
+        });
+        note = `TAG启发式：${street} 牌力${category} mix=${unit.toFixed(2)} → ${plan}`;
       } else {
-        plan = preflopPlan(hole, toCall, bb);
-        note = `本地启发式：翻前 → ${plan}`;
-      }
-
-      // Monster hands must press — never voluntarily check with flush+.
-      if (
-        board.length >= 3 &&
-        hole.length === 2 &&
-        bestHandScore([...hole, ...board]).category >= 5 &&
-        (view.legal ?? []).some((a) => a.type === "raise")
-      ) {
-        plan = toCall > 0 ? "jam" : "pot";
-        note = `本地启发式：强牌施压 → ${plan}`;
+        plan = preflopPlan(hole, toCall, bb, unit, multiway);
+        note = `TAG启发式：翻前 mix=${unit.toFixed(2)} → ${plan}`;
       }
 
       progress(note);

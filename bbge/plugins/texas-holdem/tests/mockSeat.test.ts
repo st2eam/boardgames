@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { createAggressiveHoldemSeat } from "../src/mockSeat";
 
-describe("createAggressiveHoldemSeat", () => {
-  it("bets pot with a flush when checked to (never open-checks)", async () => {
+describe("createAggressiveHoldemSeat (TAG / GTO-ish)", () => {
+  it("value-bets a flush when checked to", async () => {
     const seat = createAggressiveHoldemSeat("ai1");
     const { action } = await seat.think({
       phase: "playing",
@@ -11,6 +11,7 @@ describe("createAggressiveHoldemSeat", () => {
       minRaiseTo: 2,
       potTotal: 20,
       currentBet: 0,
+      seats: [{ id: "h" }, { id: "ai1" }],
       you: {
         id: "ai1",
         toCall: 0,
@@ -40,7 +41,7 @@ describe("createAggressiveHoldemSeat", () => {
     );
   });
 
-  it("jams or re-raises with a flush when facing a bet", async () => {
+  it("raises a flush for value when facing a bet", async () => {
     const seat = createAggressiveHoldemSeat("ai1");
     const { action } = await seat.think({
       phase: "playing",
@@ -49,6 +50,7 @@ describe("createAggressiveHoldemSeat", () => {
       minRaiseTo: 20,
       potTotal: 40,
       currentBet: 10,
+      seats: [{ id: "h" }, { id: "ai1" }],
       you: {
         id: "ai1",
         toCall: 10,
@@ -77,7 +79,7 @@ describe("createAggressiveHoldemSeat", () => {
     expect(to).toBeGreaterThanOrEqual(20);
   });
 
-  it("still folds trash to a big bet", async () => {
+  it("folds trash to a big bet (TAG discipline)", async () => {
     const seat = createAggressiveHoldemSeat("ai1");
     const { action } = await seat.think({
       phase: "playing",
@@ -86,6 +88,7 @@ describe("createAggressiveHoldemSeat", () => {
       minRaiseTo: 40,
       potTotal: 30,
       currentBet: 20,
+      seats: [{ id: "h" }, { id: "ai1" }],
       you: {
         id: "ai1",
         toCall: 20,
@@ -108,5 +111,75 @@ describe("createAggressiveHoldemSeat", () => {
       ],
     });
     expect(action.type).toBe("fold");
+  });
+
+  it("can river-bluff with an ace blocker when checked to", async () => {
+    // Deterministic mix for seat ai10 + these cards is < 0.3
+    const seat = createAggressiveHoldemSeat("ai10");
+    const { action } = await seat.think({
+      phase: "playing",
+      street: "river",
+      bigBlind: 2,
+      minRaiseTo: 2,
+      potTotal: 24,
+      currentBet: 0,
+      seats: [{ id: "h" }, { id: "ai10" }],
+      you: {
+        id: "ai10",
+        toCall: 0,
+        stack: 160,
+        streetBet: 0,
+        hole: [
+          { id: "Ac", rank: 14, suit: "c" },
+          { id: "2d", rank: 2, suit: "d" },
+        ],
+      },
+      board: [
+        { id: "Kh", rank: 13, suit: "h" },
+        { id: "7h", rank: 7, suit: "h" },
+        { id: "3h", rank: 3, suit: "h" },
+        { id: "9s", rank: 9, suit: "s" },
+        { id: "Td", rank: 10, suit: "d" },
+      ],
+      legal: [
+        { type: "fold" },
+        { type: "check" },
+        { type: "raise", toAmount: 2 },
+      ],
+    });
+    expect(action.type).toBe("raise");
+  });
+
+  it("opens a TAG premium preflop instead of limping junk logic", async () => {
+    const seat = createAggressiveHoldemSeat("ai1");
+    const { action } = await seat.think({
+      phase: "playing",
+      street: "preflop",
+      bigBlind: 2,
+      minRaiseTo: 4,
+      potTotal: 3,
+      currentBet: 2,
+      seats: [{ id: "h" }, { id: "ai1" }],
+      you: {
+        id: "ai1",
+        toCall: 0,
+        stack: 198,
+        streetBet: 2,
+        hole: [
+          { id: "As", rank: 14, suit: "s" },
+          { id: "Kd", rank: 13, suit: "d" },
+        ],
+      },
+      board: [],
+      legal: [
+        { type: "fold" },
+        { type: "check" },
+        { type: "raise", toAmount: 4 },
+      ],
+    });
+    // BB special: toCall 0 with AK should still press when raise legal
+    expect(["raise", "check"]).toContain(action.type);
+    // With AK and raise available, plan is pot → raise
+    expect(action.type).toBe("raise");
   });
 });

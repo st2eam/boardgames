@@ -667,8 +667,8 @@ export function LoveLetterTable({
                 {chat.length === 0 && (
                   <p className="px-1 text-[11px] text-stone-400">
                     {zh
-                      ? "可发言；仅 LLM AI 会说话"
-                      : "Chat here — LLM AI only"}
+                      ? "可选：打字聊天（AI 负责出牌，不自动闲聊）"
+                      : "Optional chat — AI plays cards, doesn’t auto-talk"}
                   </p>
                 )}
                 {chat.slice(-4).map((m, i) => (

@@ -30,8 +30,8 @@ hotseat / local AI → finish **one round** and declare a winner.
 | First plugin | `love-letter` |
 | Match length | **One round ends the match** (no favor-token multi-round for v1) |
 | Multiplayer | Host + share-link join; also Host-only hotseat |
-| AI | Host **`AiSeat`**: prefer DeepSeek when API key present; local mock heuristic otherwise |
-| Table talk | **LLM seats only** on successful LLM turns; mock stays silent |
+| AI | Host **`AiSeat`**: DeepSeek **`deepseek-v4-flash`** for **play Actions**; mock heuristic without key |
+| Table talk | Optional human chat only — AI does **not** auto-speak (LLM is for playing cards) |
 | Replay tools | **Out of scope** |
 | UI entry | `content/games/love-letter/play.json` → `hasPlay` → `/[locale]/games/love-letter/play/` |
 | Homepage | Cards with `hasPlay` show **即刻开玩** / Play Now |
@@ -106,8 +106,8 @@ Guest / hotseat UI → Action → HostSession
   → (pending chancellor / priestReveal may pause turn advance)
 
 AI turn (Host):
-  thinking on → LLM think (or mock) → Action
-  → optional LLM speak → chat (mock never speaks)
+  thinking on → LLM think Action (flash) or mock → submit Action
+  (no auto table-talk)
 ```
 
 ### 5.3 Actions (plugin)
@@ -172,9 +172,9 @@ Path: `content/games/love-letter/play.json`.
 ## 7. AiSeat
 
 - Game-agnostic Host runner; plugins never call DeepSeek
-- Shelf: `src/lib/bbge/DeepSeekLoveLetterSeat.ts` + chat `loadApiKey`
-- Mock: `bbge/ai` heuristic — legal Actions only, **no speak**
-- LLM think budget ~90s; speak only after a successful LLM turn
+- Shelf: `DeepSeekLoveLetterSeat` uses **`deepseek-v4-flash`** + chat `loadApiKey`
+- Purpose: LLM outputs legal **Actions** (play / chancellor); not chat
+- Mock: `bbge/ai` heuristic fallback; LLM think budget ~90s
 - Priest pending for AI: short “look” delay then `acknowledgePriest` (no LLM)
 
 ---

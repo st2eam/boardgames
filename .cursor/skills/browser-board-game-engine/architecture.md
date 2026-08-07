@@ -482,10 +482,9 @@ first-party game server (static export constraint).
 ### 11.4 AI seats (reusable)
 
 - Pattern name: **`AiSeat`** — game-agnostic; plugins do not call DeepSeek
-- Runs **only on Host**; DeepSeek when chat API key present, else **silent mock**
-- Reuse `DeepSeekAdapter` + thinking/activity UI patterns from chat
-- Capabilities: `Think(view) → Action`; `Speak` **only for LLM seats**
-- Thinking status broadcast; mock never posts table talk
+- Runs **only on Host**; DeepSeek **`deepseek-v4-flash`** when chat API key present, else mock
+- Primary job: `Think(view) → Action` (play cards). Optional `speak` is unused in Love Letter v1
+- Thinking status broadcast; no auto table-talk from AI
 - LLM think budget ~90s; timeout uses ephemeral mock for **one turn** only
 - No API key on guests required
 

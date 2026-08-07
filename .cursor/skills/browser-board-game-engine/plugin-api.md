@@ -554,10 +554,11 @@ type AiPresenceEvent =
 - Prompting is **seat-policy** code under Shelf / `bbge/ai` (e.g.
   `DeepSeekLoveLetterSeat`), parameterized by plugin — still **outside**
   `applyAction`
-- Table UI shows thinking activity on that seat; LLM may post table talk
-- **No API key:** Host may still add AI seats — silent **mock** heuristic
+- Love Letter: model **`deepseek-v4-flash`**; LLM job is **Actions**, not chat
+- Table UI shows thinking activity on that seat
+- **No API key:** Host may still add AI seats — **mock** heuristic
 - **LLM timeout / bad output:** ephemeral mock for **that turn only**; do not
-  permanently demote the LLM seat; mock never `speak`s
+  permanently demote the LLM seat
 
 ### 16.4 Out of scope for AiSeat v1
 

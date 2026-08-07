@@ -82,7 +82,7 @@ Full detail: [architecture.md §11](architecture.md).
 | First game | Love Letter (**one round** ends match) |
 | Design doc | [`docs/games/love-letter.md`](../../../docs/games/love-letter.md) |
 | Multiplayer | Host + share link join from day one |
-| AI | Reusable `AiSeat` on Host; DeepSeek when key present, else silent mock |
+| AI | Reusable `AiSeat` on Host; `deepseek-v4-flash` for play Actions; mock without key |
 | Play UI | BGA-style DOM table (`LoveLetterTable`); Motion draw/play |
 | Replay tools | **Out** — no replay viewer/SDK UI |
 | Entry | `GameHeader` **first** button → `/games/love-letter/play/` |
@@ -101,7 +101,7 @@ Task Progress:
 - [x] 5. Shelf: play.json, hasPlay, GameHeader Play first, /play/ shell
 - [x] 6. bbge/network: PeerJS + WebRTC data channel
 - [x] 7. Host authority + action/event broadcast + best-effort rejoin
-- [x] 8. AiSeat: DeepSeek + mock; LLM speak only; 90s think budget
+- [x] 8. AiSeat: DeepSeek flash for Actions + mock; 90s think budget
 - [x] 9. bbge/ui PlayShell + BGA LoveLetterTable (panels, log, chat, Motion)
 - [x] 10. Theme tokens + i18n; npm run test:bbge
 ```
@@ -156,7 +156,7 @@ page + i18n into `src/` / `content/` when adding a playable game.
 - [x] Deterministic with fixed seed (`npm run test:bbge`)
 - [x] Actions validated then applied immutably; views hide private cards
 - [x] Host hotseat / AI can finish a Full Game round; PeerJS join path wired
-- [x] AI thinking status; LLM table speech only (mock silent)
+- [x] AI thinking status; LLM plays cards (no auto chat)
 - [x] Play button first + homepage Play Now when `play.json` present
 - [x] BGA-style table: discards, priest confirm, zoom, Motion play/draw
 - [x] **No** replay viewer / replay tooling shipped

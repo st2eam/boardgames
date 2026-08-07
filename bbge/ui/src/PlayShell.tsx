@@ -125,6 +125,8 @@ export function PlayShell({
     null,
   );
   const aiRef = useRef<Map<string, AiSeat>>(new Map());
+  /** Seats backed by DeepSeek (play Actions), vs silent mock heuristic. */
+  const llmSeatIdsRef = useRef<Set<string>>(new Set());
   const peerRef = useRef<{ destroy: () => void } | null>(null);
   const aiRunning = useRef(false);
   /** Human seats on this device (host + pass-and-play). Remote guests / AI excluded. */
@@ -329,16 +331,23 @@ export function PlayShell({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHost, roomIdFromUrl]);
 
-  const resolveAiSeat = async (seatId: string): Promise<AiSeat> => {
+  const resolveAiSeat = async (
+    seatId: string,
+  ): Promise<{ seat: AiSeat; isLlm: boolean }> => {
     const existing = aiRef.current.get(seatId);
-    if (existing) return existing;
+    if (existing) {
+      return { seat: existing, isLlm: llmSeatIdsRef.current.has(seatId) };
+    }
     const key = await loadApiKey();
-    const seat =
-      key && createDeepSeekSeat
-        ? createDeepSeekSeat(seatId, key)
-        : createMockLoveLetterSeat(seatId);
+    if (key && createDeepSeekSeat) {
+      const seat = createDeepSeekSeat(seatId, key);
+      aiRef.current.set(seatId, seat);
+      llmSeatIdsRef.current.add(seatId);
+      return { seat, isLlm: true };
+    }
+    const seat = createMockLoveLetterSeat(seatId);
     aiRef.current.set(seatId, seat);
-    return seat;
+    return { seat, isLlm: false };
   };
 
   const runAiIfNeeded = async () => {
@@ -392,12 +401,10 @@ export function PlayShell({
           setError(result.error);
         }
       } else {
-        const seat = await resolveAiSeat(current);
-        const isLlm = Boolean(seat.speak);
-        // DeepSeek often needs 20–60s when “thinking”; 10s was aborting live requests.
+        const { seat, isLlm } = await resolveAiSeat(current);
+        // LLM is for play Actions (flash); chat table-talk is not part of the loop.
         const thinkBudgetMs = isLlm ? 90_000 : 8_000;
         let action: LoveLetterAction;
-        let usedEphemeralMock = false;
         try {
           const decide = withTimeout(
             seat.think(v),
@@ -408,7 +415,6 @@ export function PlayShell({
           action = decided as LoveLetterAction;
         } catch (err) {
           // One-turn safety net only — keep LLM seat cached for the next turn
-          usedEphemeralMock = true;
           const mock = createMockLoveLetterSeat(current);
           const remaining = Math.max(0, paceMs - (Date.now() - thinkStarted));
           const [decided] = await Promise.all([
@@ -419,11 +425,11 @@ export function PlayShell({
           const why =
             err instanceof Error && /timeout/i.test(err.message)
               ? locale === "zh"
-                ? "LLM 仍在思考超时"
-                : "LLM think timed out"
+                ? "LLM 出牌超时"
+                : "LLM play timed out"
               : locale === "zh"
-                ? "LLM 本回合失败"
-                : "LLM think failed";
+                ? "LLM 出牌失败"
+                : "LLM play failed";
           setPlayLog((prev) => [
             ...prev,
             {
@@ -440,7 +446,6 @@ export function PlayShell({
 
         let result = s.submitAction(action);
         if (!result.ok) {
-          usedEphemeralMock = true;
           const mock = createMockLoveLetterSeat(current);
           await sleep(400 + Math.floor(Math.random() * 400));
           const retry = (await mock.think(
@@ -467,31 +472,12 @@ export function PlayShell({
         appendEvents(result.events);
         tick();
 
-        const events = result.events;
         await sleep(350 + Math.floor(Math.random() * 350));
         setThinkingId(null);
         host?.broadcast?.({
           type: "aiPresence",
           payload: { type: "ai/thinking", playerId: current, started: false },
         });
-
-        // Speak only when this turn was decided by the LLM seat
-        if (seat.speak && !usedEphemeralMock) {
-          try {
-            const line = await withTimeout(
-              seat.speak({
-                view: v,
-                lastEvents: events,
-                locale,
-              }),
-              45_000,
-              "AI speak",
-            );
-            if (line?.text?.trim()) publishChat(line);
-          } catch {
-            // silent on speak failure / timeout
-          }
-        }
 
         await sleep(aiBetweenPlaysMs());
       }

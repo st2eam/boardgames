@@ -60,7 +60,7 @@ function Panel({
   return (
     <div
       className={[
-        "w-full rounded-xl border px-3 py-2.5 text-left transition-all duration-200",
+        "w-full rounded-lg border px-2 py-1.5 text-left transition-all duration-200",
         eliminated
           ? "border-stone-200 bg-stone-100 opacity-55"
           : selected
@@ -75,13 +75,13 @@ function Panel({
         disabled={!clickable}
         onClick={onSelect}
         className={[
-          "flex w-full items-center gap-2.5 text-left",
+          "flex w-full items-center gap-2 text-left",
           clickable ? "cursor-pointer" : "cursor-default",
         ].join(" ")}
       >
         <div
           className={[
-            "flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-heading text-sm font-bold text-white",
+            "flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-heading text-xs font-bold text-white",
             eliminated
               ? "bg-stone-400"
               : you
@@ -94,17 +94,17 @@ function Panel({
           {name.slice(0, 1).toUpperCase()}
         </div>
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-1.5">
-            <p className="truncate font-heading text-sm font-bold text-primary-dark">
+          <div className="flex items-center gap-1">
+            <p className="truncate font-heading text-[13px] font-bold text-primary-dark">
               {name}
             </p>
             {you && (
-              <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
+              <span className="shrink-0 rounded bg-primary/10 px-1 py-0.5 text-[9px] font-semibold text-primary">
                 {zh ? "你" : "You"}
               </span>
             )}
           </div>
-          <p className="mt-0.5 text-[11px] text-stone-500">
+          <p className="truncate text-[10px] text-stone-500">
             {eliminated
               ? zh
                 ? "已出局"
@@ -122,57 +122,49 @@ function Panel({
                     : "Waiting"}
             {isProtected && !eliminated
               ? zh
-                ? " · 侍女保护"
-                : " · Protected"
+                ? " · 侍女"
+                : " · Prot."
               : ""}
           </p>
           {seenRank !== undefined && !eliminated && (
-            <p className="mt-0.5 text-[11px] font-semibold text-violet-700">
-              {zh ? `偷看过：${seenRank}` : `Peeked: ${seenRank}`}
+            <p className="text-[10px] font-semibold text-violet-700">
+              {zh ? `偷看：${seenRank}` : `Peeked: ${seenRank}`}
             </p>
           )}
         </div>
-        <div className="flex -space-x-2">
+        <div className="flex -space-x-1.5">
           {Array.from({ length: Math.min(handCount, 2) }).map((_, i) => (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               key={`${id}-h-${i}`}
               src={cardBackUrl()}
               alt=""
-              className="h-8 w-5 rounded border border-[#3E2723]/40 object-cover shadow-sm"
+              className="h-7 w-4 rounded border border-[#3E2723]/40 object-cover shadow-sm"
             />
           ))}
         </div>
       </button>
 
-      <div className="mt-2 border-t border-border/70 pt-2">
-        <div className="mb-1 flex items-center justify-between">
-          <p className="font-heading text-[10px] font-bold uppercase tracking-wide text-stone-500">
-            {zh ? "出牌记录" : "Discards"}
-          </p>
-          <span className="text-[10px] text-stone-400">{discarded.length}</span>
-        </div>
+      <div className="mt-1.5 border-t border-border/60 pt-1.5">
         <DiscardStrip
           locale={locale}
           cards={discarded}
           compact
           onZoom={
-            onZoomDiscard
-              ? (c) => onZoomDiscard(c, name)
-              : undefined
+            onZoomDiscard ? (c) => onZoomDiscard(c, name) : undefined
           }
         />
       </div>
 
       {clickable && (
-        <p className="mt-1.5 text-[10px] font-semibold text-accent">
+        <p className="mt-1 text-[9px] font-semibold text-accent">
           {selected
             ? zh
               ? "✓ 已选为目标"
               : "✓ Targeted"
             : zh
-              ? "点击头像选择为目标"
-              : "Click avatar to target"}
+              ? "点选为目标"
+              : "Tap to target"}
         </p>
       )}
     </div>
@@ -193,8 +185,8 @@ export function PlayerPanels({
   const you = view.you;
 
   return (
-    <div className="space-y-2">
-      <p className="px-0.5 font-heading text-xs font-bold uppercase tracking-wide text-stone-500">
+    <div className="space-y-1.5">
+      <p className="px-0.5 font-heading text-[11px] font-bold uppercase tracking-wide text-stone-500">
         {zh ? "玩家" : "Players"}
       </p>
       {you && (

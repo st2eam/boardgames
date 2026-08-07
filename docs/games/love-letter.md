@@ -139,9 +139,9 @@ AI turn (Host):
 |--------|---------|
 | Top chrome | Title, deck count |
 | Status bar | Whose turn / what to do next |
-| Felt center | Deck, last discard, face-up (2p), chancellor held |
-| Hand dock | Large clickable cards + Play / Guard guesses / self-target |
-| Right column | Player panels (discard history), game log, table talk |
+| Left | Player panels (discard fan, no scrollbar) |
+| Center | Felt + hand dock + actions |
+| Right | Recent game log + table talk (clipped recent lines, no scroll) |
 
 Code: `bbge/plugins/love-letter/src/ui/LoveLetterTable.tsx` + `ui/bga/*`  
 Lobby: `bbge/ui/src/LobbyView.tsx` (BGA-ish waiting room)

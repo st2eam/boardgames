@@ -15,6 +15,7 @@ interface Props {
   compact?: boolean;
 }
 
+/** Overlapping fan — no horizontal scrollbar. */
 export function DiscardStrip({ locale, cards, onZoom, compact }: Props) {
   const zh = locale === "zh";
   if (cards.length === 0) {
@@ -25,12 +26,12 @@ export function DiscardStrip({ locale, cards, onZoom, compact }: Props) {
     );
   }
 
+  const h = compact ? "h-9 w-6" : "h-12 w-8";
+  const overlap = compact ? "-ml-2.5" : "-ml-3";
+
   return (
     <div
-      className={[
-        "flex gap-1 overflow-x-auto pb-0.5",
-        compact ? "max-w-full" : "",
-      ].join(" ")}
+      className="flex flex-wrap items-end"
       onClick={(e) => e.stopPropagation()}
     >
       {cards.map((c, i) => (
@@ -40,11 +41,13 @@ export function DiscardStrip({ locale, cards, onZoom, compact }: Props) {
           title={`${cardLabel(c, locale)} (${c.rank})`}
           onClick={() => onZoom?.(c)}
           className={[
-            "relative shrink-0 overflow-hidden rounded border border-[#5D4037]/50 bg-[#2a1814] shadow-sm transition-transform hover:-translate-y-0.5 hover:border-accent",
-            compact ? "h-11 w-8" : "h-14 w-10",
+            "relative overflow-hidden rounded border border-[#5D4037]/50 bg-[#2a1814] shadow-sm transition-transform hover:-translate-y-0.5 hover:border-accent hover:z-10",
+            h,
             onZoom ? "cursor-pointer" : "cursor-default",
-            i === cards.length - 1 ? "ring-1 ring-accent/60" : "opacity-90",
+            i === 0 ? "" : overlap,
+            i === cards.length - 1 ? "z-[1] ring-1 ring-accent/60" : "opacity-95",
           ].join(" ")}
+          style={{ zIndex: i + 1 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -53,7 +56,7 @@ export function DiscardStrip({ locale, cards, onZoom, compact }: Props) {
             className="h-full w-full object-cover"
             draggable={false}
           />
-          <span className="absolute left-0 top-0 rounded-br bg-black/70 px-0.5 font-heading text-[9px] font-bold text-amber-50">
+          <span className="absolute left-0 top-0 rounded-br bg-black/70 px-0.5 font-heading text-[8px] font-bold text-amber-50">
             {c.rank}
           </span>
         </button>

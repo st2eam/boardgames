@@ -330,15 +330,38 @@ export function LoveLetterTable({
         </div>
       </div>
 
-      <div className="p-3 sm:p-4">
+      <div className="p-2.5 sm:p-3">
         <StatusBar locale={locale} text={status.text} tone={status.tone} />
 
-        <div className="mt-3 grid gap-3 lg:grid-cols-[minmax(0,1fr)_300px]">
-          {/* Main board column */}
-          <div className="space-y-3">
+        {/* Left: players · Center: table · Right: log + chat */}
+        <div className="mt-2.5 grid gap-2.5 lg:grid-cols-[220px_minmax(0,1fr)_240px] lg:items-start">
+          {/* Left — player list */}
+          <aside className="order-2 overflow-hidden rounded-2xl border border-border bg-white/95 p-2.5 shadow-sm lg:order-1">
+            <PlayerPanels
+              locale={locale}
+              view={view}
+              actorId={actorId}
+              selectedTargetId={selectedTargetId}
+              thinkingId={thinkingId}
+              targetMode={Boolean(interactive && needsTarget)}
+              onSelectTarget={setSelectedTargetId}
+              onZoomDiscard={(c, ownerName) =>
+                setZoom({
+                  rank: c.rank,
+                  name: c.name,
+                  subtitle: zh
+                    ? `${ownerName} 的出牌`
+                    : `${ownerName}'s discard`,
+                })
+              }
+            />
+          </aside>
+
+          {/* Center — board + hand */}
+          <div className="order-1 space-y-2.5 lg:order-2">
             {/* Felt table */}
             <div
-              className="relative overflow-hidden rounded-2xl border-[6px] border-[#4E342E] shadow-inner"
+              className="relative overflow-hidden rounded-2xl border-[5px] border-[#4E342E] shadow-inner"
               style={{
                 background:
                   "radial-gradient(ellipse at 50% 40%, #2e7d32 0%, #1b5e20 55%, #0d3b12 100%)",
@@ -388,7 +411,7 @@ export function LoveLetterTable({
                 }}
               />
 
-              <div className="relative flex min-h-[220px] flex-col items-center justify-center gap-5 px-4 py-8 sm:min-h-[260px]">
+              <div className="relative flex min-h-[160px] flex-col items-center justify-center gap-4 px-3 py-5 sm:min-h-[190px]">
                 {/* Face-up (2p) */}
                 {view.faceUp.length > 0 && (
                   <div className="flex flex-col items-center gap-1.5">
@@ -497,9 +520,9 @@ export function LoveLetterTable({
               </div>
             </div>
 
-            {/* Hand dock — whiteblock */}
-            <div className="rounded-2xl border border-border bg-white/95 p-4 shadow-sm">
-              <div className="mb-3 flex items-center justify-between gap-2">
+            {/* Hand dock */}
+            <div className="rounded-2xl border border-border bg-white/95 p-3 shadow-sm">
+              <div className="mb-2 flex items-center justify-between gap-2">
                 <p className="font-heading text-sm font-bold text-primary-dark">
                   {zh ? "你的手牌" : "Your hand"}
                 </p>
@@ -510,7 +533,7 @@ export function LoveLetterTable({
                 )}
               </div>
 
-              <div className="flex flex-wrap items-end justify-center gap-5 py-3">
+              <div className="flex flex-wrap items-end justify-center gap-4 py-1">
                 <AnimatePresence mode="popLayout">
                   {(view.you?.hand ?? []).map((c) => {
                     const isNew = newCardIds.has(c.id);
@@ -559,13 +582,13 @@ export function LoveLetterTable({
               </div>
 
               {/* Action row */}
-              <div className="mt-3 flex flex-col gap-3 border-t border-border pt-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-                <div className="flex flex-wrap items-center gap-2">
+              <div className="mt-2 flex flex-col gap-2 border-t border-border pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+                <div className="flex flex-wrap items-center gap-1.5">
                   {needsTarget && selected?.rank === 5 && (
                     <button
                       type="button"
                       onClick={() => setSelectedTargetId(actorId)}
-                      className={`cursor-pointer rounded-lg px-3 py-2 font-heading text-xs font-bold transition-colors ${
+                      className={`cursor-pointer rounded-lg px-3 py-1.5 font-heading text-xs font-bold transition-colors ${
                         selectedTargetId === actorId
                           ? "bg-accent text-white"
                           : "bg-surface text-primary-dark hover:bg-primary-light"
@@ -580,7 +603,7 @@ export function LoveLetterTable({
                         key={r}
                         type="button"
                         onClick={() => setGuessRank(r)}
-                        className={`cursor-pointer rounded-md px-2.5 py-1.5 font-heading text-sm font-bold transition-colors ${
+                        className={`cursor-pointer rounded-md px-2 py-1 font-heading text-sm font-bold transition-colors ${
                           guessRank === r
                             ? "bg-accent text-white"
                             : "bg-surface text-primary-dark hover:bg-primary-light"
@@ -594,7 +617,7 @@ export function LoveLetterTable({
                   type="button"
                   disabled={!canPlay}
                   onClick={playCard}
-                  className="cursor-pointer rounded-xl bg-accent px-8 py-3 font-heading text-sm font-bold text-white shadow-card transition-all duration-200 hover:bg-accent-dark hover:shadow-md disabled:cursor-not-allowed disabled:opacity-35"
+                  className="cursor-pointer rounded-xl bg-accent px-7 py-2.5 font-heading text-sm font-bold text-white shadow-card transition-all duration-200 hover:bg-accent-dark hover:shadow-md disabled:cursor-not-allowed disabled:opacity-35"
                 >
                   {zh ? "打出此牌" : "Play card"}
                 </button>
@@ -602,46 +625,25 @@ export function LoveLetterTable({
             </div>
           </div>
 
-          {/* Right column — player panels + log + chat (BGA style) */}
-          <aside className="space-y-3">
-            <div className="rounded-2xl border border-border bg-white/95 p-3 shadow-sm">
-              <PlayerPanels
-                locale={locale}
-                view={view}
-                actorId={actorId}
-                selectedTargetId={selectedTargetId}
-                thinkingId={thinkingId}
-                targetMode={Boolean(interactive && needsTarget)}
-                onSelectTarget={setSelectedTargetId}
-                onZoomDiscard={(c, ownerName) =>
-                  setZoom({
-                    rank: c.rank,
-                    name: c.name,
-                    subtitle: zh
-                      ? `${ownerName} 的出牌`
-                      : `${ownerName}'s discard`,
-                  })
-                }
-              />
-            </div>
-
-            <div className="rounded-2xl border border-border bg-white/95 shadow-sm">
-              <div className="border-b border-border px-3 py-2">
-                <p className="font-heading text-xs font-bold uppercase tracking-wide text-stone-500">
+          {/* Right — log + chat (clipped recent lines, no scrollbars) */}
+          <aside className="order-3 flex flex-col gap-2.5 overflow-hidden">
+            <div className="overflow-hidden rounded-2xl border border-border bg-white/95 shadow-sm">
+              <div className="border-b border-border px-2.5 py-1.5">
+                <p className="font-heading text-[11px] font-bold uppercase tracking-wide text-stone-500">
                   {zh ? "对局记录" : "Game log"}
                 </p>
               </div>
-              <div className="max-h-52 space-y-1 overflow-y-auto px-2 py-2">
+              <div className="space-y-1 px-2 py-1.5">
                 {playLog.length === 0 && (
-                  <p className="px-1 py-3 text-xs text-stone-400">
+                  <p className="px-1 py-2 text-[11px] text-stone-400">
                     {zh ? "行动会出现在这里" : "Actions appear here"}
                   </p>
                 )}
-                {playLog.map((e) => (
+                {playLog.slice(-8).map((e) => (
                   <div
                     key={e.id}
                     className={[
-                      "rounded-lg px-2 py-1.5 text-[12px] leading-snug",
+                      "rounded-md px-1.5 py-1 text-[11px] leading-snug",
                       e.tone === "warn"
                         ? "bg-red-50 text-red-900"
                         : e.tone === "win"
@@ -655,32 +657,35 @@ export function LoveLetterTable({
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-white/95 shadow-sm">
-              <div className="border-b border-border px-3 py-2">
-                <p className="font-heading text-xs font-bold uppercase tracking-wide text-stone-500">
+            <div className="overflow-hidden rounded-2xl border border-border bg-white/95 shadow-sm">
+              <div className="border-b border-border px-2.5 py-1.5">
+                <p className="font-heading text-[11px] font-bold uppercase tracking-wide text-stone-500">
                   {zh ? "桌边聊天" : "Table talk"}
                 </p>
               </div>
-              <div className="max-h-36 space-y-1.5 overflow-y-auto px-2 py-2">
+              <div className="space-y-1 px-2 py-1.5">
                 {chat.length === 0 && (
                   <p className="px-1 text-[11px] text-stone-400">
                     {zh
-                      ? "可在此发言；接了 LLM 的 AI 才会说话"
-                      : "Say something — only LLM AI seats talk"}
+                      ? "可发言；仅 LLM AI 会说话"
+                      : "Chat here — LLM AI only"}
                   </p>
                 )}
-                {chat.map((m, i) => (
-                  <div key={`${m.at}-${i}`} className="rounded-lg bg-surface px-2 py-1.5 text-[12px]">
+                {chat.slice(-4).map((m, i) => (
+                  <div
+                    key={`${m.at}-${i}`}
+                    className="rounded-md bg-surface px-1.5 py-1 text-[11px]"
+                  >
                     <span className="font-heading text-[10px] font-bold text-accent">
                       {nameOf?.(m.playerId) ?? m.playerId}
                     </span>
-                    <p className="text-primary-dark">{m.text}</p>
+                    <p className="line-clamp-2 text-primary-dark">{m.text}</p>
                   </div>
                 ))}
               </div>
               {onChat && (
                 <form
-                  className="flex gap-1.5 border-t border-border p-2"
+                  className="flex gap-1 border-t border-border p-1.5"
                   onSubmit={(e) => {
                     e.preventDefault();
                     if (!chatText.trim()) return;
@@ -696,7 +701,7 @@ export function LoveLetterTable({
                   />
                   <button
                     type="submit"
-                    className="cursor-pointer rounded-lg bg-primary px-3 py-1.5 font-heading text-xs font-bold text-white"
+                    className="cursor-pointer rounded-lg bg-primary px-2.5 py-1.5 font-heading text-xs font-bold text-white"
                   >
                     {zh ? "发" : "Go"}
                   </button>

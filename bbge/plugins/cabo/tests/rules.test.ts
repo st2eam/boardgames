@@ -104,10 +104,19 @@ describe("CABO deck and setup", () => {
     state = ack.state;
     expect(state.pendingModal).toBeNull();
     const after = caboPlugin.projectView(state, "a") as {
-      you: { slots: { value: number | null; faceUp: boolean }[] };
+      you: {
+        slots: {
+          value: number | null;
+          faceUp: boolean;
+          knownToYou?: boolean;
+        }[];
+      };
     };
-    expect(after.you.slots[0]!.value).toBeNull();
-    expect(after.you.slots[1]!.value).toBeNull();
+    // Still face-down on the table, but owner keeps memory values for AI/UI logic.
+    expect(after.you.slots[0]!.faceUp).toBe(false);
+    expect(after.you.slots[1]!.faceUp).toBe(false);
+    expect(after.you.slots[0]!.knownToYou).toBe(true);
+    expect(after.you.slots[0]!.value).not.toBeNull();
     expect(state.players[0]!.knownSlots).toEqual([0, 1]);
   });
 

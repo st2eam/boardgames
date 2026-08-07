@@ -11,7 +11,6 @@ import {
   PlayTableShell,
   SeatSpeechSlot,
   ThinkingStatusBanner,
-  useIsMobileLayout,
   useSeatBubbles,
 } from "@bbge/ui";
 import { cardBackUrl, cardFaceUrl } from "./cardArt";
@@ -101,7 +100,7 @@ function CaboCard({
       : size === "sm"
         ? "h-[64px] w-[44px]"
         : size === "fluid"
-          ? "h-[clamp(3rem,11cqh,5.5rem)] w-[clamp(2.1rem,7.7cqh,3.85rem)]"
+          ? "h-[clamp(2.5rem,58cqh,5.25rem)] w-[clamp(1.75rem,40cqh,3.7rem)]"
           : "h-[84px] w-[60px]";
 
   return (
@@ -145,7 +144,6 @@ export function CaboTable({
 }: PluginTableProps) {
   const view = viewUnknown as ArenaView;
   const zh = locale === "zh";
-  const mobile = useIsMobileLayout();
   const [sideOpen, setSideOpen] = useState(false);
   type SlotPick = { seatId: string; slotIndex: number };
   const [picks, setPicks] = useState<SlotPick[]>([]);
@@ -295,13 +293,12 @@ export function CaboTable({
   const renderSeat = (seat: ArenaView["seats"][0]) => {
     const active = view.currentPlayerId === seat.id;
     const thinking = thinkingSet.has(seat.id);
-    const cardSize = mobile ? "xs" : "sm";
     return (
       <div
         key={seat.id}
         data-seat-id={seat.id}
         className={[
-          "relative flex min-w-0 shrink-0 items-center gap-2 overflow-visible rounded-xl border bg-white/95 px-2 py-1.5 shadow-card transition-all sm:gap-3 sm:px-3 sm:py-2",
+          "relative flex min-h-0 min-w-0 flex-1 items-center gap-2 overflow-hidden rounded-xl border bg-white/95 px-2 py-1 shadow-card transition-all sm:gap-3 sm:px-3 sm:py-1.5",
           seat.isYou ? "border-accent/50 ring-1 ring-accent/20" : "border-border",
           active ? "ring-2 ring-accent/60" : "",
         ].join(" ")}
@@ -311,7 +308,7 @@ export function CaboTable({
           variant="cream"
           overlay
         />
-        <div className="flex w-[5.5rem] shrink-0 items-center gap-1.5 sm:w-28">
+        <div className="flex w-[5.25rem] shrink-0 items-center gap-1.5 sm:w-28">
           <div
             className={[
               "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 font-heading text-[11px] font-bold sm:h-8 sm:w-8 sm:text-xs",
@@ -331,19 +328,20 @@ export function CaboTable({
             </p>
           </div>
         </div>
-        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-1 sm:gap-1.5">
+        <div className="flex h-full min-h-0 min-w-0 flex-1 items-center gap-1 overflow-hidden [container-type:size] sm:gap-1.5">
           {seat.slots.map((slot) => {
-            const faceDown = !slot.faceUp && slot.value == null;
+            // Visual face uses faceUp only — known memory values stay hidden.
+            const faceDown = !slot.faceUp;
             const canSelect = canSelectSlot(seat, slot);
             return (
               <CaboCard
                 key={slot.slotIndex}
                 locale={locale}
-                value={slot.value}
+                value={faceDown ? null : slot.value}
                 faceDown={faceDown}
                 selected={canSelect && isPicked(seat.id, slot.slotIndex)}
                 disabled={!canSelect}
-                size={cardSize}
+                size="fluid"
                 onClick={
                   canSelect
                     ? () => togglePick(seat.id, slot.slotIndex)
@@ -353,7 +351,7 @@ export function CaboTable({
             );
           })}
           {view.phase === "finished" && seat.tableauSum != null && (
-            <span className="ml-1 text-[11px] font-medium text-stone-600">
+            <span className="ml-1 shrink-0 text-[11px] font-medium text-stone-600">
               {zh ? "本轮" : "Round"} {seat.tableauSum}
               {view.roundScores?.[seat.id] != null
                 ? ` → ${view.roundScores[seat.id]}`
@@ -634,7 +632,7 @@ export function CaboTable({
           className="!min-h-9 !py-1 sm:!min-h-11 sm:!py-1.5"
         />
 
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 overflow-x-hidden overflow-y-auto overscroll-contain sm:gap-2">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 overflow-hidden sm:gap-2">
           {others.map((s) => renderSeat(s))}
           {youSeat ? renderSeat(youSeat) : null}
         </div>

@@ -31,13 +31,15 @@ function pubSlot(
       (modal.type === "spyOther" &&
         modal.targetPlayerId === ownerId &&
         modal.slotIndex === slotIndex));
-  // Peeked knowledge stays in knownSlots for AI; UI only shows faces while
-  // the confirm modal is open (or when the slot is permanently face-up).
+  // UI shows faces only when faceUp / modal / round reveal.
+  // Owner still receives known values in `value` so AI can remember peeks
+  // (CaboCard uses faceUp/faceDown for art, not value presence).
   const showFace = roundReveal || slot.faceUp || modalReveal;
+  const ownerKnows = showFace || known;
 
   return {
     slotIndex,
-    value: showFace ? slot.card.value : null,
+    value: ownerKnows ? slot.card.value : null,
     faceUp: slot.faceUp || roundReveal,
     cardId: showFace ? slot.card.id : null,
     knownToYou: known,

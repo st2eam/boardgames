@@ -42,9 +42,63 @@ describe("createMockCaboSeat", () => {
     const d = await seat.think({
       phase: "playing",
       currentPlayerId: "ai1",
-      you: { slots: [{ value: 1, knownToYou: true }, {}, {}, {}] },
+      you: {
+        slots: [
+          { value: 1, faceUp: false, knownToYou: true },
+          { value: null, faceUp: false },
+          { value: null, faceUp: false },
+          { value: null, faceUp: false },
+        ],
+      },
       legal: [{ type: "drawDeck" }, { type: "callCabo" }],
     });
     expect(["drawDeck", "callCabo"]).toContain(d.action.type);
+  });
+
+  it("never discards a drawn 0 — swaps onto highest slot", async () => {
+    const seat = createMockCaboSeat("ai1");
+    const d = await seat.think({
+      phase: "playing",
+      currentPlayerId: "ai1",
+      pendingDraw: { source: "deck", value: 0 },
+      you: {
+        slots: [
+          { value: 0, faceUp: true },
+          { value: 2, faceUp: false, knownToYou: true },
+          { value: 11, faceUp: false, knownToYou: true },
+          { value: null, faceUp: false },
+        ],
+      },
+      legal: [
+        { type: "discardDrawn", payload: {} },
+        { type: "swapWithDrawn", payload: { slotIndices: [0] } },
+      ],
+    });
+    expect(d.action.type).toBe("swapWithDrawn");
+    expect(
+      (d.action.payload as { slotIndices: number[] }).slotIndices,
+    ).toEqual([2]);
+  });
+
+  it("discards junk 12 instead of replacing a known 0", async () => {
+    const seat = createMockCaboSeat("ai1");
+    const d = await seat.think({
+      phase: "playing",
+      currentPlayerId: "ai1",
+      pendingDraw: { source: "deck", value: 12 },
+      you: {
+        slots: [
+          { value: 0, faceUp: true },
+          { value: 1, faceUp: false, knownToYou: true },
+          { value: 2, faceUp: false, knownToYou: true },
+          { value: 3, faceUp: false, knownToYou: true },
+        ],
+      },
+      legal: [
+        { type: "discardDrawn", payload: {} },
+        { type: "swapWithDrawn", payload: { slotIndices: [0] } },
+      ],
+    });
+    expect(d.action.type).toBe("discardDrawn");
   });
 });

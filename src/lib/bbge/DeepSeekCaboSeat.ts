@@ -38,13 +38,14 @@ export function createDeepSeekCaboSeat(
       const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
 
       const prompt = zh
-        ? `你是座位 ${id}，在玩 CABO 记忆换牌：目标累计分最低，先到 ${100} 分（恰好 100 可重置 50 一次）输。
-只用 view.legal。动作示例：
-{"type":"setupPeek","playerId":"${id}","payload":{"slotIndices":[0,1]},"speak":"中文"}
+        ? `你是座位 ${id}，在玩 CABO：本轮与累计都要尽量低分（越小越好）。有人先到 ${100} 分则终局，累计最低者胜（恰好 100 可重置 50 一次）。
+动作类型必须合法。swapWithDrawn 的 slotIndices 可任选你面前的下标，不必照抄 legal 示例。
+示例：
+{"type":"setupPeek","playerId":"${id}","payload":{"slotIndices":[0,3]},"speak":"中文"}
 {"type":"drawDeck","playerId":"${id}","payload":{},"speak":"中文"}
 {"type":"drawDiscard","playerId":"${id}","payload":{},"speak":"中文"}
 {"type":"discardDrawn","playerId":"${id}","payload":{"useAbility":true?},"speak":"中文"}
-{"type":"swapWithDrawn","playerId":"${id}","payload":{"slotIndices":[0]},"speak":"中文"}
+{"type":"swapWithDrawn","playerId":"${id}","payload":{"slotIndices":[2]},"speak":"中文"}
 {"type":"resolveAbilityPeek","playerId":"${id}","payload":{"slotIndex":0},"speak":"中文"}
 {"type":"resolveAbilitySpy","playerId":"${id}","payload":{"targetPlayerId":"...","slotIndex":0},"speak":"中文"}
 {"type":"resolveAbilitySwap","playerId":"${id}","payload":{"ownSlotIndex":0,"targetPlayerId":"...","targetSlotIndex":0},"speak":"中文"}
@@ -52,20 +53,21 @@ export function createDeepSeekCaboSeat(
 {"type":"callCabo","playerId":"${id}","payload":{},"speak":"中文"}
 {"type":"acknowledgeModal","playerId":"${id}","payload":{},"speak":"中文"}
 
-策略：
-- 开局偷看角牌；记住已知点数。
-- 优先换掉高分暗牌；弃牌堆低牌可拿。
-- 7–8 偷看自己未知；9–10 间谍领先者；11–12 用疑似高牌盲换。
-- 手牌估计很低且对手难改善时再喊 CABO（喊错 +10）。
-- 多张交换只在确信同点数时使用。
-- 结合战报判断弃牌信息。
+硬性策略（必须遵守）：
+- 目标是低分：0、1、2 是神牌；绝不要 discardDrawn 丢掉 0–3。
+- you.slots[].value 若有数字就是你已知的点数（即使 faceUp=false，牌面朝下但你记得）；用它做决策。
+- 摸到低牌 → 用 swapWithDrawn 换掉你面前估计最高的那张（value 最大或未知）。
+- 摸到 ≥9 的垃圾牌 → discardDrawn；7–10 可考虑 useAbility。
+- 弃牌堆顶 ≤4 且能改善你某张更高牌时才 drawDiscard。
+- 只有估计总和很低（约 ≤6–8）才 callCabo；喊错 +10。
+- 多张交换仅在已知同点数且高于摸到的牌时使用。
 
 ${speakRule}
 只输出 JSON。
 View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`
-        : `You are seat ${id} in CABO — minimize cumulative score (target ${100}, exact 100 resets to 50 once).
-Use view.legal only. Actions: setupPeek, drawDeck, drawDiscard, discardDrawn, swapWithDrawn, resolveAbility*, skipAbility, callCabo, acknowledgeModal.
-Strategy: track memory, swap away highs, use spy/peek/swap abilities, call CABO when confident lowest.
+        : `You are seat ${id} in CABO. Goal: LOWEST score (0/1/2 are best). Never discardDrawn a 0–3.
+you.slots[].value is your memory even when faceUp=false. Swap lows onto your highest slots; discard junk ≥9; call CABO only when very low.
+swapWithDrawn.slotIndices may be any of your slot indexes (not only legal stubs).
 ${speakRule}
 Return ONLY JSON.
 View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
@@ -80,8 +82,8 @@ View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system: zh
-                ? "你是 CABO 真人对手：记牌、换低、谨慎喊 CABO。只输出合法 Action JSON；speak 用简体中文短句。"
-                : "Thoughtful CABO player. Output one legal Action JSON.",
+                ? "你是 CABO 真人对手：追求最低分，绝不丢掉 0/1/2，用低牌换掉高牌。只输出合法 Action JSON；speak 用简体中文短句。"
+                : "CABO player seeking lowest score; never discard 0–2. Output one legal Action JSON.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 512,
             },

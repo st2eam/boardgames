@@ -3,6 +3,7 @@ import { createDeepSeekLoveLetterSeat } from "./DeepSeekLoveLetterSeat";
 import { createDeepSeekTexasHoldemSeat } from "./DeepSeekTexasHoldemSeat";
 import { createDeepSeekSixNimmtSeat } from "./DeepSeekSixNimmtSeat";
 import { createDeepSeekGoSeat } from "./DeepSeekGoSeat";
+import { createDeepSeekCaboSeat } from "./DeepSeekCaboSeat";
 
 type SeatFactory = (id: string, apiKey: string, locale?: string) => AiSeat;
 
@@ -11,6 +12,7 @@ const factories: Record<string, SeatFactory> = {
   "texas-holdem": createDeepSeekTexasHoldemSeat,
   "six-nimmt": createDeepSeekSixNimmtSeat,
   go: createDeepSeekGoSeat,
+  cabo: createDeepSeekCaboSeat,
 };
 
 /**

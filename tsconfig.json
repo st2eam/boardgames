@@ -30,7 +30,8 @@
       "@bbge/texas-holdem": ["./bbge/plugins/texas-holdem/src"],
       "@bbge/six-nimmt": ["./bbge/plugins/six-nimmt/src"],
       "@bbge/go": ["./bbge/plugins/go/src"],
-      "@bbge/go/*": ["./bbge/plugins/go/src/*"]
+      "@bbge/go/*": ["./bbge/plugins/go/src/*"],
+      "@bbge/cabo": ["./bbge/plugins/cabo/src"]
     }
   },
   "include": [

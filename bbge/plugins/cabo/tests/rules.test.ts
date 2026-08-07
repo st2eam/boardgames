@@ -1,0 +1,209 @@
+import { describe, expect, it } from "vitest";
+import { createRng } from "@bbge/core";
+import { caboPlugin } from "../src/plugin";
+import {
+  applyCaboAction,
+  continueCaboMatch,
+  createCaboState,
+  computeRoundScores,
+  isKamikaze,
+} from "../src/rules";
+import type { CaboState } from "../src/state";
+import { produce } from "immer";
+
+function finishSetup(state: CaboState): CaboState {
+  let s = state;
+  for (const p of s.players) {
+    const r = applyCaboAction(
+      s,
+      {
+        type: "setupPeek",
+        playerId: p.id,
+        payload: { slotIndices: [0, 1] },
+      },
+      { rng: createRng("x") },
+    );
+    s = r.state;
+  }
+  return s;
+}
+
+describe("CABO deck and setup", () => {
+  it("creates 52-card deck and deals 4 slots each", () => {
+    const state = caboPlugin.createGame(
+      {
+        playerIds: ["a", "b"],
+        playerNames: { a: "A", b: "B" },
+        seed: "cabo-1",
+      },
+      { rng: createRng("cabo-1") },
+    ) as CaboState;
+    expect(state.phase).toBe("setupPeek");
+    expect(state.players[0]!.slots.length).toBe(4);
+    expect(state.deck.length).toBe(52 - 8 - 1);
+    expect(state.discard.length).toBe(1);
+  });
+
+  it("starts playing after all setup peeks", () => {
+    const state = finishSetup(
+      createCaboState(
+        {
+          playerIds: ["a", "b"],
+          playerNames: { a: "A", b: "B" },
+          seed: "cabo-2",
+        },
+        { rng: createRng("cabo-2") },
+      ),
+    );
+    expect(state.phase).toBe("playing");
+    expect(state.players[0]!.knownSlots).toEqual([0, 1]);
+  });
+});
+
+describe("CABO scoring", () => {
+  it("caller gets 0 when lowest, +10 penalty otherwise", () => {
+    const base = finishSetup(
+      createCaboState(
+        {
+          playerIds: ["a", "b"],
+          playerNames: { a: "A", b: "B" },
+          seed: "sc-1",
+        },
+        { rng: createRng("sc-1") },
+      ),
+    );
+    const state = produce(base, (draft) => {
+      draft.caboCallerId = "a";
+      draft.players[0]!.slots = [
+        { card: { id: "x", value: 1 }, faceUp: true },
+        { card: { id: "y", value: 2 }, faceUp: true },
+        { card: { id: "z", value: 0 }, faceUp: true },
+        { card: { id: "w", value: 0 }, faceUp: true },
+      ];
+      draft.players[1]!.slots = [
+        { card: { id: "a", value: 10 }, faceUp: true },
+        { card: { id: "b", value: 10 }, faceUp: true },
+        { card: { id: "c", value: 10 }, faceUp: true },
+        { card: { id: "d", value: 10 }, faceUp: true },
+      ];
+    });
+    const scores = computeRoundScores(state);
+    expect(scores.a).toBe(0);
+    expect(scores.b).toBe(40);
+  });
+
+  it("detects kamikaze hand", () => {
+    const slots = [
+      { card: { id: "a", value: 12 }, faceUp: false },
+      { card: { id: "b", value: 12 }, faceUp: false },
+      { card: { id: "c", value: 13 }, faceUp: false },
+      { card: { id: "d", value: 13 }, faceUp: false },
+    ];
+    expect(isKamikaze(slots)).toBe(true);
+  });
+
+  it("kamikaze overrides normal scoring", () => {
+    const base = finishSetup(
+      createCaboState(
+        {
+          playerIds: ["a", "b"],
+          playerNames: { a: "A", b: "B" },
+          seed: "km-1",
+        },
+        { rng: createRng("km-1") },
+      ),
+    );
+    const state = produce(base, (draft) => {
+      draft.caboCallerId = "b";
+      draft.players[0]!.slots = [
+        { card: { id: "a", value: 12 }, faceUp: true },
+        { card: { id: "b", value: 12 }, faceUp: true },
+        { card: { id: "c", value: 13 }, faceUp: true },
+        { card: { id: "d", value: 13 }, faceUp: true },
+      ];
+      draft.players[1]!.slots = [
+        { card: { id: "e", value: 0 }, faceUp: true },
+        { card: { id: "f", value: 0 }, faceUp: true },
+        { card: { id: "g", value: 0 }, faceUp: true },
+        { card: { id: "h", value: 0 }, faceUp: true },
+      ];
+    });
+    const scores = computeRoundScores(state);
+    expect(scores.a).toBe(0);
+    expect(scores.b).toBe(50);
+  });
+});
+
+describe("CABO multi-round match", () => {
+  it("continueMatch keeps cumulative scores between rounds", () => {
+    const state = finishSetup(
+      createCaboState(
+        {
+          playerIds: ["a", "b"],
+          playerNames: { a: "A", b: "B" },
+          seed: "mr-1",
+        },
+        { rng: createRng("mr-1") },
+      ),
+    );
+    const finished = produce(state, (draft) => {
+      draft.phase = "finished";
+      draft.players[0]!.cumulativeScore = 25;
+      draft.players[1]!.cumulativeScore = 40;
+      draft.matchOver = false;
+    });
+    const next = continueCaboMatch(finished, { rng: createRng("mr-1-n") });
+    expect(next.phase).toBe("setupPeek");
+    expect(next.round).toBe(2);
+    expect(next.players[0]!.cumulativeScore).toBe(25);
+    expect(next.matchOver).toBe(false);
+  });
+
+  it("resets match on matchOver continue", () => {
+    const finished = produce(
+      finishSetup(
+        createCaboState(
+          {
+            playerIds: ["a", "b"],
+            playerNames: { a: "A", b: "B" },
+            seed: "mr-2",
+          },
+          { rng: createRng("mr-2") },
+        ),
+      ),
+      (draft) => {
+        draft.matchOver = true;
+        draft.players[0]!.cumulativeScore = 105;
+      },
+    );
+    const next = continueCaboMatch(finished, { rng: createRng("mr-2-n") });
+    expect(next.round).toBe(1);
+    expect(next.players.every((p) => p.cumulativeScore === 0)).toBe(true);
+  });
+});
+
+describe("CABO call flow", () => {
+  it("calling CABO queues final turns for others", () => {
+    let state = finishSetup(
+      createCaboState(
+        {
+          playerIds: ["a", "b", "c"],
+          playerNames: { a: "A", b: "B", c: "C" },
+          seed: "cb-1",
+        },
+        { rng: createRng("cb-1") },
+      ),
+    );
+    state = produce(state, (draft) => {
+      draft.currentIndex = draft.turnOrder.indexOf("a");
+    });
+    const r = applyCaboAction(
+      state,
+      { type: "callCabo", playerId: "a", payload: {} },
+      { rng: createRng("cb-1") },
+    );
+    expect(r.state.phase).toBe("caboFinalTurns");
+    expect(r.state.caboCallerId).toBe("a");
+    expect(r.state.finalTurnQueue).toEqual(["b", "c"]);
+  });
+});

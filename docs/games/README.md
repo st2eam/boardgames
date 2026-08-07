@@ -12,6 +12,7 @@ docs/games/<slug>.md
 | [texas-hold-em.md](texas-hold-em.md) | Texas Hold'em — NLHE cash session (2–9) | Shipped — aggressive pot-odds AI, bubbles, shared log UI |
 | [6-nimmt-30th-anniversary.md](6-nimmt-30th-anniversary.md) | 6 nimmt! — classic / pro / fan / buffalo | Shipped — trap-aware mock + LLM + shared log scroll |
 | [go.md](go.md) | Go — 9×9 / 13×13 / 19×19 | Shipped — capture-first mock + Go Teacher + battleLog |
+| [cabo.md](cabo.md) | CABO — 2–4 memory card game | Shipped — multi-round cumulative + AI + battleLog |
 
 Platform skill: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/SKILL.md).  
 Shelf feature map: [`docs/architecture.md`](../architecture.md).  
@@ -33,6 +34,7 @@ All playables use Host-only `AiSeat`: DeepSeek `deepseek-v4-flash` when a key is
 | `texas-holdem` | Aggressive pot-odds: smash strong hands; with air/draws call or raise when the price is right (not tight-TAG) | Same — value hard, enter on pot odds |
 | `six-nimmt` | Avoid 5th-card traps; smallest-gap fits; choose lowest-bullhead rows when forced | Careful human — minimize heads, use log to anticipate rows |
 | `go` | Liberty/atari/area policy (+ resign when lost) | Hybrid: policy moves + LLM speak (+ Go Teacher) |
+| `cabo` | Swap away highs; peek/spy abilities; call when estimate low | Memory human — track discards, cautious CABO + battle log |
 
 **UI:** battle logs use shared `@bbge/ui` `BattleLogList` + mobile `PlaySideSheet` (`70dvh`).
 

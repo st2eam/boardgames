@@ -1,0 +1,12 @@
+{
+  "pluginId": "cabo",
+  "pluginVersion": "0.1.0",
+  "defaultEdition": "standard",
+  "editions": [
+    {
+      "id": "standard",
+      "label": { "en": "Standard (52 cards)", "zh": "标准版（52 张）" },
+      "default": true
+    }
+  ]
+}

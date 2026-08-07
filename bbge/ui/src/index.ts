@@ -2,6 +2,8 @@ export { PlayShell, type PlayShellProps } from "./PlayShell";
 export { LobbyView } from "./LobbyView";
 export { TableChrome } from "./TableChrome";
 export { PlayLogSidebar } from "./PlayLogSidebar";
+export { BattleLogList, type BattleLogListProps } from "./BattleLogList";
+export { PlaySideSheet, type PlaySideSheetProps } from "./PlaySideSheet";
 export type { PlayLogEntry } from "./formatPlayLog";
 export type { PluginPlayModule, PluginTableProps } from "./plugin-types";
 export {

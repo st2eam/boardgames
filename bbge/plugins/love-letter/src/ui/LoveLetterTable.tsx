@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
-import { useIsMobileLayout } from "@bbge/ui";
+import { BattleLogList, PlaySideSheet, useIsMobileLayout } from "@bbge/ui";
 import type { LoveLetterAction } from "../state";
 import { targetSpec, type ArenaView } from "./types";
 import { cardFaceUrl, cardLabel } from "./cardArt";
@@ -217,12 +217,7 @@ export function LoveLetterTable({
     });
   };
 
-  const logRef = useRef<HTMLDivElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = logRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
-  }, [playLog]);
   useEffect(() => {
     const el = chatRef.current;
     if (el) el.scrollTop = el.scrollHeight;
@@ -1072,31 +1067,12 @@ export function LoveLetterTable({
                   {zh ? "对局记录" : "Game log"}
                 </p>
               </div>
-              <div
-                ref={logRef}
-                className="min-h-0 flex-1 space-y-1 overflow-y-auto px-2 py-1.5"
-              >
-                {playLog.length === 0 && (
-                  <p className="px-1 py-2 text-[11px] text-stone-400">
-                    {zh ? "行动会出现在这里" : "Actions appear here"}
-                  </p>
-                )}
-                {playLog.map((e) => (
-                  <div
-                    key={e.id}
-                    className={[
-                      "whitespace-pre-wrap rounded-md px-1.5 py-1 text-[11px] leading-snug",
-                      e.tone === "warn"
-                        ? "bg-red-50 text-red-900"
-                        : e.tone === "win"
-                          ? "bg-amber-50 text-amber-950"
-                          : "bg-surface text-primary-dark",
-                    ].join(" ")}
-                  >
-                    {e.text}
-                  </div>
-                ))}
-              </div>
+              <BattleLogList
+                locale={locale}
+                entries={playLog}
+                variant="chip"
+                className="px-2 py-1.5"
+              />
             </div>
 
             <div className="flex max-h-[45%] min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-white/95 shadow-sm">
@@ -1157,76 +1133,45 @@ export function LoveLetterTable({
         </div>
       </div>
 
-      {mobile && sideOpen && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/45">
-          <button
-            type="button"
-            aria-label={zh ? "关闭" : "Close"}
-            className="absolute inset-0 cursor-pointer"
-            onClick={() => setSideOpen(false)}
+      <PlaySideSheet
+        locale={locale}
+        open={Boolean(mobile && sideOpen)}
+        onClose={() => setSideOpen(false)}
+        title={zh ? "战报 / 聊天" : "Log / Chat"}
+      >
+        <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
+          <BattleLogList
+            locale={locale}
+            entries={playLog}
+            variant="chip"
+            className="rounded-xl border border-border bg-white/95 px-2 py-1.5"
           />
-          <div className="relative z-10 flex max-h-[72dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-[#efe6d8] shadow-2xl">
-            <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
-              <p className="font-heading text-sm font-bold text-primary-dark">
-                {zh ? "战报 / 聊天" : "Log / Chat"}
-              </p>
+          {onChat && (
+            <form
+              className="flex shrink-0 gap-1 border-t border-border bg-white/90 pt-2"
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (!chatText.trim()) return;
+                onChat(chatText.trim());
+                setChatText("");
+              }}
+            >
+              <input
+                className="min-h-11 min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 py-2 text-sm"
+                value={chatText}
+                onChange={(e) => setChatText(e.target.value)}
+                placeholder={zh ? "说一句…" : "Say…"}
+              />
               <button
-                type="button"
-                onClick={() => setSideOpen(false)}
-                className="cursor-pointer rounded-lg bg-surface px-3 py-1.5 text-xs font-bold text-primary-dark"
+                type="submit"
+                className="min-h-11 cursor-pointer rounded-lg bg-primary px-4 py-2 font-heading text-sm font-bold text-white"
               >
-                {zh ? "关闭" : "Close"}
+                {zh ? "发送" : "Send"}
               </button>
-            </div>
-            <div className="min-h-0 flex-1 space-y-1 overflow-y-auto px-3 py-2">
-              {playLog.length === 0 && (
-                <p className="text-[11px] text-stone-400">
-                  {zh ? "行动会出现在这里" : "Actions appear here"}
-                </p>
-              )}
-              {playLog.map((e) => (
-                <div
-                  key={e.id}
-                  className={[
-                    "whitespace-pre-wrap rounded-md px-1.5 py-1 text-[11px] leading-snug",
-                    e.tone === "warn"
-                      ? "bg-red-50 text-red-900"
-                      : e.tone === "win"
-                        ? "bg-amber-50 text-amber-950"
-                        : "bg-white text-primary-dark",
-                  ].join(" ")}
-                >
-                  {e.text}
-                </div>
-              ))}
-            </div>
-            {onChat && (
-              <form
-                className="flex shrink-0 gap-1 border-t border-border bg-white/90 p-2.5"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (!chatText.trim()) return;
-                  onChat(chatText.trim());
-                  setChatText("");
-                }}
-              >
-                <input
-                  className="min-h-11 min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 py-2 text-sm"
-                  value={chatText}
-                  onChange={(e) => setChatText(e.target.value)}
-                  placeholder={zh ? "说一句…" : "Say…"}
-                />
-                <button
-                  type="submit"
-                  className="min-h-11 cursor-pointer rounded-lg bg-primary px-4 py-2 font-heading text-sm font-bold text-white"
-                >
-                  {zh ? "发送" : "Send"}
-                </button>
-              </form>
-            )}
-          </div>
+            </form>
+          )}
         </div>
-      )}
+      </PlaySideSheet>
     </div>
   );
 }

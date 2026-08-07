@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
-import { useIsMobileLayout } from "@bbge/ui";
+import { BattleLogList, PlaySideSheet, useIsMobileLayout } from "@bbge/ui";
 import { PlayingCard } from "./PlayingCard";
 
 type SeatBubble = { id: string; text: string };
@@ -185,6 +185,7 @@ export function TexasHoldemTable({
 
   const sidePanel = (
     <SidePanel
+      locale={locale}
       zh={zh}
       playLog={playLog}
       chat={chat}
@@ -554,38 +555,20 @@ export function TexasHoldemTable({
         </div>
       </div>
 
-      {mobile && sideOpen && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/45 p-0 sm:items-center sm:p-4">
-          <button
-            type="button"
-            aria-label={zh ? "关闭" : "Close"}
-            className="absolute inset-0 cursor-pointer"
-            onClick={() => setSideOpen(false)}
-          />
-          <div className="relative z-10 flex h-[70dvh] max-h-[70dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-[#efe6d8] shadow-2xl sm:h-auto sm:max-h-[80dvh] sm:max-w-md sm:rounded-2xl">
-            <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
-              <p className="font-heading text-sm font-bold text-primary-dark">
-                {zh ? "战报 / 聊天" : "Log / Chat"}
-              </p>
-              <button
-                type="button"
-                onClick={() => setSideOpen(false)}
-                className="cursor-pointer rounded-lg bg-surface px-3 py-1.5 text-xs font-bold text-primary-dark"
-              >
-                {zh ? "关闭" : "Close"}
-              </button>
-            </div>
-            <div className="flex min-h-0 flex-1 flex-col overflow-hidden p-3">
-              {sidePanel}
-            </div>
-          </div>
-        </div>
-      )}
+      <PlaySideSheet
+        locale={locale}
+        open={Boolean(mobile && sideOpen)}
+        onClose={() => setSideOpen(false)}
+        title={zh ? "战报 / 聊天" : "Log / Chat"}
+      >
+        {sidePanel}
+      </PlaySideSheet>
     </div>
   );
 }
 
 function SidePanel({
+  locale,
   zh,
   playLog,
   chat,
@@ -593,6 +576,7 @@ function SidePanel({
   setChatText,
   onChat,
 }: {
+  locale: string;
   zh: boolean;
   playLog: PluginTableProps["playLog"];
   chat: PluginTableProps["chat"];
@@ -600,13 +584,7 @@ function SidePanel({
   setChatText: (v: string) => void;
   onChat?: PluginTableProps["onChat"];
 }) {
-  const logRef = useRef<HTMLDivElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = logRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
-  }, [playLog]);
 
   useEffect(() => {
     const el = chatRef.current;
@@ -615,33 +593,12 @@ function SidePanel({
 
   return (
     <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
-      <div
-        ref={logRef}
-        className="min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain rounded-xl border border-border bg-white/95 p-2 text-[11px] [scrollbar-gutter:stable]"
-      >
-        <p className="mb-1 font-heading text-xs font-bold text-stone-500">
-          {zh ? "战报" : "Log"}
-        </p>
-        {(playLog ?? []).length === 0 && (
-          <p className="text-stone-400">
-            {zh ? "行动会出现在这里" : "Actions appear here"}
-          </p>
-        )}
-        {(playLog ?? []).map((e) => (
-          <p
-            key={e.id}
-            className={
-              e.tone === "win"
-                ? "text-emerald-700"
-                : e.tone === "warn"
-                  ? "text-amber-700"
-                  : "text-stone-600"
-            }
-          >
-            {e.text}
-          </p>
-        ))}
-      </div>
+      <BattleLogList
+        locale={locale}
+        entries={playLog ?? []}
+        title={zh ? "战报" : "Log"}
+        className="rounded-xl border border-border bg-white/95 p-2"
+      />
       {onChat && (
         <form
           className="flex shrink-0 gap-1"

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
-import { useIsMobileLayout } from "@bbge/ui";
+import { BattleLogList, PlaySideSheet, useIsMobileLayout } from "@bbge/ui";
 import { NimmtCard } from "./NimmtCard";
 
 type CardV = {
@@ -259,7 +259,7 @@ export function SixNimmtTable({
 
   const sidePanel = (
     <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
-      <div className="min-h-0 flex-1 space-y-1 overflow-y-auto rounded-xl border border-border bg-white/95 p-2 text-[11px]">
+      <div className="max-h-[38%] shrink-0 space-y-1 overflow-y-auto overscroll-contain rounded-xl border border-border bg-white/95 p-2 text-[11px]">
         <p className="mb-1 font-heading text-xs font-bold text-stone-500">
           {zh ? "玩家 / 分数" : "Players / scores"}
         </p>
@@ -299,27 +299,16 @@ export function SixNimmtTable({
             </p>
           </div>
         )}
-        <p className="mb-1 mt-3 font-heading text-xs font-bold text-stone-500">
-          {zh ? "战报" : "Log"}
-        </p>
-        {(playLog ?? []).slice(-40).map((e) => (
-          <p
-            key={e.id}
-            className={
-              e.tone === "win"
-                ? "text-emerald-700"
-                : e.tone === "warn"
-                  ? "text-amber-700"
-                  : "text-stone-600"
-            }
-          >
-            {e.text}
-          </p>
-        ))}
       </div>
+      <BattleLogList
+        locale={locale}
+        entries={playLog ?? []}
+        title={zh ? "战报" : "Log"}
+        className="rounded-xl border border-border bg-white/95 p-2"
+      />
       {onChat && (
         <form
-          className="flex gap-1"
+          className="flex shrink-0 gap-1"
           onSubmit={(e) => {
             e.preventDefault();
             const t = chatText.trim();
@@ -783,35 +772,20 @@ export function SixNimmtTable({
             </div>
           </div>
 
-          <aside className="hidden min-h-0 lg:flex">{sidePanel}</aside>
+          <aside className="hidden min-h-0 flex-col overflow-hidden lg:flex">
+            {sidePanel}
+          </aside>
         </div>
       </div>
 
-      {mobile && sideOpen && (
-        <div className="fixed inset-0 z-50 flex items-end bg-black/45">
-          <button
-            type="button"
-            aria-label="close"
-            className="absolute inset-0 cursor-pointer"
-            onClick={() => setSideOpen(false)}
-          />
-          <div className="relative z-10 flex max-h-[72dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-[#efe6d8] shadow-2xl">
-            <div className="flex items-center justify-between border-b border-border px-4 py-3">
-              <p className="font-heading text-sm font-bold">
-                {zh ? "战报 / 分数" : "Log / scores"}
-              </p>
-              <button
-                type="button"
-                onClick={() => setSideOpen(false)}
-                className="cursor-pointer rounded-lg bg-surface px-3 py-1.5 text-xs font-bold"
-              >
-                {zh ? "关闭" : "Close"}
-              </button>
-            </div>
-            <div className="min-h-0 flex-1 overflow-hidden p-3">{sidePanel}</div>
-          </div>
-        </div>
-      )}
+      <PlaySideSheet
+        locale={locale}
+        open={Boolean(mobile && sideOpen)}
+        onClose={() => setSideOpen(false)}
+        title={zh ? "战报 / 分数" : "Log / scores"}
+      >
+        {sidePanel}
+      </PlaySideSheet>
     </div>
   );
 }

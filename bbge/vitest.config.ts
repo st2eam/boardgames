@@ -22,6 +22,7 @@ export default defineConfig({
       "@bbge/six-nimmt": path.resolve(__dirname, "plugins/six-nimmt/src"),
       "@bbge/go": path.resolve(__dirname, "plugins/go/src"),
       "@bbge/cabo": path.resolve(__dirname, "plugins/cabo/src"),
+      "@bbge/uno": path.resolve(__dirname, "plugins/uno/src"),
     },
   },
 });

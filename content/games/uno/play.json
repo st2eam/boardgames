@@ -1,0 +1,20 @@
+{
+  "pluginId": "uno",
+  "pluginVersion": "0.1.0",
+  "defaultEdition": "classic",
+  "editions": [
+    {
+      "id": "classic",
+      "label": { "en": "Classic UNO", "zh": "经典 UNO" },
+      "default": true
+    },
+    {
+      "id": "flip",
+      "label": { "en": "UNO Flip", "zh": "UNO Flip" }
+    },
+    {
+      "id": "no-mercy",
+      "label": { "en": "Show 'Em No Mercy", "zh": "毫不留情" }
+    }
+  ]
+}

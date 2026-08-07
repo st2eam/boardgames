@@ -13,6 +13,7 @@ docs/games/<slug>.md
 | [6-nimmt-30th-anniversary.md](6-nimmt-30th-anniversary.md) | 6 nimmt! — classic / pro / fan / buffalo | Shipped — trap-aware mock + LLM + shared log scroll |
 | [go.md](go.md) | Go — 9×9 / 13×13 / 19×19 | Shipped — capture-first mock + Go Teacher + battleLog |
 | [cabo.md](cabo.md) | CABO — 2–4 memory card game | Shipped — multi-round cumulative + AI + battleLog |
+| [uno.md](uno.md) | UNO — classic / Flip / No Mercy | Shipped — shared plugin + editions + AI + battleLog |
 
 Platform skill: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/SKILL.md).  
 Shelf feature map: [`docs/architecture.md`](../architecture.md).  

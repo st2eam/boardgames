@@ -185,26 +185,48 @@ function aiBetweenPlaysMs(): number {
 type AiActorView = {
   phase?: string;
   you?: { hasPlayed?: boolean };
-  pending?: { playerId?: string } | null;
+  pending?: { type?: string; playerId?: string } | null;
   legal?: unknown[];
   draftTurn?: string | null;
+  currentPlayerId?: string | null;
 };
 
-/** AI seats that still have legal actions (works for turn-based + simultaneous). */
+/**
+ * AI seats that still need to act.
+ * - Plugins with `legal[]` (holdem / 6 nimmt): filter by legal + phase
+ * - Plugins without (love-letter): currentPlayerId / pending.playerId
+ */
 function collectPendingAiIds(
   s: HostSession,
   aiIds: string[],
 ): string[] {
-  return aiIds.filter((id) => {
+  const fromLegal = aiIds.filter((id) => {
     const v = s.getView(id) as AiActorView;
-    if (!v.legal?.length) return false;
+    if (!Array.isArray(v.legal)) return false;
+    if (!v.legal.length) return false;
     if (v.phase === "resolving") return false;
     if (v.phase === "chooseRow") return v.pending?.playerId === id;
     if (v.phase === "drafting") return v.draftTurn === id;
     if (v.phase === "selecting") return !v.you?.hasPlayed;
-    if (v.phase === "specials") return (v.legal?.length ?? 0) > 0;
+    if (v.phase === "specials") return true;
     return true;
   });
+  if (fromLegal.length > 0) return fromLegal;
+
+  // Love Letter etc.: no legal[] on the projected view
+  const out: string[] = [];
+  for (const id of aiIds) {
+    const v = s.getView(id) as AiActorView;
+    if (v.phase === "finished") continue;
+    if (v.pending?.playerId === id) {
+      out.push(id);
+      continue;
+    }
+    if (!v.pending && v.currentPlayerId === id) {
+      out.push(id);
+    }
+  }
+  return out;
 }
 
 export function PlayShell({

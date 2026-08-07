@@ -49,6 +49,15 @@ const ROLE_ZH: Record<string, string> = {
   king: "国王",
   countess: "伯爵夫人",
   princess: "公主",
+  bishop: "主教",
+  dowagerQueen: "太后",
+  constable: "警官",
+  count: "伯爵",
+  sycophant: "谄媚者",
+  baroness: "女男爵",
+  cardinal: "红衣主教",
+  jester: "小丑",
+  assassin: "刺客",
 };
 
 const ROLE_EN: Record<string, string> = {
@@ -62,6 +71,15 @@ const ROLE_EN: Record<string, string> = {
   king: "King",
   countess: "Countess",
   princess: "Princess",
+  bishop: "Bishop",
+  dowagerQueen: "Dowager Queen",
+  constable: "Constable",
+  count: "Count",
+  sycophant: "Sycophant",
+  baroness: "Baroness",
+  cardinal: "Cardinal",
+  jester: "Jester",
+  assassin: "Assassin",
 };
 
 function roleLabel(role: string | undefined, rank: number, zh: boolean): string {
@@ -110,6 +128,10 @@ function playBubble(
         return `打出伯爵夫人。`;
       case "princess":
         return `打出公主…我出局了。`;
+      case "bishop":
+        return targetName != null && guessRank != null
+          ? `打出主教，我猜 ${targetName} 是「${rankName(guessRank, true)}」。`
+          : `打出主教。`;
       case "spy":
         return `打出间谍。`;
       default:
@@ -145,6 +167,10 @@ function playBubble(
       return `Played Countess.`;
     case "princess":
       return `Played Princess… I’m out.`;
+    case "bishop":
+      return targetName != null && guessRank != null
+        ? `Played Bishop — I guess ${targetName} is “${rankName(guessRank, false)}”.`
+        : `Played Bishop.`;
     case "spy":
       return `Played Spy.`;
     default:
@@ -185,11 +211,14 @@ export function formatLoveLetterEvents(
         text = zh
           ? `${nameOf(playerId, names)} 打出 ${roleLabel(role, rank, true)}`
           : `${nameOf(playerId, names)} played ${roleLabel(role, rank, false)}`;
-        // Guard: bubble waits for the following guardGuess event
+        // Guard / Bishop: bubble waits for the following guess event
         if (
           (role === "guard" || (!role && rank === 1)) &&
           next?.type === "loveLetter/guardGuess"
         ) {
+          break;
+        }
+        if (role === "bishop" && next?.type === "loveLetter/bishopGuess") {
           break;
         }
         speakerId = playerId;
@@ -244,6 +273,18 @@ export function formatLoveLetterEvents(
         tone = p.hit ? "warn" : "info";
         speakerId = actorId;
         bubble = playBubble(1, zh, nameOf(targetId, names), guess, "guard");
+        break;
+      }
+      case "loveLetter/bishopGuess": {
+        const actorId = String(p.actorId);
+        const targetId = String(p.targetId);
+        const guess = Number(p.guessRank);
+        text = zh
+          ? `${nameOf(actorId, names)} 主教猜 ${nameOf(targetId, names)} 是 ${rankName(guess, true)} → ${p.hit ? "命中" : "落空"}`
+          : `${nameOf(actorId, names)} Bishop guessed ${nameOf(targetId, names)} = ${rankName(guess, false)} → ${p.hit ? "hit" : "miss"}`;
+        tone = p.hit ? "warn" : "info";
+        speakerId = actorId;
+        bubble = playBubble(9, zh, nameOf(targetId, names), guess, "bishop");
         break;
       }
       case "loveLetter/priestPeek":

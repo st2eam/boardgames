@@ -9,8 +9,20 @@ function tryAutoAiAction(view: unknown, playerId: PlayerId): Action | null {
   const v = view as {
     pending?: { type?: string; playerId?: string };
   };
-  if (v.pending?.type === "priestReveal" && v.pending.playerId === playerId) {
+  if (v.pending?.playerId !== playerId) return null;
+  if (
+    v.pending.type === "priestReveal" ||
+    v.pending.type === "baronessReveal"
+  ) {
     return { type: "acknowledgePriest", playerId, payload: {} };
+  }
+  if (v.pending.type === "bishopRedraw") {
+    // Keep hand by default (redraw is optional)
+    return {
+      type: "acknowledgePriest",
+      playerId,
+      payload: { redraw: false },
+    };
   }
   return null;
 }

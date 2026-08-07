@@ -192,8 +192,12 @@ export function LoveLetterTable({
   const peekOk =
     !needsPeek ||
     (peekTargetId != null && selectedTargetIds.includes(peekTargetId));
+  // Guard cannot guess 1; Bishop (and others with needsGuess) may guess any rank including 1.
+  const guessOk =
+    !needsGuess ||
+    (selectedRole === "guard" ? guessRank !== 1 : guessRank >= 0);
   const canPlay =
-    interactive && selectedCardId && targetsOk && peekOk && (!needsGuess || guessRank !== 1);
+    interactive && selectedCardId && targetsOk && peekOk && guessOk;
 
   const toggleTarget = (id: string) => {
     if (!tSpec) return;
@@ -1029,9 +1033,11 @@ export function LoveLetterTable({
                       </button>
                     ))}
                   {needsGuess &&
-                    Array.from({ length: maxGuess + 1 }, (_, i) => i).filter(
-                      (r) => r !== 1,
-                    ).map((r) => (
+                    Array.from({ length: maxGuess + 1 }, (_, i) => i)
+                      .filter((r) =>
+                        selectedRole === "guard" ? r !== 1 : true,
+                      )
+                      .map((r) => (
                       <button
                         key={r}
                         type="button"

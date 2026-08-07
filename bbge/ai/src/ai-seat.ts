@@ -26,7 +26,7 @@ export type AiDecision = {
   action: Action;
   /**
    * Short first-person line for avatar bubble / chat.
-   * From LLM `发言` (or speak/say). Host may fall back to event bubble text.
+   * From LLM `speak` (or `say`). Host may fall back to event bubble text.
    */
   speak?: string;
 };

@@ -7,7 +7,7 @@ function extractJson(text: string): unknown {
   const start = raw.indexOf("{");
   const end = raw.lastIndexOf("}");
   const arrStart = raw.indexOf("[");
-  // Prefer array wrapper when model returns [action, 发言]
+  // Prefer array wrapper when model returns [action, speak]
   if (arrStart >= 0 && (start < 0 || arrStart < start)) {
     const arrEnd = raw.lastIndexOf("]");
     if (arrEnd > arrStart) {
@@ -24,7 +24,7 @@ function asSpeakText(v: unknown): string | undefined {
   return t || undefined;
 }
 
-/** Parse Action + optional 发言 from model content. */
+/** Parse Action + optional speak from model content. */
 export function parseLoveLetterAiContent(
   text: string,
   playerId: PlayerId,
@@ -34,13 +34,8 @@ export function parseLoveLetterAiContent(
   let actionRaw: Record<string, unknown> | null = null;
 
   const takeSpeakObj = (o: Record<string, unknown>) => {
-    const t = o.type;
-    if (t === "发言" || t === "speak") {
-      speak =
-        asSpeakText(o.text) ??
-        asSpeakText(o.发言) ??
-        asSpeakText(o.speak) ??
-        speak;
+    if (o.type === "speak") {
+      speak = asSpeakText(o.text) ?? asSpeakText(o.speak) ?? speak;
       return true;
     }
     return false;
@@ -58,14 +53,10 @@ export function parseLoveLetterAiContent(
     if (takeSpeakObj(o)) {
       throw new Error("speak-only response; need play action");
     }
-    speak =
-      asSpeakText(o.发言) ??
-      asSpeakText(o.speak) ??
-      asSpeakText(o.say) ??
-      speak;
-    delete o.发言;
+    speak = asSpeakText(o.speak) ?? asSpeakText(o.say) ?? speak;
     delete o.speak;
     delete o.say;
+    delete o["发言"];
     actionRaw = o;
   }
 

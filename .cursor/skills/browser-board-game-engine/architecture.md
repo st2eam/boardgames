@@ -483,7 +483,7 @@ first-party game server (static export constraint).
 
 - Pattern name: **`AiSeat`** — game-agnostic; plugins do not call DeepSeek
 - Runs **only on Host**; DeepSeek **`deepseek-v4-flash`** when chat API key present, else mock
-- Primary job: `Think(view) → { action, speak? }` (play cards + optional `发言`). Host falls back to event bubble text when speak omitted
+- Primary job: `Think(view) → { action, speak? }` (play cards + optional table talk). Host falls back to event bubble text when speak omitted
 - Thinking status broadcast; no auto table-talk from AI
 - LLM **idle** timeout ~90s (resets while thinking/content streams); idle → ephemeral mock for **one turn** only
 - No API key on guests required

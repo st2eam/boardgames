@@ -15,7 +15,7 @@ export interface PlayShellProps {
   pluginId: string;
   roomIdFromUrl?: string | null;
   loadApiKey: () => Promise<string | null>;
-  /** Shelf-provided LLM seat factory for this plugin (Action + optional 发言). */
+  /** Shelf-provided LLM seat factory for this plugin (Action + optional speak). */
   createDeepSeekSeat?: (id: string, apiKey: string) => AiSeat;
 }
 
@@ -208,7 +208,7 @@ export function PlayShell({
     [isHost, tick],
   );
 
-  /** AI table talk: LLM 发言, else first-person event bubble (e.g. Guard guess). */
+  /** AI table talk: LLM speak, else first-person event bubble (e.g. Guard guess). */
   const publishAiSpeak = useCallback(
     (playerId: string, events: Event[], speak?: string) => {
       const lines = modRef.current.formatEvents(events, locale, seatNames());

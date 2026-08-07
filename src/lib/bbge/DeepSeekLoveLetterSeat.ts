@@ -11,7 +11,7 @@ import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 const PLAY_MODEL = "deepseek-v4-flash";
 
 /**
- * Host AiSeat: LLM decides legal play Actions + optional table talk (发言).
+ * Host AiSeat: LLM decides legal play Actions + optional table talk (`speak`).
  * Streams draft via onProgress for Host hover UI.
  */
 export function createDeepSeekLoveLetterSeat(
@@ -24,13 +24,13 @@ export function createDeepSeekLoveLetterSeat(
     async think(view: unknown, opts?: AiThinkOptions): Promise<AiDecision> {
       const prompt = `You are seat ${id} in Love Letter (Full Game, ranks 0 Spy … 9 Princess).
 Choose ONE legal action from the private view. Prefer strong play.
-Return ONLY JSON (action required). Optional short first-person table talk as 发言:
-{"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","guessRank":number?},"发言":"打出守卫，我猜某某是「公主」。"}
+Return ONLY JSON (action required). Optional short first-person table talk as speak:
+{"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","guessRank":number?},"speak":"Played Guard — I guess X is Princess."}
 or chancellor:
-{"type":"resolveChancellor","playerId":"${id}","payload":{"keepCardId":"...","bottomOrderIds":["id1","id2"]},"发言":"留这张。"}
+{"type":"resolveChancellor","playerId":"${id}","payload":{"keepCardId":"...","bottomOrderIds":["id1","id2"]},"speak":"Keeping the Prince."}
 or array:
-[{"type":"playCard","playerId":"${id}","payload":{...}},{"type":"发言","text":"短句"}]
-发言 should be one short Chinese sentence in first person when locale cues suggest zh; otherwise English. Do not invent illegal moves.
+[{"type":"playCard","playerId":"${id}","payload":{...}},{"type":"speak","text":"Short line."}]
+speak: one short first-person sentence (Chinese if the table is zh, else English). Do not invent illegal moves.
 View JSON:\n${JSON.stringify(view)}`;
 
       let lastErr = "ai failed";
@@ -49,7 +49,7 @@ View JSON:\n${JSON.stringify(view)}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system:
-                "You play Love Letter. Output JSON only: a legal action, optionally with 发言 (table talk). cardId must be from your hand. No prose outside JSON.",
+                "You play Love Letter. Output JSON only: a legal action, optionally with speak (table talk). cardId must be from your hand. No prose outside JSON.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 1024,
             },
@@ -99,7 +99,7 @@ View JSON:\n${JSON.stringify(view)}`;
 
           if (parsed) {
             opts?.onProgress?.({
-              note: `已决定：${String(parsed.action.type)}${parsed.speak ? " · 发言" : ""}`,
+              note: `已决定：${String(parsed.action.type)}${parsed.speak ? " · speak" : ""}`,
               thinkingText: thinkingFinal || undefined,
               draftText: text,
             });

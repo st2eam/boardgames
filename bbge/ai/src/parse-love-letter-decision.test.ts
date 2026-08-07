@@ -2,13 +2,13 @@ import { describe, expect, it } from "vitest";
 import { parseLoveLetterAiContent } from "./parse-love-letter-decision";
 
 describe("parseLoveLetterAiContent", () => {
-  it("parses playCard with 发言 field", () => {
+  it("parses playCard with speak field", () => {
     const d = parseLoveLetterAiContent(
       JSON.stringify({
         type: "playCard",
         playerId: "wrong",
         payload: { cardId: "c4", targetId: "host", guessRank: 8 },
-        发言: "打出守卫，我猜 Host 是「伯爵夫人」。",
+        speak: "打出守卫，我猜 Host 是「伯爵夫人」。",
       }),
       "ai-1",
     );
@@ -20,11 +20,11 @@ describe("parseLoveLetterAiContent", () => {
     expect(d.speak).toBe("打出守卫，我猜 Host 是「伯爵夫人」。");
   });
 
-  it("parses array with type 发言", () => {
+  it("parses array with type speak", () => {
     const d = parseLoveLetterAiContent(
       `[
         {"type":"playCard","playerId":"ai-1","payload":{"cardId":"c8","targetId":"ai-2"}},
-        {"type":"发言","text":"偷看一下。"}
+        {"type":"speak","text":"偷看一下。"}
       ]`,
       "ai-1",
     );

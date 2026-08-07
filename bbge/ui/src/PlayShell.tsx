@@ -134,6 +134,27 @@ function aiBetweenPlaysMs(): number {
   return 700 + Math.floor(Math.random() * 900);
 }
 
+type AiActorView = {
+  phase?: string;
+  you?: { hasPlayed?: boolean };
+  pending?: { playerId?: string } | null;
+  legal?: unknown[];
+};
+
+/** AI seats that still have legal actions (works for turn-based + simultaneous). */
+function collectPendingAiIds(
+  s: HostSession,
+  aiIds: string[],
+): string[] {
+  return aiIds.filter((id) => {
+    const v = s.getView(id) as AiActorView;
+    if (!v.legal?.length) return false;
+    if (v.phase === "chooseRow") return v.pending?.playerId === id;
+    if (v.phase === "selecting") return !v.you?.hasPlayed;
+    return true;
+  });
+}
+
 export function PlayShell({
   locale,
   gameName,
@@ -164,6 +185,7 @@ export function PlayShell({
   const [view, setView] = useState<unknown>(null);
   const [chat, setChat] = useState<AiChatMessage[]>([]);
   const [thinkingId, setThinkingId] = useState<string | null>(null);
+  const [thinkingIds, setThinkingIds] = useState<string[]>([]);
   const [thinkingDetail, setThinkingDetail] = useState<string | null>(null);
   const [playLog, setPlayLog] = useState<PlayLogEntry[]>([]);
   const [myId, setMyId] = useState(hostId);
@@ -434,7 +456,15 @@ export function PlayShell({
               started?: boolean;
             };
             if (p.type === "ai/thinking") {
-              setThinkingId(p.started ? p.playerId : null);
+              setThinkingIds((prev) => {
+                const next = p.started
+                  ? prev.includes(p.playerId)
+                    ? prev
+                    : [...prev, p.playerId]
+                  : prev.filter((id) => id !== p.playerId);
+                setThinkingId(next[0] ?? null);
+                return next;
+              });
             }
           }
           if (msg.type === "actionReject")
@@ -474,225 +504,318 @@ export function PlayShell({
     if (aiRunning.current) return;
     const s = sessionRef.current;
     if (!s || s.getPhase() !== "playing") return;
-    const current = s.getCurrentPlayerId();
-    if (!current || !s.getAiSeatIds().includes(current)) return;
+
+    const pending = collectPendingAiIds(s, s.getAiSeatIds());
+    if (pending.length === 0) return;
+
+    const host = peerRef.current as PeerHost | null;
+    const anyChooseRow = pending.some(
+      (id) => (s.getView(id) as AiActorView).phase === "chooseRow",
+    );
+    const parallelSelect =
+      modRef.current.plugin.metadata.pacing === "simultaneous" &&
+      !anyChooseRow &&
+      pending.length > 1;
+
+    const actors = parallelSelect ? pending : [pending[0]!];
 
     aiRunning.current = true;
-    const host = peerRef.current as PeerHost | null;
-    const paceMs = aiThinkPaceMs();
-    const thinkStarted = Date.now();
-    setThinkingId(current);
-    setThinkingDetail(
-      locale === "zh" ? "准备决策…" : "Preparing decision…",
-    );
-    host?.broadcast?.({
-      type: "aiPresence",
-      payload: { type: "ai/thinking", playerId: current, started: true },
-    });
-    setPlayLog((prev) => [
-      ...prev,
-      {
-        id: `think-${current}-${thinkStarted}`,
-        at: thinkStarted,
-        text:
-          locale === "zh"
-            ? `${seatNames()[current] ?? current} 正在思考…`
-            : `${seatNames()[current] ?? current} is thinking…`,
-      },
-    ]);
+
+    const markThinking = (ids: string[], detail: string) => {
+      setThinkingIds(ids);
+      setThinkingId(ids[0] ?? null);
+      setThinkingDetail(detail);
+      for (const id of ids) {
+        host?.broadcast?.({
+          type: "aiPresence",
+          payload: { type: "ai/thinking", playerId: id, started: true },
+        });
+      }
+    };
+
+    const clearThinking = (ids: string[]) => {
+      setThinkingIds([]);
+      setThinkingId(null);
+      setThinkingDetail(null);
+      for (const id of ids) {
+        host?.broadcast?.({
+          type: "aiPresence",
+          payload: { type: "ai/thinking", playerId: id, started: false },
+        });
+      }
+    };
 
     const pushThinkProgress = (p: {
       note?: string;
       thinkingText?: string;
       draftText?: string;
     }) => {
-      // Prefer model reasoning; fall back to note + truncated draft JSON
       const parts: string[] = [];
       if (p.thinkingText?.trim()) parts.push(p.thinkingText.trim());
       else if (p.note) parts.push(p.note);
       if (p.draftText?.trim()) {
         const d = p.draftText.trim();
         parts.push(
-          parts.length
-            ? `---\n${d.slice(-400)}`
-            : d.slice(-600),
+          parts.length ? `---\n${d.slice(-400)}` : d.slice(-600),
         );
       }
       if (parts.length) setThinkingDetail(parts.join("\n"));
     };
 
-    try {
+    /** Decide without submitting (safe to run in parallel). */
+    const decideForSeat = async (
+      current: string,
+    ): Promise<{
+      playerId: string;
+      action: Action;
+      speak?: string;
+      isLlm: boolean;
+      seat: AiSeat;
+      auto: boolean;
+    }> => {
+      const paceMs = aiThinkPaceMs();
+      const thinkStarted = Date.now();
       const v = s.getView(current);
       const auto = modRef.current.tryAutoAiAction?.(v, current) ?? null;
       if (auto) {
+        await sleep(1600 + Math.floor(Math.random() * 1200));
+        const { seat, isLlm } = await resolveAiSeat(current);
+        return {
+          playerId: current,
+          action: auto,
+          isLlm,
+          seat,
+          auto: true,
+        };
+      }
+
+      const { seat, isLlm } = await resolveAiSeat(current);
+      const idleMs = isLlm ? 90_000 : 8_000;
+      const absoluteMaxMs = isLlm ? 15 * 60_000 : undefined;
+      let action: Action;
+      let speak: string | undefined;
+      try {
+        const decide = withIdleTimeout(
+          ({ ping }) =>
+            seat.think(v, {
+              onProgress: (p) => {
+                ping();
+                if (!parallelSelect || actors[0] === current) {
+                  pushThinkProgress(p);
+                }
+              },
+            }),
+          idleMs,
+          "AI think",
+          absoluteMaxMs,
+        );
+        const [, decided] = await Promise.all([sleep(paceMs), decide]);
+        action = decided.action;
+        speak = decided.speak;
+      } catch (err) {
+        const mock = modRef.current.createMockSeat(current);
+        const remaining = Math.max(0, paceMs - (Date.now() - thinkStarted));
+        const [decided] = await Promise.all([
+          mock.think(s.getView(current), {
+            onProgress: (p) => {
+              if (!parallelSelect || actors[0] === current) {
+                pushThinkProgress(p);
+              }
+            },
+          }),
+          remaining > 0 ? sleep(remaining) : Promise.resolve(),
+        ]);
+        action = decided.action;
+        speak = decided.speak;
+        const why =
+          err instanceof Error && /idle timeout/i.test(err.message)
+            ? locale === "zh"
+              ? "LLM 长时间无响应"
+              : "LLM idle (no response)"
+            : err instanceof Error && /timeout/i.test(err.message)
+              ? locale === "zh"
+                ? "LLM 出牌超时"
+                : "LLM play timed out"
+              : locale === "zh"
+                ? "LLM 出牌失败"
+                : "LLM play failed";
+        setPlayLog((prev) => [
+          ...prev,
+          {
+            id: `fallback-${current}-${Date.now()}`,
+            at: Date.now(),
+            text:
+              locale === "zh"
+                ? `${seatNames()[current] ?? current}：${why}，本回合暂用本地决策（下回合仍走 LLM）`
+                : `${seatNames()[current] ?? current}: ${why}; local decision this turn only`,
+            tone: "warn",
+          },
+        ]);
+      }
+      return {
+        playerId: current,
+        action,
+        speak,
+        isLlm,
+        seat,
+        auto: false,
+      };
+    };
+
+    const submitDecided = async (decided: {
+      playerId: string;
+      action: Action;
+      speak?: string;
+      isLlm: boolean;
+      seat: AiSeat;
+    }): Promise<boolean> => {
+      const current = decided.playerId;
+      const fresh = s.getView(current) as AiActorView;
+      if (!fresh.legal?.length) return true;
+      if (fresh.phase === "selecting" && fresh.you?.hasPlayed) return true;
+
+      let action = decided.action;
+      let speak = decided.speak;
+      let result = s.submitAction(action);
+
+      if (!result.ok && decided.isLlm) {
+        const rejectErr = result.error;
+        const rejected = action;
+        setPlayLog((prev) => [
+          ...prev,
+          {
+            id: `illegal-retry-${Date.now()}`,
+            at: Date.now(),
+            text:
+              locale === "zh"
+                ? `${seatNames()[current] ?? current}：出牌非法（${rejectErr}），把错误反馈给 LLM 重试…`
+                : `${seatNames()[current] ?? current}: illegal (${rejectErr}); retrying LLM with feedback…`,
+            tone: "warn",
+          },
+        ]);
         setThinkingDetail(
           locale === "zh"
-            ? `自动步骤：${auto.type}`
-            : `Auto step: ${auto.type}`,
+            ? `非法：${rejectErr} · 重新请求 LLM…`
+            : `Illegal: ${rejectErr} · re-asking LLM…`,
         );
-        await sleep(1600 + Math.floor(Math.random() * 1200));
-        const result = s.submitAction(auto);
-        if (result.ok) {
-          appendEvents(result.events);
-          publishActionResult(result);
-          tick();
-          await sleep(aiBetweenPlaysMs());
-        } else {
-          setError(result.error);
-        }
-      } else {
-        const { seat, isLlm } = await resolveAiSeat(current);
-        // Idle: no stream progress for this long → fallback.
-        // Streaming thinking/content calls ping() and resets the idle clock.
-        const idleMs = isLlm ? 90_000 : 8_000;
-        const absoluteMaxMs = isLlm ? 15 * 60_000 : undefined;
-        let action: Action;
-        let speak: string | undefined;
         try {
-          const decide = withIdleTimeout(
+          const retryDecided = await withIdleTimeout(
             ({ ping }) =>
-              seat.think(v, {
+              decided.seat.think(s.getView(current), {
+                illegalRetry: {
+                  rejectedAction: rejected,
+                  error: rejectErr,
+                },
                 onProgress: (p) => {
                   ping();
                   pushThinkProgress(p);
                 },
               }),
-            idleMs,
-            "AI think",
-            absoluteMaxMs,
+            90_000,
+            "AI illegal retry",
           );
-          const [, decided] = await Promise.all([sleep(paceMs), decide]);
-          action = decided.action;
-          speak = decided.speak;
-        } catch (err) {
-          const mock = modRef.current.createMockSeat(current);
-          const remaining = Math.max(0, paceMs - (Date.now() - thinkStarted));
-          const [decided] = await Promise.all([
-            mock.think(s.getView(current), { onProgress: pushThinkProgress }),
-            remaining > 0 ? sleep(remaining) : Promise.resolve(),
-          ]);
-          action = decided.action;
-          speak = decided.speak;
-          const why =
-            err instanceof Error && /idle timeout/i.test(err.message)
-              ? locale === "zh"
-                ? "LLM 长时间无响应"
-                : "LLM idle (no response)"
-              : err instanceof Error && /timeout/i.test(err.message)
-                ? locale === "zh"
-                  ? "LLM 出牌超时"
-                  : "LLM play timed out"
-                : locale === "zh"
-                  ? "LLM 出牌失败"
-                  : "LLM play failed";
-          setPlayLog((prev) => [
-            ...prev,
-            {
-              id: `fallback-${Date.now()}`,
-              at: Date.now(),
-              text:
-                locale === "zh"
-                  ? `${seatNames()[current] ?? current}：${why}，本回合暂用本地决策（下回合仍走 LLM）`
-                  : `${seatNames()[current] ?? current}: ${why}; local decision this turn only`,
-              tone: "warn",
-            },
-          ]);
+          action = retryDecided.action;
+          speak = retryDecided.speak;
+          result = s.submitAction(action);
+        } catch {
+          result = { ok: false, error: rejectErr };
         }
+      }
 
-        let result = s.submitAction(action);
-        if (!result.ok && isLlm) {
-          const rejectErr = result.error;
-          const rejected = action;
-          setPlayLog((prev) => [
-            ...prev,
-            {
-              id: `illegal-retry-${Date.now()}`,
-              at: Date.now(),
-              text:
-                locale === "zh"
-                  ? `${seatNames()[current] ?? current}：出牌非法（${rejectErr}），把错误反馈给 LLM 重试…`
-                  : `${seatNames()[current] ?? current}: illegal (${rejectErr}); retrying LLM with feedback…`,
-              tone: "warn",
-            },
-          ]);
+      if (!result.ok) {
+        const mock = modRef.current.createMockSeat(current);
+        await sleep(400 + Math.floor(Math.random() * 400));
+        const retry = await mock.think(s.getView(current));
+        action = retry.action;
+        speak = retry.speak;
+        result = s.submitAction(action);
+        if (!result.ok) {
+          setError(result.error);
+          return false;
+        }
+        setPlayLog((prev) => [
+          ...prev,
+          {
+            id: `illegal-${Date.now()}`,
+            at: Date.now(),
+            text:
+              locale === "zh"
+                ? `${seatNames()[current] ?? current}：LLM 重试仍非法，本回合改本地补救`
+                : `${seatNames()[current] ?? current}: LLM retry still illegal; local fix this turn`,
+            tone: "warn",
+          },
+        ]);
+      }
+
+      appendEvents(result.events, { stripBubbleFor: current });
+      publishActionResult(result);
+      publishAiSpeak(current, result.events, speak);
+      tick();
+      return true;
+    };
+
+    try {
+      const thinkStarted = Date.now();
+      if (parallelSelect) {
+        markThinking(
+          actors,
+          locale === "zh"
+            ? `${actors.length} 名 AI 同时选牌…`
+            : `${actors.length} AIs choosing cards…`,
+        );
+        setPlayLog((prev) => [
+          ...prev,
+          {
+            id: `think-parallel-${thinkStarted}`,
+            at: thinkStarted,
+            text:
+              locale === "zh"
+                ? `${actors.map((id) => seatNames()[id] ?? id).join("、")} 同时选牌…`
+                : `${actors.map((id) => seatNames()[id] ?? id).join(", ")} choosing…`,
+          },
+        ]);
+        const decidedList = await Promise.all(
+          actors.map((id) => decideForSeat(id)),
+        );
+        for (const decided of decidedList) {
+          const ok = await submitDecided(decided);
+          if (!ok) return;
+        }
+        await sleep(aiBetweenPlaysMs());
+      } else {
+        const current = actors[0]!;
+        markThinking(
+          [current],
+          locale === "zh" ? "准备决策…" : "Preparing decision…",
+        );
+        setPlayLog((prev) => [
+          ...prev,
+          {
+            id: `think-${current}-${thinkStarted}`,
+            at: thinkStarted,
+            text:
+              locale === "zh"
+                ? `${seatNames()[current] ?? current} 正在思考…`
+                : `${seatNames()[current] ?? current} is thinking…`,
+          },
+        ]);
+        const decided = await decideForSeat(current);
+        if (decided.auto) {
           setThinkingDetail(
             locale === "zh"
-              ? `非法：${rejectErr} · 重新请求 LLM…`
-              : `Illegal: ${rejectErr} · re-asking LLM…`,
+              ? `自动步骤：${decided.action.type}`
+              : `Auto step: ${decided.action.type}`,
           );
-          try {
-            const idleMs = 90_000;
-            const decided = await withIdleTimeout(
-              ({ ping }) =>
-                seat.think(s.getView(current), {
-                  illegalRetry: {
-                    rejectedAction: rejected,
-                    error: rejectErr,
-                  },
-                  onProgress: (p) => {
-                    ping();
-                    pushThinkProgress(p);
-                  },
-                }),
-              idleMs,
-              "AI illegal retry",
-            );
-            action = decided.action;
-            speak = decided.speak;
-            result = s.submitAction(action);
-          } catch {
-            result = { ok: false, error: rejectErr };
-          }
         }
-        if (!result.ok) {
-          const mock = modRef.current.createMockSeat(current);
-          await sleep(400 + Math.floor(Math.random() * 400));
-          const retry = await mock.think(s.getView(current));
-          action = retry.action;
-          speak = retry.speak;
-          result = s.submitAction(action);
-          if (!result.ok) {
-            setError(result.error);
-            return;
-          }
-          setPlayLog((prev) => [
-            ...prev,
-            {
-              id: `illegal-${Date.now()}`,
-              at: Date.now(),
-              text:
-                locale === "zh"
-                  ? `${seatNames()[current] ?? current}：LLM 重试仍非法，本回合改本地补救`
-                  : `${seatNames()[current] ?? current}: LLM retry still illegal; local fix this turn`,
-              tone: "warn",
-            },
-          ]);
-        }
-        // Chat bubble owns AI speech; strip play-log bubbles to avoid double flash
-        appendEvents(result.events, { stripBubbleFor: current });
-        publishActionResult(result);
-        publishAiSpeak(current, result.events, speak);
-        tick();
-
+        const ok = await submitDecided(decided);
+        if (!ok) return;
         await sleep(350 + Math.floor(Math.random() * 350));
-        setThinkingId(null);
-        setThinkingDetail(null);
-        host?.broadcast?.({
-          type: "aiPresence",
-          payload: { type: "ai/thinking", playerId: current, started: false },
-        });
-
         await sleep(aiBetweenPlaysMs());
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : "AI failed");
     } finally {
-      setThinkingId(null);
-      setThinkingDetail(null);
-      host?.broadcast?.({
-        type: "aiPresence",
-        payload: { type: "ai/thinking", playerId: current, started: false },
-      });
+      clearThinking(actors);
       aiRunning.current = false;
     }
     await runAiIfNeeded();
@@ -993,8 +1116,15 @@ export function PlayShell({
             locale={locale}
             view={view}
             myId={controllingId}
-            disabled={Boolean(thinkingId)}
+            disabled={
+              thinkingIds.length > 0 &&
+              !(
+                mod.plugin.metadata.pacing === "simultaneous" &&
+                (view as AiActorView).phase === "selecting"
+              )
+            }
             thinkingId={thinkingId}
+            thinkingIds={thinkingIds}
             thinkingDetail={thinkingDetail}
             onAction={onDispatch}
             onRematch={isHost ? onRematch : undefined}

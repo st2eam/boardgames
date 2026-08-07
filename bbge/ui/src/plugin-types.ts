@@ -22,6 +22,8 @@ export interface PluginTableProps {
   myId: string;
   disabled?: boolean;
   thinkingId?: string | null;
+  /** Simultaneous pacing: multiple AI seats thinking at once. */
+  thinkingIds?: string[] | null;
   /** Host-only detail for “what is AI thinking” hover (not broadcast). */
   thinkingDetail?: string | null;
   onAction: (action: Action) => void;

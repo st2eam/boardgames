@@ -50,6 +50,7 @@ export function SixNimmtTable({
   myId,
   disabled,
   thinkingId,
+  thinkingIds,
   thinkingDetail,
   onAction,
   onRematch,
@@ -66,6 +67,14 @@ export function SixNimmtTable({
   const [chatText, setChatText] = useState("");
   const [statusOpen, setStatusOpen] = useState(false);
   const cardSize = mobile ? "md" : "lg";
+  const thinkingSet = useMemo(() => {
+    const ids = thinkingIds?.length
+      ? thinkingIds
+      : thinkingId
+        ? [thinkingId]
+        : [];
+    return new Set(ids);
+  }, [thinkingId, thinkingIds]);
 
   useEffect(() => {
     setPickId(null);
@@ -97,10 +106,16 @@ export function SixNimmtTable({
           ? `等待 ${who} 选择收行…`
           : `Waiting for ${who} to choose a row…`;
     }
-    if (thinkingId) {
+    if (thinkingSet.size > 1) {
       return zh
-        ? `${nameOf?.(thinkingId) ?? thinkingId} 思考中…`
-        : `${nameOf?.(thinkingId) ?? thinkingId} thinking…`;
+        ? `${thinkingSet.size} 名 AI 同时选牌…`
+        : `${thinkingSet.size} AIs choosing…`;
+    }
+    if (thinkingSet.size === 1) {
+      const id = [...thinkingSet][0]!;
+      return zh
+        ? `${nameOf?.(id) ?? id} 思考中…`
+        : `${nameOf?.(id) ?? id} thinking…`;
     }
     if (view.you?.hasPlayed) {
       const waiting = view.seats.filter((s) => !s.hasPlayed).length;
@@ -111,7 +126,7 @@ export function SixNimmtTable({
     return zh
       ? `第 ${view.round} 轮 · 第 ${view.trick} 拍 · 选一张手牌`
       : `Round ${view.round} · trick ${view.trick} · pick a card`;
-  }, [view, thinkingId, zh, nameOf, myId]);
+  }, [view, thinkingSet, zh, nameOf, myId]);
 
   const dispatch = (action: Action) => onAction(action);
 
@@ -129,7 +144,7 @@ export function SixNimmtTable({
               s.hasPlayed && view.phase === "selecting"
                 ? "bg-emerald-50"
                 : "bg-surface",
-              thinkingId === s.id ? "ring-1 ring-sky-400" : "",
+              thinkingSet.has(s.id) ? "ring-1 ring-sky-400" : "",
             ].join(" ")}
           >
             <span className="truncate font-heading font-bold text-primary-dark">
@@ -221,7 +236,7 @@ export function SixNimmtTable({
         <button
           type="button"
           onClick={() =>
-            thinkingId && thinkingDetail
+            thinkingSet.size > 0 && thinkingDetail
               ? setStatusOpen((v) => !v)
               : undefined
           }
@@ -232,7 +247,9 @@ export function SixNimmtTable({
               : canChoose
                 ? "border-accent bg-amber-50 text-amber-950"
                 : "border-border bg-white/90 text-primary-dark",
-            thinkingId && thinkingDetail ? "cursor-pointer" : "cursor-default",
+            thinkingSet.size > 0 && thinkingDetail
+              ? "cursor-pointer"
+              : "cursor-default",
           ].join(" ")}
         >
           <p className="truncate font-heading font-semibold">{status}</p>

@@ -330,12 +330,103 @@ examples/
 docs/
 ```
 
-Scaffold inside this monorepo as `bbge/` or top-level `packages/` without
-touching Game Shelf `content/games/` unless integrating playable routes.
+Scaffold engine packages under `bbge/` or top-level `packages/`. **Playable UI
+entry is embedded in The Game Shelf** — see §9.
 
 ---
 
-## 9. Trust & security notes
+## 9. Game Shelf UI entry (normative)
+
+BBGE does **not** ship a separate app shell homepage for v1. Players start a
+match from the existing rules site game page, in the same interactive button
+group as Flow / Score / Trainer / Calculator.
+
+### 9.1 Surface: `GameHeader` action row
+
+Implementation target today: `src/components/game/GameHeader.tsx`.
+
+Current peers (order to preserve; Play sits with them):
+
+| Flag | Route | i18n (zh examples) |
+|------|-------|-------------------|
+| `hasFlow` | `/[locale]/games/[slug]/flow/` | 交互式流程 |
+| `hasScore` | `/[locale]/games/[slug]/score/` | 计分器 |
+| `hasTrainer` | `/[locale]/games/[slug]/trainer/` | 训练器… |
+| `hasCalculator` | `/[locale]/games/[slug]/calculator/` | 番符计算器 |
+| **`hasPlay`** | **`/[locale]/games/[slug]/play/`** | **开始游戏 / Play** (new) |
+
+```
+Game page header actions:
+
+[ 交互式流程 ] [ 计分器 ] [ 训练器? ] [ 计算器? ] [ 开始游戏 ] [ Export ]
+     flow          score      trainer    calculator     play ★
+```
+
+- Only render the Play button when the game has a BBGE plugin binding (`hasPlay`).
+- Style: match existing accent / bordered button language; do not invent a
+  parallel chrome system. Apply UI companion skills when polishing.
+- Optional later: homepage `GameCard` functional chip (same pattern as
+  `viewFlow` / `scoreTracker`).
+
+### 9.2 Content gate (same pattern as score / trainer)
+
+Per-game opt-in under `content/games/<slug>/`:
+
+```
+content/games/<slug>/play.json   # presence ⇒ hasPlay (preferred name)
+```
+
+Minimal `play.json` shape (extensible):
+
+```json
+{
+  "pluginId": "love-letter",
+  "pluginVersion": "0.1.0"
+}
+```
+
+Wiring (mirror existing features):
+
+| Layer | Change |
+|-------|--------|
+| `GameRepository.hasPlayConfig(slug)` | `exists(play.json)` |
+| `GameFactory` / `GameSummary` | `hasPlay: boolean` (+ optional `pluginId`) |
+| `games/[slug]/page.tsx` | pass `hasPlay` into `GameHeader` |
+| `games/[slug]/play/page.tsx` | Server page → client BBGE shell; `generateStaticParams` only for slugs with `play.json` |
+| `messages/en.json` + `zh.json` | `game.play` / `game.startGame` labels |
+
+Rules Markdown / `meta.json` stay the Game Shelf source of truth for content;
+`play.json` only binds slug → BBGE plugin. Engine packages still hold runtime;
+game rules stay in `plugins/<pluginId>/`.
+
+### 9.3 Play page composition
+
+```
+/[locale]/games/[slug]/play/
+  └── PlayShell (client)
+        ├── session Create / Lobby (Runtime UI — seats, host/join, ready)
+        ├── plugin.ui.LobbyOptions   (from play.json → pluginId)
+        └── after Start → plugin.ui.Table + engine components
+```
+
+Lifecycle on this route = architecture §4 (`Create → Lobby → …`).  
+Deep links may later accept `?room=` for join; v1 can be offline / hotseat first.
+
+### 9.4 Separation of concerns
+
+| Concern | Location |
+|---------|----------|
+| Button visibility + static route | Game Shelf `src/` + `content/.../play.json` |
+| Host loop, sync, RNG, replay | BBGE `packages/runtime` etc. |
+| Rules / actions / victory | BBGE `plugins/<pluginId>` |
+| Table / lobby options UI | Plugin `ui` module composing `packages/ui` |
+
+Do not put Hold'em/Avalon rules into `GameHeader` or the play `page.tsx` —
+only mount the shell and resolve `pluginId` from `play.json`.
+
+---
+
+## 10. Trust & security notes
 
 | Mode | Trust |
 |---|---|
@@ -348,7 +439,7 @@ v1: load first-party plugins only.
 
 ---
 
-## 10. Related docs
+## 11. Related docs
 
 - [vision.md](vision.md) — philosophy, subsystems catalog, long-term vision
 - [plugin-api.md](plugin-api.md) — plugin developer handbook

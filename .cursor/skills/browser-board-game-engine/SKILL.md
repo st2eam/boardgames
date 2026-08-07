@@ -122,9 +122,13 @@ examples/
 docs/
 ```
 
-If scaffolding inside this repo, prefer a clear root (e.g. `bbge/` or `packages/`)
-and keep Game Shelf `content/games/` / `src/app` untouched unless the user asks
-to integrate playable routes.
+**UI entry (normative):** embed in The Game Shelf game page action row
+(`GameHeader`), parallel to Flow / Score / Trainer / Calculator → route
+`/[locale]/games/[slug]/play/`, gated by `content/games/<slug>/play.json`.
+Details: [architecture.md §9](architecture.md).
+
+Scaffold engine code under `bbge/` or `packages/`; wire only `hasPlay` + play
+page + i18n into `src/` / `content/` when adding a playable game.
 
 ---
 

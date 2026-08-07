@@ -107,6 +107,11 @@ export function GameFamilyCard({ games, sortMode }: Props) {
 
           <div className="flex items-center gap-2 px-4 py-2.5">
             <div className="min-w-0 flex-1 flex flex-wrap gap-1">
+              {base.hasPlay && (
+                <span className="rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
+                  {t("playNow")}
+                </span>
+              )}
               {base.hasFlow && (
                 <span className="rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
                   {t("viewFlow")}

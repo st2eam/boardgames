@@ -42,7 +42,7 @@ View JSON:\n${JSON.stringify(view)}`;
         try {
           let text = "";
           let thinking = "";
-          await adapter.streamChat(
+          const result = await adapter.streamChat(
             {
               model: PLAY_MODEL,
               system:
@@ -72,18 +72,49 @@ View JSON:\n${JSON.stringify(view)}`;
               }
             },
           );
-          const parsed = extractJson(text) as Action;
-          if (parsed && typeof parsed === "object" && "type" in parsed) {
+          // Prefer final thinking block from adapter if stream activities were partial
+          const thinkingFinal =
+            result.thinking?.thinking?.trim() || thinking || "";
+          let parsed: Action | null = null;
+          let parseError: string | null = null;
+          try {
+            const p = extractJson(text) as Action;
+            if (p && typeof p === "object" && "type" in p) {
+              parsed = { ...p, playerId: id } as Action;
+            } else {
+              parseError = "bad action shape";
+            }
+          } catch (pe) {
+            parseError = pe instanceof Error ? pe.message : "json parse failed";
+          }
+
+          console.groupCollapsed(
+            `[BBGE AI] seat=${id} attempt=${attempt + 1}/3 model=${PLAY_MODEL}`,
+          );
+          console.log("finishReason:", result.finishReason);
+          console.log("thinking:\n", thinkingFinal || "(empty)");
+          console.log("content:\n", text || "(empty)");
+          console.log("toolCalls:", result.toolCalls ?? null);
+          console.log("parsedAction:", parsed);
+          if (parseError) console.warn("parseError:", parseError);
+          console.groupEnd();
+
+          if (parsed) {
             opts?.onProgress?.({
               note: `已决定：${String(parsed.type)}`,
-              thinkingText: thinking || undefined,
+              thinkingText: thinkingFinal || undefined,
               draftText: text,
             });
-            return { ...parsed, playerId: id } as Action;
+            return parsed;
           }
-          lastErr = "bad action shape";
+          lastErr = parseError ?? "bad action shape";
         } catch (e) {
           lastErr = e instanceof Error ? e.message : "ai error";
+          console.groupCollapsed(
+            `[BBGE AI] seat=${id} attempt=${attempt + 1}/3 FAILED`,
+          );
+          console.error(e);
+          console.groupEnd();
           opts?.onProgress?.({ note: `失败：${lastErr}` });
         }
       }

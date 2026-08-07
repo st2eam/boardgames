@@ -36,6 +36,7 @@ All playables use Host-only `AiSeat`: DeepSeek `deepseek-v4-flash` when a key is
 | `six-nimmt` | Avoid 5th-card traps; smallest-gap fits; choose lowest-bullhead rows when forced | Careful human — minimize heads, use log to anticipate rows |
 | `go` | Liberty/atari/area policy (+ resign when lost) | Hybrid: policy moves + LLM speak (+ Go Teacher) |
 | `cabo` | Swap away highs; peek/spy abilities; call when estimate low | Memory human — track discards, cautious CABO + battle log |
+| `uno` | Prefer action cards; call UNO; stack in No Mercy | Table talk human — pressure next seat + battle log |
 
 **UI:** battle logs use shared `@bbge/ui` `BattleLogList` + mobile `PlaySideSheet` (`70dvh`).
 

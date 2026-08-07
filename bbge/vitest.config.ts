@@ -20,6 +20,7 @@ export default defineConfig({
         "plugins/texas-holdem/src",
       ),
       "@bbge/six-nimmt": path.resolve(__dirname, "plugins/six-nimmt/src"),
+      "@bbge/go": path.resolve(__dirname, "plugins/go/src"),
     },
   },
 });

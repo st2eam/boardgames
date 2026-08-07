@@ -89,7 +89,13 @@ export default async function PlayPage({ params }: Props) {
             slug={slug}
             gameName={gameName}
             pluginId={playConfig.pluginId}
-            defaultEdition={playConfig.defaultEdition ?? "full"}
+            defaultEdition={
+              playConfig.defaultEdition ??
+              playConfig.editions?.find((e) => e.default)?.id ??
+              playConfig.editions?.[0]?.id ??
+              "full"
+            }
+            editionIds={playConfig.editions?.map((e) => e.id) ?? []}
           />
         </Suspense>
       </div>

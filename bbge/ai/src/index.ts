@@ -9,5 +9,6 @@ export type {
 export { createMockLoveLetterSeat } from "./mock-seat";
 export { createMockTexasHoldemSeat } from "./mock-holdem-seat";
 export { createMockSixNimmtSeat } from "./mock-six-nimmt-seat";
+export { createMockGoSeat } from "./mock-go-seat";
 export { parseLoveLetterAiContent } from "./parse-love-letter-decision";
 

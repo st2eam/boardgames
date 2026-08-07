@@ -11,6 +11,8 @@ import {
   normalizeNimmtMode,
   type NimmtMode,
 } from "../../plugins/six-nimmt/src/modes";
+import { normalizeGoEdition } from "../../plugins/go/src/state";
+import { goEditionOptions } from "../../plugins/go/src/rules";
 import { LobbyView } from "./LobbyView";
 import { requirePlayModule } from "./registry";
 import type { PlayLogEntry, PluginPlayModule } from "./plugin-types";
@@ -245,8 +247,10 @@ export function PlayShell({
   const isHoldem = pluginId === "texas-holdem";
   const isNimmt = pluginId === "six-nimmt";
   const isLoveLetter = pluginId === "love-letter";
+  const isGo = pluginId === "go";
   const [edition, setEdition] = useState(() => {
     if (isNimmt) return normalizeNimmtMode(editionProp ?? "classic");
+    if (isGo) return normalizeGoEdition(editionProp ?? "9x9");
     return normalizeLlEdition(editionProp ?? "full");
   });
   const [stakes, setStakes] = useState({
@@ -256,10 +260,12 @@ export function PlayShell({
   });
   const maxSeats = isHoldem
     ? 9
-    : isNimmt
-      ? maxPlayersForMode(normalizeNimmtMode(edition))
-      : maxSeatsForLlEdition(normalizeLlEdition(edition));
-  const showEditions = isLoveLetter || isNimmt;
+    : isGo
+      ? 2
+      : isNimmt
+        ? maxPlayersForMode(normalizeNimmtMode(edition))
+        : maxSeatsForLlEdition(normalizeLlEdition(edition));
+  const showEditions = isLoveLetter || isNimmt || isGo;
   const [roomId, setRoomId] = useState(roomIdFromUrl ?? "");
   const [error, setError] = useState<string | null>(null);
   const [lobby, setLobby] = useState<LobbyState | null>(null);
@@ -495,7 +501,9 @@ export function PlayShell({
               setEdition(
                 pluginId === "six-nimmt"
                   ? normalizeNimmtMode(lb.edition)
-                  : normalizeLlEdition(lb.edition),
+                  : pluginId === "go"
+                    ? normalizeGoEdition(lb.edition)
+                    : normalizeLlEdition(lb.edition),
               );
             }
             const gc = lb.gameConfig;
@@ -964,13 +972,17 @@ export function PlayShell({
   const onEditionChange = (id: string) => {
     const next = isNimmt
       ? normalizeNimmtMode(id)
-      : normalizeLlEdition(id);
+      : isGo
+        ? normalizeGoEdition(id)
+        : normalizeLlEdition(id);
     if (next === edition) return;
     const s = sessionRef.current;
     if (!s || s.getPhase() !== "lobby") return;
     const cap = isNimmt
       ? maxPlayersForMode(next as NimmtMode)
-      : maxSeatsForLlEdition(next as LoveLetterEditionId);
+      : isGo
+        ? 2
+        : maxSeatsForLlEdition(next as LoveLetterEditionId);
     // Trim overflow seats when switching to a smaller edition (keep host).
     while (s.getLobby().seats.length > cap) {
       const seats = s.getLobby().seats;
@@ -1084,6 +1096,17 @@ export function PlayShell({
           locale === "zh"
             ? `该模式需要 ${minP}–${maxP} 人（当前 ${n}）`
             : `This mode needs ${minP}–${maxP} players (now ${n})`,
+        );
+        return;
+      }
+    }
+    if (isGo) {
+      const n = s.getLobby().seats.length;
+      if (n !== 2) {
+        setError(
+          locale === "zh"
+            ? `围棋需要恰好 2 人（当前 ${n}）· 请再加一个 AI 或热座`
+            : `Go needs exactly 2 players (now ${n}) — add AI or hotseat`,
         );
         return;
       }
@@ -1238,41 +1261,47 @@ export function PlayShell({
                       label: locale === "zh" ? m.label.zh : m.label.en,
                       hint: locale === "zh" ? m.hint.zh : m.hint.en,
                     }))
-                  : [
-                      {
-                        id: "classic",
-                        label:
-                          locale === "zh"
-                            ? "经典版（16 张）"
-                            : "Classic (16 cards)",
-                        hint:
-                          locale === "zh"
-                            ? "2–4 人 · 公主 = 8 · 无间谍/大臣"
-                            : "2–4 players · Princess = 8 · no Spy/Chancellor",
-                      },
-                      {
-                        id: "full",
-                        label:
-                          locale === "zh"
-                            ? "完整版（21 张）"
-                            : "Full Game (21 cards)",
-                        hint:
-                          locale === "zh"
-                            ? "2–6 人 · 间谍、大臣 · 公主 = 9"
-                            : "2–6 players · Spy & Chancellor · Princess = 9",
-                      },
-                      {
-                        id: "expansion",
-                        label:
-                          locale === "zh"
-                            ? "拓展版（37 张）"
-                            : "Expansion (37 cards)",
-                        hint:
-                          locale === "zh"
-                            ? "2–8 人 · 完整版 + 主教/太后/警官等"
-                            : "2–8 players · Full + Bishop, Dowager, Constable…",
-                      },
-                    ]
+                  : isGo
+                    ? goEditionOptions().map((m) => ({
+                        id: m.id,
+                        label: locale === "zh" ? m.label.zh : m.label.en,
+                        hint: locale === "zh" ? m.hint.zh : m.hint.en,
+                      }))
+                    : [
+                        {
+                          id: "classic",
+                          label:
+                            locale === "zh"
+                              ? "经典版（16 张）"
+                              : "Classic (16 cards)",
+                          hint:
+                            locale === "zh"
+                              ? "2–4 人 · 公主 = 8 · 无间谍/大臣"
+                              : "2–4 players · Princess = 8 · no Spy/Chancellor",
+                        },
+                        {
+                          id: "full",
+                          label:
+                            locale === "zh"
+                              ? "完整版（21 张）"
+                              : "Full Game (21 cards)",
+                          hint:
+                            locale === "zh"
+                              ? "2–6 人 · 间谍、大臣 · 公主 = 9"
+                              : "2–6 players · Spy & Chancellor · Princess = 9",
+                        },
+                        {
+                          id: "expansion",
+                          label:
+                            locale === "zh"
+                              ? "拓展版（37 张）"
+                              : "Expansion (37 cards)",
+                          hint:
+                            locale === "zh"
+                              ? "2–8 人 · 完整版 + 主教/太后/警官等"
+                              : "2–8 players · Full + Bishop, Dowager, Constable…",
+                        },
+                      ]
                 : undefined
             }
             edition={edition}

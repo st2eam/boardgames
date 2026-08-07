@@ -93,7 +93,25 @@ export function formatGoBoardContext(opts: {
   return lines.join("\n");
 }
 
-export function goTutorSuggestedPrompts(locale: string): string[] {
+export function goTutorSuggestedPrompts(
+  locale: string,
+  mode: "tsumego" | "play" = "tsumego",
+): string[] {
+  if (mode === "play") {
+    return locale === "zh"
+      ? [
+          "这手棋我该怎么想？",
+          "帮我看看现在谁厚、哪里薄",
+          "用一句话讲清气和提子",
+          "复盘刚才那几步错在哪",
+        ]
+      : [
+          "How should I think about this position?",
+          "Who is thick / where is thin?",
+          "Explain liberties & capture in one minute",
+          "Review my last few moves",
+        ];
+  }
   return locale === "zh"
     ? [
         "用一句话讲清气和提子",
@@ -107,4 +125,50 @@ export function goTutorSuggestedPrompts(locale: string): string[] {
         "Where did my last idea go wrong?",
         "Should beginners study joseki or life-and-death first?",
       ];
+}
+
+/** Live BBGE game dump for the Go teacher chat. */
+export function formatGoPlayContext(opts: {
+  size: number;
+  boardAscii: string;
+  toActColor: string | null;
+  lastMoveLabel: string | null;
+  captures: { black: number; white: number };
+  komi: number;
+  phase: string;
+  scores?: {
+    black: number;
+    white: number;
+  } | null;
+  locale: string;
+}): string {
+  const zh = opts.locale === "zh";
+  const lines = [
+    zh ? "【当前对局】" : "[Current game]",
+    zh
+      ? `${opts.size}×${opts.size} · 轮到 ${opts.toActColor === "black" ? "黑" : opts.toActColor === "white" ? "白" : "—"} · 贴目 ${opts.komi}`
+      : `${opts.size}×${opts.size} · to play: ${opts.toActColor ?? "—"} · komi ${opts.komi}`,
+    zh
+      ? `提子 黑 ${opts.captures.black} / 白 ${opts.captures.white}${
+          opts.lastMoveLabel ? ` · 上一手 ${opts.lastMoveLabel}` : ""
+        }`
+      : `Captures B ${opts.captures.black} / W ${opts.captures.white}${
+          opts.lastMoveLabel ? ` · last ${opts.lastMoveLabel}` : ""
+        }`,
+    opts.boardAscii,
+  ];
+  if (opts.phase === "finished" && opts.scores) {
+    lines.push(
+      zh
+        ? `已终局 · 黑 ${opts.scores.black} · 白 ${opts.scores.white}`
+        : `Finished · B ${opts.scores.black} · W ${opts.scores.white}`,
+    );
+  } else {
+    lines.push(
+      zh
+        ? "学员在对弈中。可讲解局面与思路；若对方未要求，不要替他选定具体落点坐标。"
+        : "Student is playing. Teach ideas; don’t force a concrete coordinate unless they ask.",
+    );
+  }
+  return lines.join("\n");
 }

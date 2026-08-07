@@ -28,7 +28,8 @@
       "@bbge/ui": ["./bbge/ui/src"],
       "@bbge/love-letter": ["./bbge/plugins/love-letter/src"],
       "@bbge/texas-holdem": ["./bbge/plugins/texas-holdem/src"],
-      "@bbge/six-nimmt": ["./bbge/plugins/six-nimmt/src"]
+      "@bbge/six-nimmt": ["./bbge/plugins/six-nimmt/src"],
+      "@bbge/go": ["./bbge/plugins/go/src"]
     }
   },
   "include": [

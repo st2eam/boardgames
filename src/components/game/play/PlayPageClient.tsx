@@ -16,6 +16,8 @@ interface Props {
   pluginId: string;
   /** From play.json default when URL omits ?edition= */
   defaultEdition?: string;
+  /** Allowed edition ids from play.json (empty → soft defaults) */
+  editionIds?: string[];
 }
 
 export function PlayPageClient({
@@ -24,21 +26,31 @@ export function PlayPageClient({
   gameName,
   pluginId,
   defaultEdition = "full",
+  editionIds = [],
 }: Props) {
   const search = useSearchParams();
   const room = search.get("room");
   const editionParam = search.get("edition");
-  const allowed = new Set([
-    "classic",
-    "full",
-    "expansion",
-    "premium", // legacy → PlayShell maps to classic
-  ]);
+  const allowed = new Set(
+    editionIds.length
+      ? editionIds
+      : [
+          "classic",
+          "full",
+          "expansion",
+          "premium",
+          "9x9",
+          "13x13",
+          "pro",
+          "fan",
+          "buffalo",
+        ],
+  );
   const edition = allowed.has(editionParam ?? "")
     ? editionParam!
     : allowed.has(defaultEdition)
       ? defaultEdition
-      : "full";
+      : (editionIds[0] ?? "full");
 
   // Lock document scroll on play — overflow only inside seat/log containers.
   useEffect(() => {

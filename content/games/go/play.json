@@ -1,0 +1,16 @@
+{
+  "pluginId": "go",
+  "pluginVersion": "0.1.0",
+  "defaultEdition": "9x9",
+  "editions": [
+    {
+      "id": "9x9",
+      "label": { "en": "9×9 (teaching)", "zh": "9×9（教学盘）" },
+      "default": true
+    },
+    {
+      "id": "13x13",
+      "label": { "en": "13×13", "zh": "13×13" }
+    }
+  ]
+}

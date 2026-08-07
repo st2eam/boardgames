@@ -149,6 +149,46 @@ describe("CABO deck and setup", () => {
     expect(state.players[0]!.slots[0]!.card.value).toBe(3);
     expect(state.players[0]!.slots[0]!.faceUp).toBe(true);
   });
+
+  it("can replace a face-up tableau card with a deck draw", () => {
+    let state = finishSetup(
+      createCaboState(
+        {
+          playerIds: ["a", "b"],
+          playerNames: { a: "A", b: "B" },
+          seed: "cabo-faceup-swap",
+        },
+        { rng: createRng("cabo-faceup-swap") },
+      ),
+    );
+    state = produce(state, (draft) => {
+      draft.currentIndex = draft.turnOrder.indexOf("a");
+      draft.players[0]!.slots = [
+        { card: { id: "up", value: 11 }, faceUp: true },
+        { card: { id: "a1", value: 2 }, faceUp: false },
+        { card: { id: "a2", value: 3 }, faceUp: false },
+        { card: { id: "a3", value: 4 }, faceUp: false },
+      ];
+      draft.deck = [{ id: "new", value: 1 }, ...draft.deck];
+    });
+    state = applyCaboAction(
+      state,
+      { type: "drawDeck", playerId: "a", payload: {} },
+      { rng: createRng("x") },
+    ).state;
+    state = applyCaboAction(
+      state,
+      {
+        type: "swapWithDrawn",
+        playerId: "a",
+        payload: { slotIndices: [0] },
+      },
+      { rng: createRng("x") },
+    ).state;
+    expect(state.players[0]!.slots[0]!.card.value).toBe(1);
+    expect(state.players[0]!.slots[0]!.faceUp).toBe(false);
+    expect(state.discard.some((c) => c.value === 11)).toBe(true);
+  });
 });
 
 describe("CABO scoring", () => {

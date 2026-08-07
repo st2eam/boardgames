@@ -215,15 +215,7 @@ function applySwap(
   if (indices.length === 0) throw new Error("no slots");
 
   for (const i of indices) {
-    const slot = me.slots[i];
-    if (!slot) throw new Error("bad slot");
-    if (!slot.faceUp && draw.source === "discard") {
-      /* ok */
-    } else if (!slot.faceUp) {
-      /* ok */
-    } else if (draw.source === "discard") {
-      throw new Error("discard swap needs face-down");
-    }
+    if (!me.slots[i]) throw new Error("bad slot");
   }
 
   // Bezier 2e: cards taken from the discard pile stay face up in tableau.
@@ -503,11 +495,9 @@ export function legalActions(
 
   if (state.pendingDraw) {
     const me = player(state, playerId);
-    const faceDown = me.slots
-      .map((s, i) => (!s.faceUp ? i : -1))
-      .filter((i) => i >= 0);
+    const slotIds = me.slots.map((_, i) => i);
     const acts: Omit<CaboAction, "clientActionId">[] = [];
-    // Discard-pile takes must replace a face-down card (cannot re-discard).
+    // Discard-pile takes must replace a card (cannot re-discard).
     if (state.pendingDraw.source === "deck") {
       acts.push({
         type: "discardDrawn",
@@ -523,17 +513,18 @@ export function legalActions(
         });
       }
     }
-    if (faceDown.length > 0) {
+    // Face-up tableau cards (e.g. prior discard takes) can still be replaced.
+    if (slotIds.length > 0) {
       acts.push({
         type: "swapWithDrawn",
         playerId,
-        payload: { slotIndices: faceDown.slice(0, 1) },
+        payload: { slotIndices: slotIds.slice(0, 1) },
       });
-      if (faceDown.length >= 2) {
+      if (slotIds.length >= 2) {
         acts.push({
           type: "swapWithDrawn",
           playerId,
-          payload: { slotIndices: faceDown.slice(0, 2) },
+          payload: { slotIndices: slotIds.slice(0, 2) },
         });
       }
     }
@@ -622,10 +613,6 @@ export function validateCaboAction(
     if (idx.length === 0) return { error: "need slots" };
     for (const i of idx) {
       if (i < 0 || i >= me.slots.length) return { error: "bad slot" };
-      if (!me.slots[i]!.faceUp) continue;
-      if (state.pendingDraw.source === "discard") {
-        return { error: "must swap face-down" };
-      }
     }
     return true;
   }

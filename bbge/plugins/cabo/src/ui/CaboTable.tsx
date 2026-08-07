@@ -89,14 +89,20 @@ function CaboCard({
   faceDown: boolean;
   selected?: boolean;
   disabled?: boolean;
-  size?: "sm" | "md";
+  size?: "xs" | "sm" | "md" | "fluid";
   onClick?: () => void;
 }) {
   const zh = locale === "zh";
   const showBack = faceDown || value == null;
   const src = showBack ? cardBackUrl() : cardFaceUrl(value);
   const sz =
-    size === "sm" ? "h-[72px] w-[50px]" : "h-[96px] w-[68px]";
+    size === "xs"
+      ? "h-12 w-[34px]"
+      : size === "sm"
+        ? "h-[64px] w-[44px]"
+        : size === "fluid"
+          ? "h-[clamp(3rem,11cqh,5.5rem)] w-[clamp(2.1rem,7.7cqh,3.85rem)]"
+          : "h-[84px] w-[60px]";
 
   return (
     <button
@@ -106,7 +112,7 @@ function CaboCard({
       className={[
         "relative shrink-0 overflow-hidden rounded-lg border-2 bg-[#2a1814] shadow-md transition-all",
         sz,
-        selected ? "border-accent ring-2 ring-accent/40 -translate-y-1" : "border-[#5D4037]/70",
+        selected ? "border-accent ring-2 ring-accent/40 -translate-y-0.5" : "border-[#5D4037]/70",
         onClick && !disabled ? "cursor-pointer hover:border-accent" : "cursor-default",
         disabled ? "opacity-40" : "",
       ].join(" ")}
@@ -114,7 +120,7 @@ function CaboCard({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt={showBack ? (zh ? "牌背" : "Back") : String(value)} className="h-full w-full object-cover" draggable={false} />
       {!showBack && value != null && (
-        <span className="absolute left-1 top-1 rounded bg-black/70 px-1 font-heading text-[10px] font-bold text-white">
+        <span className="absolute left-0.5 top-0.5 rounded bg-black/70 px-1 font-heading text-[9px] font-bold text-white sm:text-[10px]">
           {value}
         </span>
       )}
@@ -232,32 +238,43 @@ export function CaboTable({
     />
   );
 
-  const renderSeat = (seat: ArenaView["seats"][0]) => {
+  const renderSeat = (
+    seat: ArenaView["seats"][0],
+    opts?: { hero?: boolean },
+  ) => {
     const active = view.currentPlayerId === seat.id;
     const thinking = thinkingSet.has(seat.id);
+    const hero = Boolean(opts?.hero);
+    const cardSize = hero ? "fluid" : mobile ? "xs" : "sm";
     return (
       <div
         key={seat.id}
         data-seat-id={seat.id}
         className={[
-          "relative min-w-0 overflow-hidden rounded-2xl border bg-white/95 p-3 shadow-card transition-all",
+          "relative flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border bg-white/95 shadow-card transition-all",
+          hero ? "p-2 sm:p-3" : "p-1.5 sm:p-2",
           seat.isYou ? "border-accent/50 ring-1 ring-accent/20" : "border-border",
           active ? "ring-2 ring-accent/60" : "",
+          hero ? "flex-1" : "shrink-0",
         ].join(" ")}
       >
-        <SeatSpeechSlot bubble={bubbles[seat.id]} variant="cream" />
-        <div className="mb-2 flex items-center justify-between gap-2">
+        <SeatSpeechSlot
+          bubble={bubbles[seat.id]}
+          variant="cream"
+          className={hero ? "!mb-1 !h-7 sm:!h-8" : "!mb-0.5 !h-6 sm:!h-7"}
+        />
+        <div className="mb-1 flex shrink-0 items-center justify-between gap-2 sm:mb-1.5">
           <div className="min-w-0">
-            <p className="truncate font-heading text-sm font-bold text-primary">
+            <p className="truncate font-heading text-xs font-bold text-primary sm:text-sm">
               {seat.name}
               {seat.isYou ? (zh ? "（你）" : " (you)") : ""}
             </p>
-            <p className="text-[11px] text-stone-500">
+            <p className="truncate text-[10px] text-stone-500 sm:text-[11px]">
               {zh ? "累计" : "Total"} {seat.cumulativeScore}
               <span className="mx-1">/</span>
               <span className="text-accent">{view.targetScore}</span>
               {seat.isCaller && (
-                <span className="ml-1 rounded bg-accent/15 px-1.5 py-0.5 text-[10px] font-bold text-accent">
+                <span className="ml-1 rounded bg-accent/15 px-1 py-0.5 text-[10px] font-bold text-accent">
                   CABO
                 </span>
               )}
@@ -270,14 +287,19 @@ export function CaboTable({
           </div>
           <div
             className={[
-              "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 font-heading text-xs font-bold",
+              "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 font-heading text-[11px] font-bold sm:h-8 sm:w-8 sm:text-xs",
               thinking ? "border-accent animate-pulse bg-amber-50" : "border-border bg-surface",
             ].join(" ")}
           >
             {seat.name.slice(0, 1).toUpperCase()}
           </div>
         </div>
-        <div className="flex flex-wrap justify-center gap-1.5">
+        <div
+          className={[
+            "flex min-h-0 flex-1 flex-wrap content-center justify-center gap-1 sm:gap-1.5",
+            hero ? "[container-type:size]" : "",
+          ].join(" ")}
+        >
           {seat.slots.map((slot) => {
             const faceDown = !slot.faceUp && slot.value == null;
             const canSelect = Boolean(
@@ -286,7 +308,7 @@ export function CaboTable({
                 !disabled &&
                 !view.pendingModal &&
                 ((view.phase === "setupPeek" && !view.setupPeeksDone) ||
-                  (view.pendingDraw && !slot.faceUp) ||
+                  Boolean(view.pendingDraw) ||
                   (view.pendingAbility?.kind === "peek" && !slot.faceUp)),
             );
             return (
@@ -297,14 +319,14 @@ export function CaboTable({
                 faceDown={faceDown}
                 selected={canSelect && selectedSlots.includes(slot.slotIndex)}
                 disabled={!canSelect}
-                size={mobile ? "sm" : "md"}
+                size={cardSize}
                 onClick={canSelect ? () => toggleSlot(slot.slotIndex) : undefined}
               />
             );
           })}
         </div>
         {view.phase === "finished" && seat.tableauSum != null && (
-          <p className="mt-2 text-center text-xs font-medium text-stone-600">
+          <p className="mt-1 shrink-0 text-center text-[11px] font-medium text-stone-600">
             {zh ? "本轮" : "Round"}: {seat.tableauSum}
             {view.roundScores?.[seat.id] != null && (
               <span className="ml-1 text-accent">
@@ -514,26 +536,29 @@ export function CaboTable({
         </>
       }
     >
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-2 overflow-hidden">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 overflow-hidden sm:gap-2">
         <ThinkingStatusBanner
           locale={locale}
           text={status}
           tone={statusTone}
           detail={thinkingSet.size > 0 ? thinkingDetail : null}
+          className="!min-h-9 !py-1 sm:!min-h-11 sm:!py-1.5"
         />
 
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-x-hidden overflow-y-auto overscroll-contain">
-          <div className="grid min-w-0 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {others.map(renderSeat)}
-          </div>
-          {youSeat && (
-            <div className="mt-auto min-w-0 border-t border-border pt-3">
-              {renderSeat(youSeat)}
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 overflow-hidden sm:gap-2">
+          {others.length > 0 && (
+            <div className="grid max-h-[34%] min-h-0 shrink-0 grid-cols-2 gap-1.5 overflow-hidden sm:max-h-[36%] sm:grid-cols-3 sm:gap-2 lg:grid-cols-4">
+              {others.map((s) => renderSeat(s))}
             </div>
           )}
+          {youSeat ? (
+            <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden border-t border-border pt-1.5 sm:pt-2">
+              {renderSeat(youSeat, { hero: true })}
+            </div>
+          ) : null}
         </div>
 
-        <div className="shrink-0 rounded-xl border border-border bg-white/95 px-3 py-2 shadow-sm">
+        <div className="shrink-0 rounded-xl border border-border bg-white/95 px-2.5 py-1.5 shadow-sm sm:px-3 sm:py-2">
           {view.phase === "finished" ? (
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-sm text-primary-dark">{status}</p>

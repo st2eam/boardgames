@@ -23,8 +23,8 @@ type LogLine = { id: string; text: string; tone?: "info" | "warn" | "win" };
 interface Props {
   locale: string;
   view: unknown;
+  /** Seat this client may view / act as (never another player's private hand). */
   myId: string;
-  hotseat: boolean;
   disabled?: boolean;
   thinkingId?: string | null;
   onAction: (action: LoveLetterAction) => void;
@@ -38,7 +38,6 @@ export function LoveLetterTable({
   locale,
   view: viewUnknown,
   myId,
-  hotseat,
   disabled,
   thinkingId,
   onAction,
@@ -59,7 +58,8 @@ export function LoveLetterTable({
   const [animBusy, setAnimBusy] = useState(false);
   const prevHandRef = useRef<Set<string>>(new Set());
   const [newCardIds, setNewCardIds] = useState<Set<string>>(new Set());
-  const actorId = hotseat ? view.currentPlayerId : myId;
+  // PlayShell switches myId among local hotseat humans only — never AI / remote.
+  const actorId = myId;
   const lastDiscardIdRef = useRef<string | null>(null);
   const skipDiscardAnimRef = useRef(false);
   const priestPending =

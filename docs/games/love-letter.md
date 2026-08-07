@@ -49,6 +49,7 @@ hotseat / local AI → finish **one round** and declare a winner.
 - After each completed play, next seat **draws immediately** (UI always shows a full hand)
 - Lobby: seats, invite link, add hotseat / AI, ready, start
 - `projectView`: private hands; public discards; priest rank only for peeker
+- Host UI only shows **local** human seats (never AI / remote hands); pass-and-play switches among local seats only
 - Determinism + illegal-action + priest-reveal tests (`npm run test:bbge`)
 - AI pacing (min think UI + gap between seats); LLM think budget ~90s
 - Ephemeral local fallback on LLM timeout / illegal action — **does not** permanently replace LLM seat

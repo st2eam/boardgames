@@ -116,6 +116,8 @@ export function PlayShell({
   const [thinkingId, setThinkingId] = useState<string | null>(null);
   const [playLog, setPlayLog] = useState<PlayLogEntry[]>([]);
   const [myId, setMyId] = useState(hostId);
+  /** Seat whose private view this client may show / act as (never AI / remote). */
+  const [controllingId, setControllingId] = useState(hostId);
   const [displayName, setDisplayName] = useState(
     locale === "zh" ? "房主" : "Host",
   );
@@ -125,6 +127,8 @@ export function PlayShell({
   const aiRef = useRef<Map<string, AiSeat>>(new Map());
   const peerRef = useRef<{ destroy: () => void } | null>(null);
   const aiRunning = useRef(false);
+  /** Human seats on this device (host + pass-and-play). Remote guests / AI excluded. */
+  const localSeatIdsRef = useRef<Set<string>>(new Set([hostId]));
 
   const seatNames = useCallback((): Record<string, string> => {
     const seats = sessionRef.current?.getLobby().seats ?? lobby?.seats ?? [];
@@ -147,8 +151,13 @@ export function PlayShell({
     setPhase(s.getPhase());
     setChat(s.getPublicChat());
     if (s.getPhase() !== "lobby") {
-      const current = s.getCurrentPlayerId() ?? myId;
-      setView(s.getView(isHost ? current : myId));
+      // Privacy: only project a local human seat. Never show AI / remote hands.
+      const current = s.getCurrentPlayerId();
+      const local = localSeatIdsRef.current;
+      const viewer =
+        isHost && current && local.has(current) ? current : myId;
+      setControllingId(viewer);
+      setView(s.getView(viewer));
     }
   }, [myId, isHost]);
 
@@ -514,6 +523,7 @@ export function PlayShell({
     const n = s.getLobby().seats.length;
     const id = `p-${n}`;
     s.addHumanSeat(id, `${locale === "zh" ? "玩家" : "Player"} ${n}`);
+    localSeatIdsRef.current.add(id);
     tick();
   };
 
@@ -636,8 +646,7 @@ export function PlayShell({
         <LoveLetterTable
           locale={locale}
           view={view}
-          myId={myId}
-          hotseat={isHost}
+          myId={controllingId}
           disabled={Boolean(thinkingId)}
           thinkingId={thinkingId}
           onAction={onDispatch}

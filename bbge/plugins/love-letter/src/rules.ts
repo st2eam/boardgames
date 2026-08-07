@@ -420,12 +420,15 @@ export function applyLoveLetterAction(
         const t = player(draft, targetId!);
         const myRank = me.hand[0]!.rank;
         const theirRank = t.hand[0]!.rank;
+        // Public event: only who lost (discard is public). Survivor rank stays private.
+        const loserId =
+          myRank < theirRank ? me.id : theirRank < myRank ? t.id : null;
         events.push({
           type: "loveLetter/baronCompare",
-          payload: { a: me.id, b: t.id, aRank: myRank, bRank: theirRank },
+          payload: { a: me.id, b: t.id, loserId },
         });
-        if (myRank < theirRank) eliminate(draft, me.id, events);
-        else if (theirRank < myRank) eliminate(draft, t.id, events);
+        if (loserId === me.id) eliminate(draft, me.id, events);
+        else if (loserId === t.id) eliminate(draft, t.id, events);
         break;
       }
       case 2: {
@@ -439,9 +442,10 @@ export function applyLoveLetterAction(
           targetId: t.id,
           rank: seen,
         };
+        // Rank is private via projectView pending — never broadcast in events.
         events.push({
           type: "loveLetter/priestPeek",
-          payload: { viewerId: me.id, targetId: t.id, rank: seen },
+          payload: { viewerId: me.id, targetId: t.id },
         });
         return;
       }

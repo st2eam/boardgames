@@ -97,11 +97,17 @@ export function formatPlayEvents(
           ? `${nameOf(String(p.playerId), names)} 确认偷看结果`
           : `${nameOf(String(p.playerId), names)} acknowledged the peek`;
         break;
-      case "loveLetter/baronCompare":
-        text = zh
-          ? `男爵比拼：${nameOf(String(p.a), names)}(${p.aRank}) vs ${nameOf(String(p.b), names)}(${p.bRank})`
-          : `Baron: ${nameOf(String(p.a), names)}(${p.aRank}) vs ${nameOf(String(p.b), names)}(${p.bRank})`;
+      case "loveLetter/baronCompare": {
+        const loser = p.loserId != null ? String(p.loserId) : null;
+        text = loser
+          ? zh
+            ? `男爵比拼：${nameOf(String(p.a), names)} vs ${nameOf(String(p.b), names)} → ${nameOf(loser, names)} 出局`
+            : `Baron: ${nameOf(String(p.a), names)} vs ${nameOf(String(p.b), names)} → ${nameOf(loser, names)} out`
+          : zh
+            ? `男爵比拼：${nameOf(String(p.a), names)} vs ${nameOf(String(p.b), names)} → 平局`
+            : `Baron: ${nameOf(String(p.a), names)} vs ${nameOf(String(p.b), names)} → tie`;
         break;
+      }
       case "loveLetter/forcedDiscard":
         text = zh
           ? `${nameOf(String(p.playerId), names)} 弃掉 ${rankName(Number(p.rank), true)}`

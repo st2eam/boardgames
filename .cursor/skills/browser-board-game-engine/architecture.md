@@ -485,7 +485,7 @@ first-party game server (static export constraint).
 - Runs **only on Host**; DeepSeek **`deepseek-v4-flash`** when chat API key present, else mock
 - Primary job: `Think(view) → Action` (play cards). Optional `speak` is unused in Love Letter v1
 - Thinking status broadcast; no auto table-talk from AI
-- LLM think budget ~90s; timeout uses ephemeral mock for **one turn** only
+- LLM **idle** timeout ~90s (resets while thinking/content streams); idle → ephemeral mock for **one turn** only
 - No API key on guests required
 
 Details: [plugin-api.md §16](plugin-api.md).

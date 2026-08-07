@@ -101,7 +101,7 @@ Task Progress:
 - [x] 5. Shelf: play.json, hasPlay, GameHeader Play first, /play/ shell
 - [x] 6. bbge/network: PeerJS + WebRTC data channel
 - [x] 7. Host authority + action/event broadcast + best-effort rejoin
-- [x] 8. AiSeat: DeepSeek flash for Actions + mock; 90s think budget
+- [x] 8. AiSeat: DeepSeek flash for Actions + mock; 90s idle timeout (resets on stream)
 - [x] 9. bbge/ui PlayShell + BGA LoveLetterTable (panels, log, chat, Motion)
 - [x] 10. Theme tokens + i18n; npm run test:bbge
 ```

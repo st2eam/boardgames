@@ -46,16 +46,60 @@ function newSeed(): string {
   return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
+/**
+ * Timeout based on **idle** time (no progress), not wall-clock from start.
+ * Call `ping()` whenever the model streams thinking / content.
+ */
+function withIdleTimeout<T>(
+  run: (ctl: { ping: () => void }) => Promise<T>,
+  idleMs: number,
+  label: string,
+  absoluteMaxMs?: number,
+): Promise<T> {
   return new Promise((resolve, reject) => {
-    const t = setTimeout(() => reject(new Error(`${label} timeout`)), ms);
-    promise.then(
+    let idleTimer: ReturnType<typeof setTimeout> | undefined;
+    let absoluteTimer: ReturnType<typeof setTimeout> | undefined;
+    let settled = false;
+
+    const clearAll = () => {
+      if (idleTimer !== undefined) clearTimeout(idleTimer);
+      if (absoluteTimer !== undefined) clearTimeout(absoluteTimer);
+    };
+
+    const fail = (msg: string) => {
+      if (settled) return;
+      settled = true;
+      clearAll();
+      reject(new Error(msg));
+    };
+
+    const armIdle = () => {
+      if (idleTimer !== undefined) clearTimeout(idleTimer);
+      idleTimer = setTimeout(
+        () => fail(`${label} idle timeout`),
+        idleMs,
+      );
+    };
+
+    armIdle();
+    if (absoluteMaxMs != null && absoluteMaxMs > 0) {
+      absoluteTimer = setTimeout(
+        () => fail(`${label} absolute timeout`),
+        absoluteMaxMs,
+      );
+    }
+
+    run({ ping: armIdle }).then(
       (v) => {
-        clearTimeout(t);
+        if (settled) return;
+        settled = true;
+        clearAll();
         resolve(v);
       },
       (e) => {
-        clearTimeout(t);
+        if (settled) return;
+        settled = true;
+        clearAll();
         reject(e);
       },
     );
@@ -394,13 +438,23 @@ export function PlayShell({
         }
       } else {
         const { seat, isLlm } = await resolveAiSeat(current);
-        const thinkBudgetMs = isLlm ? 90_000 : 8_000;
+        // Idle: no stream progress for this long → fallback.
+        // Streaming thinking/content calls ping() and resets the idle clock.
+        const idleMs = isLlm ? 90_000 : 8_000;
+        const absoluteMaxMs = isLlm ? 15 * 60_000 : undefined;
         let action: Action;
         try {
-          const decide = withTimeout(
-            seat.think(v, { onProgress: pushThinkProgress }),
-            thinkBudgetMs,
+          const decide = withIdleTimeout(
+            ({ ping }) =>
+              seat.think(v, {
+                onProgress: (p) => {
+                  ping();
+                  pushThinkProgress(p);
+                },
+              }),
+            idleMs,
             "AI think",
+            absoluteMaxMs,
           );
           const [, decided] = await Promise.all([sleep(paceMs), decide]);
           action = decided;
@@ -413,13 +467,17 @@ export function PlayShell({
           ]);
           action = decided;
           const why =
-            err instanceof Error && /timeout/i.test(err.message)
+            err instanceof Error && /idle timeout/i.test(err.message)
               ? locale === "zh"
-                ? "LLM 出牌超时"
-                : "LLM play timed out"
-              : locale === "zh"
-                ? "LLM 出牌失败"
-                : "LLM play failed";
+                ? "LLM 长时间无响应"
+                : "LLM idle (no response)"
+              : err instanceof Error && /timeout/i.test(err.message)
+                ? locale === "zh"
+                  ? "LLM 出牌超时"
+                  : "LLM play timed out"
+                : locale === "zh"
+                  ? "LLM 出牌失败"
+                  : "LLM play failed";
           setPlayLog((prev) => [
             ...prev,
             {

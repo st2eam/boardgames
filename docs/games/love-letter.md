@@ -51,8 +51,8 @@ hotseat / local AI → finish **one round** and declare a winner.
 - `projectView`: private hands; public discards; priest rank only for peeker
 - Host UI only shows **local** human seats (never AI / remote hands); pass-and-play switches among local seats only
 - Determinism + illegal-action + priest-reveal tests (`npm run test:bbge`)
-- AI pacing (min think UI + gap between seats); LLM think budget ~90s
-- Ephemeral local fallback on LLM timeout / illegal action — **does not** permanently replace LLM seat
+- AI pacing (min think UI + gap between seats); LLM **idle** timeout ~90s (resets on stream progress)
+- Ephemeral local fallback on LLM idle/timeout / illegal action — **does not** permanently replace LLM seat
 
 ### 3.2 Out
 
@@ -175,7 +175,7 @@ Path: `content/games/love-letter/play.json`.
 - Game-agnostic Host runner; plugins never call DeepSeek
 - Shelf: `DeepSeekLoveLetterSeat` uses **`deepseek-v4-flash`** + chat `loadApiKey`
 - Purpose: LLM outputs legal **Actions** (play / chancellor); not chat
-- Mock: `bbge/ai` heuristic fallback; LLM think budget ~90s
+- Mock: `bbge/ai` heuristic fallback; LLM idle timeout ~90s (ping on each stream chunk)
 - Priest pending for AI: short “look” delay then `acknowledgePriest` (no LLM)
 
 ---

@@ -392,30 +392,15 @@ export function LoveLetterTable({
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden p-2.5 sm:p-3">
-        <div className="shrink-0">
-        <StatusBar
-          locale={locale}
-          text={status.text}
-          tone={status.tone}
-          detail={thinkingId ? thinkingDetail : null}
-        />
-        </div>
-
-        {view.phase === "finished" && (
-          <div className="mt-2.5 shrink-0 rounded-xl border border-emerald-200 bg-emerald-50/80 px-3 py-2.5">
-            <div className="flex flex-wrap items-center gap-2">
-              <p className="min-w-0 flex-1 text-sm font-medium text-emerald-950">
-                {zh
-                  ? view.endReason === "hand_compare"
-                    ? "牌堆耗尽，亮牌比点如下。"
-                    : view.endReason === "last_standing"
-                      ? "其余玩家均已出局。"
-                      : "本局已结束。"
-                  : view.endReason === "hand_compare"
-                    ? "Deck empty — final hands compared below."
-                    : view.endReason === "last_standing"
-                      ? "All other players are out."
-                      : "Match over."}
+        {view.phase === "finished" ? (
+          <div
+            className="shrink-0 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-950 shadow-sm"
+            role="status"
+          >
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-500" />
+              <p className="min-w-0 flex-1 font-heading text-sm font-semibold leading-snug sm:text-base">
+                {status.text}
               </p>
               {onRematch ? (
                 <button
@@ -432,7 +417,7 @@ export function LoveLetterTable({
               )}
             </div>
             {(view.standings?.length ?? 0) > 0 && (
-              <div className="mt-2 overflow-x-auto rounded-lg border border-emerald-200/80 bg-white/70">
+              <div className="mt-2.5 overflow-x-auto rounded-lg border border-emerald-200/80 bg-white/70">
                 <table className="w-full min-w-[280px] text-left text-[11px]">
                   <thead>
                     <tr className="border-b border-emerald-100 text-[10px] uppercase tracking-wide text-emerald-800/70">
@@ -456,9 +441,7 @@ export function LoveLetterTable({
                                 ? s.handName?.zh ?? String(s.handRank)
                                 : s.handName?.en ?? String(s.handRank)
                             }`
-                          : zh
-                            ? "—"
-                            : "—";
+                          : "—";
                       const result = s.eliminated
                         ? zh
                           ? "出局"
@@ -501,6 +484,15 @@ export function LoveLetterTable({
                 </table>
               </div>
             )}
+          </div>
+        ) : (
+          <div className="shrink-0">
+            <StatusBar
+              locale={locale}
+              text={status.text}
+              tone={status.tone}
+              detail={thinkingId ? thinkingDetail : null}
+            />
           </div>
         )}
 

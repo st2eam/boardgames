@@ -79,7 +79,7 @@ Full detail: [architecture.md §11](architecture.md).
 | Decision | Value |
 |----------|--------|
 | Approach | A — Shelf + `bbge/*` + PeerJS-like signaling + WebRTC |
-| First game | Love Letter (**one round** ends match); editions **classic** / **full** / **expansion** |
+| Playable | Love Letter (classic/full/expansion); **Texas Hold'em** NLHE one-hand cash 2–9 |
 | Design doc | [`docs/games/love-letter.md`](../../../docs/games/love-letter.md) |
 | Multiplayer | Host + share link join from day one |
 | AI | Reusable `AiSeat` on Host; `deepseek-v4-flash` + optional `speak`; mock without key |

@@ -15,6 +15,10 @@ export default defineConfig({
       "@bbge/ai": path.resolve(__dirname, "ai/src"),
       "@bbge/ui": path.resolve(__dirname, "ui/src"),
       "@bbge/love-letter": path.resolve(__dirname, "plugins/love-letter/src"),
+      "@bbge/texas-holdem": path.resolve(
+        __dirname,
+        "plugins/texas-holdem/src",
+      ),
     },
   },
 });

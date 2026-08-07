@@ -18,8 +18,10 @@ export interface LobbyState {
   seats: LobbySeat[];
   hostPlayerId: PlayerId;
   seed: string;
-  /** Optional game edition (e.g. love-letter full | premium); synced to guests. */
+  /** Optional game edition (e.g. love-letter classic | full); synced to guests. */
   edition?: string;
+  /** Extra createGame config snapshot for lobby UI (blinds, etc.). */
+  gameConfig?: Record<string, unknown>;
 }
 
 export interface AiChatMessage {
@@ -78,7 +80,10 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
   }
 
   getLobby(): LobbyState {
-    return structuredClone(this.lobby);
+    return structuredClone({
+      ...this.lobby,
+      gameConfig: { ...this.gameConfig },
+    });
   }
 
   getSeed(): string {

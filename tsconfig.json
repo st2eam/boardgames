@@ -26,7 +26,8 @@
       "@bbge/network": ["./bbge/network/src"],
       "@bbge/ai": ["./bbge/ai/src"],
       "@bbge/ui": ["./bbge/ui/src"],
-      "@bbge/love-letter": ["./bbge/plugins/love-letter/src"]
+      "@bbge/love-letter": ["./bbge/plugins/love-letter/src"],
+      "@bbge/texas-holdem": ["./bbge/plugins/texas-holdem/src"]
     }
   },
   "include": [

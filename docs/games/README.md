@@ -9,6 +9,7 @@ docs/games/<slug>.md
 | File | Game | Status |
 |------|------|--------|
 | [love-letter.md](love-letter.md) | Love Letter — classic / full / expansion | Shipped on `main` (lobby edition picker; expansion art from card pack) |
+| [texas-hold-em.md](texas-hold-em.md) | Texas Hold'em — NLHE one-hand cash (2–9) | Shipped on `main` (custom blinds, Motion + bubbles) |
 
 Platform skill: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/SKILL.md).  
 Shelf feature map: [`docs/architecture.md`](../architecture.md).

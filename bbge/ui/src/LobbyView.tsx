@@ -18,10 +18,17 @@ interface Props {
   onAddHotseat: () => void;
   onStart: () => void;
   onReady: () => void;
-  /** Host-only edition picker (e.g. Love Letter full / premium) */
+  /** Host-only edition picker (e.g. Love Letter) */
   editions?: LobbyEditionOption[];
   edition?: string;
   onEditionChange?: (id: string) => void;
+  /** Texas Hold'em stakes (lobby customizable) */
+  stakes?: { smallBlind: number; bigBlind: number; startingStack: number };
+  onStakesChange?: (patch: {
+    smallBlind?: number;
+    bigBlind?: number;
+    startingStack?: number;
+  }) => void;
   maxSeats?: number;
 }
 
@@ -80,6 +87,8 @@ export function LobbyView({
   editions,
   edition,
   onEditionChange,
+  stakes,
+  onStakesChange,
   maxSeats,
 }: Props) {
   const zh = locale === "zh";
@@ -111,6 +120,50 @@ export function LobbyView({
 
       <div className="grid min-h-0 flex-1 gap-4 overflow-hidden p-4 lg:grid-cols-[minmax(0,1fr)_280px]">
         <div className="flex min-h-0 flex-col space-y-4 overflow-y-auto rounded-2xl border border-border bg-white/95 p-4 shadow-sm">
+          {stakes && (
+            <div className="shrink-0 rounded-xl border border-border bg-surface/80 p-3">
+              <p className="mb-2 font-heading text-xs font-bold text-stone-500">
+                {zh ? "盲注 / 筹码" : "Blinds / Stack"}
+              </p>
+              <div className="grid gap-2 sm:grid-cols-3">
+                {(
+                  [
+                    ["smallBlind", zh ? "小盲" : "SB", stakes.smallBlind],
+                    ["bigBlind", zh ? "大盲" : "BB", stakes.bigBlind],
+                    [
+                      "startingStack",
+                      zh ? "起始筹码" : "Stack",
+                      stakes.startingStack,
+                    ],
+                  ] as const
+                ).map(([key, label, value]) => (
+                  <label key={key} className="block">
+                    <span className="mb-1 block text-[11px] font-semibold text-stone-500">
+                      {label}
+                    </span>
+                    <input
+                      type="number"
+                      min={1}
+                      disabled={!onStakesChange}
+                      className="w-full rounded-lg border border-border bg-white px-2.5 py-2 text-sm disabled:opacity-60"
+                      value={value}
+                      onChange={(e) =>
+                        onStakesChange?.({
+                          [key]: Math.max(1, Math.floor(Number(e.target.value) || 1)),
+                        })
+                      }
+                    />
+                  </label>
+                ))}
+              </div>
+              <p className="mt-1.5 text-[11px] text-stone-400">
+                {zh
+                  ? "大盲 ≥ 2×小盲；起始筹码 ≥ 20×大盲"
+                  : "BB ≥ 2×SB; stack ≥ 20×BB"}
+              </p>
+            </div>
+          )}
+
           {editions && editions.length > 1 && (
             <div className="shrink-0">
               <p className="mb-1.5 font-heading text-xs font-bold text-stone-500">

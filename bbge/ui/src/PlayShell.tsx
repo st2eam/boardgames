@@ -149,7 +149,13 @@ export function PlayShell({
   const [edition, setEdition] = useState<LoveLetterEditionId>(() =>
     normalizeEdition(editionProp),
   );
-  const maxSeats = maxSeatsForEdition(edition);
+  const isHoldem = pluginId === "texas-holdem";
+  const [stakes, setStakes] = useState({
+    smallBlind: 1,
+    bigBlind: 2,
+    startingStack: 200,
+  });
+  const maxSeats = isHoldem ? 9 : maxSeatsForEdition(edition);
   const showEditions = pluginId === "love-letter";
   const [roomId, setRoomId] = useState(roomIdFromUrl ?? "");
   const [error, setError] = useState<string | null>(null);
@@ -253,7 +259,9 @@ export function PlayShell({
       seed: newSeed(),
       hostPlayerId: hostId,
       canStartAi: async () => true,
-      gameConfig: { edition },
+      gameConfig: isHoldem
+        ? { ...stakes }
+        : { edition },
     });
     session.addHumanSeat(hostId, displayName);
     session.setReady(hostId, true);
@@ -327,16 +335,20 @@ export function PlayShell({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHost, pluginId]);
 
-  // Keep session gameConfig in sync when lobby edition changes (do not remount room).
+  // Keep session gameConfig in sync when lobby options change (do not remount room).
   useEffect(() => {
     if (!isHost) return;
+    if (isHoldem) {
+      sessionRef.current?.setGameConfig({ ...stakes });
+      return;
+    }
     sessionRef.current?.setGameConfig({ edition });
     if (typeof window !== "undefined" && !roomIdFromUrl) {
       const url = new URL(window.location.href);
       url.searchParams.set("edition", edition);
       window.history.replaceState({}, "", url.toString());
     }
-  }, [edition, isHost, roomIdFromUrl]);
+  }, [edition, stakes, isHost, isHoldem, roomIdFromUrl]);
 
   useEffect(() => {
     if (isHost || !roomIdFromUrl) return;
@@ -367,6 +379,19 @@ export function PlayShell({
               lb.edition === "premium"
             ) {
               setEdition(normalizeEdition(lb.edition));
+            }
+            const gc = lb.gameConfig;
+            if (
+              gc &&
+              typeof gc.smallBlind === "number" &&
+              typeof gc.bigBlind === "number" &&
+              typeof gc.startingStack === "number"
+            ) {
+              setStakes({
+                smallBlind: gc.smallBlind,
+                bigBlind: gc.bigBlind,
+                startingStack: gc.startingStack,
+              });
             }
           }
           if (msg.type === "view") setView(msg.payload);
@@ -684,6 +709,31 @@ export function PlayShell({
     host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
   };
 
+  const onStakesChange = (patch: {
+    smallBlind?: number;
+    bigBlind?: number;
+    startingStack?: number;
+  }) => {
+    const s = sessionRef.current;
+    if (!s || s.getPhase() !== "lobby") return;
+    setStakes((prev) => {
+      const next = { ...prev, ...patch };
+      if (next.bigBlind < next.smallBlind * 2) {
+        next.bigBlind = next.smallBlind * 2;
+      }
+      if (next.startingStack < next.bigBlind * 20) {
+        next.startingStack = next.bigBlind * 20;
+      }
+      if (next.startingStack > 100_000) next.startingStack = 100_000;
+      s.setGameConfig({ ...next });
+      const host = peerRef.current as PeerHost | null;
+      host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
+      return next;
+    });
+    setError(null);
+    tick();
+  };
+
   const onAddAi = () => {
     const s = sessionRef.current;
     if (!s) return;
@@ -881,6 +931,8 @@ export function PlayShell({
             onEditionChange={
               showEditions && isHost ? onEditionChange : undefined
             }
+            stakes={isHoldem ? stakes : undefined}
+            onStakesChange={isHoldem && isHost ? onStakesChange : undefined}
             maxSeats={maxSeats}
           />
         </div>

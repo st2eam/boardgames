@@ -101,21 +101,22 @@ function hasFlushDraw(hole: Card[], board: Card[]): boolean {
 
 function hasOpenEndedStraightDraw(hole: Card[], board: Card[]): boolean {
   if (board.length < 3 || board.length > 4) return false;
-  const ranks = [...new Set([...hole, ...board].map((c) => c.rank))].sort(
-    (a, b) => a - b,
-  );
-  // Wheel draw pieces
-  const set = new Set(ranks);
-  if (set.has(14)) set.add(1);
-  const uniq = [...set].sort((a, b) => a - b);
+  const ranks = [...new Set([...hole, ...board].map((c) => Number(c.rank)))];
+  // Wheel: treat Ace as 1 as well
+  if (ranks.includes(14)) ranks.push(1);
+  const uniq = [...new Set(ranks)].sort((a, b) => a - b);
   for (let i = 0; i < uniq.length; i++) {
-    const window = uniq.filter((r) => r >= uniq[i]! && r <= uniq[i]! + 3);
-    if (window.length === 4) {
-      // 4 ranks in a 4-span → OESD-ish; require a hole card participates
-      const needed = [uniq[i]!, uniq[i]! + 1, uniq[i]! + 2, uniq[i]! + 3];
-      if (hole.some((c) => needed.includes(c.rank) || (c.rank === 14 && needed.includes(1)))) {
-        return true;
-      }
+    const start = uniq[i]!;
+    const needed = [start, start + 1, start + 2, start + 3];
+    if (!needed.every((r) => uniq.includes(r))) continue;
+    // 4 ranks in a 4-span → OESD-ish; require a hole card participates
+    if (
+      hole.some(
+        (c) =>
+          needed.includes(c.rank) || (c.rank === 14 && needed.includes(1)),
+      )
+    ) {
+      return true;
     }
   }
   return false;

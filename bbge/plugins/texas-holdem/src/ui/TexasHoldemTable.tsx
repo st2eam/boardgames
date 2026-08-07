@@ -1,13 +1,22 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
-import { BattleLogList, PlaySideSheet, useIsMobileLayout } from "@bbge/ui";
+import {
+  MatchResultBar,
+  PlayFeltFrame,
+  PlayLogChatPanel,
+  PlaySideSheet,
+  PlayTableShell,
+  SeatSpeechSlot,
+  ThinkingStatusBanner,
+  useIsMobileLayout,
+  useScrollActiveSeatIntoView,
+  useSeatBubbles,
+} from "@bbge/ui";
 import { PlayingCard } from "./PlayingCard";
-
-type SeatBubble = { id: string; text: string };
 
 type ArenaView = {
   phase: string;
@@ -49,7 +58,6 @@ type ArenaView = {
   lastAward?: { amounts: Record<string, number>; potTotal: number } | null;
 };
 
-const BUBBLE_MS = 3800;
 
 export function TexasHoldemTable({
   locale,
@@ -71,13 +79,7 @@ export function TexasHoldemTable({
   const mobile = useIsMobileLayout();
   const actorId = myId;
   const [raiseTo, setRaiseTo] = useState(view.minRaiseTo ?? view.bigBlind * 2);
-  const [chatText, setChatText] = useState("");
-  const [bubbles, setBubbles] = useState<Record<string, SeatBubble>>({});
   const [sideOpen, setSideOpen] = useState(false);
-  const [statusOpen, setStatusOpen] = useState(false);
-  const seenLogIds = useRef(new Set<string>());
-  const seenChat = useRef(new Set<string>());
-  const timers = useRef(new Map<string, number>());
   const seatsRowRef = useRef<HTMLDivElement>(null);
   const heroSeatRef = useRef<HTMLDivElement>(null);
   const handNumber = view.handNumber ?? 1;
@@ -85,79 +87,23 @@ export function TexasHoldemTable({
   const showdownOpen =
     view.phase === "finished" &&
     view.seats.some((s) => !s.folded && s.hole.some((c) => c.rank != null));
+  const bubbles = useSeatBubbles({
+    playLog,
+    chat,
+    durationMs: 3800,
+    resetKey: handNumber,
+  });
+  useScrollActiveSeatIntoView({
+    activeSeatId: view.currentPlayerId,
+    enabled: mobile && view.phase === "playing",
+    smooth: !reduce,
+    roots: [seatsRowRef, heroSeatRef],
+    resetKey: handNumber,
+  });
 
   useEffect(() => {
     setRaiseTo(Math.max(view.minRaiseTo, view.currentBet + view.bigBlind));
   }, [view.minRaiseTo, view.currentBet, view.bigBlind]);
-
-  useEffect(() => {
-    setBubbles({});
-    for (const t of timers.current.values()) window.clearTimeout(t);
-    timers.current.clear();
-  }, [handNumber]);
-
-  /** Mobile: keep the acting seat in view (opponents rail or hero chip). */
-  useEffect(() => {
-    if (!mobile || view.phase !== "playing") return;
-    const id = view.currentPlayerId;
-    if (!id) return;
-    const smooth = !reduce;
-    const opts: ScrollIntoViewOptions = {
-      behavior: smooth ? "smooth" : "auto",
-      inline: "center",
-      block: "nearest",
-    };
-    if (id === actorId) {
-      heroSeatRef.current?.scrollIntoView(opts);
-      return;
-    }
-    const row = seatsRowRef.current;
-    if (!row) return;
-    const el = row.querySelector<HTMLElement>(
-      `[data-seat-id="${CSS.escape(id)}"]`,
-    );
-    el?.scrollIntoView(opts);
-  }, [mobile, view.currentPlayerId, view.phase, actorId, reduce, handNumber]);
-
-  const showBubble = (seatId: string, id: string, text: string) => {
-    const prev = timers.current.get(seatId);
-    if (prev) window.clearTimeout(prev);
-    setBubbles((m) => ({ ...m, [seatId]: { id, text } }));
-    const t = window.setTimeout(() => {
-      setBubbles((m) => {
-        if (m[seatId]?.id !== id) return m;
-        const next = { ...m };
-        delete next[seatId];
-        return next;
-      });
-      timers.current.delete(seatId);
-    }, BUBBLE_MS);
-    timers.current.set(seatId, t);
-  };
-
-  useEffect(() => {
-    for (const e of playLog) {
-      if (seenLogIds.current.has(e.id)) continue;
-      seenLogIds.current.add(e.id);
-      if (e.speakerId && e.bubble) showBubble(e.speakerId, e.id, e.bubble);
-    }
-  }, [playLog]);
-
-  useEffect(() => {
-    for (const m of chat) {
-      const key = `${m.playerId}-${m.at}-${m.text}`;
-      if (seenChat.current.has(key)) continue;
-      seenChat.current.add(key);
-      showBubble(m.playerId, `chat-${key}`, m.text);
-    }
-  }, [chat]);
-
-  useEffect(
-    () => () => {
-      for (const t of timers.current.values()) window.clearTimeout(t);
-    },
-    [],
-  );
 
   const isMyTurn =
     view.phase === "playing" && view.currentPlayerId === actorId;
@@ -209,24 +155,22 @@ export function TexasHoldemTable({
   };
 
   const sidePanel = (
-    <SidePanel
+    <PlayLogChatPanel
       locale={locale}
-      zh={zh}
       playLog={playLog}
       chat={chat}
-      chatText={chatText}
-      setChatText={setChatText}
       onChat={onChat}
+      nameOf={nameOf}
     />
   );
 
   return (
-    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/25 bg-[#efe6d8] shadow-card">
-      <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-[#3E2723]/15 bg-[#5D4037] px-3 py-2 text-amber-50 sm:px-4 sm:py-2.5">
-        <p className="font-heading text-sm font-bold tracking-wide">
-          {zh ? "德州扑克 · 现金桌" : "Texas Hold'em · Cash"}
-        </p>
-        <div className="flex flex-wrap items-center gap-2 text-xs text-amber-100/85 sm:gap-3">
+    <PlayTableShell
+      locale={locale}
+      title={zh ? "德州扑克 · 现金桌" : "Texas Hold'em · Cash"}
+      onOpenLog={mobile ? () => setSideOpen(true) : undefined}
+      toolbarExtra={
+        <>
           <span>
             {zh ? "盲注" : "Blinds"}{" "}
             <strong className="text-accent">
@@ -238,57 +182,26 @@ export function TexasHoldemTable({
             <strong className="text-accent">{view.potTotal}</strong>
           </span>
           <span className="uppercase tracking-wide">{view.street}</span>
-          {mobile && (
-            <button
-              type="button"
-              onClick={() => setSideOpen(true)}
-              className="cursor-pointer rounded-lg bg-white/15 px-2.5 py-1 font-heading text-[11px] font-bold text-amber-50 hover:bg-white/25"
-            >
-              {zh ? "战报" : "Log"}
-            </button>
-          )}
-        </div>
-      </div>
-
-      <div className="flex min-h-0 flex-1 flex-col gap-1.5 overflow-hidden p-1.5 sm:gap-2 sm:p-3">
-        <button
-          type="button"
-          onClick={() =>
-            thinkingId && thinkingDetail
-              ? setStatusOpen((v) => !v)
-              : undefined
-          }
-          className={[
-            "flex min-h-11 shrink-0 flex-col justify-center overflow-hidden rounded-xl border px-3 py-1.5 text-left text-sm shadow-sm",
+        </>
+      }
+    >
+        <ThinkingStatusBanner
+          locale={locale}
+          text={status}
+          tone={
             view.phase === "finished"
-              ? "border-emerald-200 bg-emerald-50 text-emerald-950"
-              : "border-border bg-white/90 text-primary-dark",
-            thinkingId && thinkingDetail ? "cursor-pointer" : "cursor-default",
-          ].join(" ")}
-        >
-          <p className="truncate font-heading font-semibold leading-tight">
-            {status}
-          </p>
-          <p className="mt-0.5 truncate text-[11px] leading-tight text-stone-500">
-            {thinkingId && thinkingDetail
-              ? statusOpen
-                ? zh
-                  ? "点按收起思路"
-                  : "Tap to hide thoughts"
-                : zh
-                  ? "点按查看思路"
-                  : "Tap for thoughts"
-              : "\u00a0"}
-          </p>
-          {statusOpen && thinkingDetail && (
-            <pre className="mt-1 max-h-28 overflow-y-auto whitespace-pre-wrap break-words border-t border-border/60 pt-1 font-sans text-[11px] leading-relaxed text-stone-700">
-              {thinkingDetail}
-            </pre>
-          )}
-        </button>
+              ? "done"
+              : thinkingId
+                ? "wait"
+                : isMyTurn
+                  ? "you"
+                  : "idle"
+          }
+          detail={thinkingId ? thinkingDetail : null}
+        />
 
         <div className="grid min-h-0 flex-1 gap-2 overflow-hidden lg:grid-cols-[1fr_220px]">
-          <div className="relative min-h-0 overflow-hidden rounded-xl border-[4px] border-[#4E342E] shadow-inner sm:rounded-2xl sm:border-[6px]">
+          <PlayFeltFrame>
             <div
               className="absolute inset-0"
               style={{
@@ -445,7 +358,7 @@ export function TexasHoldemTable({
                 )}
               </div>
             </div>
-          </div>
+          </PlayFeltFrame>
 
           <aside className="hidden min-h-0 flex-col gap-2 overflow-hidden lg:flex">
             {sidePanel}
@@ -490,21 +403,11 @@ export function TexasHoldemTable({
                 </button>
               )}
               {view.phase === "finished" && (
-                <div className="ml-auto flex min-h-11 items-center">
-                  {onRematch ? (
-                    <button
-                      type="button"
-                      onClick={onRematch}
-                      className="min-h-11 cursor-pointer rounded-xl bg-accent px-5 py-2.5 font-heading text-sm font-bold text-white hover:bg-accent-dark"
-                    >
-                      {zh ? "下一手" : "Next hand"}
-                    </button>
-                  ) : (
-                    <span className="px-1 text-xs text-stone-500">
-                      {zh ? "等待房主…" : "Waiting…"}
-                    </span>
-                  )}
-                </div>
+                <MatchResultBar
+                  locale={locale}
+                  onRematch={onRematch}
+                  label={zh ? "下一手" : "Next hand"}
+                />
               )}
             </div>
 
@@ -584,8 +487,6 @@ export function TexasHoldemTable({
             </div>
           </div>
         </div>
-      </div>
-
       <PlaySideSheet
         locale={locale}
         open={Boolean(mobile && sideOpen)}
@@ -594,106 +495,7 @@ export function TexasHoldemTable({
       >
         {sidePanel}
       </PlaySideSheet>
-    </div>
-  );
-}
-
-function SidePanel({
-  locale,
-  zh,
-  playLog,
-  chat,
-  chatText,
-  setChatText,
-  onChat,
-}: {
-  locale: string;
-  zh: boolean;
-  playLog: PluginTableProps["playLog"];
-  chat: PluginTableProps["chat"];
-  chatText: string;
-  setChatText: (v: string) => void;
-  onChat?: PluginTableProps["onChat"];
-}) {
-  const chatRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = chatRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
-  }, [chat]);
-
-  return (
-    <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
-      <BattleLogList
-        locale={locale}
-        entries={playLog ?? []}
-        title={zh ? "战报" : "Log"}
-        className="rounded-xl border border-border bg-white/95 p-2"
-      />
-      {onChat && (
-        <form
-          className="flex shrink-0 gap-1"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const t = chatText.trim();
-            if (!t) return;
-            onChat(t);
-            setChatText("");
-          }}
-        >
-          <input
-            className="min-h-11 min-w-0 flex-1 rounded-lg border border-border px-2 py-2 text-xs"
-            value={chatText}
-            onChange={(e) => setChatText(e.target.value)}
-            placeholder={zh ? "桌边闲聊…" : "Table chat…"}
-          />
-          <button
-            type="submit"
-            className="min-h-11 cursor-pointer rounded-lg bg-primary px-3 py-2 text-xs font-bold text-white"
-          >
-            {zh ? "发送" : "Send"}
-          </button>
-        </form>
-      )}
-      {(chat ?? []).length > 0 && (
-        <div
-          ref={chatRef}
-          className="max-h-24 shrink-0 touch-pan-y overflow-y-auto overscroll-contain rounded-lg border border-border bg-white/80 px-2 py-1 text-[11px] text-stone-600 lg:hidden"
-        >
-          {(chat ?? []).slice(-8).map((m, i) => (
-            <p key={`${m.playerId}-${m.at}-${i}`}>
-              <span className="font-semibold">{m.playerId}</span>: {m.text}
-            </p>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function PositionBadge({
-  kind,
-  label,
-}: {
-  kind: "d" | "s" | "b";
-  label: string;
-}) {
-  const tone =
-    kind === "d"
-      ? "bg-white text-[#1a1a1a] ring-1 ring-black/25"
-      : kind === "s"
-        ? "bg-sky-500 text-white ring-1 ring-sky-800/30"
-        : "bg-rose-600 text-white ring-1 ring-rose-900/30";
-  return (
-    <span
-      title={label}
-      className={[
-        "inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full font-heading text-[11px] font-black shadow-sm",
-        tone,
-      ].join(" ")}
-    >
-      {kind === "d" ? "D" : kind === "s" ? "S" : "B"}
-    </span>
+    </PlayTableShell>
   );
 }
 
@@ -712,7 +514,7 @@ function SeatChip({
   locale: string;
   active: boolean;
   thinking: boolean;
-  bubble?: SeatBubble;
+  bubble?: { id: string; text: string };
   foldedAnim: boolean;
   you?: boolean;
   compact?: boolean;
@@ -746,22 +548,7 @@ function SeatChip({
       }}
       transition={{ duration: 0.25 }}
     >
-      {/* Fixed-height slot — speak on/off must not resize the seat chip. */}
-      <div className="relative mb-1 h-8 w-full shrink-0 sm:h-9">
-        <AnimatePresence>
-          {bubble && (
-            <motion.div
-              key={bubble.id}
-              initial={{ opacity: 0, y: 2 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden rounded-lg bg-[#3E2723] px-1.5 text-center font-heading text-[10px] font-bold leading-tight text-amber-50 shadow-sm sm:px-2 sm:text-[11px]"
-            >
-              <span className="line-clamp-2 break-words">{bubble.text}</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      <SeatSpeechSlot bubble={bubble} />
       <div className="flex items-center justify-between gap-1">
         <div className="flex min-w-0 items-center gap-1">
           {(seat.isButton || seat.isSmallBlind || seat.isBigBlind) && (
@@ -826,5 +613,31 @@ function SeatChip({
         </div>
       )}
     </motion.div>
+  );
+}
+
+function PositionBadge({
+  kind,
+  label,
+}: {
+  kind: "d" | "s" | "b";
+  label: string;
+}) {
+  const tone =
+    kind === "d"
+      ? "bg-white text-[#1a1a1a] ring-1 ring-black/25"
+      : kind === "s"
+        ? "bg-sky-500 text-white ring-1 ring-sky-800/30"
+        : "bg-rose-600 text-white ring-1 ring-rose-900/30";
+  return (
+    <span
+      title={label}
+      className={[
+        "inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full font-heading text-[11px] font-black shadow-sm",
+        tone,
+      ].join(" ")}
+    >
+      {kind === "d" ? "D" : kind === "s" ? "S" : "B"}
+    </span>
   );
 }

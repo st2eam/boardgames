@@ -12,6 +12,10 @@
   --color-border: #D7CCC8;
   --color-success: #4CAF50;
 
+  /* BBGE play-table chrome (warm felt desk) */
+  --color-table-cream: #efe6d8;
+  --color-table-rail: #4E342E;
+
   /* Bento-grid soft shadows */
   --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04);
   --shadow-card-hover: 0 10px 25px -5px rgb(0 0 0 / 0.08), 0 4px 10px -6px rgb(0 0 0 / 0.04);

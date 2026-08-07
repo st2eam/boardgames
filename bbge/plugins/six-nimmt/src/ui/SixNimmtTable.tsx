@@ -1,10 +1,21 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
-import { BattleLogList, PlaySideSheet, useIsMobileLayout } from "@bbge/ui";
+import {
+  MatchResultBar,
+  PlayFeltFrame,
+  PlayLogChatPanel,
+  PlaySideSheet,
+  PlayTableShell,
+  SeatSpeechSlot,
+  ThinkingStatusBanner,
+  useIsMobileLayout,
+  useScrollActiveSeatIntoView,
+  useSeatBubbles,
+} from "@bbge/ui";
 import { NimmtCard } from "./NimmtCard";
 
 type CardV = {
@@ -122,14 +133,21 @@ export function SixNimmtTable({
   const view = viewUnknown as ArenaView;
   const zh = locale === "zh";
   const mobile = useIsMobileLayout();
+  const reduce = useReducedMotion();
   const [pickId, setPickId] = useState<string | null>(null);
   const [useFlip, setUseFlip] = useState(false);
   const [sideOpen, setSideOpen] = useState(false);
-  const [chatText, setChatText] = useState("");
-  const [statusOpen, setStatusOpen] = useState(false);
   const [specialKind, setSpecialKind] = useState<string | null>(null);
   const [specialFace, setSpecialFace] = useState<number | null>(null);
+  const seatsRowRef = useRef<HTMLDivElement>(null);
   const cardSize = mobile ? "md" : "lg";
+  const roundKey = `${view.round}-${view.trick}`;
+  const bubbles = useSeatBubbles({
+    playLog,
+    chat,
+    durationMs: 4200,
+    resetKey: roundKey,
+  });
   const thinkingSet = useMemo(() => {
     const ids = thinkingIds?.length
       ? thinkingIds
@@ -233,6 +251,25 @@ export function SixNimmtTable({
       : `Round ${view.round} · trick ${view.trick} · pick a card`;
   }, [view, thinkingSet, zh, nameOf, myId]);
 
+  const statusTone = useMemo(() => {
+    if (view.phase === "finished") return "done" as const;
+    if (thinkingSet.size > 0) return "wait" as const;
+    if (canChoose || canDraft || canSpecial || canPlay) return "you" as const;
+    return "idle" as const;
+  }, [view.phase, thinkingSet.size, canChoose, canDraft, canSpecial, canPlay]);
+
+  const scrollActiveId =
+    view.currentPlayerId ??
+    (thinkingSet.size === 1 ? [...thinkingSet][0] : null);
+
+  useScrollActiveSeatIntoView({
+    activeSeatId: scrollActiveId,
+    enabled: mobile && view.phase !== "finished",
+    smooth: !reduce,
+    roots: [seatsRowRef],
+    resetKey: roundKey,
+  });
+
   const dispatch = (action: Action) => onAction(action);
 
   const rowBadge = (ri: number) => {
@@ -257,23 +294,32 @@ export function SixNimmtTable({
     return bits.join(" · ");
   };
 
-  const sidePanel = (
-    <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
-      <div className="max-h-[38%] shrink-0 space-y-1 overflow-y-auto overscroll-contain rounded-xl border border-border bg-white/95 p-2 text-[11px]">
-        <p className="mb-1 font-heading text-xs font-bold text-stone-500">
-          {zh ? "玩家 / 分数" : "Players / scores"}
-        </p>
-        {view.seats.map((s) => (
-          <div
-            key={s.id}
-            className={[
-              "flex items-center justify-between rounded-lg px-2 py-1.5",
-              s.hasPlayed && view.phase === "selecting"
-                ? "bg-emerald-50"
-                : "bg-surface",
-              thinkingSet.has(s.id) ? "ring-1 ring-sky-400" : "",
-            ].join(" ")}
-          >
+  const playersHeader = (
+    <div
+      ref={seatsRowRef}
+      className="max-h-[38%] shrink-0 space-y-1 overflow-y-auto overscroll-contain rounded-xl border border-border bg-white/95 p-2 text-[11px]"
+    >
+      <p className="mb-1 font-heading text-xs font-bold text-stone-500">
+        {zh ? "玩家 / 分数" : "Players / scores"}
+      </p>
+      {view.seats.map((s) => (
+        <div
+          key={s.id}
+          data-seat-id={s.id}
+          className={[
+            "relative rounded-lg px-2 py-1.5",
+            s.hasPlayed && view.phase === "selecting"
+              ? "bg-emerald-50"
+              : "bg-surface",
+            thinkingSet.has(s.id) ? "ring-1 ring-sky-400" : "",
+          ].join(" ")}
+        >
+          <SeatSpeechSlot
+            bubble={bubbles[s.id]}
+            variant="cream"
+            className="!mb-0 !h-6 sm:!h-7"
+          />
+          <div className="flex items-center justify-between">
             <span className="truncate font-heading font-bold text-primary-dark">
               {s.isYou ? (zh ? "你" : "You") : s.name}
               {view.phase === "selecting" &&
@@ -286,62 +332,46 @@ export function SixNimmtTable({
               ) : null}
             </span>
           </div>
-        ))}
-        {view.buffalo && (
-          <div className="mt-2 rounded-lg bg-amber-50 px-2 py-1.5 text-amber-950">
-            <p className="font-heading font-bold">
-              {zh ? "水牛" : "Buffalo"} · {view.buffalo.handCount}
-              {zh ? " 张" : " left"}
-            </p>
-            <p>
-              {zh ? "队伍" : "Team"} {view.buffalo.teamBullheads} ·{" "}
-              {zh ? "水牛" : "Buffalo"} {view.buffalo.takenBullheads}
-            </p>
-          </div>
-        )}
-      </div>
-      <BattleLogList
-        locale={locale}
-        entries={playLog ?? []}
-        title={zh ? "战报" : "Log"}
-        className="rounded-xl border border-border bg-white/95 p-2"
-      />
-      {onChat && (
-        <form
-          className="flex shrink-0 gap-1"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const t = chatText.trim();
-            if (!t) return;
-            onChat(t);
-            setChatText("");
-          }}
-        >
-          <input
-            className="min-h-10 min-w-0 flex-1 rounded-lg border border-border px-2 py-2 text-xs"
-            value={chatText}
-            onChange={(e) => setChatText(e.target.value)}
-            placeholder={zh ? "桌边闲聊…" : "Table chat…"}
-          />
-          <button
-            type="submit"
-            className="cursor-pointer rounded-lg bg-primary px-3 py-2 text-xs font-bold text-white"
-          >
-            {zh ? "发送" : "Send"}
-          </button>
-        </form>
+        </div>
+      ))}
+      {view.buffalo && (
+        <div className="mt-2 rounded-lg bg-amber-50 px-2 py-1.5 text-amber-950">
+          <p className="font-heading font-bold">
+            {zh ? "水牛" : "Buffalo"} · {view.buffalo.handCount}
+            {zh ? " 张" : " left"}
+          </p>
+          <p>
+            {zh ? "队伍" : "Team"} {view.buffalo.teamBullheads} ·{" "}
+            {zh ? "水牛" : "Buffalo"} {view.buffalo.takenBullheads}
+          </p>
+        </div>
       )}
     </div>
   );
 
+  const sidePanel = (
+    <PlayLogChatPanel
+      locale={locale}
+      playLog={playLog}
+      chat={chat}
+      onChat={onChat}
+      nameOf={nameOf}
+      header={playersHeader}
+    />
+  );
+
   return (
-    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/25 bg-[#efe6d8] shadow-card">
-      <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-[#3E2723]/15 bg-[#5D4037] px-3 py-2 text-amber-50 sm:px-4 sm:py-2.5">
-        <p className="font-heading text-sm font-bold tracking-wide">
+    <PlayTableShell
+      locale={locale}
+      title={
+        <>
           {zh ? "谁是牛头王" : "6 nimmt!"} ·{" "}
           {zh ? modeTitle.zh : modeTitle.en}
-        </p>
-        <div className="flex flex-wrap items-center gap-2 text-xs text-amber-100/85 sm:gap-3">
+        </>
+      }
+      onOpenLog={mobile ? () => setSideOpen(true) : undefined}
+      toolbarExtra={
+        <>
           {view.mode !== "buffalo" && (
             <span>
               {zh ? "目标" : "Target"}{" "}
@@ -354,428 +384,386 @@ export function SixNimmtTable({
               ? ` · ${zh ? "拍" : "T"} ${view.trick}`
               : ""}
           </span>
-          {mobile && (
-            <button
-              type="button"
-              onClick={() => setSideOpen(true)}
-              className="cursor-pointer rounded-lg bg-white/15 px-2.5 py-1 font-heading text-[11px] font-bold"
-            >
-              {zh ? "战报" : "Log"}
-            </button>
-          )}
-        </div>
-      </div>
+        </>
+      }
+    >
+      <ThinkingStatusBanner
+        locale={locale}
+        text={status}
+        tone={statusTone}
+        detail={thinkingSet.size > 0 ? thinkingDetail : null}
+      />
 
-      <div className="flex min-h-0 flex-1 flex-col gap-1.5 overflow-hidden p-1.5 sm:gap-2 sm:p-3">
-        <button
-          type="button"
-          onClick={() =>
-            thinkingSet.size > 0 && thinkingDetail
-              ? setStatusOpen((v) => !v)
-              : undefined
-          }
-          className={[
-            "flex min-h-11 shrink-0 flex-col justify-center rounded-xl border px-3 py-1.5 text-left text-sm shadow-sm",
-            view.phase === "finished"
-              ? "border-emerald-200 bg-emerald-50 text-emerald-950"
-              : canChoose || canDraft || canSpecial
-                ? "border-accent bg-amber-50 text-amber-950"
-                : "border-border bg-white/90 text-primary-dark",
-            thinkingSet.size > 0 && thinkingDetail
-              ? "cursor-pointer"
-              : "cursor-default",
-          ].join(" ")}
-        >
-          <p className="truncate font-heading font-semibold">{status}</p>
-          {statusOpen && thinkingDetail && (
-            <pre className="mt-1 max-h-24 overflow-y-auto whitespace-pre-wrap break-words border-t border-border/50 pt-1 font-sans text-[11px] text-stone-700">
-              {thinkingDetail}
-            </pre>
+      {canSpecial && view.buffalo && (
+        <div className="flex shrink-0 flex-wrap items-center gap-2 rounded-xl border border-amber-200 bg-amber-50/90 px-3 py-2">
+          <span className="text-xs font-bold text-amber-950">
+            {zh ? "特殊牌" : "Specials"}
+          </span>
+          {view.buffalo.faceUpSpecials.map((kind, i) =>
+            kind ? (
+              <button
+                key={`${kind}-${i}`}
+                type="button"
+                onClick={() => {
+                  setSpecialKind(kind);
+                  setSpecialFace(i);
+                }}
+                className={[
+                  "cursor-pointer rounded-lg border px-2.5 py-1 text-xs font-bold",
+                  specialFace === i
+                    ? "border-accent bg-accent text-white"
+                    : "border-amber-300 bg-white text-amber-950",
+                ].join(" ")}
+              >
+                {zh
+                  ? (SPECIAL_LABEL[kind]?.zh ?? kind)
+                  : (SPECIAL_LABEL[kind]?.en ?? kind)}
+              </button>
+            ) : null,
           )}
-        </button>
-
-        {canSpecial && view.buffalo && (
-          <div className="flex shrink-0 flex-wrap items-center gap-2 rounded-xl border border-amber-200 bg-amber-50/90 px-3 py-2">
-            <span className="text-xs font-bold text-amber-950">
-              {zh ? "特殊牌" : "Specials"}
+          {specialKind === "take7" || specialKind === "stop" ? (
+            <span className="text-[11px] text-amber-900">
+              {zh ? "再点选一行" : "Then tap a row"}
             </span>
-            {view.buffalo.faceUpSpecials.map((kind, i) =>
-              kind ? (
+          ) : null}
+          {(specialKind === "replace" ||
+            specialKind === "insert" ||
+            specialKind === "first" ||
+            specialKind === "last") && (
+            <div className="flex flex-wrap gap-1">
+              {view.seats.map((s) => (
                 <button
-                  key={`${kind}-${i}`}
+                  key={s.id}
                   type="button"
                   onClick={() => {
-                    setSpecialKind(kind);
-                    setSpecialFace(i);
+                    if (specialFace == null || !specialKind) return;
+                    dispatch({
+                      type: "useSpecial",
+                      playerId: myId,
+                      payload: {
+                        kind: specialKind,
+                        faceIndex: specialFace,
+                        targetPlayerId: s.id,
+                        rowIndex:
+                          specialKind === "insert" ? 0 : undefined,
+                        insertAt: 0,
+                        cardId:
+                          specialKind === "replace"
+                            ? view.seats.find((x) => x.id === s.id) &&
+                              undefined
+                            : undefined,
+                      },
+                    } as Action);
+                    setSpecialKind(null);
+                    setSpecialFace(null);
                   }}
-                  className={[
-                    "cursor-pointer rounded-lg border px-2.5 py-1 text-xs font-bold",
-                    specialFace === i
-                      ? "border-accent bg-accent text-white"
-                      : "border-amber-300 bg-white text-amber-950",
-                  ].join(" ")}
+                  className="cursor-pointer rounded-lg bg-white px-2 py-1 text-[11px] font-bold text-primary-dark ring-1 ring-border"
                 >
-                  {zh
-                    ? (SPECIAL_LABEL[kind]?.zh ?? kind)
-                    : (SPECIAL_LABEL[kind]?.en ?? kind)}
+                  {s.isYou ? (zh ? "你" : "You") : s.name}
                 </button>
-              ) : null,
-            )}
-            {specialKind === "take7" || specialKind === "stop" ? (
-              <span className="text-[11px] text-amber-900">
-                {zh ? "再点选一行" : "Then tap a row"}
-              </span>
-            ) : null}
-            {(specialKind === "replace" ||
-              specialKind === "insert" ||
-              specialKind === "first" ||
-              specialKind === "last") && (
-              <div className="flex flex-wrap gap-1">
-                {view.seats.map((s) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => {
-                      if (specialFace == null || !specialKind) return;
-                      dispatch({
-                        type: "useSpecial",
-                        playerId: myId,
-                        payload: {
-                          kind: specialKind,
-                          faceIndex: specialFace,
-                          targetPlayerId: s.id,
-                          rowIndex:
-                            specialKind === "insert" ? 0 : undefined,
-                          insertAt: 0,
-                          cardId:
-                            specialKind === "replace"
-                              ? view.seats.find((x) => x.id === s.id) &&
-                                undefined
-                              : undefined,
-                        },
-                      } as Action);
-                      setSpecialKind(null);
-                      setSpecialFace(null);
-                    }}
-                    className="cursor-pointer rounded-lg bg-white px-2 py-1 text-[11px] font-bold text-primary-dark ring-1 ring-border"
-                  >
-                    {s.isYou ? (zh ? "你" : "You") : s.name}
-                  </button>
-                ))}
-              </div>
-            )}
-            <button
-              type="button"
-              onClick={() =>
-                dispatch({
-                  type: "beginPlace",
-                  playerId: myId,
-                  payload: {},
-                })
-              }
-              className="ml-auto cursor-pointer rounded-lg bg-primary px-3 py-1.5 text-xs font-bold text-white"
-            >
-              {zh ? "开始放置" : "Begin placing"}
-            </button>
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={() =>
+              dispatch({
+                type: "beginPlace",
+                playerId: myId,
+                payload: {},
+              })
+            }
+            className="ml-auto cursor-pointer rounded-lg bg-primary px-3 py-1.5 text-xs font-bold text-white"
+          >
+            {zh ? "开始放置" : "Begin placing"}
+          </button>
+        </div>
+      )}
 
-        <div className="grid min-h-0 flex-1 gap-2 overflow-hidden lg:grid-cols-[1fr_220px]">
-          <div className="flex min-h-0 flex-col gap-1.5 overflow-hidden">
-            {view.phase === "drafting" && view.draftPool && (
-              <div className="min-h-0 flex-1 overflow-y-auto rounded-xl border border-border bg-white/95 p-2">
-                <p className="mb-2 font-heading text-sm font-bold text-primary-dark">
-                  {zh ? "选牌池" : "Draft pool"}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {view.draftPool.map((c) => (
-                    <NimmtCard
-                      key={c.id}
-                      value={c.value}
-                      bullheads={c.bullheads}
-                      size="sm"
-                      disabled={!canDraft}
-                      onClick={() =>
-                        canDraft &&
-                        dispatch({
-                          type: "draftPick",
-                          playerId: myId,
-                          payload: { cardId: c.id },
-                        })
-                      }
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {view.phase !== "drafting" && (
-              <div className="relative min-h-0 flex-1 overflow-y-auto rounded-xl border-[4px] border-[#4E342E] p-2 sm:rounded-2xl sm:border-[6px] sm:p-3">
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse at 50% 40%, #2e7d32 0%, #1b5e20 55%, #0d3b12 100%)",
-                  }}
-                />
-                <div className="relative z-10 space-y-2">
-                  {view.rows.map((row, ri) => {
-                    const cap = view.rowMods[ri]?.take7 ? 6 : 5;
-                    const slots =
-                      row.length + (view.jumpingCowRow === ri ? 1 : 0);
-                    const rowClickable =
-                      canChoose ||
-                      (canSpecial &&
-                        specialFace != null &&
-                        (specialKind === "take7" ||
-                          specialKind === "stop"));
-                    return (
-                      <button
-                        key={ri}
-                        type="button"
-                        disabled={!rowClickable || view.rowMods[ri]?.stopped}
-                        onClick={() => {
-                          if (canChoose) {
-                            dispatch({
-                              type: "chooseRow",
-                              playerId: myId,
-                              payload: { rowIndex: ri },
-                            });
-                            return;
-                          }
-                          if (
-                            canSpecial &&
-                            specialFace != null &&
-                            (specialKind === "take7" ||
-                              specialKind === "stop")
-                          ) {
-                            dispatch({
-                              type: "useSpecial",
-                              playerId: myId,
-                              payload: {
-                                kind: specialKind,
-                                faceIndex: specialFace,
-                                rowIndex: ri,
-                              },
-                            } as Action);
-                            setSpecialKind(null);
-                            setSpecialFace(null);
-                          }
-                        }}
-                        className={[
-                          "flex w-full flex-wrap items-center gap-1 rounded-xl px-2 py-1.5 text-left",
-                          rowClickable
-                            ? "cursor-pointer bg-black/25 ring-2 ring-accent/80 hover:bg-black/35"
-                            : "bg-black/15",
-                          view.rowMods[ri]?.stopped
-                            ? "opacity-50 ring-2 ring-rose-400"
-                            : "",
-                        ].join(" ")}
-                      >
-                        <span className="mr-1 w-5 shrink-0 font-heading text-xs font-bold text-amber-100/80">
-                          {ri + 1}
-                        </span>
-                        {rowBadge(ri) ? (
-                          <span className="rounded bg-black/30 px-1.5 py-0.5 text-[9px] font-bold text-amber-100">
-                            {rowBadge(ri)}
-                          </span>
-                        ) : null}
-                        <AnimatePresence mode="popLayout">
-                          {row.map((c) => (
-                            <motion.div
-                              key={c.id}
-                              layout
-                              initial={{
-                                y: -56,
-                                scale: 0.55,
-                                opacity: 0,
-                                rotate: -8,
-                              }}
-                              animate={{
-                                y: 0,
-                                scale: 1,
-                                opacity: 1,
-                                rotate: 0,
-                              }}
-                              transition={{
-                                type: "spring",
-                                stiffness: 420,
-                                damping: 24,
-                                mass: 0.85,
-                              }}
-                            >
-                              <NimmtCard
-                                value={c.value}
-                                bullheads={c.bullheads}
-                                size="sm"
-                              />
-                            </motion.div>
-                          ))}
-                        </AnimatePresence>
-                        <span className="ml-auto text-[10px] font-bold text-emerald-100/70">
-                          {slots}/{cap}
-                        </span>
-                      </button>
-                    );
-                  })}
-
-                  {view.revealed && view.revealed.length > 0 && (
-                    <div className="mt-2 flex flex-wrap justify-center gap-2 border-t border-white/10 pt-2">
-                      {view.revealed.map((r) => (
-                        <motion.div
-                          key={r.card.id}
-                          className={[
-                            "text-center rounded-lg p-0.5",
-                            r.placingNext
-                              ? "ring-2 ring-accent bg-black/30"
-                              : r.pending
-                                ? "opacity-95"
-                                : "opacity-40",
-                          ].join(" ")}
-                          animate={
-                            r.placingNext
-                              ? { y: [0, -4, 0], scale: [1, 1.06, 1] }
-                              : undefined
-                          }
-                          transition={
-                            r.placingNext
-                              ? { duration: 0.7, repeat: Infinity }
-                              : undefined
-                          }
-                        >
-                          <NimmtCard
-                            value={r.card.value}
-                            bullheads={r.card.bullheads}
-                            size="sm"
-                          />
-                          <p className="mt-0.5 max-w-[3.5rem] truncate text-[9px] text-amber-50/80">
-                            {r.isBuffalo
-                              ? zh
-                                ? "水牛"
-                                : "Buffalo"
-                              : (nameOf?.(r.playerId) ?? r.playerId)}
-                            {r.usedFlip ? ` →${r.placeValue}` : ""}
-                          </p>
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            <div className="shrink-0 rounded-xl border border-border bg-white/95 p-2 shadow-sm sm:p-2.5">
-              <div className="mb-1 flex items-center justify-between">
-                <p className="font-heading text-sm font-bold text-primary-dark">
-                  {zh ? "你的手牌" : "Your hand"}
-                  {view.you ? (
-                    <span className="ml-2 text-[11px] font-semibold text-stone-500">
-                      {view.mode === "buffalo"
-                        ? zh
-                          ? `队伍牛头 ${view.buffalo?.teamBullheads ?? 0}`
-                          : `Team ${view.buffalo?.teamBullheads ?? 0}`
-                        : `${zh ? "总分" : "Score"} ${view.you.score}${
-                            view.you.takenBullheads > 0
-                              ? ` · +${view.you.takenBullheads}`
-                              : ""
-                          }`}
-                    </span>
-                  ) : null}
-                </p>
-                {canPlay && (
-                  <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[11px] font-semibold text-accent-dark">
-                    {zh ? "可出牌" : "Your play"}
-                  </span>
-                )}
-              </div>
-              <div className="flex flex-wrap justify-center gap-1.5 py-1">
-                {(view.you?.hand ?? []).map((c) => (
+      <div className="grid min-h-0 flex-1 gap-2 overflow-hidden lg:grid-cols-[1fr_220px]">
+        <div className="flex min-h-0 flex-col gap-1.5 overflow-hidden">
+          {view.phase === "drafting" && view.draftPool && (
+            <div className="min-h-0 flex-1 overflow-y-auto rounded-xl border border-border bg-white/95 p-2">
+              <p className="mb-2 font-heading text-sm font-bold text-primary-dark">
+                {zh ? "选牌池" : "Draft pool"}
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {view.draftPool.map((c) => (
                   <NimmtCard
                     key={c.id}
                     value={c.value}
                     bullheads={c.bullheads}
-                    size={cardSize}
-                    selected={
-                      pickId === c.id || view.you?.selectedCardId === c.id
+                    size="sm"
+                    disabled={!canDraft}
+                    onClick={() =>
+                      canDraft &&
+                      dispatch({
+                        type: "draftPick",
+                        playerId: myId,
+                        payload: { cardId: c.id },
+                      })
                     }
-                    disabled={!canPlay}
-                    onClick={() => canPlay && setPickId(c.id)}
                   />
                 ))}
-                {(view.you?.hand.length ?? 0) === 0 &&
-                  view.phase !== "drafting" && (
-                    <p className="py-4 text-sm text-stone-400">
-                      {zh ? "手牌已打完" : "Hand empty"}
-                    </p>
-                  )}
               </div>
-              <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-border pt-2">
-                {view.mode === "fan-flippin" &&
-                  view.you?.hasFlipToken &&
-                  canPlay && (
-                    <label className="flex cursor-pointer items-center gap-1.5 text-xs font-semibold text-primary-dark">
-                      <input
-                        type="checkbox"
-                        checked={useFlip}
-                        onChange={(e) => setUseFlip(e.target.checked)}
-                      />
-                      {zh ? "翻数字" : "Flip digits"}
-                      {pickId &&
-                        (() => {
-                          const c = view.you?.hand.find((x) => x.id === pickId);
-                          return c?.flipTo != null && c.flipTo !== c.value
-                            ? ` (${c.value}→${c.flipTo})`
-                            : "";
-                        })()}
-                    </label>
-                  )}
-                <button
-                  type="button"
-                  disabled={!canPlay || !pickId}
-                  onClick={() => {
-                    if (!pickId) return;
-                    const card = view.you?.hand.find((c) => c.id === pickId);
-                    const flip =
-                      useFlip &&
-                      card?.flipTo != null &&
-                      card.flipTo !== card.value;
-                    dispatch({
-                      type: "playCard",
-                      playerId: myId,
-                      payload: { cardId: pickId, flip: Boolean(flip) },
-                    });
-                    setPickId(null);
-                    setUseFlip(false);
-                  }}
-                  className="min-h-11 flex-1 cursor-pointer rounded-xl bg-accent px-5 py-2.5 font-heading text-sm font-bold text-white hover:bg-accent-dark disabled:opacity-35 sm:flex-none"
-                >
-                  {zh ? "确认出牌" : "Lock card"}
-                </button>
-                {view.phase === "finished" && (
-                  <div className="ml-auto">
-                    {onRematch ? (
-                      <button
-                        type="button"
-                        onClick={onRematch}
-                        className="min-h-11 cursor-pointer rounded-xl bg-emerald-700 px-5 py-2.5 font-heading text-sm font-bold text-white hover:bg-emerald-800"
-                      >
-                        {zh ? "再来一局" : "Play again"}
-                      </button>
-                    ) : (
-                      <span className="text-xs text-stone-500">
-                        {zh ? "等待房主…" : "Waiting…"}
+            </div>
+          )}
+
+          {view.phase !== "drafting" && (
+            <PlayFeltFrame className="min-h-0 flex-1">
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 50% 40%, #2e7d32 0%, #1b5e20 55%, #0d3b12 100%)",
+                }}
+              />
+              <div className="relative z-10 space-y-2 overflow-y-auto p-2 sm:p-3">
+                {view.rows.map((row, ri) => {
+                  const cap = view.rowMods[ri]?.take7 ? 6 : 5;
+                  const slots =
+                    row.length + (view.jumpingCowRow === ri ? 1 : 0);
+                  const rowClickable =
+                    canChoose ||
+                    (canSpecial &&
+                      specialFace != null &&
+                      (specialKind === "take7" ||
+                        specialKind === "stop"));
+                  return (
+                    <button
+                      key={ri}
+                      type="button"
+                      disabled={!rowClickable || view.rowMods[ri]?.stopped}
+                      onClick={() => {
+                        if (canChoose) {
+                          dispatch({
+                            type: "chooseRow",
+                            playerId: myId,
+                            payload: { rowIndex: ri },
+                          });
+                          return;
+                        }
+                        if (
+                          canSpecial &&
+                          specialFace != null &&
+                          (specialKind === "take7" ||
+                            specialKind === "stop")
+                        ) {
+                          dispatch({
+                            type: "useSpecial",
+                            playerId: myId,
+                            payload: {
+                              kind: specialKind,
+                              faceIndex: specialFace,
+                              rowIndex: ri,
+                            },
+                          } as Action);
+                          setSpecialKind(null);
+                          setSpecialFace(null);
+                        }
+                      }}
+                      className={[
+                        "flex w-full flex-wrap items-center gap-1 rounded-xl px-2 py-1.5 text-left",
+                        rowClickable
+                          ? "cursor-pointer bg-black/25 ring-2 ring-accent/80 hover:bg-black/35"
+                          : "bg-black/15",
+                        view.rowMods[ri]?.stopped
+                          ? "opacity-50 ring-2 ring-rose-400"
+                          : "",
+                      ].join(" ")}
+                    >
+                      <span className="mr-1 w-5 shrink-0 font-heading text-xs font-bold text-amber-100/80">
+                        {ri + 1}
                       </span>
-                    )}
+                      {rowBadge(ri) ? (
+                        <span className="rounded bg-black/30 px-1.5 py-0.5 text-[9px] font-bold text-amber-100">
+                          {rowBadge(ri)}
+                        </span>
+                      ) : null}
+                      <AnimatePresence mode="popLayout">
+                        {row.map((c) => (
+                          <motion.div
+                            key={c.id}
+                            layout
+                            initial={{
+                              y: -56,
+                              scale: 0.55,
+                              opacity: 0,
+                              rotate: -8,
+                            }}
+                            animate={{
+                              y: 0,
+                              scale: 1,
+                              opacity: 1,
+                              rotate: 0,
+                            }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 420,
+                              damping: 24,
+                              mass: 0.85,
+                            }}
+                          >
+                            <NimmtCard
+                              value={c.value}
+                              bullheads={c.bullheads}
+                              size="sm"
+                            />
+                          </motion.div>
+                        ))}
+                      </AnimatePresence>
+                      <span className="ml-auto text-[10px] font-bold text-emerald-100/70">
+                        {slots}/{cap}
+                      </span>
+                    </button>
+                  );
+                })}
+
+                {view.revealed && view.revealed.length > 0 && (
+                  <div className="mt-2 flex flex-wrap justify-center gap-2 border-t border-white/10 pt-2">
+                    {view.revealed.map((r) => (
+                      <motion.div
+                        key={r.card.id}
+                        className={[
+                          "text-center rounded-lg p-0.5",
+                          r.placingNext
+                            ? "ring-2 ring-accent bg-black/30"
+                            : r.pending
+                              ? "opacity-95"
+                              : "opacity-40",
+                        ].join(" ")}
+                        animate={
+                          r.placingNext
+                            ? { y: [0, -4, 0], scale: [1, 1.06, 1] }
+                            : undefined
+                        }
+                        transition={
+                          r.placingNext
+                            ? { duration: 0.7, repeat: Infinity }
+                            : undefined
+                        }
+                      >
+                        <NimmtCard
+                          value={r.card.value}
+                          bullheads={r.card.bullheads}
+                          size="sm"
+                        />
+                        <p className="mt-0.5 max-w-[3.5rem] truncate text-[9px] text-amber-50/80">
+                          {r.isBuffalo
+                            ? zh
+                              ? "水牛"
+                              : "Buffalo"
+                            : (nameOf?.(r.playerId) ?? r.playerId)}
+                          {r.usedFlip ? ` →${r.placeValue}` : ""}
+                        </p>
+                      </motion.div>
+                    ))}
                   </div>
                 )}
               </div>
+            </PlayFeltFrame>
+          )}
+
+          <div className="shrink-0 rounded-xl border border-border bg-white/95 p-2 shadow-sm sm:p-2.5">
+            <div className="mb-1 flex items-center justify-between">
+              <p className="font-heading text-sm font-bold text-primary-dark">
+                {zh ? "你的手牌" : "Your hand"}
+                {view.you ? (
+                  <span className="ml-2 text-[11px] font-semibold text-stone-500">
+                    {view.mode === "buffalo"
+                      ? zh
+                        ? `队伍牛头 ${view.buffalo?.teamBullheads ?? 0}`
+                        : `Team ${view.buffalo?.teamBullheads ?? 0}`
+                      : `${zh ? "总分" : "Score"} ${view.you.score}${
+                          view.you.takenBullheads > 0
+                            ? ` · +${view.you.takenBullheads}`
+                            : ""
+                        }`}
+                  </span>
+                ) : null}
+              </p>
+              {canPlay && (
+                <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[11px] font-semibold text-accent-dark">
+                  {zh ? "可出牌" : "Your play"}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-wrap justify-center gap-1.5 py-1">
+              {(view.you?.hand ?? []).map((c) => (
+                <NimmtCard
+                  key={c.id}
+                  value={c.value}
+                  bullheads={c.bullheads}
+                  size={cardSize}
+                  selected={
+                    pickId === c.id || view.you?.selectedCardId === c.id
+                  }
+                  disabled={!canPlay}
+                  onClick={() => canPlay && setPickId(c.id)}
+                />
+              ))}
+              {(view.you?.hand.length ?? 0) === 0 &&
+                view.phase !== "drafting" && (
+                  <p className="py-4 text-sm text-stone-400">
+                    {zh ? "手牌已打完" : "Hand empty"}
+                  </p>
+                )}
+            </div>
+            <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-border pt-2">
+              {view.mode === "fan-flippin" &&
+                view.you?.hasFlipToken &&
+                canPlay && (
+                  <label className="flex cursor-pointer items-center gap-1.5 text-xs font-semibold text-primary-dark">
+                    <input
+                      type="checkbox"
+                      checked={useFlip}
+                      onChange={(e) => setUseFlip(e.target.checked)}
+                    />
+                    {zh ? "翻数字" : "Flip digits"}
+                    {pickId &&
+                      (() => {
+                        const c = view.you?.hand.find((x) => x.id === pickId);
+                        return c?.flipTo != null && c.flipTo !== c.value
+                          ? ` (${c.value}→${c.flipTo})`
+                          : "";
+                      })()}
+                  </label>
+                )}
+              <button
+                type="button"
+                disabled={!canPlay || !pickId}
+                onClick={() => {
+                  if (!pickId) return;
+                  const card = view.you?.hand.find((c) => c.id === pickId);
+                  const flip =
+                    useFlip &&
+                    card?.flipTo != null &&
+                    card.flipTo !== card.value;
+                  dispatch({
+                    type: "playCard",
+                    playerId: myId,
+                    payload: { cardId: pickId, flip: Boolean(flip) },
+                  });
+                  setPickId(null);
+                  setUseFlip(false);
+                }}
+                className="min-h-11 flex-1 cursor-pointer rounded-xl bg-accent px-5 py-2.5 font-heading text-sm font-bold text-white hover:bg-accent-dark disabled:opacity-35 sm:flex-none"
+              >
+                {zh ? "确认出牌" : "Lock card"}
+              </button>
+              {view.phase === "finished" && (
+                <MatchResultBar
+                  locale={locale}
+                  onRematch={onRematch}
+                />
+              )}
             </div>
           </div>
-
-          <aside className="hidden min-h-0 flex-col overflow-hidden lg:flex">
-            {sidePanel}
-          </aside>
         </div>
+
+        <aside className="hidden min-h-0 flex-col overflow-hidden lg:flex">
+          {sidePanel}
+        </aside>
       </div>
 
       <PlaySideSheet
@@ -786,6 +774,6 @@ export function SixNimmtTable({
       >
         {sidePanel}
       </PlaySideSheet>
-    </div>
+    </PlayTableShell>
   );
 }

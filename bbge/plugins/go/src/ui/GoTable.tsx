@@ -1,9 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { useMemo, useState } from "react";
 import type { PluginTableProps } from "@bbge/ui";
-import { BattleLogList, PlaySideSheet, useIsMobileLayout } from "@bbge/ui";
+import {
+  MatchResultBar,
+  PlayLogChatPanel,
+  PlaySideSheet,
+  SeatSpeechSlot,
+  useIsMobileLayout,
+  useSeatBubbles,
+} from "@bbge/ui";
 import { GoTutorPanel } from "@/components/chat/GoTutorPanel";
 import {
   formatGoPlayContext,
@@ -49,10 +55,6 @@ type GoView = {
   }[];
 };
 
-type SeatBubble = { id: string; text: string };
-
-const BUBBLE_MS = 4200;
-
 export function GoTable({
   locale,
   view: viewUnknown,
@@ -73,12 +75,7 @@ export function GoTable({
   const [confirmResign, setConfirmResign] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [sideOpen, setSideOpen] = useState(false);
-  const [chatText, setChatText] = useState("");
-  const [bubbles, setBubbles] = useState<Record<string, SeatBubble>>({});
-  const seenLogIds = useRef(new Set<string>());
-  const seenChat = useRef(new Set<string>());
-  const bubbleTimers = useRef(new Map<string, number>());
-  const chatRef = useRef<HTMLDivElement>(null);
+  const bubbles = useSeatBubbles({ playLog, chat, durationMs: 4200 });
 
   const isMyTurn =
     view.phase === "playing" &&
@@ -118,51 +115,6 @@ export function GoTable({
     () => goTutorSuggestedPrompts(locale, "play"),
     [locale],
   );
-
-  const showBubble = (seatId: string, id: string, text: string) => {
-    const prev = bubbleTimers.current.get(seatId);
-    if (prev) window.clearTimeout(prev);
-    setBubbles((m) => ({ ...m, [seatId]: { id, text } }));
-    const t = window.setTimeout(() => {
-      setBubbles((m) => {
-        if (m[seatId]?.id !== id) return m;
-        const next = { ...m };
-        delete next[seatId];
-        return next;
-      });
-      bubbleTimers.current.delete(seatId);
-    }, BUBBLE_MS);
-    bubbleTimers.current.set(seatId, t);
-  };
-
-  useEffect(() => {
-    for (const e of playLog) {
-      if (seenLogIds.current.has(e.id)) continue;
-      seenLogIds.current.add(e.id);
-      if (e.speakerId && e.bubble) showBubble(e.speakerId, e.id, e.bubble);
-    }
-  }, [playLog]);
-
-  useEffect(() => {
-    for (const m of chat) {
-      const key = `${m.playerId}-${m.at}-${m.text}`;
-      if (seenChat.current.has(key)) continue;
-      seenChat.current.add(key);
-      showBubble(m.playerId, `chat-${key}`, m.text);
-    }
-  }, [chat]);
-
-  useEffect(
-    () => () => {
-      for (const t of bubbleTimers.current.values()) window.clearTimeout(t);
-    },
-    [],
-  );
-
-  useEffect(() => {
-    const el = chatRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
-  }, [chat]);
 
   const status = useMemo(() => {
     if (view.phase === "finished") {
@@ -206,54 +158,13 @@ export function GoTable({
   };
 
   const logPanel = (
-    <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
-      <BattleLogList
-        locale={locale}
-        entries={playLog ?? []}
-        title={zh ? "战报" : "Log"}
-        className="rounded-xl border border-border bg-white/95 p-2"
-      />
-      {onChat && (
-        <form
-          className="flex shrink-0 gap-1"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const t = chatText.trim();
-            if (!t) return;
-            onChat(t);
-            setChatText("");
-          }}
-        >
-          <input
-            className="min-h-11 min-w-0 flex-1 rounded-lg border border-border px-2 py-2 text-xs"
-            value={chatText}
-            onChange={(e) => setChatText(e.target.value)}
-            placeholder={zh ? "桌边闲聊…" : "Table chat…"}
-          />
-          <button
-            type="submit"
-            className="min-h-11 cursor-pointer rounded-lg bg-primary px-3 py-2 text-xs font-bold text-white"
-          >
-            {zh ? "发送" : "Send"}
-          </button>
-        </form>
-      )}
-      {(chat ?? []).length > 0 && (
-        <div
-          ref={chatRef}
-          className="max-h-28 shrink-0 touch-pan-y overflow-y-auto overscroll-contain rounded-lg border border-border bg-white/80 px-2 py-1 text-[11px] text-stone-600"
-        >
-          {(chat ?? []).slice(-12).map((m, i) => (
-            <p key={`${m.playerId}-${m.at}-${i}`}>
-              <span className="font-semibold">
-                {nameOf?.(m.playerId) ?? m.playerId}
-              </span>
-              : {m.text}
-            </p>
-          ))}
-        </div>
-      )}
-    </div>
+    <PlayLogChatPanel
+      locale={locale}
+      playLog={playLog}
+      chat={chat}
+      onChat={onChat}
+      nameOf={nameOf}
+    />
   );
 
   return (
@@ -268,28 +179,12 @@ export function GoTable({
             return (
               <div
                 key={s.id}
+                data-seat-id={s.id}
                 className={`relative inline-flex h-[3.75rem] w-[6.5rem] shrink-0 flex-col justify-end rounded-md px-1.5 pb-0.5 ${
                   active ? "bg-sky-100 text-sky-950" : "text-stone-600"
                 }`}
               >
-                {/* Fixed slot so speak on/off does not resize the chrome */}
-                <div className="relative mb-0.5 h-8 w-full shrink-0">
-                  <AnimatePresence>
-                    {bubble && (
-                      <motion.div
-                        key={bubble.id}
-                        initial={{ opacity: 0, y: 2 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden rounded-lg bg-[#3E2723] px-1 text-center font-heading text-[10px] font-bold leading-tight text-amber-50 shadow-sm"
-                      >
-                        <span className="line-clamp-2 break-words">
-                          {bubble.text}
-                        </span>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                <SeatSpeechSlot bubble={bubble} />
                 <span className="inline-flex h-4 items-center gap-1">
                   <span
                     className={`inline-block h-2 w-2 shrink-0 rounded-full ${
@@ -369,14 +264,13 @@ export function GoTable({
             </>
           )}
 
-          {view.phase === "finished" && onRematch && (
-            <button
-              type="button"
-              onClick={onRematch}
-              className="cursor-pointer rounded-md bg-primary px-2 py-1 text-[11px] font-semibold text-white sm:text-xs"
-            >
-              {zh ? "再来" : "Again"}
-            </button>
+          {view.phase === "finished" && (
+            <MatchResultBar
+              locale={locale}
+              onRematch={onRematch}
+              label={zh ? "再来" : "Again"}
+              className="!min-h-0 [&_button]:min-h-8 [&_button]:px-3 [&_button]:py-1 [&_button]:text-[11px] sm:[&_button]:text-xs"
+            />
           )}
 
           <button

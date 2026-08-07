@@ -1,10 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
-import { BattleLogList, PlaySideSheet, useIsMobileLayout } from "@bbge/ui";
+import {
+  MatchResultBar,
+  PlayLogChatPanel,
+  PlaySideSheet,
+  SeatSpeechSlot,
+  ThinkingStatusBanner,
+  useIsMobileLayout,
+  useSeatBubbles,
+} from "@bbge/ui";
 import { cardBackUrl, cardFaceUrl } from "./cardArt";
 
 type SlotV = {
@@ -63,10 +71,6 @@ type ArenaView = {
     slots: SlotV[];
   }[];
 };
-
-type SeatBubble = { id: string; text: string };
-
-const BUBBLE_MS = 4200;
 
 function CaboCard({
   locale,
@@ -134,12 +138,13 @@ export function CaboTable({
   const zh = locale === "zh";
   const mobile = useIsMobileLayout();
   const [sideOpen, setSideOpen] = useState(false);
-  const [chatText, setChatText] = useState("");
   const [selectedSlots, setSelectedSlots] = useState<number[]>([]);
-  const [bubbles, setBubbles] = useState<Record<string, SeatBubble>>({});
-  const seenLogIdsRef = useRef<Set<string>>(new Set());
-  const seenChatKeysRef = useRef<Set<string>>(new Set());
-  const bubbleTimersRef = useRef<Map<string, number>>(new Map());
+  const bubbles = useSeatBubbles({
+    playLog,
+    chat,
+    durationMs: 4200,
+    resetKey: view.round,
+  });
 
   const actorId = myId;
   const isMyTurn = view.currentPlayerId === actorId;
@@ -152,45 +157,6 @@ export function CaboTable({
     setSelectedSlots([]);
   }, [view.phase, view.round, view.pendingDraw?.cardId, view.currentPlayerId]);
 
-  const showBubble = (seatId: string, id: string, text: string) => {
-    const prev = bubbleTimersRef.current.get(seatId);
-    if (prev) window.clearTimeout(prev);
-    setBubbles((m) => ({ ...m, [seatId]: { id, text } }));
-    const t = window.setTimeout(() => {
-      setBubbles((m) => {
-        if (m[seatId]?.id !== id) return m;
-        const next = { ...m };
-        delete next[seatId];
-        return next;
-      });
-      bubbleTimersRef.current.delete(seatId);
-    }, BUBBLE_MS);
-    bubbleTimersRef.current.set(seatId, t);
-  };
-
-  useEffect(() => {
-    for (const e of playLog) {
-      if (seenLogIdsRef.current.has(e.id)) continue;
-      seenLogIdsRef.current.add(e.id);
-      if (e.speakerId && e.bubble) showBubble(e.speakerId, e.id, e.bubble);
-    }
-  }, [playLog]);
-
-  useEffect(() => {
-    for (const m of chat) {
-      const key = `${m.playerId}-${m.at}-${m.text}`;
-      if (seenChatKeysRef.current.has(key)) continue;
-      seenChatKeysRef.current.add(key);
-      showBubble(m.playerId, `chat-${key}`, m.text);
-    }
-  }, [chat]);
-
-  useEffect(() => {
-    return () => {
-      for (const t of bubbleTimersRef.current.values()) window.clearTimeout(t);
-    };
-  }, []);
-
   const dispatch = (action: Action) => onAction(action);
 
   const toggleSlot = (idx: number) => {
@@ -199,28 +165,57 @@ export function CaboTable({
     );
   };
 
-  const setupPeek = () => {
-    if (selectedSlots.length !== 2) return;
-    dispatch({
-      type: "setupPeek",
-      playerId: actorId,
-      payload: { slotIndices: selectedSlots },
-    });
-  };
-
   const modalVisible =
     view.pendingModal &&
     !view.pendingModal.waiting &&
     view.pendingModal.value != null;
 
-  const phaseLabel = () => {
+  const phaseLabel = useMemo(() => {
     if (view.phase === "setupPeek") return zh ? "开局偷看 2 张" : "Setup peek (2)";
     if (view.phase === "caboFinalTurns") return zh ? "CABO 最终回合" : "CABO final turns";
     if (view.phase === "finished") return zh ? "本轮结束" : "Round over";
     if (view.pendingDraw) return zh ? "处理摸到的牌" : "Resolve drawn card";
     if (view.pendingAbility) return zh ? "特殊能力" : "Special ability";
     return zh ? "你的回合" : "Your turn";
-  };
+  }, [view.phase, view.pendingDraw, view.pendingAbility, zh]);
+
+  const status = useMemo(() => {
+    if (view.phase === "finished") {
+      if (view.matchOver) {
+        const names = view.winners.map((w) => nameOf?.(w) ?? w).join(zh ? "、" : ", ");
+        return zh ? `对局结束 · 胜者 ${names}` : `Match over · ${names}`;
+      }
+      return zh ? "本轮结束 — 继续下一局" : "Round over — continue match";
+    }
+    if (thinkingSet.size > 0) {
+      const id = thinkingId ?? [...thinkingSet][0];
+      return zh
+        ? `${nameOf?.(id ?? "") ?? id} 思考中…`
+        : `${nameOf?.(id ?? "") ?? id} thinking…`;
+    }
+    if (isMyTurn && !disabled) {
+      return phaseLabel;
+    }
+    const who = nameOf?.(view.currentPlayerId ?? "") ?? view.currentPlayerId ?? "…";
+    return zh ? `等待 ${who} · ${phaseLabel}` : `Waiting for ${who} · ${phaseLabel}`;
+  }, [view, thinkingSet, thinkingId, isMyTurn, disabled, zh, nameOf, phaseLabel]);
+
+  const statusTone = useMemo(() => {
+    if (view.phase === "finished") return "done" as const;
+    if (thinkingSet.size > 0) return "wait" as const;
+    if (isMyTurn && !disabled) return "you" as const;
+    return "idle" as const;
+  }, [view.phase, thinkingSet.size, isMyTurn, disabled]);
+
+  const logPanel = (
+    <PlayLogChatPanel
+      locale={locale}
+      playLog={playLog}
+      chat={chat}
+      onChat={onChat}
+      nameOf={nameOf}
+    />
+  );
 
   const renderSeat = (seat: ArenaView["seats"][0]) => {
     const active = view.currentPlayerId === seat.id;
@@ -230,11 +225,12 @@ export function CaboTable({
         key={seat.id}
         data-seat-id={seat.id}
         className={[
-          "rounded-2xl border bg-white/95 p-3 shadow-card transition-all",
+          "relative rounded-2xl border bg-white/95 p-3 shadow-card transition-all",
           seat.isYou ? "border-accent/50 ring-1 ring-accent/20" : "border-border",
           active ? "ring-2 ring-accent/60" : "",
         ].join(" ")}
       >
+        <SeatSpeechSlot bubble={bubbles[seat.id]} variant="cream" />
         <div className="mb-2 flex items-center justify-between gap-2">
           <div className="min-w-0">
             <p className="truncate font-heading text-sm font-bold text-primary">
@@ -257,22 +253,13 @@ export function CaboTable({
               )}
             </p>
           </div>
-          <div className="relative shrink-0">
-            <div
-              className={[
-                "flex h-9 w-9 items-center justify-center rounded-full border-2 font-heading text-xs font-bold",
-                thinking ? "border-accent animate-pulse bg-amber-50" : "border-border bg-surface",
-              ].join(" ")}
-            >
-              {seat.name.slice(0, 1).toUpperCase()}
-            </div>
-            {bubbles[seat.id] && (
-              <div className="absolute -top-1 left-10 z-20 w-max max-w-[10rem]">
-                <p className="rounded-lg rounded-bl-none border border-border bg-[#FFF8E7] px-2 py-1 text-[10px] text-primary shadow-sm">
-                  {bubbles[seat.id]!.text}
-                </p>
-              </div>
-            )}
+          <div
+            className={[
+              "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 font-heading text-xs font-bold",
+              thinking ? "border-accent animate-pulse bg-amber-50" : "border-border bg-surface",
+            ].join(" ")}
+          >
+            {seat.name.slice(0, 1).toUpperCase()}
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-1.5">
@@ -322,7 +309,13 @@ export function CaboTable({
         <button
           type="button"
           disabled={selectedSlots.length !== 2}
-          onClick={setupPeek}
+          onClick={() => {
+            dispatch({
+              type: "setupPeek",
+              playerId: actorId,
+              payload: { slotIndices: selectedSlots },
+            });
+          }}
           className="rounded-xl bg-accent px-4 py-2 font-heading text-sm font-bold text-[#1a120e] disabled:opacity-40"
         >
           {zh ? "确认偷看 2 张" : "Confirm peek (2)"}
@@ -488,13 +481,13 @@ export function CaboTable({
   const youSeat = view.seats.find((s) => s.isYou);
 
   return (
-    <div className="flex h-[calc(100dvh-8rem)] min-h-[420px] flex-col overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-[#1b4332] to-[#0d2818] shadow-card">
+    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-[#1b4332] to-[#0d2818] shadow-card">
       <div className="flex shrink-0 items-center justify-between gap-2 border-b border-white/10 px-3 py-2 text-white">
         <div>
           <p className="font-heading text-sm font-bold">
             CABO · {zh ? "第" : "R"}{view.round}{zh ? "轮" : ""}
           </p>
-          <p className="text-[11px] text-white/70">{phaseLabel()}</p>
+          <p className="text-[11px] text-white/70">{phaseLabel}</p>
         </div>
         <div className="flex items-center gap-2">
           <span className="rounded-lg bg-black/30 px-2 py-1 text-[11px]">
@@ -516,42 +509,42 @@ export function CaboTable({
         </div>
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto p-3">
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {others.map(renderSeat)}
+      <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden p-3">
+        <ThinkingStatusBanner
+          locale={locale}
+          text={status}
+          tone={statusTone}
+          detail={thinkingSet.size > 0 ? thinkingDetail : null}
+          className="border-white/20 bg-black/25 text-white [&_button]:text-white [&_p]:text-white [&_span]:text-white/70"
+        />
+
+        <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto">
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {others.map(renderSeat)}
+          </div>
+          {youSeat && (
+            <div className="mt-auto border-t border-white/10 pt-3">{renderSeat(youSeat)}</div>
+          )}
         </div>
-        {youSeat && (
-          <div className="mt-auto border-t border-white/10 pt-3">{renderSeat(youSeat)}</div>
-        )}
       </div>
 
       <div className="shrink-0 border-t border-white/10 bg-black/25 px-3 py-2">
         {view.phase === "finished" ? (
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-sm text-white/90">
-              {view.matchOver
-                ? zh
-                  ? `对局结束 · 胜者 ${view.winners.map((w) => nameOf?.(w) ?? w).join("、")}`
-                  : `Match over · ${view.winners.map((w) => nameOf?.(w) ?? w).join(", ")}`
-                : zh
-                  ? "本轮结束 — 继续下一局"
-                  : "Round over — continue match"}
-            </p>
-            {onRematch && (
-              <button
-                type="button"
-                onClick={onRematch}
-                className="rounded-xl bg-accent px-4 py-2 font-heading text-sm font-bold text-[#1a120e]"
-              >
-                {view.matchOver
+            <p className="text-sm text-white/90">{status}</p>
+            <MatchResultBar
+              locale={locale}
+              onRematch={onRematch}
+              label={
+                view.matchOver
                   ? zh
                     ? "再来一局"
                     : "New match"
                   : zh
                     ? "下一轮"
-                    : "Next round"}
-              </button>
-            )}
+                    : "Next round"
+              }
+            />
           </div>
         ) : (
           <div className="flex flex-wrap items-center justify-between gap-2">
@@ -571,9 +564,6 @@ export function CaboTable({
             </div>
             {actionBar()}
           </div>
-        )}
-        {thinkingDetail && (
-          <p className="mt-1 truncate text-[10px] text-white/50">{thinkingDetail}</p>
         )}
       </div>
 
@@ -631,34 +621,9 @@ export function CaboTable({
         open={sideOpen}
         onClose={() => setSideOpen(false)}
         locale={locale}
-        title={zh ? "战报" : "Log"}
+        title={zh ? "战报 / 聊天" : "Log / Chat"}
       >
-        <BattleLogList locale={locale} entries={playLog} title={zh ? "战报" : "Log"} />
-        {onChat && (
-          <form
-            className="mt-2 flex shrink-0 gap-1"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const t = chatText.trim();
-              if (!t) return;
-              onChat(t);
-              setChatText("");
-            }}
-          >
-            <input
-              className="min-h-10 min-w-0 flex-1 rounded-lg border border-border px-2 py-2 text-xs"
-              value={chatText}
-              onChange={(e) => setChatText(e.target.value)}
-              placeholder={zh ? "桌边闲聊…" : "Table chat…"}
-            />
-            <button
-              type="submit"
-              className="shrink-0 rounded-lg bg-accent px-3 py-2 text-xs font-bold text-[#1a120e]"
-            >
-              {zh ? "发送" : "Send"}
-            </button>
-          </form>
-        )}
+        {logPanel}
       </PlaySideSheet>
     </div>
   );

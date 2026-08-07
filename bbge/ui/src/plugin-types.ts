@@ -18,6 +18,8 @@ export interface PluginTableProps {
   myId: string;
   disabled?: boolean;
   thinkingId?: string | null;
+  /** Host-only detail for “what is AI thinking” hover (not broadcast). */
+  thinkingDetail?: string | null;
   onAction: (action: Action) => void;
   playLog: PlayLogEntry[];
   chat: AiChatMessage[];

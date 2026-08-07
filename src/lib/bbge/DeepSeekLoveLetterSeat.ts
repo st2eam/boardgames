@@ -1,5 +1,5 @@
 import type { Action, PlayerId } from "@bbge/core";
-import type { AiSeat } from "@bbge/ai";
+import type { AiSeat, AiThinkOptions } from "@bbge/ai";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 
 /** Fast model for tabletop Actions — chat site assistant may still use pro. */
@@ -16,7 +16,7 @@ function extractJson(text: string): unknown {
 
 /**
  * Host AiSeat: LLM decides **legal play Actions** (primary).
- * No table-talk `speak` — chat UI is for humans; AI is here to play cards.
+ * Streams thinking/draft via onProgress for Host hover UI.
  */
 export function createDeepSeekLoveLetterSeat(
   id: PlayerId,
@@ -25,7 +25,7 @@ export function createDeepSeekLoveLetterSeat(
   const adapter = new DeepSeekAdapter(apiKey);
   return {
     id,
-    async think(view: unknown): Promise<Action> {
+    async think(view: unknown, opts?: AiThinkOptions): Promise<Action> {
       const prompt = `You are seat ${id} in Love Letter (Full Game, ranks 0 Spy … 9 Princess).
 Choose ONE legal action from the private view. Prefer strong play; do not chat.
 Return ONLY JSON:
@@ -36,8 +36,12 @@ View JSON:\n${JSON.stringify(view)}`;
 
       let lastErr = "ai failed";
       for (let attempt = 0; attempt < 3; attempt++) {
+        opts?.onProgress?.({
+          note: `deepseek-v4-flash · 第 ${attempt + 1}/3 次请求`,
+        });
         try {
           let text = "";
+          let thinking = "";
           await adapter.streamChat(
             {
               model: PLAY_MODEL,
@@ -47,16 +51,40 @@ View JSON:\n${JSON.stringify(view)}`;
               maxTokens: 512,
             },
             (chunk) => {
-              if (chunk.content) text += chunk.content;
+              if (
+                chunk.activity?.kind === "thinking" &&
+                chunk.activity.thinkingText
+              ) {
+                thinking = chunk.activity.thinkingText;
+                opts?.onProgress?.({
+                  note: "模型推理中…",
+                  thinkingText: thinking,
+                  draftText: text || undefined,
+                });
+              }
+              if (chunk.content) {
+                text += chunk.content;
+                opts?.onProgress?.({
+                  note: thinking ? "模型推理中… · 写出动作" : "正在生成出牌 JSON…",
+                  thinkingText: thinking || undefined,
+                  draftText: text,
+                });
+              }
             },
           );
           const parsed = extractJson(text) as Action;
           if (parsed && typeof parsed === "object" && "type" in parsed) {
+            opts?.onProgress?.({
+              note: `已决定：${String(parsed.type)}`,
+              thinkingText: thinking || undefined,
+              draftText: text,
+            });
             return { ...parsed, playerId: id } as Action;
           }
           lastErr = "bad action shape";
         } catch (e) {
           lastErr = e instanceof Error ? e.message : "ai error";
+          opts?.onProgress?.({ note: `失败：${lastErr}` });
         }
       }
       throw new Error(lastErr);

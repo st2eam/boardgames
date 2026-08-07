@@ -25,12 +25,16 @@ const NO_TARGET = new Set([0, 4, 6, 8, 9]);
 export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
   return {
     id,
-    async think(viewUnknown: unknown): Promise<Action> {
+    async think(viewUnknown, opts) {
       const view = viewUnknown as View;
+      const progress = (note: string) => opts?.onProgress?.({ note });
+
       if (view.pending?.type === "priestReveal" && view.pending.playerId === id) {
+        progress("本地启发式：确认神父偷看");
         return { type: "acknowledgePriest", playerId: id, payload: {} };
       }
       if (view.pending?.type === "chancellor" && view.pending.playerId === id) {
+        progress("本地启发式：大臣保留第一张");
         const held = view.pending.held ?? [];
         const keep = held[0]!;
         const rest = held.filter((c) => c.id !== keep.id);
@@ -60,6 +64,13 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
           : forced ?? hand[0]!;
       const card = forced ?? safe;
       const needsTarget = [1, 2, 3, 5, 7].includes(card.rank);
+      progress(
+        forced
+          ? "本地启发式：强制打出伯爵夫人"
+          : others.length === 0
+            ? "本地启发式：无人可指向，出安全牌"
+            : `本地启发式：打出 rank ${card.rank}`,
+      );
       return {
         type: "playCard",
         playerId: id,
@@ -74,6 +85,5 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
         },
       };
     },
-    // Local heuristic AI stays silent — table talk only when an LLM seat speaks.
   };
 }

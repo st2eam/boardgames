@@ -92,6 +92,7 @@ export function PlayShell({
   const [view, setView] = useState<unknown>(null);
   const [chat, setChat] = useState<AiChatMessage[]>([]);
   const [thinkingId, setThinkingId] = useState<string | null>(null);
+  const [thinkingDetail, setThinkingDetail] = useState<string | null>(null);
   const [playLog, setPlayLog] = useState<PlayLogEntry[]>([]);
   const [myId, setMyId] = useState(hostId);
   const [controllingId, setControllingId] = useState(hostId);
@@ -334,6 +335,9 @@ export function PlayShell({
     const paceMs = aiThinkPaceMs();
     const thinkStarted = Date.now();
     setThinkingId(current);
+    setThinkingDetail(
+      locale === "zh" ? "准备决策…" : "Preparing decision…",
+    );
     host?.broadcast?.({
       type: "aiPresence",
       payload: { type: "ai/thinking", playerId: current, started: true },
@@ -350,10 +354,35 @@ export function PlayShell({
       },
     ]);
 
+    const pushThinkProgress = (p: {
+      note?: string;
+      thinkingText?: string;
+      draftText?: string;
+    }) => {
+      // Prefer model reasoning; fall back to note + truncated draft JSON
+      const parts: string[] = [];
+      if (p.thinkingText?.trim()) parts.push(p.thinkingText.trim());
+      else if (p.note) parts.push(p.note);
+      if (p.draftText?.trim()) {
+        const d = p.draftText.trim();
+        parts.push(
+          parts.length
+            ? `---\n${d.slice(-400)}`
+            : d.slice(-600),
+        );
+      }
+      if (parts.length) setThinkingDetail(parts.join("\n"));
+    };
+
     try {
       const v = s.getView(current);
       const auto = modRef.current.tryAutoAiAction?.(v, current) ?? null;
       if (auto) {
+        setThinkingDetail(
+          locale === "zh"
+            ? `自动步骤：${auto.type}`
+            : `Auto step: ${auto.type}`,
+        );
         await sleep(1600 + Math.floor(Math.random() * 1200));
         const result = s.submitAction(auto);
         if (result.ok) {
@@ -368,14 +397,18 @@ export function PlayShell({
         const thinkBudgetMs = isLlm ? 90_000 : 8_000;
         let action: Action;
         try {
-          const decide = withTimeout(seat.think(v), thinkBudgetMs, "AI think");
+          const decide = withTimeout(
+            seat.think(v, { onProgress: pushThinkProgress }),
+            thinkBudgetMs,
+            "AI think",
+          );
           const [, decided] = await Promise.all([sleep(paceMs), decide]);
           action = decided;
         } catch (err) {
           const mock = modRef.current.createMockSeat(current);
           const remaining = Math.max(0, paceMs - (Date.now() - thinkStarted));
           const [decided] = await Promise.all([
-            mock.think(s.getView(current)),
+            mock.think(s.getView(current), { onProgress: pushThinkProgress }),
             remaining > 0 ? sleep(remaining) : Promise.resolve(),
           ]);
           action = decided;
@@ -429,6 +462,7 @@ export function PlayShell({
 
         await sleep(350 + Math.floor(Math.random() * 350));
         setThinkingId(null);
+        setThinkingDetail(null);
         host?.broadcast?.({
           type: "aiPresence",
           payload: { type: "ai/thinking", playerId: current, started: false },
@@ -440,6 +474,7 @@ export function PlayShell({
       setError(e instanceof Error ? e.message : "AI failed");
     } finally {
       setThinkingId(null);
+      setThinkingDetail(null);
       host?.broadcast?.({
         type: "aiPresence",
         payload: { type: "ai/thinking", playerId: current, started: false },
@@ -592,6 +627,7 @@ export function PlayShell({
           myId={controllingId}
           disabled={Boolean(thinkingId)}
           thinkingId={thinkingId}
+          thinkingDetail={thinkingDetail}
           onAction={onDispatch}
           playLog={playLog}
           chat={chat}

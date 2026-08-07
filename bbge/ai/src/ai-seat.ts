@@ -7,8 +7,26 @@ export interface AiSpeakContext {
   locale: string;
 }
 
+/** Streaming progress while an AiSeat decides an Action (Host UI / hover). */
+export type AiThinkProgress = {
+  /** Short status for UI */
+  note?: string;
+  /** Model chain-of-thought when the API emits thinking blocks */
+  thinkingText?: string;
+  /** Partial assistant content (usually the Action JSON) */
+  draftText?: string;
+};
+
+export interface AiThinkOptions {
+  onProgress?: (p: AiThinkProgress) => void;
+}
+
 export interface AiSeat {
   id: PlayerId;
-  think(view: unknown): Promise<Action>;
+  /**
+   * Produce one legal Action from the seat's private view.
+   * Optional onProgress powers “what is AI thinking” UI on Host.
+   */
+  think(view: unknown, opts?: AiThinkOptions): Promise<Action>;
   speak?(ctx: AiSpeakContext): Promise<AiChatMessage | null>;
 }

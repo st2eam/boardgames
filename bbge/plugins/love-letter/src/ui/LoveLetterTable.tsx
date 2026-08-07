@@ -25,6 +25,7 @@ export function LoveLetterTable({
   myId,
   disabled,
   thinkingId,
+  thinkingDetail,
   onAction,
   playLog = [],
   chat = [],
@@ -317,7 +318,12 @@ export function LoveLetterTable({
       </div>
 
       <div className="p-2.5 sm:p-3">
-        <StatusBar locale={locale} text={status.text} tone={status.tone} />
+        <StatusBar
+          locale={locale}
+          text={status.text}
+          tone={status.tone}
+          detail={thinkingId ? thinkingDetail : null}
+        />
 
         {/* Left: players · Center: table · Right: log + chat */}
         <div className="mt-2.5 grid gap-2.5 lg:grid-cols-[220px_minmax(0,1fr)_240px] lg:items-start">

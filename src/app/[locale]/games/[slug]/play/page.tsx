@@ -52,14 +52,24 @@ export default async function PlayPage({ params }: Props) {
   }
 
   const gameName = meta.name[locale as "en" | "zh"] ?? meta.name.en;
+  const isGo = playConfig.pluginId === "go";
 
   // Viewport-locked shell: no page scrollbar. Overflow scrolls inside panels.
+  // Go: full width + minimal chrome so the board can dominate.
   return (
-    <div className="mx-auto flex h-[calc(100dvh-3.75rem)] w-full max-w-6xl flex-col overflow-hidden px-1.5 py-1 sm:px-6 sm:py-2 lg:px-8">
-      <div className="mb-1 shrink-0 sm:mb-2">
+    <div
+      className={`mx-auto flex h-[calc(100dvh-3.75rem)] w-full flex-col overflow-hidden ${
+        isGo
+          ? "max-w-none px-0 py-0"
+          : "max-w-6xl px-1.5 py-1 sm:px-6 sm:py-2 lg:px-8"
+      }`}
+    >
+      <div className={`shrink-0 ${isGo ? "px-2 py-0.5" : "mb-1 sm:mb-2"}`}>
         <Link
           href={`/${locale}/games/${slug}/`}
-          className="inline-flex items-center gap-1.5 text-sm text-accent transition-colors hover:text-accent/80"
+          className={`inline-flex items-center gap-1.5 text-accent transition-colors hover:text-accent/80 ${
+            isGo ? "text-xs" : "text-sm"
+          }`}
         >
           <svg
             className="h-3.5 w-3.5"

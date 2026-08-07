@@ -6,8 +6,8 @@
 | **Plugin** | `bbge/plugins/go` (`pluginId: go`) |
 | **Editions** | **`9x9`** (default) · **`13x13`** · **`19x19`** |
 | **Players** | Exactly **2** |
-| **Play UI** | DOM board (`GoTable` + SVG `GoBoard`) |
-| **Teacher** | In-sidebar `GoTutorPanel` + `GoTutorStrategy` (no FAB); live `boardAscii` |
+| **Play UI** | Board-first (`GoTable` + fluid SVG `GoBoard`); thin toolbar |
+| **Teacher** | Toggle drawer `GoTutorPanel` (collapsed by default); live `boardAscii` |
 
 Platform: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/).
 

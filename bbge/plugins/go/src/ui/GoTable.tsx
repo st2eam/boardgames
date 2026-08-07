@@ -56,12 +56,12 @@ export function GoTable({
   thinkingDetail,
   onAction,
   onRematch,
-  playLog = [],
   nameOf,
 }: PluginTableProps) {
   const zh = locale === "zh";
   const view = viewUnknown as GoView;
   const [confirmResign, setConfirmResign] = useState(false);
+  const [panelOpen, setPanelOpen] = useState(false);
 
   const isMyTurn =
     view.phase === "playing" &&
@@ -104,28 +104,34 @@ export function GoTable({
 
   const status = useMemo(() => {
     if (view.phase === "finished") {
-      const names = view.winners.map((id) => nameOf?.(id) ?? id).join(zh ? "、" : ", ");
+      const names = view.winners
+        .map((id) => nameOf?.(id) ?? id)
+        .join(zh ? "、" : ", ");
       if (view.scores) {
         return zh
-          ? `终局 · 黑 ${view.scores.black} · 白 ${view.scores.white} · ${names} 胜`
-          : `Done · B ${view.scores.black} · W ${view.scores.white} · ${names}`;
+          ? `终局 黑${view.scores.black} 白${view.scores.white} · ${names}`
+          : `End B${view.scores.black} W${view.scores.white} · ${names}`;
       }
-      return zh ? `对局结束 · ${names} 胜` : `Game over · ${names}`;
+      return zh ? `结束 · ${names}` : `Done · ${names}`;
     }
     if (thinkingId) {
+      const detail =
+        thinkingDetail && thinkingDetail.length < 40
+          ? ` · ${thinkingDetail}`
+          : "";
       return zh
-        ? `${nameOf?.(thinkingId) ?? thinkingId} 正在思考…`
-        : `${nameOf?.(thinkingId) ?? thinkingId} is thinking…`;
+        ? `${nameOf?.(thinkingId) ?? thinkingId} 思考中${detail}`
+        : `${nameOf?.(thinkingId) ?? thinkingId} thinking${detail}`;
     }
     if (!isMyTurn) {
       return zh
-        ? `等待 ${nameOf?.(view.currentPlayerId ?? "") ?? view.currentPlayerId}（${view.toActColor === "black" ? "黑" : "白"}）`
-        : `Waiting for ${nameOf?.(view.currentPlayerId ?? "") ?? view.currentPlayerId}`;
+        ? `等待 ${nameOf?.(view.currentPlayerId ?? "") ?? ""}（${view.toActColor === "black" ? "黑" : "白"}）`
+        : `Wait ${nameOf?.(view.currentPlayerId ?? "") ?? ""}`;
     }
     return zh
-      ? `轮到你了（${view.you?.color === "black" ? "黑" : "白"}）· 点交叉点落子`
-      : `Your turn (${view.you?.color}) · click an intersection`;
-  }, [view, thinkingId, isMyTurn, zh, nameOf]);
+      ? `你的回合（${view.you?.color === "black" ? "黑" : "白"}）`
+      : `Your turn (${view.you?.color})`;
+  }, [view, thinkingId, thinkingDetail, isMyTurn, zh, nameOf]);
 
   const onPoint = (c: { row: number; col: number }) => {
     if (!isMyTurn) return;
@@ -138,145 +144,152 @@ export function GoTable({
   };
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden lg:flex-row">
-      <div className="flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto rounded-2xl border border-border bg-surface/80 p-3 shadow-card">
-        <div className="flex w-full max-w-[480px] flex-wrap items-center justify-between gap-2 text-xs">
+    <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-surface">
+      {/* Compact chrome — board gets the rest */}
+      <div className="flex h-9 shrink-0 items-center gap-1.5 border-b border-border/70 bg-white/90 px-1.5 sm:gap-2 sm:px-2">
+        <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden text-[11px] sm:text-xs">
           {view.seats.map((s) => (
-            <div
+            <span
               key={s.id}
-              className={`rounded-lg border px-2.5 py-1.5 ${
+              className={`inline-flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 ${
                 view.currentPlayerId === s.id && view.phase === "playing"
-                  ? "border-sky-400 bg-sky-50"
-                  : "border-border bg-white"
+                  ? "bg-sky-100 text-sky-950"
+                  : "text-stone-600"
               }`}
             >
               <span
-                className={`mr-1.5 inline-block h-2.5 w-2.5 rounded-full ${
-                  s.color === "black" ? "bg-stone-900" : "bg-white ring-1 ring-stone-400"
+                className={`inline-block h-2 w-2 rounded-full ${
+                  s.color === "black"
+                    ? "bg-stone-900"
+                    : "bg-white ring-1 ring-stone-400"
                 }`}
               />
-              <span className="font-semibold text-primary-dark">
+              <span className="max-w-[4.5rem] truncate font-medium">
                 {nameOf?.(s.id) ?? s.name}
               </span>
-              <span className="ml-1.5 text-stone-500">
-                {zh ? "提" : "cap"} {s.captures}
-              </span>
-            </div>
+              <span className="text-stone-400">{s.captures}</span>
+            </span>
           ))}
-        </div>
-
-        <div className="flex h-14 w-full max-w-[480px] shrink-0 flex-col justify-center overflow-hidden rounded-xl border border-amber-200/80 bg-amber-50 px-3 text-center">
-          <p className="truncate text-xs font-medium leading-5 text-amber-950">
+          <span className="min-w-0 truncate font-medium text-amber-950">
             {status}
-          </p>
-          <p className="h-4 truncate text-[10px] font-normal leading-4 text-amber-800/80">
-            {thinkingId && thinkingDetail ? thinkingDetail : "\u00a0"}
-          </p>
+          </span>
         </div>
 
-        <GoBoard
-          size={view.size}
-          stones={view.stones}
-          onIntersectionClick={onPoint}
+        <button
+          type="button"
           disabled={!isMyTurn}
-          lastMove={view.lastMove}
-          ko={view.ko}
-        />
+          onClick={() =>
+            onAction({ type: "pass", playerId: myId, payload: {} })
+          }
+          className="cursor-pointer rounded-md border border-border bg-white px-2 py-1 text-[11px] font-semibold text-primary-dark hover:bg-stone-50 disabled:opacity-35 sm:text-xs"
+        >
+          {zh ? "停着" : "Pass"}
+          {view.consecutivePasses > 0 ? ` ${view.consecutivePasses}/2` : ""}
+        </button>
 
-        <div className="flex w-full max-w-[480px] flex-wrap gap-2">
+        {!confirmResign ? (
           <button
             type="button"
-            disabled={!isMyTurn}
-            onClick={() =>
-              onAction({ type: "pass", playerId: myId, payload: {} })
-            }
-            className="cursor-pointer rounded-lg border border-border bg-white px-4 py-2 text-sm font-semibold text-primary-dark hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-40"
+            disabled={view.phase !== "playing" || !!disabled}
+            onClick={() => setConfirmResign(true)}
+            className="cursor-pointer rounded-md border border-red-200 px-2 py-1 text-[11px] font-medium text-red-700 hover:bg-red-50 disabled:opacity-35 sm:text-xs"
           >
-            {zh ? "停着" : "Pass"}
-            {view.consecutivePasses > 0
-              ? ` (${view.consecutivePasses}/2)`
-              : ""}
+            {zh ? "认输" : "Resign"}
           </button>
-          {!confirmResign ? (
+        ) : (
+          <>
             <button
               type="button"
-              disabled={view.phase !== "playing" || !!disabled}
-              onClick={() => setConfirmResign(true)}
-              className="cursor-pointer rounded-lg border border-red-200 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-40"
+              onClick={() => {
+                setConfirmResign(false);
+                onAction({ type: "resign", playerId: myId, payload: {} });
+              }}
+              className="cursor-pointer rounded-md bg-red-600 px-2 py-1 text-[11px] font-semibold text-white sm:text-xs"
             >
-              {zh ? "认输" : "Resign"}
+              {zh ? "确认" : "OK"}
             </button>
-          ) : (
-            <>
-              <button
-                type="button"
-                onClick={() => {
-                  setConfirmResign(false);
-                  onAction({ type: "resign", playerId: myId, payload: {} });
-                }}
-                className="cursor-pointer rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white"
-              >
-                {zh ? "确认认输" : "Confirm resign"}
-              </button>
-              <button
-                type="button"
-                onClick={() => setConfirmResign(false)}
-                className="cursor-pointer rounded-lg border border-border px-3 py-2 text-sm"
-              >
-                {zh ? "取消" : "Cancel"}
-              </button>
-            </>
-          )}
-          {view.phase === "finished" && onRematch && (
             <button
               type="button"
-              onClick={onRematch}
-              className="cursor-pointer rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white"
+              onClick={() => setConfirmResign(false)}
+              className="cursor-pointer rounded-md border border-border px-2 py-1 text-[11px] sm:text-xs"
             >
-              {zh ? "再来一局" : "Rematch"}
+              {zh ? "取消" : "No"}
             </button>
-          )}
-        </div>
+          </>
+        )}
 
-        <p className="max-w-[480px] text-center text-[11px] leading-relaxed text-stone-500">
-          {zh
-            ? "右侧可问「围棋老师」（能看到当前棋盘）。双方停着后按数目法估算胜负（教学简化）。"
-            : "Ask the Go Teacher in the side panel — it sees this board. Two passes → simplified area score."}
-        </p>
+        {view.phase === "finished" && onRematch && (
+          <button
+            type="button"
+            onClick={onRematch}
+            className="cursor-pointer rounded-md bg-primary px-2 py-1 text-[11px] font-semibold text-white sm:text-xs"
+          >
+            {zh ? "再来" : "Again"}
+          </button>
+        )}
+
+        <button
+          type="button"
+          onClick={() => setPanelOpen((v) => !v)}
+          className={`cursor-pointer rounded-md px-2 py-1 text-[11px] font-semibold sm:text-xs ${
+            panelOpen
+              ? "bg-accent text-white"
+              : "border border-border bg-white text-primary-dark hover:bg-stone-50"
+          }`}
+          aria-expanded={panelOpen}
+        >
+          {zh ? "老师" : "Tutor"}
+        </button>
       </div>
 
-      <aside className="flex min-h-0 w-full shrink-0 flex-col gap-2 overflow-hidden rounded-2xl border border-border bg-white p-3 shadow-card lg:w-80">
-        <div className="flex max-h-[28%] min-h-[4.5rem] shrink-0 flex-col overflow-hidden">
-          <p className="mb-1 shrink-0 font-heading text-xs font-bold text-stone-500">
-            {zh ? "战报" : "Log"}
-          </p>
-          <div className="min-h-0 flex-1 space-y-1 overflow-y-auto text-[11px] leading-snug">
-            {playLog.length === 0 && (
-              <p className="text-stone-400">{zh ? "对局开始" : "Game start"}</p>
-            )}
-            {playLog.map((e) => (
-              <div
-                key={e.id}
-                className={`whitespace-pre-wrap rounded-md px-1.5 py-1 ${
-                  e.tone === "win"
-                    ? "bg-emerald-50 text-emerald-900"
-                    : e.tone === "warn"
-                      ? "bg-amber-50 text-amber-950"
-                      : "bg-surface text-primary-dark"
-                }`}
-              >
-                {e.text}
-              </div>
-            ))}
+      {/* Board fills remaining viewport */}
+      <div className="min-h-0 flex-1 [container-type:size]">
+        <div className="flex h-full w-full items-center justify-center p-1 sm:p-1.5">
+          <div className="aspect-square w-[min(100cqw,100cqh)] max-h-full max-w-full">
+            <GoBoard
+              size={view.size}
+              stones={view.stones}
+              onIntersectionClick={onPoint}
+              disabled={!isMyTurn}
+              lastMove={view.lastMove}
+              ko={view.ko}
+            />
           </div>
         </div>
+      </div>
 
-        <GoTutorPanel
-          locale={locale}
-          boardContext={boardContext}
-          suggestedPrompts={suggestedPrompts}
-        />
-      </aside>
+      {/* Teacher drawer — off by default so the board stays huge */}
+      {panelOpen && (
+        <>
+          <button
+            type="button"
+            className="absolute inset-0 z-20 cursor-pointer bg-stone-900/20 sm:bg-transparent"
+            aria-label={zh ? "关闭老师面板" : "Close tutor"}
+            onClick={() => setPanelOpen(false)}
+          />
+          <aside className="absolute inset-y-9 right-0 z-30 flex w-[min(100%,22rem)] flex-col border-l border-border bg-white shadow-xl sm:inset-y-9">
+            <div className="flex h-8 shrink-0 items-center justify-between border-b border-border px-2">
+              <span className="text-xs font-bold text-primary-dark">
+                {zh ? "围棋老师" : "Go Teacher"}
+              </span>
+              <button
+                type="button"
+                onClick={() => setPanelOpen(false)}
+                className="cursor-pointer rounded px-2 py-0.5 text-xs text-stone-500 hover:bg-stone-100"
+              >
+                {zh ? "收起" : "Close"}
+              </button>
+            </div>
+            <div className="min-h-0 flex-1 p-2">
+              <GoTutorPanel
+                locale={locale}
+                boardContext={boardContext}
+                suggestedPrompts={suggestedPrompts}
+              />
+            </div>
+          </aside>
+        </>
+      )}
     </div>
   );
 }

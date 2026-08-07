@@ -12,9 +12,13 @@ interface Props {
   disabled?: boolean;
   lastMove?: Coord | null;
   ko?: Coord | null;
+  className?: string;
 }
 
-const PADDING = 22;
+/** Logical SVG size — CSS scales the element to fill its box. */
+const VIEW = 1000;
+const PADDING = 36;
+
 const STAR_POINTS_9 = [
   [2, 2],
   [2, 6],
@@ -48,9 +52,9 @@ export function GoBoard({
   disabled,
   lastMove,
   ko,
+  className = "",
 }: Props) {
-  const viewSize = size <= 9 ? 360 : size <= 13 ? 420 : 480;
-  const spacing = (viewSize - PADDING * 2) / (size - 1);
+  const spacing = (VIEW - PADDING * 2) / (size - 1);
 
   const starPoints = useCallback(() => {
     if (size <= 9) return STAR_POINTS_9;
@@ -66,8 +70,8 @@ export function GoBoard({
     const rect = svg.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const scaleX = viewSize / rect.width;
-    const scaleY = viewSize / rect.height;
+    const scaleX = VIEW / rect.width;
+    const scaleY = VIEW / rect.height;
     const col = Math.round((x * scaleX - PADDING) / spacing);
     const row = Math.round((y * scaleY - PADDING) / spacing);
     if (row >= 0 && row < size && col >= 0 && col < size) {
@@ -76,23 +80,20 @@ export function GoBoard({
   };
 
   const stoneR = spacing * 0.44;
+  const lineW = size >= 19 ? 1.1 : size >= 13 ? 1.3 : 1.6;
+  const starR = size >= 19 ? 5 : 6.5;
 
   return (
     <svg
-      viewBox={`0 0 ${viewSize} ${viewSize}`}
-      className={`w-full max-w-[min(100%,480px)] rounded-xl bg-amber-100 shadow-inner ${
-        disabled ? "cursor-default opacity-95" : "cursor-pointer"
-      }`}
+      viewBox={`0 0 ${VIEW} ${VIEW}`}
+      className={`h-full w-full touch-manipulation rounded-lg bg-amber-100 shadow-inner ${
+        disabled ? "cursor-default" : "cursor-pointer"
+      } ${className}`}
       onClick={handleClick}
+      role="img"
+      aria-label={`Go board ${size}×${size}`}
     >
-      <rect
-        x={0}
-        y={0}
-        width={viewSize}
-        height={viewSize}
-        rx={10}
-        fill="#e8c26a"
-      />
+      <rect x={0} y={0} width={VIEW} height={VIEW} rx={14} fill="#e8c26a" />
       {Array.from({ length: size }, (_, i) => (
         <g key={`lines-${i}`}>
           <line
@@ -101,7 +102,7 @@ export function GoBoard({
             x2={toSvg(size - 1)}
             y2={toSvg(i)}
             stroke="#8b6914"
-            strokeWidth={0.7}
+            strokeWidth={lineW}
           />
           <line
             x1={toSvg(i)}
@@ -109,7 +110,7 @@ export function GoBoard({
             x2={toSvg(i)}
             y2={toSvg(size - 1)}
             stroke="#8b6914"
-            strokeWidth={0.7}
+            strokeWidth={lineW}
           />
         </g>
       ))}
@@ -118,7 +119,7 @@ export function GoBoard({
           key={`star-${r}-${c}`}
           cx={toSvg(c)}
           cy={toSvg(r)}
-          r={2.2}
+          r={starR}
           fill="#8b6914"
         />
       ))}
@@ -130,7 +131,7 @@ export function GoBoard({
           height={stoneR * 0.7}
           fill="none"
           stroke="#b45309"
-          strokeWidth={1.5}
+          strokeWidth={3}
         />
       )}
       {Object.entries(stones).map(([k, color]) => {
@@ -141,10 +142,10 @@ export function GoBoard({
         return (
           <g key={`stone-${k}`}>
             <circle
-              cx={cx + 1.2}
-              cy={cy + 1.2}
+              cx={cx + 2}
+              cy={cy + 2}
               r={stoneR}
-              fill="rgba(0,0,0,0.15)"
+              fill="rgba(0,0,0,0.18)"
             />
             <circle
               cx={cx}
@@ -152,7 +153,7 @@ export function GoBoard({
               r={stoneR}
               fill={color === "black" ? "#1a1a1a" : "#f5f5f0"}
               stroke={color === "black" ? "#000" : "#c5c5b5"}
-              strokeWidth={0.5}
+              strokeWidth={1}
             />
             {isLast && (
               <circle
@@ -160,7 +161,7 @@ export function GoBoard({
                 cy={cy}
                 r={stoneR * 0.28}
                 fill={color === "black" ? "#fff" : "#333"}
-                opacity={0.75}
+                opacity={0.8}
               />
             )}
           </g>

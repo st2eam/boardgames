@@ -4,6 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { Application, Container, Graphics, Text } from "pixi.js";
 import { createCardVisual, type CardVisual } from "./pixi/cardFactory";
 import {
+  loadLoveLetterTextures,
+  type LoveLetterTextures,
+} from "./pixi/assets";
+import {
   chancellorFanPositions,
   handFanPositions,
   opponentSeatPositions,
@@ -105,6 +109,7 @@ export function LoveLetterPixiArena({
   const callbacksRef = useRef({ onSelectCard, onSelectTarget, interactive });
   callbacksRef.current = { onSelectCard, onSelectTarget, interactive };
   const firstSync = useRef(true);
+  const texturesRef = useRef<LoveLetterTextures | null>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -114,6 +119,13 @@ export function LoveLetterPixiArena({
     const app = new Application();
 
     (async () => {
+      try {
+        texturesRef.current = await loadLoveLetterTextures();
+      } catch {
+        texturesRef.current = null;
+      }
+      if (destroyed) return;
+
       await app.init({
         width,
         height,
@@ -244,6 +256,7 @@ export function LoveLetterPixiArena({
         rank: 0,
         name: "",
         faceDown: true,
+        textures: texturesRef.current,
       });
       deckNode.eventMode = "none";
       layers.cards.addChild(deckNode);
@@ -353,6 +366,7 @@ export function LoveLetterPixiArena({
           rank: p.rank,
           name: p.name,
           faceDown: p.faceDown,
+          textures: texturesRef.current,
         });
         const cid = p.id;
         card.on("pointertap", () => {

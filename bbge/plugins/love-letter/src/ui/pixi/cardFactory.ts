@@ -1,7 +1,9 @@
-import { Container, Graphics, Text } from "pixi.js";
+import { Container, Graphics, Sprite, Text, type Texture } from "pixi.js";
+import type { LoveLetterTextures } from "./assets";
+import { textureForCard } from "./assets";
 
-export const CARD_W = 72;
-export const CARD_H = 100;
+export const CARD_W = 78;
+export const CARD_H = 110;
 
 const RANK_COLORS: Record<number, number> = {
   0: 0x546e7a,
@@ -37,26 +39,15 @@ function roundRect(
   g.fill({ color, alpha });
 }
 
-/** Procedural face-up or face-down card container. */
-export function createCardVisual(opts: {
-  cardId: string;
-  rank: number;
-  name: string;
-  faceDown?: boolean;
-}): CardVisual {
-  const root = new Container() as CardVisual;
-  root.cardId = opts.cardId;
-  root.rank = opts.rank;
-  root.faceDown = Boolean(opts.faceDown);
-  root.baseY = 0;
-  root.eventMode = "static";
-  root.cursor = "pointer";
-  root.pivot.set(CARD_W / 2, CARD_H / 2);
-
+function addProceduralFace(
+  root: Container,
+  rank: number,
+  name: string,
+  faceDown: boolean,
+) {
   const bg = new Graphics();
   root.addChild(bg);
-
-  if (opts.faceDown) {
+  if (faceDown) {
     roundRect(bg, 0, 0, CARD_W, CARD_H, 10, 0x3e2723);
     const stripe = new Graphics();
     for (let i = 0; i < 8; i++) {
@@ -65,20 +56,11 @@ export function createCardVisual(opts: {
     }
     stripe.stroke({ width: 2, color: 0xc4952a, alpha: 0.45 });
     root.addChild(stripe);
-    const heart = new Graphics();
-    heart.star(CARD_W / 2, CARD_H / 2, 5, 10, 5);
-    heart.fill({ color: 0xc4952a, alpha: 0.85 });
-    root.addChild(heart);
   } else {
-    const color = RANK_COLORS[opts.rank] ?? 0x5d4037;
+    const color = RANK_COLORS[rank] ?? 0x5d4037;
     roundRect(bg, 0, 0, CARD_W, CARD_H, 10, color);
-    const gloss = new Graphics();
-    gloss.ellipse(CARD_W * 0.35, CARD_H * 0.28, 22, 14);
-    gloss.fill({ color: 0xffffff, alpha: 0.18 });
-    root.addChild(gloss);
-
     const rankText = new Text({
-      text: String(opts.rank),
+      text: String(rank),
       style: {
         fontFamily: "Fredoka, Nunito, sans-serif",
         fontSize: 28,
@@ -89,9 +71,8 @@ export function createCardVisual(opts: {
     rankText.x = 8;
     rankText.y = 6;
     root.addChild(rankText);
-
     const nameText = new Text({
-      text: opts.name,
+      text: name,
       style: {
         fontFamily: "Fredoka, Nunito, sans-serif",
         fontSize: 11,
@@ -105,11 +86,51 @@ export function createCardVisual(opts: {
     nameText.y = CARD_H - 28;
     root.addChild(nameText);
   }
+}
 
-  const border = new Graphics();
-  border.roundRect(1, 1, CARD_W - 2, CARD_H - 2, 9);
-  border.stroke({ width: 2, color: 0xffffff, alpha: 0.35 });
-  root.addChild(border);
+function addAssetFace(root: Container, texture: Texture) {
+  const sprite = new Sprite(texture);
+  sprite.width = CARD_W;
+  sprite.height = CARD_H;
+  // Soft mask corners via rounded rect overlay border only
+  root.addChild(sprite);
+  const frame = new Graphics();
+  frame.roundRect(0, 0, CARD_W, CARD_H, 8);
+  frame.stroke({ width: 2, color: 0xffffff, alpha: 0.35 });
+  root.addChild(frame);
+}
+
+/** Card visual from downloadable asset pack, with procedural fallback. */
+export function createCardVisual(opts: {
+  cardId: string;
+  rank: number;
+  name: string;
+  faceDown?: boolean;
+  textures?: LoveLetterTextures | null;
+}): CardVisual {
+  const root = new Container() as CardVisual;
+  root.cardId = opts.cardId;
+  root.rank = opts.rank;
+  root.faceDown = Boolean(opts.faceDown);
+  root.baseY = 0;
+  root.eventMode = "static";
+  root.cursor = "pointer";
+  root.pivot.set(CARD_W / 2, CARD_H / 2);
+
+  const tex = textureForCard(
+    opts.textures ?? null,
+    opts.rank,
+    Boolean(opts.faceDown),
+  );
+  if (tex) {
+    addAssetFace(root, tex);
+  } else {
+    addProceduralFace(root, opts.rank, opts.name, Boolean(opts.faceDown));
+    const border = new Graphics();
+    border.roundRect(1, 1, CARD_W - 2, CARD_H - 2, 9);
+    border.stroke({ width: 2, color: 0xffffff, alpha: 0.35 });
+    root.addChild(border);
+  }
 
   return root;
 }

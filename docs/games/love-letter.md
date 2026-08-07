@@ -8,7 +8,8 @@ Shelf architecture: [`docs/architecture.md`](../architecture.md).
 **Convention:** Playable game designs live at `docs/games/<slug>.md`.
 
 > Rules engine matches site **Full Game** (Princess = 9, 21 cards incl. Chancellor/Spy), not classic 8-rank only.  
-> Play surface: `LoveLetterPixiArena` (WebGL) — not DOM card buttons.
+> Play surface: `LoveLetterPixiArena` (WebGL) — not DOM card buttons.  
+> Card art: `public/images/bbge/love-letter/*` sourced from `public/downloads/love-letter-cards.zip`.
 
 ---
 
@@ -137,7 +138,8 @@ AI turn (Host only):
   - Code: `bbge/plugins/love-letter/src/ui/LoveLetterPixiArena.tsx` + `ui/pixi/*`
   - Loaded via `next/dynamic(..., { ssr: false })` from `PlayShell`
 - Shared table chat log: AI speech; humans may send short messages too
-- Tokens: Shelf warm wood palette inside procedural card art; Fredoka labels in Pixi `Text`
+- Card faces/backs: textures from `public/images/bbge/love-letter/` (export pack); procedural Graphics only as fallback
+- Tokens: Shelf warm wood palette; Fredoka labels in Pixi `Text` where needed
 - Play CTA: strongest accent button, **first** in header row
 
 ### 6.3 Content bind

@@ -1,5 +1,10 @@
 # BBGE Love Letter v1 Implementation Plan
 
+> **Historical plan.** Shipped on `main`. For current behavior (BGA DOM table,
+> Full Game actions, AI pacing/fallback), use
+> [`docs/games/love-letter.md`](../../games/love-letter.md) — do not treat
+> unchecked boxes below as unfinished work.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Ship Love Letter playable on The Game Shelf: Host + share-link WebRTC guests + Host DeepSeek AI seats, one round to victory, entry via first `GameHeader` button.

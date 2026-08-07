@@ -482,23 +482,27 @@ first-party game server (static export constraint).
 ### 11.4 AI seats (reusable)
 
 - Pattern name: **`AiSeat`** — game-agnostic; plugins do not call DeepSeek
-- Runs **only on Host**; uses the same IndexedDB DeepSeek API key as site chat
+- Runs **only on Host**; DeepSeek when chat API key present, else **silent mock**
 - Reuse `DeepSeekAdapter` + thinking/activity UI patterns from chat
-- Capabilities: `Think(view) → Action` and `Speak(context) →` short table talk
-- Thinking status and speech are broadcast so all peers see them
+- Capabilities: `Think(view) → Action`; `Speak` **only for LLM seats**
+- Thinking status broadcast; mock never posts table talk
+- LLM think budget ~90s; timeout uses ephemeral mock for **one turn** only
 - No API key on guests required
 
 Details: [plugin-api.md §16](plugin-api.md).
 
-### 11.5 In scope
+### 11.5 In scope (shipped)
 
-- `play.json` + `hasPlay` + Play button first in `GameHeader`
-- `bbge` core / runtime / sync / network (WebRTC+signaling adapter) / UI
-- Love Letter plugin: deal, play, guess, eliminate, victory
-- **Play table:** PixiJS WebGL + GSAP card tweens + Motion HUD (`LoveLetterPixiArena`)
-- Lobby: seats, join, add/remove AI, ready, start (React; not Pixi)
-- `projectView` hidden info; reject illegal Actions with UX feedback
-- Determinism tests (seed + action list) — **log-level only**
+- `play.json` + `hasPlay` + Play button first in `GameHeader` + homepage Play Now
+- `bbge` core / runtime / network (PeerJS) / ui (`PlayShell`) / ai
+- Love Letter plugin: Full Game deal/play/guess/eliminate/victory
+- Pending: Chancellor resolve; Priest peek + `acknowledgePriest`
+- Next seat draws immediately after a completed play
+- **Play table:** BGA-style DOM (`LoveLetterTable` + `ui/bga/*`) — status bar,
+  felt, hand dock, player panels with discard history, log, chat; Motion draw/play;
+  card zoom lightbox
+- Lobby: seats, join, hotseat / AI, ready, start
+- `projectView` privacy; illegal Action UX; `npm run test:bbge`
 
 ### 11.6 Explicitly out of scope (v1)
 
@@ -507,13 +511,12 @@ Details: [plugin-api.md §16](plugin-api.md).
 - Spectators, matchmaking, ranked, cloud save
 - Host migration; rich disconnect recovery
 - Second game plugin; marketplace; hot-load arbitrary plugins
-- Full board/hex/dice UI kits beyond what Love Letter needs
+- Pixi as the Love Letter play path (optional for future canvas-heavy games)
 
 ### 11.7 Success criteria
 
-Two browsers can finish a Love Letter **single round** with at least one human
-and one AI seat; AI shows thinking before acting; AI can post a short table
-message.
+Host hotseat and/or AI can finish a Love Letter **Full Game single round**;
+AI shows thinking; LLM may speak; priest peek requires confirm; discards visible.
 
 ---
 

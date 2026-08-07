@@ -119,7 +119,7 @@ Examples (illustrative — defined by each plugin):
 | Game | Actions |
 |---|---|
 | Texas Hold'em | `fold`, `check`, `call`, `raise` |
-| Love Letter | `playCard`, `guessPlayer` |
+| Love Letter | `playCard`, `resolveChancellor`, `acknowledgePriest` |
 | Carcassonne | `placeTile`, `placeMeeple` |
 | Catan | `rollDice`, `buildRoad`, `buildSettlement`, `trade` |
 
@@ -551,12 +551,13 @@ type AiPresenceEvent =
 ### 16.3 Implementation notes (Game Shelf)
 
 - Prefer wrapping existing `DeepSeekAdapter` (thinking blocks → `ai/thinking`)
-- Prompting is **seat-policy** code under `bbge` (or `src/lib/ai` shared helper),
-  parameterized by plugin id + compact rules summary — still **outside**
+- Prompting is **seat-policy** code under Shelf / `bbge/ai` (e.g.
+  `DeepSeekLoveLetterSeat`), parameterized by plugin — still **outside**
   `applyAction`
-- Table UI shows thinking activity on that seat; chat line in a shared log
-- Failures (no key / rate limit): surface Host-only error; do not advance turn
-  with a random illegal move
+- Table UI shows thinking activity on that seat; LLM may post table talk
+- **No API key:** Host may still add AI seats — silent **mock** heuristic
+- **LLM timeout / bad output:** ephemeral mock for **that turn only**; do not
+  permanently demote the LLM seat; mock never `speak`s
 
 ### 16.4 Out of scope for AiSeat v1
 

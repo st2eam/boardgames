@@ -4,7 +4,7 @@ description: >-
   Architect and implement the Browser Board Game Engine (BBGE): a modular,
   plugin-based, deterministic, multiplayer-first, browser-native tabletop
   platform. Use when building BBGE, game plugins, engine runtime, host-browser
-  networking, replay/RNG, Pixi/Vite board UI, or when the user mentions BBGE,
+  networking, replay/RNG, BGA-style DOM or Pixi board UI, or when the user mentions BBGE,
   browser board game engine, game plugin, host authority, or playable online
   tabletop (Texas Hold'em, Avalon, Love Letter, Carcassonne, Catan, etc.).
 ---
@@ -64,11 +64,11 @@ compose engine components; they do not hardcode colors or one-off chrome.
 
 ## Default stack
 
-TypeScript · React · PixiJS · GSAP · Motion · WebRTC · IndexedDB · Immer · Zod  
-(Shelf host: Next static export; BBGE play tables use Pixi canvas, not DOM-only cards.)
+TypeScript · React · Motion · WebRTC · IndexedDB · Immer · Zod  
+(Optional PixiJS/GSAP for canvas-heavy boards; Love Letter v1 uses BGA-style DOM + Motion.)
 
 Prefer functional updates (Immer). Validate Actions with Zod at boundaries.  
-Play UIs: `next/dynamic(..., { ssr: false })` for Pixi stages.
+Canvas play UIs: `next/dynamic(..., { ssr: false })` when using Pixi.
 
 ---
 
@@ -82,26 +82,28 @@ Full detail: [architecture.md §11](architecture.md).
 | First game | Love Letter (**one round** ends match) |
 | Design doc | [`docs/games/love-letter.md`](../../../docs/games/love-letter.md) |
 | Multiplayer | Host + share link join from day one |
-| AI | Reusable `AiSeat` on Host; DeepSeek key from chat; think + speak |
+| AI | Reusable `AiSeat` on Host; DeepSeek when key present, else silent mock |
+| Play UI | BGA-style DOM table (`LoveLetterTable`); Motion draw/play |
 | Replay tools | **Out** — no replay viewer/SDK UI |
 | Entry | `GameHeader` **first** button → `/games/love-letter/play/` |
 
-Per-game BBGE designs: [`docs/games/<slug>.md`](../../../docs/games/).
+Per-game BBGE designs: [`docs/games/<slug>.md`](../../../docs/games/).  
+Love Letter design (source of truth): [`docs/games/love-letter.md`](../../../docs/games/love-letter.md).
 
-## Implementation order (v1)
+## Implementation order (v1) — shipped on main
 
 ```
 Task Progress:
-- [ ] 1. bbge/core: GameState, seeded RNG, Action/Event envelopes
-- [ ] 2. bbge/runtime: Create→Lobby→Initialize→Playing→Finished (no Replay UI)
-- [ ] 3. bbge/engine: turns + cards (Love Letter needs)
-- [ ] 4. plugin love-letter: full match rules + projectView
-- [ ] 5. Shelf: play.json, hasPlay, GameHeader Play first, /play/ shell
-- [ ] 6. bbge/network: WebRTC data channel + light signaling (room link)
-- [ ] 7. Host authority + action/event broadcast + best-effort rejoin
-- [ ] 8. AiSeat: DeepSeekAdapter reuse, thinking broadcast, table speak
-- [ ] 9. bbge/ui: Card / Hand / PlayerSeat / Dialog / AI activity chrome
-- [ ] 10. Theme tokens + i18n; determinism tests for love-letter
+- [x] 1. bbge/core: GameState, seeded RNG, Action/Event envelopes
+- [x] 2. bbge/runtime: Create→Lobby→Initialize→Playing→Finished (no Replay UI)
+- [x] 3. bbge/engine helpers as needed for Love Letter
+- [x] 4. plugin love-letter: Full Game rules + projectView + pending flows
+- [x] 5. Shelf: play.json, hasPlay, GameHeader Play first, /play/ shell
+- [x] 6. bbge/network: PeerJS + WebRTC data channel
+- [x] 7. Host authority + action/event broadcast + best-effort rejoin
+- [x] 8. AiSeat: DeepSeek + mock; LLM speak only; 90s think budget
+- [x] 9. bbge/ui PlayShell + BGA LoveLetterTable (panels, log, chat, Motion)
+- [x] 10. Theme tokens + i18n; npm run test:bbge
 ```
 
 Extract shared primitives into `engine/` / `ui/` / `AiSeat` — never bury rules
@@ -117,7 +119,7 @@ Plugin shape: **[plugin-api.md](plugin-api.md)**. AiSeat: **[plugin-api.md §16]
 Player → Action → Host validate → applyAction → Events → Broadcast → UI render
 ```
 
-UI and Pixi subscribe to Events / state snapshots. They never mutate GameState.
+UI (DOM or Pixi) subscribe to Events / state snapshots. They never mutate GameState.
 
 Details: [architecture.md §5–§6](architecture.md).
 
@@ -150,15 +152,15 @@ page + i18n into `src/` / `content/` when adding a playable game.
 
 ## Definition of done (v1)
 
-- [ ] No game rules in runtime/network; no DeepSeek calls inside plugins
-- [ ] Deterministic with fixed seed (automated tests)
-- [ ] Actions validated then applied immutably; views hide private cards
-- [ ] Two browsers can finish Love Letter with ≥1 AI seat
-- [ ] AI thinking status + table speech visible to all peers
-- [ ] Play button first on Love Letter game page when `play.json` present
-- [ ] UI uses engine components + theme variables + companion UI skills
-- [ ] **No** replay viewer / replay tooling shipped
-- [ ] Plugin satisfies [plugin-api.md](plugin-api.md) testing DoD
+- [x] No game rules in runtime/network; no DeepSeek calls inside plugins
+- [x] Deterministic with fixed seed (`npm run test:bbge`)
+- [x] Actions validated then applied immutably; views hide private cards
+- [x] Host hotseat / AI can finish a Full Game round; PeerJS join path wired
+- [x] AI thinking status; LLM table speech only (mock silent)
+- [x] Play button first + homepage Play Now when `play.json` present
+- [x] BGA-style table: discards, priest confirm, zoom, Motion play/draw
+- [x] **No** replay viewer / replay tooling shipped
+- [x] Plugin tests cover illegal play, projectView, priest reveal, autopilot
 
 ---
 

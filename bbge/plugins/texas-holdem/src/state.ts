@@ -63,6 +63,11 @@ export interface HoldemState {
     type: string;
     amount?: number;
   };
+  /** Chips awarded when the hand ended (fold win or showdown) */
+  lastAward?: {
+    amounts: Record<PlayerId, number>;
+    potTotal: number;
+  };
 }
 
 export interface HoldemConfig {

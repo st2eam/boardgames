@@ -157,19 +157,35 @@ function clearStreetCommitments(state: HoldemState): void {
 }
 
 function awardFoldWin(state: HoldemState, events: Event[]): void {
-  const winner = activePlayers(state)[0]!;
+  const alive = activePlayers(state);
+  if (alive.length === 0) {
+    // Degenerate: refund commitments
+    for (const p of state.players) {
+      p.stack += p.handBet;
+      p.handBet = 0;
+      p.streetBet = 0;
+    }
+    state.phase = "finished";
+    state.winners = [];
+    state.pots = [];
+    state.lastAward = { amounts: {}, potTotal: 0 };
+    return;
+  }
+  const winner = alive[0]!;
   const pot = state.players.reduce((s, p) => s + p.handBet, 0);
   winner.stack += pot;
   clearStreetCommitments(state);
   state.phase = "finished";
   state.winners = [winner.id];
   state.pots = [{ amount: pot, eligible: [winner.id] }];
+  state.lastAward = { amounts: { [winner.id]: pot }, potTotal: pot };
   events.push({
     type: "holdem/handEnded",
     payload: {
       reason: "fold",
       winners: [winner.id],
       pot,
+      amounts: { [winner.id]: pot },
     },
   });
 }
@@ -197,6 +213,7 @@ function showdown(state: HoldemState, events: Event[]): void {
 
   const show: NonNullable<HoldemState["showdown"]> = [];
   const winners = new Set<PlayerId>();
+  const amounts: Record<string, number> = {};
 
   for (const pot of pots) {
     let bestScore: number[] | null = null;
@@ -216,25 +233,32 @@ function showdown(state: HoldemState, events: Event[]): void {
         potWinners.push(id);
       }
     }
+    if (potWinners.length === 0) continue;
     const share = Math.floor(pot.amount / potWinners.length);
     let rem = pot.amount - share * potWinners.length;
     for (const id of potWinners) {
       const p = state.players.find((x) => x.id === id)!;
-      p.stack += share + (rem > 0 ? 1 : 0);
+      const gain = share + (rem > 0 ? 1 : 0);
       if (rem > 0) rem -= 1;
+      p.stack += gain;
+      amounts[id] = (amounts[id] ?? 0) + gain;
       winners.add(id);
     }
   }
 
+  const potTotal = pots.reduce((s, p) => s + p.amount, 0);
   state.showdown = show;
   clearStreetCommitments(state);
   state.phase = "finished";
   state.winners = [...winners];
+  state.lastAward = { amounts, potTotal };
   events.push({
     type: "holdem/handEnded",
     payload: {
       reason: "showdown",
       winners: state.winners,
+      pot: potTotal,
+      amounts,
       pots,
       showdown: show.map((s) => ({
         playerId: s.playerId,
@@ -422,6 +446,7 @@ export function continueHoldemMatch(
     handNumber: (prev.handNumber ?? 1) + 1,
     showdown: undefined,
     lastAction: undefined,
+    lastAward: undefined,
     players: prev.players.map((p) => ({
       id: p.id,
       name: p.name,

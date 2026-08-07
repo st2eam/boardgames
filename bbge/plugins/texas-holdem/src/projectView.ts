@@ -21,7 +21,13 @@ export function projectHoldemView(
     ? state.players.find((p) => p.id === viewerId)
     : null;
   const finished = state.phase === "finished";
-  const potTotal = state.players.reduce((s, p) => s + p.handBet, 0);
+  const committed = state.players.reduce((s, p) => s + p.handBet, 0);
+  const potTotal =
+    finished && state.lastAward
+      ? state.lastAward.potTotal
+      : finished && state.pots.length
+        ? state.pots.reduce((s, p) => s + p.amount, 0)
+        : committed;
 
   return {
     phase: state.phase,
@@ -39,6 +45,7 @@ export function projectHoldemView(
     winners: state.winners,
     handNumber: state.handNumber ?? 1,
     lastAction: state.lastAction ?? null,
+    lastAward: state.lastAward ?? null,
     legal: viewerId ? legalActions(state, viewerId) : [],
     you: you
       ? {
@@ -93,6 +100,7 @@ export function projectHoldemView(
           sd != null
             ? CATEGORY_NAME[sd.score[0] as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8]
             : null,
+        wonAmount: state.lastAward?.amounts[p.id] ?? 0,
       };
     }),
   };

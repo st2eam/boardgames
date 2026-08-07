@@ -43,8 +43,10 @@ type ArenaView = {
     allIn: boolean;
     hole: { id: string; rank?: number; suit?: string }[];
     handCategory?: { en: string; zh: string } | null;
+    wonAmount?: number;
   }[];
   legal: { type: string; toAmount?: number; callAmount?: number }[];
+  lastAward?: { amounts: Record<string, number>; potTotal: number } | null;
 };
 
 const BUBBLE_MS = 3800;
@@ -144,9 +146,18 @@ export function TexasHoldemTable({
 
   const status = useMemo(() => {
     if (view.phase === "finished") {
+      const bits = view.winners.map((id) => {
+        const won = view.lastAward?.amounts[id];
+        const name = nameOf?.(id) ?? id;
+        return won != null && won > 0
+          ? zh
+            ? `${name} +${won}`
+            : `${name} +${won}`
+          : name;
+      });
       return zh
-        ? `本手结束 · 胜者 ${view.winners.map((id) => nameOf?.(id) ?? id).join("、")}`
-        : `Hand over · ${view.winners.map((id) => nameOf?.(id) ?? id).join(", ")}`;
+        ? `本手结束 · ${bits.join("、")}${view.potTotal ? ` · 底池 ${view.potTotal}` : ""}`
+        : `Hand over · ${bits.join(", ")}${view.potTotal ? ` · pot ${view.potTotal}` : ""}`;
     }
     if (thinkingId) {
       return zh
@@ -695,6 +706,11 @@ function SeatChip({
         {compact ? seat.stack : `${zh ? "筹码" : "Stack"} ${seat.stack}`}
         {seat.streetBet > 0 ? ` · ${seat.streetBet}` : ""}
       </p>
+      {(seat.wonAmount ?? 0) > 0 && (
+        <p className="text-[11px] font-bold text-emerald-700">
+          +{seat.wonAmount}
+        </p>
+      )}
       {seat.allIn && (
         <p className="text-[10px] font-bold text-red-700">ALL-IN</p>
       )}

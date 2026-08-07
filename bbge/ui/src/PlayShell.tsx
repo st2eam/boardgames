@@ -185,6 +185,21 @@ export function PlayShell({
     return Object.fromEntries(seats.map((s) => [s.id, s.name]));
   }, [lobby]);
 
+  /** Push post-action state to remote seats (views are per-player). */
+  const publishActionResult = useCallback(
+    (result: { events: Event[]; views: Map<string, unknown> }) => {
+      const s = sessionRef.current;
+      const host = peerRef.current as PeerHost | null;
+      if (!s || !host?.send) return;
+      host.broadcast?.({ type: "events", payload: result.events });
+      host.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
+      for (const [pid, v] of result.views) {
+        host.send(pid, { type: "view", payload: v });
+      }
+    },
+    [],
+  );
+
   const appendEvents = useCallback(
     (events: Event[], opts?: { stripBubbleFor?: string }) => {
       const lines = modRef.current.formatEvents(events, locale, seatNames());
@@ -302,11 +317,7 @@ export function PlayShell({
               return;
             }
             appendEvents(result.events);
-            for (const [pid, v] of result.views) {
-              host.broadcast({ type: "events", payload: result.events });
-              host.broadcast({ type: "phase", payload: { phase: s.getPhase() } });
-              host.send(pid, { type: "view", payload: v });
-            }
+            publishActionResult(result);
             tick();
             void runAiIfNeeded();
           } else if (msg.type === "chat") {
@@ -523,6 +534,7 @@ export function PlayShell({
         const result = s.submitAction(auto);
         if (result.ok) {
           appendEvents(result.events);
+          publishActionResult(result);
           tick();
           await sleep(aiBetweenPlaysMs());
         } else {
@@ -658,6 +670,7 @@ export function PlayShell({
         }
         // Chat bubble owns AI speech; strip play-log bubbles to avoid double flash
         appendEvents(result.events, { stripBubbleFor: current });
+        publishActionResult(result);
         publishAiSpeak(current, result.events, speak);
         tick();
 
@@ -847,6 +860,7 @@ export function PlayShell({
       return;
     }
     appendEvents(result.events);
+    publishActionResult(result);
     tick();
     void runAiIfNeeded();
   };

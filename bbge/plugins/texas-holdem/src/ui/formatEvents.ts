@@ -91,12 +91,23 @@ export function formatHoldemEvents(
       });
     } else if (e.type === "holdem/handEnded") {
       const winners = (p.winners as string[]) ?? [];
+      const pot = typeof p.pot === "number" ? p.pot : null;
+      const amounts = (p.amounts as Record<string, number> | undefined) ?? {};
+      const awardBits = winners
+        .map((id) => {
+          const n = amounts[id];
+          if (n == null) return nameOf(id, names);
+          return zh
+            ? `${nameOf(id, names)} +${n}`
+            : `${nameOf(id, names)} +${n}`;
+        })
+        .join(zh ? "、" : ", ");
       out.push({
         id: `end-${at}-${out.length}`,
         at,
         text: zh
-          ? `本手结束 · 胜者 ${winners.map((id) => nameOf(id, names)).join("、")}`
-          : `Hand over · ${winners.map((id) => nameOf(id, names)).join(", ")}`,
+          ? `本手结束 · ${awardBits}${pot != null ? ` · 底池 ${pot}` : ""}`
+          : `Hand over · ${awardBits}${pot != null ? ` · pot ${pot}` : ""}`,
         tone: "win",
       });
     }

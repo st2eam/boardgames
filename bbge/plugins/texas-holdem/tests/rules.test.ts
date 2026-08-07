@@ -64,7 +64,11 @@ describe("texas-holdem rules", () => {
   });
 
   it("finishes when everyone folds to one player", () => {
-    let s = setup(3);
+    let s = setup(3, "fold-win");
+    const totalStart = s.players.reduce((a, p) => a + p.stack + p.handBet, 0);
+    const stacksBefore = Object.fromEntries(
+      s.players.map((p) => [p.id, p.stack + p.handBet]),
+    );
     // Force fold loop: act until finished by folding whenever possible
     for (let i = 0; i < 30 && s.phase === "playing"; i++) {
       const pid = s.players[s.toActIndex]!.id;
@@ -89,7 +93,13 @@ describe("texas-holdem rules", () => {
       }
     }
     expect(s.phase).toBe("finished");
-    expect(s.winners.length).toBeGreaterThanOrEqual(1);
+    expect(s.winners.length).toBe(1);
+    const winner = s.players.find((p) => p.id === s.winners[0])!;
+    expect(winner.stack).toBeGreaterThan(stacksBefore[winner.id]!);
+    expect(s.players.reduce((a, p) => a + p.stack + p.handBet, 0)).toBe(
+      totalStart,
+    );
+    expect(s.players.every((p) => p.handBet === 0)).toBe(true);
   });
 
   it("continues cash session with carried stacks and rotated button", () => {
@@ -124,5 +134,58 @@ describe("texas-holdem rules", () => {
     expect(next.players.reduce((a, p) => a + p.stack + p.handBet, 0)).toBe(
       chips,
     );
+  });
+
+  it("awards pot to the last player when others fold (HU)", () => {
+    let s = setup(2, "hu-bb-fold");
+    const sb = s.players[s.smallBlindIndex]!;
+    const bb = s.players[s.bigBlindIndex]!;
+    const pot = sb.handBet + bb.handBet;
+    const bbStackBefore = bb.stack;
+    expect(pot).toBe(3);
+    expect(s.players[s.toActIndex]!.id).toBe(sb.id);
+    // SB folds → BB wins blinds
+    s = act(s, { type: "fold", playerId: sb.id, payload: {} });
+    expect(s.phase).toBe("finished");
+    expect(s.winners).toEqual([bb.id]);
+    expect(s.players.find((p) => p.id === bb.id)!.stack).toBe(
+      bbStackBefore + pot,
+    );
+    expect(s.players.every((p) => p.handBet === 0)).toBe(true);
+  });
+
+  it("awards pot after multiway folds mid-hand", () => {
+    let s = setup(3, "mw-fold");
+    const total = s.players.reduce((a, p) => a + p.stack + p.handBet, 0);
+    // Call around then fold to one player
+    for (let i = 0; i < 40 && s.phase === "playing"; i++) {
+      const pid = s.players[s.toActIndex]!.id;
+      const fold: HoldemAction = { type: "fold", playerId: pid, payload: {} };
+      // Prefer fold if at least 2 players still active
+      const alive = s.players.filter((p) => !p.folded).length;
+      if (alive > 2 && validateHoldemAction(s, fold) === true) {
+        s = act(s, fold);
+        continue;
+      }
+      if (alive === 2 && validateHoldemAction(s, fold) === true) {
+        s = act(s, fold);
+        continue;
+      }
+      const call: HoldemAction = { type: "call", playerId: pid, payload: {} };
+      if (validateHoldemAction(s, call) === true) s = act(s, call);
+      else {
+        const check: HoldemAction = {
+          type: "check",
+          playerId: pid,
+          payload: {},
+        };
+        if (validateHoldemAction(s, check) === true) s = act(s, check);
+        else s = act(s, fold);
+      }
+    }
+    expect(s.phase).toBe("finished");
+    expect(s.players.reduce((a, p) => a + p.stack, 0)).toBe(total);
+    const winner = s.players.find((p) => p.id === s.winners[0])!;
+    expect(winner.stack).toBeGreaterThan(200 - s.bigBlind);
   });
 });

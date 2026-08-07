@@ -37,8 +37,17 @@ export function buildPots(
     if (amount > 0 && eligible.length > 0) {
       pots.push({ amount, eligible });
     } else if (amount > 0 && eligible.length === 0) {
-      // All contributors folded at this layer — rare; attach to previous pot
-      if (pots.length) pots[pots.length - 1]!.amount += amount;
+      // Dead money: attach to previous pot, or keep for any still-active player
+      if (pots.length) {
+        pots[pots.length - 1]!.amount += amount;
+      } else {
+        const anyAlive = Object.keys(contributions).filter(
+          (id) => !folded.has(id),
+        );
+        if (anyAlive.length) {
+          pots.push({ amount, eligible: anyAlive });
+        }
+      }
     }
     prev = level;
   }

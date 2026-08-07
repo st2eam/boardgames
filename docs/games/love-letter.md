@@ -210,6 +210,5 @@ Coverage includes determinism autopilot (chancellor + priest ack), illegal card,
 
 ## 11. Implementation refs
 
-- Plan (historical): [`docs/superpowers/plans/2026-08-07-bbge-love-letter-v1.md`](../superpowers/plans/2026-08-07-bbge-love-letter-v1.md)
 - Skill: [BBGE SKILL.md](../../.cursor/skills/browser-board-game-engine/SKILL.md)
 - Packages: `bbge/core`, `bbge/runtime`, `bbge/network`, `bbge/ai`, `bbge/ui`, `bbge/plugins/love-letter`

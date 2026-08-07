@@ -239,7 +239,7 @@ export function CaboTable({
         key={seat.id}
         data-seat-id={seat.id}
         className={[
-          "relative rounded-2xl border bg-white/95 p-3 shadow-card transition-all",
+          "relative min-w-0 overflow-hidden rounded-2xl border bg-white/95 p-3 shadow-card transition-all",
           seat.isYou ? "border-accent/50 ring-1 ring-accent/20" : "border-border",
           active ? "ring-2 ring-accent/60" : "",
         ].join(" ")}
@@ -489,14 +489,14 @@ export function CaboTable({
 
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-[#1b4332] to-[#0d2818] shadow-card">
-      <div className="flex shrink-0 items-center justify-between gap-2 border-b border-white/10 px-3 py-2 text-white">
-        <div>
-          <p className="font-heading text-sm font-bold">
+      <div className="flex min-w-0 shrink-0 flex-wrap items-center justify-between gap-2 border-b border-white/10 px-3 py-2 text-white">
+        <div className="min-w-0">
+          <p className="truncate font-heading text-sm font-bold">
             CABO · {zh ? "第" : "R"}{view.round}{zh ? "轮" : ""}
           </p>
-          <p className="text-[11px] text-white/70">{phaseLabel}</p>
+          <p className="truncate text-[11px] text-white/70">{phaseLabel}</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 flex-wrap items-center justify-end gap-2">
           <span className="rounded-lg bg-black/30 px-2 py-1 text-[11px]">
             {zh ? "牌堆" : "Deck"} {view.deckCount}
           </span>
@@ -525,12 +525,14 @@ export function CaboTable({
           inverse
         />
 
-        <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto">
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-x-hidden overflow-y-auto overscroll-contain">
+          <div className="grid min-w-0 gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {others.map(renderSeat)}
           </div>
           {youSeat && (
-            <div className="mt-auto border-t border-white/10 pt-3">{renderSeat(youSeat)}</div>
+            <div className="mt-auto min-w-0 border-t border-white/10 pt-3">
+              {renderSeat(youSeat)}
+            </div>
           )}
         </div>
       </div>

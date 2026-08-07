@@ -28,22 +28,20 @@ export function SeatSpeechSlot({
 
   if (variant === "cream") {
     return (
-      <div className={slotClass}>
+      <div className={[slotClass, "overflow-hidden"].join(" ")}>
         <AnimatePresence mode="wait">
           {bubble ? (
             <motion.div
               key={bubble.id}
-              initial={{ opacity: 0, y: 4, scale: 0.92 }}
+              initial={{ opacity: 0, y: 4, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -2, scale: 0.96 }}
+              exit={{ opacity: 0, y: -2, scale: 0.98 }}
               transition={{ type: "spring", stiffness: 420, damping: 24 }}
-              className="absolute inset-x-0 bottom-0 z-10 mx-auto max-w-full"
+              className="absolute inset-0 z-10 flex min-w-0 items-center justify-center overflow-hidden rounded-lg border border-[#5D4037]/20 bg-[#FFF8E7] px-1.5 shadow-sm"
             >
-              <div className="relative mx-auto max-w-[11rem] rounded-xl rounded-bl-sm border border-[#5D4037]/20 bg-[#FFF8E7] px-2 py-1.5 shadow-sm">
-                <p className="line-clamp-2 break-words text-[11px] leading-snug text-primary-dark">
-                  {bubble.text}
-                </p>
-              </div>
+              <p className="line-clamp-2 w-full min-w-0 break-words text-center text-[11px] leading-snug text-primary-dark">
+                {bubble.text}
+              </p>
             </motion.div>
           ) : null}
         </AnimatePresence>

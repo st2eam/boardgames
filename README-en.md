@@ -123,7 +123,7 @@ npm run build
 | | Europe | DLC (req. base) | ✅ | ✅ | — |
 | | Oceania | DLC (req. base) | ✅ | ✅ | — |
 | Love Letter | Love Letter | Base | ✅ | ✅ | 🎮 Online play (classic/full/expansion) |
-| | Premium Edition | Variant (standalone) | ✅ | ✅ | — |
+| | Premium Edition | Variant (standalone) | ✅ | ✅ | 🎮 Defaults to expansion play |
 
 ---
 

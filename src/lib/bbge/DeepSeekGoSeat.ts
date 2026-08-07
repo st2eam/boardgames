@@ -68,8 +68,8 @@ export function createDeepSeekGoSeat(
 - 能提子/打吃优先考虑；对方挂棋要应。
 - 序盘占角占边（三·三三/星位点附近），勿乱金井。
 - 中盘跟着上一手附近战斗，兼顾厚味与眼位；别随手填自己的眼。
-- 官子阶段抢大官；双方已基本定型、无明显收益再停着。
-- 不要无故认输。
+- 官子阶段抢大官；双方都已收完、局面互定型时再 pass（双方互停结束数子）。
+- 局面明显大劣、已无争夺余地时直接 resign，不要反复 pass 拖时间。
 - 结合战报里双方落子顺序理解战斗脉络。
 动作 JSON（只输出 JSON）：
 {"type":"play","playerId":"${id}","payload":{"row":number,"col":number},"speak":"中文短评"}
@@ -80,8 +80,9 @@ row/col 为从盘面左上角起的 0-based 坐标（对应 view.boardAscii / vi
 ${speakRule}
 View:\n${JSON.stringify(slimViewForLlm(view))}${logBlock}${retryBlock}`
         : `You are seat ${id}: a strong club-level human Go player — tactical, purposeful, not random.
-Priorities: capture / atari when available; answer local threats; open in corners/sides; midgame fight near the last move with solid shape; endgame picks big points; pass only when settled. Do not resign casually. Avoid filling your own eyes.
-Use the battle log of moves to follow the fight.
+Priorities: capture / atari when available; answer local threats; open in corners/sides; midgame fight near the last move with solid shape; endgame picks big points.
+Pass only when both sides are settled (mutual pass to score). If you are clearly lost with no fight left, resign — do not keep passing every turn.
+Avoid filling your own eyes. Use the battle log of moves to follow the fight.
 Actions:
 {"type":"play","playerId":"${id}","payload":{"row":number,"col":number},"speak":"short comment"}
 {"type":"pass","playerId":"${id}","payload":{},"speak":"short comment"}
@@ -104,8 +105,8 @@ View:\n${JSON.stringify(slimViewForLlm(view))}${logBlock}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system: zh
-                ? "你是有思路的真人围棋对手：算局部、占角边、该提则提。只输出一个合法 Action JSON；speak 用简体中文短句。"
-                : "You are a purposeful human Go opponent. Output one legal Action JSON; speak is a brief English line.",
+                ? "你是有思路的真人围棋对手：算局部、占角边、该提则提；大劣时认输，别反复停棋。只输出一个合法 Action JSON；speak 用简体中文短句。"
+                : "You are a purposeful human Go opponent. Resign when clearly lost instead of passing forever. Output one legal Action JSON; speak is a brief English line.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 512,
             },

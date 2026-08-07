@@ -60,10 +60,16 @@ export function createStrategicGoSeat(id: PlayerId): AiSeat {
         col: number;
       }[];
 
-      if (view.phase === "finished" || !plays.length) {
+      if (view.phase === "finished") {
         progress("策略：停着");
         return {
           action: { type: "pass", playerId: id, payload: {} } as Action,
+        };
+      }
+      if (!plays.length) {
+        progress("策略：无子可下，认输");
+        return {
+          action: { type: "resign", playerId: id, payload: {} } as Action,
         };
       }
 
@@ -131,6 +137,22 @@ export function createStrategicGoSeat(id: PlayerId): AiSeat {
         );
         return (r?.captured.length ?? 0) > 0;
       })();
+      const myCaps = view.you?.captures ?? 0;
+      const oppCaps =
+        view.seats?.find((s) => s.id !== id)?.captures ?? 0;
+      const captureDeficit = oppCaps - myCaps;
+      // Clearly lost and no fight left — resign instead of endless solo passes
+      if (
+        !bestIsCapture &&
+        bestScore < 12 &&
+        captureDeficit >= Math.max(10, Math.floor(size * size * 0.1)) &&
+        empties < size * size * 0.35
+      ) {
+        progress("策略：大劣，认输");
+        return {
+          action: { type: "resign", playerId: id, payload: {} } as Action,
+        };
+      }
       if (
         (view.consecutivePasses ?? 0) >= 1 &&
         !bestIsCapture &&

@@ -69,7 +69,7 @@ Synced via `HostSession.setGameConfig` + lobby broadcast (like Love Letter editi
 | Layer | Behavior |
 |-------|----------|
 | Mock | Smash strong made hands; with air/draws call or raise when pot odds are good; river blocker bluffs via deterministic mix |
-| LLM | Same persona — not tight-TAG; Chinese `speak` mixes bluffs and truth (may name hole cards occasionally); uses battle log |
+| LLM | Same persona — not tight-TAG; `speak` defaults to bluff/vague (card-tells rewritten); rare honest slip ~12%; uses battle log |
 | Fallback | `@bbge/ai` `createMockTexasHoldemSeat` mirrors pot-odds bias |
 
 ---

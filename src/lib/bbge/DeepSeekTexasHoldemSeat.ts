@@ -14,6 +14,59 @@ function extractJson(text: string): unknown {
   return JSON.parse(raw.slice(start, end + 1));
 }
 
+/** True when speak names cards / made hands too plainly (bad poker mouth). */
+function speakLooksLikeCardTell(speak: string): boolean {
+  return /[♠♥♦♣]|黑桃|红桃|红心|方[块片]|梅花|草花|\b[2-9tjqka][hdcs]\b|\b(aa|kk|qq|jj|tt|ak|aq|aj|kq)\b|口袋|坚果|nuts|flush|straight|full\s*house|trips|\bset\b|two\s*pair|pocket|同花顺|皇家|四条|葫芦|三条|两对|同花|顺子|顶对|听花|听顺|成牌|我有[对AKQJ]|中了|亮了/i.test(
+    speak,
+  );
+}
+
+function mixUnit(seed: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return (h >>> 0) / 4294967296;
+}
+
+/**
+ * Prefer deceptive / vague table talk. Occasional plain truth (~12%) can pass
+ * (free speech) even if it names cards; otherwise rewrite card-tells.
+ */
+function polishHoldemSpeak(
+  speak: string | undefined,
+  actionType: string,
+  zh: boolean,
+  seed: string,
+): string | undefined {
+  const raw = speak?.trim();
+  const mix = mixUnit(seed + "|" + (raw ?? "") + "|" + actionType);
+  // ~12%: allow whatever the model said (including rare honest reveals)
+  if (raw && mix < 0.12) return raw;
+
+  if (raw && !speakLooksLikeCardTell(raw)) return raw;
+
+  const poolZh: Record<string, string[]> = {
+    fold: ["不要了", "这轮算了", "过掉"],
+    check: ["先过", "看看你们", "随意"],
+    call: ["跟一手", "看看", "便宜就跟"],
+    raise: ["再加一点", "这手有点意思", "继续加压", "跟不跟啊", "我觉得不错"],
+  };
+  const poolEn: Record<string, string[]> = {
+    fold: ["I'm out", "Not this one", "Pass"],
+    check: ["Check", "Let's see", "Sure"],
+    call: ["Call", "I'll see it", "Cheap enough"],
+    raise: ["Raise", "Let's pump it", "Feeling it", "You calling?"],
+  };
+  const key =
+    actionType === "fold" || actionType === "check" || actionType === "call"
+      ? actionType
+      : "raise";
+  const pool = zh ? poolZh[key]! : poolEn[key]!;
+  return pool[Math.floor(mix * pool.length) % pool.length]!;
+}
+
 /**
  * Host AiSeat for NLHE. `locale` controls table-talk language (`speak`).
  * Defaults to Chinese — this product’s primary audience.
@@ -36,16 +89,22 @@ export function createDeepSeekTexasHoldemSeat(
         : "";
 
       const speakRule = zh
-        ? `speak 用简体中文短句（口语牌桌闲话，约 6–20 字），常带。不要用英文术语 check/raise/fold/call/all-in；可说「过」「跟」「再加一点」「不要了」「全下」等。JSON 的 type 仍必须是 fold|check|call|raise。
-桌边发言（言论自由，虚实结合）：
-- 可以唬人：弱牌装强、强牌装怂、含糊带过。
-- 也可以说真话，包括偶尔报出真实底牌/成牌（如「口袋对」「有同花」）——别每手都报，别当复读机；多数时候用情绪/施压话更自然。
-- 虚实混着用，像真人嘴炮。`
-        : `Optional speak: short natural English table talk. Prefer plain words over jargon.
-Table talk (free speech — mix truth and lies):
-- You MAY bluff: weak hands sound strong, strong hands sound weak/vague.
-- You MAY tell the truth, including occasionally naming real hole cards / made hands — don't do it every hand; most lines should be vibe/pressure talk.
-- Mix truth and deception like a real table talker.`;
+        ? `speak 用简体中文短句（约 6–16 字），几乎每手都带。不要用英文术语 check/raise/fold/call。
+桌边嘴炮（默认骗人，极少说实话）：
+- 默认：含糊 / 虚张声势 / 装怂。弱牌要装强（「这手不错」「继续」），强牌可装怂（「随便跟」「看看」）。
+- 禁止常态报牌：不要说真实底牌点数花色，不要说「我有 AA / 同花 / 三条 / 口袋对」这类实话。
+- 极少数时候可以故意说错牌唬人，或极偶尔说一句半真半假的话——但绝大多数 speak 必须看不出你的真实牌。
+- view.you.hole 只用来决策出牌，禁止照抄进 speak。
+好例子：「再加一点」「跟不跟」「这街有点凶」「先过」「不要了」
+坏例子：「我有黑桃A」「口袋对KK」「我中同花了」`
+        : `speak: short table talk almost every hand. Prefer plain words over jargon.
+Default to deception (rarely tell the truth):
+- Usually vague / bluff / reverse-tell. Weak hands sound strong; strong hands can sound weak.
+- Do NOT routinely name real hole cards or made hands ("I've got aces", "I flopped a flush").
+- Very rarely you may lie about holding something, or (rarely) tell a half-truth — but most lines must not reveal your real cards.
+- view.you.hole is for choosing the Action only — never copy it into speak.
+Good: "Raise.", "Feeling it.", "Check.", "I'm out."
+Bad: "I've got AhKd.", "Pocket kings.", "I made a flush."`;
       const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
 
       const prompt = zh
@@ -92,8 +151,8 @@ View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system: zh
-                ? "你是激进、会算赔率的真人德州对手：好牌狠打，没牌时赔率合适就跟或加压。不要 TAG 式过度弃牌。只输出一个合法 Action JSON；speak 用简体中文口语，虚实结合：可唬人，也可偶尔说真话（含真实底牌）。"
-                : "You are an aggressive, pot-odds-aware NLHE player: smash strong hands; with air/draws, call or raise when the price is right. Not a tight TAG. Output one legal Action JSON only. speak may bluff or occasionally tell the truth (including real hole cards).",
+                ? "你是激进、会算赔率的真人德州对手：好牌狠打，没牌时赔率合适就跟或加压。只输出一个合法 Action JSON。speak 默认骗人/含糊，禁止常态报真实底牌或成牌。"
+                : "You are an aggressive, pot-odds-aware NLHE player. Output one legal Action JSON only. speak defaults to bluffs/vague lines — do not routinely reveal real hole cards.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 512,
             },
@@ -115,13 +174,17 @@ View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
             speak?: string;
           };
           if (!obj?.type) throw new Error("bad shape");
-          const speak =
-            typeof obj.speak === "string" ? obj.speak.trim() : undefined;
           const action = {
             type: obj.type,
             playerId: id,
             payload: obj.payload ?? {},
           };
+          const speak = polishHoldemSpeak(
+            typeof obj.speak === "string" ? obj.speak : undefined,
+            obj.type,
+            zh,
+            `${id}|${obj.type}|${JSON.stringify(obj.payload ?? {})}`,
+          );
           opts?.onProgress?.({
             note: zh ? `已决定：${obj.type}` : `Decided: ${obj.type}`,
             draftText: text,

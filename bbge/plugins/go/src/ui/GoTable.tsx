@@ -7,7 +7,6 @@ import {
   PlayLogChatPanel,
   PlaySideSheet,
   SeatSpeechSlot,
-  useIsMobileLayout,
   useSeatBubbles,
 } from "@bbge/ui";
 import { GoTutorPanel } from "@/components/chat/GoTutorPanel";
@@ -70,7 +69,6 @@ export function GoTable({
   nameOf,
 }: PluginTableProps) {
   const zh = locale === "zh";
-  const mobile = useIsMobileLayout();
   const view = viewUnknown as GoView;
   const [confirmResign, setConfirmResign] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
@@ -167,9 +165,12 @@ export function GoTable({
     />
   );
 
+  const chatCount =
+    (playLog?.length ?? 0) + (chat?.length ?? 0);
+
   return (
     <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-surface">
-      {/* Compact chrome — board gets the rest */}
+      {/* Compact chrome — seats + status only */}
       <div className="flex h-[4.25rem] shrink-0 items-center gap-1.5 border-b border-border/70 bg-white/90 px-1.5 sm:h-[4.5rem] sm:gap-2 sm:px-2">
         <div className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto overflow-y-visible text-[11px] sm:text-xs">
           {view.seats.map((s) => {
@@ -209,114 +210,112 @@ export function GoTable({
           </span>
         </div>
 
-        <div className="flex shrink-0 flex-wrap items-center justify-end gap-1">
-          <button
-            type="button"
-            onClick={() => setSideOpen(true)}
-            className="min-h-9 cursor-pointer touch-manipulation rounded-md border border-border bg-white px-2.5 py-1.5 text-[11px] font-semibold text-primary-dark hover:bg-stone-50 active:scale-[0.98] sm:text-xs"
-          >
-            {zh ? "战报" : "Log"}
-            {(playLog?.length ?? 0) > 0 || (chat?.length ?? 0) > 0
-              ? ` ${(playLog?.length ?? 0) + (chat?.length ?? 0)}`
-              : ""}
-          </button>
+        {view.phase === "finished" && (
+          <MatchResultBar
+            locale={locale}
+            onRematch={onRematch}
+            label={zh ? "再来" : "Again"}
+            className="!min-h-0 shrink-0 [&_button]:min-h-8 [&_button]:px-3 [&_button]:py-1 [&_button]:text-[11px] sm:[&_button]:text-xs"
+          />
+        )}
+      </div>
 
-          <button
-            type="button"
-            disabled={!isMyTurn}
-            onClick={() =>
-              onAction({ type: "pass", playerId: myId, payload: {} })
-            }
-            className="cursor-pointer rounded-md border border-border bg-white px-2 py-1 text-[11px] font-semibold text-primary-dark hover:bg-stone-50 disabled:opacity-35 sm:text-xs"
-          >
-            {zh ? "停着" : "Pass"}
-            {view.consecutivePasses > 0 ? ` ${view.consecutivePasses}/2` : ""}
-          </button>
+      <div className="min-h-0 flex-1 overflow-hidden p-1 sm:p-1.5 [container-type:size]">
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="aspect-square w-[min(100cqw,100cqh)] max-h-full max-w-full">
+            <GoBoard
+              size={view.size}
+              stones={view.stones}
+              onIntersectionClick={onPoint}
+              disabled={!isMyTurn}
+              lastMove={view.lastMove}
+              ko={view.ko}
+            />
+          </div>
+        </div>
+      </div>
 
-          {!confirmResign ? (
+      {/* Bottom actions: pass / resign / chat */}
+      <div className="shrink-0 border-t border-border/70 bg-white/95 px-2 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-3">
+        {confirmResign ? (
+          <div className="mx-auto flex max-w-md gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setConfirmResign(false);
+                onAction({ type: "resign", playerId: myId, payload: {} });
+              }}
+              className="min-h-11 flex-1 cursor-pointer touch-manipulation rounded-xl bg-red-600 text-sm font-semibold text-white active:scale-[0.98]"
+            >
+              {zh ? "确认认输" : "Confirm resign"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setConfirmResign(false)}
+              className="min-h-11 flex-1 cursor-pointer touch-manipulation rounded-xl border border-border bg-white text-sm font-semibold text-primary-dark active:scale-[0.98]"
+            >
+              {zh ? "取消" : "Cancel"}
+            </button>
+          </div>
+        ) : (
+          <div className="mx-auto grid max-w-md grid-cols-3 gap-2">
+            <button
+              type="button"
+              disabled={!isMyTurn}
+              onClick={() =>
+                onAction({ type: "pass", playerId: myId, payload: {} })
+              }
+              className="min-h-11 cursor-pointer touch-manipulation rounded-xl border border-border bg-white text-sm font-semibold text-primary-dark hover:bg-stone-50 disabled:opacity-35 active:scale-[0.98]"
+            >
+              {zh ? "停棋" : "Pass"}
+              {view.consecutivePasses > 0
+                ? ` ${view.consecutivePasses}/2`
+                : ""}
+            </button>
             <button
               type="button"
               disabled={view.phase !== "playing" || !!disabled}
               onClick={() => setConfirmResign(true)}
-              className="cursor-pointer rounded-md border border-red-200 px-2 py-1 text-[11px] font-medium text-red-700 hover:bg-red-50 disabled:opacity-35 sm:text-xs"
+              className="min-h-11 cursor-pointer touch-manipulation rounded-xl border border-red-200 bg-white text-sm font-semibold text-red-700 hover:bg-red-50 disabled:opacity-35 active:scale-[0.98]"
             >
               {zh ? "认输" : "Resign"}
             </button>
-          ) : (
-            <>
-              <button
-                type="button"
-                onClick={() => {
-                  setConfirmResign(false);
-                  onAction({ type: "resign", playerId: myId, payload: {} });
-                }}
-                className="cursor-pointer rounded-md bg-red-600 px-2 py-1 text-[11px] font-semibold text-white sm:text-xs"
-              >
-                {zh ? "确认" : "OK"}
-              </button>
-              <button
-                type="button"
-                onClick={() => setConfirmResign(false)}
-                className="cursor-pointer rounded-md border border-border px-2 py-1 text-[11px] sm:text-xs"
-              >
-                {zh ? "取消" : "No"}
-              </button>
-            </>
-          )}
-
-          {view.phase === "finished" && (
-            <MatchResultBar
-              locale={locale}
-              onRematch={onRematch}
-              label={zh ? "再来" : "Again"}
-              className="!min-h-0 [&_button]:min-h-8 [&_button]:px-3 [&_button]:py-1 [&_button]:text-[11px] sm:[&_button]:text-xs"
-            />
-          )}
-
-          <button
-            type="button"
-            onClick={() => setPanelOpen((v) => !v)}
-            className={`cursor-pointer rounded-md px-2 py-1 text-[11px] font-semibold sm:text-xs ${
-              panelOpen
-                ? "bg-accent text-white"
-                : "border border-border bg-white text-primary-dark hover:bg-stone-50"
-            }`}
-            aria-expanded={panelOpen}
-          >
-            {zh ? "老师" : "Tutor"}
-          </button>
-        </div>
-      </div>
-
-      <div className="grid min-h-0 flex-1 gap-2 overflow-hidden p-1 sm:p-1.5 lg:grid-cols-[1fr_220px]">
-        <div className="min-h-0 [container-type:size]">
-          <div className="flex h-full w-full items-center justify-center">
-            <div className="aspect-square w-[min(100cqw,100cqh)] max-h-full max-w-full">
-              <GoBoard
-                size={view.size}
-                stones={view.stones}
-                onIntersectionClick={onPoint}
-                disabled={!isMyTurn}
-                lastMove={view.lastMove}
-                ko={view.ko}
-              />
-            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setPanelOpen(false);
+                setSideOpen(true);
+              }}
+              className="min-h-11 cursor-pointer touch-manipulation rounded-xl border border-border bg-white text-sm font-semibold text-primary-dark hover:bg-stone-50 active:scale-[0.98]"
+            >
+              {zh ? "聊天" : "Chat"}
+              {chatCount > 0 ? ` ${chatCount}` : ""}
+            </button>
           </div>
-        </div>
-        {!mobile && (
-          <aside className="hidden min-h-0 overflow-hidden lg:block">
-            {logPanel}
-          </aside>
         )}
       </div>
 
       <PlaySideSheet
         locale={locale}
-        open={Boolean(mobile && sideOpen)}
+        open={sideOpen}
         onClose={() => setSideOpen(false)}
         title={zh ? "战报 / 聊天" : "Log / Chat"}
       >
-        {logPanel}
+        <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
+          <div className="flex shrink-0 justify-end">
+            <button
+              type="button"
+              onClick={() => {
+                setSideOpen(false);
+                setPanelOpen(true);
+              }}
+              className="cursor-pointer rounded-md border border-border px-2.5 py-1 text-[11px] font-semibold text-primary-dark hover:bg-stone-50 sm:text-xs"
+            >
+              {zh ? "围棋老师" : "Go Tutor"}
+            </button>
+          </div>
+          {logPanel}
+        </div>
       </PlaySideSheet>
 
       {/* Teacher drawer — off by default so the board stays huge */}
@@ -324,11 +323,11 @@ export function GoTable({
         <>
           <button
             type="button"
-            className="absolute inset-0 z-20 cursor-pointer bg-stone-900/20 sm:bg-transparent"
+            className="absolute inset-0 z-20 cursor-pointer bg-stone-900/20"
             aria-label={zh ? "关闭老师面板" : "Close tutor"}
             onClick={() => setPanelOpen(false)}
           />
-          <aside className="absolute bottom-0 right-0 top-[4.25rem] z-30 flex w-full max-w-full flex-col border-l border-border bg-white shadow-xl sm:top-[4.5rem] sm:w-[min(100%,22rem)]">
+          <aside className="absolute bottom-[4.5rem] right-0 top-[4.25rem] z-30 flex w-full max-w-full flex-col border-l border-border bg-white shadow-xl sm:top-[4.5rem] sm:w-[min(100%,22rem)]">
             <div className="flex h-8 shrink-0 items-center justify-between border-b border-border px-2">
               <span className="text-xs font-bold text-primary-dark">
                 {zh ? "围棋老师" : "Go Teacher"}

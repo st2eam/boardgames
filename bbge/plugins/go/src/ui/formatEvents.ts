@@ -51,7 +51,7 @@ export function formatGoEvents(
           ? `${nameOf(p.playerId, names)} 停着`
           : `${nameOf(p.playerId, names)} passes`,
         speakerId: p.playerId,
-        bubble: zh ? "停着" : "Pass",
+        bubble: zh ? "停棋" : "Pass",
       });
     } else if (e.type === "player/resigned") {
       const p = e.payload as { playerId: string };

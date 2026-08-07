@@ -36,7 +36,10 @@ type ArenaView = {
     placeValue?: number;
     usedFlip?: boolean;
     isBuffalo?: boolean;
+    pending?: boolean;
+    placingNext?: boolean;
   }[] | null;
+  resolveRemaining?: number;
   pending: {
     type: string;
     playerId: string;
@@ -191,6 +194,12 @@ export function SixNimmtTable({
       return zh
         ? "特殊牌阶段 · 使用后点「开始放置」"
         : "Specials · then tap Begin placing";
+    }
+    if (view.phase === "resolving") {
+      const left = view.resolveRemaining ?? 0;
+      return zh
+        ? `入行中 · 还剩 ${left} 张`
+        : `Placing · ${left} left`;
     }
     if (view.phase === "chooseRow" && view.pending) {
       const who = nameOf?.(view.pending.playerId) ?? view.pending.playerId;
@@ -587,8 +596,24 @@ export function SixNimmtTable({
                             <motion.div
                               key={c.id}
                               layout
-                              initial={{ scale: 0.8, opacity: 0 }}
-                              animate={{ scale: 1, opacity: 1 }}
+                              initial={{
+                                y: -56,
+                                scale: 0.55,
+                                opacity: 0,
+                                rotate: -8,
+                              }}
+                              animate={{
+                                y: 0,
+                                scale: 1,
+                                opacity: 1,
+                                rotate: 0,
+                              }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 420,
+                                damping: 24,
+                                mass: 0.85,
+                              }}
                             >
                               <NimmtCard
                                 value={c.value}
@@ -608,7 +633,27 @@ export function SixNimmtTable({
                   {view.revealed && view.revealed.length > 0 && (
                     <div className="mt-2 flex flex-wrap justify-center gap-2 border-t border-white/10 pt-2">
                       {view.revealed.map((r) => (
-                        <div key={r.card.id} className="text-center">
+                        <motion.div
+                          key={r.card.id}
+                          className={[
+                            "text-center rounded-lg p-0.5",
+                            r.placingNext
+                              ? "ring-2 ring-accent bg-black/30"
+                              : r.pending
+                                ? "opacity-95"
+                                : "opacity-40",
+                          ].join(" ")}
+                          animate={
+                            r.placingNext
+                              ? { y: [0, -4, 0], scale: [1, 1.06, 1] }
+                              : undefined
+                          }
+                          transition={
+                            r.placingNext
+                              ? { duration: 0.7, repeat: Infinity }
+                              : undefined
+                          }
+                        >
                           <NimmtCard
                             value={r.card.value}
                             bullheads={r.card.bullheads}
@@ -620,11 +665,9 @@ export function SixNimmtTable({
                                 ? "水牛"
                                 : "Buffalo"
                               : (nameOf?.(r.playerId) ?? r.playerId)}
-                            {r.usedFlip
-                              ? ` →${r.placeValue}`
-                              : ""}
+                            {r.usedFlip ? ` →${r.placeValue}` : ""}
                           </p>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   )}

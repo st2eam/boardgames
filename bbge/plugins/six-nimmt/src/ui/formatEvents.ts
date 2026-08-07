@@ -124,6 +124,15 @@ export function formatNimmtEvents(
           : `Special used: ${p.kind}`,
         tone: "info",
       });
+    } else if (e.type === "sixNimmt/resolveReady") {
+      out.push({
+        id: `rr-${at}-${out.length}`,
+        at,
+        text: zh
+          ? `开始入行（${p.count} 张）`
+          : `Placing ${p.count} cards`,
+        tone: "info",
+      });
     } else if (e.type === "sixNimmt/buffaloEnded") {
       out.push({
         id: `bf-${at}-${out.length}`,

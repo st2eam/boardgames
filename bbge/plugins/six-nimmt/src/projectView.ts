@@ -43,8 +43,17 @@ export function projectNimmtView(
           placeValue: r.placeValue,
           usedFlip: Boolean(r.usedFlip),
           isBuffalo: r.playerId === BUFFALO_ID,
+          pending:
+            state.phase === "resolving" || state.phase === "chooseRow"
+              ? state.resolveQueue.some((q) => q.card.id === r.card.id) ||
+                state.pending?.card.id === r.card.id
+              : false,
+          placingNext:
+            state.resolveQueue[0]?.card.id === r.card.id ||
+            state.pending?.card.id === r.card.id,
         }))
       : null,
+    resolveRemaining: state.resolveQueue.length,
     pending: state.pending
       ? {
           type: state.pending.type,

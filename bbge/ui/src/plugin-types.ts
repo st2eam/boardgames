@@ -54,6 +54,11 @@ export interface PluginPlayModule {
    * (e.g. acknowledge a private reveal modal).
    */
   tryAutoAiAction?: (view: unknown, playerId: PlayerId) => Action | null;
+  /**
+   * Host-only paced advance (e.g. 6 nimmt! stepped card placement).
+   * Not tied to an AI seat — PlayShell submits with the host player id.
+   */
+  tryAutoAdvance?: (view: unknown) => Action | null;
   /** Prefix for PeerJS room ids (default `bbge`) */
   roomIdPrefix?: string;
 }

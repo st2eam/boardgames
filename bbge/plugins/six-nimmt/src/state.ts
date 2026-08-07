@@ -6,6 +6,7 @@ export type NimmtPhase =
   | "drafting"
   | "selecting"
   | "specials"
+  | "resolving"
   | "chooseRow"
   | "finished";
 
@@ -116,6 +117,13 @@ export type NimmtAction =
     }
   | {
       type: "beginPlace";
+      playerId: PlayerId;
+      payload?: Record<string, never>;
+      clientActionId?: string;
+    }
+  | {
+      /** Host/auto: place the next revealed card into its row */
+      type: "resolveStep";
       playerId: PlayerId;
       payload?: Record<string, never>;
       clientActionId?: string;

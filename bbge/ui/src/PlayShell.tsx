@@ -198,6 +198,7 @@ function collectPendingAiIds(
   return aiIds.filter((id) => {
     const v = s.getView(id) as AiActorView;
     if (!v.legal?.length) return false;
+    if (v.phase === "resolving") return false;
     if (v.phase === "chooseRow") return v.pending?.playerId === id;
     if (v.phase === "drafting") return v.draftTurn === id;
     if (v.phase === "selecting") return !v.you?.hasPlayed;
@@ -258,6 +259,7 @@ export function PlayShell({
   const llmSeatIdsRef = useRef<Set<string>>(new Set());
   const peerRef = useRef<{ destroy: () => void } | null>(null);
   const aiRunning = useRef(false);
+  const autoAdvanceRunning = useRef(false);
   const localSeatIdsRef = useRef<Set<string>>(new Set([hostId]));
 
   const seatNames = useCallback((): Record<string, string> => {
@@ -399,7 +401,10 @@ export function PlayShell({
             appendEvents(result.events);
             publishActionResult(result);
             tick();
-            void runAiIfNeeded();
+            void (async () => {
+              await runAutoAdvanceIfNeeded();
+              await runAiIfNeeded();
+            })();
           } else if (msg.type === "chat") {
             s.pushChat(msg.payload as AiChatMessage);
             host.broadcast({ type: "chat", payload: msg.payload });
@@ -557,10 +562,53 @@ export function PlayShell({
     return { seat, isLlm: false };
   };
 
-  const runAiIfNeeded = async () => {
-    if (aiRunning.current) return;
+  /** Paced host advances (e.g. 6 nimmt! one card per beat). */
+  const runAutoAdvanceIfNeeded = async () => {
+    if (!isHost || autoAdvanceRunning.current || aiRunning.current) return;
     const s = sessionRef.current;
     if (!s || s.getPhase() !== "playing") return;
+    const stub = modRef.current.tryAutoAdvance?.(s.getView(hostId));
+    if (!stub) return;
+
+    autoAdvanceRunning.current = true;
+    try {
+      const snap = s.getView(hostId) as { resolveRemaining?: number };
+      const remaining = snap.resolveRemaining ?? 1;
+      // Longer beat when many cards left (right after reveal)
+      const delay =
+        remaining >= 3
+          ? 1050 + Math.floor(Math.random() * 400)
+          : 850 + Math.floor(Math.random() * 350);
+      await sleep(delay);
+      if (!modRef.current.tryAutoAdvance?.(s.getView(hostId))) return;
+      const action = { ...stub, playerId: hostId };
+      const result = s.submitAction(action);
+      if (result.ok) {
+        appendEvents(result.events);
+        publishActionResult(result);
+        tick();
+      } else {
+        setError(result.error);
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "auto advance failed");
+    } finally {
+      autoAdvanceRunning.current = false;
+    }
+    await runAutoAdvanceIfNeeded();
+    await runAiIfNeeded();
+  };
+
+  const runAiIfNeeded = async () => {
+    if (aiRunning.current || autoAdvanceRunning.current) return;
+    const s = sessionRef.current;
+    if (!s || s.getPhase() !== "playing") return;
+
+    // Prefer stepped resolve over AI turns
+    if (modRef.current.tryAutoAdvance?.(s.getView(hostId))) {
+      await runAutoAdvanceIfNeeded();
+      return;
+    }
 
     const pending = collectPendingAiIds(s, s.getAiSeatIds());
     if (pending.length === 0) return;
@@ -881,6 +929,7 @@ export function PlayShell({
       clearThinking(actors);
       aiRunning.current = false;
     }
+    await runAutoAdvanceIfNeeded();
     await runAiIfNeeded();
   };
 
@@ -1012,6 +1061,7 @@ export function PlayShell({
       },
     ]);
     tick();
+    await runAutoAdvanceIfNeeded();
     await runAiIfNeeded();
   };
 
@@ -1025,6 +1075,7 @@ export function PlayShell({
       return;
     }
     aiRunning.current = false;
+    autoAdvanceRunning.current = false;
     setThinkingId(null);
     setThinkingDetail(null);
     const line = {
@@ -1051,7 +1102,10 @@ export function PlayShell({
       host?.send?.(pid, { type: "view", payload: v });
     }
     tick();
-    void runAiIfNeeded();
+    void (async () => {
+      await runAutoAdvanceIfNeeded();
+      await runAiIfNeeded();
+    })();
   };
 
   const onDispatch = (action: Action) => {
@@ -1072,7 +1126,10 @@ export function PlayShell({
     appendEvents(result.events);
     publishActionResult(result);
     tick();
-    void runAiIfNeeded();
+    void (async () => {
+      await runAutoAdvanceIfNeeded();
+      await runAiIfNeeded();
+    })();
   };
 
   const onChat = (text: string) => {

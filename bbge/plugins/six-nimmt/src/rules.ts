@@ -460,51 +460,78 @@ function afterTrickResolved(
   }
 }
 
-function processQueue(
+/** Place exactly one queued card (or pause for chooseRow). */
+function processOneStep(
   state: NimmtState,
   events: Event[],
   shuffleFn: () => NimmtCard[],
 ): void {
-  while (state.resolveQueue.length > 0) {
-    const next = state.resolveQueue[0]!;
-    const ok = placeCard(
-      state,
-      next.playerId,
-      next.card,
-      next.placeValue,
-      events,
-    );
-    if (!ok) {
-      if (next.playerId === BUFFALO_ID) {
-        const ri = buffaloChooseRowIndex(state);
-        placeCard(
-          state,
-          next.playerId,
-          next.card,
-          next.placeValue,
-          events,
-          ri,
-        );
-        state.resolveQueue.shift();
-        continue;
+  if (state.resolveQueue.length === 0) {
+    state.pending = null;
+    afterTrickResolved(state, events, shuffleFn);
+    return;
+  }
+
+  const next = state.resolveQueue[0]!;
+  const ok = placeCard(
+    state,
+    next.playerId,
+    next.card,
+    next.placeValue,
+    events,
+  );
+  if (!ok) {
+    if (next.playerId === BUFFALO_ID) {
+      const ri = buffaloChooseRowIndex(state);
+      placeCard(
+        state,
+        next.playerId,
+        next.card,
+        next.placeValue,
+        events,
+        ri,
+      );
+      state.resolveQueue.shift();
+      state.phase =
+        state.resolveQueue.length > 0 ? "resolving" : state.phase;
+      if (state.resolveQueue.length === 0) {
+        state.pending = null;
+        afterTrickResolved(state, events, shuffleFn);
+      } else {
+        state.phase = "resolving";
       }
-      state.pending = {
-        type: "chooseRow",
-        playerId: next.playerId,
-        card: next.card,
-        placeValue: next.placeValue,
-      };
-      state.phase = "chooseRow";
-      events.push({
-        type: "sixNimmt/needChooseRow",
-        payload: { playerId: next.playerId, cardId: next.card.id },
-      });
       return;
     }
-    state.resolveQueue.shift();
+    state.pending = {
+      type: "chooseRow",
+      playerId: next.playerId,
+      card: next.card,
+      placeValue: next.placeValue,
+    };
+    state.phase = "chooseRow";
+    events.push({
+      type: "sixNimmt/needChooseRow",
+      payload: { playerId: next.playerId, cardId: next.card.id },
+    });
+    return;
   }
-  state.pending = null;
-  afterTrickResolved(state, events, shuffleFn);
+
+  state.resolveQueue.shift();
+  events.push({
+    type: "sixNimmt/resolveStep",
+    payload: {
+      playerId: next.playerId,
+      cardId: next.card.id,
+      remaining: state.resolveQueue.length,
+    },
+  });
+
+  if (state.resolveQueue.length === 0) {
+    state.pending = null;
+    afterTrickResolved(state, events, shuffleFn);
+  } else {
+    state.phase = "resolving";
+  }
 }
 
 function buildResolveItems(state: NimmtState): ResolveItem[] {
@@ -578,15 +605,19 @@ function beginReveal(
     },
   });
 
+  state.resolveQueue = items;
   if (state.mode === "buffalo" && state.faceUpSpecials.some((x) => x)) {
-    state.resolveQueue = items;
     state.phase = "specials";
     events.push({ type: "sixNimmt/specialsOpen", payload: {} });
     return;
   }
 
-  state.resolveQueue = items;
-  processQueue(state, events, shuffleFn);
+  // Stepped placement — host auto-advances via resolveStep
+  state.phase = "resolving";
+  events.push({
+    type: "sixNimmt/resolveReady",
+    payload: { count: items.length },
+  });
 }
 
 function applySpecial(
@@ -914,6 +945,12 @@ export function validateNimmtAction(
     return true;
   }
 
+  if (action.type === "resolveStep") {
+    if (state.phase !== "resolving") return { error: "not resolving" };
+    if (state.resolveQueue.length === 0) return { error: "empty queue" };
+    return true;
+  }
+
   if (action.type === "removeStop") {
     if (state.phase !== "specials" && state.phase !== "selecting") {
       return { error: "cannot remove stop" };
@@ -1035,17 +1072,29 @@ export function applyNimmtAction(
           rowIndex: action.payload.rowIndex,
         },
       });
-      processQueue(draft, events, shuffleFn);
+      if (draft.resolveQueue.length === 0) {
+        afterTrickResolved(draft, events, shuffleFn);
+      } else {
+        draft.phase = "resolving";
+      }
       return;
     }
 
     if (action.type === "beginPlace") {
-      draft.phase = "selecting"; // temp; processQueue sets real phase
       events.push({
         type: "sixNimmt/beginPlace",
         payload: { playerId: action.playerId },
       });
-      processQueue(draft, events, shuffleFn);
+      draft.phase = "resolving";
+      events.push({
+        type: "sixNimmt/resolveReady",
+        payload: { count: draft.resolveQueue.length },
+      });
+      return;
+    }
+
+    if (action.type === "resolveStep") {
+      processOneStep(draft, events, shuffleFn);
       return;
     }
 
@@ -1131,6 +1180,10 @@ export function legalActions(state: NimmtState, playerId: PlayerId) {
     return acts;
   }
 
+  if (state.phase === "resolving") {
+    return [{ type: "resolveStep" as const }];
+  }
+
   if (state.phase !== "selecting") return [];
   if (state.selections[playerId]) return [];
   const me = state.players.find((p) => p.id === playerId);
@@ -1162,6 +1215,7 @@ export function currentActorId(state: NimmtState): PlayerId | null {
     // Any player may act; prefer first without having "priority"
     return state.players[0]?.id ?? null;
   }
+  // resolving: host auto-advance (not a seat turn)
   if (state.phase === "selecting") {
     for (const p of state.players) {
       if (!state.selections[p.id]) return p.id;

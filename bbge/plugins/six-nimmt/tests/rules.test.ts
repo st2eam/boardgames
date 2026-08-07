@@ -30,6 +30,20 @@ function act(state: NimmtState, action: NimmtAction) {
   return applyNimmtAction(state, action, { rng: createRng("x") }).state;
 }
 
+/** Drain stepped resolve until chooseRow / selecting / finished. */
+function drainResolve(state: NimmtState): NimmtState {
+  let s = state;
+  let guard = 20;
+  while (s.phase === "resolving" && guard-- > 0) {
+    s = act(s, {
+      type: "resolveStep",
+      playerId: s.players[0]!.id,
+      payload: {},
+    });
+  }
+  return s;
+}
+
 function classicRowsState(rows: { id: string; value: number }[][]): NimmtState {
   const base = setup(2, "rows");
   return {
@@ -92,11 +106,38 @@ describe("six-nimmt rules", () => {
       playerId: b.id,
       payload: { cardId: b.hand[0]!.id },
     });
+    expect(s.phase).toBe("resolving");
+    s = drainResolve(s);
     expect(["selecting", "chooseRow", "finished"]).toContain(s.phase);
     if (s.phase === "selecting") {
       expect(s.trick).toBe(2);
       expect(s.players.every((p) => p.hand.length === 9)).toBe(true);
     }
+  });
+
+  it("places one card per resolveStep", () => {
+    let s = setup(2, "step-1");
+    const a = s.players[0]!;
+    const b = s.players[1]!;
+    s = act(s, {
+      type: "playCard",
+      playerId: a.id,
+      payload: { cardId: a.hand[0]!.id },
+    });
+    s = act(s, {
+      type: "playCard",
+      playerId: b.id,
+      payload: { cardId: b.hand[0]!.id },
+    });
+    expect(s.phase).toBe("resolving");
+    expect(s.resolveQueue).toHaveLength(2);
+    s = act(s, {
+      type: "resolveStep",
+      playerId: a.id,
+      payload: {},
+    });
+    expect(s.resolveQueue).toHaveLength(1);
+    expect(s.phase).toBe("resolving");
   });
 
   it("chooseRow when card is too low", () => {
@@ -130,6 +171,8 @@ describe("six-nimmt rules", () => {
       playerId: b.id,
       payload: { cardId: `${b.id}-c2` },
     });
+    expect(s.phase).toBe("resolving");
+    s = drainResolve(s);
     expect(s.phase).toBe("chooseRow");
     expect(s.pending?.playerId).toBe(a.id);
     s = act(s, {
@@ -137,7 +180,8 @@ describe("six-nimmt rules", () => {
       playerId: a.id,
       payload: { rowIndex: 0 },
     });
-    expect(["selecting", "chooseRow"]).toContain(s.phase);
+    // Next card may still need resolve beats or another chooseRow
+    expect(["selecting", "chooseRow", "resolving"]).toContain(s.phase);
     expect(s.rows[0]![0]!.value).toBe(1);
   });
 

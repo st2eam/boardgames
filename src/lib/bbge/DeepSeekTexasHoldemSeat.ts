@@ -1,6 +1,7 @@
 import type { PlayerId } from "@bbge/core";
 import type { AiDecision, AiSeat, AiThinkOptions } from "@bbge/ai";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
+import { battleLogPromptBlock } from "@/lib/bbge/aiBattleLog";
 
 const PLAY_MODEL = "deepseek-v4-flash";
 
@@ -37,6 +38,7 @@ export function createDeepSeekTexasHoldemSeat(
       const speakRule = zh
         ? `speak 用简体中文短句（口语牌桌闲话，约 6–20 字），常带。不要用英文术语 check/raise/fold/call/all-in；可说「过」「跟」「再加一点」「不要了」「全下」等。JSON 的 type 仍必须是 fold|check|call|raise。`
         : `Optional speak: short natural English table talk. Prefer plain words over jargon.`;
+      const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
 
       const prompt = zh
         ? `你是座位 ${id}，无限注德州扑克现金桌。打激进、看赔率的真人风格——不要 TAG（别动不动弃牌），也不要无脑疯打。
@@ -50,9 +52,10 @@ toAmount = 本街加注后累计投入（不是加注增量）。
 - 没成牌时看底池赔率：跟注价 ≈ toCall/(potTotal+toCall)。赔率合适（便宜跟注、听花听顺、有位置）就入池跟；有时直接加注施压。价太贵、几乎没胜率再弃。
 - 翻前：强牌开得大、3-bet 加压；中等牌/同花连张看价格跟或轻加；垃圾牌只在很便宜时跟或偶尔偷。
 - 尺度：价值注常打底池 2/3～满池；别把明显成牌过到摊牌。
+- 结合战报里每位玩家本局行动判断谁在诈唬/谁在价值下注。
 ${speakRule}
 只输出 JSON。
-View:\n${JSON.stringify(view)}${retryBlock}`
+View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`
         : `You are seat ${id} in No-Limit Texas Hold'em (cash). Play aggressive and pot-odds aware — NOT tight-TAG (do not auto-fold medium spots), and not mindless spew.
 Use view.legal only. Actions:
 {"type":"fold"|"check"|"call","playerId":"${id}","payload":{},"speak":"optional"}
@@ -64,9 +67,10 @@ Strategy:
 - Weak / no hand: use pot odds. Price ≈ toCall/(potTotal+toCall). If the price is good (cheap call, flush/straight draw, position), call — sometimes raise for pressure. Fold only when expensive with almost no equity.
 - Preflop: size up premiums and 3-bet; call or light-raise speculative hands at a fair price; trash only peels very cheap or steals occasionally.
 - Sizing: value often ~2/3–pot to pot.
+- Use the battle log of every player's actions to read the table.
 ${speakRule}
 Return ONLY JSON.
-View:\n${JSON.stringify(view)}${retryBlock}`;
+View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
 
       let lastErr = "ai failed";
       for (let attempt = 0; attempt < 3; attempt++) {

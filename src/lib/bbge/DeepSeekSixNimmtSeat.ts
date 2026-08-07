@@ -1,6 +1,7 @@
 import type { PlayerId } from "@bbge/core";
 import type { AiDecision, AiSeat, AiThinkOptions } from "@bbge/ai";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
+import { battleLogPromptBlock } from "@/lib/bbge/aiBattleLog";
 
 const PLAY_MODEL = "deepseek-v4-flash";
 
@@ -37,6 +38,7 @@ export function createDeepSeekSixNimmtSeat(
       const speakRule = zh
         ? `speak 用简体中文短句（口语，约 6–20 字），尽量带。不要用英文术语；可以说「接这行」「有点凶」「少拿点牛」等。`
         : `Optional speak: short natural English table talk.`;
+      const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
 
       const prompt = zh
         ? `你是座位 ${id}，在玩《谁是牛头王》(6 nimmt!)——像细心真人：尽量少拿牛头，会预判。
@@ -52,10 +54,11 @@ export function createDeepSeekSixNimmtSeat(
 - 必须收行时：选牛头最少（其次更短的行）。
 - 选牌：灵活中值、低牛头；早期少拿极端大牌。
 - 翻转标记只在翻转后明显更合适时使用。
+- 结合战报里每人出牌/收行记录，预判谁可能砸中哪一行。
 
 ${speakRule}
 只输出 JSON。
-View:\n${JSON.stringify(view)}${retryBlock}`
+View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`
         : `You are seat ${id} in 6 nimmt! — play like a careful human: minimize bullheads, think ahead.
 Use view.legal only. Actions:
 {"type":"playCard","playerId":"${id}","payload":{"cardId":"...","flip":true?},"speak":"optional"}
@@ -69,10 +72,11 @@ Strategy:
 - If you must take a row: choose fewest bullheads (then shorter row).
 - Draft: flexible mid values, low bullheads; avoid extreme highs early.
 - Flip tokens only when the flipped face clearly improves the fit.
+- Use the battle log of plays/takes to anticipate which rows others threaten.
 
 ${speakRule}
 Return ONLY JSON.
-View:\n${JSON.stringify(view)}${retryBlock}`;
+View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
 
       let lastErr = "ai failed";
       for (let attempt = 0; attempt < 3; attempt++) {

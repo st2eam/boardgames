@@ -27,6 +27,11 @@ export interface AiThinkOptions {
   onProgress?: (p: AiThinkProgress) => void;
   /** When set, the seat should correct this illegal Action (LLM retry). */
   illegalRetry?: AiIllegalRetry;
+  /**
+   * Chronological battle-log lines for every seat this match
+   * (formatted play-log text). LLM seats should include these in the prompt.
+   */
+  battleLog?: string[];
 }
 
 /** Result of AiSeat.think — Action plus optional table talk. */

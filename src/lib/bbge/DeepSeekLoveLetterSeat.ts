@@ -6,6 +6,7 @@ import {
   type AiThinkOptions,
 } from "@bbge/ai";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
+import { battleLogPromptBlock } from "@/lib/bbge/aiBattleLog";
 
 /** Fast model for tabletop Actions — chat site assistant may still use pro. */
 const PLAY_MODEL = "deepseek-v4-flash";
@@ -58,6 +59,7 @@ export function createDeepSeekLoveLetterSeat(
       const speakRule = zh
         ? `speak 用简体中文短句（牌桌闲话，约 6–20 字），尽量带。不要用英文术语；牌名可用中文（守卫、神父、男爵、侍女、王子、国王、伯爵夫人、公主等）。`
         : `Optional speak: short natural English table talk.`;
+      const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
 
       const prompt = zh
         ? `你是座位 ${id}，在玩《情书》——像会推理、会抓时机的真人，而不是随机机器人。
@@ -67,7 +69,7 @@ export function createDeepSeekLoveLetterSeat(
 策略：
 - 除非手里只剩公主，否则绝不打出公主。
 - 留高位牌（国王/伯爵夫人/王子/公主）；用守卫/神父探信息；侍女保护强牌。
-- 守卫/主教：结合 you.seen 与弃牌堆，猜仍在场的高牌（先公主/国王/王子）。
+- 守卫/主教：结合 you.seen、弃牌堆与战报里每人出牌/猜牌记录，猜仍在场的高牌（先公主/国王/王子）。
 - 男爵/女男爵：只在自己更可能更大时对决，否则先收集信息。
 - 王子：后期逼出高威胁；国王：偷已知强牌。
 - 宰相：留下更高的那张。
@@ -76,7 +78,7 @@ export function createDeepSeekLoveLetterSeat(
 只输出 JSON。${speakRule}
 {"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","targetIds":["..."]?,"guessRank":number?,"peekTargetId":"...?"},"speak":"中文短句"}
 或 chancellor / acknowledgePriest（bishopRedraw 可含 "redraw":true|false）。
-View JSON:\n${JSON.stringify(view)}${retryBlock}`
+View JSON:\n${JSON.stringify(view)}${logBlock}${retryBlock}`
         : `You are seat ${id} in Love Letter — play like a sharp, human table player (deduction + timing), not a random bot.
 Editions: classic (1–8) | full (Spy…Princess=9 + Chancellor) | expansion (full + Bishop etc; use card.role).
 Choose ONE legal action. Guard/Bishop guess ≠1.
@@ -84,7 +86,7 @@ Choose ONE legal action. Guard/Bishop guess ≠1.
 Strategy:
 - NEVER play Princess unless it is your ONLY card.
 - Keep high power (King/Countess/Prince/Princess); spend Guards/Priests for info; Handmaid to protect a strong hold.
-- Guard/Bishop: use you.seen and discarded piles; guess ranks still in play (Princess/King/Prince first).
+- Guard/Bishop: use you.seen, discards, and the battle log of plays/guesses; guess ranks still in play (Princess/King/Prince first).
 - Baron/Baroness: only challenge when you are likely higher; otherwise gather info.
 - Prince: force out likely high threats late; King: steal strong known hands.
 - Chancellor: keep the highest held card.
@@ -93,7 +95,7 @@ Strategy:
 Return ONLY JSON. ${speakRule}
 {"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","targetIds":["..."]?,"guessRank":number?,"peekTargetId":"...?"},"speak":"..."}
 or chancellor / acknowledgePriest (bishopRedraw may include "redraw":true|false).
-View JSON:\n${JSON.stringify(view)}${retryBlock}`;
+View JSON:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
 
       let lastErr = "ai failed";
       for (let attempt = 0; attempt < 3; attempt++) {

@@ -44,6 +44,18 @@ function maxSeatsForLlEdition(edition: LoveLetterEditionId): number {
   return 6;
 }
 
+/** Strip UI-only log lines; keep recent action/result text for LLM context. */
+function battleLogLinesForAi(entries: PlayLogEntry[], max = 100): string[] {
+  return entries
+    .filter(
+      (e) =>
+        !/^(think-|think-parallel-|fallback-|illegal)/.test(e.id) &&
+        e.text.trim().length > 0,
+    )
+    .slice(-max)
+    .map((e) => e.text);
+}
+
 const NIMMT_MODE_OPTIONS: {
   id: NimmtMode;
   label: { en: string; zh: string };
@@ -284,6 +296,8 @@ export function PlayShell({
   const sessionRef = useRef<HostSession | null>(null);
   const modRef = useRef<PluginPlayModule>(mod);
   modRef.current = mod;
+  const playLogRef = useRef<PlayLogEntry[]>([]);
+  playLogRef.current = playLog;
   const aiRef = useRef<Map<string, AiSeat>>(new Map());
   const llmSeatIdsRef = useRef<Set<string>>(new Set());
   const peerRef = useRef<{ destroy: () => void } | null>(null);
@@ -704,6 +718,9 @@ export function PlayShell({
       if (parts.length) setThinkingDetail(parts.join("\n"));
     };
 
+    /** Action / result lines only — skip “thinking…” / fallback UI noise. */
+    const battleLog = battleLogLinesForAi(playLogRef.current);
+
     /** Decide without submitting (safe to run in parallel). */
     const decideForSeat = async (
       current: string,
@@ -740,6 +757,7 @@ export function PlayShell({
         const decide = withIdleTimeout(
           ({ ping }) =>
             seat.think(v, {
+              battleLog,
               onProgress: (p) => {
                 ping();
                 if (!parallelSelect || actors[0] === current) {
@@ -759,6 +777,7 @@ export function PlayShell({
         const remaining = Math.max(0, paceMs - (Date.now() - thinkStarted));
         const [decided] = await Promise.all([
           mock.think(s.getView(current), {
+            battleLog,
             onProgress: (p) => {
               if (!parallelSelect || actors[0] === current) {
                 pushThinkProgress(p);
@@ -849,6 +868,7 @@ export function PlayShell({
           const retryDecided = await withIdleTimeout(
             ({ ping }) =>
               decided.seat.think(s.getView(current), {
+                battleLog: battleLogLinesForAi(playLogRef.current),
                 illegalRetry: {
                   rejectedAction: rejected,
                   error: rejectErr,

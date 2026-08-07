@@ -1,6 +1,7 @@
 import type { PlayerId } from "@bbge/core";
 import type { AiDecision, AiSeat, AiThinkOptions } from "@bbge/ai";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
+import { battleLogPromptBlock } from "@/lib/bbge/aiBattleLog";
 
 const PLAY_MODEL = "deepseek-v4-flash";
 
@@ -59,6 +60,7 @@ export function createDeepSeekGoSeat(
       const speakRule = zh
         ? `speak 必须用简体中文，1 句短评（约 8–24 字），像陪练老师随口说：点出意图即可，勿长篇。每手都要带 speak。`
         : `speak: required short English teaching comment (one sentence).`;
+      const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
 
       const prompt = zh
         ? `你是座位 ${id}，业余俱乐部偏强的真人棋风：会算局部、会抢先手，也会收官。
@@ -68,6 +70,7 @@ export function createDeepSeekGoSeat(
 - 中盘跟着上一手附近战斗，兼顾厚味与眼位；别随手填自己的眼。
 - 官子阶段抢大官；双方已基本定型、无明显收益再停着。
 - 不要无故认输。
+- 结合战报里双方落子顺序理解战斗脉络。
 动作 JSON（只输出 JSON）：
 {"type":"play","playerId":"${id}","payload":{"row":number,"col":number},"speak":"中文短评"}
 {"type":"pass","playerId":"${id}","payload":{},"speak":"中文短评"}
@@ -75,9 +78,10 @@ export function createDeepSeekGoSeat(
 row/col 为从盘面左上角起的 0-based 坐标（对应 view.boardAscii / view.stones）。
 若 view.legal 含 play 条目则从中选；否则根据 boardAscii 选空点。
 ${speakRule}
-View:\n${JSON.stringify(slimViewForLlm(view))}${retryBlock}`
+View:\n${JSON.stringify(slimViewForLlm(view))}${logBlock}${retryBlock}`
         : `You are seat ${id}: a strong club-level human Go player — tactical, purposeful, not random.
 Priorities: capture / atari when available; answer local threats; open in corners/sides; midgame fight near the last move with solid shape; endgame picks big points; pass only when settled. Do not resign casually. Avoid filling your own eyes.
+Use the battle log of moves to follow the fight.
 Actions:
 {"type":"play","playerId":"${id}","payload":{"row":number,"col":number},"speak":"short comment"}
 {"type":"pass","playerId":"${id}","payload":{},"speak":"short comment"}
@@ -86,7 +90,7 @@ row/col are 0-based from the top-left of view.boardAscii / view.stones.
 If view.legal includes play entries, choose one of them; otherwise pick from boardAscii.
 ${speakRule}
 Return ONLY JSON.
-View:\n${JSON.stringify(slimViewForLlm(view))}${retryBlock}`;
+View:\n${JSON.stringify(slimViewForLlm(view))}${logBlock}${retryBlock}`;
 
       let lastErr = "ai failed";
       for (let attempt = 0; attempt < 3; attempt++) {

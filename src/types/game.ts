@@ -137,6 +137,11 @@ export interface Game {
   flow: FlowData | null;
 }
 
+export interface PlayConfig {
+  pluginId: string;
+  pluginVersion?: string;
+}
+
 export interface GameSummary {
   slug: string;
   name: Record<"en" | "zh", string>;
@@ -149,6 +154,7 @@ export interface GameSummary {
   hasScore: boolean;
   hasTrainer: boolean;
   hasCalculator: boolean;
+  hasPlay: boolean;
   trainerType?: string;
   family?: string;
   familyOrder?: number;

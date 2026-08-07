@@ -19,7 +19,14 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@bbge/core": ["./bbge/core/src"],
+      "@bbge/engine": ["./bbge/engine/src"],
+      "@bbge/runtime": ["./bbge/runtime/src"],
+      "@bbge/network": ["./bbge/network/src"],
+      "@bbge/ai": ["./bbge/ai/src"],
+      "@bbge/ui": ["./bbge/ui/src"],
+      "@bbge/love-letter": ["./bbge/plugins/love-letter/src"]
     }
   },
   "include": [

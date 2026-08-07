@@ -4,8 +4,10 @@ Per-game design for the Browser Board Game Engine playable slice.
 Platform contracts: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/).
 Shelf architecture: [`docs/architecture.md`](../architecture.md).
 
-**Status:** Approved 2026-08-07  
+**Status:** Implementing on `main` (scaffold + Love Letter Full Game plugin + play route live)  
 **Convention:** Playable game designs live at `docs/games/<slug>.md`.
+
+> Rules engine matches site **Full Game** (Princess = 9, 21 cards incl. Chancellor/Spy), not classic 8-rank only.
 
 ---
 

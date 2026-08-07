@@ -1,0 +1,20 @@
+import { defineConfig } from "vitest/config";
+import path from "node:path";
+
+export default defineConfig({
+  test: {
+    environment: "node",
+    include: ["bbge/**/*.test.ts"],
+  },
+  resolve: {
+    alias: {
+      "@bbge/core": path.resolve(__dirname, "core/src"),
+      "@bbge/engine": path.resolve(__dirname, "engine/src"),
+      "@bbge/runtime": path.resolve(__dirname, "runtime/src"),
+      "@bbge/network": path.resolve(__dirname, "network/src"),
+      "@bbge/ai": path.resolve(__dirname, "ai/src"),
+      "@bbge/ui": path.resolve(__dirname, "ui/src"),
+      "@bbge/love-letter": path.resolve(__dirname, "plugins/love-letter/src"),
+    },
+  },
+});

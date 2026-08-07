@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
   basePath: "/boardgames",
   trailingSlash: true,
   images: { unoptimized: true },
+  // Allow importing BBGE packages from /bbge outside src/
+  experimental: {
+    externalDir: true,
+  },
 };
 
 export default withNextIntl(nextConfig);

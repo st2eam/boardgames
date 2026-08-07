@@ -96,6 +96,7 @@ export default async function GamePage({ params }: Props) {
         <div className="max-w-3xl">
           <GameHeader
             meta={game.meta}
+            hasPlay={GameRepository.hasPlayConfig(slug)}
             hasFlow={game.flow !== null}
             hasScore={GameRepository.hasScoreConfig(slug)}
             hasTrainer={GameRepository.hasTrainerConfig(slug)}

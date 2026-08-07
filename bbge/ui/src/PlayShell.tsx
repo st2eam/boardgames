@@ -563,6 +563,50 @@ export function PlayShell({
         }
 
         let result = s.submitAction(action);
+        if (!result.ok && isLlm) {
+          const rejectErr = result.error;
+          const rejected = action;
+          setPlayLog((prev) => [
+            ...prev,
+            {
+              id: `illegal-retry-${Date.now()}`,
+              at: Date.now(),
+              text:
+                locale === "zh"
+                  ? `${seatNames()[current] ?? current}：出牌非法（${rejectErr}），把错误反馈给 LLM 重试…`
+                  : `${seatNames()[current] ?? current}: illegal (${rejectErr}); retrying LLM with feedback…`,
+              tone: "warn",
+            },
+          ]);
+          setThinkingDetail(
+            locale === "zh"
+              ? `非法：${rejectErr} · 重新请求 LLM…`
+              : `Illegal: ${rejectErr} · re-asking LLM…`,
+          );
+          try {
+            const idleMs = 90_000;
+            const decided = await withIdleTimeout(
+              ({ ping }) =>
+                seat.think(s.getView(current), {
+                  illegalRetry: {
+                    rejectedAction: rejected,
+                    error: rejectErr,
+                  },
+                  onProgress: (p) => {
+                    ping();
+                    pushThinkProgress(p);
+                  },
+                }),
+              idleMs,
+              "AI illegal retry",
+            );
+            action = decided.action;
+            speak = decided.speak;
+            result = s.submitAction(action);
+          } catch {
+            result = { ok: false, error: rejectErr };
+          }
+        }
         if (!result.ok) {
           const mock = modRef.current.createMockSeat(current);
           await sleep(400 + Math.floor(Math.random() * 400));
@@ -581,8 +625,8 @@ export function PlayShell({
               at: Date.now(),
               text:
                 locale === "zh"
-                  ? `${seatNames()[current] ?? current}：LLM 出牌非法，本回合改本地补救`
-                  : `${seatNames()[current] ?? current}: illegal LLM action; local fix this turn`,
+                  ? `${seatNames()[current] ?? current}：LLM 重试仍非法，本回合改本地补救`
+                  : `${seatNames()[current] ?? current}: LLM retry still illegal; local fix this turn`,
               tone: "warn",
             },
           ]);

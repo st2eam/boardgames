@@ -17,8 +17,16 @@ export type AiThinkProgress = {
   draftText?: string;
 };
 
+/** Host rejected a prior Action as illegal — feed back for one LLM retry. */
+export type AiIllegalRetry = {
+  rejectedAction: Action;
+  error: string;
+};
+
 export interface AiThinkOptions {
   onProgress?: (p: AiThinkProgress) => void;
+  /** When set, the seat should correct this illegal Action (LLM retry). */
+  illegalRetry?: AiIllegalRetry;
 }
 
 /** Result of AiSeat.think — Action plus optional table talk. */

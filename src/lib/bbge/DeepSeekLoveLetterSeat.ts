@@ -22,6 +22,10 @@ export function createDeepSeekLoveLetterSeat(
   return {
     id,
     async think(view: unknown, opts?: AiThinkOptions): Promise<AiDecision> {
+      const retry = opts?.illegalRetry;
+      const retryBlock = retry
+        ? `\n\nIMPORTANT — your previous action was REJECTED as illegal.\nError: ${retry.error}\nRejected action JSON:\n${JSON.stringify(retry.rejectedAction)}\nFix the mistake and return a DIFFERENT legal action for the same view. Do not repeat the illegal move.`
+        : "";
       const prompt = `You are seat ${id} in Love Letter. view.edition is one of:
 - "classic": 16 cards, ranks 1–8 Princess, no Spy/Chancellor, 2–4 players
 - "full": 21 cards, Spy…Princess=9, Chancellor, 2–6 players
@@ -31,7 +35,7 @@ Return ONLY JSON (action required). Optional speak:
 {"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","targetIds":["..."]?,"guessRank":number?,"peekTargetId":"...?"},"speak":"..."}
 or chancellor / acknowledgePriest (bishopRedraw may include "redraw":true|false).
 speak: one short first-person sentence. No illegal moves.
-View JSON:\n${JSON.stringify(view)}`;
+View JSON:\n${JSON.stringify(view)}${retryBlock}`;
 
       let lastErr = "ai failed";
       for (let attempt = 0; attempt < 3; attempt++) {

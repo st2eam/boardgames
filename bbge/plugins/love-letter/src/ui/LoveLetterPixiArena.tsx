@@ -15,6 +15,7 @@ import {
 } from "./pixi/layout";
 import {
   dealIn,
+  killCardTweens,
   moveTo,
   pulseGlow,
   selectLift,
@@ -162,6 +163,8 @@ export function LoveLetterPixiArena({
     return () => {
       destroyed = true;
       setReady(false);
+      for (const card of cardsRef.current.values()) killCardTweens(card);
+      for (const seat of seatNodesRef.current.values()) killCardTweens(seat);
       cardsRef.current.clear();
       seatNodesRef.current.clear();
       layersRef.current = null;
@@ -242,6 +245,7 @@ export function LoveLetterPixiArena({
 
     for (const [id, node] of seatNodesRef.current) {
       if (!seenSeats.has(id)) {
+        killCardTweens(node);
         layers.seats.removeChild(node);
         node.destroy({ children: true });
         seatNodesRef.current.delete(id);
@@ -355,6 +359,7 @@ export function LoveLetterPixiArena({
         card &&
         (card.faceDown !== p.faceDown || (!p.faceDown && card.rank !== p.rank));
       if (needRebuild && card) {
+        killCardTweens(card);
         layers.cards.removeChild(card);
         card.destroy({ children: true });
         cardsRef.current.delete(p.id);
@@ -402,6 +407,7 @@ export function LoveLetterPixiArena({
 
     for (const [id, card] of cardsRef.current) {
       if (!seenCards.has(id)) {
+        killCardTweens(card);
         layers.cards.removeChild(card);
         card.destroy({ children: true });
         cardsRef.current.delete(id);

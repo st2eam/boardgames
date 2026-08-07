@@ -74,12 +74,6 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
         },
       };
     },
-    async speak(ctx) {
-      const linesZh = ["哼，小心点。", "这手有点意思。", "公主在我心里。", "别瞎猜我。"];
-      const linesEn = ["Watch yourself.", "Interesting hand.", "Hmm…", "Don't guess me."];
-      const lines = ctx.locale === "zh" ? linesZh : linesEn;
-      const text = lines[Math.floor(Math.random() * lines.length)]!;
-      return { playerId: id, text, at: Date.now() };
-    },
+    // Local heuristic AI stays silent — table talk only when an LLM seat speaks.
   };
 }

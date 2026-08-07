@@ -537,7 +537,9 @@ export function LoveLetterTable({
               <div className="max-h-36 space-y-1.5 overflow-y-auto px-2 py-2">
                 {chat.length === 0 && (
                   <p className="px-1 text-[11px] text-stone-400">
-                    {zh ? "还没有人说话" : "No messages yet"}
+                    {zh
+                      ? "可在此发言；接了 LLM 的 AI 才会说话"
+                      : "Say something — only LLM AI seats talk"}
                   </p>
                 )}
                 {chat.map((m, i) => (

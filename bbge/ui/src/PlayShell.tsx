@@ -444,10 +444,10 @@ export function PlayShell({
           payload: { type: "ai/thinking", playerId: current, started: false },
         });
 
-        let line: AiChatMessage | null = null;
+        // Only LLM seats speak; mock/local AI stays quiet (no canned chatter).
         if (speakSeat.speak) {
           try {
-            line = await withTimeout(
+            const line = await withTimeout(
               speakSeat.speak({
                 view: v,
                 lastEvents: events,
@@ -456,18 +456,11 @@ export function PlayShell({
               8000,
               "AI speak",
             );
+            if (line?.text?.trim()) publishChat(line);
           } catch {
-            line = null;
+            // silent on speak failure
           }
         }
-        if (!line) {
-          line = {
-            playerId: current,
-            text: locale === "zh" ? "出完了。" : "Played.",
-            at: Date.now(),
-          };
-        }
-        publishChat(line);
 
         await sleep(aiBetweenPlaysMs());
       }

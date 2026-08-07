@@ -78,18 +78,15 @@ export function TexasHoldemTable({
   const seenLogIds = useRef(new Set<string>());
   const seenChat = useRef(new Set<string>());
   const timers = useRef(new Map<string, number>());
-  const boardKey = view.board.map((c) => c.id).join(",");
   const handNumber = view.handNumber ?? 1;
-  const [boardPulse, setBoardPulse] = useState(0);
   const cardSize = mobile ? "md" : "lg";
+  const showdownOpen =
+    view.phase === "finished" &&
+    view.seats.some((s) => !s.folded && s.hole.some((c) => c.rank != null));
 
   useEffect(() => {
     setRaiseTo(Math.max(view.minRaiseTo, view.currentBet + view.bigBlind));
   }, [view.minRaiseTo, view.currentBet, view.bigBlind]);
-
-  useEffect(() => {
-    setBoardPulse((n) => n + 1);
-  }, [boardKey]);
 
   useEffect(() => {
     setBubbles({});
@@ -287,35 +284,29 @@ export function TexasHoldemTable({
                       bubble={bubbles[s.id]}
                       foldedAnim={s.folded}
                       compact={mobile}
+                      hideHole={showdownOpen}
                     />
                   ))}
               </div>
 
               <div className="flex flex-col items-center gap-1.5 py-1 sm:gap-2 sm:py-2">
-                <motion.div
-                  key={boardPulse}
-                  className="flex flex-wrap justify-center gap-1 sm:gap-1.5"
-                  initial={reduce ? false : { scale: 0.92 }}
-                  animate={{ scale: 1 }}
-                >
-                  <AnimatePresence mode="popLayout">
-                    {view.board.map((c, i) => (
-                      <PlayingCard
-                        key={c.id}
-                        rank={c.rank}
-                        suit={c.suit}
-                        size={cardSize}
-                        flip
-                        dealDelay={reduce ? 0 : i * 0.08}
-                      />
-                    ))}
-                  </AnimatePresence>
+                <div className="flex max-w-full flex-nowrap justify-center gap-1 overflow-x-auto sm:gap-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  {view.board.map((c, i) => (
+                    <PlayingCard
+                      key={`${handNumber}-${c.id}`}
+                      rank={c.rank}
+                      suit={c.suit}
+                      size={cardSize}
+                      flip
+                      dealDelay={reduce ? 0 : Math.min(i, 2) * 0.06}
+                    />
+                  ))}
                   {view.board.length === 0 && (
                     <p className="font-heading text-xs font-bold text-emerald-100/70 sm:text-sm">
                       {zh ? "等待翻牌" : "Waiting for flop"}
                     </p>
                   )}
-                </motion.div>
+                </div>
                 <motion.div
                   className="rounded-full bg-black/35 px-3 py-1 font-heading text-xs font-bold text-amber-100 backdrop-blur sm:px-4 sm:text-sm"
                   animate={reduce ? undefined : { scale: [1, 1.04, 1] }}
@@ -324,11 +315,7 @@ export function TexasHoldemTable({
                 >
                   {zh ? "底池" : "Pot"} {view.potTotal}
                 </motion.div>
-                {view.phase === "finished" &&
-                  view.seats.some(
-                    (s) =>
-                      !s.folded && s.hole.some((c) => c.rank != null),
-                  ) && (
+                {showdownOpen && (
                     <div className="mt-0.5 flex max-w-full flex-wrap justify-center gap-2 sm:gap-3">
                       {view.seats
                         .filter(
@@ -407,20 +394,23 @@ export function TexasHoldemTable({
                     foldedAnim={view.you.folded}
                     you
                     compact={mobile}
+                    hideHole
                   />
                 )}
-                <div className="flex gap-1.5 sm:gap-2" key={`hole-h${handNumber}`}>
-                  {(view.you?.hole ?? []).map((c, i) => (
-                    <PlayingCard
-                      key={c.id}
-                      rank={c.rank}
-                      suit={c.suit}
-                      size={cardSize}
-                      folded={view.you?.folded}
-                      dealDelay={reduce ? 0 : 0.05 * i}
-                    />
-                  ))}
-                </div>
+                {!showdownOpen && (
+                  <div className="flex gap-1.5 sm:gap-2" key={`hole-h${handNumber}`}>
+                    {(view.you?.hole ?? []).map((c, i) => (
+                      <PlayingCard
+                        key={c.id}
+                        rank={c.rank}
+                        suit={c.suit}
+                        size={cardSize}
+                        folded={view.you?.folded}
+                        dealDelay={reduce ? 0 : 0.05 * i}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -702,6 +692,7 @@ function SeatChip({
   foldedAnim,
   you,
   compact,
+  hideHole,
 }: {
   seat: ArenaView["seats"][0];
   locale: string;
@@ -711,12 +702,18 @@ function SeatChip({
   foldedAnim: boolean;
   you?: boolean;
   compact?: boolean;
+  /** When true, skip hole faces (e.g. center showdown strip owns them). */
+  hideHole?: boolean;
 }) {
   const zh = locale === "zh";
   const revealed = seat.hole?.some((c) => c.rank != null) ?? false;
-  const showHoleCards = !you && (!compact || revealed);
+  const showHoleCards = !hideHole && !you && (!compact || revealed);
   const showHolePlaceholder =
-    !you && compact && !revealed && (seat.hole?.length ?? 0) > 0;
+    !hideHole &&
+    !you &&
+    compact &&
+    !revealed &&
+    (seat.hole?.length ?? 0) > 0;
   return (
     <motion.div
       layout

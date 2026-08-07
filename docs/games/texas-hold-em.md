@@ -14,6 +14,7 @@ UI skill: `.claude/skills/ui-ux-pro-max` (felt table, clear bet affordances, mot
 | **Players** | **2–9** |
 | **Play UI** | BGA-style DOM oval table + Motion (deal / flip / fold / bet) |
 | **Card art** | `public/images/bbge/texas-holdem/*` from `texas-hold-em-cards.zip` |
+| **AI** | TAG / GTO-flavoured mock (`createAggressiveHoldemSeat`) + DeepSeek TAG prompt |
 
 ---
 
@@ -31,9 +32,10 @@ until the room is dissolved.
 |-------|--------|
 | Approach | A — PlayShell + `bbge/plugins/texas-holdem` + PeerJS |
 | Stakes | Lobby **custom**: `smallBlind`, `bigBlind`, `startingStack` (defaults 1/2/200) |
-| AI | Host DeepSeek `deepseek-v4-flash` + mock; illegal → feedback retry once |
+| AI | Host DeepSeek `deepseek-v4-flash` + TAG mock; illegal → feedback retry once |
 | Bubbles | Every bet action shows seat bubble (`Call`, `Raise to X`, `I fold`, …) |
 | Motion | Deal-in, board flip, fold slide, chip/bet pulse (Motion) |
+| Showdown | Contested hands reveal in center strip + seat faces; fold-wins stay hidden |
 | Out | Tournament, straddle, ante, timers, Pixi |
 
 ---
@@ -58,10 +60,21 @@ Synced via `HostSession.setGameConfig` + lobby broadcast (like Love Letter editi
 - All-in + **side pots**; showdown best 5 of 7
 - Privacy: hole cards only in viewer projection; showdown reveals contested hands
 - Finished: pot awards applied to stacks; `winners[]` + pot breakdown in view
+- `holdem/handEnded` (showdown) includes hole faces for log “亮牌 / Show”
 
 ---
 
-## 5. Architecture
+## 5. AI (TAG / GTO-ish)
+
+| Layer | Behavior |
+|-------|----------|
+| Mock | Value-bet flush+ / strong made hands; fold air to heat; semi-bluff draws; river blocker bluffs via deterministic mix |
+| LLM | Mature tight-aggressive human — pot/2⁄3 sizing, selective bluffs, no check-down with obvious value |
+| Fallback | `@bbge/ai` `createMockTexasHoldemSeat` mirrors TAG bias |
+
+---
+
+## 6. Architecture
 
 ```
 GameHeader [开始游戏] → /games/texas-hold-em/play/
@@ -80,7 +93,7 @@ GameHeader [开始游戏] → /games/texas-hold-em/play/
 
 ---
 
-## 6. Actions & bubbles
+## 7. Actions & bubbles
 
 | Action | Bubble (en) | Bubble (zh) |
 |--------|-------------|-------------|
@@ -95,27 +108,28 @@ GameHeader [开始游戏] → /games/texas-hold-em/play/
 
 ---
 
-## 7. UI / motion (ui-ux-pro-max)
+## 8. UI / motion (ui-ux-pro-max)
 
 - Felt green oval, warm Shelf chrome (`primary` / `accent` / `surface`) — not purple AI-slop
-- Seats around table; active seat ring; stack + street bet chips
-- **Deal**: hole cards fly to seats; **flop/turn/river**: flip with rotateY / scale
+- Seats around table; active seat ring; D / S / B badges; stack + street bet chips
+- **Deal**: hole cards fly to seats; **flop/turn/river**: append board cards (no ghost remount)
+- **Showdown**: center reveal strip; seat hole faces hidden while strip is open (no double boards)
 - **Fold**: cards dim + slide; **bet/raise**: chip stack pulse toward pot
-- Action bar: Fold / Check·Call / Raise (slider or ±BB presets)
-- Viewport-locked play page (reuse PlayShell)
+- Action bar: Fold / Check·Call / Raise (number + slider); **下一手** when finished
+- Mobile: battle-log sheet `70dvh` + auto-scroll to latest; viewport-locked PlayShell
 
 ---
 
-## 8. Testing
+## 9. Testing
 
 ```bash
 npm run test:bbge
 ```
 
-Determinism, HU blinds, multiway side pot, hand rank, 9-max smoke.
+Determinism, HU blinds, multiway side pot, hand rank, showdown reveal, TAG seat, 9-max smoke.
 
 ---
 
-## 9. Deferred
+## 10. Deferred
 
-- Multi-hand cash session, Sit&Go, rake, time banks, GTO AI
+- Sit&Go / tournament, rake, time banks, solver-backed GTO ranges

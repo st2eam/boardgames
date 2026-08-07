@@ -77,17 +77,27 @@ GameHeader [开始游戏] → /play/?edition=<default>
 | Shelf | `play.json.editions`; lobby owns picker |
 | Runtime | `HostSession.setGameConfig`; lobby.edition synced to guests |
 | Plugin | Pure rules; `state.edition`; art by role filename |
-| AiSeat | Host only; prompt reads `view.edition` |
+| AiSeat | Host only; prompt reads `view.edition`; strategic mock + LLM |
 
 ---
 
-## 4. Content bind
+## 4. AI
+
+| Layer | Behavior |
+|-------|----------|
+| Mock (`createMockLoveLetterSeat`) | Keep Princess/King/Countess; spend Guard/Priest for info; Handmaid protects highs; Guard/Bishop guess from `seen` + discards; Chancellor keeps highest |
+| LLM | Clever human table player — deduction, timing, never volunteer Princess |
+| Hard rule | Never play Princess unless it is the only card |
+
+---
+
+## 5. Content bind
 
 `love-letter` default `full`; `love-letter-premium` default `expansion`.
 
 ---
 
-## 5. Actions
+## 6. Actions
 
 | Action | When |
 |--------|------|
@@ -97,7 +107,7 @@ GameHeader [开始游戏] → /play/?edition=<default>
 
 ---
 
-## 6. Testing
+## 7. Testing
 
 ```bash
 npm run test:bbge
@@ -105,7 +115,7 @@ npm run test:bbge
 
 ---
 
-## 7. Deferred
+## 8. Deferred
 
 - Multi-round favor races beyond one-round + mid-round ♥ finish
 - Replay / spectators / host migration

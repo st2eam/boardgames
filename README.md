@@ -2,14 +2,23 @@
 
 > [English version / 英文版](README-en.md)
 
-一个精心整理的现代桌游规则参考网站，覆盖 50 款游戏（含扩展/变体），支持中英双语、交互式决策树、训练器、LLM 对话查询，纯静态站点部署到 GitHub Pages。
+一个精心整理的现代桌游规则参考网站，覆盖 **50** 款游戏（含扩展/变体），支持中英双语、交互式决策树、训练器、**BBGE 在线对局**、LLM 对话查询，纯静态站点部署到 GitHub Pages。
+
+## 最近更新（2026-08-07）
+
+- **BBGE 在线对局成熟化**：情书 / 德州扑克 / 谁是牛头王 / 围棋均可 Host · 热座 · AI · 分享链接开局
+- **全游戏 AI 策略升级**：本地启发式 + DeepSeek `deepseek-v4-flash` 更偏真人（会弃牌、会价值下注、会选择性诈唬/半诈唬）；规范见 [`docs/games/`](docs/games/)
+- **德州扑克体验**：摊牌亮牌、移动端公共牌去重、战报可滚动并滚到最新、现金桌「下一手」
+- **围棋**：9×9 / 13×13 / 19×19；桌内「围棋老师」侧栏陪练（无浮动 FAB）
+- **谁是牛头王**：经典 / 专家 / 粉丝 / 斗牛模式；同步选牌 + 逐张落下动画
 
 ## 功能特性
 
-- **47 款游戏规则**：经过网络验证的中英双语完整规则
-- **41 款交互式决策树**：分步交互流程，含侧边栏目录导航
-- **7 款自动计分器**：`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `category` / `feature-calc`，支持多人同屏计分，localStorage 持久化
+- **50 款游戏规则**：经过网络验证的中英双语完整规则
+- **44 款交互式决策树**：分步交互流程，含侧边栏目录导航
+- **9 款自动计分器**：`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` / `category` / `feature-calc` 等，支持多人同屏计分，localStorage 持久化
 - **5 款训练器**：麻将/日麻听牌、21 点基本策略、德州扑克 GTO 翻前、围棋死活题
+- **4 款 BBGE 在线对局**：情书（经典/完整/拓展）、德州扑克现金桌、谁是牛头王（多模式）、围棋（三棋盘）— 设计规范 [`docs/games/`](docs/games/)
 - **番符计算器**：日麻番数/符数/点数自动计算器，可视化选牌（14 张）→ 指定和牌 → 标记副露 → 自动拆解牌型、检测役种、计算符数与点数
 - **游戏系列分组**：UNO、脏小猪、三国杀、爆炸猫、璀璨宝石、海盐折纸、卡坦岛、卡卡颂、展翅翱翔、麻将、情书等系列以堆叠卡片效果展示
 - **DLC / 变体支持**：小猪选美、不臣之君、风云际会、黑盒版、UNO Flip、UNO 无情出击、UNO DOS、璀璨宝石城市扩展、璀璨宝石宝可梦版、盐趣倍增、中国版图、卡卡颂河流、情书珍藏版、展翅翱翔扩展等
@@ -34,7 +43,7 @@ npm run dev
 npm run build
 ```
 
-> **维护提示**：新增/调整游戏后，请同步更新下方「游戏清单」与文首数量（当前：`47` 游戏 / `41` 决策树 / `7` 计分 / `5` 训练器 / `1` 计算器）。可用 `node scripts/print-project-stats.mjs` 快速核对。
+> **维护提示**：新增/调整游戏后，请同步更新下方「游戏清单」与文首数量（当前：`50` 游戏 / `44` 决策树 / `9` 计分 / `5` 训练器 / `1` 计算器 / `4` BBGE 对局）。可用 `node scripts/print-project-stats.mjs` 快速核对。BBGE 行为变更请同步 [`docs/games/<slug>.md`](docs/games/)。
 
 ---
 
@@ -58,9 +67,9 @@ npm run build
 
 ### 独立游戏
 
-| 游戏 | 规则 | 决策树 | 计分 / 训练 |
-|------|:----:|:------:|:-----------:|
-| 德州扑克 | ✅ | ✅ | 🎯 GTO 翻前训练 |
+| 游戏 | 规则 | 决策树 | 计分 / 训练 / 对局 |
+|------|:----:|:------:|:------------------:|
+| 德州扑克 | ✅ | ✅ | 🎯 GTO 翻前 · 🎮 现金桌对局 |
 | 自然和弦 (Harmonies) | ✅ | ✅ | — |
 | 现代艺术 | ✅ | ✅ | — |
 | 摩天大楼 (GoTown) | ✅ | ✅ | — |
@@ -79,9 +88,9 @@ npm run build
 | 哈铃果铃 (Halli Galli) | ✅ | ✅ | — |
 | 马尼拉 (Manila) | ✅ | ✅ | — |
 | 魔戒：中洲对决 | ✅ | ✅ | — |
-| 谁是牛头王（30周年） | ✅ | ✅ | ✅ 计分（多人回合） · 🎮 在线对局（经典规则） |
+| 谁是牛头王（30周年） | ✅ | ✅ | ✅ 计分 · 🎮 多模式在线对局 |
 | 棕榈岛 (Palm Island) | ✅ | ✅ | ✅ 计分 |
-| 围棋 | ✅ | ✅ | 🎯 死活题训练 |
+| 围棋 | ✅ | ✅ | 🎯 死活题 · 🎮 9/13/19 路对局 |
 
 ### 游戏系列
 
@@ -113,8 +122,8 @@ npm run build
 | | 亚洲篇 | DLC（需本体） | ✅ | ✅ | — |
 | | 欧洲篇 | DLC（需本体） | ✅ | ✅ | — |
 | | 大洋洲篇 | DLC（需本体） | ✅ | ✅ | — |
-| 情书 | 情书 | 本体 | ✅ | ✅ | — |
-| | 情书：珍藏版 | 变体（可独立） | ✅ | ✅ | — |
+| 情书 | 情书 | 本体 | ✅ | ✅ | 🎮 在线对局（经典/完整/拓展） |
+| | 情书：珍藏版 | 变体（可独立） | ✅ | ✅ | 🎮 默认拓展版对局 |
 
 ---
 
@@ -131,7 +140,7 @@ content/games/
 │   ├── calculator.json           # 可选：计算器配置（如日麻番符）
 │   ├── zh/rules.md               # 中文规则
 │   └── en/rules.md               # 英文规则
-└── ...（共 47 款游戏）
+└── ...（共 50 款游戏；含 `play.json` 的可在线对局）
 
 public/data/                       # prebuild 生成，勿手改作为源
 ├── games-meta.json               # 轻量索引（chat system prompt 用）
@@ -235,6 +244,18 @@ src/
 | `/en/games/catan/score` | 计分器（仅 score.json 存在时生成） |
 | `/en/games/mahjong/trainer` | 训练器（仅 trainer.json 存在时生成） |
 | `/en/games/riichi-mahjong/calculator` | 计算器（仅 calculator.json 存在时生成） |
+| `/en/games/texas-hold-em/play/` | BBGE 在线对局（仅 `play.json` 存在时生成；Host / AI / 分享链接） |
+
+### BBGE 在线对局（摘要）
+
+| 游戏 | 规范 | 要点 |
+|------|------|------|
+| 情书 | [`docs/games/love-letter.md`](docs/games/love-letter.md) | 经典 / 完整 / 拓展；策略 AI |
+| 德州扑克 | [`docs/games/texas-hold-em.md`](docs/games/texas-hold-em.md) | 现金桌多手；摊牌亮牌；TAG/GTO AI |
+| 谁是牛头王 | [`docs/games/6-nimmt-30th-anniversary.md`](docs/games/6-nimmt-30th-anniversary.md) | 多模式；躲第五张启发式 |
+| 围棋 | [`docs/games/go.md`](docs/games/go.md) | 9/13/19；提子优先；桌内围棋老师 |
+
+平台约定：Host 权威、确定性 Action、插件无网络；详见 [BBGE skill](.cursor/skills/browser-board-game-engine/SKILL.md)。
 
 ---
 

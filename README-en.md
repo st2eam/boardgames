@@ -2,14 +2,23 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — 50 games (including expansions/variants), interactive decision trees, trainers, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — **50** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+
+## Recent updates (2026-08-07)
+
+- **BBGE playables matured**: Love Letter / Texas Hold'em / 6 nimmt! / Go — Host · hotseat · AI · share-link
+- **Smarter AI across all seats**: heuristics + DeepSeek `deepseek-v4-flash` play more like humans (value, fold, selective bluffs); specs in [`docs/games/`](docs/games/)
+- **Hold'em UX**: showdown reveals, mobile board de-dupe, scrollable battle log, cash **Next hand**
+- **Go**: 9×9 / 13×13 / 19×19; in-table Go Teacher (no floating FAB)
+- **6 nimmt!**: classic / pro / fan / buffalo; parallel AI picks + paced reveal
 
 ## Features
 
-- **47 game rules**: web-verified, complete bilingual rules (EN/ZH)
-- **41 interactive decision trees**: step-by-step flow with sidebar outline navigation
-- **7 automatic score trackers**: `cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `category` / `feature-calc`, localStorage persistence
+- **50 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **44 interactive decision trees**: step-by-step flow with sidebar outline navigation
+- **9 automatic score trackers**: `cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` / `category` / `feature-calc`, etc.
 - **5 trainers**: Mahjong/Riichi tenpai, Blackjack basic strategy, Texas Hold'em GTO preflop, Go tsumego
+- **4 BBGE online playables**: Love Letter, Texas Hold'em cash, 6 nimmt! modes, Go boards — designs in [`docs/games/`](docs/games/)
 - **Score calculator**: Riichi Mahjong han/fu/points — tile picker → winning tile → open melds → auto yaku/fu/points
 - **Game family grouping**: UNO, Drecksau, LotTK, Exploding Kittens, Splendor, Sea Salt & Paper, Catan, Carcassonne, Wingspan, Mahjong, Love Letter
 - **DLC / variant support**: stacked family cards for expansions and standalone variants
@@ -34,7 +43,7 @@ npm run dev
 npm run build
 ```
 
-> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `47` / `41` flow / `7` score / `5` trainer / `1` calculator). Run `node scripts/print-project-stats.mjs` to verify.
+> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `50` / `44` flow / `9` score / `5` trainer / `1` calculator / `4` BBGE play). Run `node scripts/print-project-stats.mjs` to verify. Sync BBGE behavior in [`docs/games/<slug>.md`](docs/games/).
 
 ---
 
@@ -58,9 +67,9 @@ npm run build
 
 ### Standalone
 
-| Game | Rules | Decision Tree | Score / Trainer |
-|------|:-----:|:-------------:|:---------------:|
-| Texas Hold'em | ✅ | ✅ | 🎯 GTO Preflop |
+| Game | Rules | Decision Tree | Score / Trainer / Play |
+|------|:-----:|:-------------:|:---------------------:|
+| Texas Hold'em | ✅ | ✅ | 🎯 GTO Preflop · 🎮 Cash table |
 | Harmonies | ✅ | ✅ | — |
 | Modern Art | ✅ | ✅ | — |
 | GoTown | ✅ | ✅ | — |
@@ -79,9 +88,9 @@ npm run build
 | Halli Galli | ✅ | ✅ | — |
 | Manila | ✅ | ✅ | — |
 | The Lord of the Rings: Duel for Middle-earth | ✅ | ✅ | — |
-| 6 nimmt! 30 Years Anniversary Edition | ✅ | ✅ | ✅ Score (multi) · 🎮 Play (classic) |
+| 6 nimmt! 30 Years Anniversary Edition | ✅ | ✅ | ✅ Score · 🎮 Multi-mode play |
 | Palm Island | ✅ | ✅ | ✅ Score |
-| Go | ✅ | ✅ | 🎯 Tsumego Trainer |
+| Go | ✅ | ✅ | 🎯 Tsumego · 🎮 9/13/19 play |
 
 ### Series
 
@@ -113,7 +122,7 @@ npm run build
 | | Asia | DLC (req. base) | ✅ | ✅ | — |
 | | Europe | DLC (req. base) | ✅ | ✅ | — |
 | | Oceania | DLC (req. base) | ✅ | ✅ | — |
-| Love Letter | Love Letter | Base | ✅ | ✅ | — |
+| Love Letter | Love Letter | Base | ✅ | ✅ | 🎮 Online play (classic/full/expansion) |
 | | Premium Edition | Variant (standalone) | ✅ | ✅ | — |
 
 ---
@@ -229,6 +238,18 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 | `/en/games/catan/score` | Score tracker (only if `score.json` exists) |
 | `/en/games/mahjong/trainer` | Trainer (only if `trainer.json` exists) |
 | `/en/games/riichi-mahjong/calculator` | Calculator (only if `calculator.json` exists) |
+| `/en/games/texas-hold-em/play/` | BBGE online play (only if `play.json` exists; Host / AI / share link) |
+
+### BBGE online play (summary)
+
+| Game | Spec | Highlights |
+|------|------|------------|
+| Love Letter | [`docs/games/love-letter.md`](docs/games/love-letter.md) | Classic / full / expansion; strategic AI |
+| Texas Hold'em | [`docs/games/texas-hold-em.md`](docs/games/texas-hold-em.md) | Cash multi-hand; showdown reveal; TAG/GTO AI |
+| 6 nimmt! | [`docs/games/6-nimmt-30th-anniversary.md`](docs/games/6-nimmt-30th-anniversary.md) | Multi-mode; trap-aware heuristics |
+| Go | [`docs/games/go.md`](docs/games/go.md) | 9/13/19; capture-first; in-table Go Teacher |
+
+Platform: Host authority, deterministic Actions, plugins never talk to the network — see [BBGE skill](.cursor/skills/browser-board-game-engine/SKILL.md).
 
 ---
 

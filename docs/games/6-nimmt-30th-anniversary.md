@@ -61,7 +61,17 @@ play until end condition → host rematch (same mode).
 
 ---
 
-## 5. Testing
+## 5. AI
+
+| Layer | Behavior |
+|-------|----------|
+| Mock (`createMockSixNimmtSeat`) | Smallest-gap fits; strongly avoid 5th-card takes; hold high control cards early; forced take → fewest bullheads |
+| LLM | Careful human — minimize heads, think one street ahead; flip only when it clearly helps |
+| Timing | Selecting phase: AI thinks in parallel; paced one-by-one reveal animation |
+
+---
+
+## 6. Testing
 
 ```bash
 npm run test:bbge -- --run bbge/plugins/six-nimmt
@@ -69,6 +79,6 @@ npm run test:bbge -- --run bbge/plugins/six-nimmt
 
 ---
 
-## 6. Deferred polish
+## 7. Deferred polish
 
 Richer UI for Insert / Push / Sort specials; fan+buffalo combo (officially not combined).

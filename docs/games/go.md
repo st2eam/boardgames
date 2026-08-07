@@ -43,6 +43,11 @@ Rules / trainer → **开始游戏** → lobby pick board size → human vs AI (
 
 ## AI / chat
 
-- Mock heuristic seat (no API key)
-- Optional `DeepSeekGoSeat` (`deepseek-v4-flash`) for legal Actions + short `speak`
-- **Go Teacher** lives in the play sidebar input (no floating chat button); tutoring persona with live board context (does not auto-pick moves unless asked)
+| Layer | Behavior |
+|-------|----------|
+| Mock (`createStrategicGoSeat`) | Prefer captures / atari answers; open near corners·sides; fight locally around `lastMove`; pass when quiet |
+| Fallback (`@bbge/ai` mock) | Same bias without `tryPlay` (adjacency heuristics) |
+| LLM (`DeepSeekGoSeat`) | Club-strength purposeful opponent; `speak` follows locale (`zh` → 简体中文) |
+| Teacher | In-table `GoTutorPanel` (no floating FAB); live `boardAscii`; tutoring only — does not auto-move unless asked |
+
+Board fills the play viewport; status banner height is pinned to avoid layout jump.

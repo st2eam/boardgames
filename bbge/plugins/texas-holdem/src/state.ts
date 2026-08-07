@@ -45,6 +45,8 @@ export interface HoldemState {
   toActIndex: number;
   pots: Pot[];
   winners: PlayerId[];
+  /** Increments each dealt hand (cash session); UI remount key */
+  handNumber: number;
   /** Showdown results for UI */
   showdown?: {
     playerId: PlayerId;

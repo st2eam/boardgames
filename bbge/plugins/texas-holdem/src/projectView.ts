@@ -37,6 +37,7 @@ export function projectHoldemView(
     pots: state.pots,
     board: state.board.map(publicCard),
     winners: state.winners,
+    handNumber: state.handNumber ?? 1,
     lastAction: state.lastAction ?? null,
     legal: viewerId ? legalActions(state, viewerId) : [],
     you: you

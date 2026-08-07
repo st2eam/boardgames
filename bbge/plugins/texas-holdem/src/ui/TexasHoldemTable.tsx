@@ -19,6 +19,7 @@ type ArenaView = {
   potTotal: number;
   board: { id: string; rank?: number; suit?: string }[];
   winners: string[];
+  handNumber?: number;
   you: {
     id: string;
     hole: { id: string; rank?: number; suit?: string }[];
@@ -70,6 +71,7 @@ export function TexasHoldemTable({
   const seenChat = useRef(new Set<string>());
   const timers = useRef(new Map<string, number>());
   const boardKey = view.board.map((c) => c.id).join(",");
+  const handNumber = view.handNumber ?? 1;
   const [boardPulse, setBoardPulse] = useState(0);
 
   useEffect(() => {
@@ -79,6 +81,13 @@ export function TexasHoldemTable({
   useEffect(() => {
     setBoardPulse((n) => n + 1);
   }, [boardKey]);
+
+  // New hand: clear leftover fold bubbles / opacity from previous street
+  useEffect(() => {
+    setBubbles({});
+    for (const t of timers.current.values()) window.clearTimeout(t);
+    timers.current.clear();
+  }, [handNumber]);
 
   const showBubble = (seatId: string, id: string, text: string) => {
     const prev = timers.current.get(seatId);
@@ -222,7 +231,7 @@ export function TexasHoldemTable({
                   .filter((s) => s.id !== actorId)
                   .map((s) => (
                     <SeatChip
-                      key={s.id}
+                      key={`${s.id}-h${handNumber}`}
                       seat={s}
                       locale={locale}
                       active={view.currentPlayerId === s.id}
@@ -277,6 +286,7 @@ export function TexasHoldemTable({
               <div className="flex flex-col items-center gap-2">
                 {view.you && (
                   <SeatChip
+                    key={`hero-h${handNumber}`}
                     seat={{
                       ...view.seats.find((s) => s.id === actorId)!,
                       name: zh ? "你" : "You",
@@ -289,7 +299,7 @@ export function TexasHoldemTable({
                     you
                   />
                 )}
-                <div className="flex gap-2">
+                <div className="flex gap-2" key={`hole-h${handNumber}`}>
                   {(view.you?.hole ?? []).map((c, i) => (
                     <PlayingCard
                       key={c.id}
@@ -472,17 +482,12 @@ function SeatChip({
         "relative min-w-[7.5rem] rounded-xl border px-2.5 py-2 shadow-sm",
         you ? "bg-amber-50/95" : "bg-white/90",
         active ? "border-accent ring-2 ring-accent/40" : "border-border",
-        foldedAnim ? "opacity-50" : "",
       ].join(" ")}
-      animate={
-        reduce
-          ? undefined
-          : foldedAnim
-            ? { x: [0, -6, 0], opacity: 0.5 }
-            : active
-              ? { scale: [1, 1.02, 1] }
-              : undefined
-      }
+      animate={{
+        opacity: foldedAnim ? 0.5 : 1,
+        scale: !reduce && active && !foldedAnim ? [1, 1.02, 1] : 1,
+        x: !reduce && foldedAnim ? [0, -6, 0] : 0,
+      }}
       transition={{ duration: 0.35 }}
     >
       <AnimatePresence>

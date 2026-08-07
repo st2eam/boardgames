@@ -148,10 +148,19 @@ function advanceStreet(state: HoldemState, events: Event[]): void {
   });
 }
 
+function clearStreetCommitments(state: HoldemState): void {
+  for (const p of state.players) {
+    p.streetBet = 0;
+    p.handBet = 0;
+    p.acted = false;
+  }
+}
+
 function awardFoldWin(state: HoldemState, events: Event[]): void {
   const winner = activePlayers(state)[0]!;
   const pot = state.players.reduce((s, p) => s + p.handBet, 0);
   winner.stack += pot;
+  clearStreetCommitments(state);
   state.phase = "finished";
   state.winners = [winner.id];
   state.pots = [{ amount: pot, eligible: [winner.id] }];
@@ -218,6 +227,7 @@ function showdown(state: HoldemState, events: Event[]): void {
   }
 
   state.showdown = show;
+  clearStreetCommitments(state);
   state.phase = "finished";
   state.winners = [...winners];
   events.push({
@@ -358,6 +368,7 @@ export function createHoldemState(
     toActIndex: 0,
     pots: [],
     winners: [],
+    handNumber: 1,
   };
 
   dealAndPostBlinds(state);
@@ -383,19 +394,32 @@ export function continueHoldemMatch(
     buttonIndex = (buttonIndex + 1) % n;
   }
 
+  // Only chips (and identity) carry over — every other seat flag resets.
   const state: HoldemState = {
-    ...prev,
+    schemaVersion: 1,
+    pluginId: "texas-holdem",
     seed: prev.seed,
+    phase: "playing",
+    street: "preflop",
+    smallBlind: prev.smallBlind,
+    bigBlind: prev.bigBlind,
+    startingStack: prev.startingStack,
     buttonIndex,
     deck: ctx.rng.shuffle(buildDeck()),
     board: [],
     burns: [],
+    currentBet: 0,
+    minRaiseTo: prev.bigBlind,
+    toActIndex: 0,
     pots: [],
     winners: [],
+    handNumber: (prev.handNumber ?? 1) + 1,
     showdown: undefined,
     lastAction: undefined,
     players: prev.players.map((p) => ({
-      ...p,
+      id: p.id,
+      name: p.name,
+      stack: p.stack,
       hole: [],
       folded: false,
       allIn: false,

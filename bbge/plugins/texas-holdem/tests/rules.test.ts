@@ -108,6 +108,10 @@ describe("texas-holdem rules", () => {
     const next = continueHoldemMatch(s, { rng: createRng("cash-2") });
     expect(next.phase).toBe("playing");
     expect(next.buttonIndex).toBe((btn + 1) % 3);
+    expect(next.handNumber).toBe((s.handNumber ?? 1) + 1);
+    expect(next.players.every((p) => !p.folded || p.stack <= 0)).toBe(true);
+    expect(next.players.every((p) => !p.allIn || p.stack === 0)).toBe(true);
+    expect(next.showdown).toBeUndefined();
     expect(next.players.reduce((a, p) => a + p.stack + p.handBet, 0)).toBe(
       chips,
     );

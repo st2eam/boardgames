@@ -18,6 +18,10 @@ import {
   normalizeUnoEdition,
   unoEditionOptions,
 } from "../../plugins/uno/src/editions";
+import {
+  normalizeTrioMode,
+  trioModeOptions,
+} from "../../plugins/trio/src/editions";
 import { LobbyView } from "./LobbyView";
 import { requirePlayModule } from "./registry";
 import type { PlayLogEntry, PluginPlayModule } from "./plugin-types";
@@ -266,10 +270,12 @@ export function PlayShell({
   const isLoveLetter = pluginId === "love-letter";
   const isGo = pluginId === "go";
   const isUno = pluginId === "uno";
+  const isTrio = pluginId === "trio";
   const [edition, setEdition] = useState(() => {
     if (isNimmt) return normalizeNimmtMode(editionProp ?? "classic");
     if (isGo) return normalizeGoEdition(editionProp ?? "9x9");
     if (isUno) return normalizeUnoEdition(editionProp ?? "classic");
+    if (isTrio) return normalizeTrioMode(editionProp ?? "simple");
     return normalizeLlEdition(editionProp ?? "full");
   });
   const [stakes, setStakes] = useState({
@@ -287,8 +293,10 @@ export function PlayShell({
           ? maxSeatsForLlEdition(normalizeLlEdition(edition))
           : isUno
             ? maxPlayersForUnoEdition(normalizeUnoEdition(edition))
-            : mod.plugin.metadata.maxPlayers;
-  const showEditions = isLoveLetter || isNimmt || isGo || isUno;
+            : isTrio
+              ? 6
+              : mod.plugin.metadata.maxPlayers;
+  const showEditions = isLoveLetter || isNimmt || isGo || isUno || isTrio;
   const [roomId, setRoomId] = useState(roomIdFromUrl ?? "");
   const [error, setError] = useState<string | null>(null);
   const [lobby, setLobby] = useState<LobbyState | null>(null);
@@ -547,7 +555,9 @@ export function PlayShell({
                     ? normalizeGoEdition(lb.edition)
                     : pluginId === "uno"
                       ? normalizeUnoEdition(lb.edition)
-                      : normalizeLlEdition(lb.edition),
+                      : pluginId === "trio"
+                        ? normalizeTrioMode(lb.edition)
+                        : normalizeLlEdition(lb.edition),
               );
             }
             const gc = lb.gameConfig;
@@ -1026,7 +1036,9 @@ export function PlayShell({
         ? normalizeGoEdition(id)
         : isUno
           ? normalizeUnoEdition(id)
-          : normalizeLlEdition(id);
+          : isTrio
+            ? normalizeTrioMode(id)
+            : normalizeLlEdition(id);
     if (next === edition) return;
     const s = sessionRef.current;
     if (!s || s.getPhase() !== "lobby") return;
@@ -1036,7 +1048,9 @@ export function PlayShell({
         ? 2
         : isUno
           ? maxPlayersForUnoEdition(normalizeUnoEdition(next))
-          : maxSeatsForLlEdition(next as LoveLetterEditionId);
+          : isTrio
+            ? 6
+            : maxSeatsForLlEdition(next as LoveLetterEditionId);
     // Trim overflow seats when switching to a smaller edition (keep host).
     while (s.getLobby().seats.length > cap) {
       const seats = s.getLobby().seats;
@@ -1333,6 +1347,12 @@ export function PlayShell({
                           label: locale === "zh" ? m.label.zh : m.label.en,
                           hint: locale === "zh" ? m.hint.zh : m.hint.en,
                         }))
+                      : isTrio
+                        ? trioModeOptions().map((m) => ({
+                            id: m.id,
+                            label: locale === "zh" ? m.label.zh : m.label.en,
+                            hint: locale === "zh" ? m.hint.zh : m.hint.en,
+                          }))
                       : [
                           {
                             id: "classic",

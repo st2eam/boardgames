@@ -47,6 +47,8 @@ export function PlayPageClient({
           "buffalo",
           "flip",
           "no-mercy",
+          "simple",
+          "spicy",
         ],
   );
   const edition = allowed.has(editionParam ?? "")

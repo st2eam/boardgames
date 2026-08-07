@@ -14,6 +14,7 @@ docs/games/<slug>.md
 | [go.md](go.md) | Go — 9×9 / 13×13 / 19×19 | Shipped — capture-first mock + Go Teacher + battleLog |
 | [cabo.md](cabo.md) | CABO — 2–4 memory card game | Shipped — multi-round cumulative + AI + battleLog |
 | [uno.md](uno.md) | UNO — classic / Flip / No Mercy | Shipped — shared plugin + editions + AI + battleLog |
+| [trio.md](trio.md) | TRIO — simple / spicy | Shipped — memory flips + card art + AI + battleLog |
 
 Platform skill: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/SKILL.md).  
 Shelf feature map: [`docs/architecture.md`](../architecture.md).  
@@ -37,6 +38,7 @@ All playables use Host-only `AiSeat`: DeepSeek `deepseek-v4-flash` when a key is
 | `go` | Liberty/atari/area policy (+ resign when lost) | Hybrid: policy moves + LLM speak (+ Go Teacher) |
 | `cabo` | Swap away highs; peek/spy abilities; call when estimate low | Memory human — track discards, cautious CABO + battle log |
 | `uno` | Prefer action cards; call UNO; stack in No Mercy | Table talk human — pressure next seat + battle log |
+| `trio` | Chase current value via own extremes / center | Memory human — track returned cards + battle log |
 
 **UI:** battle logs use shared `@bbge/ui` `BattleLogList` + mobile `PlaySideSheet` (`70dvh`).
 

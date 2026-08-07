@@ -1,0 +1,16 @@
+{
+  "pluginId": "trio",
+  "pluginVersion": "0.1.0",
+  "defaultEdition": "simple",
+  "editions": [
+    {
+      "id": "simple",
+      "label": { "en": "Simple", "zh": "简单模式" },
+      "default": true
+    },
+    {
+      "id": "spicy",
+      "label": { "en": "Spicy", "zh": "辣味模式" }
+    }
+  ]
+}

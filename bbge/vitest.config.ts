@@ -23,6 +23,7 @@ export default defineConfig({
       "@bbge/go": path.resolve(__dirname, "plugins/go/src"),
       "@bbge/cabo": path.resolve(__dirname, "plugins/cabo/src"),
       "@bbge/uno": path.resolve(__dirname, "plugins/uno/src"),
+      "@bbge/trio": path.resolve(__dirname, "plugins/trio/src"),
     },
   },
 });

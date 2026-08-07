@@ -1,0 +1,323 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import type { Action } from "@bbge/core";
+import type { PluginTableProps } from "@bbge/ui";
+import {
+  MatchResultBar,
+  PlayLogChatPanel,
+  PlaySideSheet,
+  PlayTableShell,
+  SeatSpeechSlot,
+  ThinkingStatusBanner,
+  useSeatBubbles,
+} from "@bbge/ui";
+import { TrioCard } from "./TrioCard";
+
+type TrioView = {
+  phase: string;
+  mode: string;
+  currentPlayerId: string | null;
+  winners: string[];
+  matchOver: boolean;
+  turnReveals: {
+    source: string;
+    value: number;
+    slotIndex?: number;
+    ownerId?: string;
+    end?: string;
+  }[];
+  center: {
+    empty?: boolean;
+    faceUp?: boolean;
+    value?: number;
+    slotIndex?: number;
+  }[];
+  you: {
+    id: string;
+    hand: { id: string; value: number }[];
+    trios: number[];
+  } | null;
+  seats: {
+    id: string;
+    name: string;
+    handCount: number;
+    trios: number[];
+    isYou: boolean;
+  }[];
+  legal: { type: string; payload?: Record<string, unknown> }[];
+};
+
+export function TrioTable({
+  locale,
+  view: viewUnknown,
+  myId,
+  disabled,
+  thinkingId,
+  thinkingDetail,
+  onAction,
+  onRematch,
+  playLog = [],
+  chat = [],
+  onChat,
+  nameOf,
+}: PluginTableProps) {
+  const zh = locale === "zh";
+  const view = viewUnknown as TrioView;
+  const [sideOpen, setSideOpen] = useState(false);
+  const bubbles = useSeatBubbles({ playLog, chat, durationMs: 4000 });
+
+  const isMyTurn =
+    view.currentPlayerId === myId &&
+    !disabled &&
+    !thinkingId &&
+    view.phase !== "finished";
+
+  const legalCenter = useMemo(() => {
+    const s = new Set<number>();
+    for (const a of view.legal) {
+      if (a.type === "revealCenter" && typeof a.payload?.slotIndex === "number") {
+        s.add(a.payload.slotIndex);
+      }
+    }
+    return s;
+  }, [view.legal]);
+
+  const canRevealExtreme = (targetId: string, end: "low" | "high") =>
+    view.legal.some(
+      (a) =>
+        a.type === "revealExtreme" &&
+        a.payload?.targetPlayerId === targetId &&
+        a.payload?.end === end,
+    );
+
+  const dispatch = (action: Action) => onAction(action);
+
+  const status = useMemo(() => {
+    if (view.phase === "finished") {
+      const w = view.winners.map((id) => nameOf?.(id) ?? id).join(", ");
+      return zh ? `${w} 获胜！` : `${w} wins!`;
+    }
+    if (thinkingId) {
+      return zh
+        ? `${nameOf?.(thinkingId) ?? thinkingId} 思考中…`
+        : `${nameOf?.(thinkingId) ?? thinkingId} thinking…`;
+    }
+    const chain = view.turnReveals.map((r) => r.value).join(" · ");
+    if (!isMyTurn) {
+      return zh
+        ? `等待 ${nameOf?.(view.currentPlayerId ?? "") ?? ""}${chain ? ` · ${chain}` : ""}`
+        : `Waiting ${nameOf?.(view.currentPlayerId ?? "") ?? ""}${chain ? ` · ${chain}` : ""}`;
+    }
+    return chain
+      ? zh
+        ? `继续找 ${view.turnReveals[0]?.value}（已翻 ${chain}）`
+        : `Chase ${view.turnReveals[0]?.value} (${chain})`
+      : zh
+        ? "翻开一张牌开始"
+        : "Reveal a card to start";
+  }, [view, thinkingId, isMyTurn, zh, nameOf]);
+
+  const others = view.seats.filter((s) => !s.isYou);
+  const youSeat = view.seats.find((s) => s.isYou);
+  const modeLabel =
+    view.mode === "spicy" ? (zh ? "辣味" : "Spicy") : zh ? "简单" : "Simple";
+
+  const logPanel = (
+    <PlayLogChatPanel
+      locale={locale}
+      playLog={playLog}
+      chat={chat}
+      onChat={onChat}
+      nameOf={nameOf}
+    />
+  );
+
+  const seatBlock = (
+    s: TrioView["seats"][number],
+    opts?: { showHand?: boolean },
+  ) => {
+    const active = view.currentPlayerId === s.id;
+    return (
+      <div
+        key={s.id}
+        data-seat-id={s.id}
+        className={`relative flex min-w-[7rem] flex-col rounded-xl border px-2 py-1.5 ${
+          active ? "border-sky-400 bg-sky-50" : "border-border bg-white/90"
+        }`}
+      >
+        <SeatSpeechSlot bubble={bubbles[s.id]} />
+        <div className="flex items-center justify-between gap-1">
+          <p className="max-w-[5rem] truncate text-xs font-semibold text-primary-dark">
+            {nameOf?.(s.id) ?? s.name}
+          </p>
+          <p className="text-[10px] text-stone-500">
+            {s.trios.length
+              ? s.trios.map((t) => t).join("·")
+              : zh
+                ? "无三条"
+                : "0"}
+          </p>
+        </div>
+        {opts?.showHand && view.you ? (
+          <div className="mt-1 flex justify-center gap-0.5 overflow-x-auto">
+            {view.you.hand.map((c) => (
+              <TrioCard key={c.id} value={c.value} size="sm" />
+            ))}
+          </div>
+        ) : (
+          <div className="mt-1 flex items-end justify-center gap-0.5">
+            {Array.from({ length: Math.min(s.handCount, 7) }).map((_, i) => (
+              <div key={i} className="-ml-3 first:ml-0">
+                <TrioCard faceDown size="sm" />
+              </div>
+            ))}
+            {s.handCount > 7 && (
+              <span className="ml-1 text-[10px] text-stone-500">
+                +{s.handCount - 7}
+              </span>
+            )}
+          </div>
+        )}
+        <div className="mt-1 flex justify-center gap-1">
+          <button
+            type="button"
+            disabled={!canRevealExtreme(s.id, "low")}
+            onClick={() =>
+              dispatch({
+                type: "revealExtreme",
+                playerId: myId,
+                payload: { targetPlayerId: s.id, end: "low" },
+              })
+            }
+            className="rounded-md border border-border px-1.5 py-0.5 text-[10px] font-bold disabled:opacity-30"
+          >
+            {zh ? "最小" : "Low"}
+          </button>
+          <button
+            type="button"
+            disabled={!canRevealExtreme(s.id, "high")}
+            onClick={() =>
+              dispatch({
+                type: "revealExtreme",
+                playerId: myId,
+                payload: { targetPlayerId: s.id, end: "high" },
+              })
+            }
+            className="rounded-md border border-border px-1.5 py-0.5 text-[10px] font-bold disabled:opacity-30"
+          >
+            {zh ? "最大" : "High"}
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <PlayTableShell
+      locale={locale}
+      title={`TRIO · ${modeLabel}`}
+      onOpenLog={() => setSideOpen(true)}
+      toolbarExtra={
+        <>
+          <span className="truncate text-amber-100/80">{status}</span>
+          {view.turnReveals.length > 0 && (
+            <span className="font-bold text-accent">
+              {view.turnReveals.map((r) => r.value).join(" · ")}
+            </span>
+          )}
+        </>
+      }
+    >
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 overflow-hidden sm:gap-2">
+        <ThinkingStatusBanner
+          locale={locale}
+          text={status}
+          detail={thinkingDetail}
+          className="!min-h-9 !py-1 sm:!min-h-11"
+        />
+
+        <div className="flex shrink-0 flex-wrap justify-center gap-2 px-1">
+          {others.map((s) => seatBlock(s))}
+        </div>
+
+        {/* Center row */}
+        <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-2 overflow-hidden px-2">
+          <p className="text-[11px] font-semibold text-primary-dark">
+            {zh ? "桌面中央" : "Center"}
+          </p>
+          <div className="flex max-w-full flex-wrap justify-center gap-1.5">
+            {view.center.map((slot, i) => {
+              if (slot.empty) {
+                return (
+                  <div
+                    key={`empty-${i}`}
+                    className="h-20 w-[3.65rem] rounded-lg border border-dashed border-stone-300"
+                  />
+                );
+              }
+              return (
+                <TrioCard
+                  key={`c-${i}`}
+                  value={slot.faceUp ? slot.value : null}
+                  faceDown={!slot.faceUp}
+                  selected={legalCenter.has(slot.slotIndex ?? i)}
+                  onClick={
+                    legalCenter.has(slot.slotIndex ?? i)
+                      ? () =>
+                          dispatch({
+                            type: "revealCenter",
+                            playerId: myId,
+                            payload: { slotIndex: slot.slotIndex ?? i },
+                          })
+                      : undefined
+                  }
+                />
+              );
+            })}
+          </div>
+          {view.turnReveals.length > 0 && (
+            <div className="mt-1 flex items-center gap-1">
+              <span className="text-[10px] text-stone-500">
+                {zh ? "本回合" : "This turn"}
+              </span>
+              {view.turnReveals.map((r, i) => (
+                <TrioCard key={`tr-${i}`} value={r.value} size="sm" />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {youSeat && seatBlock(youSeat, { showHand: true })}
+
+        <div className="shrink-0 rounded-xl border border-border bg-white/95 px-2.5 py-1.5 shadow-sm">
+          {view.phase === "finished" ? (
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-sm text-primary-dark">{status}</p>
+              <MatchResultBar
+                locale={locale}
+                onRematch={onRematch}
+                label={zh ? "再来一局" : "Play again"}
+              />
+            </div>
+          ) : (
+            <p className="text-center text-[11px] text-stone-500">
+              {zh
+                ? "点中央牌或「最小/最大」翻牌 · 凑齐三张相同数字"
+                : "Tap center or Low/High · find three of a kind"}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <PlaySideSheet
+        open={sideOpen}
+        onClose={() => setSideOpen(false)}
+        locale={locale}
+        title={zh ? "战报 / 聊天" : "Log / Chat"}
+      >
+        {logPanel}
+      </PlaySideSheet>
+    </PlayTableShell>
+  );
+}

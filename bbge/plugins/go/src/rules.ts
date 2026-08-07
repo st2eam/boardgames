@@ -295,5 +295,13 @@ export function goEditionOptions(): {
         zh: "2 人 · 稍长 · 贴目 7.5",
       },
     },
+    {
+      id: "19x19",
+      label: { en: "19×19 (standard)", zh: "19×19（标准盘）" },
+      hint: {
+        en: "2 players · full board · komi 7.5",
+        zh: "2 人 · 标准棋盘 · 贴目 7.5",
+      },
+    },
   ];
 }

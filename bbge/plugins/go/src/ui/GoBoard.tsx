@@ -29,6 +29,17 @@ const STAR_POINTS_13 = [
   [9, 3],
   [9, 9],
 ];
+const STAR_POINTS_19 = [
+  [3, 3],
+  [3, 9],
+  [3, 15],
+  [9, 3],
+  [9, 9],
+  [9, 15],
+  [15, 3],
+  [15, 9],
+  [15, 15],
+];
 
 export function GoBoard({
   size,
@@ -38,12 +49,13 @@ export function GoBoard({
   lastMove,
   ko,
 }: Props) {
-  const viewSize = size <= 9 ? 360 : 420;
+  const viewSize = size <= 9 ? 360 : size <= 13 ? 420 : 480;
   const spacing = (viewSize - PADDING * 2) / (size - 1);
 
   const starPoints = useCallback(() => {
     if (size <= 9) return STAR_POINTS_9;
-    return STAR_POINTS_13;
+    if (size <= 13) return STAR_POINTS_13;
+    return STAR_POINTS_19;
   }, [size]);
 
   const toSvg = (i: number) => PADDING + i * spacing;
@@ -68,7 +80,7 @@ export function GoBoard({
   return (
     <svg
       viewBox={`0 0 ${viewSize} ${viewSize}`}
-      className={`w-full max-w-[min(100%,420px)] rounded-xl bg-amber-100 shadow-inner ${
+      className={`w-full max-w-[min(100%,480px)] rounded-xl bg-amber-100 shadow-inner ${
         disabled ? "cursor-default opacity-95" : "cursor-pointer"
       }`}
       onClick={handleClick}

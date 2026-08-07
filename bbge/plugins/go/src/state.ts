@@ -2,9 +2,9 @@ import type { PlayerId } from "@bbge/core";
 
 export type GoColor = "black" | "white";
 export type GoCell = GoColor | null;
-export type GoBoardSize = 9 | 13;
+export type GoBoardSize = 9 | 13 | 19;
 
-export type GoEditionId = "9x9" | "13x13";
+export type GoEditionId = "9x9" | "13x13" | "19x19";
 
 export type GoPhase = "playing" | "finished";
 
@@ -79,15 +79,19 @@ export type GoAction =
     };
 
 export function normalizeGoEdition(raw?: string): GoEditionId {
+  if (raw === "19x19" || raw === "19") return "19x19";
   if (raw === "13x13" || raw === "13") return "13x13";
   return "9x9";
 }
 
 export function sizeForEdition(edition: GoEditionId): GoBoardSize {
-  return edition === "13x13" ? 13 : 9;
+  if (edition === "19x19") return 19;
+  if (edition === "13x13") return 13;
+  return 9;
 }
 
 /** Chinese-rules–style komi defaults for teaching games. */
 export function komiForEdition(edition: GoEditionId): number {
-  return edition === "13x13" ? 7.5 : 6.5;
+  if (edition === "19x19" || edition === "13x13") return 7.5;
+  return 6.5;
 }

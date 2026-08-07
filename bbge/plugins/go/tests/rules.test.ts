@@ -87,6 +87,21 @@ describe("go rules", () => {
     expect(s.toActIndex).toBe(0);
   });
 
+  it("creates 19x19 with komi 7.5", () => {
+    const s = createGoState(
+      {
+        playerIds: ["a", "b"],
+        playerNames: { a: "A", b: "B" },
+        edition: "19x19",
+        seed: "go-19",
+      },
+      ctx,
+    );
+    expect(s.size).toBe(19);
+    expect(s.edition).toBe("19x19");
+    expect(s.komi).toBe(7.5);
+  });
+
   it("plays and alternates", () => {
     let s = fresh();
     const act: GoAction = {

@@ -138,7 +138,7 @@ export function GoTable({
   return (
     <div className="flex h-full min-h-0 flex-col gap-2 overflow-hidden lg:flex-row">
       <div className="flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto rounded-2xl border border-border bg-surface/80 p-3 shadow-card">
-        <div className="flex w-full max-w-[420px] flex-wrap items-center justify-between gap-2 text-xs">
+        <div className="flex w-full max-w-[480px] flex-wrap items-center justify-between gap-2 text-xs">
           {view.seats.map((s) => (
             <div
               key={s.id}
@@ -163,7 +163,7 @@ export function GoTable({
           ))}
         </div>
 
-        <p className="w-full max-w-[420px] rounded-xl border border-amber-200/80 bg-amber-50 px-3 py-2 text-center text-xs font-medium text-amber-950">
+        <p className="w-full max-w-[480px] rounded-xl border border-amber-200/80 bg-amber-50 px-3 py-2 text-center text-xs font-medium text-amber-950">
           {status}
           {thinkingDetail && thinkingId ? (
             <span className="mt-1 block text-[10px] font-normal text-amber-800/80 line-clamp-2">
@@ -181,7 +181,7 @@ export function GoTable({
           ko={view.ko}
         />
 
-        <div className="flex w-full max-w-[420px] flex-wrap gap-2">
+        <div className="flex w-full max-w-[480px] flex-wrap gap-2">
           <button
             type="button"
             disabled={!isMyTurn}
@@ -236,7 +236,7 @@ export function GoTable({
           )}
         </div>
 
-        <p className="max-w-[420px] text-center text-[11px] leading-relaxed text-stone-500">
+        <p className="max-w-[480px] text-center text-[11px] leading-relaxed text-stone-500">
           {zh
             ? "右下角「围棋老师」可边下边问；老师能看到当前棋盘。双方停着后按数目法估算胜负（教学简化）。"
             : "Use Go Teacher (bottom-right) while you play — it sees this board. Two passes → simplified area score."}

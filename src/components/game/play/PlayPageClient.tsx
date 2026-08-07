@@ -41,6 +41,7 @@ export function PlayPageClient({
           "premium",
           "9x9",
           "13x13",
+          "19x19",
           "pro",
           "fan",
           "buffalo",

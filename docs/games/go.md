@@ -4,7 +4,7 @@
 |---|---|
 | **Status** | Shipped MVP on `main` — Host / AI / hotseat + in-table Go Teacher chat |
 | **Plugin** | `bbge/plugins/go` (`pluginId: go`) |
-| **Editions** | **`9x9`** (default) · **`13x13`** |
+| **Editions** | **`9x9`** (default) · **`13x13`** · **`19x19`** |
 | **Players** | Exactly **2** |
 | **Play UI** | DOM board (`GoTable` + SVG `GoBoard`) |
 | **Teacher** | Shelf `ChatToggle` + `GoTutorStrategy` with live `boardAscii` |
@@ -21,7 +21,7 @@ Rules / trainer → **开始游戏** → lobby pick board size → human vs AI (
 
 ## Rules (teaching simplification)
 
-- Alternating play; Black first; White receives **komi** (9×9 → 6.5, 13×13 → 7.5)
+- Alternating play; Black first; White receives **komi** (9×9 → 6.5, 13×13 / 19×19 → 7.5)
 - Capture by liberties; **suicide illegal** unless the move captures
 - **Simple ko** (no immediate recapture of a 1-stone ko)
 - **Pass** / **Resign**; two consecutive passes → **Chinese-area–style** score (stones + exclusive empty) + komi

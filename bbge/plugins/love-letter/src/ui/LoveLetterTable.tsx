@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { LoveLetterAction } from "../state";
+import { PlayingCard } from "@bbge/ui";
 
 type CardV = { id: string; rank: number; name?: { en: string; zh: string } };
 type View = {
@@ -37,12 +38,80 @@ interface Props {
   myId: string;
   hotseat: boolean;
   disabled?: boolean;
+  thinkingId?: string | null;
   onAction: (action: LoveLetterAction) => void;
 }
 
-function label(c: CardV, locale: string) {
-  const n = c.name?.[locale === "zh" ? "zh" : "en"] ?? String(c.rank);
-  return `${c.rank} ${n}`;
+function cardName(c: CardV, locale: string) {
+  return c.name?.[locale === "zh" ? "zh" : "en"] ?? String(c.rank);
+}
+
+function SeatOrb({
+  name,
+  active,
+  eliminated,
+  protected: isProtected,
+  thinking,
+  selected,
+  disabled,
+  onClick,
+  children,
+}: {
+  name: string;
+  active?: boolean;
+  eliminated?: boolean;
+  protected?: boolean;
+  thinking?: boolean;
+  selected?: boolean;
+  disabled?: boolean;
+  onClick?: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      disabled={disabled || !onClick}
+      onClick={onClick}
+      className={[
+        "group relative flex w-[7.5rem] flex-col items-center gap-2 rounded-2xl p-2 transition-all duration-200",
+        onClick && !disabled ? "cursor-pointer" : "cursor-default",
+        selected ? "bg-accent/20 ring-2 ring-accent" : "bg-black/10 hover:bg-black/15",
+        eliminated ? "opacity-35 grayscale" : "",
+        active ? "ring-2 ring-amber-300/80 shadow-[0_0_24px_rgba(196,149,42,0.35)]" : "",
+      ].join(" ")}
+    >
+      <div
+        className={[
+          "flex h-12 w-12 items-center justify-center rounded-full border-2 font-heading text-sm font-bold text-white shadow-md",
+          thinking
+            ? "animate-pulse border-amber-300 bg-amber-600"
+            : active
+              ? "border-amber-200 bg-primary"
+              : "border-white/30 bg-primary-dark/80",
+        ].join(" ")}
+      >
+        {name.slice(0, 1).toUpperCase()}
+      </div>
+      <div className="w-full truncate text-center font-heading text-xs font-semibold text-amber-50">
+        {name}
+      </div>
+      {isProtected && (
+        <span className="absolute -top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-pink-500 text-white shadow" title="protected">
+          <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" aria-hidden>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z" />
+          </svg>
+        </span>
+      )}
+      {thinking && (
+        <span className="absolute -bottom-1 left-1/2 flex -translate-x-1/2 gap-0.5 rounded-full bg-amber-100 px-2 py-1">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-700" />
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-700 [animation-delay:150ms]" />
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-700 [animation-delay:300ms]" />
+        </span>
+      )}
+      <div className="flex min-h-[5.5rem] items-end justify-center gap-1">{children}</div>
+    </button>
+  );
 }
 
 export function LoveLetterTable({
@@ -51,6 +120,7 @@ export function LoveLetterTable({
   myId,
   hotseat,
   disabled,
+  thinkingId,
   onAction,
 }: Props) {
   const view = viewUnknown as View;
@@ -61,25 +131,24 @@ export function LoveLetterTable({
 
   const actorId = hotseat ? view.currentPlayerId : myId;
   const isMyTurn = view.currentPlayerId === actorId && view.phase === "playing";
+  const hand = view.you?.hand ?? [];
 
-  const hand = useMemo(() => {
-    if (hotseat) {
-      // host hotseat: we only have projectView for myId — need current player's hand
-      // PlayShell passes view for myId; for hotseat switch view externally.
-      return view.you?.id === actorId ? view.you.hand : view.you?.hand ?? [];
-    }
-    return view.you?.hand ?? [];
-  }, [view, hotseat, actorId]);
+  const needsTarget = useMemo(() => {
+    const c = hand.find((x) => x.id === selected);
+    return Boolean(c && [1, 2, 3, 5, 7].includes(c.rank));
+  }, [hand, selected]);
 
   if (view.phase === "finished") {
     return (
-      <div className="rounded-2xl border border-border bg-white p-6 shadow-card text-center">
-        <p className="font-heading text-xl font-bold text-primary-dark">
+      <div className="relative overflow-hidden rounded-3xl border border-amber-900/20 bg-linear-to-br from-primary via-primary-dark to-[#2a1814] px-6 py-16 text-center shadow-dialog">
+        <div className="pointer-events-none absolute inset-0 opacity-20" style={{
+          backgroundImage: "radial-gradient(circle at 50% 30%, #C4952A, transparent 55%)",
+        }} />
+        <p className="font-heading text-3xl font-bold text-amber-50">
           {zh ? "本局结束" : "Round over"}
         </p>
-        <p className="mt-2 text-stone-600">
-          {zh ? "胜者：" : "Winners: "}
-          {view.winners.join(", ")}
+        <p className="mt-3 font-heading text-xl text-accent">
+          {zh ? "胜者" : "Winner"} · {view.winners.join(" · ")}
         </p>
       </div>
     );
@@ -88,17 +157,18 @@ export function LoveLetterTable({
   if (view.pending?.type === "chancellor" && view.pending.playerId === actorId) {
     const held = view.pending.held ?? [];
     return (
-      <div className="rounded-2xl border border-border bg-white p-4 shadow-card space-y-3">
-        <p className="font-medium">
-          {zh ? "大臣：保留一张，其余放回牌底" : "Chancellor: keep one card"}
+      <div className="rounded-3xl border border-border bg-linear-to-b from-surface to-white p-6 shadow-card">
+        <p className="mb-4 font-heading text-lg font-bold text-primary-dark">
+          {zh ? "大臣：点选要保留的牌" : "Chancellor: tap the card to keep"}
         </p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap justify-center gap-3">
           {held.map((c) => (
-            <button
+            <PlayingCard
               key={c.id}
-              type="button"
+              rank={c.rank}
+              name={cardName(c, locale)}
+              size="lg"
               disabled={disabled}
-              className="rounded-lg border border-accent bg-accent/10 px-3 py-2 text-sm"
               onClick={() => {
                 const rest = held.filter((x) => x.id !== c.id);
                 if (rest.length < 2) return;
@@ -111,157 +181,194 @@ export function LoveLetterTable({
                   },
                 });
               }}
-            >
-              {label(c, locale)}
-            </button>
+            />
           ))}
         </div>
       </div>
     );
   }
 
-  const needsTarget = (() => {
-    const c = hand.find((x) => x.id === selected);
-    return c && [1, 2, 3, 5, 7].includes(c.rank);
-  })();
-
   return (
-    <div className="rounded-2xl border border-border bg-white p-4 shadow-card space-y-4">
-      <div className="flex flex-wrap gap-3 text-sm text-stone-600">
-        <span>
-          {zh ? "牌堆" : "Deck"}: {view.deckCount}
-        </span>
-        <span>
-          {zh ? "当前" : "Turn"}: {view.currentPlayerId}
-          {isMyTurn ? (zh ? "（你的回合）" : " (you)") : ""}
-        </span>
-      </div>
+    <div className="space-y-4">
+      {/* Felt table */}
+      <div
+        className="relative overflow-hidden rounded-[2rem] border-4 border-[#3E2723] px-3 py-6 shadow-dialog sm:px-6 sm:py-8"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, #2E7D32 0%, #1B5E20 55%, #0D3B12 100%)",
+        }}
+      >
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+          }}
+        />
 
-      {view.faceUp.length > 0 && (
-        <div>
-          <p className="text-xs text-stone-500 mb-1">
-            {zh ? "公开移出牌" : "Face-up removed"}
-          </p>
-          <div className="flex gap-2 flex-wrap">
-            {view.faceUp.map((c) => (
-              <span
-                key={c.id}
-                className="rounded border border-border px-2 py-1 text-xs"
-              >
-                {label(c, locale)}
-              </span>
-            ))}
-          </div>
+        {/* Opponents around top */}
+        <div className="relative z-10 flex flex-wrap items-start justify-center gap-3 sm:gap-4">
+          {view.others.map((o) => (
+            <SeatOrb
+              key={o.id}
+              name={o.name}
+              active={view.currentPlayerId === o.id}
+              eliminated={o.eliminated}
+              protected={o.protected}
+              thinking={thinkingId === o.id}
+              selected={targetId === o.id}
+              disabled={!needsTarget || o.eliminated || o.protected || disabled}
+              onClick={
+                needsTarget && !o.eliminated && !o.protected
+                  ? () => setTargetId(o.id)
+                  : undefined
+              }
+            >
+              {Array.from({ length: Math.min(o.handCount, 2) }).map((_, i) => (
+                <PlayingCard key={i} faceDown size="sm" />
+              ))}
+            </SeatOrb>
+          ))}
         </div>
-      )}
 
-      <div className="grid gap-2 sm:grid-cols-2">
-        {view.others.map((o) => (
-          <button
-            key={o.id}
-            type="button"
-            disabled={!needsTarget || o.eliminated || o.protected}
-            onClick={() => setTargetId(o.id)}
-            className={`rounded-xl border px-3 py-2 text-left text-sm ${
-              targetId === o.id ? "border-accent bg-accent/10" : "border-border"
-            } ${o.eliminated ? "opacity-40" : ""}`}
-          >
-            <div className="font-medium">{o.name}</div>
-            <div className="text-xs text-stone-500">
-              {o.eliminated
-                ? zh
-                  ? "出局"
-                  : "out"
-                : o.protected
-                  ? zh
-                    ? "侍女保护"
-                    : "protected"
-                  : `${zh ? "手牌" : "hand"} ${o.handCount}`}
+        {/* Center: deck + face-up */}
+        <div className="relative z-10 my-6 flex flex-col items-center gap-3">
+          <div className="flex items-end gap-3">
+            <div className="relative">
+              <PlayingCard faceDown size="md" className="translate-x-1 translate-y-1 opacity-70" />
+              <PlayingCard faceDown size="md" className="absolute inset-0" />
+              <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/40 px-2 py-0.5 font-heading text-[10px] font-semibold text-amber-50">
+                {zh ? "牌堆" : "Deck"} {view.deckCount}
+              </span>
             </div>
-          </button>
-        ))}
-        {needsTarget &&
-          hand.find((c) => c.id === selected)?.rank === 5 && (
+            {view.faceUp.length > 0 && (
+              <div className="flex gap-1.5">
+                {view.faceUp.map((c) => (
+                  <PlayingCard
+                    key={c.id}
+                    rank={c.rank}
+                    name={cardName(c, locale)}
+                    size="sm"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+          <p className="mt-4 font-heading text-sm font-semibold text-amber-100/90">
+            {isMyTurn
+              ? zh
+                ? "轮到你了 — 选出一张牌"
+                : "Your turn — choose a card"
+              : zh
+                ? `等待 ${view.currentPlayerId}`
+                : `Waiting for ${view.currentPlayerId}`}
+          </p>
+        </div>
+
+        {/* Self target for Prince */}
+        {needsTarget && hand.find((c) => c.id === selected)?.rank === 5 && (
+          <div className="relative z-10 mb-2 flex justify-center">
             <button
               type="button"
               onClick={() => setTargetId(actorId)}
-              className={`rounded-xl border px-3 py-2 text-sm ${
+              className={`cursor-pointer rounded-full px-4 py-1.5 font-heading text-xs font-bold transition-colors duration-200 ${
                 targetId === actorId
-                  ? "border-accent bg-accent/10"
-                  : "border-border"
+                  ? "bg-accent text-white"
+                  : "bg-white/20 text-amber-50 hover:bg-white/30"
               }`}
             >
-              {zh ? "自己" : "Self"}
+              {zh ? "目标：自己" : "Target: self"}
             </button>
-          )}
+          </div>
+        )}
       </div>
 
-      <div>
-        <p className="text-sm font-medium mb-2">
-          {zh ? "手牌" : "Hand"}
-          {hotseat ? ` (${actorId})` : ""}
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {(view.you?.hand ?? []).map((c) => (
-            <button
+      {/* Hand tray */}
+      <div className="rounded-3xl border border-border bg-white p-4 shadow-card sm:p-5">
+        <div className="mb-3 flex items-center justify-between gap-2">
+          <h3 className="font-heading text-base font-bold text-primary-dark">
+            {zh ? "你的手牌" : "Your hand"}
+            {hotseat ? (
+              <span className="ml-2 text-sm font-medium text-accent">
+                · {actorId}
+              </span>
+            ) : null}
+          </h3>
+          {view.you?.protected && (
+            <span className="rounded-full bg-pink-100 px-2.5 py-1 text-xs font-semibold text-pink-800">
+              {zh ? "侍女保护中" : "Handmaid protected"}
+            </span>
+          )}
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+          {hand.map((c) => (
+            <PlayingCard
               key={c.id}
-              type="button"
+              rank={c.rank}
+              name={cardName(c, locale)}
+              size="lg"
+              selected={selected === c.id}
               disabled={disabled || !isMyTurn}
               onClick={() => setSelected(c.id)}
-              className={`rounded-xl border px-4 py-3 text-sm font-medium ${
-                selected === c.id
-                  ? "border-accent bg-accent text-white"
-                  : "border-border bg-surface"
-              }`}
-            >
-              {label(c, locale)}
-            </button>
+            />
           ))}
         </div>
-      </div>
 
-      {selected &&
-        hand.find((c) => c.id === selected)?.rank === 1 && (
-          <label className="block text-sm">
-            {zh ? "猜测点数（非守卫）" : "Guess rank (not Guard)"}
-            <select
-              className="mt-1 rounded-lg border border-border px-2 py-1"
-              value={guessRank}
-              onChange={(e) => setGuessRank(Number(e.target.value))}
-            >
-              {[0, 2, 3, 4, 5, 6, 7, 8, 9].map((r) => (
-                <option key={r} value={r}>
-                  {r}
-                </option>
-              ))}
-            </select>
-          </label>
+        {selected && hand.find((c) => c.id === selected)?.rank === 1 && (
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+            <span className="text-sm text-stone-600">
+              {zh ? "猜测角色" : "Guess"}
+            </span>
+            {[0, 2, 3, 4, 5, 6, 7, 8, 9].map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setGuessRank(r)}
+                className={`cursor-pointer rounded-lg px-2.5 py-1.5 font-heading text-sm font-bold transition-colors duration-200 ${
+                  guessRank === r
+                    ? "bg-accent text-white"
+                    : "bg-primary-light text-primary-dark hover:bg-border"
+                }`}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
         )}
 
-      <button
-        type="button"
-        disabled={disabled || !isMyTurn || !selected}
-        className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
-        onClick={() => {
-          if (!selected) return;
-          onAction({
-            type: "playCard",
-            playerId: actorId,
-            payload: {
-              cardId: selected,
-              targetId: targetId ?? undefined,
-              guessRank:
-                hand.find((c) => c.id === selected)?.rank === 1
-                  ? guessRank
-                  : undefined,
-            },
-          });
-          setSelected(null);
-          setTargetId(null);
-        }}
-      >
-        {zh ? "出牌" : "Play card"}
-      </button>
+        <div className="mt-5 flex justify-center">
+          <button
+            type="button"
+            disabled={
+              disabled ||
+              !isMyTurn ||
+              !selected ||
+              (needsTarget && !targetId)
+            }
+            onClick={() => {
+              if (!selected) return;
+              onAction({
+                type: "playCard",
+                playerId: actorId,
+                payload: {
+                  cardId: selected,
+                  targetId: targetId ?? undefined,
+                  guessRank:
+                    hand.find((c) => c.id === selected)?.rank === 1
+                      ? guessRank
+                      : undefined,
+                },
+              });
+              setSelected(null);
+              setTargetId(null);
+            }}
+            className="cursor-pointer rounded-2xl bg-accent px-8 py-3 font-heading text-base font-bold text-white shadow-card transition-colors duration-200 hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {zh ? "打出此牌" : "Play card"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

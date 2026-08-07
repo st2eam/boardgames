@@ -307,26 +307,46 @@ export function PlayShell({
       : "";
 
   return (
-    <div className="space-y-4">
-      <div className="rounded-2xl border border-border bg-white p-4 shadow-card">
-        <h1 className="font-heading text-2xl font-bold text-primary-dark">
-          {gameName}
-        </h1>
-        <p className="mt-1 text-sm text-stone-600">
-          {isHost
-            ? locale === "zh"
-              ? "你是房主（Host）。分享链接邀请好友，或同设备热座。"
-              : "You are the host. Share the link or play hotseat."
-            : locale === "zh"
-              ? "已加入房间"
-              : "Joined room"}
-        </p>
+    <div className="space-y-5">
+      <header className="overflow-hidden rounded-3xl border border-border shadow-card">
+        <div className="relative bg-linear-to-br from-[#5D4037] via-[#3E2723] to-[#1a0f0c] px-5 py-6 sm:px-8 sm:py-7">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-30"
+            style={{
+              background:
+                "radial-gradient(ellipse at 80% 20%, #C4952A66, transparent 50%)",
+            }}
+          />
+          <div className="relative">
+            <p className="font-heading text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              {isHost
+                ? locale === "zh"
+                  ? "房主桌"
+                  : "Host table"
+                : locale === "zh"
+                  ? "已入座"
+                  : "Seated"}
+            </p>
+            <h1 className="mt-1 font-heading text-3xl font-bold tracking-tight text-amber-50 sm:text-4xl">
+              {gameName}
+            </h1>
+            <p className="mt-2 max-w-lg text-sm text-amber-100/75">
+              {isHost
+                ? locale === "zh"
+                  ? "绿绒牌桌已备好 — 邀请好友，或热座开打。"
+                  : "Felt table ready — invite friends or play hotseat."
+                : locale === "zh"
+                  ? "等待房主开战…"
+                  : "Waiting for the host to start…"}
+            </p>
+          </div>
+        </div>
         {error && (
-          <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+          <div className="border-t border-red-200 bg-red-50 px-5 py-3 text-sm text-red-800">
             {error}
-          </p>
+          </div>
         )}
-      </div>
+      </header>
 
       {phase === "lobby" && isHost && (
         <LobbyView
@@ -346,15 +366,25 @@ export function PlayShell({
       )}
 
       {phase === "lobby" && !isHost && (
-        <div className="rounded-2xl border border-border bg-white p-4 shadow-card text-sm text-stone-600">
-          {locale === "zh" ? "等待房主开始…" : "Waiting for host to start…"}
-          <ul className="mt-2 list-disc pl-5">
+        <div className="rounded-3xl border border-border bg-white p-6 shadow-card">
+          <p className="font-heading text-lg font-bold text-primary-dark">
+            {locale === "zh" ? "等待开局" : "Waiting to start"}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
             {(lobby?.seats ?? []).map((s) => (
-              <li key={s.id}>
-                {s.name} ({s.kind})
-              </li>
+              <div
+                key={s.id}
+                className="flex items-center gap-2 rounded-2xl border border-border bg-surface px-3 py-2"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary font-heading text-sm font-bold text-white">
+                  {s.name.slice(0, 1)}
+                </span>
+                <span className="text-sm font-medium text-primary-dark">
+                  {s.name}
+                </span>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
 
@@ -372,6 +402,7 @@ export function PlayShell({
             myId={myId}
             hotseat={isHost}
             disabled={Boolean(thinkingId)}
+            thinkingId={thinkingId}
             onAction={onDispatch}
           />
         </>

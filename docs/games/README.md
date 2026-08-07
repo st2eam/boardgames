@@ -8,7 +8,7 @@ docs/games/<slug>.md
 
 | File | Game | Status |
 |------|------|--------|
-| [love-letter.md](love-letter.md) | Love Letter — Full + Premium (classic 16) editions | Shipped on `main` (BGA DOM table; edition picker on 开始游戏) |
+| [love-letter.md](love-letter.md) | Love Letter — classic / full / expansion | Shipped on `main` (lobby edition picker; expansion art from card pack) |
 
 Platform skill: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/SKILL.md).  
 Shelf feature map: [`docs/architecture.md`](../architecture.md).

@@ -122,7 +122,7 @@ export function LobbyView({
                     ? "版本"
                     : "Edition"}
               </p>
-              <div className="grid gap-2 sm:grid-cols-2">
+              <div className="grid gap-2 sm:grid-cols-3">
                 {editions.map((e) => {
                   const active = e.id === edition;
                   if (!onEditionChange) {

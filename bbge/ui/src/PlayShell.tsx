@@ -21,10 +21,18 @@ export interface PlayShellProps {
   createDeepSeekSeat?: (id: string, apiKey: string) => AiSeat;
 }
 
-type LoveLetterEditionId = "full" | "premium";
+type LoveLetterEditionId = "classic" | "full" | "expansion";
 
 function normalizeEdition(v: string | undefined): LoveLetterEditionId {
-  return v === "premium" ? "premium" : "full";
+  if (v === "premium" || v === "classic") return "classic";
+  if (v === "expansion") return "expansion";
+  return "full";
+}
+
+function maxSeatsForEdition(edition: LoveLetterEditionId): number {
+  if (edition === "classic") return 4;
+  if (edition === "expansion") return 8;
+  return 6;
 }
 
 type PeerHost = {
@@ -141,7 +149,7 @@ export function PlayShell({
   const [edition, setEdition] = useState<LoveLetterEditionId>(() =>
     normalizeEdition(editionProp),
   );
-  const maxSeats = edition === "premium" ? 4 : 6;
+  const maxSeats = maxSeatsForEdition(edition);
   const showEditions = pluginId === "love-letter";
   const [roomId, setRoomId] = useState(roomIdFromUrl ?? "");
   const [error, setError] = useState<string | null>(null);
@@ -352,8 +360,13 @@ export function PlayShell({
           if (msg.type === "lobby") {
             const lb = msg.payload as LobbyState;
             setLobby(lb);
-            if (lb.edition === "full" || lb.edition === "premium") {
-              setEdition(lb.edition);
+            if (
+              lb.edition === "full" ||
+              lb.edition === "classic" ||
+              lb.edition === "expansion" ||
+              lb.edition === "premium"
+            ) {
+              setEdition(normalizeEdition(lb.edition));
             }
           }
           if (msg.type === "view") setView(msg.payload);
@@ -608,7 +621,7 @@ export function PlayShell({
     if (next === edition) return;
     const s = sessionRef.current;
     if (!s || s.getPhase() !== "lobby") return;
-    const cap = next === "premium" ? 4 : 6;
+    const cap = maxSeatsForEdition(next);
     // Trim overflow seats when switching to a smaller edition (keep host).
     while (s.getLobby().seats.length > cap) {
       const seats = s.getLobby().seats;
@@ -785,6 +798,17 @@ export function PlayShell({
               showEditions
                 ? [
                     {
+                      id: "classic",
+                      label:
+                        locale === "zh"
+                          ? "经典版（16 张）"
+                          : "Classic (16 cards)",
+                      hint:
+                        locale === "zh"
+                          ? "2–4 人 · 公主 = 8 · 无间谍/大臣"
+                          : "2–4 players · Princess = 8 · no Spy/Chancellor",
+                    },
+                    {
                       id: "full",
                       label:
                         locale === "zh"
@@ -792,19 +816,19 @@ export function PlayShell({
                           : "Full Game (21 cards)",
                       hint:
                         locale === "zh"
-                          ? "2–6 人 · 含间谍、大臣 · 公主 = 9"
+                          ? "2–6 人 · 间谍、大臣 · 公主 = 9"
                           : "2–6 players · Spy & Chancellor · Princess = 9",
                     },
                     {
-                      id: "premium",
+                      id: "expansion",
                       label:
                         locale === "zh"
-                          ? "珍藏版（经典 16 张）"
-                          : "Premium (classic 16)",
+                          ? "拓展版（37 张）"
+                          : "Expansion (37 cards)",
                       hint:
                         locale === "zh"
-                          ? "2–4 人 · 经典牌组 · 公主 = 8"
-                          : "2–4 players · classic deck · Princess = 8",
+                          ? "2–8 人 · 完整版 + 主教/太后/警官等"
+                          : "2–8 players · Full + Bishop, Dowager, Constable…",
                     },
                   ]
                 : undefined

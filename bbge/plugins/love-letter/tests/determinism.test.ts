@@ -14,7 +14,7 @@ function ctx(seed: string) {
 /** Deterministic autopilot: play first hand card; pick targets/guesses stably. */
 function pickAction(state: LoveLetterState): LoveLetterAction | null {
   if (state.phase !== "playing") return null;
-  if (state.pending?.type === "priestReveal") {
+  if (state.pending?.type === "priestReveal" || state.pending?.type === "baronessReveal" || state.pending?.type === "bishopRedraw") {
     return {
       type: "acknowledgePriest",
       playerId: state.pending.playerId,

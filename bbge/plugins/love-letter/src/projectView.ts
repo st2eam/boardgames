@@ -16,8 +16,55 @@ export function projectLoveLetterView(
     id: c.id,
     rank: c.rank,
     role: c.role,
-    name: rankName(ed, c.rank),
+    name: rankName(ed, c.rank, c.role as never),
   });
+
+  const pendingView = (() => {
+    if (!state.pending) return null;
+    if (state.pending.type === "chancellor") {
+      return {
+        type: "chancellor" as const,
+        playerId: state.pending.playerId,
+        held:
+          viewerId === state.pending.playerId
+            ? state.pending.held.map(named)
+            : state.pending.held.map((c) => ({ id: c.id })),
+      };
+    }
+    if (state.pending.type === "priestReveal") {
+      return {
+        type: "priestReveal" as const,
+        playerId: state.pending.playerId,
+        targetId: state.pending.targetId,
+        ...(viewerId === state.pending.playerId
+          ? {
+              rank: state.pending.rank,
+              name: rankName(ed, state.pending.rank),
+            }
+          : {}),
+      };
+    }
+    if (state.pending.type === "baronessReveal") {
+      return {
+        type: "baronessReveal" as const,
+        playerId: state.pending.playerId,
+        ...(viewerId === state.pending.playerId
+          ? {
+              targets: state.pending.targets.map((t) => ({
+                targetId: t.targetId,
+                rank: t.rank,
+                name: rankName(ed, t.rank),
+              })),
+            }
+          : { targetCount: state.pending.targets.length }),
+      };
+    }
+    return {
+      type: "bishopRedraw" as const,
+      playerId: state.pending.playerId,
+      actorId: state.pending.actorId,
+    };
+  })();
 
   return {
     phase: state.phase,
@@ -25,6 +72,9 @@ export function projectLoveLetterView(
     winners: state.winners,
     spyBonus: state.spyBonus,
     endReason: end?.reason ?? null,
+    forcedTargetId: state.forcedTargetId,
+    jesterPick: state.jesterPick,
+    jesterPlayerId: state.jesterPlayerId,
     standings: end
       ? end.standings.map((s) => ({
           ...s,
@@ -35,28 +85,7 @@ export function projectLoveLetterView(
     faceUp: state.faceUp.map(named),
     deckCount: state.deck.length + (state.burn ? 1 : 0),
     currentPlayerId: state.turnOrder[state.currentIndex],
-    pending: state.pending
-      ? state.pending.type === "chancellor"
-        ? {
-            type: "chancellor" as const,
-            playerId: state.pending.playerId,
-            held:
-              viewerId === state.pending.playerId
-                ? state.pending.held.map(named)
-                : state.pending.held.map((c) => ({ id: c.id })),
-          }
-        : {
-            type: "priestReveal" as const,
-            playerId: state.pending.playerId,
-            targetId: state.pending.targetId,
-            ...(viewerId === state.pending.playerId
-              ? {
-                  rank: state.pending.rank,
-                  name: rankName(ed, state.pending.rank),
-                }
-              : {}),
-          }
-      : null,
+    pending: pendingView,
     you: you
       ? {
           id: you.id,
@@ -64,6 +93,7 @@ export function projectLoveLetterView(
           eliminated: you.eliminated,
           protected: you.protected,
           seen: you.seen,
+          hearts: you.hearts,
         }
       : null,
     others: state.players
@@ -72,6 +102,7 @@ export function projectLoveLetterView(
         id: p.id,
         name: p.name,
         handCount: p.hand.length,
+        hearts: p.hearts,
         ...(finished && !p.eliminated && p.hand[0]
           ? { hand: [named(p.hand[0])] }
           : {}),

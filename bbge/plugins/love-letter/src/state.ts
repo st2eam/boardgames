@@ -10,8 +10,10 @@ export interface LoveLetterPlayer {
   protected: boolean;
   /** Played or discarded a Spy this round while in play */
   playedSpy: boolean;
-  /** Priest peek memory (private) */
+  /** Priest / Cardinal peek memory (private) */
   seen: Record<string, number>;
+  /** Expansion: affection tokens toward match win */
+  hearts: number;
 }
 
 export type PendingChoice =
@@ -27,13 +29,24 @@ export type PendingChoice =
       targetId: PlayerId;
       rank: number;
     }
+  | {
+      /** Baroness: viewer must acknowledge peeked hand(s) before the turn advances */
+      type: "baronessReveal";
+      playerId: PlayerId;
+      targets: { targetId: PlayerId; rank: number }[];
+    }
+  | {
+      /** Bishop hit: target may discard and redraw */
+      type: "bishopRedraw";
+      playerId: PlayerId;
+      actorId: PlayerId;
+    }
   | null;
 
 export interface LoveLetterState {
   schemaVersion: 1;
   pluginId: "love-letter";
   seed: string;
-  /** full = 21-card Full Game; premium = classic 16-card Premium (2–4) */
   edition: LoveLetterEdition;
   phase: "playing" | "finished";
   players: LoveLetterPlayer[];
@@ -47,13 +60,18 @@ export interface LoveLetterState {
   hasDrawn: boolean;
   winners: PlayerId[];
   spyBonus: PlayerId[];
+  /** Sycophant: next targeting effect must include this player */
+  forcedTargetId: PlayerId | null;
+  /** Jester: player who played the jester card */
+  jesterPlayerId: PlayerId | null;
+  /** Jester: nominated player for end-of-round heart bonus */
+  jesterPick: PlayerId | null;
 }
 
 export interface LoveLetterConfig {
   playerIds: PlayerId[];
   playerNames: Record<string, string>;
   seed?: string;
-  /** Defaults to full when omitted */
   edition?: LoveLetterEdition;
 }
 
@@ -64,7 +82,9 @@ export type LoveLetterAction =
       payload: {
         cardId: string;
         targetId?: PlayerId;
+        targetIds?: PlayerId[];
         guessRank?: number;
+        peekTargetId?: PlayerId;
       };
       clientActionId?: string;
     }
@@ -80,6 +100,9 @@ export type LoveLetterAction =
   | {
       type: "acknowledgePriest";
       playerId: PlayerId;
-      payload: Record<string, never>;
+      payload: {
+        /** Bishop redraw: true = discard hand and redraw */
+        redraw?: boolean;
+      };
       clientActionId?: string;
     };

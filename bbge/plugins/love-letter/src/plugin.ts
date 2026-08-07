@@ -51,7 +51,7 @@ export const loveLetterPlugin: GamePlugin<
   version: "0.1.0",
   metadata: {
     minPlayers: 2,
-    maxPlayers: 6,
+    maxPlayers: 8,
     pacing: "turn",
     tags: ["cards", "deduction"],
   },

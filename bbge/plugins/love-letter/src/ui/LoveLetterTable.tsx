@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
 import type { LoveLetterAction } from "../state";
-import type { ArenaView } from "./types";
+import { targetSpec, type ArenaView } from "./types";
 import { cardFaceUrl, cardLabel } from "./cardArt";
 import { CardTile } from "./bga/CardTile";
 import { CardLightbox } from "./bga/CardLightbox";
@@ -43,10 +43,16 @@ export function LoveLetterTable({
   const dispatch = (action: LoveLetterAction) => onAction(action as Action);
   const view = viewUnknown as ArenaView;
   const zh = locale === "zh";
-  const edition = view.edition === "premium" ? "premium" : "full";
-  const maxGuess = edition === "premium" ? 8 : 9;
+  const edition =
+    view.edition === "classic" || view.edition === "premium"
+      ? "classic"
+      : view.edition === "expansion"
+        ? "expansion"
+        : "full";
+  const maxGuess = edition === "classic" ? 8 : 9;
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
-  const [selectedTargetId, setSelectedTargetId] = useState<string | null>(null);
+  const [selectedTargetIds, setSelectedTargetIds] = useState<string[]>([]);
+  const [peekTargetId, setPeekTargetId] = useState<string | null>(null);
   const [guessRank, setGuessRank] = useState(9);
   const [chatText, setChatText] = useState("");
   const [zoom, setZoom] = useState<ZoomCard | null>(null);
@@ -109,19 +115,30 @@ export function LoveLetterTable({
   }, []);
   const priestPending =
     view.pending?.type === "priestReveal" ? view.pending : null;
+  const baronessPending =
+    view.pending?.type === "baronessReveal" ? view.pending : null;
+  const bishopRedrawPending =
+    view.pending?.type === "bishopRedraw" ? view.pending : null;
   const myPriestReveal =
     priestPending &&
     priestPending.playerId === actorId &&
     priestPending.rank !== undefined;
+  const myBaronessReveal =
+    baronessPending &&
+    baronessPending.playerId === actorId &&
+    (baronessPending.targets?.length ?? 0) > 0;
+  const myBishopRedraw =
+    bishopRedrawPending && bishopRedrawPending.playerId === actorId;
 
   const isMyTurn =
     view.currentPlayerId === actorId && view.phase === "playing";
+  const blockingPending =
+    view.pending?.type === "chancellor" ||
+    view.pending?.type === "priestReveal" ||
+    view.pending?.type === "baronessReveal" ||
+    view.pending?.type === "bishopRedraw";
   const interactive = Boolean(
-    isMyTurn &&
-      !disabled &&
-      !animBusy &&
-      !priestPending &&
-      view.pending?.type !== "chancellor",
+    isMyTurn && !disabled && !animBusy && !blockingPending,
   );
 
   // Detect newly drawn cards → entrance animation
@@ -155,17 +172,40 @@ export function LoveLetterTable({
   }, [selectedCardId, view.you?.hand, view.pending]);
 
   const selectedRole = cardRole(selected);
-  const needsTarget =
-    selected != null &&
-    ["guard", "priest", "baron", "prince", "king"].includes(selectedRole);
-  const needsGuess = selectedRole === "guard";
+  const tSpec = selectedRole ? targetSpec(selectedRole) : null;
+  const needsTarget = tSpec != null;
+  const needsGuess = Boolean(tSpec?.needsGuess);
+  const needsPeek = Boolean(tSpec?.needsPeek);
   useEffect(() => {
     setGuessRank(maxGuess);
   }, [maxGuess]);
+  const targetsOk =
+    !tSpec ||
+    (selectedTargetIds.length >= tSpec.min &&
+      selectedTargetIds.length <= tSpec.max);
+  const peekOk =
+    !needsPeek ||
+    (peekTargetId != null && selectedTargetIds.includes(peekTargetId));
   const canPlay =
-    interactive &&
-    selectedCardId &&
-    (!needsTarget || selectedTargetId);
+    interactive && selectedCardId && targetsOk && peekOk && (!needsGuess || guessRank !== 1);
+
+  const toggleTarget = (id: string) => {
+    if (!tSpec) return;
+    if (tSpec.max === 1) {
+      setSelectedTargetIds([id]);
+      setPeekTargetId(null);
+      return;
+    }
+    setSelectedTargetIds((prev) => {
+      if (prev.includes(id)) {
+        const next = prev.filter((x) => x !== id);
+        if (peekTargetId === id) setPeekTargetId(null);
+        return next;
+      }
+      if (prev.length >= tSpec.max) return [...prev.slice(1), id];
+      return [...prev, id];
+    });
+  };
 
   const logRef = useRef<HTMLDivElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
@@ -189,9 +229,13 @@ export function LoveLetterTable({
             ? zh
               ? "牌堆耗尽 · 比点"
               : "Deck empty · compare"
-            : zh
-              ? "本局结束"
-              : "Round over";
+            : view.endReason === "hearts"
+              ? zh
+                ? "好感达标"
+                : "Favor tokens reached"
+              : zh
+                ? "本局结束"
+                : "Round over";
       return {
         tone: "done" as const,
         text: zh
@@ -245,20 +289,28 @@ export function LoveLetterTable({
         text: zh ? "轮到你了：点击手牌选择要打出的牌" : "Your turn: click a card in your hand",
       };
     }
-    if (needsTarget && !selectedTargetId) {
+    if (needsTarget && !targetsOk) {
       return {
         tone: "you" as const,
         text: zh
-          ? `已选「${cardLabel(selected!, locale)}」— 点击右侧玩家作为目标`
-          : `Selected ${cardLabel(selected!, locale)} — click a player panel to target`,
+          ? `已选「${cardLabel(selected!, locale)}」— 选择 ${tSpec!.min}${tSpec!.max > tSpec!.min ? `–${tSpec!.max}` : ""} 名目标`
+          : `Selected ${cardLabel(selected!, locale)} — pick ${tSpec!.min}${tSpec!.max > tSpec!.min ? `–${tSpec!.max}` : ""} target(s)`,
+      };
+    }
+    if (needsPeek && !peekOk) {
+      return {
+        tone: "you" as const,
+        text: zh
+          ? "红衣主教：再点选要偷看的一名目标"
+          : "Cardinal: choose which swapped hand to peek",
       };
     }
     if (needsGuess) {
       return {
         tone: "you" as const,
         text: zh
-          ? `守卫：选择猜测的点数，然后打出`
-          : `Guard: pick a guess rank, then play`,
+          ? `选择猜测的点数，然后打出`
+          : `Pick a guess rank, then play`,
       };
     }
     return {
@@ -271,9 +323,13 @@ export function LoveLetterTable({
     thinkingId,
     isMyTurn,
     selectedCardId,
-    selectedTargetId,
+    selectedTargetIds,
+    targetsOk,
     needsTarget,
     needsGuess,
+    needsPeek,
+    peekOk,
+    tSpec,
     selected,
     locale,
     zh,
@@ -284,13 +340,17 @@ export function LoveLetterTable({
 
   const playCard = () => {
     if (!selectedCardId || !canPlay || !selected) return;
+    const multi = (tSpec?.max ?? 0) > 1 || selectedRole === "cardinal";
     const payload = {
       cardId: selectedCardId,
-      targetId: selectedTargetId ?? undefined,
+      targetId: multi ? undefined : selectedTargetIds[0],
+      targetIds: multi ? selectedTargetIds : undefined,
       guessRank: needsGuess ? guessRank : undefined,
+      peekTargetId: needsPeek ? (peekTargetId ?? undefined) : undefined,
     };
     const flying: ZoomCard = {
       rank: selected.rank,
+      role: selected.role,
       name: selected.name,
       subtitle: zh ? "打出" : "Play",
     };
@@ -304,14 +364,19 @@ export function LoveLetterTable({
         payload,
       });
       setSelectedCardId(null);
-      setSelectedTargetId(null);
+      setSelectedTargetIds([]);
+      setPeekTargetId(null);
       setFlyPlay(null);
       setAnimBusy(false);
     }, 480);
   };
 
-  const acknowledgePriest = () => {
-    dispatch({ type: "acknowledgePriest", playerId: actorId, payload: {} });
+  const acknowledgePriest = (redraw?: boolean) => {
+    dispatch({
+      type: "acknowledgePriest",
+      playerId: actorId,
+      payload: redraw === undefined ? {} : { redraw },
+    });
   };
 
   const chancellorKeep = (cardId: string) => {
@@ -366,7 +431,7 @@ export function LoveLetterTable({
           targetName={nameOf?.(priestPending.targetId) ?? priestPending.targetId}
           rank={priestPending.rank}
           name={priestPending.name}
-          onConfirm={acknowledgePriest}
+          onConfirm={() => acknowledgePriest()}
           onZoom={() =>
             setZoom({
               rank: priestPending.rank!,
@@ -377,6 +442,86 @@ export function LoveLetterTable({
             })
           }
         />
+      )}
+      {myBaronessReveal && baronessPending.targets && (
+        <div
+          className="fixed inset-0 z-40 flex items-center justify-center bg-black/65 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal
+        >
+          <div className="w-full max-w-md rounded-2xl border border-border bg-[#efe6d8] p-5 shadow-2xl">
+            <p className="font-heading text-xs font-bold uppercase tracking-wide text-accent-dark">
+              {zh ? "女男爵 · 偷看" : "Baroness · Peek"}
+            </p>
+            <div className="mt-4 flex flex-wrap justify-center gap-3">
+              {baronessPending.targets.map((t) => (
+                <button
+                  key={t.targetId}
+                  type="button"
+                  className="cursor-pointer"
+                  onClick={() =>
+                    setZoom({
+                      rank: t.rank,
+                      name: t.name,
+                      subtitle: nameOf?.(t.targetId) ?? t.targetId,
+                    })
+                  }
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={cardFaceUrl(t.rank)}
+                    alt=""
+                    className="h-36 w-[100px] rounded-lg border-2 border-[#5D4037] object-cover"
+                  />
+                  <p className="mt-1 text-center text-xs font-bold">
+                    {nameOf?.(t.targetId) ?? t.targetId}
+                  </p>
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => acknowledgePriest()}
+              className="mt-5 w-full cursor-pointer rounded-xl bg-accent py-3.5 font-heading text-sm font-bold text-white"
+            >
+              {zh ? "我看完了，确认" : "Got it — continue"}
+            </button>
+          </div>
+        </div>
+      )}
+      {myBishopRedraw && (
+        <div
+          className="fixed inset-0 z-40 flex items-center justify-center bg-black/65 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal
+        >
+          <div className="w-full max-w-sm rounded-2xl border border-border bg-[#efe6d8] p-5 shadow-2xl">
+            <p className="font-heading text-lg font-bold text-primary-dark">
+              {zh ? "主教猜中了你" : "Bishop hit you"}
+            </p>
+            <p className="mt-2 text-sm text-stone-600">
+              {zh
+                ? "你可以弃掉当前手牌并重抽一张（弃公主仍会出局）。"
+                : "You may discard your hand and redraw (Princess still knocks you out)."}
+            </p>
+            <div className="mt-5 grid gap-2 sm:grid-cols-2">
+              <button
+                type="button"
+                onClick={() => acknowledgePriest(false)}
+                className="cursor-pointer rounded-xl border border-border bg-white py-3 font-heading text-sm font-bold"
+              >
+                {zh ? "保留手牌" : "Keep hand"}
+              </button>
+              <button
+                type="button"
+                onClick={() => acknowledgePriest(true)}
+                className="cursor-pointer rounded-xl bg-accent py-3 font-heading text-sm font-bold text-white"
+              >
+                {zh ? "弃牌重抽" : "Discard & redraw"}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
       {zoom && (
         <CardLightbox
@@ -393,12 +538,16 @@ export function LoveLetterTable({
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-[#3E2723]/15 bg-[#5D4037] px-4 py-2.5 text-amber-50">
         <p className="font-heading text-sm font-bold tracking-wide">
           {zh
-            ? edition === "premium"
-              ? "情书珍藏版 · 在线桌"
-              : "情书完整版 · 在线桌"
-            : edition === "premium"
-              ? "Love Letter Premium · Table"
-              : "Love Letter Full · Table"}
+            ? edition === "classic"
+              ? "情书经典版 · 在线桌"
+              : edition === "expansion"
+                ? "情书拓展版 · 在线桌"
+                : "情书完整版 · 在线桌"
+            : edition === "classic"
+              ? "Love Letter Classic · Table"
+              : edition === "expansion"
+                ? "Love Letter Expansion · Table"
+                : "Love Letter Full · Table"}
         </p>
         <div className="flex flex-wrap items-center gap-3 text-xs text-amber-100/85">
           <span>
@@ -525,14 +674,22 @@ export function LoveLetterTable({
                 locale={locale}
                 view={view}
                 actorId={actorId}
-                selectedTargetId={selectedTargetId}
+                selectedTargetIds={selectedTargetIds}
                 thinkingId={thinkingId}
                 targetMode={Boolean(interactive && needsTarget)}
                 bubbles={bubbles}
-                onSelectTarget={setSelectedTargetId}
+                onSelectTarget={(id) => {
+                  if (needsPeek && selectedTargetIds.includes(id) && selectedTargetIds.length === 2) {
+                    setPeekTargetId(id);
+                    return;
+                  }
+                  toggleTarget(id);
+                  if (needsPeek) setPeekTargetId(null);
+                }}
                 onZoomDiscard={(c, ownerName) =>
                   setZoom({
                     rank: c.rank,
+                    role: c.role,
                     name: c.name,
                     subtitle: zh
                       ? `${ownerName} 的出牌`
@@ -751,7 +908,8 @@ export function LoveLetterTable({
                           disabled={!interactive}
                           onClick={() => {
                             setSelectedCardId(c.id);
-                            setSelectedTargetId(null);
+                            setSelectedTargetIds([]);
+                            setPeekTargetId(null);
                           }}
                           onZoom={() =>
                             setZoom({
@@ -777,12 +935,12 @@ export function LoveLetterTable({
               {/* Action row */}
               <div className="mt-2 flex flex-col gap-2 border-t border-border pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                 <div className="flex flex-wrap items-center gap-1.5">
-                  {needsTarget && selectedRole === "prince" && (
+                  {needsTarget && tSpec?.allowSelf && (
                     <button
                       type="button"
-                      onClick={() => setSelectedTargetId(actorId)}
+                      onClick={() => toggleTarget(actorId)}
                       className={`cursor-pointer rounded-lg px-3 py-1.5 font-heading text-xs font-bold transition-colors ${
-                        selectedTargetId === actorId
+                        selectedTargetIds.includes(actorId)
                           ? "bg-accent text-white"
                           : "bg-surface text-primary-dark hover:bg-primary-light"
                       }`}
@@ -790,8 +948,23 @@ export function LoveLetterTable({
                       {zh ? "目标：自己" : "Target self"}
                     </button>
                   )}
+                  {needsPeek &&
+                    selectedTargetIds.map((id) => (
+                      <button
+                        key={`peek-${id}`}
+                        type="button"
+                        onClick={() => setPeekTargetId(id)}
+                        className={`cursor-pointer rounded-lg px-3 py-1.5 font-heading text-xs font-bold ${
+                          peekTargetId === id
+                            ? "bg-accent text-white"
+                            : "bg-surface text-primary-dark"
+                        }`}
+                      >
+                        {zh ? `偷看 ${nameOf?.(id) ?? id}` : `Peek ${nameOf?.(id) ?? id}`}
+                      </button>
+                    ))}
                   {needsGuess &&
-                    Array.from({ length: maxGuess }, (_, i) => i).filter(
+                    Array.from({ length: maxGuess + 1 }, (_, i) => i).filter(
                       (r) => r !== 1,
                     ).map((r) => (
                       <button

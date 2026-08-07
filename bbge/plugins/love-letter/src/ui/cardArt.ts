@@ -1,4 +1,4 @@
-import { artRankForRole, type CardRole } from "../cards";
+import { artFileForRole, type CardRole } from "../cards";
 
 const RANK_FILES: Record<number, string> = {
   0: "0-spy.png",
@@ -23,13 +23,12 @@ function basePath(): string {
   return "";
 }
 
-/** Prefer role so Premium ranks still use Full Game art files. */
+/** Prefer role so classic / expansion ranks still use correct art files. */
 export function cardFaceUrl(rank: number, role?: string): string {
-  const artRank =
-    role && artRankForRole(role as CardRole) != null
-      ? artRankForRole(role as CardRole)
-      : rank;
-  const file = RANK_FILES[artRank] ?? RANK_FILES[1]!;
+  const file =
+    role != null
+      ? artFileForRole(role as CardRole)
+      : (RANK_FILES[rank] ?? RANK_FILES[1]!);
   return `${basePath()}/images/bbge/love-letter/${file}`;
 }
 

@@ -1,17 +1,21 @@
 {
   "pluginId": "love-letter",
   "pluginVersion": "0.1.0",
-  "defaultEdition": "premium",
+  "defaultEdition": "expansion",
   "editions": [
+    {
+      "id": "classic",
+      "label": { "en": "Classic (16 cards)", "zh": "经典版（16 张）" }
+    },
     {
       "id": "full",
       "label": { "en": "Full Game (21 cards)", "zh": "完整版（21 张）" }
     },
     {
-      "id": "premium",
+      "id": "expansion",
       "label": {
-        "en": "Premium Edition (classic 16)",
-        "zh": "珍藏版（经典 16 张）"
+        "en": "Expansion (37 cards)",
+        "zh": "拓展版（37 张）"
       },
       "default": true
     }

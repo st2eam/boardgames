@@ -8,126 +8,104 @@ Shelf architecture: [`docs/architecture.md`](../architecture.md).
 |---|---|
 | **Status** | Shipped on `main` — playable Host / hotseat / AI |
 | **Convention** | Playable designs live at `docs/games/<slug>.md` |
-| **Editions** | **`full`** (完整版 21 张) · **`premium`** (珍藏版经典 16 张，2–4 人) |
+| **Editions** | **`classic`** · **`full`** · **`expansion`** |
 | **Play UI** | BGA-style DOM table (`LoveLetterTable` + `ui/bga/*`), not Pixi |
-| **Card art** | `public/images/bbge/love-letter/*` (Full Game filenames; Premium maps via `role`) |
+| **Card art** | `public/images/bbge/love-letter/*` from `love-letter-cards` pack (by **role**) |
 
 ---
 
 ## 1. Goal
 
-From The Game Shelf Love Letter **or** Premium rules page → **开始游戏**
-→ play lobby → **选择版本** (full / premium) → Host creates a room →
-friends join via shareable link **or** hotseat / local AI → finish **one round**
-and declare a winner (with 比点 standings).
+Rules page → **开始游戏** → play lobby → **选择版本** → Host room →
+hotseat / AI / share-link → **one round** ends the match (♥ mid-round can finish early in expansion).
 
 ---
 
-## 2. Decisions
+## 2. Editions
 
-| Topic | Choice |
-|-------|--------|
-| Approach | **A** — Shelf shell + `bbge/*` + PeerJS signaling + WebRTC data channel |
-| Plugin | Single `love-letter` plugin; `edition` in createGame config |
-| Match length | **One round ends the match** (no favor-token multi-round for v1) |
-| Multiplayer | Host + share-link join; also Host-only hotseat |
-| AI | Host **`AiSeat`**: DeepSeek **`deepseek-v4-flash`** for Actions + optional **`speak`** |
-| Table talk | Humans chat; AI may include `speak` in Action JSON — else event bubble fallback |
-| Replay tools | **Out of scope** |
-| UI entry | `play.json` → `/play/?edition=` (initial); **lobby** picks edition |
-| Homepage | Cards with `hasPlay` show **即刻开玩** / Play Now |
+| `edition` | Label | Deck | Players | Notes |
+|-----------|-------|------|---------|--------|
+| `classic` | 经典版 | **16** — Guard…Princess=8 | 2–4 | No Spy/Chancellor; hand-tie → discard-sum |
+| `full` | 完整版 | **21** — Spy…Princess=9 | 2–6 | Chancellor pending; spy favor; hand-tie → all win |
+| `expansion` | 拓展版 | **37** = full 21 + **16** expansion roles | 2–8 | **Keeps Spy + Chancellor**; shared ranks; ♥ tokens |
 
----
+**Legacy:** `premium` URL/config → treated as `classic`.
 
-## 3. Editions
+### Expansion +16 (on top of full)
 
-| `edition` | Content slug(s) | Deck | Players | Notes |
-|-----------|-----------------|------|---------|--------|
-| `full` | `love-letter` (default) | 21 cards, Spy 0 … Princess 9 | 2–6 | Chancellor pending; spy favor at end; hand-tie → all win |
-| `premium` | `love-letter-premium` (default) | Classic **16** cards, Guard 1 … Princess 8 | 2–4 | No Spy/Chancellor; hand-tie → **discard-sum** then all win |
+| Rank | Role | Qty |
+|-----:|------|----:|
+| 9 | Bishop | 1 |
+| 7 | Dowager Queen | 1 |
+| 6 | Constable | 1 |
+| 5 | Count | 2 |
+| 4 | Sycophant | 2 |
+| 3 | Baroness | 2 |
+| 2 | Cardinal | 2 |
+| 1 | Guard | +3 (full already has 6 → 9 total) |
+| 0 | Jester | 1 |
+| 0 | Assassin | 1 |
 
-**Out of this play slice:** Premium **5–8 / 32-card** expansion roles (Bishop, Assassin, etc.).
+Effects use stable **`role`**. Guess-by-number hits any card of that rank.
 
-Effects use stable **`role`** on each card (`guard`, `king`, …) so Premium rank numbers do not break Full Game art / logic.
+### Expansion effect summary
 
----
-
-## 4. Scope
-
-### 4.1 In (shipped)
-
-- `play.json` with `editions[]` on both family slugs; **大厅内**选择版本（`HostSession.setGameConfig`）
-- Plugin: deal / play / targets / guesses / eliminate / chancellor (full) / priest ack / single-round victory
-- End UI: merged status + **比点** table; full play log + chat history (panel scroll only)
-- Viewport-locked play page (no document scrollbar); lobby seats scroll inside panel
-- Privacy: Host UI projects **local human** seats only
-- Rematch: same seats + edition, new seed; clears chat
-- AI: flash model, thinking disabled for Action JSON, optional `speak`, idle timeout ~90s
-
-### 4.2 Out
-
-- Replay tools, favor multi-round, Premium 32-card, second unrelated plugin, Pixi table
+- **Assassin** — vs Guard guess: Guard player out; Assassin discarded + redraw
+- **Bishop** — guess number → +1 ♥; target may discard+redraw; at reveal Princess beats Bishop
+- **Dowager Queen** — compare; **higher** out (tie → none)
+- **Constable** — when knocked out with Constable in discard → +1 ♥
+- **Count** — at reveal, +1 hand value per Count in discard
+- **Sycophant** — next chooser must include nominated player
+- **Baroness** — peek 1 or 2 hands (ack modal)
+- **Cardinal** — swap exactly 2 hands; peek one
+- **Jester** — if pick wins the round → you +1 ♥
+- **♥ targets** (instant match win if reached): 2→7, 3→5, 4→4, 5–8→4
 
 ---
 
-## 5. Architecture
+## 3. Architecture
 
 ```
-GameHeader [开始游戏] → /games/<slug>/play/?edition=<default>
-  PlayPageClient → PlayShell(initial edition)
-    LobbyView [选择版本] → setGameConfig({ edition }) + URL replaceState
-    HostSession createGame(…gameConfig)
+GameHeader [开始游戏] → /play/?edition=<default>
+  LobbyView [经典|完整|拓展] → setGameConfig({ edition })
+  HostSession createGame(…gameConfig)
+  love-letter plugin (role-based effects)
 ```
 
 | Boundary | Rule |
 |----------|------|
-| Shelf | `PlayStartButton` → play with `defaultEdition`; lobby owns picker |
-| Runtime | `HostSession.setGameConfig` in lobby; merge into `createGame` |
-| Plugin | Pure rules; `state.edition`; roles on cards |
+| Shelf | `play.json.editions`; lobby owns picker |
+| Runtime | `HostSession.setGameConfig`; lobby.edition synced to guests |
+| Plugin | Pure rules; `state.edition`; art by role filename |
 | AiSeat | Host only; prompt reads `view.edition` |
 
 ---
 
-## 6. Content bind
+## 4. Content bind
 
-`content/games/love-letter/play.json` and `love-letter-premium/play.json`:
-
-```json
-{
-  "pluginId": "love-letter",
-  "pluginVersion": "0.1.0",
-  "defaultEdition": "full",
-  "editions": [
-    { "id": "full", "label": { "en": "…", "zh": "…" }, "default": true },
-    { "id": "premium", "label": { "en": "…", "zh": "…" } }
-  ]
-}
-```
+`love-letter` default `full`; `love-letter-premium` default `expansion`.
 
 ---
 
-## 7. Actions
+## 5. Actions
 
 | Action | When |
 |--------|------|
-| `playCard` | Normal turn — `cardId`, optional `targetId` / `guessRank` |
-| `resolveChancellor` | Full edition only — pending chancellor |
-| `acknowledgePriest` | Pending priest reveal |
+| `playCard` | `cardId`, optional `targetId` / `targetIds` / `guessRank` / `peekTargetId` |
+| `resolveChancellor` | Full + expansion |
+| `acknowledgePriest` | Priest / Baroness peek |
 
 ---
 
-## 8. Testing
+## 6. Testing
 
 ```bash
 npm run test:bbge
 ```
 
-Includes determinism, priest reveal, privacy, **premium deck / player caps**, round-end standings.
-
 ---
 
-## 9. Deferred
+## 7. Deferred
 
-- Premium 32-card (5–8) roles and mid-round favor tokens
-- Favor-token multi-round matches
+- Multi-round favor races beyond one-round + mid-round ♥ finish
 - Replay / spectators / host migration

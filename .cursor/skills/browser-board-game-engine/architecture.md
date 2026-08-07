@@ -388,14 +388,16 @@ Minimal `play.json` shape (extensible):
   "pluginVersion": "0.1.0",
   "defaultEdition": "full",
   "editions": [
+    { "id": "classic", "label": { "en": "Classic", "zh": "经典版" } },
     { "id": "full", "label": { "en": "Full Game", "zh": "完整版" }, "default": true },
-    { "id": "premium", "label": { "en": "Premium", "zh": "珍藏版" } }
+    { "id": "expansion", "label": { "en": "Expansion", "zh": "拓展版" } }
   ]
 }
 ```
 
 Optional `editions` → initial `/play/?edition=<default>`; **lobby** picks edition
 (`HostSession.setGameConfig`). Merged into plugin `createGame` via `gameConfig`.
+Love Letter: `classic` (16) / `full` (21) / `expansion` (37 = full + roles, keeps Spy/Chancellor).
 
 Wiring (mirror existing features):
 
@@ -470,7 +472,7 @@ first-party game server (static export constraint).
 
 | Item | Choice |
 |------|--------|
-| Plugin | `love-letter` (`edition`: `full` \| `premium`) |
+| Plugin | `love-letter` (`edition`: `classic` \| `full` \| `expansion`) |
 | Content bind | `love-letter/play.json` + `love-letter-premium/play.json` (shared plugin, different defaults) |
 | Route | `/[locale]/games/<slug>/play/?edition=` |
 | Engine domains (min) | `cards` + `turns` |

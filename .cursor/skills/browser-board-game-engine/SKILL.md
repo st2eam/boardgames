@@ -79,13 +79,13 @@ Full detail: [architecture.md §11](architecture.md).
 | Decision | Value |
 |----------|--------|
 | Approach | A — Shelf + `bbge/*` + PeerJS-like signaling + WebRTC |
-| First game | Love Letter (**one round** ends match); editions **full** + **premium** (classic 16) |
+| First game | Love Letter (**one round** ends match); editions **classic** / **full** / **expansion** |
 | Design doc | [`docs/games/love-letter.md`](../../../docs/games/love-letter.md) |
 | Multiplayer | Host + share link join from day one |
 | AI | Reusable `AiSeat` on Host; `deepseek-v4-flash` + optional `speak`; mock without key |
 | Play UI | BGA-style DOM table (`LoveLetterTable`); Motion draw/play; viewport-locked |
 | Replay tools | **Out** — no replay viewer/SDK UI |
-| Entry | `GameHeader` **开始游戏** → play lobby **选择版本** → `?edition=` |
+| Entry | `GameHeader` **开始游戏** → lobby **经典/完整/拓展** → `?edition=` |
 
 Per-game BBGE designs: [`docs/games/<slug>.md`](../../../docs/games/).  
 Love Letter design (source of truth): [`docs/games/love-letter.md`](../../../docs/games/love-letter.md).

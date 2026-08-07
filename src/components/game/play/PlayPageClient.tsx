@@ -28,12 +28,17 @@ export function PlayPageClient({
   const search = useSearchParams();
   const room = search.get("room");
   const editionParam = search.get("edition");
-  const edition =
-    editionParam === "premium" || editionParam === "full"
-      ? editionParam
-      : defaultEdition === "premium"
-        ? "premium"
-        : "full";
+  const allowed = new Set([
+    "classic",
+    "full",
+    "expansion",
+    "premium", // legacy → PlayShell maps to classic
+  ]);
+  const edition = allowed.has(editionParam ?? "")
+    ? editionParam!
+    : allowed.has(defaultEdition)
+      ? defaultEdition
+      : "full";
 
   // Lock document scroll on play — overflow only inside seat/log containers.
   useEffect(() => {

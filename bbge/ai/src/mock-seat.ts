@@ -10,6 +10,7 @@ type View = {
     type: string;
     playerId: string;
     held?: { id: string; rank?: number }[];
+    targets?: { targetId: string; rank: number }[];
   } | null;
   you?: {
     id: string;
@@ -28,6 +29,9 @@ const NO_TARGET = new Set([
   "chancellor",
   "countess",
   "princess",
+  "constable",
+  "count",
+  "assassin",
 ]);
 
 function roleOf(c: HandCard): string {
@@ -41,13 +45,31 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
     async think(viewUnknown, opts) {
       const view = viewUnknown as View;
       const progress = (note: string) => opts?.onProgress?.({ note });
-      const edition = view.edition === "premium" ? "premium" : "full";
-      const maxGuess = edition === "premium" ? 8 : 9;
+      const edition = view.edition === "classic" || view.edition === "premium"
+        ? "classic"
+        : view.edition === "expansion"
+          ? "expansion"
+          : "full";
+      const maxGuess = edition === "classic" ? 8 : 9;
 
-      if (view.pending?.type === "priestReveal" && view.pending.playerId === id) {
-        progress("本地启发式：确认神父偷看");
+      if (
+        (view.pending?.type === "priestReveal" ||
+          view.pending?.type === "baronessReveal") &&
+        view.pending.playerId === id
+      ) {
+        progress("本地启发式：确认偷看");
         return {
           action: { type: "acknowledgePriest", playerId: id, payload: {} },
+        };
+      }
+      if (view.pending?.type === "bishopRedraw" && view.pending.playerId === id) {
+        progress("本地启发式：主教命中后保留手牌");
+        return {
+          action: {
+            type: "acknowledgePriest",
+            playerId: id,
+            payload: { redraw: false },
+          },
         };
       }
       if (view.pending?.type === "chancellor" && view.pending.playerId === id) {
@@ -83,9 +105,21 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
           : forced ?? hand[0]!;
       const card = forced ?? safe;
       const role = roleOf(card);
-      const needsTarget = ["guard", "priest", "baron", "prince", "king"].includes(
-        role,
-      );
+
+      const singleTarget = [
+        "guard",
+        "priest",
+        "baron",
+        "prince",
+        "king",
+        "bishop",
+        "dowagerQueen",
+        "jester",
+        "sycophant",
+      ].includes(role);
+      const baroness = role === "baroness";
+      const cardinal = role === "cardinal";
+
       progress(
         forced
           ? "本地启发式：强制打出伯爵夫人"
@@ -93,18 +127,48 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
             ? "本地启发式：无人可指向，出安全牌"
             : `本地启发式：打出 ${role}`,
       );
+
+      if (cardinal && others.length >= 1) {
+        const a = others[0]!.id;
+        const b = others[1]?.id ?? id;
+        return {
+          action: {
+            type: "playCard",
+            playerId: id,
+            payload: {
+              cardId: card.id,
+              targetIds: [a, b],
+              peekTargetId: a,
+            },
+          } as Action,
+        };
+      }
+      if (baroness && others.length >= 1) {
+        return {
+          action: {
+            type: "playCard",
+            playerId: id,
+            payload: {
+              cardId: card.id,
+              targetIds: others.slice(0, Math.min(2, others.length)).map((p) => p.id),
+            },
+          } as Action,
+        };
+      }
+
       return {
         action: {
           type: "playCard",
           playerId: id,
           payload: {
             cardId: card.id,
-            targetId: needsTarget
-              ? role === "prince"
+            targetId: singleTarget
+              ? role === "prince" || role === "sycophant"
                 ? (others[0]?.id ?? id)
                 : others[0]?.id
               : undefined,
-            guessRank: role === "guard" ? maxGuess : undefined,
+            guessRank:
+              role === "guard" || role === "bishop" ? maxGuess : undefined,
           },
         } as Action,
       };

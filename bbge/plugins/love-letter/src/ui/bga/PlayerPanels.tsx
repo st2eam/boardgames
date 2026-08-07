@@ -8,6 +8,7 @@ import { SpeechBubble } from "./SpeechBubble";
 type DiscCard = {
   id: string;
   rank: number;
+  role?: string;
   name?: { en: string; zh: string };
 };
 
@@ -20,7 +21,7 @@ interface Props {
   locale: string;
   view: ArenaView;
   actorId: string;
-  selectedTargetId: string | null;
+  selectedTargetIds: string[];
   thinkingId?: string | null;
   targetMode: boolean;
   /** Active speech bubbles keyed by seat id */
@@ -206,7 +207,7 @@ export function PlayerPanels({
   locale,
   view,
   actorId,
-  selectedTargetId,
+  selectedTargetIds,
   thinkingId,
   targetMode,
   bubbles = {},
@@ -257,7 +258,7 @@ export function PlayerPanels({
           protected={o.protected}
           active={view.currentPlayerId === o.id}
           thinking={thinkingId === o.id}
-          selected={selectedTargetId === o.id}
+          selected={selectedTargetIds.includes(o.id)}
           targetMode={targetMode}
           seenRank={view.you?.seen?.[o.id]}
           revealedRank={

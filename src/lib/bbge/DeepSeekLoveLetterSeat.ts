@@ -22,15 +22,15 @@ export function createDeepSeekLoveLetterSeat(
   return {
     id,
     async think(view: unknown, opts?: AiThinkOptions): Promise<AiDecision> {
-      const prompt = `You are seat ${id} in Love Letter. The view.edition is "full" (ranks 0 Spy … 9 Princess, Chancellor) or "premium" (classic ranks 1 Guard … 8 Princess, no Spy/Chancellor; 2–4 players).
-Choose ONE legal action from the private view. Prefer strong play.
-Return ONLY JSON (action required). Optional short first-person table talk as speak:
-{"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","guessRank":number?},"speak":"Played Guard — I guess X is Princess."}
-or chancellor:
-{"type":"resolveChancellor","playerId":"${id}","payload":{"keepCardId":"...","bottomOrderIds":["id1","id2"]},"speak":"Keeping the Prince."}
-or array:
-[{"type":"playCard","playerId":"${id}","payload":{...}},{"type":"speak","text":"Short line."}]
-speak: one short first-person sentence (Chinese if the table is zh, else English). Do not invent illegal moves.
+      const prompt = `You are seat ${id} in Love Letter. view.edition is one of:
+- "classic": 16 cards, ranks 1–8 Princess, no Spy/Chancellor, 2–4 players
+- "full": 21 cards, Spy…Princess=9, Chancellor, 2–6 players
+- "expansion": 37 cards = full + Bishop/Dowager/Constable/Count/Sycophant/Baroness/Cardinal/Jester/Assassin (+3 Guard); keep Spy+Chancellor; 2–8 players; shared ranks; use card.role
+Choose ONE legal action. Effects use role (not unique ranks). Guard/Bishop guess a number ≠1.
+Return ONLY JSON (action required). Optional speak:
+{"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","targetIds":["..."]?,"guessRank":number?,"peekTargetId":"...?"},"speak":"..."}
+or chancellor / acknowledgePriest (bishopRedraw may include "redraw":true|false).
+speak: one short first-person sentence. No illegal moves.
 View JSON:\n${JSON.stringify(view)}`;
 
       let lastErr = "ai failed";

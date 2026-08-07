@@ -85,7 +85,7 @@ Full detail: [architecture.md §11](architecture.md).
 | AI | Reusable `AiSeat` on Host; `deepseek-v4-flash` + optional `speak`; mock without key |
 | Play UI | BGA-style DOM table (`LoveLetterTable`); Motion draw/play; viewport-locked |
 | Replay tools | **Out** — no replay viewer/SDK UI |
-| Entry | `GameHeader` **开始游戏** (edition menu) → `/games/<slug>/play/?edition=` |
+| Entry | `GameHeader` **开始游戏** → play lobby **选择版本** → `?edition=` |
 
 Per-game BBGE designs: [`docs/games/<slug>.md`](../../../docs/games/).  
 Love Letter design (source of truth): [`docs/games/love-letter.md`](../../../docs/games/love-letter.md).

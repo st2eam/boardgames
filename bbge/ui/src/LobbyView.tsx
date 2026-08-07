@@ -2,6 +2,12 @@
 
 import type { LobbyState } from "@bbge/runtime";
 
+export type LobbyEditionOption = {
+  id: string;
+  label: string;
+  hint?: string;
+};
+
 interface Props {
   locale: string;
   lobby: LobbyState | null;
@@ -12,8 +18,10 @@ interface Props {
   onAddHotseat: () => void;
   onStart: () => void;
   onReady: () => void;
-  /** Shown under lobby title (e.g. 完整版 / 珍藏版) */
-  editionLabel?: string;
+  /** Host-only edition picker (e.g. Love Letter full / premium) */
+  editions?: LobbyEditionOption[];
+  edition?: string;
+  onEditionChange?: (id: string) => void;
   maxSeats?: number;
 }
 
@@ -69,13 +77,16 @@ export function LobbyView({
   onAddHotseat,
   onStart,
   onReady,
-  editionLabel,
+  editions,
+  edition,
+  onEditionChange,
   maxSeats,
 }: Props) {
   const zh = locale === "zh";
   const hostId = lobby?.hostPlayerId;
   const seatCount = lobby?.seats.length ?? 0;
   const atCap = maxSeats != null && seatCount >= maxSeats;
+  const selectedEdition = editions?.find((e) => e.id === edition);
 
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/20 bg-[#efe6d8] shadow-card">
@@ -83,7 +94,6 @@ export function LobbyView({
         <div>
           <p className="font-heading text-xs font-semibold uppercase tracking-wider text-accent">
             {zh ? "大厅" : "Lobby"}
-            {editionLabel ? ` · ${editionLabel}` : ""}
           </p>
           <h2 className="font-heading text-lg font-bold">
             {zh ? "准备开局" : "Ready the table"}
@@ -101,6 +111,74 @@ export function LobbyView({
 
       <div className="grid min-h-0 flex-1 gap-4 overflow-hidden p-4 lg:grid-cols-[minmax(0,1fr)_280px]">
         <div className="flex min-h-0 flex-col space-y-4 overflow-y-auto rounded-2xl border border-border bg-white/95 p-4 shadow-sm">
+          {editions && editions.length > 1 && (
+            <div className="shrink-0">
+              <p className="mb-1.5 font-heading text-xs font-bold text-stone-500">
+                {onEditionChange
+                  ? zh
+                    ? "选择版本"
+                    : "Edition"
+                  : zh
+                    ? "版本"
+                    : "Edition"}
+              </p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {editions.map((e) => {
+                  const active = e.id === edition;
+                  if (!onEditionChange) {
+                    return (
+                      <div
+                        key={e.id}
+                        className={[
+                          "rounded-xl border px-3 py-2.5 text-left",
+                          active
+                            ? "border-accent bg-amber-50 shadow-sm ring-2 ring-accent/30"
+                            : "border-border bg-surface/60 opacity-50",
+                        ].join(" ")}
+                      >
+                        <p className="font-heading text-sm font-bold text-primary-dark">
+                          {e.label}
+                        </p>
+                        {e.hint ? (
+                          <p className="mt-0.5 text-[11px] text-stone-500">
+                            {e.hint}
+                          </p>
+                        ) : null}
+                      </div>
+                    );
+                  }
+                  return (
+                    <button
+                      key={e.id}
+                      type="button"
+                      onClick={() => onEditionChange(e.id)}
+                      className={[
+                        "cursor-pointer rounded-xl border px-3 py-2.5 text-left transition-colors",
+                        active
+                          ? "border-accent bg-amber-50 shadow-sm ring-2 ring-accent/30"
+                          : "border-border bg-surface hover:border-accent/40",
+                      ].join(" ")}
+                    >
+                      <p className="font-heading text-sm font-bold text-primary-dark">
+                        {e.label}
+                      </p>
+                      {e.hint ? (
+                        <p className="mt-0.5 text-[11px] text-stone-500">
+                          {e.hint}
+                        </p>
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </div>
+              {selectedEdition?.hint ? (
+                <p className="mt-1.5 text-[11px] text-stone-400 sm:hidden">
+                  {selectedEdition.hint}
+                </p>
+              ) : null}
+            </div>
+          )}
+
           <div className="grid shrink-0 gap-3 sm:grid-cols-2">
             <label className="block">
               <span className="mb-1 block font-heading text-xs font-bold text-stone-500">

@@ -394,8 +394,8 @@ Minimal `play.json` shape (extensible):
 }
 ```
 
-Optional `editions` → `PlayStartButton` dropdown → `/play/?edition=<id>`.  
-`HostSession` merges `{ edition }` into plugin `createGame` via `gameConfig`.
+Optional `editions` → initial `/play/?edition=<default>`; **lobby** picks edition
+(`HostSession.setGameConfig`). Merged into plugin `createGame` via `gameConfig`.
 
 Wiring (mirror existing features):
 

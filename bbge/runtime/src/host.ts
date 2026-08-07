@@ -18,6 +18,8 @@ export interface LobbyState {
   seats: LobbySeat[];
   hostPlayerId: PlayerId;
   seed: string;
+  /** Optional game edition (e.g. love-letter full | premium); synced to guests. */
+  edition?: string;
 }
 
 export interface AiChatMessage {
@@ -58,13 +60,17 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
       gameConfig?: Record<string, unknown>;
     },
   ) {
+    this.gameConfig = opts.gameConfig ?? {};
     this.lobby = {
       seats: [],
       hostPlayerId: opts.hostPlayerId,
       seed: opts.seed,
+      edition:
+        typeof this.gameConfig.edition === "string"
+          ? this.gameConfig.edition
+          : undefined,
     };
     this.canStartAi = opts.canStartAi ?? (() => true);
-    this.gameConfig = opts.gameConfig ?? {};
   }
 
   getPhase(): SessionPhase {
@@ -100,6 +106,19 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
   setReady(id: PlayerId, ready: boolean): void {
     const seat = this.lobby.seats.find((s) => s.id === id);
     if (seat && seat.kind === "human") seat.ready = ready;
+  }
+
+  /** Update createGame extras (e.g. edition) while still in lobby. */
+  setGameConfig(patch: Record<string, unknown>): void {
+    if (this.phase !== "lobby") return;
+    this.gameConfig = { ...this.gameConfig, ...patch };
+    if (typeof patch.edition === "string") {
+      this.lobby.edition = patch.edition;
+    }
+  }
+
+  getGameConfig(): Record<string, unknown> {
+    return { ...this.gameConfig };
   }
 
   private dealMatch(): void {

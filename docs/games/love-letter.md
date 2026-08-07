@@ -17,7 +17,7 @@ Shelf architecture: [`docs/architecture.md`](../architecture.md).
 ## 1. Goal
 
 From The Game Shelf Love Letter **or** Premium rules page → **开始游戏**
-(first action in `GameHeader`, with **edition picker**) → Host creates a room →
+→ play lobby → **选择版本** (full / premium) → Host creates a room →
 friends join via shareable link **or** hotseat / local AI → finish **one round**
 and declare a winner (with 比点 standings).
 
@@ -34,7 +34,7 @@ and declare a winner (with 比点 standings).
 | AI | Host **`AiSeat`**: DeepSeek **`deepseek-v4-flash`** for Actions + optional **`speak`** |
 | Table talk | Humans chat; AI may include `speak` in Action JSON — else event bubble fallback |
 | Replay tools | **Out of scope** |
-| UI entry | `play.json` + editions → `/[locale]/games/<slug>/play/?edition=` |
+| UI entry | `play.json` → `/play/?edition=` (initial); **lobby** picks edition |
 | Homepage | Cards with `hasPlay` show **即刻开玩** / Play Now |
 
 ---
@@ -56,7 +56,7 @@ Effects use stable **`role`** on each card (`guard`, `king`, …) so Premium ran
 
 ### 4.1 In (shipped)
 
-- `play.json` with `editions[]` on both family slugs; **开始游戏** dropdown chooses version
+- `play.json` with `editions[]` on both family slugs; **大厅内**选择版本（`HostSession.setGameConfig`）
 - Plugin: deal / play / targets / guesses / eliminate / chancellor (full) / priest ack / single-round victory
 - End UI: merged status + **比点** table; full play log + chat history (panel scroll only)
 - Viewport-locked play page (no document scrollbar); lobby seats scroll inside panel
@@ -73,17 +73,16 @@ Effects use stable **`role`** on each card (`guard`, `king`, …) so Premium ran
 ## 5. Architecture
 
 ```
-GameHeader [开始游戏 ▾ editions]
-  → /games/<slug>/play/?edition=full|premium
-       PlayPageClient → PlayShell(edition)
-         HostSession gameConfig: { edition }
-         love-letter plugin createGame
+GameHeader [开始游戏] → /games/<slug>/play/?edition=<default>
+  PlayPageClient → PlayShell(initial edition)
+    LobbyView [选择版本] → setGameConfig({ edition }) + URL replaceState
+    HostSession createGame(…gameConfig)
 ```
 
 | Boundary | Rule |
 |----------|------|
-| Shelf | `PlayStartButton` + `play.json.editions`; route passes `edition` |
-| Runtime | `HostSession` merges `gameConfig` into `createGame` |
+| Shelf | `PlayStartButton` → play with `defaultEdition`; lobby owns picker |
+| Runtime | `HostSession.setGameConfig` in lobby; merge into `createGame` |
 | Plugin | Pure rules; `state.edition`; roles on cards |
 | AiSeat | Host only; prompt reads `view.edition` |
 

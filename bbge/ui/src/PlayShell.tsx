@@ -13,12 +13,18 @@ export interface PlayShellProps {
   slug: string;
   gameName: string;
   pluginId: string;
-  /** Love Letter: full | premium (classic 16). Passed into createGame. */
+  /** Initial Love Letter edition (lobby can change). */
   edition?: string;
   roomIdFromUrl?: string | null;
   loadApiKey: () => Promise<string | null>;
   /** Shelf-provided LLM seat factory for this plugin (Action + optional speak). */
   createDeepSeekSeat?: (id: string, apiKey: string) => AiSeat;
+}
+
+type LoveLetterEditionId = "full" | "premium";
+
+function normalizeEdition(v: string | undefined): LoveLetterEditionId {
+  return v === "premium" ? "premium" : "full";
 }
 
 type PeerHost = {
@@ -124,15 +130,19 @@ export function PlayShell({
   locale,
   gameName,
   pluginId,
-  edition = "full",
+  edition: editionProp = "full",
   roomIdFromUrl,
   loadApiKey,
   createDeepSeekSeat,
 }: PlayShellProps) {
   const mod = useMemo(() => requirePlayModule(pluginId), [pluginId]);
   const isHost = !roomIdFromUrl;
-  const maxSeats = edition === "premium" ? 4 : 6;
   const hostId = useMemo(() => "host", []);
+  const [edition, setEdition] = useState<LoveLetterEditionId>(() =>
+    normalizeEdition(editionProp),
+  );
+  const maxSeats = edition === "premium" ? 4 : 6;
+  const showEditions = pluginId === "love-letter";
   const [roomId, setRoomId] = useState(roomIdFromUrl ?? "");
   const [error, setError] = useState<string | null>(null);
   const [lobby, setLobby] = useState<LobbyState | null>(null);
@@ -307,7 +317,18 @@ export function PlayShell({
       llmSeatIdsRef.current.clear();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHost, pluginId, edition]);
+  }, [isHost, pluginId]);
+
+  // Keep session gameConfig in sync when lobby edition changes (do not remount room).
+  useEffect(() => {
+    if (!isHost) return;
+    sessionRef.current?.setGameConfig({ edition });
+    if (typeof window !== "undefined" && !roomIdFromUrl) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("edition", edition);
+      window.history.replaceState({}, "", url.toString());
+    }
+  }, [edition, isHost, roomIdFromUrl]);
 
   useEffect(() => {
     if (isHost || !roomIdFromUrl) return;
@@ -328,7 +349,13 @@ export function PlayShell({
           payload: { playerId: guestId, name: displayName || guestId },
         });
         guest.onMessage((msg) => {
-          if (msg.type === "lobby") setLobby(msg.payload as LobbyState);
+          if (msg.type === "lobby") {
+            const lb = msg.payload as LobbyState;
+            setLobby(lb);
+            if (lb.edition === "full" || lb.edition === "premium") {
+              setEdition(lb.edition);
+            }
+          }
           if (msg.type === "view") setView(msg.payload);
           if (msg.type === "phase")
             setPhase(msg.payload.phase as "lobby" | "playing" | "finished");
@@ -576,6 +603,30 @@ export function PlayShell({
     await runAiIfNeeded();
   };
 
+  const onEditionChange = (id: string) => {
+    const next = normalizeEdition(id);
+    if (next === edition) return;
+    const s = sessionRef.current;
+    if (!s || s.getPhase() !== "lobby") return;
+    const cap = next === "premium" ? 4 : 6;
+    // Trim overflow seats when switching to a smaller edition (keep host).
+    while (s.getLobby().seats.length > cap) {
+      const seats = s.getLobby().seats;
+      const drop = [...seats].reverse().find((x) => x.id !== hostId);
+      if (!drop) break;
+      s.removeSeat(drop.id);
+      localSeatIdsRef.current.delete(drop.id);
+      aiRef.current.delete(drop.id);
+      llmSeatIdsRef.current.delete(drop.id);
+    }
+    s.setGameConfig({ edition: next });
+    setEdition(next);
+    setError(null);
+    tick();
+    const host = peerRef.current as PeerHost | null;
+    host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
+  };
+
   const onAddAi = () => {
     const s = sessionRef.current;
     if (!s) return;
@@ -730,14 +781,37 @@ export function PlayShell({
               sessionRef.current?.setReady(hostId, true);
               tick();
             }}
-            editionLabel={
-              edition === "premium"
-                ? locale === "zh"
-                  ? "珍藏版"
-                  : "Premium"
-                : locale === "zh"
-                  ? "完整版"
-                  : "Full Game"
+            editions={
+              showEditions
+                ? [
+                    {
+                      id: "full",
+                      label:
+                        locale === "zh"
+                          ? "完整版（21 张）"
+                          : "Full Game (21 cards)",
+                      hint:
+                        locale === "zh"
+                          ? "2–6 人 · 含间谍、大臣 · 公主 = 9"
+                          : "2–6 players · Spy & Chancellor · Princess = 9",
+                    },
+                    {
+                      id: "premium",
+                      label:
+                        locale === "zh"
+                          ? "珍藏版（经典 16 张）"
+                          : "Premium (classic 16)",
+                      hint:
+                        locale === "zh"
+                          ? "2–4 人 · 经典牌组 · 公主 = 8"
+                          : "2–4 players · classic deck · Princess = 8",
+                    },
+                  ]
+                : undefined
+            }
+            edition={edition}
+            onEditionChange={
+              showEditions && isHost ? onEditionChange : undefined
             }
             maxSeats={maxSeats}
           />

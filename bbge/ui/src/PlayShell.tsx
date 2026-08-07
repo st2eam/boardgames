@@ -324,6 +324,12 @@ export function PlayShell({
   const [guestStatus, setGuestStatus] = useState<
     "connecting" | "joined" | "error"
   >("connecting");
+
+  useEffect(() => {
+    if (!joinNotice) return;
+    const t = window.setTimeout(() => setJoinNotice(null), 6000);
+    return () => window.clearTimeout(t);
+  }, [joinNotice]);
   const sessionRef = useRef<HostSession | null>(null);
   const modRef = useRef<PluginPlayModule>(mod);
   modRef.current = mod;

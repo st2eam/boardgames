@@ -1,5 +1,6 @@
 "use client";
 
+import { forwardRef } from "react";
 import { cardBackUrl } from "../cardArt";
 import type { ArenaView } from "../types";
 import { DiscardStrip } from "./DiscardStrip";
@@ -77,9 +78,10 @@ function Panel({
 
   return (
     <div
+      data-seat-id={id}
       className={[
-        "rounded-lg border px-2 py-1.5 text-left transition-all duration-200",
-        rail ? "w-[9.5rem] shrink-0" : "w-full",
+        "scroll-mx-3 rounded-lg border px-2 py-1.5 text-left transition-all duration-200",
+        rail ? "w-[9.5rem] shrink-0" : "w-full scroll-my-2",
         eliminated
           ? "border-stone-200 bg-stone-100 opacity-55"
           : selected
@@ -215,24 +217,35 @@ function Panel({
   );
 }
 
-export function PlayerPanels({
-  locale,
-  view,
-  actorId,
-  selectedTargetIds,
-  thinkingId,
-  targetMode,
-  bubbles = {},
-  variant = "stack",
-  onSelectTarget,
-  onZoomDiscard,
-}: Props) {
+export const PlayerPanels = forwardRef<HTMLDivElement, Props>(
+  function PlayerPanels(
+    {
+      locale,
+      view,
+      actorId,
+      selectedTargetIds,
+      thinkingId,
+      targetMode,
+      bubbles = {},
+      variant = "stack",
+      onSelectTarget,
+      onZoomDiscard,
+    },
+    ref,
+  ) {
   const zh = locale === "zh";
   const you = view.you;
   const rail = variant === "rail";
 
   return (
-    <div className={rail ? "flex gap-1.5 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" : "space-y-1.5"}>
+    <div
+      ref={ref}
+      className={
+        rail
+          ? "flex gap-1.5 overflow-x-auto overscroll-x-contain pb-0.5 touch-pan-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          : "space-y-1.5"
+      }
+    >
       {!rail && (
         <p className="px-0.5 font-heading text-[11px] font-bold uppercase tracking-wide text-stone-500">
           {zh ? "玩家" : "Players"}
@@ -291,4 +304,4 @@ export function PlayerPanels({
       ))}
     </div>
   );
-}
+});

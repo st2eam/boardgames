@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
 import { BattleLogList, PlaySideSheet, useIsMobileLayout } from "@bbge/ui";
@@ -65,16 +65,37 @@ export function LoveLetterTable({
   const [bubbles, setBubbles] = useState<Record<string, SeatBubble>>({});
   const [sideOpen, setSideOpen] = useState(false);
   const mobile = useIsMobileLayout();
+  const reduce = useReducedMotion();
   const handSize = mobile ? "md" : "xl";
   const feltMd = mobile ? "sm" : "md";
   const feltLg = mobile ? "md" : "lg";
   const seenLogIdsRef = useRef<Set<string>>(new Set());
   const seenChatKeysRef = useRef<Set<string>>(new Set());
   const bubbleTimersRef = useRef<Map<string, number>>(new Map());
+  const seatsRailRef = useRef<HTMLDivElement>(null);
+  const seatsStackRef = useRef<HTMLDivElement>(null);
   // PlayShell switches myId among local hotseat humans only — never AI / remote.
   const actorId = myId;
   const lastDiscardIdRef = useRef<string | null>(null);
   const skipDiscardAnimRef = useRef(false);
+
+  /** Keep the acting seat in view (mobile rail / desktop stack). */
+  useEffect(() => {
+    if (view.phase !== "playing") return;
+    const id = view.currentPlayerId;
+    if (!id) return;
+    const opts: ScrollIntoViewOptions = {
+      behavior: reduce ? "auto" : "smooth",
+      inline: "center",
+      block: "nearest",
+    };
+    const root = mobile ? seatsRailRef.current : seatsStackRef.current;
+    if (!root) return;
+    const el = root.querySelector<HTMLElement>(
+      `[data-seat-id="${CSS.escape(id)}"]`,
+    );
+    el?.scrollIntoView(opts);
+  }, [mobile, view.currentPlayerId, view.phase, reduce, view.deckCount]);
 
   const showBubble = (seatId: string, id: string, text: string) => {
     const prevTimer = bubbleTimersRef.current.get(seatId);
@@ -696,6 +717,7 @@ export function LoveLetterTable({
                 </p>
               )}
               <PlayerPanels
+                ref={seatsRailRef}
                 locale={locale}
                 view={view}
                 actorId={actorId}
@@ -732,7 +754,10 @@ export function LoveLetterTable({
 
           {/* Left — player list (desktop) */}
           <aside className="order-2 hidden min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-white/95 p-2.5 shadow-sm lg:order-1 lg:flex">
-            <div className="min-h-0 flex-1 overflow-y-auto">
+            <div
+              ref={seatsStackRef}
+              className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
+            >
               <PlayerPanels
                 locale={locale}
                 view={view}

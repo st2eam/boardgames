@@ -499,24 +499,24 @@ function PositionBadge({
   kind,
   label,
 }: {
-  kind: "d" | "sb" | "bb";
+  kind: "d" | "s" | "b";
   label: string;
 }) {
   const tone =
     kind === "d"
-      ? "bg-white text-[#1a1a1a] ring-1 ring-black/20"
-      : kind === "sb"
-        ? "bg-sky-500 text-white ring-1 ring-sky-700/40"
-        : "bg-rose-600 text-white ring-1 ring-rose-900/40";
+      ? "bg-white text-[#1a1a1a] ring-1 ring-black/25"
+      : kind === "s"
+        ? "bg-sky-500 text-white ring-1 ring-sky-800/30"
+        : "bg-rose-600 text-white ring-1 ring-rose-900/30";
   return (
     <span
       title={label}
       className={[
-        "inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1 font-heading text-[10px] font-black shadow-md",
+        "inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full font-heading text-[11px] font-black shadow-sm",
         tone,
       ].join(" ")}
     >
-      {kind === "d" ? "D" : kind === "sb" ? "SB" : "BB"}
+      {kind === "d" ? "D" : kind === "s" ? "S" : "B"}
     </span>
   );
 }
@@ -555,22 +555,6 @@ function SeatChip({
       }}
       transition={{ duration: 0.25 }}
     >
-      <div className="absolute -left-1.5 -top-2 z-10 flex gap-0.5">
-        {seat.isButton && (
-          <PositionBadge kind="d" label={zh ? "庄家 / 按钮" : "Dealer / Button"} />
-        )}
-        {seat.isSmallBlind && (
-          <PositionBadge kind="sb" label={zh ? "小盲" : "Small Blind"} />
-        )}
-        {seat.isBigBlind && (
-          <PositionBadge kind="bb" label={zh ? "大盲" : "Big Blind"} />
-        )}
-      </div>
-      {active && !foldedAnim && (
-        <span className="absolute -right-1 -top-2 z-10 rounded-md bg-amber-500 px-1.5 py-0.5 font-heading text-[9px] font-black uppercase tracking-wide text-white shadow">
-          {zh ? "行动" : "Act"}
-        </span>
-      )}
       <AnimatePresence>
         {bubble && (
           <motion.div
@@ -584,10 +568,28 @@ function SeatChip({
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="flex items-center justify-between gap-1 pt-0.5">
-        <p className="truncate font-heading text-xs font-bold text-primary-dark">
-          {seat.name}
-        </p>
+      <div className="flex items-center justify-between gap-1">
+        <div className="flex min-w-0 items-center gap-1">
+          {(seat.isButton || seat.isSmallBlind || seat.isBigBlind) && (
+            <span className="flex shrink-0 gap-0.5">
+              {seat.isButton && (
+                <PositionBadge
+                  kind="d"
+                  label={zh ? "庄家 / 按钮" : "Dealer / Button"}
+                />
+              )}
+              {seat.isSmallBlind && (
+                <PositionBadge kind="s" label={zh ? "小盲" : "Small Blind"} />
+              )}
+              {seat.isBigBlind && (
+                <PositionBadge kind="b" label={zh ? "大盲" : "Big Blind"} />
+              )}
+            </span>
+          )}
+          <p className="truncate font-heading text-xs font-bold text-primary-dark">
+            {seat.name}
+          </p>
+        </div>
         {thinking && (
           <span className="text-[10px] text-accent-dark">…</span>
         )}

@@ -58,13 +58,27 @@ export function projectHoldemView(
         !p.folded &&
         (state.showdown?.some((s) => s.playerId === p.id) ?? false);
       const sd = state.showdown?.find((s) => s.playerId === p.id);
+      const n = state.players.length;
+      // Prefer persisted indices; fall back to standard seats from the button.
+      const sbIdx =
+        typeof state.smallBlindIndex === "number"
+          ? state.smallBlindIndex
+          : n === 2
+            ? state.buttonIndex
+            : (state.buttonIndex + 1) % n;
+      const bbIdx =
+        typeof state.bigBlindIndex === "number"
+          ? state.bigBlindIndex
+          : n === 2
+            ? (state.buttonIndex + 1) % n
+            : (state.buttonIndex + 2) % n;
       return {
         id: p.id,
         name: p.name,
         index,
         isButton: index === state.buttonIndex,
-        isSmallBlind: index === state.smallBlindIndex,
-        isBigBlind: index === state.bigBlindIndex,
+        isSmallBlind: index === sbIdx,
+        isBigBlind: index === bbIdx,
         stack: p.stack,
         streetBet: p.streetBet,
         handBet: p.handBet,

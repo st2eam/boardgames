@@ -59,7 +59,7 @@ Rules:
 | Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/components/game/score/registry.tsx) → dedicated trackers or `ScoreTracker` | `src/lib/score/` |
 | Trainer | `trainer.json` | `…/trainer/page.tsx` | [`trainer/registry.tsx`](../src/components/game/trainer/registry.tsx) | `src/lib/<game>/` |
 | Calculator | `calculator.json` | `…/calculator/page.tsx` | `ScoreCalculator` | `src/lib/mahjong/` |
-| Play (BBGE) | `play.json` | `…/play/page.tsx` | PlayShell → bbge runtime + plugin table UI (Love Letter: BGA DOM); **Play button first** in `GameHeader`; homepage Play Now | `bbge/*` + `plugins/<pluginId>`; design in [`docs/games/<slug>.md`](games/) |
+| Play (BBGE) | `play.json` (+ optional `editions`) | `…/play/page.tsx` | PlayShell → bbge runtime + plugin table UI (Love Letter: BGA DOM, full/premium); **开始游戏** first in `GameHeader` (edition menu when configured); homepage Play Now | `bbge/*` + `plugins/<pluginId>`; design in [`docs/games/<slug>.md`](games/) |
 | Chat | runtime `public/data` | `ChatToggle` on home/game pages | `components/chat/*` + `ChatProvider` | `src/lib/ai/`, `src/lib/chat/` |
 
 Pattern for gated features: config exists in content → `generateStaticParams` filters → page loads config → registry (or single component) renders client UI.

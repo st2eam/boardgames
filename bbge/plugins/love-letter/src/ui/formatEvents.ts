@@ -38,79 +38,114 @@ function nameOf(
   return names?.[id] ?? id;
 }
 
+const ROLE_ZH: Record<string, string> = {
+  spy: "间谍",
+  guard: "守卫",
+  priest: "神父",
+  baron: "男爵",
+  handmaid: "侍女",
+  prince: "王子",
+  chancellor: "大臣",
+  king: "国王",
+  countess: "伯爵夫人",
+  princess: "公主",
+};
+
+const ROLE_EN: Record<string, string> = {
+  spy: "Spy",
+  guard: "Guard",
+  priest: "Priest",
+  baron: "Baron",
+  handmaid: "Handmaid",
+  prince: "Prince",
+  chancellor: "Chancellor",
+  king: "King",
+  countess: "Countess",
+  princess: "Princess",
+};
+
+function roleLabel(role: string | undefined, rank: number, zh: boolean): string {
+  if (role && (zh ? ROLE_ZH : ROLE_EN)[role]) {
+    return (zh ? ROLE_ZH : ROLE_EN)[role]!;
+  }
+  return rankName(rank, zh);
+}
+
 function playBubble(
   rank: number,
   zh: boolean,
   targetName?: string,
   guessRank?: number,
+  role?: string,
 ): string {
-  const card = rankName(rank, zh);
+  const r = role ?? "";
+  const card = roleLabel(role, rank, zh);
   if (zh) {
-    switch (rank) {
-      case 1:
+    switch (r) {
+      case "guard":
         return targetName != null && guessRank != null
           ? `打出守卫，我猜 ${targetName} 是「${rankName(guessRank, true)}」。`
           : `打出守卫。`;
-      case 2:
+      case "priest":
         return targetName
           ? `打出神父，偷看 ${targetName} 的手牌。`
           : `打出神父。`;
-      case 3:
+      case "baron":
         return targetName
           ? `打出男爵，与 ${targetName} 比拼。`
           : `打出男爵。`;
-      case 4:
+      case "handmaid":
         return `打出侍女，获得保护。`;
-      case 5:
+      case "prince":
         return targetName
           ? `打出王子，令 ${targetName} 弃牌。`
           : `打出王子。`;
-      case 6:
+      case "chancellor":
         return `打出大臣。`;
-      case 7:
+      case "king":
         return targetName
           ? `打出国王，与 ${targetName} 交换手牌。`
           : `打出国王。`;
-      case 8:
+      case "countess":
         return `打出伯爵夫人。`;
-      case 9:
+      case "princess":
         return `打出公主…我出局了。`;
-      case 0:
+      case "spy":
         return `打出间谍。`;
       default:
         return `打出${card}。`;
     }
   }
-  switch (rank) {
-    case 1:
+  switch (r) {
+    case "guard":
       return targetName != null && guessRank != null
         ? `Played Guard — I guess ${targetName} is “${rankName(guessRank, false)}”.`
         : `Played Guard.`;
-    case 2:
+    case "priest":
       return targetName
         ? `Played Priest — peeking at ${targetName}.`
         : `Played Priest.`;
-    case 3:
+    case "baron":
       return targetName
         ? `Played Baron — comparing with ${targetName}.`
         : `Played Baron.`;
-    case 4:
+    case "handmaid":
       return `Played Handmaid — protected.`;
-    case 5:
+    case "prince":
       return targetName
         ? `Played Prince — ${targetName} discards.`
         : `Played Prince.`;
-    case 6:
+    case "chancellor":
       return `Played Chancellor.`;
-    case 7:
+    case "king":
       return targetName
         ? `Played King — swap with ${targetName}.`
         : `Played King.`;
-    case 8:
+    case "countess":
       return `Played Countess.`;
-    case 9:
+    case "princess":
       return `Played Princess… I’m out.`;
-    case 0:
+    case "spy":
       return `Played Spy.`;
     default:
       return `Played ${card}.`;
@@ -145,12 +180,16 @@ export function formatLoveLetterEvents(
         break;
       case "loveLetter/cardPlayed": {
         const rank = Number(p.rank);
+        const role = typeof p.role === "string" ? p.role : undefined;
         const playerId = String(p.playerId);
         text = zh
-          ? `${nameOf(playerId, names)} 打出 ${rankName(rank, true)}`
-          : `${nameOf(playerId, names)} played ${rankName(rank, false)}`;
+          ? `${nameOf(playerId, names)} 打出 ${roleLabel(role, rank, true)}`
+          : `${nameOf(playerId, names)} played ${roleLabel(role, rank, false)}`;
         // Guard: bubble waits for the following guardGuess event
-        if (rank === 1 && next?.type === "loveLetter/guardGuess") {
+        if (
+          (role === "guard" || (!role && rank === 1)) &&
+          next?.type === "loveLetter/guardGuess"
+        ) {
           break;
         }
         speakerId = playerId;
@@ -175,11 +214,13 @@ export function formatLoveLetterEvents(
         ) {
           // chancellor
         }
-        // Prince self-target: forcedDiscard on self
-        if (rank === 5 && next?.type === "loveLetter/forcedDiscard") {
+        if (
+          (role === "prince" || (!role && rank === 5)) &&
+          next?.type === "loveLetter/forcedDiscard"
+        ) {
           targetName = nameOf(String(nextP.playerId), names);
         }
-        bubble = playBubble(rank, zh, targetName);
+        bubble = playBubble(rank, zh, targetName, undefined, role);
         break;
       }
       case "loveLetter/eliminated":
@@ -202,7 +243,7 @@ export function formatLoveLetterEvents(
           : `${nameOf(actorId, names)} guessed ${nameOf(targetId, names)} = ${rankName(guess, false)} → ${p.hit ? "hit" : "miss"}`;
         tone = p.hit ? "warn" : "info";
         speakerId = actorId;
-        bubble = playBubble(1, zh, nameOf(targetId, names), guess);
+        bubble = playBubble(1, zh, nameOf(targetId, names), guess, "guard");
         break;
       }
       case "loveLetter/priestPeek":
@@ -228,8 +269,8 @@ export function formatLoveLetterEvents(
       }
       case "loveLetter/forcedDiscard":
         text = zh
-          ? `${nameOf(String(p.playerId), names)} 弃掉 ${rankName(Number(p.rank), true)}`
-          : `${nameOf(String(p.playerId), names)} discarded ${rankName(Number(p.rank), false)}`;
+          ? `${nameOf(String(p.playerId), names)} 弃掉 ${roleLabel(typeof p.role === "string" ? p.role : undefined, Number(p.rank), true)}`
+          : `${nameOf(String(p.playerId), names)} discarded ${roleLabel(typeof p.role === "string" ? p.role : undefined, Number(p.rank), false)}`;
         break;
       case "loveLetter/swapped":
         text = zh

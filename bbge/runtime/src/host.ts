@@ -46,6 +46,8 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
   private seq = 0;
   private chat: AiChatMessage[] = [];
   private canStartAi: () => boolean | Promise<boolean>;
+  /** Extra fields merged into plugin createGame config (e.g. edition). */
+  private gameConfig: Record<string, unknown>;
 
   constructor(
     private plugin: GamePlugin<TState, TAction, unknown>,
@@ -53,6 +55,7 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
       seed: string;
       hostPlayerId: PlayerId;
       canStartAi?: () => boolean | Promise<boolean>;
+      gameConfig?: Record<string, unknown>;
     },
   ) {
     this.lobby = {
@@ -61,6 +64,7 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
       seed: opts.seed,
     };
     this.canStartAi = opts.canStartAi ?? (() => true);
+    this.gameConfig = opts.gameConfig ?? {};
   }
 
   getPhase(): SessionPhase {
@@ -105,7 +109,12 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
     );
     const rng = createRng(this.lobby.seed);
     this.state = this.plugin.createGame(
-      { playerIds, playerNames, seed: this.lobby.seed },
+      {
+        playerIds,
+        playerNames,
+        seed: this.lobby.seed,
+        ...this.gameConfig,
+      },
       { rng },
     );
     this.seq = 0;

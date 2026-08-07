@@ -1,6 +1,6 @@
 # Per-game play designs (BBGE)
 
-One design doc per playable slug:
+One design doc per playable slug (or shared family when one plugin serves editions):
 
 ```
 docs/games/<slug>.md
@@ -8,7 +8,7 @@ docs/games/<slug>.md
 
 | File | Game | Status |
 |------|------|--------|
-| [love-letter.md](love-letter.md) | Love Letter — BBGE v1 vertical slice | Shipped on `main` (BGA DOM table, Full Game rules) |
+| [love-letter.md](love-letter.md) | Love Letter — Full + Premium (classic 16) editions | Shipped on `main` (BGA DOM table; edition picker on 开始游戏) |
 
 Platform skill: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/SKILL.md).  
 Shelf feature map: [`docs/architecture.md`](../architecture.md).

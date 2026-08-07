@@ -22,7 +22,7 @@ export function createDeepSeekLoveLetterSeat(
   return {
     id,
     async think(view: unknown, opts?: AiThinkOptions): Promise<AiDecision> {
-      const prompt = `You are seat ${id} in Love Letter (Full Game, ranks 0 Spy … 9 Princess).
+      const prompt = `You are seat ${id} in Love Letter. The view.edition is "full" (ranks 0 Spy … 9 Princess, Chancellor) or "premium" (classic ranks 1 Guard … 8 Princess, no Spy/Chancellor; 2–4 players).
 Choose ONE legal action from the private view. Prefer strong play.
 Return ONLY JSON (action required). Optional short first-person table talk as speak:
 {"type":"playCard","playerId":"${id}","payload":{"cardId":"...","targetId":"...?","guessRank":number?},"speak":"Played Guard — I guess X is Princess."}

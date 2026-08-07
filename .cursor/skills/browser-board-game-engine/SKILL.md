@@ -79,13 +79,13 @@ Full detail: [architecture.md §11](architecture.md).
 | Decision | Value |
 |----------|--------|
 | Approach | A — Shelf + `bbge/*` + PeerJS-like signaling + WebRTC |
-| First game | Love Letter (**one round** ends match) |
+| First game | Love Letter (**one round** ends match); editions **full** + **premium** (classic 16) |
 | Design doc | [`docs/games/love-letter.md`](../../../docs/games/love-letter.md) |
 | Multiplayer | Host + share link join from day one |
-| AI | Reusable `AiSeat` on Host; `deepseek-v4-flash` for play Actions; mock without key |
-| Play UI | BGA-style DOM table (`LoveLetterTable`); Motion draw/play |
+| AI | Reusable `AiSeat` on Host; `deepseek-v4-flash` + optional `speak`; mock without key |
+| Play UI | BGA-style DOM table (`LoveLetterTable`); Motion draw/play; viewport-locked |
 | Replay tools | **Out** — no replay viewer/SDK UI |
-| Entry | `GameHeader` **first** button → `/games/love-letter/play/` |
+| Entry | `GameHeader` **开始游戏** (edition menu) → `/games/<slug>/play/?edition=` |
 
 Per-game BBGE designs: [`docs/games/<slug>.md`](../../../docs/games/).  
 Love Letter design (source of truth): [`docs/games/love-letter.md`](../../../docs/games/love-letter.md).
@@ -97,8 +97,8 @@ Task Progress:
 - [x] 1. bbge/core: GameState, seeded RNG, Action/Event envelopes
 - [x] 2. bbge/runtime: Create→Lobby→Initialize→Playing→Finished (no Replay UI)
 - [x] 3. bbge/engine helpers as needed for Love Letter
-- [x] 4. plugin love-letter: Full Game rules + projectView + pending flows
-- [x] 5. Shelf: play.json, hasPlay, GameHeader Play first, /play/ shell
+- [x] 4. plugin love-letter: Full + Premium classic rules + projectView + pending flows
+- [x] 5. Shelf: play.json (+ editions), hasPlay, GameHeader Play first, /play/?edition=
 - [x] 6. bbge/network: PeerJS + WebRTC data channel
 - [x] 7. Host authority + action/event broadcast + best-effort rejoin
 - [x] 8. AiSeat: DeepSeek flash for Actions + mock; 90s idle timeout (resets on stream)

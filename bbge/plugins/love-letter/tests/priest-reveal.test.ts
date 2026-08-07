@@ -22,8 +22,8 @@ describe("priest reveal confirm", () => {
           ? {
               ...p,
               hand: [
-                { id: "priest", rank: 2 as const },
-                { id: "other", rank: 4 as const },
+                { id: "priest", rank: 2 as const, role: "priest" as const },
+                { id: "other", rank: 4 as const, role: "handmaid" as const },
               ],
             }
           : p,

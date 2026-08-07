@@ -12,6 +12,9 @@ interface Props {
   onAddHotseat: () => void;
   onStart: () => void;
   onReady: () => void;
+  /** Shown under lobby title (e.g. 完整版 / 珍藏版) */
+  editionLabel?: string;
+  maxSeats?: number;
 }
 
 function SeatCard({
@@ -66,9 +69,13 @@ export function LobbyView({
   onAddHotseat,
   onStart,
   onReady,
+  editionLabel,
+  maxSeats,
 }: Props) {
   const zh = locale === "zh";
   const hostId = lobby?.hostPlayerId;
+  const seatCount = lobby?.seats.length ?? 0;
+  const atCap = maxSeats != null && seatCount >= maxSeats;
 
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/20 bg-[#efe6d8] shadow-card">
@@ -76,6 +83,7 @@ export function LobbyView({
         <div>
           <p className="font-heading text-xs font-semibold uppercase tracking-wider text-accent">
             {zh ? "大厅" : "Lobby"}
+            {editionLabel ? ` · ${editionLabel}` : ""}
           </p>
           <h2 className="font-heading text-lg font-bold">
             {zh ? "准备开局" : "Ready the table"}
@@ -83,6 +91,11 @@ export function LobbyView({
         </div>
         <p className="text-xs text-amber-100/75">
           {zh ? "分享链接或加热座 / AI" : "Share link or add hotseat / AI"}
+          {maxSeats != null
+            ? zh
+              ? ` · 最多 ${maxSeats} 人`
+              : ` · max ${maxSeats}`
+            : ""}
         </p>
       </div>
 
@@ -124,14 +137,16 @@ export function LobbyView({
             <button
               type="button"
               onClick={onAddHotseat}
-              className="cursor-pointer rounded-lg border border-border bg-surface px-4 py-2.5 font-heading text-sm font-semibold text-primary-dark hover:border-accent/50"
+              disabled={atCap}
+              className="cursor-pointer rounded-lg border border-border bg-surface px-4 py-2.5 font-heading text-sm font-semibold text-primary-dark hover:border-accent/50 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {zh ? "加热座" : "Hotseat"}
             </button>
             <button
               type="button"
               onClick={onAddAi}
-              className="cursor-pointer rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-2.5 font-heading text-sm font-semibold text-emerald-800 hover:bg-emerald-100"
+              disabled={atCap}
+              className="cursor-pointer rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-2.5 font-heading text-sm font-semibold text-emerald-800 hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {zh ? "加 AI" : "Add AI"}
             </button>

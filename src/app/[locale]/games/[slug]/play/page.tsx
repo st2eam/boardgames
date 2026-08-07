@@ -89,6 +89,7 @@ export default async function PlayPage({ params }: Props) {
             slug={slug}
             gameName={gameName}
             pluginId={playConfig.pluginId}
+            defaultEdition={playConfig.defaultEdition ?? "full"}
           />
         </Suspense>
       </div>

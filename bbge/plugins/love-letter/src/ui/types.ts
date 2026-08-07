@@ -1,6 +1,7 @@
 export type ArenaCard = {
   id: string;
   rank: number;
+  role?: string;
   name?: { en: string; zh: string };
 };
 
@@ -31,6 +32,7 @@ export type ArenaStanding = {
 
 export type ArenaView = {
   phase: string;
+  edition?: "full" | "premium";
   winners: string[];
   spyBonus?: string[];
   endReason?: "last_standing" | "hand_compare" | null;
@@ -51,9 +53,9 @@ export type ArenaView = {
     name: string;
     handCount: number;
     hand?: ArenaCard[];
-    discarded: { id: string; rank: number; name?: { en: string; zh: string } }[];
+    discarded: ArenaCard[];
     eliminated: boolean;
     protected: boolean;
   }[];
-  selfDiscarded?: { id: string; rank: number; name?: { en: string; zh: string } }[];
+  selfDiscarded?: ArenaCard[];
 };

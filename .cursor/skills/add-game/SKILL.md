@@ -300,20 +300,41 @@ Currently supported trainer types: `tenpai` (Mahjong-based). For new trainer typ
 ```json
 {
   "pluginId": "love-letter",
-  "pluginVersion": "0.1.0"
+  "pluginVersion": "0.1.0",
+  "defaultEdition": "full",
+  "editions": [
+    {
+      "id": "full",
+      "label": { "en": "Full Game (21 cards)", "zh": "完整版（21 张）" },
+      "default": true
+    },
+    {
+      "id": "premium",
+      "label": {
+        "en": "Premium Edition (classic 16)",
+        "zh": "珍藏版（经典 16 张）"
+      }
+    }
+  ]
 }
 ```
 
 Path: `content/games/{slug}/play.json`.
+
+Optional **`editions`**: when 2+ entries, `GameHeader` **开始游戏** becomes a dropdown
+(`PlayStartButton`) linking to `/play/?edition=<id>`. `defaultEdition` (or
+`editions[].default`) selects the fallback when the query is omitted. Family
+variants may share one `pluginId` with different `defaultEdition` (see
+`love-letter` vs `love-letter-premium`).
 
 Effects when present:
 
 | Surface | Behavior |
 |---------|----------|
 | `GameRepository.hasPlayConfig` | `true` |
-| `GameHeader` | **开始游戏 / Play** is the **first** action button |
+| `GameHeader` | **开始游戏 / Play** is the **first** action button (edition menu if configured) |
 | Homepage card | **即刻开玩 / Play Now** chip |
-| Route | `/[locale]/games/{slug}/play/` (SSG via `generateStaticParams`) |
+| Route | `/[locale]/games/{slug}/play/` (+ optional `?edition=`) |
 
 #### Required companion work (not content-only)
 
@@ -329,7 +350,7 @@ Minimum implementation checklist for a new playable slug:
 4. **Play module** — export `PluginPlayModule` (`id`, `plugin`, `Table`, `formatEvents`, `createMockSeat`, optional `tryAutoAiAction`)
 5. **Register** — `registerPlayModule(...)` in `src/lib/bbge/registerPlayPlugins.ts` (do **not** edit `PlayShell` per game)
 6. **LLM (optional)** — map `pluginId` → seat factory in `src/lib/bbge/llmSeats.ts` (`deepseek-v4-flash`, Actions only)
-7. **Shelf** — `play.json` `{ pluginId, pluginVersion }`
+7. **Shelf** — `play.json` `{ pluginId, pluginVersion [, defaultEdition, editions] }`
 8. **Tests / verify** — `npm run test:bbge` + `npm run build`
 
 Reference: Love Letter `loveLetterPlayModule` + [`docs/games/love-letter.md`](../../../docs/games/love-letter.md).
@@ -339,11 +360,12 @@ Reference: Love Letter `loveLetterPlayModule` + [`docs/games/love-letter.md`](..
 | Topic | Rule |
 |-------|------|
 | Privacy | Host UI projects **local human** seats only — never AI / remote hands |
-| `projectView` | Others get `handCount` + public discards; never full hands |
+| `projectView` | Others get `handCount` + public discards; never full hands (except finished reveal / standings) |
 | Public events | Do not put private ranks in broadcast Events (e.g. priest peek rank stays in peeker view only) |
-| AI purpose | LLM **plays cards**; optional human chat only — do not burn tokens on auto table-talk |
-| AI model | Play seats: **`deepseek-v4-flash`** (site chat assistant may still use pro) |
-| Layout | Players **left**, felt+hand **center**, log+chat **right**; avoid side-panel scrollbars when possible |
+| AI purpose | LLM **plays cards** + optional `speak` field; Host falls back to event bubble text |
+| AI model | Play seats: **`deepseek-v4-flash`**, `thinking: disabled` for Action JSON |
+| Editions | Prefer one plugin + `edition` config over forking plugins for close variants |
+| Layout | Viewport-locked play page; scroll **inside** seat/log panels only |
 | Pixi | Optional for future canvas boards; Love Letter path is DOM, not Pixi |
 
 ### Step 7: Update documentation

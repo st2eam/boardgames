@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import type { GameMeta } from "@/types/game";
+import type { GameMeta, PlayConfig } from "@/types/game";
 import { useTranslations, useLocale } from "next-intl";
 import { ExportButton } from "./ExportButton";
+import { PlayStartButton } from "./PlayStartButton";
 
 interface Props {
   meta: GameMeta;
   hasPlay?: boolean;
+  playConfig?: PlayConfig | null;
   hasFlow: boolean;
   hasScore: boolean;
   hasTrainer: boolean;
@@ -22,7 +24,7 @@ const difficultyColors: Record<string, string> = {
   hard: "bg-red-100 text-red-800",
 };
 
-export function GameHeader({ meta, hasPlay, hasFlow, hasScore, hasTrainer, hasCalculator, trainerType, rules }: Props) {
+export function GameHeader({ meta, hasPlay, playConfig, hasFlow, hasScore, hasTrainer, hasCalculator, trainerType, rules }: Props) {
   const locale = useLocale();
   const t = useTranslations("game");
   const tc = useTranslations("common");
@@ -47,14 +49,14 @@ export function GameHeader({ meta, hasPlay, hasFlow, hasScore, hasTrainer, hasCa
           </h1>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          {hasPlay && (
+          {hasPlay && playConfig && (
+            <PlayStartButton slug={meta.slug} playConfig={playConfig} />
+          )}
+          {hasPlay && !playConfig && (
             <Link
               href={`/${locale}/games/${meta.slug}/play/`}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-accent/90 transition-all"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white shadow-sm transition-all hover:bg-accent/90"
             >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
-              </svg>
               {t("startGame")}
             </Link>
           )}

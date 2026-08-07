@@ -14,11 +14,26 @@ interface Props {
   slug: string;
   gameName: string;
   pluginId: string;
+  /** From play.json default when URL omits ?edition= */
+  defaultEdition?: string;
 }
 
-export function PlayPageClient({ locale, slug, gameName, pluginId }: Props) {
+export function PlayPageClient({
+  locale,
+  slug,
+  gameName,
+  pluginId,
+  defaultEdition = "full",
+}: Props) {
   const search = useSearchParams();
   const room = search.get("room");
+  const editionParam = search.get("edition");
+  const edition =
+    editionParam === "premium" || editionParam === "full"
+      ? editionParam
+      : defaultEdition === "premium"
+        ? "premium"
+        : "full";
 
   // Lock document scroll on play — overflow only inside seat/log containers.
   useEffect(() => {
@@ -41,6 +56,7 @@ export function PlayPageClient({ locale, slug, gameName, pluginId }: Props) {
         slug={slug}
         gameName={gameName}
         pluginId={pluginId}
+        edition={edition}
         roomIdFromUrl={room}
         loadApiKey={loadApiKey}
         createDeepSeekSeat={getLlmSeatFactory(pluginId)}

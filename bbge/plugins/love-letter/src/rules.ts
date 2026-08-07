@@ -1,6 +1,16 @@
 import { produce } from "immer";
 import type { ApplyContext, Event, PlayerId } from "@bbge/core";
-import { buildFullDeck, mustPlayCountess, type Card, type CardRank } from "./cards";
+import {
+  buildDeck,
+  maxGuessRank,
+  maxPlayersForEdition,
+  minPlayersForEdition,
+  mustPlayCountess,
+  normalizeEdition,
+  roleOf,
+  type Card,
+  type CardRole,
+} from "./cards";
 import type {
   LoveLetterAction,
   LoveLetterConfig,
@@ -39,7 +49,7 @@ function eliminate(state: LoveLetterState, id: PlayerId, events: Event[]): void 
   p.protected = false;
   for (const c of p.hand) {
     p.discarded.push(c);
-    if (c.rank === 0) p.playedSpy = true;
+    if (c.role === "spy") p.playedSpy = true;
   }
   p.hand = [];
   events.push({ type: "loveLetter/eliminated", payload: { playerId: id } });
@@ -113,6 +123,10 @@ export function buildRoundEndPayload(state: LoveLetterState): RoundEndPayload {
   };
 }
 
+function discardSum(p: LoveLetterPlayer): number {
+  return p.discarded.reduce((s, c) => s + c.rank, 0);
+}
+
 export function finishRound(state: LoveLetterState, events: Event[]): void {
   state.phase = "finished";
   const living = alive(state);
@@ -124,12 +138,22 @@ export function finishRound(state: LoveLetterState, events: Event[]): void {
       const r = p.hand[0]?.rank ?? -1;
       if (r > best) best = r;
     }
-    state.winners = living
-      .filter((p) => (p.hand[0]?.rank ?? -1) === best)
-      .map((p) => p.id);
+    let tied = living.filter((p) => (p.hand[0]?.rank ?? -1) === best);
+    // Premium: hand tie → highest discard-sum wins; still tied → all win
+    if (state.edition === "premium" && tied.length > 1) {
+      let bestSum = -1;
+      for (const p of tied) bestSum = Math.max(bestSum, discardSum(p));
+      tied = tied.filter((p) => discardSum(p) === bestSum);
+    }
+    state.winners = tied.map((p) => p.id);
   }
-  const spies = living.filter((p) => p.playedSpy);
-  state.spyBonus = spies.length === 1 ? [spies[0]!.id] : [];
+  // Spy favor only exists in Full Game
+  if (state.edition === "full") {
+    const spies = living.filter((p) => p.playedSpy);
+    state.spyBonus = spies.length === 1 ? [spies[0]!.id] : [];
+  } else {
+    state.spyBonus = [];
+  }
   events.push({
     type: "loveLetter/roundEnded",
     payload: buildRoundEndPayload(state),
@@ -150,13 +174,20 @@ export function createLoveLetterState(
   config: LoveLetterConfig,
   ctx: ApplyContext,
 ): LoveLetterState {
+  const edition = normalizeEdition(config.edition);
   const ids = config.playerIds;
-  if (ids.length < 2 || ids.length > 6) {
-    throw new Error("Love Letter Full Game supports 2–6 players");
+  const minP = minPlayersForEdition(edition);
+  const maxP = maxPlayersForEdition(edition);
+  if (ids.length < minP || ids.length > maxP) {
+    throw new Error(
+      edition === "premium"
+        ? "Love Letter Premium (classic) supports 2–4 players"
+        : "Love Letter Full Game supports 2–6 players",
+    );
   }
   const seed = config.seed ?? "love-letter";
   const rng = ctx.rng;
-  let deck = rng.shuffle(buildFullDeck());
+  let deck = rng.shuffle(buildDeck(edition));
   const burn = deck.shift()!;
   const faceUp: Card[] = [];
   if (ids.length === 2) {
@@ -176,6 +207,7 @@ export function createLoveLetterState(
     schemaVersion: 1,
     pluginId: "love-letter",
     seed,
+    edition,
     phase: "playing",
     players,
     turnOrder: ids.slice(),
@@ -272,43 +304,53 @@ export function validateLoveLetterAction(
     return { error: "cannot draw" };
   }
 
-  const handPreview = state.hasDrawn
-    ? me.hand
-    : [...me.hand, { id: "__pending__", rank: 0 as CardRank }];
   // For countess check we need real cards — validate cardId against current+draw later in apply
   const card = me.hand.find((c) => c.id === action.payload.cardId);
   const playingBeforeDraw = !state.hasDrawn && !card;
   if (!card && state.hasDrawn) return { error: "card not in hand" };
 
-  if (card && mustPlayCountess(me.hand) && card.rank !== 8) {
+  if (
+    card &&
+    mustPlayCountess(me.hand, state.edition) &&
+    card.role !== "countess"
+  ) {
     return { error: "must play Countess", code: "countess" };
   }
 
-  const rank = card?.rank;
+  const role =
+    card?.role ?? (card ? roleOf(state.edition, card.rank) : null);
   const { targetId, guessRank } = action.payload;
+  const maxG = maxGuessRank(state.edition);
 
-  if (rank === 1) {
+  if (role === "guard") {
     if (otherUnprotected(state, me.id).length === 0) return true; // fizzles
     const t = targetOk(state, me.id, targetId, false);
     if (t !== true) return t;
-    if (guessRank === undefined || guessRank === 1 || guessRank < 0 || guessRank > 9) {
+    if (
+      guessRank === undefined ||
+      guessRank === 1 ||
+      guessRank < 0 ||
+      guessRank > maxG
+    ) {
       return { error: "invalid guess" };
     }
   }
-  if (rank === 2 || rank === 3 || rank === 7) {
+  if (role === "priest" || role === "baron" || role === "king") {
     if (otherUnprotected(state, me.id).length === 0) return true;
     const t = targetOk(state, me.id, targetId, false);
     if (t !== true) return t;
   }
-  if (rank === 5) {
+  if (role === "prince") {
     const others = otherUnprotected(state, me.id);
     if (others.length === 0) {
-      // must self
       if (targetId && targetId !== me.id) return { error: "must target self" };
     } else {
       const t = targetOk(state, me.id, targetId, true);
       if (t !== true) return t;
     }
+  }
+  if (role === "chancellor" && state.edition !== "full") {
+    return { error: "chancellor not in this edition" };
   }
   if (playingBeforeDraw) {
     // card might be the drawn one — allow; apply will verify
@@ -369,9 +411,9 @@ export function applyLoveLetterAction(
     if (draft.phase === "finished") return;
 
     const me = player(draft, action.playerId);
-    if (mustPlayCountess(me.hand) && action.payload.cardId) {
+    if (mustPlayCountess(me.hand, draft.edition) && action.payload.cardId) {
       const c = me.hand.find((x) => x.id === action.payload.cardId);
-      if (c && c.rank !== 8) return;
+      if (c && c.role !== "countess") return;
     }
 
     const idx = me.hand.findIndex((c) => c.id === action.payload.cardId);
@@ -379,24 +421,30 @@ export function applyLoveLetterAction(
     const [played] = me.hand.splice(idx, 1);
     if (!played) return;
     me.discarded.push(played);
-    if (played.rank === 0) me.playedSpy = true;
+    const role: CardRole =
+      played.role ?? roleOf(draft.edition, played.rank) ?? "guard";
+    if (role === "spy") me.playedSpy = true;
 
     events.push({
       type: "loveLetter/cardPlayed",
-      payload: { playerId: me.id, rank: played.rank, cardId: played.id },
+      payload: {
+        playerId: me.id,
+        rank: played.rank,
+        role,
+        cardId: played.id,
+      },
     });
 
     const { targetId, guessRank } = action.payload;
-
     const fizzleOthers = () => otherUnprotected(draft, me.id).length === 0;
 
-    switch (played.rank) {
-      case 9:
+    switch (role) {
+      case "princess":
         eliminate(draft, me.id, events);
         break;
-      case 8:
+      case "countess":
         break;
-      case 7: {
+      case "king": {
         if (fizzleOthers()) break;
         const t = player(draft, targetId!);
         const tmp = me.hand;
@@ -408,7 +456,8 @@ export function applyLoveLetterAction(
         });
         break;
       }
-      case 6: {
+      case "chancellor": {
+        if (draft.edition !== "full") break;
         if (draft.deck.length === 0 && !draft.burn) break;
         const held = [...me.hand];
         const d1 = drawOne(draft);
@@ -431,19 +480,19 @@ export function applyLoveLetterAction(
         });
         return;
       }
-      case 5: {
+      case "prince": {
         let tid = targetId ?? me.id;
         if (fizzleOthers()) tid = me.id;
         const t = player(draft, tid);
         const discarded = t.hand.splice(0, t.hand.length);
         for (const c of discarded) {
           t.discarded.push(c);
-          if (c.rank === 0) t.playedSpy = true;
+          if (c.role === "spy") t.playedSpy = true;
           events.push({
             type: "loveLetter/forcedDiscard",
-            payload: { playerId: t.id, rank: c.rank },
+            payload: { playerId: t.id, rank: c.rank, role: c.role },
           });
-          if (c.rank === 9) {
+          if (c.role === "princess") {
             eliminate(draft, t.id, events);
             break;
           }
@@ -451,25 +500,18 @@ export function applyLoveLetterAction(
         if (!t.eliminated) {
           const redraw = drawOne(draft);
           if (redraw) t.hand.push(redraw);
-          else {
-            // no card — still in with empty? rules: burn already used in drawOne
-            if (t.hand.length === 0) {
-              // remain with no hand only if somehow — treat as end
-            }
-          }
         }
         break;
       }
-      case 4:
+      case "handmaid":
         me.protected = true;
         events.push({ type: "loveLetter/protected", payload: { playerId: me.id } });
         break;
-      case 3: {
+      case "baron": {
         if (fizzleOthers()) break;
         const t = player(draft, targetId!);
         const myRank = me.hand[0]!.rank;
         const theirRank = t.hand[0]!.rank;
-        // Public event: only who lost (discard is public). Survivor rank stays private.
         const loserId =
           myRank < theirRank ? me.id : theirRank < myRank ? t.id : null;
         events.push({
@@ -480,7 +522,7 @@ export function applyLoveLetterAction(
         else if (loserId === t.id) eliminate(draft, t.id, events);
         break;
       }
-      case 2: {
+      case "priest": {
         if (fizzleOthers()) break;
         const t = player(draft, targetId!);
         const seen = t.hand[0]!.rank;
@@ -491,14 +533,13 @@ export function applyLoveLetterAction(
           targetId: t.id,
           rank: seen,
         };
-        // Rank is private via projectView pending — never broadcast in events.
         events.push({
           type: "loveLetter/priestPeek",
           payload: { viewerId: me.id, targetId: t.id },
         });
         return;
       }
-      case 1: {
+      case "guard": {
         if (fizzleOthers()) break;
         const t = player(draft, targetId!);
         const hit = t.hand[0]?.rank === guessRank;
@@ -509,7 +550,7 @@ export function applyLoveLetterAction(
         if (hit) eliminate(draft, t.id, events);
         break;
       }
-      case 0:
+      case "spy":
         break;
       default:
         break;

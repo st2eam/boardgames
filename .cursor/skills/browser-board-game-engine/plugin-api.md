@@ -486,7 +486,7 @@ plugins/<plugin-id>/
 To show **开始游戏** on the rules site, add alongside other feature configs:
 
 ```
-content/games/<slug>/play.json  →  { "pluginId": "<plugin-id>", "pluginVersion": "…" }
+content/games/<slug>/play.json  →  { "pluginId", "pluginVersion" [, "defaultEdition", "editions"] }
 ```
 
 Button lives in `GameHeader` as the **first** feature action (before Flow /

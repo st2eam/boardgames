@@ -385,9 +385,17 @@ Minimal `play.json` shape (extensible):
 ```json
 {
   "pluginId": "love-letter",
-  "pluginVersion": "0.1.0"
+  "pluginVersion": "0.1.0",
+  "defaultEdition": "full",
+  "editions": [
+    { "id": "full", "label": { "en": "Full Game", "zh": "完整版" }, "default": true },
+    { "id": "premium", "label": { "en": "Premium", "zh": "珍藏版" } }
+  ]
 }
 ```
+
+Optional `editions` → `PlayStartButton` dropdown → `/play/?edition=<id>`.  
+`HostSession` merges `{ edition }` into plugin `createGame` via `gameConfig`.
 
 Wiring (mirror existing features):
 
@@ -395,13 +403,13 @@ Wiring (mirror existing features):
 |-------|--------|
 | `GameRepository.hasPlayConfig(slug)` | `exists(play.json)` |
 | `GameFactory` / `GameSummary` | `hasPlay: boolean` (+ optional `pluginId`) |
-| `games/[slug]/page.tsx` | pass `hasPlay` into `GameHeader` |
+| `games/[slug]/page.tsx` | pass `hasPlay` + `playConfig` into `GameHeader` |
 | `games/[slug]/play/page.tsx` | Server page → client BBGE shell; `generateStaticParams` only for slugs with `play.json` |
 | `messages/en.json` + `zh.json` | `game.play` / `game.startGame` labels |
 
 Rules Markdown / `meta.json` stay the Game Shelf source of truth for content;
-`play.json` only binds slug → BBGE plugin. Engine packages still hold runtime;
-game rules stay in `plugins/<pluginId>/`.
+`play.json` binds slug → BBGE plugin (+ optional edition list). Engine packages
+hold runtime; game rules stay in `plugins/<pluginId>/`.
 
 ### 9.3 Play page composition
 
@@ -462,9 +470,9 @@ first-party game server (static export constraint).
 
 | Item | Choice |
 |------|--------|
-| Plugin | `love-letter` |
-| Content bind | `content/games/love-letter/play.json` |
-| Route | `/[locale]/games/love-letter/play/` |
+| Plugin | `love-letter` (`edition`: `full` \| `premium`) |
+| Content bind | `love-letter/play.json` + `love-letter-premium/play.json` (shared plugin, different defaults) |
+| Route | `/[locale]/games/<slug>/play/?edition=` |
 | Engine domains (min) | `cards` + `turns` |
 | Match length | **One round ends the match** (no favor-token multi-round in v1) |
 | Design doc | [`docs/games/love-letter.md`](../../../docs/games/love-letter.md) |
@@ -484,7 +492,7 @@ first-party game server (static export constraint).
 - Pattern name: **`AiSeat`** — game-agnostic; plugins do not call DeepSeek
 - Runs **only on Host**; DeepSeek **`deepseek-v4-flash`** when chat API key present, else mock
 - Primary job: `Think(view) → { action, speak? }` (play cards + optional table talk). Host falls back to event bubble text when speak omitted
-- Thinking status broadcast; no auto table-talk from AI
+- Thinking status on Host hover; `speak` posted as chat / avatar bubble
 - LLM **idle** timeout ~90s (resets while thinking/content streams); idle → ephemeral mock for **one turn** only
 - No API key on guests required
 

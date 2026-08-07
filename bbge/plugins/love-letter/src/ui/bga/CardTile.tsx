@@ -5,6 +5,7 @@ import { cardBackUrl, cardFaceUrl, cardLabel } from "../cardArt";
 interface Props {
   locale: string;
   rank?: number;
+  role?: string;
   name?: { en: string; zh: string };
   faceDown?: boolean;
   selected?: boolean;
@@ -26,6 +27,7 @@ const SIZE = {
 export function CardTile({
   locale,
   rank = 0,
+  role,
   name,
   faceDown,
   selected,
@@ -37,7 +39,7 @@ export function CardTile({
 }: Props) {
   const zh = locale === "zh";
   const clickable = Boolean(onClick) && !disabled;
-  const src = faceDown ? cardBackUrl() : cardFaceUrl(rank);
+  const src = faceDown ? cardBackUrl() : cardFaceUrl(rank, role);
   const label = faceDown ? (zh ? "牌背" : "Back") : cardLabel({ rank, name }, locale);
 
   return (

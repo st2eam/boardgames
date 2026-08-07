@@ -4,7 +4,15 @@ export type {
   LoveLetterConfig,
   LoveLetterState,
 } from "./state";
-export { RANK_NAME, type CardRank } from "./cards";
+export {
+  RANK_NAME,
+  buildDeck,
+  buildPremiumClassicDeck,
+  normalizeEdition,
+  type CardRank,
+  type CardRole,
+  type LoveLetterEdition,
+} from "./cards";
 export { projectLoveLetterView } from "./projectView";
 export { LoveLetterTable } from "./ui/LoveLetterTable";
 export { loveLetterPlayModule } from "./playModule";

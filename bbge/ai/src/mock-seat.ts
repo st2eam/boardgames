@@ -1,7 +1,10 @@
 import type { Action, PlayerId } from "@bbge/core";
 import type { AiSeat } from "./ai-seat";
 
+type HandCard = { id: string; rank: number; role?: string };
+
 type View = {
+  edition?: string;
   currentPlayerId?: string;
   pending?: {
     type: string;
@@ -10,7 +13,7 @@ type View = {
   } | null;
   you?: {
     id: string;
-    hand: { id: string; rank: number }[];
+    hand: HandCard[];
   } | null;
   others?: {
     id: string;
@@ -19,7 +22,17 @@ type View = {
   }[];
 };
 
-const NO_TARGET = new Set([0, 4, 6, 8, 9]);
+const NO_TARGET = new Set([
+  "spy",
+  "handmaid",
+  "chancellor",
+  "countess",
+  "princess",
+]);
+
+function roleOf(c: HandCard): string {
+  return c.role ?? String(c.rank);
+}
 
 /** Rule-free heuristic seat for tests and offline fallback demos. */
 export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
@@ -28,6 +41,8 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
     async think(viewUnknown, opts) {
       const view = viewUnknown as View;
       const progress = (note: string) => opts?.onProgress?.({ note });
+      const edition = view.edition === "premium" ? "premium" : "full";
+      const maxGuess = edition === "premium" ? 8 : 9;
 
       if (view.pending?.type === "priestReveal" && view.pending.playerId === id) {
         progress("本地启发式：确认神父偷看");
@@ -53,27 +68,30 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
       }
       const hand = view.you?.hand ?? [];
       if (hand.length === 0) throw new Error("AI has no card");
-      const ranks = hand.map((c) => c.rank);
+      const roles = hand.map(roleOf);
       const forced =
-        ranks.includes(8) && (ranks.includes(7) || ranks.includes(5))
-          ? hand.find((c) => c.rank === 8)!
+        roles.includes("countess") &&
+        (roles.includes("king") || roles.includes("prince"))
+          ? hand.find((c) => roleOf(c) === "countess")!
           : null;
       const others = (view.others ?? []).filter(
         (p) => !p.eliminated && !p.protected,
       );
-      // Prefer a no-target card when nobody is targetable (avoids illegal Guard etc.)
       const safe =
         others.length === 0
-          ? hand.find((c) => NO_TARGET.has(c.rank)) ?? hand[0]!
+          ? hand.find((c) => NO_TARGET.has(roleOf(c))) ?? hand[0]!
           : forced ?? hand[0]!;
       const card = forced ?? safe;
-      const needsTarget = [1, 2, 3, 5, 7].includes(card.rank);
+      const role = roleOf(card);
+      const needsTarget = ["guard", "priest", "baron", "prince", "king"].includes(
+        role,
+      );
       progress(
         forced
           ? "本地启发式：强制打出伯爵夫人"
           : others.length === 0
             ? "本地启发式：无人可指向，出安全牌"
-            : `本地启发式：打出 rank ${card.rank}`,
+            : `本地启发式：打出 ${role}`,
       );
       return {
         action: {
@@ -82,13 +100,13 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
           payload: {
             cardId: card.id,
             targetId: needsTarget
-              ? card.rank === 5
+              ? role === "prince"
                 ? (others[0]?.id ?? id)
                 : others[0]?.id
               : undefined,
-            guessRank: card.rank === 1 ? 9 : undefined,
+            guessRank: role === "guard" ? maxGuess : undefined,
           },
-        },
+        } as Action,
       };
     },
   };

@@ -1,4 +1,4 @@
-# Love Letter — BBGE Play Design (v1)
+# Love Letter — BBGE Play Design
 
 Per-game design for the Browser Board Game Engine playable slice.  
 Platform contracts: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/).  
@@ -8,17 +8,18 @@ Shelf architecture: [`docs/architecture.md`](../architecture.md).
 |---|---|
 | **Status** | Shipped on `main` — playable Host / hotseat / AI |
 | **Convention** | Playable designs live at `docs/games/<slug>.md` |
-| **Rules** | Site **Full Game** (Princess = 9, 21 cards, Chancellor / Spy) |
+| **Editions** | **`full`** (完整版 21 张) · **`premium`** (珍藏版经典 16 张，2–4 人) |
 | **Play UI** | BGA-style DOM table (`LoveLetterTable` + `ui/bga/*`), not Pixi |
-| **Card art** | `public/images/bbge/love-letter/*` from `public/downloads/love-letter-cards.zip` |
+| **Card art** | `public/images/bbge/love-letter/*` (Full Game filenames; Premium maps via `role`) |
 
 ---
 
 ## 1. Goal
 
-From The Game Shelf Love Letter rules page → **开始游戏** (first action in
-`GameHeader`) → Host creates a room → friends join via shareable link **or**
-hotseat / local AI → finish **one round** and declare a winner.
+From The Game Shelf Love Letter **or** Premium rules page → **开始游戏**
+(first action in `GameHeader`, with **edition picker**) → Host creates a room →
+friends join via shareable link **or** hotseat / local AI → finish **one round**
+and declare a winner (with 比点 standings).
 
 ---
 
@@ -27,159 +28,92 @@ hotseat / local AI → finish **one round** and declare a winner.
 | Topic | Choice |
 |-------|--------|
 | Approach | **A** — Shelf shell + `bbge/*` + PeerJS signaling + WebRTC data channel |
-| First plugin | `love-letter` |
+| Plugin | Single `love-letter` plugin; `edition` in createGame config |
 | Match length | **One round ends the match** (no favor-token multi-round for v1) |
 | Multiplayer | Host + share-link join; also Host-only hotseat |
-| AI | Host **`AiSeat`**: DeepSeek **`deepseek-v4-flash`** for **play Actions** + optional **`speak`**; mock heuristic without key |
-| Table talk | Humans chat; AI may include `speak` in Action JSON — else first-person play bubble as fallback |
+| AI | Host **`AiSeat`**: DeepSeek **`deepseek-v4-flash`** for Actions + optional **`speak`** |
+| Table talk | Humans chat; AI may include `speak` in Action JSON — else event bubble fallback |
 | Replay tools | **Out of scope** |
-| UI entry | `content/games/love-letter/play.json` → `hasPlay` → `/[locale]/games/love-letter/play/` |
+| UI entry | `play.json` + editions → `/[locale]/games/<slug>/play/?edition=` |
 | Homepage | Cards with `hasPlay` show **即刻开玩** / Play Now |
 
 ---
 
-## 3. Scope
+## 3. Editions
 
-### 3.1 In (shipped)
+| `edition` | Content slug(s) | Deck | Players | Notes |
+|-----------|-----------------|------|---------|--------|
+| `full` | `love-letter` (default) | 21 cards, Spy 0 … Princess 9 | 2–6 | Chancellor pending; spy favor at end; hand-tie → all win |
+| `premium` | `love-letter-premium` (default) | Classic **16** cards, Guard 1 … Princess 8 | 2–4 | No Spy/Chancellor; hand-tie → **discard-sum** then all win |
 
-- `play.json` + Play button **first** in `GameHeader` + homepage Play Now chip
-- `bbge`: core, runtime, network (PeerJS), ai, ui (`PlayShell` / lobby)
-- Plugin: Full Game deal / play / targets / guesses / eliminate / single-round victory
-- Pending flows: **Chancellor** resolve; **Priest** peek confirm (`acknowledgePriest`)
-- After each completed play, next seat **draws immediately** (UI always shows a full hand)
-- Lobby: seats, invite link, add hotseat / AI, ready, start
-- `projectView`: private hands; public discards; priest rank only for peeker
-- Host UI only shows **local** human seats (never AI / remote hands); pass-and-play switches among local seats only
-- Finished match: Host **再来一局** keeps seats, new seed, redeals (`HostSession.rematch`); end UI shows **比点** standings (hand ranks / last standing / spy favor)
-- Play log + table chat keep **full match history** (panels scroll; page does not)
-- Determinism + illegal-action + priest-reveal tests (`npm run test:bbge`)
-- AI pacing (min think UI + gap between seats); LLM **idle** timeout ~90s (resets on stream progress)
-- Ephemeral local fallback on LLM idle/timeout / illegal action — **does not** permanently replace LLM seat
+**Out of this play slice:** Premium **5–8 / 32-card** expansion roles (Bishop, Assassin, etc.).
 
-### 3.2 Out
-
-- Replay viewer / replay tooling UI
-- Favor tokens / multi-round match
-- Spectators, matchmaking, ranked, cloud save
-- Host migration; rich disconnect recovery (v1: best-effort same-room rejoin)
-- Second game plugin, marketplace, hot-load arbitrary plugins
-- Pixi play table (legacy code may remain under `ui/pixi/*`; not the active path)
+Effects use stable **`role`** on each card (`guard`, `king`, …) so Premium rank numbers do not break Full Game art / logic.
 
 ---
 
-## 4. Architecture
+## 4. Scope
+
+### 4.1 In (shipped)
+
+- `play.json` with `editions[]` on both family slugs; **开始游戏** dropdown chooses version
+- Plugin: deal / play / targets / guesses / eliminate / chancellor (full) / priest ack / single-round victory
+- End UI: merged status + **比点** table; full play log + chat history (panel scroll only)
+- Viewport-locked play page (no document scrollbar); lobby seats scroll inside panel
+- Privacy: Host UI projects **local human** seats only
+- Rematch: same seats + edition, new seed; clears chat
+- AI: flash model, thinking disabled for Action JSON, optional `speak`, idle timeout ~90s
+
+### 4.2 Out
+
+- Replay tools, favor multi-round, Premium 32-card, second unrelated plugin, Pixi table
+
+---
+
+## 5. Architecture
 
 ```
-Game Shelf                              bbge/
-├─ GameHeader [开始游戏] …              ├─ core / runtime / sync
-├─ /games/love-letter/play/  ─────────►├─ network (PeerJS + WebRTC)
-│    PlayPageClient → PlayShell         ├─ ui (PlayShell, LobbyView)
-│                                       ├─ ai (mock + DeepSeek seat via Shelf)
-└─ content/.../play.json                └─ plugins/love-letter
-     { "pluginId": "love-letter", … }        rules + LoveLetterTable (BGA UI)
+GameHeader [开始游戏 ▾ editions]
+  → /games/<slug>/play/?edition=full|premium
+       PlayPageClient → PlayShell(edition)
+         HostSession gameConfig: { edition }
+         love-letter plugin createGame
 ```
 
 | Boundary | Rule |
 |----------|------|
-| Shelf `play/page` | Mount generic `PlayShell`; `pluginId` from `play.json` |
-| Registry | `loveLetterPlayModule` registered in `registerPlayPlugins.ts` |
-| Runtime | Lifecycle, Host pipeline, seat scheduling |
-| Plugin | Pure rules; no network / DeepSeek |
-| Plugin UI | `LoveLetterTable` via `PluginPlayModule.Table` |
-| AiSeat | Host only; `llmSeats.ts` → flash Action seat + module mock |
-| Network | Transports action / events / view / lobby / chat / aiPresence |
-
-See: skill [architecture.md §9](../../.cursor/skills/browser-board-game-engine/architecture.md), [§11](../../.cursor/skills/browser-board-game-engine/architecture.md), [plugin-api.md §16](../../.cursor/skills/browser-board-game-engine/plugin-api.md).
+| Shelf | `PlayStartButton` + `play.json.editions`; route passes `edition` |
+| Runtime | `HostSession` merges `gameConfig` into `createGame` |
+| Plugin | Pure rules; `state.edition`; roles on cards |
+| AiSeat | Host only; prompt reads `view.edition` |
 
 ---
 
-## 5. Room & data flow
+## 6. Content bind
 
-### 5.1 Lobby
-
-1. Host opens `/play/` → room id + PeerJS host
-2. Guest opens `?room=` → join + hello
-3. Host may add hotseat humans / AI; start → `createGame` + seed → Playing
-
-### 5.2 Playing
-
-```
-Guest / hotseat UI → Action → HostSession
-  → prepareTurn → validate → apply → Events + views → tick UI
-  → (pending chancellor / priestReveal may pause turn advance)
-
-AI turn (Host):
-  thinking on → LLM think Action (+ optional speak) or mock → submit Action
-  → push chat: LLM speak, else event bubble (e.g. 「打出守卫，我猜 X 是「伯爵夫人」。」)
-```
-
-### 5.3 Actions (plugin)
-
-| Action | When |
-|--------|------|
-| `playCard` | Normal turn — `cardId`, optional `targetId` / `guessRank` |
-| `resolveChancellor` | Pending chancellor — `keepCardId` + `bottomOrderIds` (length = remaining held) |
-| `acknowledgePriest` | Pending priest reveal — peeker confirms before turn advances |
-
-### 5.4 Failure modes
-
-| Case | Behavior |
-|------|----------|
-| Illegal Action | Reject + error banner; state unchanged |
-| LLM timeout / bad JSON | Log warn; **this turn** mock decision; LLM seat kept for next turn |
-| No API key + AI seats | Allowed — mock AI plays (silent) |
-| Host closes tab | Room ends (no migration) |
-
-**Trust (v1):** Host trusted; private cards only in peeker / owner views.
-
----
-
-## 6. UI (BGA-style)
-
-### 6.1 Layout
-
-| Region | Content |
-|--------|---------|
-| Top chrome | Title, deck count |
-| Status bar | Whose turn / what to do next |
-| Left | Player panels (discard fan, no scrollbar) |
-| Center | Felt + hand dock + actions |
-| Right | Recent game log + table talk (clipped recent lines, no scroll) |
-
-Code: `bbge/plugins/love-letter/src/ui/LoveLetterTable.tsx` + `ui/bga/*`  
-Lobby: `bbge/ui/src/LobbyView.tsx` (BGA-ish waiting room)
-
-### 6.2 Interaction
-
-1. Click hand card (悬停抬起 / 选中高亮)
-2. If needed: click **player panel** to target (Prince may target self)
-3. Guard: pick guess rank chips → **打出此牌**
-4. Chancellor: pick center card → confirm keep
-5. Priest: modal shows peeked card → **我看完了，确认** (turn does not advance until then)
-6. **大图** on cards / discard strip / peek modal
-7. Motion: draw fly-in; play fly-to-felt (human + AI land)
-
-### 6.3 Content bind
+`content/games/love-letter/play.json` and `love-letter-premium/play.json`:
 
 ```json
 {
   "pluginId": "love-letter",
-  "pluginVersion": "0.1.0"
+  "pluginVersion": "0.1.0",
+  "defaultEdition": "full",
+  "editions": [
+    { "id": "full", "label": { "en": "…", "zh": "…" }, "default": true },
+    { "id": "premium", "label": { "en": "…", "zh": "…" } }
+  ]
 }
 ```
 
-Path: `content/games/love-letter/play.json`.
-
 ---
 
-## 7. AiSeat
+## 7. Actions
 
-- Game-agnostic Host runner; plugins never call DeepSeek
-- Shelf: `DeepSeekLoveLetterSeat` uses **`deepseek-v4-flash`** + chat `loadApiKey`
-- Purpose: LLM outputs legal **Actions** (play / chancellor) and optional **`speak`** table talk
-- Fallback speech: plugin event bubble text when `speak` omitted
-- Mock: `bbge/ai` heuristic fallback; LLM idle timeout ~90s (ping on each stream chunk)
-- Priest pending for AI: short “look” delay then `acknowledgePriest` (no LLM)
+| Action | When |
+|--------|------|
+| `playCard` | Normal turn — `cardId`, optional `targetId` / `guessRank` |
+| `resolveChancellor` | Full edition only — pending chancellor |
+| `acknowledgePriest` | Pending priest reveal |
 
 ---
 
@@ -189,30 +123,12 @@ Path: `content/games/love-letter/play.json`.
 npm run test:bbge
 ```
 
-Coverage includes determinism autopilot (chancellor + priest ack), illegal card, projectView privacy, priest reveal confirm, HostSession finish fixture.
+Includes determinism, priest reveal, privacy, **premium deck / player caps**, round-end standings.
 
 ---
 
-## 9. Success criteria
+## 9. Deferred
 
-- Host hotseat and/or AI can finish a single Full Game round
-- Priest peek requires human confirm; discards visible per seat
-- LLM seats can think without false permanent fallback to mock
-- Play CTA first in header; homepage Play Now when `hasPlay`
-
----
-
-## 10. Deferred (post-v1)
-
-- Replay tools, spectators, host migration, robust reconnect
+- Premium 32-card (5–8) roles and mid-round favor tokens
 - Favor-token multi-round matches
-- Public TURN / self-hosted signaling
-- Second plugin; AI difficulty tiers
-- Matchmaking / workshop
-
----
-
-## 11. Implementation refs
-
-- Skill: [BBGE SKILL.md](../../.cursor/skills/browser-board-game-engine/SKILL.md)
-- Packages: `bbge/core`, `bbge/runtime`, `bbge/network`, `bbge/ai`, `bbge/ui`, `bbge/plugins/love-letter`
+- Replay / spectators / host migration

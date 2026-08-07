@@ -13,6 +13,8 @@ export interface PlayShellProps {
   slug: string;
   gameName: string;
   pluginId: string;
+  /** Love Letter: full | premium (classic 16). Passed into createGame. */
+  edition?: string;
   roomIdFromUrl?: string | null;
   loadApiKey: () => Promise<string | null>;
   /** Shelf-provided LLM seat factory for this plugin (Action + optional speak). */
@@ -122,12 +124,14 @@ export function PlayShell({
   locale,
   gameName,
   pluginId,
+  edition = "full",
   roomIdFromUrl,
   loadApiKey,
   createDeepSeekSeat,
 }: PlayShellProps) {
   const mod = useMemo(() => requirePlayModule(pluginId), [pluginId]);
   const isHost = !roomIdFromUrl;
+  const maxSeats = edition === "premium" ? 4 : 6;
   const hostId = useMemo(() => "host", []);
   const [roomId, setRoomId] = useState(roomIdFromUrl ?? "");
   const [error, setError] = useState<string | null>(null);
@@ -231,6 +235,7 @@ export function PlayShell({
       seed: newSeed(),
       hostPlayerId: hostId,
       canStartAi: async () => true,
+      gameConfig: { edition },
     });
     session.addHumanSeat(hostId, displayName);
     session.setReady(hostId, true);
@@ -302,7 +307,7 @@ export function PlayShell({
       llmSeatIdsRef.current.clear();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHost, pluginId]);
+  }, [isHost, pluginId, edition]);
 
   useEffect(() => {
     if (isHost || !roomIdFromUrl) return;
@@ -574,6 +579,14 @@ export function PlayShell({
   const onAddAi = () => {
     const s = sessionRef.current;
     if (!s) return;
+    if (s.getLobby().seats.length >= maxSeats) {
+      setError(
+        locale === "zh"
+          ? `该版本最多 ${maxSeats} 人`
+          : `This edition allows at most ${maxSeats} players`,
+      );
+      return;
+    }
     const n = s.getLobby().seats.filter((x) => x.kind === "ai").length + 1;
     const id = `ai-${n}`;
     s.addAiSeat(id, locale === "zh" ? `AI ${n}` : `AI ${n}`);
@@ -583,6 +596,14 @@ export function PlayShell({
   const onAddHotseat = () => {
     const s = sessionRef.current;
     if (!s) return;
+    if (s.getLobby().seats.length >= maxSeats) {
+      setError(
+        locale === "zh"
+          ? `该版本最多 ${maxSeats} 人`
+          : `This edition allows at most ${maxSeats} players`,
+      );
+      return;
+    }
     const n = s.getLobby().seats.length;
     const id = `p-${n}`;
     s.addHumanSeat(id, `${locale === "zh" ? "玩家" : "Player"} ${n}`);
@@ -709,6 +730,16 @@ export function PlayShell({
               sessionRef.current?.setReady(hostId, true);
               tick();
             }}
+            editionLabel={
+              edition === "premium"
+                ? locale === "zh"
+                  ? "珍藏版"
+                  : "Premium"
+                : locale === "zh"
+                  ? "完整版"
+                  : "Full Game"
+            }
+            maxSeats={maxSeats}
           />
         </div>
       )}

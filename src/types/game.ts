@@ -137,9 +137,20 @@ export interface Game {
   flow: FlowData | null;
 }
 
+export interface PlayEdition {
+  id: string;
+  label: Record<"en" | "zh", string>;
+  /** When true (or first listed), used if URL has no ?edition= */
+  default?: boolean;
+}
+
 export interface PlayConfig {
   pluginId: string;
   pluginVersion?: string;
+  /** Preferred edition id when opening /play without query */
+  defaultEdition?: string;
+  /** Optional edition picker on 开始游戏 (e.g. Love Letter full vs premium) */
+  editions?: PlayEdition[];
 }
 
 export interface GameSummary {

@@ -1,5 +1,5 @@
 import type { PlayerId } from "@bbge/core";
-import type { Card } from "./cards";
+import type { Card, LoveLetterEdition } from "./cards";
 
 export interface LoveLetterPlayer {
   id: PlayerId;
@@ -33,6 +33,8 @@ export interface LoveLetterState {
   schemaVersion: 1;
   pluginId: "love-letter";
   seed: string;
+  /** full = 21-card Full Game; premium = classic 16-card Premium (2–4) */
+  edition: LoveLetterEdition;
   phase: "playing" | "finished";
   players: LoveLetterPlayer[];
   turnOrder: PlayerId[];
@@ -51,6 +53,8 @@ export interface LoveLetterConfig {
   playerIds: PlayerId[];
   playerNames: Record<string, string>;
   seed?: string;
+  /** Defaults to full when omitted */
+  edition?: LoveLetterEdition;
 }
 
 export type LoveLetterAction =

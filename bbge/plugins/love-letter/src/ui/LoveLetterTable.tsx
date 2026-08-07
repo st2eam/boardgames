@@ -15,9 +15,14 @@ import { PlayerPanels, type SeatBubble } from "./bga/PlayerPanels";
 
 type ZoomCard = {
   rank: number;
+  role?: string;
   name?: { en: string; zh: string };
   subtitle?: string;
 };
+
+function cardRole(c: { rank: number; role?: string } | null | undefined): string {
+  return c?.role ?? "";
+}
 
 const BUBBLE_MS = 4200;
 
@@ -38,6 +43,8 @@ export function LoveLetterTable({
   const dispatch = (action: LoveLetterAction) => onAction(action as Action);
   const view = viewUnknown as ArenaView;
   const zh = locale === "zh";
+  const edition = view.edition === "premium" ? "premium" : "full";
+  const maxGuess = edition === "premium" ? 8 : 9;
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
   const [selectedTargetId, setSelectedTargetId] = useState<string | null>(null);
   const [guessRank, setGuessRank] = useState(9);
@@ -147,9 +154,14 @@ export function LoveLetterTable({
     );
   }, [selectedCardId, view.you?.hand, view.pending]);
 
+  const selectedRole = cardRole(selected);
   const needsTarget =
-    selected != null && [1, 2, 3, 5, 7].includes(selected.rank);
-  const needsGuess = selected?.rank === 1;
+    selected != null &&
+    ["guard", "priest", "baron", "prince", "king"].includes(selectedRole);
+  const needsGuess = selectedRole === "guard";
+  useEffect(() => {
+    setGuessRank(maxGuess);
+  }, [maxGuess]);
   const canPlay =
     interactive &&
     selectedCardId &&
@@ -338,6 +350,7 @@ export function LoveLetterTable({
     if (animBusy) return;
     setFlyPlay({
       rank: lastDiscard!.rank,
+      role: lastDiscard!.role,
       name: lastDiscard!.name,
       subtitle: zh ? "出牌" : "Played",
     });
@@ -369,6 +382,7 @@ export function LoveLetterTable({
         <CardLightbox
           locale={locale}
           rank={zoom.rank}
+          role={zoom.role}
           name={zoom.name}
           subtitle={zoom.subtitle}
           onClose={() => setZoom(null)}
@@ -378,7 +392,13 @@ export function LoveLetterTable({
       {/* Top chrome — BGA-like title strip */}
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-[#3E2723]/15 bg-[#5D4037] px-4 py-2.5 text-amber-50">
         <p className="font-heading text-sm font-bold tracking-wide">
-          {zh ? "情书 · 在线桌" : "Love Letter · Table"}
+          {zh
+            ? edition === "premium"
+              ? "情书珍藏版 · 在线桌"
+              : "情书完整版 · 在线桌"
+            : edition === "premium"
+              ? "Love Letter Premium · Table"
+              : "Love Letter Full · Table"}
         </p>
         <div className="flex flex-wrap items-center gap-3 text-xs text-amber-100/85">
           <span>
@@ -543,7 +563,7 @@ export function LoveLetterTable({
                     exit={{ opacity: 0 }}
                   >
                     <motion.img
-                      src={cardFaceUrl(flyPlay.rank)}
+                      src={cardFaceUrl(flyPlay.rank, flyPlay.role)}
                       alt=""
                       className="h-[168px] w-[118px] rounded-xl border-2 border-accent object-cover shadow-2xl"
                       initial={{ y: 140, scale: 0.7, rotate: -8, opacity: 0.4 }}
@@ -590,12 +610,14 @@ export function LoveLetterTable({
                           key={c.id}
                           locale={locale}
                           rank={c.rank}
+                          role={c.role}
                           name={c.name}
                           size="md"
                           disabled
                           onZoom={() =>
                             setZoom({
                               rank: c.rank,
+                              role: c.role,
                               name: c.name,
                               subtitle: zh ? "公开牌" : "Face-up",
                             })
@@ -618,6 +640,7 @@ export function LoveLetterTable({
                           key={c.id}
                           locale={locale}
                           rank={c.rank}
+                          role={c.role}
                           name={c.name}
                           size="lg"
                           selected={selectedCardId === c.id}
@@ -665,12 +688,14 @@ export function LoveLetterTable({
                         <CardTile
                           locale={locale}
                           rank={lastDiscard.rank}
+                          role={lastDiscard.role}
                           name={lastDiscard.name}
                           size="lg"
                           disabled
                           onZoom={() =>
                             setZoom({
                               rank: lastDiscard.rank,
+                              role: lastDiscard.role,
                               name: lastDiscard.name,
                               subtitle: zh ? "最近弃牌" : "Last discard",
                             })
@@ -719,6 +744,7 @@ export function LoveLetterTable({
                         <CardTile
                           locale={locale}
                           rank={c.rank}
+                          role={c.role}
                           name={c.name}
                           size="xl"
                           selected={selectedCardId === c.id}
@@ -729,6 +755,7 @@ export function LoveLetterTable({
                           }}
                           onZoom={() =>
                             setZoom({
+                              role: c.role,
                               rank: c.rank,
                               name: c.name,
                               subtitle: zh ? "你的手牌" : "Your hand",
@@ -750,7 +777,7 @@ export function LoveLetterTable({
               {/* Action row */}
               <div className="mt-2 flex flex-col gap-2 border-t border-border pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                 <div className="flex flex-wrap items-center gap-1.5">
-                  {needsTarget && selected?.rank === 5 && (
+                  {needsTarget && selectedRole === "prince" && (
                     <button
                       type="button"
                       onClick={() => setSelectedTargetId(actorId)}
@@ -764,7 +791,9 @@ export function LoveLetterTable({
                     </button>
                   )}
                   {needsGuess &&
-                    [0, 2, 3, 4, 5, 6, 7, 8, 9].map((r) => (
+                    Array.from({ length: maxGuess }, (_, i) => i).filter(
+                      (r) => r !== 1,
+                    ).map((r) => (
                       <button
                         key={r}
                         type="button"

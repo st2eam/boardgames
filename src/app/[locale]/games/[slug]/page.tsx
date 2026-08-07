@@ -59,6 +59,7 @@ export default async function GamePage({ params }: Props) {
   const gameName = game.meta.name[locale as "en" | "zh"] ?? game.meta.name.en;
 
   const trainerConfig = await GameRepository.getTrainerConfig(slug);
+  const playConfig = await GameRepository.getPlayConfig(slug);
   const cover = getCoverImageUrl(slug);
   const pageUrl = absoluteUrl(`/${locale}/games/${slug}/`);
 
@@ -97,6 +98,7 @@ export default async function GamePage({ params }: Props) {
           <GameHeader
             meta={game.meta}
             hasPlay={GameRepository.hasPlayConfig(slug)}
+            playConfig={playConfig}
             hasFlow={game.flow !== null}
             hasScore={GameRepository.hasScoreConfig(slug)}
             hasTrainer={GameRepository.hasTrainerConfig(slug)}

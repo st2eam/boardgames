@@ -5,6 +5,7 @@ import { cardFaceUrl, cardLabel } from "../cardArt";
 type Card = {
   id: string;
   rank: number;
+  role?: string;
   name?: { en: string; zh: string };
 };
 
@@ -51,7 +52,7 @@ export function DiscardStrip({ locale, cards, onZoom, compact }: Props) {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={cardFaceUrl(c.rank)}
+            src={cardFaceUrl(c.rank, c.role)}
             alt={cardLabel(c, locale)}
             className="h-full w-full object-cover"
             draggable={false}

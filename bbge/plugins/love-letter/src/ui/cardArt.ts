@@ -1,3 +1,5 @@
+import { artRankForRole, type CardRole } from "../cards";
+
 const RANK_FILES: Record<number, string> = {
   0: "0-spy.png",
   1: "1-guard.png",
@@ -12,14 +14,22 @@ const RANK_FILES: Record<number, string> = {
 };
 
 function basePath(): string {
-  if (typeof window !== "undefined" && window.location.pathname.startsWith("/boardgames")) {
+  if (
+    typeof window !== "undefined" &&
+    window.location.pathname.startsWith("/boardgames")
+  ) {
     return "/boardgames";
   }
   return "";
 }
 
-export function cardFaceUrl(rank: number): string {
-  const file = RANK_FILES[rank] ?? RANK_FILES[1]!;
+/** Prefer role so Premium ranks still use Full Game art files. */
+export function cardFaceUrl(rank: number, role?: string): string {
+  const artRank =
+    role && artRankForRole(role as CardRole) != null
+      ? artRankForRole(role as CardRole)
+      : rank;
+  const file = RANK_FILES[artRank] ?? RANK_FILES[1]!;
   return `${basePath()}/images/bbge/love-letter/${file}`;
 }
 

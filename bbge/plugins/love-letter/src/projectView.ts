@@ -1,5 +1,5 @@
 import type { PlayerId } from "@bbge/core";
-import { RANK_NAME } from "./cards";
+import { rankName } from "./cards";
 import { buildRoundEndPayload } from "./rules";
 import type { LoveLetterState } from "./state";
 
@@ -10,9 +10,18 @@ export function projectLoveLetterView(
   const you = viewerId ? state.players.find((p) => p.id === viewerId) : null;
   const finished = state.phase === "finished";
   const end = finished ? buildRoundEndPayload(state) : null;
+  const ed = state.edition;
+
+  const named = (c: { id: string; rank: number; role?: string }) => ({
+    id: c.id,
+    rank: c.rank,
+    role: c.role,
+    name: rankName(ed, c.rank),
+  });
 
   return {
     phase: state.phase,
+    edition: ed,
     winners: state.winners,
     spyBonus: state.spyBonus,
     endReason: end?.reason ?? null,
@@ -20,16 +29,10 @@ export function projectLoveLetterView(
       ? end.standings.map((s) => ({
           ...s,
           handName:
-            s.handRank != null
-              ? RANK_NAME[s.handRank as keyof typeof RANK_NAME]
-              : null,
+            s.handRank != null ? rankName(ed, s.handRank) : null,
         }))
       : [],
-    faceUp: state.faceUp.map((c) => ({
-      id: c.id,
-      rank: c.rank,
-      name: RANK_NAME[c.rank],
-    })),
+    faceUp: state.faceUp.map(named),
     deckCount: state.deck.length + (state.burn ? 1 : 0),
     currentPlayerId: state.turnOrder[state.currentIndex],
     pending: state.pending
@@ -39,11 +42,7 @@ export function projectLoveLetterView(
             playerId: state.pending.playerId,
             held:
               viewerId === state.pending.playerId
-                ? state.pending.held.map((c) => ({
-                    id: c.id,
-                    rank: c.rank,
-                    name: RANK_NAME[c.rank],
-                  }))
+                ? state.pending.held.map(named)
                 : state.pending.held.map((c) => ({ id: c.id })),
           }
         : {
@@ -53,7 +52,7 @@ export function projectLoveLetterView(
             ...(viewerId === state.pending.playerId
               ? {
                   rank: state.pending.rank,
-                  name: RANK_NAME[state.pending.rank as keyof typeof RANK_NAME],
+                  name: rankName(ed, state.pending.rank),
                 }
               : {}),
           }
@@ -61,11 +60,7 @@ export function projectLoveLetterView(
     you: you
       ? {
           id: you.id,
-          hand: you.hand.map((c) => ({
-            id: c.id,
-            rank: c.rank,
-            name: RANK_NAME[c.rank],
-          })),
+          hand: you.hand.map(named),
           eliminated: you.eliminated,
           protected: you.protected,
           seen: you.seen,
@@ -77,32 +72,13 @@ export function projectLoveLetterView(
         id: p.id,
         name: p.name,
         handCount: p.hand.length,
-        // Reveal final hand when the round is over (比点)
         ...(finished && !p.eliminated && p.hand[0]
-          ? {
-              hand: [
-                {
-                  id: p.hand[0].id,
-                  rank: p.hand[0].rank,
-                  name: RANK_NAME[p.hand[0].rank],
-                },
-              ],
-            }
+          ? { hand: [named(p.hand[0])] }
           : {}),
-        discarded: p.discarded.map((c) => ({
-          id: c.id,
-          rank: c.rank,
-          name: RANK_NAME[c.rank],
-        })),
+        discarded: p.discarded.map(named),
         eliminated: p.eliminated,
         protected: p.protected,
       })),
-    selfDiscarded: you
-      ? you.discarded.map((c) => ({
-          id: c.id,
-          rank: c.rank,
-          name: RANK_NAME[c.rank],
-        }))
-      : [],
+    selfDiscarded: you ? you.discarded.map(named) : [],
   };
 }

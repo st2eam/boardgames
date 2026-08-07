@@ -5,6 +5,7 @@ import { cardBackUrl, cardFaceUrl, cardLabel } from "../cardArt";
 interface Props {
   locale: string;
   rank?: number;
+  role?: string;
   name?: { en: string; zh: string };
   faceDown?: boolean;
   subtitle?: string;
@@ -14,13 +15,14 @@ interface Props {
 export function CardLightbox({
   locale,
   rank = 0,
+  role,
   name,
   faceDown,
   subtitle,
   onClose,
 }: Props) {
   const zh = locale === "zh";
-  const src = faceDown ? cardBackUrl() : cardFaceUrl(rank);
+  const src = faceDown ? cardBackUrl() : cardFaceUrl(rank, role);
   const label = faceDown
     ? zh
       ? "牌背"

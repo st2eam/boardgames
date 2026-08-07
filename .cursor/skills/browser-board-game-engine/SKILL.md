@@ -123,9 +123,9 @@ docs/
 ```
 
 **UI entry (normative):** embed in The Game Shelf game page action row
-(`GameHeader`), parallel to Flow / Score / Trainer / Calculator → route
-`/[locale]/games/[slug]/play/`, gated by `content/games/<slug>/play.json`.
-Details: [architecture.md §9](architecture.md).
+(`GameHeader`) as the **first** button, then Flow / Score / Trainer /
+Calculator → route `/[locale]/games/[slug]/play/`, gated by
+`content/games/<slug>/play.json`. Details: [architecture.md §9](architecture.md).
 
 Scaffold engine code under `bbge/` or `packages/`; wire only `hasPlay` + play
 page + i18n into `src/` / `content/` when adding a playable game.

@@ -345,26 +345,30 @@ group as Flow / Score / Trainer / Calculator.
 
 Implementation target today: `src/components/game/GameHeader.tsx`.
 
-Current peers (order to preserve; Play sits with them):
+Button order in `GameHeader` (left → right). **Play is always first** among
+feature actions when `hasPlay` is true:
 
-| Flag | Route | i18n (zh examples) |
-|------|-------|-------------------|
-| `hasFlow` | `/[locale]/games/[slug]/flow/` | 交互式流程 |
-| `hasScore` | `/[locale]/games/[slug]/score/` | 计分器 |
-| `hasTrainer` | `/[locale]/games/[slug]/trainer/` | 训练器… |
-| `hasCalculator` | `/[locale]/games/[slug]/calculator/` | 番符计算器 |
-| **`hasPlay`** | **`/[locale]/games/[slug]/play/`** | **开始游戏 / Play** (new) |
+| Order | Flag | Route | i18n (zh examples) |
+|------:|------|-------|-------------------|
+| 1 | **`hasPlay`** | **`/[locale]/games/[slug]/play/`** | **开始游戏 / Play** |
+| 2 | `hasFlow` | `/[locale]/games/[slug]/flow/` | 交互式流程 |
+| 3 | `hasScore` | `/[locale]/games/[slug]/score/` | 计分器 |
+| 4 | `hasTrainer` | `/[locale]/games/[slug]/trainer/` | 训练器… |
+| 5 | `hasCalculator` | `/[locale]/games/[slug]/calculator/` | 番符计算器 |
+| last | — | — | Export (unchanged) |
 
 ```
 Game page header actions:
 
-[ 交互式流程 ] [ 计分器 ] [ 训练器? ] [ 计算器? ] [ 开始游戏 ] [ Export ]
-     flow          score      trainer    calculator     play ★
+[ 开始游戏 ] [ 交互式流程 ] [ 计分器 ] [ 训练器? ] [ 计算器? ] [ Export ]
+    play ★        flow          score      trainer    calculator
 ```
 
 - Only render the Play button when the game has a BBGE plugin binding (`hasPlay`).
-- Style: match existing accent / bordered button language; do not invent a
-  parallel chrome system. Apply UI companion skills when polishing.
+- When implementing `GameHeader`, render the Play `Link` **before** Flow/Score/…
+  — do not append it after Calculator.
+- Style: primary/accent CTA for Play (strongest in the row); peers keep existing
+  bordered styles. Apply UI companion skills when polishing.
 - Optional later: homepage `GameCard` functional chip (same pattern as
   `viewFlow` / `scoreTracker`).
 

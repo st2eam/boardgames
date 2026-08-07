@@ -466,8 +466,9 @@ To show **开始游戏** on the rules site, add alongside other feature configs:
 content/games/<slug>/play.json  →  { "pluginId": "<plugin-id>", "pluginVersion": "…" }
 ```
 
-Button lives in `GameHeader` next to Flow / Score; route is
-`/[locale]/games/[slug]/play/`. See [architecture.md §9](architecture.md).
+Button lives in `GameHeader` as the **first** feature action (before Flow /
+Score); route is `/[locale]/games/[slug]/play/`. See
+[architecture.md §9](architecture.md).
 
 ---
 

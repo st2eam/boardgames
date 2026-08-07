@@ -1,5 +1,6 @@
 import type { PlayerId } from "@bbge/core";
 import { RANK_NAME } from "./cards";
+import { buildRoundEndPayload } from "./rules";
 import type { LoveLetterState } from "./state";
 
 export function projectLoveLetterView(
@@ -7,11 +8,28 @@ export function projectLoveLetterView(
   viewerId: PlayerId | null,
 ) {
   const you = viewerId ? state.players.find((p) => p.id === viewerId) : null;
+  const finished = state.phase === "finished";
+  const end = finished ? buildRoundEndPayload(state) : null;
+
   return {
     phase: state.phase,
     winners: state.winners,
     spyBonus: state.spyBonus,
-    faceUp: state.faceUp.map((c) => ({ id: c.id, rank: c.rank, name: RANK_NAME[c.rank] })),
+    endReason: end?.reason ?? null,
+    standings: end
+      ? end.standings.map((s) => ({
+          ...s,
+          handName:
+            s.handRank != null
+              ? RANK_NAME[s.handRank as keyof typeof RANK_NAME]
+              : null,
+        }))
+      : [],
+    faceUp: state.faceUp.map((c) => ({
+      id: c.id,
+      rank: c.rank,
+      name: RANK_NAME[c.rank],
+    })),
     deckCount: state.deck.length + (state.burn ? 1 : 0),
     currentPlayerId: state.turnOrder[state.currentIndex],
     pending: state.pending
@@ -59,6 +77,18 @@ export function projectLoveLetterView(
         id: p.id,
         name: p.name,
         handCount: p.hand.length,
+        // Reveal final hand when the round is over (比点)
+        ...(finished && !p.eliminated && p.hand[0]
+          ? {
+              hand: [
+                {
+                  id: p.hand[0].id,
+                  rank: p.hand[0].rank,
+                  name: RANK_NAME[p.hand[0].rank],
+                },
+              ],
+            }
+          : {}),
         discarded: p.discarded.map((c) => ({
           id: c.id,
           rank: c.rank,

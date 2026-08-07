@@ -3,6 +3,7 @@ import {
   applyLoveLetterAction,
   checkLoveLetterVictory,
   createLoveLetterState,
+  finishRound,
   validateLoveLetterAction,
 } from "./rules";
 import { projectLoveLetterView } from "./projectView";
@@ -28,17 +29,7 @@ export function prepareLoveLetterTurn(
       draft.burn = null;
     }
     if (!card) {
-      draft.phase = "finished";
-      const living = draft.players.filter((p) => !p.eliminated);
-      let best = -1;
-      for (const p of living) best = Math.max(best, p.hand[0]?.rank ?? -1);
-      draft.winners = living
-        .filter((p) => (p.hand[0]?.rank ?? -1) === best)
-        .map((p) => p.id);
-      events.push({
-        type: "loveLetter/roundEnded",
-        payload: { winners: draft.winners, spyBonus: [] },
-      });
+      finishRound(draft, events);
       return;
     }
     me.hand.push(card);

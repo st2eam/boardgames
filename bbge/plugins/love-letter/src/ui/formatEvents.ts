@@ -246,15 +246,73 @@ export function formatLoveLetterEvents(
           ? `${nameOf(String(p.playerId), names)} 大臣结算完毕`
           : `${nameOf(String(p.playerId), names)} resolved Chancellor`;
         break;
-      case "loveLetter/roundEnded":
-      case "WinnerDeclared": {
+      case "loveLetter/roundEnded": {
         const winners = (p.winners as string[] | undefined) ?? [];
-        text = zh
-          ? `本局结束 · 胜者 ${winners.map((id) => nameOf(id, names)).join("、") || "—"}`
-          : `Round over · ${winners.map((id) => nameOf(id, names)).join(", ") || "—"}`;
+        const spyBonus = (p.spyBonus as string[] | undefined) ?? [];
+        const reason = p.reason as string | undefined;
+        const standings = (p.standings as
+          | {
+              playerId: string;
+              eliminated: boolean;
+              handRank: number | null;
+              won: boolean;
+              spyFavor: boolean;
+            }[]
+          | undefined) ?? [];
+        const reasonZh =
+          reason === "last_standing"
+            ? "仅剩一人"
+            : reason === "hand_compare"
+              ? "牌堆耗尽 · 比点"
+              : "本局结束";
+        const reasonEn =
+          reason === "last_standing"
+            ? "last player standing"
+            : reason === "hand_compare"
+              ? "deck empty · compare hands"
+              : "round over";
+        const lines: string[] = [
+          zh
+            ? `${reasonZh} · 胜者 ${winners.map((id) => nameOf(id, names)).join("、") || "—"}`
+            : `${reasonEn} · ${winners.map((id) => nameOf(id, names)).join(", ") || "—"}`,
+        ];
+        for (const s of standings) {
+          if (s.eliminated) {
+            lines.push(
+              zh
+                ? `· ${nameOf(s.playerId, names)}：已出局`
+                : `· ${nameOf(s.playerId, names)}: out`,
+            );
+          } else {
+            const card =
+              s.handRank != null ? rankName(s.handRank, zh) : "?";
+            const flags = [
+              s.won ? (zh ? "胜" : "win") : null,
+              s.spyFavor ? (zh ? "间谍好感" : "spy favor") : null,
+            ]
+              .filter(Boolean)
+              .join(" · ");
+            lines.push(
+              zh
+                ? `· ${nameOf(s.playerId, names)}：手牌 ${card}${flags ? `（${flags}）` : ""}`
+                : `· ${nameOf(s.playerId, names)}: ${card}${flags ? ` (${flags})` : ""}`,
+            );
+          }
+        }
+        if (spyBonus.length && !standings.some((s) => s.spyFavor)) {
+          lines.push(
+            zh
+              ? `间谍好感：${spyBonus.map((id) => nameOf(id, names)).join("、")}`
+              : `Spy favor: ${spyBonus.map((id) => nameOf(id, names)).join(", ")}`,
+          );
+        }
+        text = lines.join("\n");
         tone = "win";
         break;
       }
+      case "WinnerDeclared":
+        // Detail already logged on loveLetter/roundEnded
+        break;
       default:
         break;
     }

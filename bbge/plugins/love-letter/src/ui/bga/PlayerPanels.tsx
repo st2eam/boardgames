@@ -43,6 +43,7 @@ function Panel({
   selected,
   targetMode,
   seenRank,
+  revealedRank,
   bubble,
   onSelect,
   onZoomDiscard,
@@ -60,6 +61,8 @@ function Panel({
   selected: boolean;
   targetMode: boolean;
   seenRank?: number;
+  /** Final-hand reveal at round end */
+  revealedRank?: number;
   bubble?: SeatBubble | null;
   onSelect: () => void;
   onZoomDiscard?: (card: DiscCard, ownerName: string) => void;
@@ -137,22 +140,33 @@ function Panel({
                   : " · Prot."
                 : ""}
             </p>
-            {seenRank !== undefined && !eliminated && (
+            {seenRank !== undefined && !eliminated && revealedRank === undefined && (
               <p className="text-[10px] font-semibold text-violet-700">
                 {zh ? `偷看：${seenRank}` : `Peeked: ${seenRank}`}
               </p>
             )}
+            {revealedRank !== undefined && !eliminated && (
+              <p className="text-[10px] font-semibold text-amber-800">
+                {zh ? `终局：${revealedRank}` : `Final: ${revealedRank}`}
+              </p>
+            )}
           </div>
           <div className="mt-0.5 flex -space-x-1.5">
-            {Array.from({ length: Math.min(handCount, 2) }).map((_, i) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                key={`${id}-h-${i}`}
-                src={cardBackUrl()}
-                alt=""
-                className="h-7 w-4 rounded border border-[#3E2723]/40 object-cover shadow-sm"
-              />
-            ))}
+            {revealedRank !== undefined && !eliminated ? (
+              <span className="flex h-7 min-w-5 items-center justify-center rounded border border-amber-400 bg-amber-50 px-1 font-heading text-[11px] font-bold text-amber-900 shadow-sm">
+                {revealedRank}
+              </span>
+            ) : (
+              Array.from({ length: Math.min(handCount, 2) }).map((_, i) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={`${id}-h-${i}`}
+                  src={cardBackUrl()}
+                  alt=""
+                  className="h-7 w-4 rounded border border-[#3E2723]/40 object-cover shadow-sm"
+                />
+              ))
+            )}
           </div>
         </button>
         {bubble ? (
@@ -221,6 +235,11 @@ export function PlayerPanels({
           thinking={thinkingId === actorId}
           selected={false}
           targetMode={false}
+          revealedRank={
+            view.phase === "finished" && !you.eliminated
+              ? you.hand[0]?.rank
+              : undefined
+          }
           bubble={bubbles[you.id]}
           onSelect={() => {}}
           onZoomDiscard={onZoomDiscard}
@@ -241,6 +260,11 @@ export function PlayerPanels({
           selected={selectedTargetId === o.id}
           targetMode={targetMode}
           seenRank={view.you?.seen?.[o.id]}
+          revealedRank={
+            view.phase === "finished" && !o.eliminated
+              ? o.hand?.[0]?.rank
+              : undefined
+          }
           bubble={bubbles[o.id]}
           onSelect={() => onSelectTarget(o.id)}
           onZoomDiscard={onZoomDiscard}

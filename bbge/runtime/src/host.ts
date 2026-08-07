@@ -142,6 +142,7 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
       return { ok: false, error: "not enough players" };
     }
     this.lobby.seed = seed;
+    this.chat = [];
     this.dealMatch();
     return { ok: true, events: [], views: this.allViews(), seq: this.seq };
   }

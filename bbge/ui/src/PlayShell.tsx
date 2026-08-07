@@ -168,7 +168,7 @@ export function PlayShell({
               : l,
           )
         : lines;
-      setPlayLog((prev) => [...prev, ...stripped].slice(-200));
+      setPlayLog((prev) => [...prev, ...stripped]);
       return lines;
     },
     [locale, seatNames],
@@ -633,6 +633,7 @@ export function PlayShell({
         tone: "win",
       },
     ]);
+    setChat([]);
     const host = peerRef.current as PeerHost | null;
     host?.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
     for (const [pid, v] of result.views) {

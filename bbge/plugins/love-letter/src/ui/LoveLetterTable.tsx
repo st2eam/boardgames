@@ -155,13 +155,36 @@ export function LoveLetterTable({
     selectedCardId &&
     (!needsTarget || selectedTargetId);
 
+  const logRef = useRef<HTMLDivElement>(null);
+  const chatRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = logRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [playLog]);
+  useEffect(() => {
+    const el = chatRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [chat]);
+
   const status = useMemo(() => {
     if (view.phase === "finished") {
+      const reason =
+        view.endReason === "last_standing"
+          ? zh
+            ? "仅剩一人"
+            : "Last standing"
+          : view.endReason === "hand_compare"
+            ? zh
+              ? "牌堆耗尽 · 比点"
+              : "Deck empty · compare"
+            : zh
+              ? "本局结束"
+              : "Round over";
       return {
         tone: "done" as const,
         text: zh
-          ? `本局结束 · 胜者 ${view.winners.map((id) => nameOf?.(id) ?? id).join("、")}`
-          : `Round over · ${view.winners.map((id) => nameOf?.(id) ?? id).join(", ")}`,
+          ? `${reason} · 胜者 ${view.winners.map((id) => nameOf?.(id) ?? id).join("、")}`
+          : `${reason} · ${view.winners.map((id) => nameOf?.(id) ?? id).join(", ")}`,
       };
     }
     if (priestPending) {
@@ -379,24 +402,104 @@ export function LoveLetterTable({
         </div>
 
         {view.phase === "finished" && (
-          <div className="mt-2.5 flex shrink-0 flex-wrap items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/80 px-3 py-2.5">
-            <p className="min-w-0 flex-1 text-sm text-emerald-950">
-              {zh
-                ? "本局已结束。可保留座位再开一局。"
-                : "Match over. Keep seats and play again."}
-            </p>
-            {onRematch ? (
-              <button
-                type="button"
-                onClick={onRematch}
-                className="cursor-pointer rounded-xl bg-accent px-5 py-2 font-heading text-sm font-bold text-white shadow-card transition-colors hover:bg-accent-dark"
-              >
-                {zh ? "再来一局" : "Play again"}
-              </button>
-            ) : (
-              <span className="text-xs font-medium text-emerald-800/70">
-                {zh ? "等待房主再开一局…" : "Waiting for host…"}
-              </span>
+          <div className="mt-2.5 shrink-0 rounded-xl border border-emerald-200 bg-emerald-50/80 px-3 py-2.5">
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="min-w-0 flex-1 text-sm font-medium text-emerald-950">
+                {zh
+                  ? view.endReason === "hand_compare"
+                    ? "牌堆耗尽，亮牌比点如下。"
+                    : view.endReason === "last_standing"
+                      ? "其余玩家均已出局。"
+                      : "本局已结束。"
+                  : view.endReason === "hand_compare"
+                    ? "Deck empty — final hands compared below."
+                    : view.endReason === "last_standing"
+                      ? "All other players are out."
+                      : "Match over."}
+              </p>
+              {onRematch ? (
+                <button
+                  type="button"
+                  onClick={onRematch}
+                  className="cursor-pointer rounded-xl bg-accent px-5 py-2 font-heading text-sm font-bold text-white shadow-card transition-colors hover:bg-accent-dark"
+                >
+                  {zh ? "再来一局" : "Play again"}
+                </button>
+              ) : (
+                <span className="text-xs font-medium text-emerald-800/70">
+                  {zh ? "等待房主再开一局…" : "Waiting for host…"}
+                </span>
+              )}
+            </div>
+            {(view.standings?.length ?? 0) > 0 && (
+              <div className="mt-2 overflow-x-auto rounded-lg border border-emerald-200/80 bg-white/70">
+                <table className="w-full min-w-[280px] text-left text-[11px]">
+                  <thead>
+                    <tr className="border-b border-emerald-100 text-[10px] uppercase tracking-wide text-emerald-800/70">
+                      <th className="px-2 py-1.5 font-heading font-bold">
+                        {zh ? "玩家" : "Player"}
+                      </th>
+                      <th className="px-2 py-1.5 font-heading font-bold">
+                        {zh ? "终局手牌" : "Final hand"}
+                      </th>
+                      <th className="px-2 py-1.5 font-heading font-bold">
+                        {zh ? "结果" : "Result"}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {view.standings!.map((s) => {
+                      const card =
+                        s.handRank != null
+                          ? `${s.handRank} · ${
+                              zh
+                                ? s.handName?.zh ?? String(s.handRank)
+                                : s.handName?.en ?? String(s.handRank)
+                            }`
+                          : zh
+                            ? "—"
+                            : "—";
+                      const result = s.eliminated
+                        ? zh
+                          ? "出局"
+                          : "Out"
+                        : [
+                            s.won ? (zh ? "获胜" : "Winner") : null,
+                            s.spyFavor
+                              ? zh
+                                ? "间谍好感"
+                                : "Spy favor"
+                              : null,
+                            !s.won && !s.spyFavor
+                              ? zh
+                                ? "在局"
+                                : "In"
+                              : null,
+                          ]
+                            .filter(Boolean)
+                            .join(" · ");
+                      return (
+                        <tr
+                          key={s.playerId}
+                          className={
+                            s.won
+                              ? "bg-amber-50/80 text-amber-950"
+                              : s.eliminated
+                                ? "text-stone-400"
+                                : "text-emerald-950"
+                          }
+                        >
+                          <td className="px-2 py-1.5 font-heading font-semibold">
+                            {nameOf?.(s.playerId) ?? s.name}
+                          </td>
+                          <td className="px-2 py-1.5">{card}</td>
+                          <td className="px-2 py-1.5">{result}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         )}
@@ -428,11 +531,11 @@ export function LoveLetterTable({
             </div>
           </aside>
 
-          {/* Center — board + hand */}
-          <div className="order-1 min-h-0 space-y-2.5 overflow-y-auto lg:order-2">
+          {/* Center — board + hand (fills height; scrolls only if needed) */}
+          <div className="order-1 flex min-h-0 flex-col gap-2 overflow-y-auto lg:order-2 lg:overflow-hidden">
             {/* Felt table */}
             <div
-              className="relative overflow-hidden rounded-2xl border-[5px] border-[#4E342E] shadow-inner"
+              className="relative min-h-[120px] flex-1 overflow-hidden rounded-2xl border-[5px] border-[#4E342E] shadow-inner"
               style={{
                 background:
                   "radial-gradient(ellipse at 50% 40%, #2e7d32 0%, #1b5e20 55%, #0d3b12 100%)",
@@ -482,7 +585,7 @@ export function LoveLetterTable({
                 }}
               />
 
-              <div className="relative flex min-h-[160px] flex-col items-center justify-center gap-4 px-3 py-5 sm:min-h-[190px]">
+              <div className="relative flex min-h-0 flex-1 flex-col items-center justify-center gap-3 px-3 py-3 sm:py-4">
                 {/* Face-up (2p) */}
                 {view.faceUp.length > 0 && (
                   <div className="flex flex-col items-center gap-1.5">
@@ -592,8 +695,8 @@ export function LoveLetterTable({
             </div>
 
             {/* Hand dock */}
-            <div className="rounded-2xl border border-border bg-white/95 p-3 shadow-sm">
-              <div className="mb-2 flex items-center justify-between gap-2">
+            <div className="shrink-0 rounded-2xl border border-border bg-white/95 p-2.5 shadow-sm sm:p-3">
+              <div className="mb-1.5 flex items-center justify-between gap-2">
                 <p className="font-heading text-sm font-bold text-primary-dark">
                   {zh ? "你的手牌" : "Your hand"}
                 </p>
@@ -704,17 +807,20 @@ export function LoveLetterTable({
                   {zh ? "对局记录" : "Game log"}
                 </p>
               </div>
-              <div className="min-h-0 flex-1 space-y-1 overflow-y-auto px-2 py-1.5">
+              <div
+                ref={logRef}
+                className="min-h-0 flex-1 space-y-1 overflow-y-auto px-2 py-1.5"
+              >
                 {playLog.length === 0 && (
                   <p className="px-1 py-2 text-[11px] text-stone-400">
                     {zh ? "行动会出现在这里" : "Actions appear here"}
                   </p>
                 )}
-                {playLog.slice(-8).map((e) => (
+                {playLog.map((e) => (
                   <div
                     key={e.id}
                     className={[
-                      "rounded-md px-1.5 py-1 text-[11px] leading-snug",
+                      "whitespace-pre-wrap rounded-md px-1.5 py-1 text-[11px] leading-snug",
                       e.tone === "warn"
                         ? "bg-red-50 text-red-900"
                         : e.tone === "win"
@@ -734,15 +840,18 @@ export function LoveLetterTable({
                   {zh ? "桌边聊天" : "Table talk"}
                 </p>
               </div>
-              <div className="min-h-0 flex-1 space-y-1 overflow-y-auto px-2 py-1.5">
+              <div
+                ref={chatRef}
+                className="min-h-0 flex-1 space-y-1 overflow-y-auto px-2 py-1.5"
+              >
                 {chat.length === 0 && (
                   <p className="px-1 text-[11px] text-stone-400">
                     {zh
-                      ? "可选：打字聊天（AI 负责出牌，不自动闲聊）"
-                      : "Optional chat — AI plays cards, doesn’t auto-talk"}
+                      ? "可选：打字聊天（AI 负责出牌，也可桌边发言）"
+                      : "Optional chat — AI plays and may speak"}
                   </p>
                 )}
-                {chat.slice(-4).map((m, i) => (
+                {chat.map((m, i) => (
                   <div
                     key={`${m.at}-${i}`}
                     className="rounded-md bg-surface px-1.5 py-1 text-[11px]"
@@ -750,7 +859,7 @@ export function LoveLetterTable({
                     <span className="font-heading text-[10px] font-bold text-accent">
                       {nameOf?.(m.playerId) ?? m.playerId}
                     </span>
-                    <p className="line-clamp-2 text-primary-dark">{m.text}</p>
+                    <p className="text-primary-dark">{m.text}</p>
                   </div>
                 ))}
               </div>

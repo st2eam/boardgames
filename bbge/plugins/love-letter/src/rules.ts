@@ -66,7 +66,54 @@ function passTurnAndDraw(state: LoveLetterState, events: Event[]): void {
   ensureDrawn(state, events);
 }
 
-function finishRound(state: LoveLetterState, events: Event[]): void {
+export type RoundEndReason = "last_standing" | "hand_compare";
+
+export type RoundStanding = {
+  playerId: PlayerId;
+  name: string;
+  eliminated: boolean;
+  /** Final hand rank when still in; null if eliminated */
+  handRank: number | null;
+  playedSpy: boolean;
+  won: boolean;
+  spyFavor: boolean;
+};
+
+export type RoundEndPayload = {
+  winners: PlayerId[];
+  spyBonus: PlayerId[];
+  reason: RoundEndReason;
+  standings: RoundStanding[];
+};
+
+/** Public payload for roundEnded + finished views (why someone won). */
+export function buildRoundEndPayload(state: LoveLetterState): RoundEndPayload {
+  const living = alive(state);
+  const reason: RoundEndReason =
+    living.length <= 1 ? "last_standing" : "hand_compare";
+  const standings: RoundStanding[] = state.players.map((p) => ({
+    playerId: p.id,
+    name: p.name,
+    eliminated: p.eliminated,
+    handRank: p.eliminated ? null : (p.hand[0]?.rank ?? null),
+    playedSpy: p.playedSpy,
+    won: state.winners.includes(p.id),
+    spyFavor: state.spyBonus.includes(p.id),
+  }));
+  standings.sort((a, b) => {
+    if (a.won !== b.won) return a.won ? -1 : 1;
+    if (a.eliminated !== b.eliminated) return a.eliminated ? 1 : -1;
+    return (b.handRank ?? -1) - (a.handRank ?? -1);
+  });
+  return {
+    winners: state.winners.slice(),
+    spyBonus: state.spyBonus.slice(),
+    reason,
+    standings,
+  };
+}
+
+export function finishRound(state: LoveLetterState, events: Event[]): void {
   state.phase = "finished";
   const living = alive(state);
   if (living.length === 1) {
@@ -77,13 +124,15 @@ function finishRound(state: LoveLetterState, events: Event[]): void {
       const r = p.hand[0]?.rank ?? -1;
       if (r > best) best = r;
     }
-    state.winners = living.filter((p) => (p.hand[0]?.rank ?? -1) === best).map((p) => p.id);
+    state.winners = living
+      .filter((p) => (p.hand[0]?.rank ?? -1) === best)
+      .map((p) => p.id);
   }
   const spies = living.filter((p) => p.playedSpy);
   state.spyBonus = spies.length === 1 ? [spies[0]!.id] : [];
   events.push({
     type: "loveLetter/roundEnded",
-    payload: { winners: state.winners, spyBonus: state.spyBonus },
+    payload: buildRoundEndPayload(state),
   });
 }
 

@@ -21,6 +21,8 @@ export interface PluginTableProps {
   /** Host-only detail for “what is AI thinking” hover (not broadcast). */
   thinkingDetail?: string | null;
   onAction: (action: Action) => void;
+  /** Host: start another match with the same seats (finished phase). */
+  onRematch?: () => void;
   playLog: PlayLogEntry[];
   chat: AiChatMessage[];
   onChat?: (text: string) => void;

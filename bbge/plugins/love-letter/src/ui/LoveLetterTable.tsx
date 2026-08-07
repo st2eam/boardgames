@@ -27,6 +27,7 @@ export function LoveLetterTable({
   thinkingId,
   thinkingDetail,
   onAction,
+  onRematch,
   playLog = [],
   chat = [],
   onChat,
@@ -324,6 +325,29 @@ export function LoveLetterTable({
           tone={status.tone}
           detail={thinkingId ? thinkingDetail : null}
         />
+
+        {view.phase === "finished" && (
+          <div className="mt-2.5 flex flex-wrap items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/80 px-3 py-2.5">
+            <p className="min-w-0 flex-1 text-sm text-emerald-950">
+              {zh
+                ? "本局已结束。可保留座位再开一局。"
+                : "Match over. Keep seats and play again."}
+            </p>
+            {onRematch ? (
+              <button
+                type="button"
+                onClick={onRematch}
+                className="cursor-pointer rounded-xl bg-accent px-5 py-2 font-heading text-sm font-bold text-white shadow-card transition-colors hover:bg-accent-dark"
+              >
+                {zh ? "再来一局" : "Play again"}
+              </button>
+            ) : (
+              <span className="text-xs font-medium text-emerald-800/70">
+                {zh ? "等待房主再开一局…" : "Waiting for host…"}
+              </span>
+            )}
+          </div>
+        )}
 
         {/* Left: players · Center: table · Right: log + chat */}
         <div className="mt-2.5 grid gap-2.5 lg:grid-cols-[220px_minmax(0,1fr)_240px] lg:items-start">

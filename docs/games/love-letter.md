@@ -50,6 +50,7 @@ hotseat / local AI → finish **one round** and declare a winner.
 - Lobby: seats, invite link, add hotseat / AI, ready, start
 - `projectView`: private hands; public discards; priest rank only for peeker
 - Host UI only shows **local** human seats (never AI / remote hands); pass-and-play switches among local seats only
+- Finished match: Host **再来一局** keeps seats, new seed, redeals (`HostSession.rematch`)
 - Determinism + illegal-action + priest-reveal tests (`npm run test:bbge`)
 - AI pacing (min think UI + gap between seats); LLM **idle** timeout ~90s (resets on stream progress)
 - Ephemeral local fallback on LLM idle/timeout / illegal action — **does not** permanently replace LLM seat

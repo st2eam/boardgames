@@ -584,6 +584,35 @@ export function PlayShell({
     await runAiIfNeeded();
   };
 
+  const onRematch = () => {
+    if (!isHost) return;
+    const s = sessionRef.current;
+    if (!s) return;
+    const result = s.rematch(newSeed());
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    aiRunning.current = false;
+    setThinkingId(null);
+    setThinkingDetail(null);
+    setPlayLog([
+      {
+        id: `rematch-${Date.now()}`,
+        at: Date.now(),
+        text: locale === "zh" ? "再来一局 · 重新发牌" : "Play again · new deal",
+        tone: "win",
+      },
+    ]);
+    const host = peerRef.current as PeerHost | null;
+    host?.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
+    for (const [pid, v] of result.views) {
+      host?.send?.(pid, { type: "view", payload: v });
+    }
+    tick();
+    void runAiIfNeeded();
+  };
+
   const onDispatch = (action: Action) => {
     if (!isHost) {
       (peerRef.current as PeerGuest | null)?.send?.({
@@ -687,6 +716,7 @@ export function PlayShell({
           thinkingId={thinkingId}
           thinkingDetail={thinkingDetail}
           onAction={onDispatch}
+          onRematch={isHost ? onRematch : undefined}
           playLog={playLog}
           chat={chat}
           onChat={onChat}

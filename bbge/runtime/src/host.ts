@@ -98,6 +98,22 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
     if (seat && seat.kind === "human") seat.ready = ready;
   }
 
+  private dealMatch(): void {
+    const playerIds = this.lobby.seats.map((s) => s.id);
+    const playerNames = Object.fromEntries(
+      this.lobby.seats.map((s) => [s.id, s.name]),
+    );
+    const rng = createRng(this.lobby.seed);
+    this.state = this.plugin.createGame(
+      { playerIds, playerNames, seed: this.lobby.seed },
+      { rng },
+    );
+    this.seq = 0;
+    this.phase = "playing";
+    const victory = this.plugin.checkVictory(this.state);
+    if (victory) this.phase = "finished";
+  }
+
   async start(): Promise<{ ok: true } | { ok: false; error: string }> {
     if (this.phase !== "lobby") return { ok: false, error: "not in lobby" };
     if (this.lobby.seats.length < this.plugin.metadata.minPlayers) {
@@ -110,19 +126,24 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
       const ok = await this.canStartAi();
       if (!ok) return { ok: false, error: "api key required for AI seats" };
     }
-    const playerIds = this.lobby.seats.map((s) => s.id);
-    const playerNames = Object.fromEntries(
-      this.lobby.seats.map((s) => [s.id, s.name]),
-    );
-    const rng = createRng(this.lobby.seed);
-    this.state = this.plugin.createGame(
-      { playerIds, playerNames, seed: this.lobby.seed },
-      { rng },
-    );
-    this.phase = "playing";
-    const victory = this.plugin.checkVictory(this.state);
-    if (victory) this.phase = "finished";
+    this.dealMatch();
     return { ok: true };
+  }
+
+  /**
+   * Same seats → new seed → new deal. Only from `finished`.
+   * Returns fresh projected views for every seat.
+   */
+  rematch(seed: string): SubmitOk | SubmitErr {
+    if (this.phase !== "finished") {
+      return { ok: false, error: "not finished" };
+    }
+    if (this.lobby.seats.length < this.plugin.metadata.minPlayers) {
+      return { ok: false, error: "not enough players" };
+    }
+    this.lobby.seed = seed;
+    this.dealMatch();
+    return { ok: true, events: [], views: this.allViews(), seq: this.seq };
   }
 
   submitAction(action: TAction): SubmitOk | SubmitErr {

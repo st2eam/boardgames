@@ -77,5 +77,10 @@ describe("HostSession", () => {
       expect(r.ok).toBe(true);
     }
     expect(host.getPhase()).toBe("finished");
+
+    const again = host.rematch("ll-fixed-2");
+    expect(again.ok).toBe(true);
+    expect(host.getPhase()).toBe("playing");
+    expect(again.ok && again.views.size).toBe(2);
   });
 });

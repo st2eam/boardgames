@@ -381,15 +381,18 @@ export function createAggressiveHoldemSeat(id: PlayerId): AiSeat {
 
       progress(note);
       const action = act(id, view, plan);
-      const speakByPlan: Record<Aggression, string> = {
-        fold: "不要了",
-        check: "过",
-        call: "跟",
-        value: "再加一点",
-        pot: "加压",
-        jam: "全下",
+      // Vague / deceptive table talk — never names hole cards.
+      const speakPool: Record<Aggression, string[]> = {
+        fold: ["不要了", "这轮过", "算了"],
+        check: ["过", "先看看", "随便"],
+        call: ["跟", "跟一手", "看看"],
+        value: ["再加一点", "有点意思", "继续"],
+        pot: ["加压", "这手不错", "跟不跟"],
+        jam: ["全下", "来吧", "打到底"],
       };
-      return { action, speak: speakByPlan[plan] };
+      const lines = speakPool[plan];
+      const speak = lines[Math.floor(unit * lines.length) % lines.length]!;
+      return { action, speak };
     },
   };
 }

@@ -367,6 +367,7 @@ Reference: Love Letter `loveLetterPlayModule` + [`docs/games/love-letter.md`](..
 | AI model | Play seats: **`deepseek-v4-flash`**, `thinking: disabled` for Action JSON |
 | AI battle log | PlayShell passes chronological `battleLog: string[]` (every seat’s recent actions). **Every new DeepSeek seat must append it** via `battleLogPromptBlock` so the model can read the table |
 | AI speak language | Default **简体中文** when `locale !== "en"`; casual table talk — Action JSON `type` stays English (`fold`/`playCard`/…), speak text should avoid English jargon |
+| Hold'em speak privacy | LLM may bluff / mix truth and lies in `speak`, but **must never name real hole cards** (ranks/suits). Hole cards in `view` are for deciding Actions only |
 | Battle log UI | Use shared **`BattleLogList`** + **`PlaySideSheet`** from `@bbge/ui` (fixed `70dvh` mobile sheet). Do **not** hand-roll a max-height-only log that cannot scroll |
 | Seat bubbles | `formatEvents` → `speakerId` + `bubble`; keep bubbles **inside** seat chrome on mobile (overflow parents clip absolute `-top-*` bubbles) |
 | Editions | Prefer one plugin + `edition` config over forking plugins for close variants |

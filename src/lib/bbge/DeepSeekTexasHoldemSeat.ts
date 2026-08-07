@@ -36,8 +36,16 @@ export function createDeepSeekTexasHoldemSeat(
         : "";
 
       const speakRule = zh
-        ? `speak 用简体中文短句（口语牌桌闲话，约 6–20 字），常带。不要用英文术语 check/raise/fold/call/all-in；可说「过」「跟」「再加一点」「不要了」「全下」等。JSON 的 type 仍必须是 fold|check|call|raise。`
-        : `Optional speak: short natural English table talk. Prefer plain words over jargon.`;
+        ? `speak 用简体中文短句（口语牌桌闲话，约 6–20 字），常带。不要用英文术语 check/raise/fold/call/all-in；可说「过」「跟」「再加一点」「不要了」「全下」等。JSON 的 type 仍必须是 fold|check|call|raise。
+桌边发言纪律（重要）：
+- 绝对不要说出真实底牌点数/花色/具体牌名（如「我有 AA」「黑桃 A」「口袋对 KK」），也不要如实报出成牌细节。
+- 可以虚实结合唬人：弱牌可装强（「这手不错」「继续加压」），强牌可装怂或含糊（「随便看看」「跟一手」）；也可用含糊情绪话，但绝不泄真实手牌。
+- view.you.hole 仅供你决策，禁止写进 speak。`
+        : `Optional speak: short natural English table talk. Prefer plain words over jargon.
+Table-talk discipline (important):
+- NEVER reveal your real hole cards (ranks/suits/names like "I've got aces"). Do not honestly name your exact made hand.
+- You MAY bluff / mix truth and lies: weak hands can sound strong; strong hands can sound weak or vague. Never leak the actual cards.
+- view.you.hole is for deciding the Action only — never put it in speak.`;
       const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
 
       const prompt = zh
@@ -84,8 +92,8 @@ View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system: zh
-                ? "你是激进、会算赔率的真人德州对手：好牌狠打，没牌时赔率合适就跟或加压。不要 TAG 式过度弃牌。只输出一个合法 Action JSON；speak 用简体中文口语，勿用英文术语。"
-                : "You are an aggressive, pot-odds-aware NLHE player: smash strong hands; with air/draws, call or raise when the price is right. Not a tight TAG. Output one legal Action JSON only.",
+                ? "你是激进、会算赔率的真人德州对手：好牌狠打，没牌时赔率合适就跟或加压。不要 TAG 式过度弃牌。只输出一个合法 Action JSON；speak 用简体中文口语，可虚张声势，但绝不能说出真实底牌。"
+                : "You are an aggressive, pot-odds-aware NLHE player: smash strong hands; with air/draws, call or raise when the price is right. Not a tight TAG. Output one legal Action JSON only. speak may bluff, but never reveal real hole cards.",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 512,
             },

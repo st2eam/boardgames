@@ -82,6 +82,20 @@ function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise
   });
 }
 
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/** Minimum “thinking” time before an AI commits a play (ms). */
+function aiThinkPaceMs(): number {
+  return 1400 + Math.floor(Math.random() * 1600); // 1.4–3.0s
+}
+
+/** Pause after an AI play before the next seat acts (ms). */
+function aiBetweenPlaysMs(): number {
+  return 700 + Math.floor(Math.random() * 900); // 0.7–1.6s
+}
+
 export function PlayShell({
   locale,
   gameName,
@@ -325,22 +339,43 @@ export function PlayShell({
 
     aiRunning.current = true;
     const host = peerRef.current as PeerHost | null;
+    const paceMs = aiThinkPaceMs();
+    const thinkStarted = Date.now();
     setThinkingId(current);
     host?.broadcast?.({
       type: "aiPresence",
       payload: { type: "ai/thinking", playerId: current, started: true },
     });
+    setPlayLog((prev) => [
+      ...prev,
+      {
+        id: `think-${current}-${thinkStarted}`,
+        at: thinkStarted,
+        text:
+          locale === "zh"
+            ? `${seatNames()[current] ?? current} 正在思考…`
+            : `${seatNames()[current] ?? current} is thinking…`,
+      },
+    ]);
 
     try {
       const v = s.getView(current);
       let seat = await resolveAiSeat(current);
       let action: LoveLetterAction;
       try {
-        action = (await withTimeout(seat.think(v), 10000, "AI think")) as LoveLetterAction;
+        // Decide in parallel with a minimum think timer (mock / fast LLM still feel paced).
+        const decide = withTimeout(seat.think(v), 10000, "AI think");
+        const [, decided] = await Promise.all([sleep(paceMs), decide]);
+        action = decided as LoveLetterAction;
       } catch {
         seat = createMockLoveLetterSeat(current);
         aiRef.current.set(current, seat);
-        action = (await seat.think(s.getView(current))) as LoveLetterAction;
+        const remaining = Math.max(0, paceMs - (Date.now() - thinkStarted));
+        const [decided] = await Promise.all([
+          seat.think(s.getView(current)),
+          remaining > 0 ? sleep(remaining) : Promise.resolve(),
+        ]);
+        action = decided as LoveLetterAction;
         setPlayLog((prev) => [
           ...prev,
           {
@@ -359,6 +394,7 @@ export function PlayShell({
       if (!result.ok) {
         const mock = createMockLoveLetterSeat(current);
         aiRef.current.set(current, mock);
+        await sleep(400 + Math.floor(Math.random() * 400));
         const retry = (await mock.think(s.getView(current))) as LoveLetterAction;
         result = s.submitAction(retry);
         if (!result.ok) {
@@ -369,40 +405,43 @@ export function PlayShell({
       appendEvents(result.events);
       tick();
 
-      // Unlock table before speak (speak must never freeze input)
+      const speakSeat = seat;
+      const events = result.events;
+      // Brief beat after the play lands, then clear thinking and let them “talk”
+      await sleep(350 + Math.floor(Math.random() * 350));
       setThinkingId(null);
       host?.broadcast?.({
         type: "aiPresence",
         payload: { type: "ai/thinking", playerId: current, started: false },
       });
 
-      const speakSeat = seat;
-      void (async () => {
-        let line: AiChatMessage | null = null;
-        if (speakSeat.speak) {
-          try {
-            line = await withTimeout(
-              speakSeat.speak({
-                view: v,
-                lastEvents: result.events,
-                locale,
-              }),
-              8000,
-              "AI speak",
-            );
-          } catch {
-            line = null;
-          }
+      let line: AiChatMessage | null = null;
+      if (speakSeat.speak) {
+        try {
+          line = await withTimeout(
+            speakSeat.speak({
+              view: v,
+              lastEvents: events,
+              locale,
+            }),
+            8000,
+            "AI speak",
+          );
+        } catch {
+          line = null;
         }
-        if (!line) {
-          line = {
-            playerId: current,
-            text: locale === "zh" ? "出完了。" : "Played.",
-            at: Date.now(),
-          };
-        }
-        publishChat(line);
-      })();
+      }
+      if (!line) {
+        line = {
+          playerId: current,
+          text: locale === "zh" ? "出完了。" : "Played.",
+          at: Date.now(),
+        };
+      }
+      publishChat(line);
+
+      // Space out consecutive AI turns so the table doesn't cascade instantly
+      await sleep(aiBetweenPlaysMs());
     } catch (e) {
       setError(e instanceof Error ? e.message : "AI failed");
     } finally {

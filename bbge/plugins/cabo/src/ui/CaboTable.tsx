@@ -147,7 +147,8 @@ export function CaboTable({
   const zh = locale === "zh";
   const mobile = useIsMobileLayout();
   const [sideOpen, setSideOpen] = useState(false);
-  const [selectedSlots, setSelectedSlots] = useState<number[]>([]);
+  type SlotPick = { seatId: string; slotIndex: number };
+  const [picks, setPicks] = useState<SlotPick[]>([]);
   const bubbles = useSeatBubbles({
     playLog,
     chat,
@@ -157,27 +158,67 @@ export function CaboTable({
 
   const actorId = myId;
   const isMyTurn = view.currentPlayerId === actorId;
+  const abilityKind = view.pendingAbility?.kind ?? null;
   const thinkingSet = useMemo(() => {
     const ids = thinkingIds?.length ? thinkingIds : thinkingId ? [thinkingId] : [];
     return new Set(ids);
   }, [thinkingId, thinkingIds]);
 
   useEffect(() => {
-    setSelectedSlots([]);
+    setPicks([]);
   }, [
     view.phase,
     view.round,
     view.pendingDraw?.cardId,
     view.currentPlayerId,
     view.pendingModal?.type,
+    abilityKind,
   ]);
 
   const dispatch = (action: Action) => onAction(action);
 
-  const toggleSlot = (idx: number) => {
-    setSelectedSlots((prev) =>
-      prev.includes(idx) ? prev.filter((x) => x !== idx) : [...prev, idx].sort((a, b) => a - b),
-    );
+  const isPicked = (seatId: string, slotIndex: number) =>
+    picks.some((p) => p.seatId === seatId && p.slotIndex === slotIndex);
+
+  const ownPicks = picks.filter((p) => p.seatId === actorId);
+  const otherPick = picks.find((p) => p.seatId !== actorId) ?? null;
+
+  const togglePick = (seatId: string, slotIndex: number) => {
+    const key = { seatId, slotIndex };
+    if (abilityKind === "peek" || abilityKind === "spy") {
+      setPicks([key]);
+      return;
+    }
+    if (abilityKind === "swap") {
+      const isOwn = seatId === actorId;
+      setPicks((prev) => {
+        const own = prev.find((p) => p.seatId === actorId);
+        const other = prev.find((p) => p.seatId !== actorId);
+        if (isOwn) {
+          const same =
+            own?.seatId === seatId && own.slotIndex === slotIndex;
+          if (same) return other ? [other] : [];
+          return other ? [key, other] : [key];
+        }
+        const same =
+          other?.seatId === seatId && other.slotIndex === slotIndex;
+        if (same) return own ? [own] : [];
+        return own ? [own, key] : [key];
+      });
+      return;
+    }
+    // setup peek / drawn-card swap: own multi-select
+    setPicks((prev) => {
+      const exists = prev.some(
+        (p) => p.seatId === seatId && p.slotIndex === slotIndex,
+      );
+      if (exists) {
+        return prev.filter(
+          (p) => !(p.seatId === seatId && p.slotIndex === slotIndex),
+        );
+      }
+      return [...prev, key].sort((a, b) => a.slotIndex - b.slotIndex);
+    });
   };
 
   const modalValues =
@@ -238,53 +279,39 @@ export function CaboTable({
     />
   );
 
-  const renderSeat = (
+  const canSelectSlot = (
     seat: ArenaView["seats"][0],
-    opts?: { hero?: boolean },
+    slot: ArenaView["seats"][0]["slots"][0],
   ) => {
+    if (!isMyTurn || disabled || view.pendingModal) return false;
+    if (view.phase === "setupPeek" && !view.setupPeeksDone) return seat.isYou;
+    if (view.pendingDraw) return seat.isYou;
+    if (abilityKind === "peek") return seat.isYou && !slot.faceUp;
+    if (abilityKind === "spy") return !seat.isYou && !slot.faceUp;
+    if (abilityKind === "swap") return true;
+    return false;
+  };
+
+  const renderSeat = (seat: ArenaView["seats"][0]) => {
     const active = view.currentPlayerId === seat.id;
     const thinking = thinkingSet.has(seat.id);
-    const hero = Boolean(opts?.hero);
-    const cardSize = hero ? "fluid" : mobile ? "xs" : "sm";
+    const cardSize = mobile ? "xs" : "sm";
     return (
       <div
         key={seat.id}
         data-seat-id={seat.id}
         className={[
-          "relative flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border bg-white/95 shadow-card transition-all",
-          hero ? "p-2 sm:p-3" : "p-1.5 sm:p-2",
+          "relative flex min-w-0 shrink-0 items-center gap-2 overflow-visible rounded-xl border bg-white/95 px-2 py-1.5 shadow-card transition-all sm:gap-3 sm:px-3 sm:py-2",
           seat.isYou ? "border-accent/50 ring-1 ring-accent/20" : "border-border",
           active ? "ring-2 ring-accent/60" : "",
-          hero ? "flex-1" : "shrink-0",
         ].join(" ")}
       >
         <SeatSpeechSlot
           bubble={bubbles[seat.id]}
           variant="cream"
-          className={hero ? "!mb-1 !h-7 sm:!h-8" : "!mb-0.5 !h-6 sm:!h-7"}
+          overlay
         />
-        <div className="mb-1 flex shrink-0 items-center justify-between gap-2 sm:mb-1.5">
-          <div className="min-w-0">
-            <p className="truncate font-heading text-xs font-bold text-primary sm:text-sm">
-              {seat.name}
-              {seat.isYou ? (zh ? "（你）" : " (you)") : ""}
-            </p>
-            <p className="truncate text-[10px] text-stone-500 sm:text-[11px]">
-              {zh ? "累计" : "Total"} {seat.cumulativeScore}
-              <span className="mx-1">/</span>
-              <span className="text-accent">{view.targetScore}</span>
-              {seat.isCaller && (
-                <span className="ml-1 rounded bg-accent/15 px-1 py-0.5 text-[10px] font-bold text-accent">
-                  CABO
-                </span>
-              )}
-              {seat.needsFinalTurn && (
-                <span className="ml-1 text-[10px] text-amber-700">
-                  {zh ? "最终回合" : "final"}
-                </span>
-              )}
-            </p>
-          </div>
+        <div className="flex w-[5.5rem] shrink-0 items-center gap-1.5 sm:w-28">
           <div
             className={[
               "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 font-heading text-[11px] font-bold sm:h-8 sm:w-8 sm:text-xs",
@@ -293,48 +320,47 @@ export function CaboTable({
           >
             {seat.name.slice(0, 1).toUpperCase()}
           </div>
+          <div className="min-w-0">
+            <p className="truncate font-heading text-xs font-bold text-primary sm:text-sm">
+              {seat.isYou ? (zh ? "你" : "You") : seat.name}
+            </p>
+            <p className="truncate text-[10px] text-stone-500">
+              {seat.cumulativeScore}
+              <span className="text-accent">/{view.targetScore}</span>
+              {seat.isCaller ? " · CABO" : ""}
+            </p>
+          </div>
         </div>
-        <div
-          className={[
-            "flex min-h-0 flex-1 flex-wrap content-center justify-center gap-1 sm:gap-1.5",
-            hero ? "[container-type:size]" : "",
-          ].join(" ")}
-        >
+        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-1 sm:gap-1.5">
           {seat.slots.map((slot) => {
             const faceDown = !slot.faceUp && slot.value == null;
-            const canSelect = Boolean(
-              seat.isYou &&
-                isMyTurn &&
-                !disabled &&
-                !view.pendingModal &&
-                ((view.phase === "setupPeek" && !view.setupPeeksDone) ||
-                  Boolean(view.pendingDraw) ||
-                  (view.pendingAbility?.kind === "peek" && !slot.faceUp)),
-            );
+            const canSelect = canSelectSlot(seat, slot);
             return (
               <CaboCard
                 key={slot.slotIndex}
                 locale={locale}
                 value={slot.value}
                 faceDown={faceDown}
-                selected={canSelect && selectedSlots.includes(slot.slotIndex)}
+                selected={canSelect && isPicked(seat.id, slot.slotIndex)}
                 disabled={!canSelect}
                 size={cardSize}
-                onClick={canSelect ? () => toggleSlot(slot.slotIndex) : undefined}
+                onClick={
+                  canSelect
+                    ? () => togglePick(seat.id, slot.slotIndex)
+                    : undefined
+                }
               />
             );
           })}
+          {view.phase === "finished" && seat.tableauSum != null && (
+            <span className="ml-1 text-[11px] font-medium text-stone-600">
+              {zh ? "本轮" : "Round"} {seat.tableauSum}
+              {view.roundScores?.[seat.id] != null
+                ? ` → ${view.roundScores[seat.id]}`
+                : ""}
+            </span>
+          )}
         </div>
-        {view.phase === "finished" && seat.tableauSum != null && (
-          <p className="mt-1 shrink-0 text-center text-[11px] font-medium text-stone-600">
-            {zh ? "本轮" : "Round"}: {seat.tableauSum}
-            {view.roundScores?.[seat.id] != null && (
-              <span className="ml-1 text-accent">
-                → {view.roundScores[seat.id]}
-              </span>
-            )}
-          </p>
-        )}
       </div>
     );
   };
@@ -342,17 +368,18 @@ export function CaboTable({
   const actionBar = () => {
     if (disabled || !isMyTurn) return null;
     const legal = view.legal;
+    const ownSlotIndices = ownPicks.map((p) => p.slotIndex);
 
     if (view.phase === "setupPeek" && !view.setupPeeksDone) {
       return (
         <button
           type="button"
-          disabled={selectedSlots.length !== 2}
+          disabled={ownSlotIndices.length !== 2}
           onClick={() => {
             dispatch({
               type: "setupPeek",
               playerId: actorId,
-              payload: { slotIndices: selectedSlots },
+              payload: { slotIndices: ownSlotIndices },
             });
           }}
           className="rounded-xl bg-accent px-4 py-2 font-heading text-sm font-bold text-[#1a120e] disabled:opacity-40"
@@ -369,35 +396,7 @@ export function CaboTable({
 
     if (view.pendingAbility) {
       const kind = view.pendingAbility.kind;
-      if (kind === "peek" && selectedSlots.length === 1) {
-        return (
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() =>
-                dispatch({
-                  type: "resolveAbilityPeek",
-                  playerId: actorId,
-                  payload: { slotIndex: selectedSlots[0]! },
-                })
-              }
-              className="rounded-xl bg-accent px-4 py-2 font-heading text-sm font-bold text-[#1a120e]"
-            >
-              {zh ? "偷看选中" : "Peek selected"}
-            </button>
-            <button
-              type="button"
-              onClick={() =>
-                dispatch({ type: "skipAbility", playerId: actorId, payload: {} })
-              }
-              className="rounded-xl border border-border px-4 py-2 text-sm"
-            >
-              {zh ? "跳过" : "Skip"}
-            </button>
-          </div>
-        );
-      }
-      return (
+      const skipBtn = (
         <button
           type="button"
           onClick={() =>
@@ -405,9 +404,97 @@ export function CaboTable({
           }
           className="rounded-xl border border-border px-4 py-2 text-sm"
         >
-          {zh ? "跳过能力" : "Skip ability"}
+          {zh ? "跳过" : "Skip"}
         </button>
       );
+
+      if (kind === "peek") {
+        return (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] text-stone-500">
+              {zh ? "点选自己的 1 张面朝下牌" : "Pick 1 of your face-down cards"}
+            </span>
+            <button
+              type="button"
+              disabled={ownPicks.length !== 1}
+              onClick={() =>
+                dispatch({
+                  type: "resolveAbilityPeek",
+                  playerId: actorId,
+                  payload: { slotIndex: ownPicks[0]!.slotIndex },
+                })
+              }
+              className="rounded-xl bg-accent px-4 py-2 font-heading text-sm font-bold text-[#1a120e] disabled:opacity-40"
+            >
+              {zh ? "偷看选中" : "Peek selected"}
+            </button>
+            {skipBtn}
+          </div>
+        );
+      }
+
+      if (kind === "spy") {
+        return (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] text-stone-500">
+              {zh ? "点选对手的 1 张面朝下牌" : "Pick 1 opponent face-down card"}
+            </span>
+            <button
+              type="button"
+              disabled={!otherPick}
+              onClick={() => {
+                if (!otherPick) return;
+                dispatch({
+                  type: "resolveAbilitySpy",
+                  playerId: actorId,
+                  payload: {
+                    targetPlayerId: otherPick.seatId,
+                    slotIndex: otherPick.slotIndex,
+                  },
+                });
+              }}
+              className="rounded-xl bg-accent px-4 py-2 font-heading text-sm font-bold text-[#1a120e] disabled:opacity-40"
+            >
+              {zh ? "间谍偷看" : "Spy selected"}
+            </button>
+            {skipBtn}
+          </div>
+        );
+      }
+
+      if (kind === "swap") {
+        return (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] text-stone-500">
+              {zh
+                ? "先点自己 1 张，再点对手 1 张"
+                : "Pick 1 of yours, then 1 opponent card"}
+            </span>
+            <button
+              type="button"
+              disabled={ownPicks.length !== 1 || !otherPick}
+              onClick={() => {
+                if (ownPicks.length !== 1 || !otherPick) return;
+                dispatch({
+                  type: "resolveAbilitySwap",
+                  playerId: actorId,
+                  payload: {
+                    ownSlotIndex: ownPicks[0]!.slotIndex,
+                    targetPlayerId: otherPick.seatId,
+                    targetSlotIndex: otherPick.slotIndex,
+                  },
+                });
+              }}
+              className="rounded-xl bg-accent px-4 py-2 font-heading text-sm font-bold text-[#1a120e] disabled:opacity-40"
+            >
+              {zh ? "盲换选中" : "Blind swap"}
+            </button>
+            {skipBtn}
+          </div>
+        );
+      }
+
+      return skipBtn;
     }
 
     if (view.pendingDraw) {
@@ -449,19 +536,21 @@ export function CaboTable({
               {zh ? "弃牌+能力" : "Discard + ability"}
             </button>
           )}
-          {selectedSlots.length > 0 && (
+          {ownSlotIndices.length > 0 && (
             <button
               type="button"
               onClick={() =>
                 dispatch({
                   type: "swapWithDrawn",
                   playerId: actorId,
-                  payload: { slotIndices: selectedSlots },
+                  payload: { slotIndices: ownSlotIndices },
                 })
               }
               className="rounded-xl bg-accent px-3 py-2 font-heading text-sm font-bold text-[#1a120e]"
             >
-              {zh ? `交换 (${selectedSlots.length})` : `Swap (${selectedSlots.length})`}
+              {zh
+                ? `交换 (${ownSlotIndices.length})`
+                : `Swap (${ownSlotIndices.length})`}
             </button>
           )}
         </div>
@@ -545,17 +634,9 @@ export function CaboTable({
           className="!min-h-9 !py-1 sm:!min-h-11 sm:!py-1.5"
         />
 
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 overflow-hidden sm:gap-2">
-          {others.length > 0 && (
-            <div className="grid max-h-[34%] min-h-0 shrink-0 grid-cols-2 gap-1.5 overflow-hidden sm:max-h-[36%] sm:grid-cols-3 sm:gap-2 lg:grid-cols-4">
-              {others.map((s) => renderSeat(s))}
-            </div>
-          )}
-          {youSeat ? (
-            <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden border-t border-border pt-1.5 sm:pt-2">
-              {renderSeat(youSeat, { hero: true })}
-            </div>
-          ) : null}
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 overflow-x-hidden overflow-y-auto overscroll-contain sm:gap-2">
+          {others.map((s) => renderSeat(s))}
+          {youSeat ? renderSeat(youSeat) : null}
         </div>
 
         <div className="shrink-0 rounded-xl border border-border bg-white/95 px-2.5 py-1.5 shadow-sm sm:px-3 sm:py-2">

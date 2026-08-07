@@ -9,6 +9,11 @@ export type SeatSpeechSlotProps = {
   className?: string;
   /** Visual style: dark felt chip (holdem/go) vs cream tip (love letter). */
   variant?: "felt" | "cream";
+  /**
+   * Absolute overlay that does not consume layout height.
+   * Parent should be `relative` (and usually `overflow-visible`).
+   */
+  overlay?: boolean;
 };
 
 /**
@@ -18,9 +23,12 @@ export function SeatSpeechSlot({
   bubble,
   className,
   variant = "felt",
+  overlay = false,
 }: SeatSpeechSlotProps) {
   const slotClass = [
-    "relative mb-0.5 h-8 w-full shrink-0 sm:mb-1 sm:h-9",
+    overlay
+      ? "pointer-events-none absolute inset-x-2 top-1 z-20 h-7 overflow-hidden sm:h-8"
+      : "relative mb-0.5 h-8 w-full shrink-0 overflow-hidden sm:mb-1 sm:h-9",
     className,
   ]
     .filter(Boolean)
@@ -28,7 +36,7 @@ export function SeatSpeechSlot({
 
   if (variant === "cream") {
     return (
-      <div className={[slotClass, "overflow-hidden"].join(" ")}>
+      <div className={slotClass}>
         <AnimatePresence mode="wait">
           {bubble ? (
             <motion.div

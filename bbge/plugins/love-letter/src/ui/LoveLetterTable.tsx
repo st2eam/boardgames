@@ -16,7 +16,7 @@ interface Props {
   disabled?: boolean;
   thinkingId?: string | null;
   onAction: (action: LoveLetterAction) => void;
-  /** Floating chrome (e.g. table talk) over the felt */
+  /** Table talk panel — rendered beside the action bar, not over the felt */
   overlay?: ReactNode;
 }
 
@@ -41,9 +41,10 @@ export function LoveLetterTable({
   const interactive = Boolean(isMyTurn && !disabled);
 
   const size = useMemo(() => {
-    if (typeof window === "undefined") return { width: 900, height: 560 };
+    if (typeof window === "undefined") return { width: 900, height: 640 };
     const w = Math.min(960, Math.max(320, window.innerWidth - 48));
-    const h = Math.min(640, Math.max(420, Math.round(window.innerHeight * 0.62)));
+    // Extra height for opponent strip + felt + own hand band
+    const h = Math.min(720, Math.max(560, Math.round(window.innerHeight * 0.6)));
     return { width: w, height: h };
   }, []);
 
@@ -81,7 +82,7 @@ export function LoveLetterTable({
   };
 
   return (
-    <div className="relative mx-auto w-full" style={{ maxWidth: size.width }}>
+    <div className="mx-auto flex w-full flex-col gap-3" style={{ maxWidth: size.width }}>
       <LoveLetterPixiArena
         locale={locale}
         view={view}
@@ -94,25 +95,27 @@ export function LoveLetterTable({
         width={size.width}
         height={size.height}
       />
-      <LoveLetterArenaHud
-        locale={locale}
-        view={view}
-        actorId={actorId}
-        isMyTurn={isMyTurn}
-        selectedCardId={selectedCardId}
-        selectedTargetId={selectedTargetId}
-        guessRank={guessRank}
-        disabled={disabled}
-        onGuessRank={setGuessRank}
-        onConfirmPlay={confirmPlay}
-        onChancellorKeep={chancellorKeep}
-        onSelfTarget={() => setSelectedTargetId(actorId)}
-      />
-      {overlay ? (
-        <div className="pointer-events-none absolute bottom-3 left-3 z-20">
-          {overlay}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
+        <div className="min-w-0 flex-1">
+          <LoveLetterArenaHud
+            locale={locale}
+            view={view}
+            actorId={actorId}
+            isMyTurn={isMyTurn}
+            selectedCardId={selectedCardId}
+            selectedTargetId={selectedTargetId}
+            guessRank={guessRank}
+            disabled={disabled}
+            onGuessRank={setGuessRank}
+            onConfirmPlay={confirmPlay}
+            onChancellorKeep={chancellorKeep}
+            onSelfTarget={() => setSelectedTargetId(actorId)}
+          />
         </div>
-      ) : null}
+        {overlay ? (
+          <div className="w-full shrink-0 sm:w-64">{overlay}</div>
+        ) : null}
+      </div>
     </div>
   );
 }

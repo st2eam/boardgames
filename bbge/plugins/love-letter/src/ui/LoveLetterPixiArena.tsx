@@ -10,6 +10,8 @@ import {
 import {
   chancellorFanPositions,
   handFanPositions,
+  OPP_CARD_SCALE,
+  opponentHandPositions,
   opponentSeatPositions,
   tableGeom,
 } from "./pixi/layout";
@@ -208,7 +210,10 @@ export function LoveLetterPixiArena({
           },
         });
         name.anchor.set(0.5, 0);
-        name.y = 28;
+        name.y = 26;
+        name.style.wordWrap = true;
+        name.style.wordWrapWidth = 88;
+        name.style.align = "center";
         node.addChild(name);
         const seatId = o.id;
         node.on("pointertap", () => {
@@ -299,20 +304,20 @@ export function LoveLetterPixiArena({
 
     others.forEach((o, oi) => {
       const pt = seatPts[oi]!;
-      const n = Math.min(o.handCount, 2);
-      for (let i = 0; i < n; i++) {
+      const handPts = opponentHandPositions(pt, o.handCount);
+      handPts.forEach((hp, i) => {
         places.push({
           id: `opp-${o.id}-${i}`,
           rank: 0,
           name: "",
           faceDown: true,
-          x: pt.x - 16 + i * 32,
-          y: pt.y - 40,
-          rotation: (i - 0.5) * 0.1,
+          x: hp.x,
+          y: hp.y,
+          rotation: hp.rotation,
           selectable: false,
-          baseY: pt.y - 40,
+          baseY: hp.y,
         });
-      }
+      });
     });
 
     if (view.pending?.type === "chancellor" && view.pending.held) {
@@ -381,7 +386,8 @@ export function LoveLetterPixiArena({
         });
         layers.cards.addChild(card);
         cardsRef.current.set(p.id, card);
-        if (animateIn) {
+        const isOpp = p.id.startsWith("opp-");
+        if (animateIn && !isOpp) {
           card.x = geom.deck.x;
           card.y = geom.deck.y;
           dealIn(
@@ -394,15 +400,22 @@ export function LoveLetterPixiArena({
           card.y = p.y;
           card.rotation = p.rotation;
           card.alpha = 1;
-          card.scale.set(1);
+          card.scale.set(isOpp ? OPP_CARD_SCALE : 1);
         }
-      } else {
+      } else if (!p.id.startsWith("opp-")) {
         moveTo(card, { x: p.x, y: p.y, rotation: p.rotation });
+      } else {
+        card.x = p.x;
+        card.y = p.y;
+        card.rotation = p.rotation;
+        card.scale.set(OPP_CARD_SCALE);
       }
       card.baseY = p.baseY;
       card.eventMode = p.selectable ? "static" : "none";
       card.cursor = p.selectable ? "pointer" : "default";
-      selectLift(card, selectedCardId === p.id, p.baseY);
+      if (!p.id.startsWith("opp-") && !p.id.startsWith("face-") && p.id !== "__deck__") {
+        selectLift(card, selectedCardId === p.id, p.baseY);
+      }
     }
 
     for (const [id, card] of cardsRef.current) {
@@ -415,6 +428,7 @@ export function LoveLetterPixiArena({
     }
 
     layers.ui.removeChildren();
+    // Turn banner sits on the felt rim — not over opponent avatars / hand cards
     const banner = new Text({
       text:
         view.phase === "finished"
@@ -426,14 +440,14 @@ export function LoveLetterPixiArena({
             : `Turn · ${view.currentPlayerId} · Deck ${view.deckCount}`,
       style: {
         fontFamily: "Fredoka, sans-serif",
-        fontSize: 14,
+        fontSize: 13,
         fontWeight: "700",
         fill: 0xfff8e1,
       },
     });
-    banner.anchor.set(0.5, 0);
-    banner.x = width / 2;
-    banner.y = 12;
+    banner.anchor.set(0.5, 0.5);
+    banner.x = geom.cx;
+    banner.y = geom.cy - geom.ry - 18;
     layers.ui.addChild(banner);
 
     layers.overlay.removeChildren();

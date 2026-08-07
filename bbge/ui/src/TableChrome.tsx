@@ -31,7 +31,7 @@ export function TableChrome({
   }, [chat.length]);
 
   return (
-    <div className="pointer-events-auto flex max-h-[min(280px,42%)] w-[min(260px,calc(100%-1rem))] flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#1a120e]/92 shadow-lg backdrop-blur-md">
+    <div className="flex h-full max-h-64 w-full flex-col overflow-hidden rounded-2xl border border-border bg-[#1a120e] shadow-card">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}

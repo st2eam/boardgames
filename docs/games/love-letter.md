@@ -79,11 +79,12 @@ Game Shelf                              bbge/
 
 | Boundary | Rule |
 |----------|------|
-| Shelf `play/page` | Mount shell; resolve `pluginId` from `play.json` |
+| Shelf `play/page` | Mount generic `PlayShell`; `pluginId` from `play.json` |
+| Registry | `loveLetterPlayModule` registered in `registerPlayPlugins.ts` |
 | Runtime | Lifecycle, Host pipeline, seat scheduling |
 | Plugin | Pure rules; no network / DeepSeek |
-| Plugin UI | `plugins/love-letter/src/ui/*` — DOM table (BGA layout) |
-| AiSeat | Host only; Shelf wires `createDeepSeekLoveLetterSeat` + `loadApiKey` |
+| Plugin UI | `LoveLetterTable` via `PluginPlayModule.Table` |
+| AiSeat | Host only; `llmSeats.ts` → flash Action seat + module mock |
 | Network | Transports action / events / view / lobby / chat / aiPresence |
 
 See: skill [architecture.md §9](../../.cursor/skills/browser-board-game-engine/architecture.md), [§11](../../.cursor/skills/browser-board-game-engine/architecture.md), [plugin-api.md §16](../../.cursor/skills/browser-board-game-engine/plugin-api.md).

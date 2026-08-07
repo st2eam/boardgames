@@ -117,27 +117,33 @@ Plugin shape: **[plugin-api.md](plugin-api.md)**. AiSeat: **[plugin-api.md §16]
 
 Use together with [add-game](../add-game/SKILL.md) **Step 6d**. Content binding alone is insufficient.
 
+PlayShell is **game-agnostic**: it looks up a `PluginPlayModule` by `play.json` → `pluginId`.  
+Do **not** hardcode a second game inside `PlayShell.tsx`.
+
 ```
 1. Design     → docs/games/<slug>.md (+ docs/games/README.md)
 2. Plugin     → bbge/plugins/<pluginId>/ (rules, state, projectView, tests)
-3. Table UI   → plugins/.../ui/ BGA DOM (players left · board center · log/chat right)
-4. Shelf      → content/games/<slug>/play.json { pluginId, pluginVersion }
-                wire PlayPageClient / PlayShell for that pluginId
-5. AI (opt.)  → Host AiSeat; DeepSeekLoveLetterSeat pattern with deepseek-v4-flash
-                for Actions only; mock without key; no auto speak
-6. Verify     → npm run test:bbge && npm run build → commit/push
+3. Table UI   → plugins/.../ui/ implementing PluginTableProps
+4. Play module → export PluginPlayModule { id, plugin, Table, formatEvents,
+                  createMockSeat, tryAutoAiAction? }
+5. Register   → src/lib/bbge/registerPlayPlugins.ts → registerPlayModule(...)
+6. LLM (opt.) → src/lib/bbge/llmSeats.ts map pluginId → flash Action seat
+7. Shelf      → content/games/<slug>/play.json { pluginId, pluginVersion }
+8. Verify     → npm run test:bbge && npm run build → commit/push
 ```
 
-**Non-negotiables learned from Love Letter v1:**
+**PluginPlayModule** (`bbge/ui` registry): rules + table + event log + mock AI.  
+**PlayShell** owns lobby / PeerJS / HostSession / privacy / AI pacing only.
 
-- Plugin never imports network / DeepSeek / DOM side effects into `apply`
-- `projectView` hides other hands; Host client never shows AI/remote private views
-- Public Events must not carry private ranks (priest peek, baron survivor, etc.)
-- After a completed play, advance turn + draw so the actor always has a full hand (unless pending)
-- Pending flows (chancellor / priest confirm) pause turn advance until resolved
-- Prefer DOM + Motion over Pixi unless the board truly needs a canvas
+**Conventions (all turn-based plugins):**
 
-Reference design: [`docs/games/love-letter.md`](../../../docs/games/love-letter.md).
+- `projectView` exposes public `currentPlayerId` (HostSession reads it)
+- `createGame({ playerIds, playerNames, seed }, ctx)`
+- Private info only in viewer projection; Host UI uses local seats only
+- LLM seats output legal **Actions** (`deepseek-v4-flash`); no auto chat
+- Prefer DOM + Motion; Pixi only when the board needs a canvas
+
+Reference: [`docs/games/love-letter.md`](../../../docs/games/love-letter.md) + `loveLetterPlayModule`.
 
 ---
 

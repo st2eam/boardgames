@@ -3,7 +3,10 @@
 import { useSearchParams } from "next/navigation";
 import { PlayShell } from "@bbge/ui";
 import { loadApiKey } from "@/lib/chat/api-key-storage";
-import { createDeepSeekLoveLetterSeat } from "@/lib/bbge/DeepSeekLoveLetterSeat";
+import { ensurePlayPluginsRegistered } from "@/lib/bbge/registerPlayPlugins";
+import { getLlmSeatFactory } from "@/lib/bbge/llmSeats";
+
+ensurePlayPluginsRegistered();
 
 interface Props {
   locale: string;
@@ -24,7 +27,7 @@ export function PlayPageClient({ locale, slug, gameName, pluginId }: Props) {
       pluginId={pluginId}
       roomIdFromUrl={room}
       loadApiKey={loadApiKey}
-      createDeepSeekSeat={createDeepSeekLoveLetterSeat}
+      createDeepSeekSeat={getLlmSeatFactory(pluginId)}
     />
   );
 }

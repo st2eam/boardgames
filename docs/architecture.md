@@ -68,11 +68,11 @@ Pattern for gated features: config exists in content → `generateStaticParams` 
 
 Follow **[add-game Step 6d](../.cursor/skills/add-game/SKILL.md)** + **[BBGE skill](../.cursor/skills/browser-board-game-engine/SKILL.md)** (“Adding a new playable game”):
 
-1. Write / update design at `docs/games/<slug>.md`
-2. Implement plugin under `bbge/plugins/<pluginId>/` (pure rules + `projectView`)
-3. BGA-style table UI; Host privacy (local seats only)
-4. Add `content/games/<slug>/play.json` binding `pluginId`
-5. Wire Play page / shell for that plugin; AI Actions via `deepseek-v4-flash` if needed
+1. Design `docs/games/<slug>.md`
+2. Plugin + `PluginPlayModule` under `bbge/plugins/<pluginId>/`
+3. `registerPlayModule` in `src/lib/bbge/registerPlayPlugins.ts` (PlayShell stays generic)
+4. Optional LLM factory in `src/lib/bbge/llmSeats.ts`
+5. `content/games/<slug>/play.json` → `pluginId`
 6. `npm run test:bbge` + `npm run build`
 
 ### Adding a trainer type

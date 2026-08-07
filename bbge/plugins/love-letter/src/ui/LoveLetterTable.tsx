@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Action } from "@bbge/core";
+import type { PluginTableProps } from "@bbge/ui";
 import type { LoveLetterAction } from "../state";
 import type { ArenaView } from "./types";
 import { cardFaceUrl, cardLabel } from "./cardArt";
@@ -10,29 +12,12 @@ import { CardLightbox } from "./bga/CardLightbox";
 import { PriestRevealModal } from "./bga/PriestRevealModal";
 import { StatusBar } from "./bga/StatusBar";
 import { PlayerPanels } from "./bga/PlayerPanels";
-import type { AiChatMessage } from "@bbge/runtime";
 
 type ZoomCard = {
   rank: number;
   name?: { en: string; zh: string };
   subtitle?: string;
 };
-
-type LogLine = { id: string; text: string; tone?: "info" | "warn" | "win" };
-
-interface Props {
-  locale: string;
-  view: unknown;
-  /** Seat this client may view / act as (never another player's private hand). */
-  myId: string;
-  disabled?: boolean;
-  thinkingId?: string | null;
-  onAction: (action: LoveLetterAction) => void;
-  playLog?: LogLine[];
-  chat?: AiChatMessage[];
-  onChat?: (text: string) => void;
-  nameOf?: (id: string) => string;
-}
 
 export function LoveLetterTable({
   locale,
@@ -45,7 +30,8 @@ export function LoveLetterTable({
   chat = [],
   onChat,
   nameOf,
-}: Props) {
+}: PluginTableProps) {
+  const dispatch = (action: LoveLetterAction) => onAction(action as Action);
   const view = viewUnknown as ArenaView;
   const zh = locale === "zh";
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
@@ -225,7 +211,7 @@ export function LoveLetterTable({
     setFlyPlay(flying);
     skipDiscardAnimRef.current = true;
     window.setTimeout(() => {
-      onAction({
+      dispatch({
         type: "playCard",
         playerId: actorId,
         payload,
@@ -238,7 +224,7 @@ export function LoveLetterTable({
   };
 
   const acknowledgePriest = () => {
-    onAction({ type: "acknowledgePriest", playerId: actorId, payload: {} });
+    dispatch({ type: "acknowledgePriest", playerId: actorId, payload: {} });
   };
 
   const chancellorKeep = (cardId: string) => {
@@ -246,7 +232,7 @@ export function LoveLetterTable({
     const held = view.pending.held ?? [];
     if (!held.some((c) => c.id === cardId)) return;
     const rest = held.filter((c) => c.id !== cardId);
-    onAction({
+    dispatch({
       type: "resolveChancellor",
       playerId: actorId,
       payload: {

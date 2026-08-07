@@ -8,6 +8,29 @@ Architecture context: [architecture.md](architecture.md). Platform vision:
 
 ---
 
+## 0. Play module (Shelf wiring)
+
+A **GamePlugin** is rules-only. To mount it in The Game Shelf PlayShell, also
+export a **`PluginPlayModule`** and register it (do not fork PlayShell):
+
+```ts
+// bbge/plugins/<id>/playModule.ts
+export const myPlayModule: PluginPlayModule = {
+  id: "my-game",
+  plugin: myPlugin,
+  Table: MyTable,           // PluginTableProps
+  formatEvents,             // Event[] → PlayLogEntry[]
+  createMockSeat,           // offline / fallback AI
+  tryAutoAiAction?,         // optional non-LLM AI steps
+};
+```
+
+Shelf: `registerPlayModule(myPlayModule)` in
+`src/lib/bbge/registerPlayPlugins.ts`. Optional LLM Action factory in
+`src/lib/bbge/llmSeats.ts`. Content: `play.json` → `{ "pluginId": "my-game" }`.
+
+---
+
 ## 1. What a plugin is
 
 A **GamePlugin** is a versioned package that:

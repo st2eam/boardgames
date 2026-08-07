@@ -199,7 +199,10 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
     return this.lobby.seats.filter((s) => s.kind === "ai").map((s) => s.id);
   }
 
-  /** Current actor from view (plugin-specific); Love Letter uses currentPlayerId */
+  /**
+   * Active seat for turn-based plugins.
+   * Convention: `projectView` includes `currentPlayerId` (public).
+   */
   getCurrentPlayerId(): PlayerId | null {
     if (!this.state || this.phase !== "playing") return null;
     const v = this.getView(this.lobby.hostPlayerId) as {

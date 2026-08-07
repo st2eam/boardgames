@@ -1,35 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import dynamic from "next/dynamic";
-import type { Event } from "@bbge/core";
+import type { Action, Event } from "@bbge/core";
 import { HostSession, type AiChatMessage, type LobbyState } from "@bbge/runtime";
-import {
-  loveLetterPlugin,
-  type LoveLetterAction,
-  type LoveLetterState,
-} from "@bbge/love-letter";
-import { createMockLoveLetterSeat } from "@bbge/ai";
 import type { AiSeat } from "@bbge/ai";
 import { LobbyView } from "./LobbyView";
-import { formatPlayEvents, type PlayLogEntry } from "./formatPlayLog";
-
-const LoveLetterTable = dynamic(
-  () =>
-    import("../../plugins/love-letter/src/ui/LoveLetterTable").then(
-      (m) => m.LoveLetterTable,
-    ),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-[420px] items-center justify-center rounded-[1.5rem] border-4 border-[#3E2723] bg-[#1a120e]">
-        <p className="font-heading text-sm font-semibold text-accent animate-pulse">
-          Loading table…
-        </p>
-      </div>
-    ),
-  },
-);
+import { requirePlayModule } from "./registry";
+import type { PlayLogEntry, PluginPlayModule } from "./plugin-types";
 
 export interface PlayShellProps {
   locale: string;
@@ -38,6 +15,7 @@ export interface PlayShellProps {
   pluginId: string;
   roomIdFromUrl?: string | null;
   loadApiKey: () => Promise<string | null>;
+  /** Shelf-provided LLM seat factory for this plugin (Actions only). */
   createDeepSeekSeat?: (id: string, apiKey: string) => AiSeat;
 }
 
@@ -56,10 +34,10 @@ type PeerGuest = {
   onMessage?: (cb: (msg: { type: string; payload: unknown }) => void) => void;
 };
 
-function newRoomId(): string {
+function newRoomId(prefix: string): string {
   const bytes = new Uint8Array(6);
   crypto.getRandomValues(bytes);
-  return `ll-${Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("")}`;
+  return `${prefix}-${Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("")}`;
 }
 
 function newSeed(): string {
@@ -88,23 +66,23 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-/** Minimum “thinking” time before an AI commits a play (ms). */
 function aiThinkPaceMs(): number {
-  return 1400 + Math.floor(Math.random() * 1600); // 1.4–3.0s
+  return 1400 + Math.floor(Math.random() * 1600);
 }
 
-/** Pause after an AI play before the next seat acts (ms). */
 function aiBetweenPlaysMs(): number {
-  return 700 + Math.floor(Math.random() * 900); // 0.7–1.6s
+  return 700 + Math.floor(Math.random() * 900);
 }
 
 export function PlayShell({
   locale,
   gameName,
+  pluginId,
   roomIdFromUrl,
   loadApiKey,
   createDeepSeekSeat,
 }: PlayShellProps) {
+  const mod = useMemo(() => requirePlayModule(pluginId), [pluginId]);
   const isHost = !roomIdFromUrl;
   const hostId = useMemo(() => "host", []);
   const [roomId, setRoomId] = useState(roomIdFromUrl ?? "");
@@ -116,20 +94,17 @@ export function PlayShell({
   const [thinkingId, setThinkingId] = useState<string | null>(null);
   const [playLog, setPlayLog] = useState<PlayLogEntry[]>([]);
   const [myId, setMyId] = useState(hostId);
-  /** Seat whose private view this client may show / act as (never AI / remote). */
   const [controllingId, setControllingId] = useState(hostId);
   const [displayName, setDisplayName] = useState(
     locale === "zh" ? "房主" : "Host",
   );
-  const sessionRef = useRef<HostSession<LoveLetterState, LoveLetterAction> | null>(
-    null,
-  );
+  const sessionRef = useRef<HostSession | null>(null);
+  const modRef = useRef<PluginPlayModule>(mod);
+  modRef.current = mod;
   const aiRef = useRef<Map<string, AiSeat>>(new Map());
-  /** Seats backed by DeepSeek (play Actions), vs silent mock heuristic. */
   const llmSeatIdsRef = useRef<Set<string>>(new Set());
   const peerRef = useRef<{ destroy: () => void } | null>(null);
   const aiRunning = useRef(false);
-  /** Human seats on this device (host + pass-and-play). Remote guests / AI excluded. */
   const localSeatIdsRef = useRef<Set<string>>(new Set([hostId]));
 
   const seatNames = useCallback((): Record<string, string> => {
@@ -139,7 +114,7 @@ export function PlayShell({
 
   const appendEvents = useCallback(
     (events: Event[]) => {
-      const lines = formatPlayEvents(events, locale, seatNames());
+      const lines = modRef.current.formatEvents(events, locale, seatNames());
       if (lines.length === 0) return;
       setPlayLog((prev) => [...prev, ...lines].slice(-200));
     },
@@ -153,7 +128,6 @@ export function PlayShell({
     setPhase(s.getPhase());
     setChat(s.getPublicChat());
     if (s.getPhase() !== "lobby") {
-      // Privacy: only project a local human seat. Never show AI / remote hands.
       const current = s.getCurrentPlayerId();
       const local = localSeatIdsRef.current;
       const viewer =
@@ -181,20 +155,16 @@ export function PlayShell({
     [isHost, tick],
   );
 
-  // Host init
   useEffect(() => {
     if (!isHost) return;
-    const rid = newRoomId();
+    const prefix = mod.roomIdPrefix ?? "bbge";
+    const rid = newRoomId(prefix);
     setRoomId(rid);
-    const session = new HostSession<LoveLetterState, LoveLetterAction>(
-      loveLetterPlugin,
-      {
+    const session = new HostSession(mod.plugin, {
       seed: newSeed(),
       hostPlayerId: hostId,
-      // Mock AI always available — DeepSeek is optional enhancement
       canStartAi: async () => true,
-    },
-    );
+    });
     session.addHumanSeat(hostId, displayName);
     session.setReady(hostId, true);
     sessionRef.current = session;
@@ -223,7 +193,7 @@ export function PlayShell({
             host.broadcast({ type: "lobby", payload: s.getLobby() });
             tick();
           } else if (msg.type === "action") {
-            const result = s.submitAction(msg.payload as LoveLetterAction);
+            const result = s.submitAction(msg.payload as Action);
             if (!result.ok) {
               if (fromPeer) {
                 host.send(fromPeer, {
@@ -260,11 +230,13 @@ export function PlayShell({
       cancelled = true;
       peerRef.current?.destroy();
       peerRef.current = null;
+      sessionRef.current = null;
+      aiRef.current.clear();
+      llmSeatIdsRef.current.clear();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHost]);
+  }, [isHost, pluginId]);
 
-  // Guest init
   useEffect(() => {
     if (isHost || !roomIdFromUrl) return;
     let cancelled = false;
@@ -329,7 +301,7 @@ export function PlayShell({
       peerRef.current?.destroy();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHost, roomIdFromUrl]);
+  }, [isHost, roomIdFromUrl, pluginId]);
 
   const resolveAiSeat = async (
     seatId: string,
@@ -345,7 +317,7 @@ export function PlayShell({
       llmSeatIdsRef.current.add(seatId);
       return { seat, isLlm: true };
     }
-    const seat = createMockLoveLetterSeat(seatId);
+    const seat = modRef.current.createMockSeat(seatId);
     aiRef.current.set(seatId, seat);
     return { seat, isLlm: false };
   };
@@ -379,20 +351,11 @@ export function PlayShell({
     ]);
 
     try {
-      const v = s.getView(current) as {
-        pending?: { type?: string; playerId?: string };
-      };
-      // Priest reveal: AI "looks" then acknowledges — no LLM needed
-      if (
-        v.pending?.type === "priestReveal" &&
-        v.pending.playerId === current
-      ) {
+      const v = s.getView(current);
+      const auto = modRef.current.tryAutoAiAction?.(v, current) ?? null;
+      if (auto) {
         await sleep(1600 + Math.floor(Math.random() * 1200));
-        const result = s.submitAction({
-          type: "acknowledgePriest",
-          playerId: current,
-          payload: {},
-        } as LoveLetterAction);
+        const result = s.submitAction(auto);
         if (result.ok) {
           appendEvents(result.events);
           tick();
@@ -402,26 +365,20 @@ export function PlayShell({
         }
       } else {
         const { seat, isLlm } = await resolveAiSeat(current);
-        // LLM is for play Actions (flash); chat table-talk is not part of the loop.
         const thinkBudgetMs = isLlm ? 90_000 : 8_000;
-        let action: LoveLetterAction;
+        let action: Action;
         try {
-          const decide = withTimeout(
-            seat.think(v),
-            thinkBudgetMs,
-            "AI think",
-          );
+          const decide = withTimeout(seat.think(v), thinkBudgetMs, "AI think");
           const [, decided] = await Promise.all([sleep(paceMs), decide]);
-          action = decided as LoveLetterAction;
+          action = decided;
         } catch (err) {
-          // One-turn safety net only — keep LLM seat cached for the next turn
-          const mock = createMockLoveLetterSeat(current);
+          const mock = modRef.current.createMockSeat(current);
           const remaining = Math.max(0, paceMs - (Date.now() - thinkStarted));
           const [decided] = await Promise.all([
             mock.think(s.getView(current)),
             remaining > 0 ? sleep(remaining) : Promise.resolve(),
           ]);
-          action = decided as LoveLetterAction;
+          action = decided;
           const why =
             err instanceof Error && /timeout/i.test(err.message)
               ? locale === "zh"
@@ -446,11 +403,9 @@ export function PlayShell({
 
         let result = s.submitAction(action);
         if (!result.ok) {
-          const mock = createMockLoveLetterSeat(current);
+          const mock = modRef.current.createMockSeat(current);
           await sleep(400 + Math.floor(Math.random() * 400));
-          const retry = (await mock.think(
-            s.getView(current),
-          )) as LoveLetterAction;
+          const retry = await mock.think(s.getView(current));
           result = s.submitAction(retry);
           if (!result.ok) {
             setError(result.error);
@@ -536,7 +491,7 @@ export function PlayShell({
     await runAiIfNeeded();
   };
 
-  const onDispatch = (action: LoveLetterAction) => {
+  const onDispatch = (action: Action) => {
     if (!isHost) {
       (peerRef.current as PeerGuest | null)?.send?.({
         type: "action",
@@ -569,6 +524,8 @@ export function PlayShell({
     typeof window !== "undefined" && roomId
       ? `${window.location.origin}${window.location.pathname}?room=${roomId}`
       : "";
+
+  const Table = mod.Table;
 
   return (
     <div className="space-y-4">
@@ -629,7 +586,7 @@ export function PlayShell({
       )}
 
       {(phase === "playing" || phase === "finished") && view != null ? (
-        <LoveLetterTable
+        <Table
           locale={locale}
           view={view}
           myId={controllingId}

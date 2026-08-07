@@ -325,13 +325,14 @@ Minimum implementation checklist for a new playable slug:
 
 1. **Design** — `docs/games/{slug}.md` (scope, Actions, privacy, AI, UI layout)
 2. **Plugin** — `bbge/plugins/{pluginId}/` pure rules + `projectView` (no network / no DeepSeek)
-3. **Table UI** — prefer **BGA-style DOM** under `plugins/.../ui/` (reference: Love Letter `LoveLetterTable` + `ui/bga/*`); Motion for draw/play
-4. **Shelf wire** — `play.json` + ensure `/play/page.tsx` + `PlayPageClient` can mount the plugin (extend registry if not Love Letter)
-5. **AI (optional)** — Host `AiSeat`: LLM for **legal Actions** via **`deepseek-v4-flash`** (`src/lib/bbge/…Seat.ts`); mock without API key; **no auto chat**
-6. **Tests** — `npm run test:bbge` (determinism, illegal actions, privacy)
-7. **Verify** — `npm run build`, then commit/push per repo rules
+3. **Table UI** — implement `PluginTableProps` (BGA-style DOM recommended)
+4. **Play module** — export `PluginPlayModule` (`id`, `plugin`, `Table`, `formatEvents`, `createMockSeat`, optional `tryAutoAiAction`)
+5. **Register** — `registerPlayModule(...)` in `src/lib/bbge/registerPlayPlugins.ts` (do **not** edit `PlayShell` per game)
+6. **LLM (optional)** — map `pluginId` → seat factory in `src/lib/bbge/llmSeats.ts` (`deepseek-v4-flash`, Actions only)
+7. **Shelf** — `play.json` `{ pluginId, pluginVersion }`
+8. **Tests / verify** — `npm run test:bbge` + `npm run build`
 
-Reference ship: Love Letter — [`docs/games/love-letter.md`](../../../docs/games/love-letter.md).
+Reference: Love Letter `loveLetterPlayModule` + [`docs/games/love-letter.md`](../../../docs/games/love-letter.md).
 
 #### Hard lessons (do not regress)
 

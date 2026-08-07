@@ -117,7 +117,17 @@ function ClearConfirmDialog({
 }
 
 export function ChatDialog({ title, isExpanded = false, onToggleExpand }: Props) {
-  const { apiKey, apiKeyLoaded, clearHistory, close, scope, activeMode, toggleMode } = useChat();
+  const {
+    apiKey,
+    apiKeyLoaded,
+    clearHistory,
+    close,
+    scope,
+    activeMode,
+    toggleMode,
+    sendMessage,
+    isStreaming,
+  } = useChat();
   const t = useTranslations("chat");
   const locale = useLocale();
   const [showApiModal, setShowApiModal] = useState(false);
@@ -133,13 +143,25 @@ export function ChatDialog({ title, isExpanded = false, onToggleExpand }: Props)
   const hasApiKey = Boolean(apiKey);
   const isGamePage = scope.type === "game";
   const isGameMode = activeMode === "game";
-  const gameName = isGamePage
-    ? (scope as { type: "game"; gameName: string }).gameName
-    : "";
+  const gameScope = isGamePage
+    ? (scope as Extract<typeof scope, { type: "game" }>)
+    : null;
+  const gameName = gameScope?.gameName ?? "";
+  const isGoTutor = isGameMode && gameScope?.slug === "go";
+  const suggestedPrompts =
+    isGameMode && gameScope?.suggestedPrompts?.length
+      ? gameScope.suggestedPrompts
+      : [];
 
-  const headerTitle = isGameMode && isGamePage
-    ? (locale === "zh" ? `${gameName} 助手` : `${gameName} Assistant`)
-    : t("globalTitle");
+  const headerTitle =
+    title ??
+    (isGoTutor
+      ? t("goTutorTitle")
+      : isGameMode && isGamePage
+        ? locale === "zh"
+          ? `${gameName} 助手`
+          : `${gameName} Assistant`
+        : t("globalTitle"));
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -321,8 +343,33 @@ export function ChatDialog({ title, isExpanded = false, onToggleExpand }: Props)
       {/* Messages */}
       <ChatMessages />
 
+      {suggestedPrompts.length > 0 && hasApiKey && (
+        <div className="shrink-0 border-t border-stone-100 bg-stone-50/60 px-3 py-2">
+          {isGoTutor && (
+            <p className="mb-1.5 px-0.5 text-[10px] font-semibold uppercase tracking-wide text-stone-400">
+              {t("goTutorHint")}
+            </p>
+          )}
+          <div className="flex flex-wrap gap-1.5">
+            {suggestedPrompts.map((prompt) => (
+              <button
+                key={prompt}
+                type="button"
+                disabled={isStreaming}
+                onClick={() => void sendMessage(prompt)}
+                className="cursor-pointer rounded-full border border-border bg-white px-2.5 py-1 text-[11px] font-medium text-primary-dark transition-colors hover:border-accent/40 hover:bg-accent/5 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {prompt}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Input */}
-      <ChatInput />
+      <ChatInput
+        placeholder={isGoTutor ? t("goTutorPlaceholder") : undefined}
+      />
 
       {/* API Key Modal */}
       <AnimatePresence>

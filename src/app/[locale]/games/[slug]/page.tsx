@@ -6,6 +6,7 @@ import { RulesToc } from "@/components/game/RulesToc";
 import { RelatedGames } from "@/components/game/RelatedGames";
 import { TrackRecentVisit } from "@/components/game/TrackRecentVisit";
 import { ChatToggle } from "@/components/chat/ChatToggle";
+import { goTutorSuggestedPrompts } from "@/lib/go/boardContext";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { buildPageMetadata, getCoverImageUrl, absoluteUrl } from "@/lib/seo";
@@ -127,7 +128,14 @@ export default async function GamePage({ params }: Props) {
         </div>
       </div>
       <ChatToggle
-        scope={{ type: "game", slug, gameName }}
+        scope={{
+          type: "game",
+          slug,
+          gameName,
+          ...(slug === "go"
+            ? { suggestedPrompts: goTutorSuggestedPrompts(locale) }
+            : {}),
+        }}
         locale={locale}
       />
     </>

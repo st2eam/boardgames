@@ -1,10 +1,14 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { useTranslations } from "next-intl";
+import { useState, useCallback, useMemo } from "react";
 import type { GoTrainerConfig } from "@/lib/go/types";
 import type { GoProblem, Coord } from "@/lib/go/types";
 import { problems, getProblemsByDifficulty } from "@/lib/go/problems";
+import {
+  formatGoBoardContext,
+  goTutorSuggestedPrompts,
+} from "@/lib/go/boardContext";
+import { ChatToggle } from "@/components/chat/ChatToggle";
 import { GoBoard } from "./GoBoard";
 import { TrainerStats } from "../TrainerStats";
 
@@ -16,7 +20,6 @@ interface Props {
 type Phase = "playing" | "result";
 
 export function GoTsumegoTrainer({ config, locale }: Props) {
-  const t = useTranslations("game");
   const [difficulty, setDifficulty] = useState(config.difficulties[0].id);
   const [problem, setProblem] = useState<GoProblem>(() => getRandom(difficulty));
   const [playedStones, setPlayedStones] = useState<Record<string, "black" | "white">>({});
@@ -101,9 +104,52 @@ export function GoTsumegoTrainer({ config, locale }: Props) {
     ? (locale === "zh" ? "黑先" : "Black")
     : (locale === "zh" ? "白先" : "White");
 
+  const playedMoves = useMemo(() => {
+    return Object.keys(playedStones).map((k) => {
+      const [row, col] = k.split(",").map(Number);
+      return { row: row!, col: col! } as Coord;
+    });
+  }, [playedStones]);
+
+  const boardContext = useMemo(
+    () =>
+      formatGoBoardContext({
+        size: problem.size,
+        stones: allStones,
+        turn: problem.turn,
+        goal: goalText,
+        phase,
+        wasCorrect,
+        playedMoves,
+        solution: phase === "result" ? problem.solution : null,
+        locale,
+      }),
+    [
+      problem.size,
+      problem.turn,
+      problem.solution,
+      allStones,
+      goalText,
+      phase,
+      wasCorrect,
+      playedMoves,
+      locale,
+    ],
+  );
+
+  const tsumegoHintPrompt =
+    locale === "zh"
+      ? "请根据当前棋盘，给我这道死活的思路提示（先别直接给正解）"
+      : "Using the current board, give me hints for this tsumego (don’t spoil the full answer yet)";
+
   return (
     <div className="mx-auto max-w-md space-y-4">
       <TrainerStats correct={correct} total={total} streak={streak} locale={locale} />
+      <p className="rounded-xl border border-accent/20 bg-accent/5 px-3 py-2 text-xs leading-relaxed text-primary-dark">
+        {locale === "zh"
+          ? "右下角打开「围棋老师」：可陪聊规则、讲死活思路。老师能看到当前棋盘。"
+          : "Open Go Teacher (bottom-right) for rules chat and tsumego tips — the teacher can see this board."}
+      </p>
 
       {/* Difficulty selector */}
       <div className="flex gap-1.5 flex-wrap">
@@ -174,6 +220,20 @@ export function GoTsumegoTrainer({ config, locale }: Props) {
           </button>
         )}
       </div>
+
+      <ChatToggle
+        scope={{
+          type: "game",
+          slug: "go",
+          gameName: locale === "zh" ? "围棋" : "Go",
+          boardContext,
+          suggestedPrompts: [
+            tsumegoHintPrompt,
+            ...goTutorSuggestedPrompts(locale).slice(0, 3),
+          ],
+        }}
+        locale={locale}
+      />
     </div>
   );
 }

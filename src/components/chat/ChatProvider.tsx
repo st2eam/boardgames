@@ -16,6 +16,7 @@ import { loadApiKey, saveApiKey } from "@/lib/chat/api-key-storage";
 import { DeepSeekAdapter } from "@/lib/ai/DeepSeekAdapter";
 import { GlobalChatStrategy } from "@/lib/ai/GlobalChatStrategy";
 import { GameChatStrategy } from "@/lib/ai/GameChatStrategy";
+import { GoTutorStrategy } from "@/lib/ai/GoTutorStrategy";
 import type { ChatToolStrategy } from "@/lib/ai/ChatToolStrategy";
 import type {
   AnthropicContentBlock,
@@ -74,9 +75,17 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
   const [apiKeyLoaded, setApiKeyLoaded] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const messagesRef = useRef<ChatMessage[]>([]);
+  const boardContextRef = useRef<string | undefined>(
+    scope.type === "game" ? scope.boardContext : undefined,
+  );
   const [activeMode, setActiveMode] = useState<ChatMode>(
     scope.type === "game" ? "game" : "global"
   );
+
+  useEffect(() => {
+    boardContextRef.current =
+      scope.type === "game" ? scope.boardContext : undefined;
+  }, [scope]);
 
   const effectiveScope: ChatScope = useMemo(() => {
     if (activeMode === "global") return { type: "global" };
@@ -147,7 +156,12 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
 
       let strategy: ChatToolStrategy;
       if (activeMode === "game" && scope.type === "game") {
-        strategy = new GameChatStrategy(scope.gameName, scope.slug);
+        strategy =
+          scope.slug === "go"
+            ? new GoTutorStrategy(scope.gameName, scope.slug, () =>
+                boardContextRef.current,
+              )
+            : new GameChatStrategy(scope.gameName, scope.slug);
       } else {
         strategy = new GlobalChatStrategy();
       }

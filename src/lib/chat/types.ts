@@ -51,4 +51,12 @@ export interface ChatActivity {
 
 export type ChatScope =
   | { type: "global" }
-  | { type: "game"; slug: string; gameName: string };
+  | {
+      type: "game";
+      slug: string;
+      gameName: string;
+      /** Live board / problem dump for tutors (e.g. Go tsumego). */
+      boardContext?: string;
+      /** Quick-ask chips shown above the input. */
+      suggestedPrompts?: string[];
+    };

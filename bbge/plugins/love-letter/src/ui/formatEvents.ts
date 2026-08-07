@@ -328,10 +328,20 @@ export function formatLoveLetterEvents(
           ? `${nameOf(String(p.playerId), names)} 大臣结算完毕`
           : `${nameOf(String(p.playerId), names)} resolved Chancellor`;
         break;
+      case "loveLetter/heartGained": {
+        text = zh
+          ? `${nameOf(String(p.playerId), names)} 获得情感标记（♥${p.hearts}）`
+          : `${nameOf(String(p.playerId), names)} gains a favor token (♥${p.hearts})`;
+        tone = "info";
+        break;
+      }
       case "loveLetter/roundEnded": {
         const winners = (p.winners as string[] | undefined) ?? [];
         const spyBonus = (p.spyBonus as string[] | undefined) ?? [];
         const reason = p.reason as string | undefined;
+        const matchOver = Boolean(p.matchOver);
+        const heartTarget = p.heartTarget as number | undefined;
+        const roundNumber = p.roundNumber as number | undefined;
         const standings = (p.standings as
           | {
               playerId: string;
@@ -339,6 +349,7 @@ export function formatLoveLetterEvents(
               handRank: number | null;
               won: boolean;
               spyFavor: boolean;
+              hearts?: number;
             }[]
           | undefined) ?? [];
         const reasonZh =
@@ -346,38 +357,46 @@ export function formatLoveLetterEvents(
             ? "仅剩一人"
             : reason === "hand_compare"
               ? "牌堆耗尽 · 比点"
-              : "本局结束";
+              : reason === "hearts"
+                ? "情感标记达标"
+                : "本轮结束";
         const reasonEn =
           reason === "last_standing"
             ? "last player standing"
             : reason === "hand_compare"
               ? "deck empty · compare hands"
-              : "round over";
+              : reason === "hearts"
+                ? "favor tokens reached"
+                : "round over";
         const lines: string[] = [
           zh
-            ? `${reasonZh} · 胜者 ${winners.map((id) => nameOf(id, names)).join("、") || "—"}`
-            : `${reasonEn} · ${winners.map((id) => nameOf(id, names)).join(", ") || "—"}`,
+            ? `${matchOver ? "比赛结束" : `第 ${roundNumber ?? "?"} 轮`} · ${reasonZh}${
+                heartTarget != null ? ` · 目标 ♥${heartTarget}` : ""
+              } · ${matchOver ? "冠军" : "胜者"} ${winners.map((id) => nameOf(id, names)).join("、") || "—"}`
+            : `${matchOver ? "Match over" : `Round ${roundNumber ?? "?"}`} · ${reasonEn}${
+                heartTarget != null ? ` · target ♥${heartTarget}` : ""
+              } · ${winners.map((id) => nameOf(id, names)).join(", ") || "—"}`,
         ];
         for (const s of standings) {
           if (s.eliminated) {
             lines.push(
               zh
-                ? `· ${nameOf(s.playerId, names)}：已出局`
-                : `· ${nameOf(s.playerId, names)}: out`,
+                ? `· ${nameOf(s.playerId, names)}：已出局 · ♥${s.hearts ?? 0}`
+                : `· ${nameOf(s.playerId, names)}: out · ♥${s.hearts ?? 0}`,
             );
           } else {
             const card =
               s.handRank != null ? rankName(s.handRank, zh) : "?";
             const flags = [
-              s.won ? (zh ? "胜" : "win") : null,
+              s.won ? (zh ? "本轮胜" : "win") : null,
               s.spyFavor ? (zh ? "间谍好感" : "spy favor") : null,
             ]
               .filter(Boolean)
               .join(" · ");
             lines.push(
               zh
-                ? `· ${nameOf(s.playerId, names)}：手牌 ${card}${flags ? `（${flags}）` : ""}`
-                : `· ${nameOf(s.playerId, names)}: ${card}${flags ? ` (${flags})` : ""}`,
+                ? `· ${nameOf(s.playerId, names)}：手牌 ${card} · ♥${s.hearts ?? 0}${flags ? `（${flags}）` : ""}`
+                : `· ${nameOf(s.playerId, names)}: ${card} · ♥${s.hearts ?? 0}${flags ? ` (${flags})` : ""}`,
             );
           }
         }

@@ -12,7 +12,7 @@ export interface LoveLetterPlayer {
   playedSpy: boolean;
   /** Priest / Cardinal peek memory (private) */
   seen: Record<string, number>;
-  /** Expansion: affection tokens toward match win */
+  /** Affection / favor tokens toward match win (all editions) */
   hearts: number;
 }
 
@@ -49,6 +49,10 @@ export interface LoveLetterState {
   seed: string;
   edition: LoveLetterEdition;
   phase: "playing" | "finished";
+  /** 1-based round within the match */
+  roundNumber: number;
+  /** True when someone reached the affection-token target (match over) */
+  matchOver: boolean;
   players: LoveLetterPlayer[];
   turnOrder: PlayerId[];
   currentIndex: number;
@@ -58,6 +62,7 @@ export interface LoveLetterState {
   pending: PendingChoice;
   /** Drawn for current turn already */
   hasDrawn: boolean;
+  /** Round winners (or match winners when matchOver) */
   winners: PlayerId[];
   spyBonus: PlayerId[];
   /** Sycophant: next targeting effect must include this player */

@@ -39,6 +39,8 @@ function Panel({
   name,
   you,
   handCount,
+  hearts,
+  heartTarget,
   discarded,
   eliminated,
   protected: isProtected,
@@ -58,6 +60,8 @@ function Panel({
   name: string;
   you?: boolean;
   handCount: number;
+  hearts: number;
+  heartTarget: number;
   discarded: DiscCard[];
   eliminated: boolean;
   protected: boolean;
@@ -125,6 +129,17 @@ function Panel({
                   {zh ? "你" : "You"}
                 </span>
               )}
+              <span
+                className="shrink-0 font-heading text-[10px] font-bold text-rose-700"
+                title={
+                  zh
+                    ? `情感标记 ${hearts}/${heartTarget}`
+                    : `Favor ${hearts}/${heartTarget}`
+                }
+              >
+                ♥{hearts}
+                <span className="font-medium text-rose-400">/{heartTarget}</span>
+              </span>
             </div>
             <p className="truncate text-[10px] text-stone-500">
               {eliminated
@@ -236,6 +251,7 @@ export const PlayerPanels = forwardRef<HTMLDivElement, Props>(
   const zh = locale === "zh";
   const you = view.you;
   const rail = variant === "rail";
+  const heartTarget = view.heartTarget ?? 4;
 
   return (
     <div
@@ -248,7 +264,9 @@ export const PlayerPanels = forwardRef<HTMLDivElement, Props>(
     >
       {!rail && (
         <p className="px-0.5 font-heading text-[11px] font-bold uppercase tracking-wide text-stone-500">
-          {zh ? "玩家" : "Players"}
+          {zh
+            ? `玩家 · 第 ${view.roundNumber ?? 1} 轮 · ♥${heartTarget} 胜`
+            : `Players · R${view.roundNumber ?? 1} · ♥${heartTarget} to win`}
         </p>
       )}
       {you && (
@@ -258,6 +276,8 @@ export const PlayerPanels = forwardRef<HTMLDivElement, Props>(
           name={zh ? "你" : "You"}
           you
           handCount={you.hand.length}
+          hearts={you.hearts ?? 0}
+          heartTarget={heartTarget}
           discarded={view.selfDiscarded ?? []}
           eliminated={you.eliminated}
           protected={you.protected}
@@ -283,6 +303,8 @@ export const PlayerPanels = forwardRef<HTMLDivElement, Props>(
           id={o.id}
           name={o.name}
           handCount={o.handCount}
+          hearts={o.hearts ?? 0}
+          heartTarget={heartTarget}
           discarded={o.discarded}
           eliminated={o.eliminated}
           protected={o.protected}

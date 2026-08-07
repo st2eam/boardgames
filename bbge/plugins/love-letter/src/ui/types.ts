@@ -39,12 +39,15 @@ export type ArenaStanding = {
   playedSpy: boolean;
   won: boolean;
   spyFavor: boolean;
-  hearts?: number;
+  hearts: number;
 };
 
 export type ArenaView = {
   phase: string;
   edition?: "classic" | "full" | "expansion" | "premium";
+  roundNumber?: number;
+  matchOver?: boolean;
+  heartTarget?: number;
   winners: string[];
   spyBonus?: string[];
   endReason?: "last_standing" | "hand_compare" | "hearts" | null;

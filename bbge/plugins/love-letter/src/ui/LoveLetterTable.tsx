@@ -257,16 +257,21 @@ export function LoveLetterTable({
               : "Deck empty · compare"
             : view.endReason === "hearts"
               ? zh
-                ? "好感达标"
+                ? "情感标记达标"
                 : "Favor tokens reached"
               : zh
-                ? "本局结束"
+                ? "本轮结束"
                 : "Round over";
+      const matchDone = Boolean(view.matchOver || view.endReason === "hearts");
       return {
         tone: "done" as const,
         text: zh
-          ? `${reason} · 胜者 ${view.winners.map((id) => nameOf?.(id) ?? id).join("、")}`
-          : `${reason} · ${view.winners.map((id) => nameOf?.(id) ?? id).join(", ")}`,
+          ? matchDone
+            ? `比赛结束 · ${reason} · ${view.winners.map((id) => nameOf?.(id) ?? id).join("、")} 获胜`
+            : `第 ${view.roundNumber ?? 1} 轮结束 · ${reason} · 先到 ♥${view.heartTarget ?? 4}`
+          : matchDone
+            ? `Match over · ${reason} · ${view.winners.map((id) => nameOf?.(id) ?? id).join(", ")}`
+            : `Round ${view.roundNumber ?? 1} · ${reason} · first to ♥${view.heartTarget ?? 4}`,
       };
     }
     if (priestPending) {
@@ -612,11 +617,23 @@ export function LoveLetterTable({
                   onClick={onRematch}
                   className="cursor-pointer rounded-xl bg-accent px-5 py-2 font-heading text-sm font-bold text-white shadow-card transition-colors hover:bg-accent-dark"
                 >
-                  {zh ? "再来一局" : "Play again"}
+                  {view.matchOver || view.endReason === "hearts"
+                    ? zh
+                      ? "再来一局"
+                      : "Play again"
+                    : zh
+                      ? "下一轮"
+                      : "Next round"}
                 </button>
               ) : (
                 <span className="text-xs font-medium text-emerald-800/70">
-                  {zh ? "等待房主再开一局…" : "Waiting for host…"}
+                  {view.matchOver || view.endReason === "hearts"
+                    ? zh
+                      ? "等待房主再开一局…"
+                      : "Waiting for host…"
+                    : zh
+                      ? "等待房主开下一轮…"
+                      : "Waiting for next round…"}
                 </span>
               )}
             </div>
@@ -627,6 +644,9 @@ export function LoveLetterTable({
                     <tr className="border-b border-emerald-100 text-[10px] uppercase tracking-wide text-emerald-800/70">
                       <th className="px-2 py-1.5 font-heading font-bold">
                         {zh ? "玩家" : "Player"}
+                      </th>
+                      <th className="px-2 py-1.5 font-heading font-bold">
+                        {zh ? "♥" : "♥"}
                       </th>
                       <th className="px-2 py-1.5 font-heading font-bold">
                         {zh ? "终局手牌" : "Final hand"}
@@ -651,7 +671,7 @@ export function LoveLetterTable({
                           ? "出局"
                           : "Out"
                         : [
-                            s.won ? (zh ? "获胜" : "Winner") : null,
+                            s.won ? (zh ? "本轮胜" : "Round win") : null,
                             s.spyFavor
                               ? zh
                                 ? "间谍好感"
@@ -678,6 +698,9 @@ export function LoveLetterTable({
                         >
                           <td className="px-2 py-1.5 font-heading font-semibold">
                             {nameOf?.(s.playerId) ?? s.name}
+                          </td>
+                          <td className="px-2 py-1.5 font-heading font-bold text-rose-700">
+                            ♥{s.hearts ?? 0}
                           </td>
                           <td className="px-2 py-1.5">{card}</td>
                           <td className="px-2 py-1.5">{result}</td>

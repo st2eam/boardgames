@@ -1188,6 +1188,8 @@ export function PlayShell({
     autoAdvanceRunning.current = false;
     setThinkingId(null);
     setThinkingDetail(null);
+    const isLoveLetter = pluginId === "love-letter";
+    const keepSessionLog = isHoldem || isLoveLetter;
     const line = {
       id: `rematch-${Date.now()}`,
       at: Date.now(),
@@ -1195,12 +1197,16 @@ export function PlayShell({
         ? locale === "zh"
           ? "下一手 · 房主发牌"
           : "Next hand · host dealt"
-        : locale === "zh"
-          ? "再来一局 · 重新发牌"
-          : "Play again · new deal",
+        : isLoveLetter
+          ? locale === "zh"
+            ? "下一轮 · 房主发牌"
+            : "Next round · host dealt"
+          : locale === "zh"
+            ? "再来一局 · 重新发牌"
+            : "Play again · new deal",
       tone: "win" as const,
     };
-    if (isHoldem) {
+    if (keepSessionLog) {
       setPlayLog((prev) => [...prev, line]);
     } else {
       setPlayLog([line]);

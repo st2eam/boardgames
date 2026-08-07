@@ -1,5 +1,5 @@
 import type { PlayerId } from "@bbge/core";
-import { rankName } from "./cards";
+import { heartTargetForPlayers, rankName } from "./cards";
 import { buildRoundEndPayload } from "./rules";
 import type { LoveLetterState } from "./state";
 
@@ -11,6 +11,7 @@ export function projectLoveLetterView(
   const finished = state.phase === "finished";
   const end = finished ? buildRoundEndPayload(state) : null;
   const ed = state.edition;
+  const heartTarget = heartTargetForPlayers(state.players.length);
 
   const named = (c: { id: string; rank: number; role?: string }) => ({
     id: c.id,
@@ -69,6 +70,9 @@ export function projectLoveLetterView(
   return {
     phase: state.phase,
     edition: ed,
+    roundNumber: state.roundNumber,
+    matchOver: state.matchOver,
+    heartTarget,
     winners: state.winners,
     spyBonus: state.spyBonus,
     endReason: end?.reason ?? null,

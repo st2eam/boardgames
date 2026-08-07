@@ -1,4 +1,5 @@
 export { loveLetterPlugin, prepareLoveLetterTurn } from "./plugin";
+export { continueLoveLetterMatch } from "./rules";
 export type {
   LoveLetterAction,
   LoveLetterConfig,

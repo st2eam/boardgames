@@ -73,23 +73,32 @@ function grantHeart(
   });
 }
 
+function heartTarget(state: LoveLetterState): number {
+  return heartTargetForPlayers(state.players.length);
+}
+
+function playersAtHeartTarget(state: LoveLetterState): PlayerId[] {
+  const target = heartTarget(state);
+  return state.players.filter((p) => p.hearts >= target).map((p) => p.id);
+}
+
+/** Mid-round ♥ (Bishop / Constable) can end the match immediately. */
 function maybeFinishByHearts(state: LoveLetterState, events: Event[]): boolean {
-  if (state.edition !== "expansion") return false;
-  const target = heartTargetForPlayers(state.players.length);
-  const heartWinners = state.players
-    .filter((p) => p.hearts >= target)
-    .map((p) => p.id);
+  const heartWinners = playersAtHeartTarget(state);
   if (heartWinners.length === 0) return false;
   state.phase = "finished";
+  state.matchOver = true;
   state.winners = heartWinners;
   state.spyBonus = [];
   events.push({
     type: "loveLetter/roundEnded",
     payload: {
+      ...buildRoundEndPayload(state),
       winners: heartWinners.slice(),
       spyBonus: [],
       reason: "hearts" as const,
-      standings: buildRoundEndPayload(state).standings,
+      matchOver: true,
+      heartTarget: heartTarget(state),
     },
   });
   return true;
@@ -168,12 +177,23 @@ export type RoundEndPayload = {
   spyBonus: PlayerId[];
   reason: RoundEndReason;
   standings: RoundStanding[];
+  matchOver: boolean;
+  heartTarget: number;
+  roundNumber: number;
 };
 
-export function buildRoundEndPayload(state: LoveLetterState): RoundEndPayload {
+export function buildRoundEndPayload(
+  state: LoveLetterState,
+  reasonOverride?: RoundEndReason,
+): RoundEndPayload {
   const living = alive(state);
   const reason: RoundEndReason =
-    living.length <= 1 ? "last_standing" : "hand_compare";
+    reasonOverride ??
+    (state.matchOver
+      ? "hearts"
+      : living.length <= 1
+        ? "last_standing"
+        : "hand_compare");
   const standings: RoundStanding[] = state.players.map((p) => ({
     playerId: p.id,
     name: p.name,
@@ -185,6 +205,7 @@ export function buildRoundEndPayload(state: LoveLetterState): RoundEndPayload {
     hearts: p.hearts,
   }));
   standings.sort((a, b) => {
+    if (a.hearts !== b.hearts) return b.hearts - a.hearts;
     if (a.won !== b.won) return a.won ? -1 : 1;
     if (a.eliminated !== b.eliminated) return a.eliminated ? 1 : -1;
     return (b.handRank ?? -1) - (a.handRank ?? -1);
@@ -194,6 +215,9 @@ export function buildRoundEndPayload(state: LoveLetterState): RoundEndPayload {
     spyBonus: state.spyBonus.slice(),
     reason,
     standings,
+    matchOver: state.matchOver,
+    heartTarget: heartTarget(state),
+    roundNumber: state.roundNumber,
   };
 }
 
@@ -238,6 +262,8 @@ export function finishRound(state: LoveLetterState, events: Event[]): void {
   if (state.phase === "finished") return;
   state.phase = "finished";
   const living = alive(state);
+  const roundReason: RoundEndReason =
+    living.length <= 1 ? "last_standing" : "hand_compare";
   if (living.length <= 1) {
     state.winners = living.length === 1 ? [living[0]!.id] : [];
   } else {
@@ -251,7 +277,6 @@ export function finishRound(state: LoveLetterState, events: Event[]): void {
     state.winners.includes(state.jesterPick)
   ) {
     grantHeart(state, state.jesterPlayerId, events);
-    if (maybeFinishByHearts(state, events)) return;
   }
 
   if (state.edition === "full" || state.edition === "expansion") {
@@ -261,9 +286,37 @@ export function finishRound(state: LoveLetterState, events: Event[]): void {
     state.spyBonus = [];
   }
 
+  const roundWinners = state.winners.slice();
+
+  // Affection tokens: round win + sole Spy among survivors (can stack)
+  for (const id of roundWinners) {
+    grantHeart(state, id, events);
+  }
+  for (const id of state.spyBonus) {
+    grantHeart(state, id, events);
+  }
+
+  const heartWinners = playersAtHeartTarget(state);
+  if (heartWinners.length > 0) {
+    state.matchOver = true;
+    // Standings still mark round winners; expose match winners on `winners`
+    const payload = buildRoundEndPayload(state, "hearts");
+    payload.standings = payload.standings.map((s) => ({
+      ...s,
+      won: roundWinners.includes(s.playerId),
+    }));
+    state.winners = heartWinners;
+    events.push({
+      type: "loveLetter/roundEnded",
+      payload: { ...payload, winners: heartWinners.slice() },
+    });
+    return;
+  }
+
+  state.matchOver = false;
   events.push({
     type: "loveLetter/roundEnded",
-    payload: buildRoundEndPayload(state),
+    payload: buildRoundEndPayload(state, roundReason),
   });
 }
 
@@ -315,6 +368,8 @@ export function createLoveLetterState(
     seed,
     edition,
     phase: "playing",
+    roundNumber: 1,
+    matchOver: false,
     players,
     turnOrder: ids.slice(),
     currentIndex: 0,
@@ -329,6 +384,77 @@ export function createLoveLetterState(
     jesterPlayerId: null,
     jesterPick: null,
   };
+}
+
+/**
+ * Same seats → next round (keep ♥) or new match if someone already won.
+ * First player rotates each round.
+ */
+export function continueLoveLetterMatch(
+  prev: LoveLetterState,
+  ctx: ApplyContext,
+): LoveLetterState {
+  const edition = prev.edition;
+  const ids = prev.turnOrder.slice();
+  if (ids.length < minPlayersForEdition(edition)) {
+    throw new Error("not enough players for another round");
+  }
+  const resetHearts = prev.matchOver || playersAtHeartTarget(prev).length > 0;
+  const heartById = new Map(
+    prev.players.map((p) => [p.id, resetHearts ? 0 : p.hearts] as const),
+  );
+  const nameById = new Map(prev.players.map((p) => [p.id, p.name] as const));
+
+  let deck = ctx.rng.shuffle(buildDeck(edition));
+  const burn = deck.shift()!;
+  const faceUp: Card[] = [];
+  if (ids.length === 2) {
+    faceUp.push(deck.shift()!, deck.shift()!, deck.shift()!);
+  }
+  const players: LoveLetterPlayer[] = ids.map((id) => ({
+    id,
+    name: nameById.get(id) ?? id,
+    hand: [deck.shift()!],
+    discarded: [],
+    eliminated: false,
+    protected: false,
+    playedSpy: false,
+    seen: {},
+    hearts: heartById.get(id) ?? 0,
+  }));
+
+  const startIndex = resetHearts
+    ? 0
+    : (prev.currentIndex + 1) % ids.length;
+
+  const state: LoveLetterState = {
+    schemaVersion: 1,
+    pluginId: "love-letter",
+    seed: prev.seed,
+    edition,
+    phase: "playing",
+    roundNumber: resetHearts ? 1 : prev.roundNumber + 1,
+    matchOver: false,
+    players,
+    turnOrder: ids,
+    currentIndex: startIndex,
+    deck,
+    burn,
+    faceUp,
+    pending: null,
+    hasDrawn: false,
+    winners: [],
+    spyBonus: [],
+    forcedTargetId: null,
+    jesterPlayerId: null,
+    jesterPick: null,
+  };
+
+  // Draw for the starting player (same as createGame → prepareTurn)
+  const events: Event[] = [];
+  ensureDrawn(state, events);
+  void events;
+  return state;
 }
 
 function ensureDrawn(state: LoveLetterState, events: Event[]): true | { error: string } {
@@ -938,12 +1064,9 @@ export function checkLoveLetterVictory(state: LoveLetterState) {
   return {
     kind: "winner" as const,
     winners: state.winners,
-    reason:
-      state.edition === "expansion" &&
-      state.players.some(
-        (p) => p.hearts >= heartTargetForPlayers(state.players.length),
-      )
-        ? "hearts"
-        : "round_over",
+    reason: state.matchOver ? "hearts" : "round_over",
+    matchOver: state.matchOver,
+    heartTarget: heartTarget(state),
+    roundNumber: state.roundNumber,
   };
 }

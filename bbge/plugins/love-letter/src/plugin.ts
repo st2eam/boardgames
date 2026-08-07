@@ -2,6 +2,7 @@ import type { ApplyContext, GamePlugin } from "@bbge/core";
 import {
   applyLoveLetterAction,
   checkLoveLetterVictory,
+  continueLoveLetterMatch,
   createLoveLetterState,
   finishRound,
   validateLoveLetterAction,
@@ -45,6 +46,7 @@ export const loveLetterPlugin: GamePlugin<
   LoveLetterConfig
 > & {
   prepareTurn: typeof prepareLoveLetterTurn;
+  continueMatch: typeof continueLoveLetterMatch;
 } = {
   id: "love-letter",
   name: "Love Letter",
@@ -63,6 +65,9 @@ export const loveLetterPlugin: GamePlugin<
     );
     return prepareLoveLetterTurn(state).state;
   },
+
+  /** Multi-round match: keep ♥ tokens; rotate start; reset when matchOver. */
+  continueMatch: continueLoveLetterMatch,
 
   prepareTurn: prepareLoveLetterTurn,
 

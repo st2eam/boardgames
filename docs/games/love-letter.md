@@ -17,7 +17,9 @@ Shelf architecture: [`docs/architecture.md`](../architecture.md).
 ## 1. Goal
 
 Rules page → **开始游戏** → play lobby → **选择版本** → Host room →
-hotseat / AI / share-link → **one round** ends the match (♥ mid-round can finish early in expansion).
+hotseat / AI / share-link → **multi-round match**: round winners (and sole Spy)
+gain ♥ favor tokens; first to the player-count target wins the match.
+(♥ mid-round from Bishop/Constable can also finish early in expansion.)
 
 ---
 
@@ -59,7 +61,8 @@ Effects use stable **`role`**. Guess-by-number hits any card of that rank.
 - **Baroness** — peek 1 or 2 hands (ack modal)
 - **Cardinal** — swap exactly 2 hands; peek one
 - **Jester** — if pick wins the round → you +1 ♥
-- **♥ targets** (instant match win if reached): 2→7, 3→5, 4→4, 5–8→4
+- **♥ targets** (all editions — match win): 2→7, 3→5, 4→4, 5–8→4
+- Between rounds Host taps **下一轮** (`continueMatch` keeps ♥); after match win **再来一局** resets tokens
 
 ---
 

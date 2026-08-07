@@ -92,6 +92,47 @@ export function formatNimmtEvents(
         text: zh ? `第 ${p.round} 轮发牌` : `Round ${p.round} dealt`,
         tone: "info",
       });
+    } else if (e.type === "sixNimmt/draftStarted") {
+      out.push({
+        id: `draft-${at}-${out.length}`,
+        at,
+        text: zh ? "进阶选牌开始" : "Pro draft started",
+        tone: "info",
+      });
+    } else if (e.type === "sixNimmt/draftPicked") {
+      const id = p.playerId as string;
+      out.push({
+        id: `dp-${at}-${out.length}`,
+        at,
+        text: zh
+          ? `${nameOf(id, names)} 选了 ${p.value}`
+          : `${nameOf(id, names)} drafted ${p.value}`,
+      });
+    } else if (e.type === "sixNimmt/specialsOpen") {
+      out.push({
+        id: `sp-${at}-${out.length}`,
+        at,
+        text: zh ? "特殊牌阶段" : "Specials phase",
+        tone: "info",
+      });
+    } else if (e.type === "sixNimmt/specialUsed") {
+      out.push({
+        id: `su-${at}-${out.length}`,
+        at,
+        text: zh
+          ? `使用特殊牌：${p.kind}`
+          : `Special used: ${p.kind}`,
+        tone: "info",
+      });
+    } else if (e.type === "sixNimmt/buffaloEnded") {
+      out.push({
+        id: `bf-${at}-${out.length}`,
+        at,
+        text: zh
+          ? `水牛战结束 · 队伍 ${p.team} vs 水牛 ${p.buffalo} · ${p.won ? "胜利" : "失败"}`
+          : `Buffalo done · team ${p.team} vs ${p.buffalo} · ${p.won ? "win" : "loss"}`,
+        tone: p.won ? "win" : "warn",
+      });
     }
   }
   return out;

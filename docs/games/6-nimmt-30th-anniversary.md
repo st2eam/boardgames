@@ -9,17 +9,18 @@ Shelf: [`docs/architecture.md`](../architecture.md).
 | **Status** | Shipped on `main` — playable Host / hotseat / AI |
 | **Slug** | `6-nimmt-30th-anniversary` |
 | **Plugin** | `six-nimmt` |
-| **Match** | Multi-round to **66** bullheads; lowest score wins; host **再来一局** resets |
-| **Players** | **2–10** |
-| **Play UI** | BGA-style DOM table + Motion (reveal / place / take row) |
+| **Modes** | Classic · Pro draft · 4 fan variants · Beat the Buffalo |
+| **Match** | Classic/fan/pro → **66** bullheads (lowest wins); Buffalo → one round team vs buffalo |
+| **Players** | Classic/fan **2–10**; Pro/Buffalo **2–6** (Buffalo also **1**) |
+| **Play UI** | BGA-style DOM table + Motion; lobby mode picker |
 | **Card art** | CSS number cards 1–104 with bullhead badges |
 
 ---
 
 ## 1. Goal
 
-Rules page → **开始游戏** → lobby → Host room → hotseat / AI / share-link →
-play tricks until someone reaches **≥ 66** → lowest total wins → host rematch.
+Rules page → **开始游戏** → lobby **选模式** → Host room → hotseat / AI / share-link →
+play until end condition → host rematch (same mode).
 
 ---
 
@@ -28,60 +29,46 @@ play tricks until someone reaches **≥ 66** → lowest total wins → host rema
 | Topic | Choice |
 |-------|--------|
 | Approach | A — PlayShell + `bbge/plugins/six-nimmt` + PeerJS |
-| Ruleset | **Classic base only** (no fan specials, no Beat the Buffalo, no draft variant) |
-| AI | Host DeepSeek `deepseek-v4-flash` + mock; illegal → feedback retry once |
-| Simultaneous | `playCard` from any unset seat during `selecting`; resolve when all locked |
-| Out | Anniversary fan cards, buffalo coop, timers, Pixi |
+| Modes | Lobby `edition` / `mode` string (same channel as Love Letter editions) |
+| Simultaneous | Selecting: AI think in parallel; reveal when all locked |
+| Buffalo specials | Face-up market + `beginPlace`; Take7/Stop/Replace/First/Last wired; Insert/Push/Sort payload-ready, UI minimal |
+| Out | Pixi, timers, combining fan variants |
 
 ---
 
-## 3. Rules (v1)
+## 3. Modes
 
-- Deck 1–104; deal 10 each; 4 row starters
-- Trick: all play one card face-down → reveal → place ascending
-- Place: ascending + min difference; 6th card takes the 5; too low → `chooseRow`
-- Bullheads: 1 / 2 (×5) / 3 (×10) / 5 (twins) / 7 (55)
-- After 10 cards: add taken bullheads to score; reshuffle & redeal unless someone ≥ 66
-- Winners: lowest score (ties shared)
+| Mode id | Rules |
+|---------|--------|
+| `classic` | Base 2–10, score to 66 |
+| `pro` | Draft `n×10+4` face-up, then classic play (2–6) |
+| `fan-even-odd` | Parity marker on lowest-end row |
+| `fan-mountain` | One descending row; marker walks after takes |
+| `fan-jumping-cow` | Cow occupies a slot and jumps |
+| `fan-flippin` | Once-per-player digit flip for placement order |
+| `buffalo` | Coop 1–6; shared team pile; buffalo auto too-low; specials phase |
 
 ---
 
 ## 4. Actions
 
-| Action | Payload | When |
-|--------|---------|------|
-| `playCard` | `{ cardId }` | `selecting`, one card per seat per trick |
-| `chooseRow` | `{ rowIndex: 0..3 }` | `chooseRow` pending for that seat |
+| Action | When |
+|--------|------|
+| `playCard` `{ cardId, flip? }` | `selecting` |
+| `chooseRow` `{ rowIndex }` | `chooseRow` |
+| `draftPick` `{ cardId }` | `drafting` (pro) |
+| `useSpecial` / `beginPlace` / `removeStop` | `specials` (buffalo) |
 
 ---
 
-## 5. Architecture
-
-```
-GameHeader → /games/6-nimmt-30th-anniversary/play/
-  HostSession createGame({ playerIds, seed })
-  six-nimmt plugin
-  SixNimmtTable
-```
-
-| Boundary | Rule |
-|----------|------|
-| Shelf | `play.json` → `pluginId: six-nimmt` |
-| Plugin | Pure rules + `projectView` + `formatEvents` |
-| Privacy | Hands only for viewer; selections hidden until reveal |
-
----
-
-## 6. Testing
+## 5. Testing
 
 ```bash
-npm run test:bbge
+npm run test:bbge -- --run bbge/plugins/six-nimmt
 ```
-
-Bullheads table, row placement, take-6, chooseRow, score-to-66.
 
 ---
 
-## 7. Deferred
+## 6. Deferred polish
 
-Fan specials, Beat the Buffalo, advanced draft, separate classic slug / editions.
+Richer UI for Insert / Push / Sort specials; fan+buffalo combo (officially not combined).

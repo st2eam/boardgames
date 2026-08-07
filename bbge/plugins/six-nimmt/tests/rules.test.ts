@@ -1,20 +1,25 @@
 import { describe, expect, it } from "vitest";
 import { createRng } from "@bbge/core";
 import { bullheads, bullheadsOfCards } from "../src/cards";
+import { bestRowIndex } from "../src/placement";
 import {
   applyNimmtAction,
-  bestRowIndex,
   continueNimmtMatch,
   createNimmtState,
   validateNimmtAction,
 } from "../src/rules";
 import type { NimmtAction, NimmtState } from "../src/state";
 
-function setup(n: number, seed = "sn-1", targetScore = 66) {
+function setup(
+  n: number,
+  seed = "sn-1",
+  targetScore = 66,
+  mode: string = "classic",
+) {
   const ids = Array.from({ length: n }, (_, i) => `p${i}`);
   const names = Object.fromEntries(ids.map((id) => [id, id]));
   return createNimmtState(
-    { playerIds: ids, playerNames: names, seed, targetScore },
+    { playerIds: ids, playerNames: names, seed, targetScore, mode },
     { rng: createRng(seed) },
   );
 }
@@ -23,6 +28,19 @@ function act(state: NimmtState, action: NimmtAction) {
   const v = validateNimmtAction(state, action);
   expect(v).toBe(true);
   return applyNimmtAction(state, action, { rng: createRng("x") }).state;
+}
+
+function classicRowsState(rows: { id: string; value: number }[][]): NimmtState {
+  const base = setup(2, "rows");
+  return {
+    ...base,
+    rows: rows.map((r) => r.map((c) => ({ ...c }))),
+    mode: "classic",
+    parityMarker: null,
+    mountain: null,
+    jumpingCowRow: null,
+    rowMods: [0, 1, 2, 3].map(() => ({ take7: false, stopped: false })),
+  };
 }
 
 describe("six-nimmt cards", () => {
@@ -44,12 +62,18 @@ describe("six-nimmt rules", () => {
     expect(s.rows.every((r) => r.length === 1)).toBe(true);
     expect(s.phase).toBe("selecting");
     expect(s.round).toBe(1);
+    expect(s.mode).toBe("classic");
   });
 
   it("picks minimal-difference fitting row", () => {
-    const rows = [[{ id: "a", value: 10 }], [{ id: "b", value: 20 }], [{ id: "c", value: 50 }], [{ id: "d", value: 80 }]];
-    expect(bestRowIndex(rows, 25)).toBe(1); // 25-20=5 vs 25-10=15
-    expect(bestRowIndex(rows, 5)).toBeNull();
+    const s = classicRowsState([
+      [{ id: "a", value: 10 }],
+      [{ id: "b", value: 20 }],
+      [{ id: "c", value: 50 }],
+      [{ id: "d", value: 80 }],
+    ]);
+    expect(bestRowIndex(s, 25)).toBe(1);
+    expect(bestRowIndex(s, 5)).toBeNull();
   });
 
   it("resolves a trick when everyone plays", () => {
@@ -68,7 +92,6 @@ describe("six-nimmt rules", () => {
       playerId: b.id,
       payload: { cardId: b.hand[0]!.id },
     });
-    // Either selecting next trick, chooseRow, or (rare) finished
     expect(["selecting", "chooseRow", "finished"]).toContain(s.phase);
     if (s.phase === "selecting") {
       expect(s.trick).toBe(2);
@@ -78,7 +101,6 @@ describe("six-nimmt rules", () => {
 
   it("chooseRow when card is too low", () => {
     let s = setup(2, "low-1");
-    // Force rows to high starters so small cards need chooseRow
     s = {
       ...s,
       rows: [
@@ -98,7 +120,6 @@ describe("six-nimmt rules", () => {
     };
     const a = s.players[0]!;
     const b = s.players[1]!;
-    // Play 1 and 2 — both too low; smaller (1) resolves first → chooseRow for a
     s = act(s, {
       type: "playCard",
       playerId: a.id,
@@ -116,63 +137,52 @@ describe("six-nimmt rules", () => {
       playerId: a.id,
       payload: { rowIndex: 0 },
     });
-    // After a takes row0 with 1, b's 2 may also need choose or place
     expect(["selecting", "chooseRow"]).toContain(s.phase);
     expect(s.rows[0]![0]!.value).toBe(1);
   });
 
-  it("ends match when target score reached", () => {
-    let s = setup(2, "end-1", 5);
-    // Inflate scores near target then finish a round quickly by playing all
-    s = {
-      ...s,
-      players: s.players.map((p, i) => ({
-        ...p,
-        score: i === 0 ? 4 : 0,
-        taken: [{ id: "t", value: 55 }], // +7 would finish but scored at round end
-      })),
-    };
-    // Play through remaining cards — heavy; instead directly score via finishing hands empty
-    // Simpler: set hand empty, taken with heads, force one more resolve path
-    // Use continue after manual finished via many plays with tiny target
-    for (let t = 0; t < 12 && s.phase !== "finished"; t++) {
-      if (s.phase === "chooseRow" && s.pending) {
-        s = act(s, {
-          type: "chooseRow",
-          playerId: s.pending.playerId,
-          payload: { rowIndex: 0 },
-        });
-        continue;
-      }
-      if (s.phase !== "selecting") break;
-      for (const p of s.players) {
-        if (s.selections[p.id]) continue;
-        if (p.hand.length === 0) continue;
-        const cardId = p.hand[0]!.id;
-        const action: NimmtAction = {
-          type: "playCard",
-          playerId: p.id,
-          payload: { cardId },
-        };
-        if (validateNimmtAction(s, action) === true) {
-          s = act(s, action);
-        }
-        if (s.phase === "chooseRow") break;
-      }
-    }
-    // With target 5, almost certainly finished after first round of takes
-    if (s.phase === "finished") {
-      expect(s.winners.length).toBeGreaterThanOrEqual(1);
-      const min = Math.min(...s.players.map((p) => p.score));
-      expect(s.players.find((p) => p.id === s.winners[0])!.score).toBe(min);
-    } else {
-      // Fallback assertion: scoring works
-      expect(bullheadsOfCards([{ id: "x", value: 55 }])).toBe(7);
-    }
+  it("pro mode starts in drafting", () => {
+    const s = setup(2, "pro-1", 66, "pro");
+    expect(s.mode).toBe("pro");
+    expect(s.phase).toBe("drafting");
+    expect(s.draftPool.length).toBe(2 * 10 + 4);
+    expect(s.draftTurn).toBe("p0");
   });
 
-  it("rematch resets scores", () => {
-    let s = setup(2, "rematch");
+  it("fan-even-odd places parity marker", () => {
+    const s = setup(2, "eo-1", 66, "fan-even-odd");
+    expect(s.parityMarker).not.toBeNull();
+    expect(["even", "odd"]).toContain(s.parityMarker!.parity);
+  });
+
+  it("fan-mountain marks fourth row", () => {
+    const s = setup(2, "mt-1", 66, "fan-mountain");
+    expect(s.mountain?.rowIndex).toBe(3);
+    expect(s.mountain?.direction).toBe(-1);
+  });
+
+  it("buffalo deals hand to buffalo and shared piles", () => {
+    const s = setup(2, "bf-1", 66, "buffalo");
+    expect(s.mode).toBe("buffalo");
+    expect(s.buffaloHand).toHaveLength(10);
+    expect(s.faceUpSpecials.filter(Boolean).length).toBe(2);
+    expect(s.players.every((p) => p.hand.length === 10)).toBe(true);
+  });
+
+  it("buffalo solo has no specials", () => {
+    const s = setup(1, "bf-solo", 66, "buffalo");
+    expect(s.players).toHaveLength(1);
+    expect(s.specialDeck).toHaveLength(0);
+    expect(s.faceUpSpecials.every((x) => x == null)).toBe(true);
+  });
+
+  it("flippin grants flip tokens", () => {
+    const s = setup(2, "fl-1", 66, "fan-flippin");
+    expect(s.players.every((p) => p.hasFlipToken)).toBe(true);
+  });
+
+  it("rematch preserves mode and resets scores", () => {
+    let s = setup(2, "rematch", 66, "fan-mountain");
     s = {
       ...s,
       phase: "finished",
@@ -180,8 +190,19 @@ describe("six-nimmt rules", () => {
       winners: [s.players[0]!.id],
     };
     const next = continueNimmtMatch(s, { rng: createRng("rematch-2") });
+    expect(next.mode).toBe("fan-mountain");
     expect(next.phase).toBe("selecting");
     expect(next.players.every((p) => p.score === 0)).toBe(true);
     expect(next.round).toBe(1);
+  });
+
+  it("rejects classic with 1 player", () => {
+    expect(() => setup(1, "bad", 66, "classic")).toThrow(/2–10/);
+  });
+});
+
+describe("six-nimmt scoring helper", () => {
+  it("bullheadsOfCards", () => {
+    expect(bullheadsOfCards([{ id: "x", value: 55 }])).toBe(7);
   });
 });

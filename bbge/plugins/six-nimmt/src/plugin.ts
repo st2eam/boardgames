@@ -20,7 +20,7 @@ export const sixNimmtPlugin: GamePlugin<
   name: "6 nimmt!",
   version: "0.1.0",
   metadata: {
-    minPlayers: 2,
+    minPlayers: 1,
     maxPlayers: 10,
     pacing: "simultaneous",
     tags: ["cards", "family"],

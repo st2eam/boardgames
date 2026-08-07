@@ -4,6 +4,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Action, Event } from "@bbge/core";
 import { HostSession, type AiChatMessage, type LobbyState } from "@bbge/runtime";
 import type { AiSeat } from "@bbge/ai";
+import {
+  maxPlayersForMode,
+  minPlayersForMode,
+  normalizeNimmtMode,
+  type NimmtMode,
+} from "../../plugins/six-nimmt/src/modes";
 import { LobbyView } from "./LobbyView";
 import { requirePlayModule } from "./registry";
 import type { PlayLogEntry, PluginPlayModule } from "./plugin-types";
@@ -23,17 +29,59 @@ export interface PlayShellProps {
 
 type LoveLetterEditionId = "classic" | "full" | "expansion";
 
-function normalizeEdition(v: string | undefined): LoveLetterEditionId {
+function normalizeLlEdition(v: string | undefined): LoveLetterEditionId {
   if (v === "premium" || v === "classic") return "classic";
   if (v === "expansion") return "expansion";
   return "full";
 }
 
-function maxSeatsForEdition(edition: LoveLetterEditionId): number {
+function maxSeatsForLlEdition(edition: LoveLetterEditionId): number {
   if (edition === "classic") return 4;
   if (edition === "expansion") return 8;
   return 6;
 }
+
+const NIMMT_MODE_OPTIONS: {
+  id: NimmtMode;
+  label: { en: string; zh: string };
+  hint: { en: string; zh: string };
+}[] = [
+  {
+    id: "classic",
+    label: { en: "Classic", zh: "经典" },
+    hint: { en: "2–10 · base rules", zh: "2–10 人 · 基础规则" },
+  },
+  {
+    id: "pro",
+    label: { en: "Pro draft", zh: "进阶选牌" },
+    hint: { en: "2–6 · draft hands face-up", zh: "2–6 人 · 正面轮流选牌" },
+  },
+  {
+    id: "fan-even-odd",
+    label: { en: "Fan: Even/Odd", zh: "粉丝：奇偶" },
+    hint: { en: "Parity-locked row", zh: "奇偶限制行" },
+  },
+  {
+    id: "fan-mountain",
+    label: { en: "Fan: Mountain", zh: "粉丝：登山" },
+    hint: { en: "One descending row", zh: "一行改为降序" },
+  },
+  {
+    id: "fan-jumping-cow",
+    label: { en: "Fan: Jumping Cow", zh: "粉丝：跳牛" },
+    hint: { en: "Cow fills a slot", zh: "跳牛占位并跳跃" },
+  },
+  {
+    id: "fan-flippin",
+    label: { en: "Fan: Flippin’ Digits", zh: "粉丝：翻数字" },
+    hint: { en: "Flip tens/ones once", zh: "可翻一次个位十位" },
+  },
+  {
+    id: "buffalo",
+    label: { en: "Beat the Buffalo", zh: "击败水牛" },
+    hint: { en: "1–6 coop vs buffalo", zh: "1–6 人合作对抗水牛" },
+  },
+];
 
 type PeerHost = {
   destroy: () => void;
@@ -139,6 +187,7 @@ type AiActorView = {
   you?: { hasPlayed?: boolean };
   pending?: { playerId?: string } | null;
   legal?: unknown[];
+  draftTurn?: string | null;
 };
 
 /** AI seats that still have legal actions (works for turn-based + simultaneous). */
@@ -150,7 +199,9 @@ function collectPendingAiIds(
     const v = s.getView(id) as AiActorView;
     if (!v.legal?.length) return false;
     if (v.phase === "chooseRow") return v.pending?.playerId === id;
+    if (v.phase === "drafting") return v.draftTurn === id;
     if (v.phase === "selecting") return !v.you?.hasPlayed;
+    if (v.phase === "specials") return (v.legal?.length ?? 0) > 0;
     return true;
   });
 }
@@ -159,7 +210,7 @@ export function PlayShell({
   locale,
   gameName,
   pluginId,
-  edition: editionProp = "full",
+  edition: editionProp,
   roomIdFromUrl,
   loadApiKey,
   createDeepSeekSeat,
@@ -167,17 +218,24 @@ export function PlayShell({
   const mod = useMemo(() => requirePlayModule(pluginId), [pluginId]);
   const isHost = !roomIdFromUrl;
   const hostId = useMemo(() => "host", []);
-  const [edition, setEdition] = useState<LoveLetterEditionId>(() =>
-    normalizeEdition(editionProp),
-  );
   const isHoldem = pluginId === "texas-holdem";
+  const isNimmt = pluginId === "six-nimmt";
+  const isLoveLetter = pluginId === "love-letter";
+  const [edition, setEdition] = useState(() => {
+    if (isNimmt) return normalizeNimmtMode(editionProp ?? "classic");
+    return normalizeLlEdition(editionProp ?? "full");
+  });
   const [stakes, setStakes] = useState({
     smallBlind: 1,
     bigBlind: 2,
     startingStack: 200,
   });
-  const maxSeats = isHoldem ? 9 : maxSeatsForEdition(edition);
-  const showEditions = pluginId === "love-letter";
+  const maxSeats = isHoldem
+    ? 9
+    : isNimmt
+      ? maxPlayersForMode(normalizeNimmtMode(edition))
+      : maxSeatsForLlEdition(normalizeLlEdition(edition));
+  const showEditions = isLoveLetter || isNimmt;
   const [roomId, setRoomId] = useState(roomIdFromUrl ?? "");
   const [error, setError] = useState<string | null>(null);
   const [lobby, setLobby] = useState<LobbyState | null>(null);
@@ -405,13 +463,12 @@ export function PlayShell({
           if (msg.type === "lobby") {
             const lb = msg.payload as LobbyState;
             setLobby(lb);
-            if (
-              lb.edition === "full" ||
-              lb.edition === "classic" ||
-              lb.edition === "expansion" ||
-              lb.edition === "premium"
-            ) {
-              setEdition(normalizeEdition(lb.edition));
+            if (typeof lb.edition === "string" && lb.edition) {
+              setEdition(
+                pluginId === "six-nimmt"
+                  ? normalizeNimmtMode(lb.edition)
+                  : normalizeLlEdition(lb.edition),
+              );
             }
             const gc = lb.gameConfig;
             if (
@@ -508,13 +565,19 @@ export function PlayShell({
     const pending = collectPendingAiIds(s, s.getAiSeatIds());
     if (pending.length === 0) return;
 
+    const actorPhase = (s.getView(pending[0]!) as AiActorView).phase;
+    // Coop specials: humans decide; AI only auto-closes when the table is AI-only.
+    if (actorPhase === "specials") {
+      const hasHuman = s
+        .getLobby()
+        .seats.some((seat) => seat.kind === "human");
+      if (hasHuman) return;
+    }
+
     const host = peerRef.current as PeerHost | null;
-    const anyChooseRow = pending.some(
-      (id) => (s.getView(id) as AiActorView).phase === "chooseRow",
-    );
     const parallelSelect =
       modRef.current.plugin.metadata.pacing === "simultaneous" &&
-      !anyChooseRow &&
+      actorPhase === "selecting" &&
       pending.length > 1;
 
     const actors = parallelSelect ? pending : [pending[0]!];
@@ -822,11 +885,15 @@ export function PlayShell({
   };
 
   const onEditionChange = (id: string) => {
-    const next = normalizeEdition(id);
+    const next = isNimmt
+      ? normalizeNimmtMode(id)
+      : normalizeLlEdition(id);
     if (next === edition) return;
     const s = sessionRef.current;
     if (!s || s.getPhase() !== "lobby") return;
-    const cap = maxSeatsForEdition(next);
+    const cap = isNimmt
+      ? maxPlayersForMode(next as NimmtMode)
+      : maxSeatsForLlEdition(next as LoveLetterEditionId);
     // Trim overflow seats when switching to a smaller edition (keep host).
     while (s.getLobby().seats.length > cap) {
       const seats = s.getLobby().seats;
@@ -908,10 +975,30 @@ export function PlayShell({
   const onStart = async () => {
     const s = sessionRef.current;
     if (!s) return;
+    if (isNimmt) {
+      const mode = normalizeNimmtMode(edition);
+      const n = s.getLobby().seats.length;
+      const minP = minPlayersForMode(mode);
+      const maxP = maxPlayersForMode(mode);
+      if (n < minP || n > maxP) {
+        setError(
+          locale === "zh"
+            ? `该模式需要 ${minP}–${maxP} 人（当前 ${n}）`
+            : `This mode needs ${minP}–${maxP} players (now ${n})`,
+        );
+        return;
+      }
+    }
     for (const seat of s.getLobby().seats) {
       if (seat.kind === "human") s.setReady(seat.id, true);
     }
-    const r = await s.start();
+    let r: { ok: true } | { ok: false; error: string };
+    try {
+      r = await s.start();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "start failed");
+      return;
+    }
     if (!r.ok) {
       setError(r.error);
       return;
@@ -1036,41 +1123,47 @@ export function PlayShell({
             }}
             editions={
               showEditions
-                ? [
-                    {
-                      id: "classic",
-                      label:
-                        locale === "zh"
-                          ? "经典版（16 张）"
-                          : "Classic (16 cards)",
-                      hint:
-                        locale === "zh"
-                          ? "2–4 人 · 公主 = 8 · 无间谍/大臣"
-                          : "2–4 players · Princess = 8 · no Spy/Chancellor",
-                    },
-                    {
-                      id: "full",
-                      label:
-                        locale === "zh"
-                          ? "完整版（21 张）"
-                          : "Full Game (21 cards)",
-                      hint:
-                        locale === "zh"
-                          ? "2–6 人 · 间谍、大臣 · 公主 = 9"
-                          : "2–6 players · Spy & Chancellor · Princess = 9",
-                    },
-                    {
-                      id: "expansion",
-                      label:
-                        locale === "zh"
-                          ? "拓展版（37 张）"
-                          : "Expansion (37 cards)",
-                      hint:
-                        locale === "zh"
-                          ? "2–8 人 · 完整版 + 主教/太后/警官等"
-                          : "2–8 players · Full + Bishop, Dowager, Constable…",
-                    },
-                  ]
+                ? isNimmt
+                  ? NIMMT_MODE_OPTIONS.map((m) => ({
+                      id: m.id,
+                      label: locale === "zh" ? m.label.zh : m.label.en,
+                      hint: locale === "zh" ? m.hint.zh : m.hint.en,
+                    }))
+                  : [
+                      {
+                        id: "classic",
+                        label:
+                          locale === "zh"
+                            ? "经典版（16 张）"
+                            : "Classic (16 cards)",
+                        hint:
+                          locale === "zh"
+                            ? "2–4 人 · 公主 = 8 · 无间谍/大臣"
+                            : "2–4 players · Princess = 8 · no Spy/Chancellor",
+                      },
+                      {
+                        id: "full",
+                        label:
+                          locale === "zh"
+                            ? "完整版（21 张）"
+                            : "Full Game (21 cards)",
+                        hint:
+                          locale === "zh"
+                            ? "2–6 人 · 间谍、大臣 · 公主 = 9"
+                            : "2–6 players · Spy & Chancellor · Princess = 9",
+                      },
+                      {
+                        id: "expansion",
+                        label:
+                          locale === "zh"
+                            ? "拓展版（37 张）"
+                            : "Expansion (37 cards)",
+                        hint:
+                          locale === "zh"
+                            ? "2–8 人 · 完整版 + 主教/太后/警官等"
+                            : "2–8 players · Full + Bishop, Dowager, Constable…",
+                      },
+                    ]
                 : undefined
             }
             edition={edition}

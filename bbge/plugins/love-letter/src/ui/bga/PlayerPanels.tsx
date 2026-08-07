@@ -3,11 +3,17 @@
 import { cardBackUrl } from "../cardArt";
 import type { ArenaView } from "../types";
 import { DiscardStrip } from "./DiscardStrip";
+import { SpeechBubble } from "./SpeechBubble";
 
 type DiscCard = {
   id: string;
   rank: number;
   name?: { en: string; zh: string };
+};
+
+export type SeatBubble = {
+  id: string;
+  text: string;
 };
 
 interface Props {
@@ -17,6 +23,8 @@ interface Props {
   selectedTargetId: string | null;
   thinkingId?: string | null;
   targetMode: boolean;
+  /** Active speech bubbles keyed by seat id */
+  bubbles?: Record<string, SeatBubble>;
   onSelectTarget: (id: string) => void;
   onZoomDiscard?: (card: DiscCard, ownerName: string) => void;
 }
@@ -35,6 +43,7 @@ function Panel({
   selected,
   targetMode,
   seenRank,
+  bubble,
   onSelect,
   onZoomDiscard,
 }: {
@@ -51,6 +60,7 @@ function Panel({
   selected: boolean;
   targetMode: boolean;
   seenRank?: number;
+  bubble?: SeatBubble | null;
   onSelect: () => void;
   onZoomDiscard?: (card: DiscCard, ownerName: string) => void;
 }) {
@@ -70,80 +80,87 @@ function Panel({
               : "border-border bg-white/90",
       ].join(" ")}
     >
-      <button
-        type="button"
-        disabled={!clickable}
-        onClick={onSelect}
-        className={[
-          "flex w-full items-center gap-2 text-left",
-          clickable ? "cursor-pointer" : "cursor-default",
-        ].join(" ")}
-      >
-        <div
+      <div className="flex items-start gap-2">
+        <button
+          type="button"
+          disabled={!clickable}
+          onClick={onSelect}
           className={[
-            "flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-heading text-xs font-bold text-white",
-            eliminated
-              ? "bg-stone-400"
-              : you
-                ? "bg-primary"
-                : "bg-linear-to-br from-[#6D4C41] to-[#3E2723]",
-            thinking ? "ring-2 ring-sky-400 ring-offset-1 animate-pulse" : "",
-            active && !eliminated ? "ring-2 ring-accent ring-offset-1" : "",
+            "flex min-w-0 flex-1 items-start gap-2 text-left",
+            clickable ? "cursor-pointer" : "cursor-default",
           ].join(" ")}
         >
-          {name.slice(0, 1).toUpperCase()}
-        </div>
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-1">
-            <p className="truncate font-heading text-[13px] font-bold text-primary-dark">
-              {name}
+          <div
+            className={[
+              "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-heading text-xs font-bold text-white",
+              eliminated
+                ? "bg-stone-400"
+                : you
+                  ? "bg-primary"
+                  : "bg-linear-to-br from-[#6D4C41] to-[#3E2723]",
+              thinking ? "ring-2 ring-sky-400 ring-offset-1 animate-pulse" : "",
+              active && !eliminated ? "ring-2 ring-accent ring-offset-1" : "",
+            ].join(" ")}
+          >
+            {name.slice(0, 1).toUpperCase()}
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1">
+              <p className="truncate font-heading text-[13px] font-bold text-primary-dark">
+                {name}
+              </p>
+              {you && (
+                <span className="shrink-0 rounded bg-primary/10 px-1 py-0.5 text-[9px] font-semibold text-primary">
+                  {zh ? "你" : "You"}
+                </span>
+              )}
+            </div>
+            <p className="truncate text-[10px] text-stone-500">
+              {eliminated
+                ? zh
+                  ? "已出局"
+                  : "Eliminated"
+                : thinking
+                  ? zh
+                    ? "思考中…"
+                    : "Thinking…"
+                  : active
+                    ? zh
+                      ? "行动中"
+                      : "Active"
+                    : zh
+                      ? "等待"
+                      : "Waiting"}
+              {isProtected && !eliminated
+                ? zh
+                  ? " · 侍女"
+                  : " · Prot."
+                : ""}
             </p>
-            {you && (
-              <span className="shrink-0 rounded bg-primary/10 px-1 py-0.5 text-[9px] font-semibold text-primary">
-                {zh ? "你" : "You"}
-              </span>
+            {seenRank !== undefined && !eliminated && (
+              <p className="text-[10px] font-semibold text-violet-700">
+                {zh ? `偷看：${seenRank}` : `Peeked: ${seenRank}`}
+              </p>
             )}
           </div>
-          <p className="truncate text-[10px] text-stone-500">
-            {eliminated
-              ? zh
-                ? "已出局"
-                : "Eliminated"
-              : thinking
-                ? zh
-                  ? "思考中…"
-                  : "Thinking…"
-                : active
-                  ? zh
-                    ? "行动中"
-                    : "Active"
-                  : zh
-                    ? "等待"
-                    : "Waiting"}
-            {isProtected && !eliminated
-              ? zh
-                ? " · 侍女"
-                : " · Prot."
-              : ""}
-          </p>
-          {seenRank !== undefined && !eliminated && (
-            <p className="text-[10px] font-semibold text-violet-700">
-              {zh ? `偷看：${seenRank}` : `Peeked: ${seenRank}`}
-            </p>
-          )}
-        </div>
-        <div className="flex -space-x-1.5">
-          {Array.from({ length: Math.min(handCount, 2) }).map((_, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={`${id}-h-${i}`}
-              src={cardBackUrl()}
-              alt=""
-              className="h-7 w-4 rounded border border-[#3E2723]/40 object-cover shadow-sm"
-            />
-          ))}
-        </div>
-      </button>
+          <div className="mt-0.5 flex -space-x-1.5">
+            {Array.from({ length: Math.min(handCount, 2) }).map((_, i) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={`${id}-h-${i}`}
+                src={cardBackUrl()}
+                alt=""
+                className="h-7 w-4 rounded border border-[#3E2723]/40 object-cover shadow-sm"
+              />
+            ))}
+          </div>
+        </button>
+        {bubble ? (
+          <div className="shrink-0 pt-0.5">
+            <SpeechBubble text={bubble.text} bubbleKey={bubble.id} />
+          </div>
+        ) : null}
+      </div>
 
       <div className="mt-1.5 border-t border-border/60 pt-1.5">
         <DiscardStrip
@@ -178,6 +195,7 @@ export function PlayerPanels({
   selectedTargetId,
   thinkingId,
   targetMode,
+  bubbles = {},
   onSelectTarget,
   onZoomDiscard,
 }: Props) {
@@ -203,6 +221,7 @@ export function PlayerPanels({
           thinking={thinkingId === actorId}
           selected={false}
           targetMode={false}
+          bubble={bubbles[you.id]}
           onSelect={() => {}}
           onZoomDiscard={onZoomDiscard}
         />
@@ -222,6 +241,7 @@ export function PlayerPanels({
           selected={selectedTargetId === o.id}
           targetMode={targetMode}
           seenRank={view.you?.seen?.[o.id]}
+          bubble={bubbles[o.id]}
           onSelect={() => onSelectTarget(o.id)}
           onZoomDiscard={onZoomDiscard}
         />

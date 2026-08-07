@@ -8,6 +8,10 @@ export type PlayLogEntry = {
   at: number;
   text: string;
   tone?: "info" | "warn" | "win";
+  /** Seat that should show an avatar speech bubble */
+  speakerId?: string;
+  /** First-person line next to avatar (action or chat) */
+  bubble?: string;
 };
 
 /** Props every plugin table UI must accept (PlayShell contract). */

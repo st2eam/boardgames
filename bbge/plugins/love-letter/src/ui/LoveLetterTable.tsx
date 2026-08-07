@@ -11,13 +11,15 @@ import { CardTile } from "./bga/CardTile";
 import { CardLightbox } from "./bga/CardLightbox";
 import { PriestRevealModal } from "./bga/PriestRevealModal";
 import { StatusBar } from "./bga/StatusBar";
-import { PlayerPanels } from "./bga/PlayerPanels";
+import { PlayerPanels, type SeatBubble } from "./bga/PlayerPanels";
 
 type ZoomCard = {
   rank: number;
   name?: { en: string; zh: string };
   subtitle?: string;
 };
+
+const BUBBLE_MS = 4200;
 
 export function LoveLetterTable({
   locale,
@@ -46,10 +48,58 @@ export function LoveLetterTable({
   const [animBusy, setAnimBusy] = useState(false);
   const prevHandRef = useRef<Set<string>>(new Set());
   const [newCardIds, setNewCardIds] = useState<Set<string>>(new Set());
+  const [bubbles, setBubbles] = useState<Record<string, SeatBubble>>({});
+  const seenLogIdsRef = useRef<Set<string>>(new Set());
+  const seenChatKeysRef = useRef<Set<string>>(new Set());
+  const bubbleTimersRef = useRef<Map<string, number>>(new Map());
   // PlayShell switches myId among local hotseat humans only — never AI / remote.
   const actorId = myId;
   const lastDiscardIdRef = useRef<string | null>(null);
   const skipDiscardAnimRef = useRef(false);
+
+  const showBubble = (seatId: string, id: string, text: string) => {
+    const prevTimer = bubbleTimersRef.current.get(seatId);
+    if (prevTimer) window.clearTimeout(prevTimer);
+    setBubbles((m) => ({ ...m, [seatId]: { id, text } }));
+    const t = window.setTimeout(() => {
+      setBubbles((m) => {
+        if (m[seatId]?.id !== id) return m;
+        const next = { ...m };
+        delete next[seatId];
+        return next;
+      });
+      bubbleTimersRef.current.delete(seatId);
+    }, BUBBLE_MS);
+    bubbleTimersRef.current.set(seatId, t);
+  };
+
+  // Action bubbles from play log (first-person lines on PlayLogEntry)
+  useEffect(() => {
+    for (const e of playLog) {
+      if (seenLogIdsRef.current.has(e.id)) continue;
+      seenLogIdsRef.current.add(e.id);
+      if (e.speakerId && e.bubble) {
+        showBubble(e.speakerId, e.id, e.bubble);
+      }
+    }
+  }, [playLog]);
+
+  // Chat reuses the same avatar bubbles
+  useEffect(() => {
+    for (const m of chat) {
+      const key = `${m.playerId}-${m.at}-${m.text}`;
+      if (seenChatKeysRef.current.has(key)) continue;
+      seenChatKeysRef.current.add(key);
+      showBubble(m.playerId, `chat-${key}`, m.text);
+    }
+  }, [chat]);
+
+  useEffect(() => {
+    return () => {
+      for (const t of bubbleTimersRef.current.values()) window.clearTimeout(t);
+      bubbleTimersRef.current.clear();
+    };
+  }, []);
   const priestPending =
     view.pending?.type === "priestReveal" ? view.pending : null;
   const myPriestReveal =
@@ -360,6 +410,7 @@ export function LoveLetterTable({
               selectedTargetId={selectedTargetId}
               thinkingId={thinkingId}
               targetMode={Boolean(interactive && needsTarget)}
+              bubbles={bubbles}
               onSelectTarget={setSelectedTargetId}
               onZoomDiscard={(c, ownerName) =>
                 setZoom({

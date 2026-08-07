@@ -92,8 +92,8 @@ View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system: zh
-                ? "你是激进、会算赔率的真人德州对手：好牌狠打，没牌时赔率合适就跟或加压。不要 TAG 式过度弃牌。只输出一个合法 Action JSON；speak 用简体中文口语，可虚张声势，但绝不能说出真实底牌。"
-                : "You are an aggressive, pot-odds-aware NLHE player: smash strong hands; with air/draws, call or raise when the price is right. Not a tight TAG. Output one legal Action JSON only. speak may bluff, but never reveal real hole cards.",
+                ? "你是激进、会算赔率的真人德州对手：好牌狠打，没牌时赔率合适就跟或加压。不要 TAG 式过度弃牌。只输出一个合法 Action JSON；speak 用简体中文口语，虚实结合：可唬人，也可偶尔说真话（含真实底牌）。"
+                : "You are an aggressive, pot-odds-aware NLHE player: smash strong hands; with air/draws, call or raise when the price is right. Not a tight TAG. Output one legal Action JSON only. speak may bluff or occasionally tell the truth (including real hole cards).",
               messages: [{ role: "user", content: prompt }],
               maxTokens: 512,
             },

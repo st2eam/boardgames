@@ -383,8 +383,25 @@ export function PlayShell({
       const fallback = lines.find(
         (l) => l.speakerId === playerId && l.bubble,
       )?.bubble;
-      const text = speak?.trim() || fallback;
+      const spoken = speak?.trim();
+      const text = spoken || fallback;
       if (!text) return;
+      // Record model speak in battle log (action bubbles stay on formatEvents).
+      if (spoken) {
+        const name = seatNames()[playerId] ?? playerId;
+        const at = Date.now();
+        setPlayLog((prev) => [
+          ...prev,
+          {
+            id: `speak-${playerId}-${at}`,
+            at,
+            text:
+              locale === "zh" ? `${name}：${spoken}` : `${name}: ${spoken}`,
+            tone: "info",
+            speakerId: playerId,
+          },
+        ]);
+      }
       publishChat({ playerId, text, at: Date.now() });
     },
     [locale, seatNames, publishChat],

@@ -47,7 +47,7 @@ Rules / trainer → **开始游戏** → lobby pick board size → human vs AI (
 |-------|----------|
 | Policy (`chooseGoPolicyAction`) | Math brain: capture / save-atari / atari threats / eye-fill penalty / opening shape + Chinese-area 1-ply on a shortlist |
 | Mock (`createStrategicGoSeat`) | Thin wrapper over the policy |
-| LLM (`DeepSeekGoSeat`) | **Hybrid**: policy picks Action; DeepSeek only writes `speak` (locale `zh` → 简体中文) |
+| LLM (`DeepSeekGoSeat`) | **Hybrid**: policy picks Action; DeepSeek only writes `speak` (locale `zh` → 简体中文). Speak → seat bubbles + battle log (same as Hold'em) |
 | Fallback (`@bbge/ai` mock) | Lighter adjacency heuristics (no board engine) |
 | Teacher | In-table `GoTutorPanel` (no floating FAB); live `boardAscii`; tutoring only — does not auto-move unless asked |
 

@@ -297,7 +297,10 @@ export function TexasHoldemTable({
               }}
             />
             <div className="relative z-10 flex h-full min-h-0 flex-col justify-between gap-1 p-2 sm:gap-2 sm:p-3">
-              <div className="-mx-1 flex items-start gap-1.5 overflow-x-auto px-1 pb-0.5 pt-0.5 [scrollbar-width:none] sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden">
+              <div
+                ref={seatsRowRef}
+                className="-mx-1 flex items-start gap-1.5 overflow-x-auto scroll-smooth px-1 pb-0.5 pt-0.5 [scrollbar-width:none] sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden"
+              >
                 {view.seats
                   .filter((s) => s.id !== actorId)
                   .map((s) => (
@@ -405,7 +408,10 @@ export function TexasHoldemTable({
                   )}
               </div>
 
-              <div className="flex flex-col items-center gap-1.5 sm:gap-2">
+              <div
+                ref={heroSeatRef}
+                className="flex flex-col items-center gap-1.5 sm:gap-2"
+              >
                 {view.you && (
                   <SeatChip
                     key={`hero-h${handNumber}`}
@@ -725,8 +731,9 @@ function SeatChip({
   return (
     <motion.div
       layout
+      data-seat-id={seat.id}
       className={[
-        "relative shrink-0 rounded-xl border-2 px-2 py-1.5 sm:px-2.5 sm:py-2",
+        "relative shrink-0 scroll-mx-4 rounded-xl border-2 px-2 py-1.5 sm:px-2.5 sm:py-2",
         compact ? "min-w-[6.25rem] max-w-[9rem]" : "min-w-[7.5rem]",
         you ? "bg-amber-50/95" : "bg-white/90",
         active
@@ -735,6 +742,7 @@ function SeatChip({
       ].join(" ")}
       animate={{
         opacity: foldedAnim ? 0.5 : 1,
+        scale: active ? 1.03 : 1,
       }}
       transition={{ duration: 0.25 }}
     >

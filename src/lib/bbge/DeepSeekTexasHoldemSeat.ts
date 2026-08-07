@@ -37,15 +37,15 @@ export function createDeepSeekTexasHoldemSeat(
 
       const speakRule = zh
         ? `speak 用简体中文短句（口语牌桌闲话，约 6–20 字），常带。不要用英文术语 check/raise/fold/call/all-in；可说「过」「跟」「再加一点」「不要了」「全下」等。JSON 的 type 仍必须是 fold|check|call|raise。
-桌边发言纪律（重要）：
-- 绝对不要说出真实底牌点数/花色/具体牌名（如「我有 AA」「黑桃 A」「口袋对 KK」），也不要如实报出成牌细节。
-- 可以虚实结合唬人：弱牌可装强（「这手不错」「继续加压」），强牌可装怂或含糊（「随便看看」「跟一手」）；也可用含糊情绪话，但绝不泄真实手牌。
-- view.you.hole 仅供你决策，禁止写进 speak。`
+桌边发言（言论自由，虚实结合）：
+- 可以唬人：弱牌装强、强牌装怂、含糊带过。
+- 也可以说真话，包括偶尔报出真实底牌/成牌（如「口袋对」「有同花」）——别每手都报，别当复读机；多数时候用情绪/施压话更自然。
+- 虚实混着用，像真人嘴炮。`
         : `Optional speak: short natural English table talk. Prefer plain words over jargon.
-Table-talk discipline (important):
-- NEVER reveal your real hole cards (ranks/suits/names like "I've got aces"). Do not honestly name your exact made hand.
-- You MAY bluff / mix truth and lies: weak hands can sound strong; strong hands can sound weak or vague. Never leak the actual cards.
-- view.you.hole is for deciding the Action only — never put it in speak.`;
+Table talk (free speech — mix truth and lies):
+- You MAY bluff: weak hands sound strong, strong hands sound weak/vague.
+- You MAY tell the truth, including occasionally naming real hole cards / made hands — don't do it every hand; most lines should be vibe/pressure talk.
+- Mix truth and deception like a real table talker.`;
       const logBlock = battleLogPromptBlock(opts?.battleLog, zh);
 
       const prompt = zh

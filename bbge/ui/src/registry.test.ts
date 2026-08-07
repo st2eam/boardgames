@@ -26,7 +26,9 @@ function stubModule(id: string): PluginPlayModule {
     formatEvents: () => [],
     createMockSeat: (seatId) => ({
       id: seatId,
-      think: async () => ({ type: "noop", playerId: seatId, payload: {} }),
+      think: async () => ({
+        action: { type: "noop", playerId: seatId, payload: {} },
+      }),
     }),
   };
 }

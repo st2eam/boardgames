@@ -31,7 +31,9 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
 
       if (view.pending?.type === "priestReveal" && view.pending.playerId === id) {
         progress("本地启发式：确认神父偷看");
-        return { type: "acknowledgePriest", playerId: id, payload: {} };
+        return {
+          action: { type: "acknowledgePriest", playerId: id, payload: {} },
+        };
       }
       if (view.pending?.type === "chancellor" && view.pending.playerId === id) {
         progress("本地启发式：大臣保留第一张");
@@ -39,11 +41,13 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
         const keep = held[0]!;
         const rest = held.filter((c) => c.id !== keep.id);
         return {
-          type: "resolveChancellor",
-          playerId: id,
-          payload: {
-            keepCardId: keep.id,
-            bottomOrderIds: rest.map((c) => c.id),
+          action: {
+            type: "resolveChancellor",
+            playerId: id,
+            payload: {
+              keepCardId: keep.id,
+              bottomOrderIds: rest.map((c) => c.id),
+            },
           },
         };
       }
@@ -72,16 +76,18 @@ export function createMockLoveLetterSeat(id: PlayerId): AiSeat {
             : `本地启发式：打出 rank ${card.rank}`,
       );
       return {
-        type: "playCard",
-        playerId: id,
-        payload: {
-          cardId: card.id,
-          targetId: needsTarget
-            ? card.rank === 5
-              ? (others[0]?.id ?? id)
-              : others[0]?.id
-            : undefined,
-          guessRank: card.rank === 1 ? 9 : undefined,
+        action: {
+          type: "playCard",
+          playerId: id,
+          payload: {
+            cardId: card.id,
+            targetId: needsTarget
+              ? card.rank === 5
+                ? (others[0]?.id ?? id)
+                : others[0]?.id
+              : undefined,
+            guessRank: card.rank === 1 ? 9 : undefined,
+          },
         },
       };
     },

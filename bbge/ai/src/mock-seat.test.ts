@@ -19,7 +19,7 @@ describe("createMockLoveLetterSeat", () => {
     const seatId = current;
     const view = loveLetterPlugin.projectView!(state, seatId);
     const seat = createMockLoveLetterSeat(seatId);
-    const action = await seat.think(view);
+    const { action } = await seat.think(view);
     expect(loveLetterPlugin.validateAction(state, action as never, {
       rng: createRng("ai-1"),
     })).toBe(true);

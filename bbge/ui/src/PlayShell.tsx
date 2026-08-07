@@ -15,7 +15,7 @@ export interface PlayShellProps {
   pluginId: string;
   roomIdFromUrl?: string | null;
   loadApiKey: () => Promise<string | null>;
-  /** Shelf-provided LLM seat factory for this plugin (Actions only). */
+  /** Shelf-provided LLM seat factory for this plugin (Action + optional 发言). */
   createDeepSeekSeat?: (id: string, apiKey: string) => AiSeat;
 }
 
@@ -158,10 +158,18 @@ export function PlayShell({
   }, [lobby]);
 
   const appendEvents = useCallback(
-    (events: Event[]) => {
+    (events: Event[], opts?: { stripBubbleFor?: string }) => {
       const lines = modRef.current.formatEvents(events, locale, seatNames());
-      if (lines.length === 0) return;
-      setPlayLog((prev) => [...prev, ...lines].slice(-200));
+      if (lines.length === 0) return lines;
+      const stripped = opts?.stripBubbleFor
+        ? lines.map((l) =>
+            l.speakerId === opts.stripBubbleFor
+              ? { ...l, bubble: undefined }
+              : l,
+          )
+        : lines;
+      setPlayLog((prev) => [...prev, ...stripped].slice(-200));
+      return lines;
     },
     [locale, seatNames],
   );
@@ -198,6 +206,20 @@ export function PlayShell({
       }
     },
     [isHost, tick],
+  );
+
+  /** AI table talk: LLM 发言, else first-person event bubble (e.g. Guard guess). */
+  const publishAiSpeak = useCallback(
+    (playerId: string, events: Event[], speak?: string) => {
+      const lines = modRef.current.formatEvents(events, locale, seatNames());
+      const fallback = lines.find(
+        (l) => l.speakerId === playerId && l.bubble,
+      )?.bubble;
+      const text = speak?.trim() || fallback;
+      if (!text) return;
+      publishChat({ playerId, text, at: Date.now() });
+    },
+    [locale, seatNames, publishChat],
   );
 
   useEffect(() => {
@@ -443,6 +465,7 @@ export function PlayShell({
         const idleMs = isLlm ? 90_000 : 8_000;
         const absoluteMaxMs = isLlm ? 15 * 60_000 : undefined;
         let action: Action;
+        let speak: string | undefined;
         try {
           const decide = withIdleTimeout(
             ({ ping }) =>
@@ -457,7 +480,8 @@ export function PlayShell({
             absoluteMaxMs,
           );
           const [, decided] = await Promise.all([sleep(paceMs), decide]);
-          action = decided;
+          action = decided.action;
+          speak = decided.speak;
         } catch (err) {
           const mock = modRef.current.createMockSeat(current);
           const remaining = Math.max(0, paceMs - (Date.now() - thinkStarted));
@@ -465,7 +489,8 @@ export function PlayShell({
             mock.think(s.getView(current), { onProgress: pushThinkProgress }),
             remaining > 0 ? sleep(remaining) : Promise.resolve(),
           ]);
-          action = decided;
+          action = decided.action;
+          speak = decided.speak;
           const why =
             err instanceof Error && /idle timeout/i.test(err.message)
               ? locale === "zh"
@@ -497,7 +522,9 @@ export function PlayShell({
           const mock = modRef.current.createMockSeat(current);
           await sleep(400 + Math.floor(Math.random() * 400));
           const retry = await mock.think(s.getView(current));
-          result = s.submitAction(retry);
+          action = retry.action;
+          speak = retry.speak;
+          result = s.submitAction(action);
           if (!result.ok) {
             setError(result.error);
             return;
@@ -515,7 +542,9 @@ export function PlayShell({
             },
           ]);
         }
-        appendEvents(result.events);
+        // Chat bubble owns AI speech; strip play-log bubbles to avoid double flash
+        appendEvents(result.events, { stripBubbleFor: current });
+        publishAiSpeak(current, result.events, speak);
         tick();
 
         await sleep(350 + Math.floor(Math.random() * 350));

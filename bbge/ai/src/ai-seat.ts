@@ -21,12 +21,22 @@ export interface AiThinkOptions {
   onProgress?: (p: AiThinkProgress) => void;
 }
 
+/** Result of AiSeat.think — Action plus optional table talk. */
+export type AiDecision = {
+  action: Action;
+  /**
+   * Short first-person line for avatar bubble / chat.
+   * From LLM `发言` (or speak/say). Host may fall back to event bubble text.
+   */
+  speak?: string;
+};
+
 export interface AiSeat {
   id: PlayerId;
   /**
    * Produce one legal Action from the seat's private view.
    * Optional onProgress powers “what is AI thinking” UI on Host.
    */
-  think(view: unknown, opts?: AiThinkOptions): Promise<Action>;
+  think(view: unknown, opts?: AiThinkOptions): Promise<AiDecision>;
   speak?(ctx: AiSpeakContext): Promise<AiChatMessage | null>;
 }

@@ -8,6 +8,7 @@ import {
   MatchResultBar,
   PlayLogChatPanel,
   PlaySideSheet,
+  PlayTableShell,
   SeatSpeechSlot,
   ThinkingStatusBanner,
   useIsMobileLayout,
@@ -488,41 +489,37 @@ export function CaboTable({
   const youSeat = view.seats.find((s) => s.isYou);
 
   return (
-    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-[#1b4332] to-[#0d2818] shadow-card">
-      <div className="flex min-w-0 shrink-0 flex-wrap items-center justify-between gap-2 border-b border-white/10 px-3 py-2 text-white">
-        <div className="min-w-0">
-          <p className="truncate font-heading text-sm font-bold">
-            CABO · {zh ? "第" : "R"}{view.round}{zh ? "轮" : ""}
-          </p>
-          <p className="truncate text-[11px] text-white/70">{phaseLabel}</p>
-        </div>
-        <div className="flex min-w-0 flex-wrap items-center justify-end gap-2">
-          <span className="rounded-lg bg-black/30 px-2 py-1 text-[11px]">
-            {zh ? "牌堆" : "Deck"} {view.deckCount}
+    <PlayTableShell
+      locale={locale}
+      title={`CABO · ${zh ? "第" : "R"}${view.round}${zh ? "轮" : ""}`}
+      onOpenLog={() => setSideOpen(true)}
+      toolbarExtra={
+        <>
+          <span className="truncate text-amber-100/80">{phaseLabel}</span>
+          <span>
+            {zh ? "牌堆" : "Deck"}{" "}
+            <strong className="text-accent">{view.deckCount}</strong>
           </span>
           {view.discardTop != null && (
-            <div className="flex items-center gap-1 rounded-lg bg-black/30 px-2 py-1">
-              <span className="text-[11px]">{zh ? "弃牌" : "Discard"}</span>
-              <CaboCard locale={locale} value={view.discardTop} faceDown={false} size="sm" />
-            </div>
+            <span className="inline-flex items-center gap-1.5">
+              <span>{zh ? "弃牌" : "Discard"}</span>
+              <CaboCard
+                locale={locale}
+                value={view.discardTop}
+                faceDown={false}
+                size="sm"
+              />
+            </span>
           )}
-          <button
-            type="button"
-            onClick={() => setSideOpen(true)}
-            className="min-h-9 cursor-pointer touch-manipulation rounded-lg border border-white/20 px-2.5 py-1.5 text-[11px] font-semibold hover:bg-white/10 active:scale-[0.98]"
-          >
-            {zh ? "战报" : "Log"}
-          </button>
-        </div>
-      </div>
-
-      <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden p-3">
+        </>
+      }
+    >
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-2 overflow-hidden">
         <ThinkingStatusBanner
           locale={locale}
           text={status}
           tone={statusTone}
           detail={thinkingSet.size > 0 ? thinkingDetail : null}
-          inverse
         />
 
         <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-x-hidden overflow-y-auto overscroll-contain">
@@ -530,50 +527,50 @@ export function CaboTable({
             {others.map(renderSeat)}
           </div>
           {youSeat && (
-            <div className="mt-auto min-w-0 border-t border-white/10 pt-3">
+            <div className="mt-auto min-w-0 border-t border-border pt-3">
               {renderSeat(youSeat)}
             </div>
           )}
         </div>
-      </div>
 
-      <div className="shrink-0 border-t border-white/10 bg-black/25 px-3 py-2">
-        {view.phase === "finished" ? (
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-sm text-white/90">{status}</p>
-            <MatchResultBar
-              locale={locale}
-              onRematch={onRematch}
-              label={
-                view.matchOver
-                  ? zh
-                    ? "再来一局"
-                    : "New match"
-                  : zh
-                    ? "下一轮"
-                    : "Next round"
-              }
-            />
-          </div>
-        ) : (
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="flex flex-wrap gap-2">
-              {view.seats.map((s) => (
-                <span
-                  key={s.id}
-                  className="inline-flex items-center gap-1 rounded-full bg-black/30 px-2 py-0.5 text-[10px] text-white/90"
-                >
-                  {s.name.slice(0, 3)}
-                  <span className="text-rose-300" aria-label="score">
-                    ♥
-                  </span>
-                  {s.cumulativeScore}/{view.targetScore}
-                </span>
-              ))}
+        <div className="shrink-0 rounded-xl border border-border bg-white/95 px-3 py-2 shadow-sm">
+          {view.phase === "finished" ? (
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-sm text-primary-dark">{status}</p>
+              <MatchResultBar
+                locale={locale}
+                onRematch={onRematch}
+                label={
+                  view.matchOver
+                    ? zh
+                      ? "再来一局"
+                      : "New match"
+                    : zh
+                      ? "下一轮"
+                      : "Next round"
+                }
+              />
             </div>
-            {actionBar()}
-          </div>
-        )}
+          ) : (
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap gap-2">
+                {view.seats.map((s) => (
+                  <span
+                    key={s.id}
+                    className="inline-flex items-center gap-1 rounded-lg bg-surface px-2 py-0.5 text-[10px] font-medium text-primary-dark"
+                  >
+                    {s.name.slice(0, 3)}
+                    <span className="text-rose-600" aria-label="score">
+                      ♥
+                    </span>
+                    {s.cumulativeScore}/{view.targetScore}
+                  </span>
+                ))}
+              </div>
+              {actionBar()}
+            </div>
+          )}
+        </div>
       </div>
 
       <AnimatePresence>
@@ -641,6 +638,6 @@ export function CaboTable({
       >
         {logPanel}
       </PlaySideSheet>
-    </div>
+    </PlayTableShell>
   );
 }

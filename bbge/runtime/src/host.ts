@@ -108,6 +108,27 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
     this.lobby.seats = this.lobby.seats.filter((s) => s.id !== id);
   }
 
+  /** Move a seat up (-1) or down (+1) in turn order. Lobby only. */
+  moveSeat(id: PlayerId, delta: -1 | 1): boolean {
+    if (this.phase !== "lobby") return false;
+    const i = this.lobby.seats.findIndex((s) => s.id === id);
+    if (i < 0) return false;
+    const j = i + delta;
+    if (j < 0 || j >= this.lobby.seats.length) return false;
+    const seats = this.lobby.seats.slice();
+    const [seat] = seats.splice(i, 1);
+    if (!seat) return false;
+    seats.splice(j, 0, seat);
+    this.lobby.seats = seats;
+    return true;
+  }
+
+  /** Shuffle lobby seats (turn order). */
+  shuffleSeats(rng: { shuffle: <T>(items: T[]) => T[] }): void {
+    if (this.phase !== "lobby") return;
+    this.lobby.seats = rng.shuffle(this.lobby.seats);
+  }
+
   setReady(id: PlayerId, ready: boolean): void {
     const seat = this.lobby.seats.find((s) => s.id === id);
     if (seat && seat.kind === "human") seat.ready = ready;

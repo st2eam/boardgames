@@ -18,6 +18,9 @@ interface Props {
   onAddHotseat: () => void;
   onStart: () => void;
   onReady: () => void;
+  /** Host: reorder turn order (seat index = action order) */
+  onMoveSeat?: (id: string, delta: -1 | 1) => void;
+  onShuffleSeats?: () => void;
   /** Host-only edition picker (e.g. Love Letter) */
   editions?: LobbyEditionOption[];
   edition?: string;
@@ -33,21 +36,37 @@ interface Props {
 }
 
 function SeatCard({
+  index,
   name,
   kind,
   ready,
   host,
+  zh,
+  canReorder,
+  onMoveUp,
+  onMoveDown,
 }: {
+  index: number;
   name: string;
   kind: "human" | "ai";
   ready: boolean;
   host?: boolean;
+  zh: boolean;
+  canReorder?: boolean;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-border bg-white px-3 py-2.5 shadow-sm">
+    <div className="flex items-center gap-2 rounded-xl border border-border bg-white px-2.5 py-2 shadow-sm sm:gap-3 sm:px-3 sm:py-2.5">
+      <span
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface font-heading text-xs font-bold tabular-nums text-stone-600"
+        title={zh ? "行动顺序" : "Turn order"}
+      >
+        {index + 1}
+      </span>
       <div
         className={[
-          "flex h-11 w-11 items-center justify-center rounded-full font-heading text-sm font-bold text-white",
+          "flex h-11 w-11 shrink-0 items-center justify-center rounded-full font-heading text-sm font-bold text-white",
           kind === "ai"
             ? "bg-linear-to-br from-emerald-500 to-teal-700"
             : "bg-primary",
@@ -60,11 +79,33 @@ function SeatCard({
           {name}
         </p>
         <p className="text-[11px] text-stone-500">
-          {host ? "Host · " : ""}
-          {kind === "ai" ? "AI" : "Human"}
-          {ready ? " · Ready" : ""}
+          {host ? (zh ? "房主 · " : "Host · ") : ""}
+          {kind === "ai" ? "AI" : zh ? "玩家" : "Human"}
+          {ready ? (zh ? " · 就绪" : " · Ready") : ""}
         </p>
       </div>
+      {canReorder && (
+        <div className="flex shrink-0 flex-col gap-0.5">
+          <button
+            type="button"
+            disabled={!onMoveUp}
+            onClick={onMoveUp}
+            aria-label={zh ? "上移" : "Move up"}
+            className="cursor-pointer rounded px-1.5 py-0.5 text-[10px] font-bold text-primary-dark hover:bg-surface disabled:cursor-not-allowed disabled:opacity-25"
+          >
+            ▲
+          </button>
+          <button
+            type="button"
+            disabled={!onMoveDown}
+            onClick={onMoveDown}
+            aria-label={zh ? "下移" : "Move down"}
+            className="cursor-pointer rounded px-1.5 py-0.5 text-[10px] font-bold text-primary-dark hover:bg-surface disabled:cursor-not-allowed disabled:opacity-25"
+          >
+            ▼
+          </button>
+        </div>
+      )}
       {ready && (
         <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-800">
           ✓
@@ -84,6 +125,8 @@ export function LobbyView({
   onAddHotseat,
   onStart,
   onReady,
+  onMoveSeat,
+  onShuffleSeats,
   editions,
   edition,
   onEditionChange,
@@ -96,6 +139,7 @@ export function LobbyView({
   const seatCount = lobby?.seats.length ?? 0;
   const atCap = maxSeats != null && seatCount >= maxSeats;
   const selectedEdition = editions?.find((e) => e.id === edition);
+  const canReorder = Boolean(onMoveSeat) && seatCount > 1;
 
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/20 bg-[#efe6d8] shadow-card">
@@ -299,17 +343,46 @@ export function LobbyView({
         </div>
 
         <aside className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-white/95 p-3 shadow-sm">
-          <p className="shrink-0 px-0.5 pb-2 font-heading text-xs font-bold uppercase tracking-wide text-stone-500">
-            {zh ? "座位" : "Seats"} · {lobby?.seats.length ?? 0}
+          <div className="flex shrink-0 items-center justify-between gap-2 px-0.5 pb-2">
+            <p className="font-heading text-xs font-bold uppercase tracking-wide text-stone-500">
+              {zh ? "行动顺序" : "Turn order"} · {lobby?.seats.length ?? 0}
+            </p>
+            {onShuffleSeats && seatCount > 1 && (
+              <button
+                type="button"
+                onClick={onShuffleSeats}
+                className="cursor-pointer rounded-lg border border-border bg-surface px-2 py-1 font-heading text-[10px] font-bold text-primary-dark hover:border-accent/40"
+              >
+                {zh ? "打乱" : "Shuffle"}
+              </button>
+            )}
+          </div>
+          <p className="shrink-0 px-0.5 pb-2 text-[10px] leading-snug text-stone-400">
+            {zh
+              ? "序号 1 先行动。可用箭头调整座次。"
+              : "Seat 1 acts first. Use arrows to reorder."}
           </p>
           <div className="min-h-0 flex-1 space-y-2 overflow-y-auto">
-            {(lobby?.seats ?? []).map((s) => (
+            {(lobby?.seats ?? []).map((s, i) => (
               <SeatCard
                 key={s.id}
+                index={i}
                 name={s.name}
                 kind={s.kind}
                 ready={s.ready}
                 host={s.id === hostId}
+                zh={zh}
+                canReorder={canReorder}
+                onMoveUp={
+                  canReorder && i > 0
+                    ? () => onMoveSeat?.(s.id, -1)
+                    : undefined
+                }
+                onMoveDown={
+                  canReorder && i < seatCount - 1
+                    ? () => onMoveSeat?.(s.id, 1)
+                    : undefined
+                }
               />
             ))}
           </div>

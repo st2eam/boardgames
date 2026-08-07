@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { createRng } from "@bbge/core";
 import { HostSession } from "./host";
 import {
   loveLetterPlugin,
@@ -53,6 +54,32 @@ function pickAction(state: LoveLetterState): LoveLetterAction | null {
 }
 
 describe("HostSession", () => {
+  it("reorders lobby seats for turn order", () => {
+    const host = new HostSession(loveLetterPlugin, {
+      seed: "seat-order",
+      hostPlayerId: "host",
+    });
+    host.addHumanSeat("host", "Host");
+    host.addAiSeat("ai-1", "AI 1");
+    host.addAiSeat("ai-2", "AI 2");
+    expect(host.getLobby().seats.map((s) => s.id)).toEqual([
+      "host",
+      "ai-1",
+      "ai-2",
+    ]);
+    expect(host.moveSeat("host", 1)).toBe(true);
+    expect(host.getLobby().seats.map((s) => s.id)).toEqual([
+      "ai-1",
+      "host",
+      "ai-2",
+    ]);
+    host.shuffleSeats(createRng("seat-shuffle-1"));
+    expect(host.getLobby().seats).toHaveLength(3);
+    expect(new Set(host.getLobby().seats.map((s) => s.id))).toEqual(
+      new Set(["host", "ai-1", "ai-2"]),
+    );
+  });
+
   it("finishes a fixture via autopilot", async () => {
     const host = new HostSession(loveLetterPlugin, {
       seed: "ll-fixed-1",

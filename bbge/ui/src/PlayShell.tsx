@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Action, Event } from "@bbge/core";
+import { createRng } from "@bbge/core";
 import { HostSession, type AiChatMessage, type LobbyState } from "@bbge/runtime";
 import type { AiSeat } from "@bbge/ai";
 import {
@@ -1043,6 +1044,28 @@ export function PlayShell({
     tick();
   };
 
+  const broadcastLobby = () => {
+    const s = sessionRef.current;
+    if (!s) return;
+    tick();
+    const host = peerRef.current as PeerHost | null;
+    host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
+  };
+
+  const onMoveSeat = (id: string, delta: -1 | 1) => {
+    const s = sessionRef.current;
+    if (!s || s.getPhase() !== "lobby") return;
+    if (!s.moveSeat(id, delta)) return;
+    broadcastLobby();
+  };
+
+  const onShuffleSeats = () => {
+    const s = sessionRef.current;
+    if (!s || s.getPhase() !== "lobby") return;
+    s.shuffleSeats(createRng(`lobby-shuffle-${Date.now()}`));
+    broadcastLobby();
+  };
+
   const onStart = async () => {
     const s = sessionRef.current;
     if (!s) return;
@@ -1200,6 +1223,8 @@ export function PlayShell({
               sessionRef.current?.setReady(hostId, true);
               tick();
             }}
+            onMoveSeat={onMoveSeat}
+            onShuffleSeats={onShuffleSeats}
             editions={
               showEditions
                 ? isNimmt

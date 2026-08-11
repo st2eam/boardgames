@@ -129,6 +129,16 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
     this.lobby.seats = rng.shuffle(this.lobby.seats);
   }
 
+  /** Convert a human seat to AI. Works in any phase (disconnect handling). */
+  convertToAi(id: PlayerId): boolean {
+    const seat = this.lobby.seats.find((s) => s.id === id);
+    if (!seat) return false;
+    if (seat.kind === "ai") return true; // already AI
+    seat.kind = "ai";
+    seat.ready = true;
+    return true;
+  }
+
   setReady(id: PlayerId, ready: boolean): void {
     const seat = this.lobby.seats.find((s) => s.id === id);
     if (seat && seat.kind === "human") seat.ready = ready;

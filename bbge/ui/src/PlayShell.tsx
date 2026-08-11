@@ -338,6 +338,8 @@ export function PlayShell({
   const aiRef = useRef<Map<string, AiSeat>>(new Map());
   const llmSeatIdsRef = useRef<Set<string>>(new Set());
   const peerRef = useRef<{ destroy: () => void } | null>(null);
+  /** Map playerId → PeerJS peerId so we can route per-player view messages. */
+  const playerToPeerRef = useRef<Map<string, string>>(new Map());
   const aiRunning = useRef(false);
   const autoAdvanceRunning = useRef(false);
   const localSeatIdsRef = useRef<Set<string>>(new Set([hostId]));
@@ -356,7 +358,9 @@ export function PlayShell({
       host.broadcast?.({ type: "events", payload: result.events });
       host.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
       for (const [pid, v] of result.views) {
-        host.send(pid, { type: "view", payload: v });
+        // Translate playerId → PeerJS peerId so the message reaches the guest.
+        const peerId = playerToPeerRef.current.get(pid) ?? pid;
+        host.send(peerId, { type: "view", payload: v });
       }
     },
     [],
@@ -484,6 +488,8 @@ export function PlayShell({
             const label = (name || "").trim() || playerId;
             s.addHumanSeat(playerId, label);
             s.setReady(playerId, true);
+            // Record playerId → peerId mapping so view messages reach the guest.
+            if (fromPeer) playerToPeerRef.current.set(playerId, fromPeer);
             const lobbySnap = s.getLobby();
             // Prefer direct send so the joiner always gets seats even if
             // broadcast races the connection map.
@@ -519,6 +525,30 @@ export function PlayShell({
             s.pushChat(msg.payload as AiChatMessage);
             host.broadcast({ type: "chat", payload: msg.payload });
             tick();
+          } else if (msg.type === "peerLeft") {
+            const { peerId } = msg.payload as { peerId: string };
+            // Find playerId by peerId (small n, linear scan is fine).
+            let playerId: string | undefined;
+            playerToPeerRef.current.forEach((pp, pid) => {
+              if (pp === peerId) playerId = pid;
+            });
+            if (!playerId) return;
+            playerToPeerRef.current.delete(playerId);
+            if (s.getPhase() === "lobby") {
+              s.removeSeat(playerId);
+              localSeatIdsRef.current.delete(playerId);
+              aiRef.current.delete(playerId);
+              llmSeatIdsRef.current.delete(playerId);
+              host.broadcast({ type: "lobby", payload: s.getLobby() });
+              tick();
+            } else {
+              // Mid-game: convert the seat to AI so the game can continue.
+              s.convertToAi(playerId);
+              host.broadcast({ type: "lobby", payload: s.getLobby() });
+              tick();
+              // If it's now this AI's turn, kick off the AI loop.
+              void runAiIfNeeded();
+            }
           }
         });
       } catch (e) {
@@ -537,6 +567,7 @@ export function PlayShell({
       sessionRef.current = null;
       aiRef.current.clear();
       llmSeatIdsRef.current.clear();
+      playerToPeerRef.current.clear();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHost, pluginId]);
@@ -646,6 +677,14 @@ export function PlayShell({
           }
           if (msg.type === "actionReject")
             setError((msg.payload as { error: string }).error);
+          if (msg.type === "peerLeft") {
+            setGuestStatus("error");
+            setError(
+              locale === "zh"
+                ? "与房主断开连接"
+                : "Disconnected from host",
+            );
+          }
         });
         guest.send({
           type: "hello",
@@ -1181,6 +1220,17 @@ export function PlayShell({
     host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
   };
 
+  const onRemoveSeat = (playerId: string) => {
+    const s = sessionRef.current;
+    if (!s || s.getPhase() !== "lobby") return;
+    s.removeSeat(playerId);
+    localSeatIdsRef.current.delete(playerId);
+    aiRef.current.delete(playerId);
+    llmSeatIdsRef.current.delete(playerId);
+    playerToPeerRef.current.delete(playerId);
+    broadcastLobby();
+  };
+
   const onMoveSeat = (id: string, delta: -1 | 1) => {
     const s = sessionRef.current;
     if (!s || s.getPhase() !== "lobby") return;
@@ -1244,7 +1294,8 @@ export function PlayShell({
       host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
       host?.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
       for (const [pid, v] of initialViews) {
-        host?.send?.(pid, { type: "view", payload: v });
+        const peerId = playerToPeerRef.current.get(pid) ?? pid;
+        host?.send?.(peerId, { type: "view", payload: v });
       }
     }
     setPlayLog([
@@ -1300,7 +1351,8 @@ export function PlayShell({
     const host = peerRef.current as PeerHost | null;
     host?.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
     for (const [pid, v] of result.views) {
-      host?.send?.(pid, { type: "view", payload: v });
+      const peerId = playerToPeerRef.current.get(pid) ?? pid;
+      host?.send?.(peerId, { type: "view", payload: v });
     }
     tick();
     void (async () => {
@@ -1467,6 +1519,7 @@ export function PlayShell({
             stakes={isHoldem ? stakes : undefined}
             onStakesChange={isHoldem && isHost ? onStakesChange : undefined}
             maxSeats={maxSeats}
+            onRemoveSeat={isHost ? onRemoveSeat : undefined}
           />
         </div>
       )}

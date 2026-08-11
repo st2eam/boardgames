@@ -33,6 +33,7 @@ interface Props {
     startingStack?: number;
   }) => void;
   maxSeats?: number;
+  onRemoveSeat?: (id: string) => void;
 }
 
 function SeatCard({
@@ -45,6 +46,7 @@ function SeatCard({
   canReorder,
   onMoveUp,
   onMoveDown,
+  onRemove,
 }: {
   index: number;
   name: string;
@@ -55,6 +57,7 @@ function SeatCard({
   canReorder?: boolean;
   onMoveUp?: () => void;
   onMoveDown?: () => void;
+  onRemove?: () => void;
 }) {
   return (
     <div className="flex items-center gap-2 rounded-xl border border-border bg-white px-2.5 py-2 shadow-sm sm:gap-3 sm:px-3 sm:py-2.5">
@@ -106,6 +109,16 @@ function SeatCard({
           </button>
         </div>
       )}
+      {!host && onRemove && (
+        <button
+          type="button"
+          onClick={onRemove}
+          aria-label={zh ? "移除" : "Remove"}
+          className="cursor-pointer shrink-0 rounded-lg px-1.5 py-0.5 text-xs font-bold text-stone-400 hover:bg-red-50 hover:text-red-600"
+        >
+          ✕
+        </button>
+      )}
       {ready && (
         <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-800">
           ✓
@@ -133,6 +146,7 @@ export function LobbyView({
   stakes,
   onStakesChange,
   maxSeats,
+  onRemoveSeat,
 }: Props) {
   const zh = locale === "zh";
   const hostId = lobby?.hostPlayerId;
@@ -140,6 +154,7 @@ export function LobbyView({
   const atCap = maxSeats != null && seatCount >= maxSeats;
   const selectedEdition = editions?.find((e) => e.id === edition);
   const canReorder = Boolean(onMoveSeat) && seatCount > 1;
+  const canRemove = Boolean(onRemoveSeat);
 
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/20 bg-[#efe6d8] shadow-card">
@@ -381,6 +396,11 @@ export function LobbyView({
                 onMoveDown={
                   canReorder && i < seatCount - 1
                     ? () => onMoveSeat?.(s.id, 1)
+                    : undefined
+                }
+                onRemove={
+                  canRemove && s.id !== hostId
+                    ? () => onRemoveSeat?.(s.id)
                     : undefined
                 }
               />

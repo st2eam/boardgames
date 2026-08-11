@@ -48,6 +48,10 @@ export const wireMessageSchema = z.discriminatedUnion("type", [
     type: z.literal("snapshot"),
     payload: z.unknown(),
   }),
+  z.object({
+    type: z.literal("peerLeft"),
+    payload: z.object({ peerId: z.string() }),
+  }),
 ]);
 
 export type WireMessage = z.infer<typeof wireMessageSchema>;

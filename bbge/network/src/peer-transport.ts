@@ -71,6 +71,8 @@ export async function createPeerRoomHost(roomId: string): Promise<{
     c.on("close", (() => {
       conns.delete(c.peer);
       attached = false;
+      // Notify host handler so seats can be removed / converted to AI.
+      deliver({ type: "peerLeft", payload: { peerId: c.peer } }, c.peer);
     }) as never);
   });
 
@@ -126,6 +128,17 @@ export async function createPeerRoomGuest(roomId: string): Promise<{
     if (handler) handler(msg);
     else pending.push(msg);
   }) as never);
+
+  // When the host's DataConnection closes or the signalling socket drops,
+  // deliver a synthetic peerLeft so the guest UI can show a disconnect message.
+  const notifyDisconnect = () => {
+    if (handler) {
+      handler({ type: "peerLeft", payload: { peerId: roomId } });
+    }
+  };
+  conn.on("close", (() => notifyDisconnect()) as never);
+  peer.on("disconnected", (() => notifyDisconnect()) as never);
+
   return {
     peerId: peer.id!,
     onMessage(cb) {

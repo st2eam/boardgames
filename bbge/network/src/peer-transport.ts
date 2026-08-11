@@ -39,27 +39,39 @@ export async function createPeerRoomHost(roomId: string): Promise<{
 
   peer.on("connection", (conn) => {
     const c = conn as unknown as DataConn;
+    const earlyData: { msg: WireMessage; fromPeer: string }[] = [];
+    let attached = false;
+
+    // Listen immediately — before "open" fires — so no guest hello is
+    // lost.  Buffer until the conn is tracked in `conns`.
+    c.on("data", ((data: unknown) => {
+      const msg = parseWireMessage(data);
+      if (!msg) return;
+      if (attached) {
+        deliver(msg, c.peer);
+      } else {
+        earlyData.push({ msg, fromPeer: c.peer });
+      }
+    }) as never);
+
     const attach = () => {
+      if (attached) return;
+      attached = true;
       conns.set(c.peer, c);
-      c.on("data", ((data: unknown) => {
-        const msg = parseWireMessage(data);
-        if (msg) deliver(msg, c.peer);
-      }) as never);
+      for (const item of earlyData) deliver(item.msg, item.fromPeer);
+      earlyData.length = 0;
     };
-    // PeerJS may fire open before we subscribe — also attach on next tick check.
+
     c.on("open", (() => attach()) as never);
-    // If already open when connection event fires:
     queueMicrotask(() => {
-      // open may have already run; ensure conn is tracked
-      if (!conns.has(c.peer)) {
-        try {
-          attach();
-        } catch {
-          /* wait for open */
-        }
+      if (!attached) {
+        try { attach(); } catch { /* wait for open */ }
       }
     });
-    c.on("close", (() => conns.delete(c.peer)) as never);
+    c.on("close", (() => {
+      conns.delete(c.peer);
+      attached = false;
+    }) as never);
   });
 
   return {

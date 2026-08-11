@@ -1237,6 +1237,16 @@ export function PlayShell({
       setError(r.error);
       return;
     }
+    // Broadcast initial game state to guests so they leave the lobby.
+    {
+      const host = peerRef.current as PeerHost | null;
+      const initialViews = s.allViews();
+      host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
+      host?.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
+      for (const [pid, v] of initialViews) {
+        host?.send?.(pid, { type: "view", payload: v });
+      }
+    }
     setPlayLog([
       {
         id: `start-${Date.now()}`,

@@ -49,7 +49,31 @@ export function LoveLetterTable({
   nameOf,
 }: PluginTableProps) {
   const dispatch = (action: LoveLetterAction) => onAction(action as Action);
-  const view = viewUnknown as ArenaView;
+  // Defensive fallbacks — wire transport JSON round-trip may lose optional
+  // fields (undefined → absent in JSON → missing on guest side).
+  const raw = viewUnknown as ArenaView;
+  const view: ArenaView = {
+    ...raw,
+    faceUp: Array.isArray(raw.faceUp) ? raw.faceUp : [],
+    others: Array.isArray(raw.others) ? raw.others : [],
+    you: raw.you ?? null,
+    standings: Array.isArray(raw.standings) ? raw.standings : [],
+    winners: Array.isArray(raw.winners) ? raw.winners : [],
+    spyBonus: Array.isArray(raw.spyBonus) ? raw.spyBonus : undefined,
+    pending: raw.pending ?? null,
+    forcedTargetId: raw.forcedTargetId ?? null,
+    jesterPick: raw.jesterPick ?? null,
+    jesterPlayerId: raw.jesterPlayerId ?? null,
+    matchOver: raw.matchOver ?? false,
+    roundNumber: raw.roundNumber ?? 1,
+    heartTarget: raw.heartTarget ?? 4,
+    deckCount: raw.deckCount ?? 0,
+    currentPlayerId: raw.currentPlayerId ?? "",
+    phase: raw.phase ?? "playing",
+    edition: raw.edition,
+    endReason: raw.endReason ?? null,
+    selfDiscarded: Array.isArray(raw.selfDiscarded) ? raw.selfDiscarded : [],
+  };
   const zh = locale === "zh";
   const edition =
     view.edition === "classic" || view.edition === "premium"

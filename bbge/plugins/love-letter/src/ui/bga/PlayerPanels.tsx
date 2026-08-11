@@ -52,6 +52,8 @@ function Panel({
   revealedRank,
   bubble,
   rail,
+  jesterTarget,
+  sycophantTarget,
   onSelect,
   onZoomDiscard,
 }: {
@@ -74,6 +76,8 @@ function Panel({
   revealedRank?: number;
   bubble?: SeatBubble | null;
   rail?: boolean;
+  jesterTarget?: boolean;
+  sycophantTarget?: boolean;
   onSelect: () => void;
   onZoomDiscard?: (card: DiscCard, ownerName: string) => void;
 }) {
@@ -161,6 +165,16 @@ function Panel({
                 ? zh
                   ? " · 侍女"
                   : " · Prot."
+                : ""}
+              {sycophantTarget && !eliminated
+                ? zh
+                  ? " · 谄媚"
+                  : " · Forced"
+                : ""}
+              {jesterTarget && !eliminated
+                ? zh
+                  ? " · 小丑"
+                  : " · Jester"
                 : ""}
             </p>
             {seenRank !== undefined && !eliminated && revealedRank === undefined && (
@@ -290,6 +304,8 @@ export const PlayerPanels = forwardRef<HTMLDivElement, Props>(
               ? you.hand[0]?.rank
               : undefined
           }
+          jesterTarget={view.jesterPick === you.id}
+          sycophantTarget={view.forcedTargetId === you.id}
           bubble={bubbles[you.id]}
           rail={rail}
           onSelect={() => {}}
@@ -318,6 +334,8 @@ export const PlayerPanels = forwardRef<HTMLDivElement, Props>(
               ? o.hand?.[0]?.rank
               : undefined
           }
+          jesterTarget={view.jesterPick === o.id}
+          sycophantTarget={view.forcedTargetId === o.id}
           bubble={bubbles[o.id]}
           rail={rail}
           onSelect={() => onSelectTarget(o.id)}

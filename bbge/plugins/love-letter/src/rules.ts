@@ -113,6 +113,13 @@ function forcedTargetSatisfied(
   targetIds: PlayerId[],
 ): boolean {
   if (!state.forcedTargetId) return true;
+  // Sycophant only compels OTHER players — the forced target
+  // themselves is not constrained on their own turn.
+  if (state.forcedTargetId === currentId(state)) return true;
+  // If the forced target can't be targeted (protected or eliminated),
+  // the constraint is waived ("if possible").
+  const ft = state.players.find((p) => p.id === state.forcedTargetId);
+  if (ft && (ft.eliminated || ft.protected)) return true;
   return targetIds.includes(state.forcedTargetId);
 }
 
@@ -627,6 +634,9 @@ export function validateLoveLetterAction(
     const others = otherUnprotected(state, me.id);
     if (others.length === 0) {
       if (targetId && targetId !== me.id) return { error: "must target self" };
+      if (!forcedTargetSatisfied(state, targetId ? [targetId] : [])) {
+        return { error: "must include sycophant target" };
+      }
     } else {
       const t = targetOk(state, me.id, targetId, true);
       if (t !== true) return t;
@@ -661,9 +671,12 @@ export function validateLoveLetterAction(
     }
   }
   if (role === "jester") {
+    if (otherUnprotected(state, me.id).length === 0) return true;
     const t = targetOk(state, me.id, targetId, false);
     if (t !== true) return t;
-    if (targetId === me.id) return { error: "cannot target self" };
+    if (!forcedTargetSatisfied(state, targetId ? [targetId] : [])) {
+      return { error: "must include sycophant target" };
+    }
   }
   if (role === "chancellor" && state.edition === "classic") {
     return { error: "chancellor not in this edition" };
@@ -819,6 +832,7 @@ export function applyLoveLetterAction(
         if (targetId) {
           draft.jesterPlayerId = me.id;
           draft.jesterPick = targetId;
+          consumeForcedTarget(draft);
           events.push({
             type: "loveLetter/jesterPick",
             payload: { playerId: me.id, pickId: targetId },
@@ -827,7 +841,7 @@ export function applyLoveLetterAction(
         break;
       }
       case "king": {
-        if (fizzleOthers()) break;
+        if (fizzleOthers()) { consumeForcedTarget(draft); break; }
         const t = player(draft, targetId!);
         const tmp = me.hand;
         me.hand = t.hand;
@@ -893,7 +907,7 @@ export function applyLoveLetterAction(
         events.push({ type: "loveLetter/protected", payload: { playerId: me.id } });
         break;
       case "baron": {
-        if (fizzleOthers()) break;
+        if (fizzleOthers()) { consumeForcedTarget(draft); break; }
         const t = player(draft, targetId!);
         const myRank = me.hand[0]!.rank;
         const theirRank = t.hand[0]!.rank;
@@ -909,7 +923,7 @@ export function applyLoveLetterAction(
         break;
       }
       case "dowagerQueen": {
-        if (fizzleOthers()) break;
+        if (fizzleOthers()) { consumeForcedTarget(draft); break; }
         const t = player(draft, targetId!);
         const myRank = me.hand[0]!.rank;
         const theirRank = t.hand[0]!.rank;
@@ -925,7 +939,7 @@ export function applyLoveLetterAction(
         break;
       }
       case "priest": {
-        if (fizzleOthers()) break;
+        if (fizzleOthers()) { consumeForcedTarget(draft); break; }
         const t = player(draft, targetId!);
         const seen = t.hand[0]!.rank;
         me.seen[t.id] = seen;
@@ -943,7 +957,7 @@ export function applyLoveLetterAction(
         return;
       }
       case "baroness": {
-        if (fizzleOthers()) break;
+        if (fizzleOthers()) { consumeForcedTarget(draft); break; }
         const ids = targetIds ?? [];
         const targets = ids.map((id) => {
           const t = player(draft, id);
@@ -992,7 +1006,7 @@ export function applyLoveLetterAction(
         break;
       }
       case "guard": {
-        if (fizzleOthers()) break;
+        if (fizzleOthers()) { consumeForcedTarget(draft); break; }
         const t = player(draft, targetId!);
         const held = t.hand[0];
         if (held?.role === "assassin") {
@@ -1018,7 +1032,7 @@ export function applyLoveLetterAction(
         break;
       }
       case "bishop": {
-        if (fizzleOthers()) break;
+        if (fizzleOthers()) { consumeForcedTarget(draft); break; }
         const t = player(draft, targetId!);
         const hit = t.hand[0]?.rank === guessRank;
         consumeForcedTarget(draft);

@@ -57,6 +57,7 @@ export type ArenaView = {
   faceUp: ArenaCard[];
   pending: ArenaPending | null;
   forcedTargetId?: string | null;
+  jesterPlayerId?: string | null;
   jesterPick?: string | null;
   you: {
     id: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Component, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Action, Event } from "@bbge/core";
 import { createRng } from "@bbge/core";
 import { HostSession, type AiChatMessage, type LobbyState } from "@bbge/runtime";
@@ -37,6 +37,38 @@ export interface PlayShellProps {
   loadApiKey: () => Promise<string | null>;
   /** Shelf-provided LLM seat factory for this plugin (Action + optional speak). */
   createDeepSeekSeat?: (id: string, apiKey: string) => AiSeat;
+}
+
+class ErrorBoundary extends Component<
+  { children: React.ReactNode; fallback?: React.ReactNode },
+  { error: Error | null }
+> {
+  constructor(props: { children: React.ReactNode; fallback?: React.ReactNode }) {
+    super(props);
+    this.state = { error: null };
+  }
+  static getDerivedStateFromError(error: Error) {
+    return { error };
+  }
+  render() {
+    if (this.state.error) {
+      return (
+        this.props.fallback ?? (
+          <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+            Table error: {this.state.error.message}
+            <button
+              type="button"
+              className="ml-3 cursor-pointer text-xs font-semibold underline"
+              onClick={() => this.setState({ error: null })}
+            >
+              Dismiss
+            </button>
+          </div>
+        )
+      );
+    }
+    return this.props.children;
+  }
 }
 
 type LoveLetterEditionId = "classic" | "full" | "expansion";
@@ -592,6 +624,7 @@ export function PlayShell({
     let cancelled = false;
     const guestId = `g-${Math.random().toString(36).slice(2, 8)}`;
     setMyId(guestId);
+    setControllingId(guestId);
     setGuestStatus("connecting");
     (async () => {
       try {
@@ -635,7 +668,10 @@ export function PlayShell({
               });
             }
           }
-          if (msg.type === "view") setView(msg.payload);
+          if (msg.type === "view") {
+            console.log("[guest] received view", msg.payload);
+            setView(msg.payload);
+          }
           if (msg.type === "phase")
             setPhase(msg.payload.phase as "lobby" | "playing" | "finished");
           if (msg.type === "events") {
@@ -1291,10 +1327,13 @@ export function PlayShell({
     {
       const host = peerRef.current as PeerHost | null;
       const initialViews = s.allViews();
+      console.log("[host] onStart — playerToPeer map:", [...playerToPeerRef.current.entries()]);
+      console.log("[host] onStart — initialViews keys:", [...initialViews.keys()]);
       host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
       host?.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
       for (const [pid, v] of initialViews) {
         const peerId = playerToPeerRef.current.get(pid) ?? pid;
+        console.log(`[host] onStart — send view for pid=${pid} to peerId=${peerId}`);
         host?.send?.(peerId, { type: "view", payload: v });
       }
     }
@@ -1611,27 +1650,29 @@ export function PlayShell({
 
       {(phase === "playing" || phase === "finished") && view != null ? (
         <div className="min-h-0 flex-1 overflow-hidden">
-          <Table
-            locale={locale}
-            view={view}
-            myId={controllingId}
-            disabled={
-              thinkingIds.length > 0 &&
-              !(
-                mod.plugin.metadata.pacing === "simultaneous" &&
-                (view as AiActorView).phase === "selecting"
-              )
-            }
-            thinkingId={thinkingId}
-            thinkingIds={thinkingIds}
-            thinkingDetail={thinkingDetail}
-            onAction={onDispatch}
-            onRematch={isHost ? onRematch : undefined}
-            playLog={playLog}
-            chat={chat}
-            onChat={onChat}
-            nameOf={nameOf}
-          />
+          <ErrorBoundary>
+            <Table
+              locale={locale}
+              view={view}
+              myId={controllingId}
+              disabled={
+                thinkingIds.length > 0 &&
+                !(
+                  mod.plugin.metadata.pacing === "simultaneous" &&
+                  (view as AiActorView).phase === "selecting"
+                )
+              }
+              thinkingId={thinkingId}
+              thinkingIds={thinkingIds}
+              thinkingDetail={thinkingDetail}
+              onAction={onDispatch}
+              onRematch={isHost ? onRematch : undefined}
+              playLog={playLog}
+              chat={chat}
+              onChat={onChat}
+              nameOf={nameOf}
+            />
+          </ErrorBoundary>
         </div>
       ) : null}
     </div>

@@ -6,6 +6,7 @@ import { goPlayModule } from "@bbge/go";
 import { caboPlayModule } from "@bbge/cabo";
 import { unoPlayModule } from "@bbge/uno";
 import { trioPlayModule } from "@bbge/trio";
+import { rummikubPlayModule } from "@bbge/rummikub";
 
 let registered = false;
 
@@ -19,5 +20,6 @@ export function ensurePlayPluginsRegistered(): void {
   registerPlayModule(caboPlayModule);
   registerPlayModule(unoPlayModule);
   registerPlayModule(trioPlayModule);
+  registerPlayModule(rummikubPlayModule);
   registered = true;
 }

@@ -24,6 +24,7 @@ export default defineConfig({
       "@bbge/cabo": path.resolve(__dirname, "plugins/cabo/src"),
       "@bbge/uno": path.resolve(__dirname, "plugins/uno/src"),
       "@bbge/trio": path.resolve(__dirname, "plugins/trio/src"),
+      "@bbge/rummikub": path.resolve(__dirname, "plugins/rummikub/src"),
     },
   },
 });

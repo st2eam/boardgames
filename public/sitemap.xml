@@ -346,6 +346,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/rummikub/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/rummikub/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/bomb-busters/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -897,6 +907,16 @@
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/trio/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/rummikub/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/rummikub/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

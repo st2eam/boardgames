@@ -33,7 +33,8 @@
       "@bbge/go/*": ["./bbge/plugins/go/src/*"],
       "@bbge/cabo": ["./bbge/plugins/cabo/src"],
       "@bbge/uno": ["./bbge/plugins/uno/src"],
-      "@bbge/trio": ["./bbge/plugins/trio/src"]
+      "@bbge/trio": ["./bbge/plugins/trio/src"],
+      "@bbge/rummikub": ["./bbge/plugins/rummikub/src"]
     }
   },
   "include": [

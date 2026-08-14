@@ -9,7 +9,9 @@ import {
 } from "../src/rules";
 import { buildRummikubDeck, type RummikubTile } from "../src/cards";
 import { isValidSet, setPoints } from "../src/sets";
-import { evaluateCommit, INITIAL_MELD } from "../src/commit";
+import { evaluateCommit, INITIAL_MELD, commitRackPlayed } from "../src/commit";
+import { createMockRummikubSeat } from "../src/mockSeat";
+import { projectRummikubView } from "../src/projectView";
 import type { RummikubState } from "../src/state";
 
 function fresh(n = 2) {
@@ -344,5 +346,117 @@ describe("commitTurn", () => {
       payload: { groups: [run.map((t) => t.id)] },
     });
     expect(v).not.toBe(true);
+  });
+});
+
+describe("AI dump commits", () => {
+  it("plays all three extendable tiles in one commit", async () => {
+    const { state } = fresh(2);
+    const actor = state.turnOrder[0]!;
+    const rack = [
+      T("h1", "red", 4),
+      T("h2", "blue", 8),
+      T("h3", "black", 7),
+      T("x", "orange", 1),
+    ];
+    const next = patch(state, (s) => {
+      const p = s.players.find((x) => x.id === actor)!;
+      p.rack = rack;
+      p.initialMeldDone = true;
+      s.table = [
+        {
+          id: "s0",
+          tiles: [T("a1", "red", 1), T("a2", "red", 2), T("a3", "red", 3)],
+        },
+        {
+          id: "s1",
+          tiles: [T("b1", "blue", 5), T("b2", "blue", 6), T("b3", "blue", 7)],
+        },
+        {
+          id: "s2",
+          tiles: [T("c1", "black", 8), T("c2", "black", 9), T("c3", "black", 10)],
+        },
+      ];
+      s.currentIndex = 0;
+    });
+    const rackIds = new Set(rack.map((t) => t.id));
+    const commits = legalRummikubActions(next, actor).filter(
+      (a) => a.type === "commitTurn",
+    );
+    const best = Math.max(
+      0,
+      ...commits.map((a) =>
+        commitRackPlayed(
+          a.type === "commitTurn" ? a.payload.groups : [],
+          rackIds,
+        ),
+      ),
+    );
+    expect(best).toBeGreaterThanOrEqual(3);
+    expect(
+      commits.some(
+        (a) =>
+          a.type === "commitTurn" &&
+          commitRackPlayed(a.payload.groups, rackIds) === 1,
+      ),
+    ).toBe(false);
+
+    const mock = createMockRummikubSeat(actor);
+    const decided = await mock.think(projectRummikubView(next, actor));
+    expect(decided.action.type).toBe("commitTurn");
+    expect(
+      commitRackPlayed(
+        (decided.action.payload as { groups: string[][] }).groups,
+        rackIds,
+      ),
+    ).toBeGreaterThanOrEqual(3);
+  });
+
+  it("plays a new set plus an extend in one commit", async () => {
+    const { state } = fresh(2);
+    const actor = state.turnOrder[0]!;
+    const rack = [
+      T("n1", "black", 10),
+      T("n2", "black", 11),
+      T("n3", "black", 12),
+      T("h1", "red", 4),
+      T("x", "orange", 1),
+    ];
+    const next = patch(state, (s) => {
+      const p = s.players.find((x) => x.id === actor)!;
+      p.rack = rack;
+      p.initialMeldDone = true;
+      s.table = [
+        {
+          id: "s0",
+          tiles: [T("a1", "red", 1), T("a2", "red", 2), T("a3", "red", 3)],
+        },
+      ];
+      s.currentIndex = 0;
+    });
+    const rackIds = new Set(rack.map((t) => t.id));
+    const commits = legalRummikubActions(next, actor).filter(
+      (a) => a.type === "commitTurn",
+    );
+    const best = Math.max(
+      0,
+      ...commits.map((a) =>
+        commitRackPlayed(
+          a.type === "commitTurn" ? a.payload.groups : [],
+          rackIds,
+        ),
+      ),
+    );
+    expect(best).toBeGreaterThanOrEqual(4);
+
+    const mock = createMockRummikubSeat(actor);
+    const decided = await mock.think(projectRummikubView(next, actor));
+    expect(decided.action.type).toBe("commitTurn");
+    expect(
+      commitRackPlayed(
+        (decided.action.payload as { groups: string[][] }).groups,
+        rackIds,
+      ),
+    ).toBeGreaterThanOrEqual(4);
   });
 });

@@ -278,21 +278,68 @@ function greedyPack(sets: RummikubTile[][]): RummikubTile[][] {
   return packed;
 }
 
+const MAX_AI_COMMITS = 12;
+
 function tableGroups(table: TableSet[]): string[][] {
   return table.map((s) => s.tiles.map((t) => t.id));
+}
+
+function tableAsTiles(table: TableSet[]): RummikubTile[][] {
+  return table.map((s) => s.tiles.slice());
+}
+
+function idsOf(groups: RummikubTile[][]): string[][] {
+  return groups.map((g) => g.map((t) => t.id));
+}
+
+export function commitRackPlayed(
+  groups: string[][] | undefined,
+  rackIds: Set<string>,
+): number {
+  if (!groups) return 0;
+  return groups.flat().filter((id) => rackIds.has(id)).length;
+}
+
+/** Keep attaching leftover rack tiles to any valid group until stuck. */
+export function greedilyAttach(
+  groups: RummikubTile[][],
+  leftover: RummikubTile[],
+): { groups: RummikubTile[][]; leftover: RummikubTile[] } {
+  const gs = groups.map((g) => g.slice());
+  const left = leftover.slice();
+  let progress = true;
+  while (progress) {
+    progress = false;
+    for (let i = 0; i < left.length; i++) {
+      const t = left[i]!;
+      let placed = false;
+      for (const g of gs) {
+        if (isValidSet([...g, t])) {
+          g.push(t);
+          placed = true;
+          break;
+        }
+      }
+      if (placed) {
+        left.splice(i, 1);
+        i -= 1;
+        progress = true;
+      }
+    }
+  }
+  return { groups: gs, leftover: left };
 }
 
 function toAction(
   playerId: PlayerId,
   groups: string[][],
-): RummikubAction {
+): Extract<RummikubAction, { type: "commitTurn" }> {
   return { type: "commitTurn", playerId, payload: { groups } };
 }
 
 /**
- * Heuristic legal commits for AI: new sets from the rack (including
- * multi-set ice), plus simple one-tile extends after the initial meld.
- * Does not enumerate full table rearrangements.
+ * Heuristic legal commits for AI: dump as many rack tiles as possible
+ * (new sets + multi-tile extends). Does not enumerate full rearrangements.
  */
 export function candidateCommitActions(
   table: TableSet[],
@@ -300,8 +347,9 @@ export function candidateCommitActions(
   initialMeldDone: boolean,
   playerId: PlayerId,
 ): RummikubAction[] {
-  const out: RummikubAction[] = [];
+  const out: Extract<RummikubAction, { type: "commitTurn" }>[] = [];
   const seen = new Set<string>();
+  const rackIds = new Set(rack.map((t) => t.id));
   const push = (groups: string[][]) => {
     const evald = evaluateCommit({
       table,
@@ -318,8 +366,8 @@ export function candidateCommitActions(
 
   const rackSets = enumerateRackSets(rack);
   const minPts = initialMeldDone ? 0 : INITIAL_MELD;
-  const combos = disjointCombos(rackSets, minPts, 40);
   const packed = greedyPack(rackSets);
+  const combos = disjointCombos(rackSets, minPts, 40);
   if (
     packed.length &&
     (initialMeldDone ||
@@ -333,47 +381,48 @@ export function candidateCommitActions(
     push([...tableGroups(table), ...combo.map((s) => s.map((t) => t.id))]);
   }
 
-  if (!initialMeldDone) return out;
-
-  for (let si = 0; si < table.length; si++) {
-    const set = table[si]!;
-    for (const t of rack) {
-      if (!isValidSet([...set.tiles, t])) continue;
-      const groups = table.map((s, i) =>
-        i === si
-          ? [...s.tiles.map((x) => x.id), t.id]
-          : s.tiles.map((x) => x.id),
+  if (initialMeldDone) {
+    // Pack new sets, then hang leftover tiles on table + new sets.
+    if (packed.length) {
+      const used = new Set(packed.flatMap((s) => s.map((t) => t.id)));
+      const leftover = rack.filter((t) => !used.has(t.id));
+      const attached = greedilyAttach(
+        [...tableAsTiles(table), ...packed.map((s) => s.slice())],
+        leftover,
       );
-      push(groups);
+      push(idsOf(attached.groups));
+    }
+
+    // Hang on the existing table first, then pack remaining, then attach again.
+    const attachedFirst = greedilyAttach(tableAsTiles(table), rack);
+    push(idsOf(attachedFirst.groups));
+    const restPacked = greedyPack(enumerateRackSets(attachedFirst.leftover));
+    if (restPacked.length) {
+      const used = new Set(restPacked.flatMap((s) => s.map((t) => t.id)));
+      const leftover = attachedFirst.leftover.filter((t) => !used.has(t.id));
+      const attached = greedilyAttach(
+        [...attachedFirst.groups, ...restPacked.map((s) => s.slice())],
+        leftover,
+      );
+      push(idsOf(attached.groups));
     }
   }
 
-  // Greedy new sets, then extend leftovers onto the table.
-  if (packed.length) {
-    const used = new Set(packed.flatMap((s) => s.map((t) => t.id)));
-    const leftover = rack.filter((t) => !used.has(t.id));
-    const groups = [
-      ...table.map((s) => s.tiles.map((t) => t.id)),
-      ...packed.map((s) => s.map((t) => t.id)),
-    ];
-    const mutable = groups.map((g) => g.slice());
-    for (const t of leftover) {
-      for (let i = 0; i < table.length; i++) {
-        const tiles = mutable[i]!.map(
-          (id) =>
-            table[i]!.tiles.find((x) => x.id === id) ??
-            rack.find((x) => x.id === id)!,
-        );
-        if (isValidSet([...tiles, t])) {
-          mutable[i]!.push(t.id);
-          break;
-        }
-      }
-    }
-    push(mutable);
-  }
+  out.sort((a, b) => {
+    const na = commitRackPlayed(a.payload.groups, rackIds);
+    const nb = commitRackPlayed(b.payload.groups, rackIds);
+    if (nb !== na) return nb - na;
+    return b.payload.groups.flat().length - a.payload.groups.flat().length;
+  });
 
-  return out;
+  const maxPlayed = out[0]
+    ? commitRackPlayed(out[0].payload.groups, rackIds)
+    : 0;
+  const ranked =
+    maxPlayed >= 2
+      ? out.filter((a) => commitRackPlayed(a.payload.groups, rackIds) >= 2)
+      : out;
+  return ranked.slice(0, MAX_AI_COMMITS);
 }
 
 export function assignSetIds(

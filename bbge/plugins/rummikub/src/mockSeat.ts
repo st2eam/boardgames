@@ -1,5 +1,6 @@
 import type { PlayerId } from "@bbge/core";
 import type { AiSeat } from "@bbge/ai";
+import { commitRackPlayed } from "./commit";
 
 type Legal = { type: string; payload?: Record<string, unknown> };
 
@@ -12,18 +13,6 @@ type View = {
   } | null;
   legal?: Legal[];
 };
-
-function commitTileCount(a: Legal): number {
-  const groups = a.payload?.groups as string[][] | undefined;
-  if (!groups) return 0;
-  return groups.reduce((n, g) => n + g.length, 0);
-}
-
-function commitNewTiles(a: Legal, rackIds: Set<string>): number {
-  const groups = a.payload?.groups as string[][] | undefined;
-  if (!groups) return 0;
-  return groups.flat().filter((id) => rackIds.has(id)).length;
-}
 
 /** Greedy heuristic: commit the meld that plays the most rack tiles, else draw. */
 export function createMockRummikubSeat(id: PlayerId): AiSeat {
@@ -38,10 +27,18 @@ export function createMockRummikubSeat(id: PlayerId): AiSeat {
       const commits = legal
         .filter((a) => a.type === "commitTurn")
         .sort((a, b) => {
-          const na = commitNewTiles(a, rackIds);
-          const nb = commitNewTiles(b, rackIds);
+          const na = commitRackPlayed(
+            a.payload?.groups as string[][] | undefined,
+            rackIds,
+          );
+          const nb = commitRackPlayed(
+            b.payload?.groups as string[][] | undefined,
+            rackIds,
+          );
           if (nb !== na) return nb - na;
-          return commitTileCount(b) - commitTileCount(a);
+          const ga = (a.payload?.groups as string[][] | undefined)?.flat().length ?? 0;
+          const gb = (b.payload?.groups as string[][] | undefined)?.flat().length ?? 0;
+          return gb - ga;
         });
       if (commits.length) {
         progress("策略：打出组合");

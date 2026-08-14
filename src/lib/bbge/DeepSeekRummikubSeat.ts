@@ -9,6 +9,13 @@ import {
 
 const PLAY_MODEL = "deepseek-v4-flash";
 
+type Legal = { type: string; payload?: Record<string, unknown> };
+
+type View = {
+  you?: { rack?: { id: string }[] } | null;
+  legal?: Legal[];
+};
+
 function extractJson(text: string): unknown {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/);
   const raw = fenced?.[1]?.trim() ?? text.trim();
@@ -16,6 +23,34 @@ function extractJson(text: string): unknown {
   const end = raw.lastIndexOf("}");
   if (start < 0 || end < 0) throw new Error("no json");
   return JSON.parse(raw.slice(start, end + 1));
+}
+
+function rackPlayed(groups: unknown, rackIds: Set<string>): number {
+  if (!Array.isArray(groups)) return 0;
+  return (groups as string[][]).flat().filter((id) => rackIds.has(id)).length;
+}
+
+/** If the model picked a smaller dump, swap in the legal commit that plays more rack tiles. */
+function upgradeDump(
+  view: View,
+  playerId: PlayerId,
+  action: { type: string; payload?: Record<string, unknown> },
+): { type: string; payload: Record<string, unknown> } {
+  if (action.type !== "commitTurn") {
+    return { type: action.type, payload: action.payload ?? {} };
+  }
+  const rackIds = new Set((view.you?.rack ?? []).map((t) => t.id));
+  let best = action;
+  let bestN = rackPlayed(action.payload?.groups, rackIds);
+  for (const a of view.legal ?? []) {
+    if (a.type !== "commitTurn") continue;
+    const n = rackPlayed(a.payload?.groups, rackIds);
+    if (n > bestN) {
+      best = a;
+      bestN = n;
+    }
+  }
+  return { type: best.type, payload: best.payload ?? {} };
 }
 
 export function createDeepSeekRummikubSeat(
@@ -28,7 +63,8 @@ export function createDeepSeekRummikubSeat(
   const zh = locale !== "en";
   return {
     id,
-    async think(view: unknown, opts?: AiThinkOptions): Promise<AiDecision> {
+    async think(viewUnknown: unknown, opts?: AiThinkOptions): Promise<AiDecision> {
+      const view = viewUnknown as View;
       const retry = opts?.illegalRetry;
       const retryBlock = retry
         ? zh
@@ -47,19 +83,20 @@ export function createDeepSeekRummikubSeat(
 {"type":"passTurn","playerId":"${id}","payload":{},"speak":"短句"}
 
 策略：
-- 破冰（首次出牌）需多组合计 ≥30 分，可一次 commit 多组；未破冰不能动桌面已有组。
-- 已破冰后尽量一次性出多组，并把 groups 写成回合结束时的完整桌面（含原有组合）。
+- 出牌时必须选打出手牌张数最多的那条 commitTurn；能出多张就不要只出一张。
+- groups 是回合结束时的完整桌面（含原有组合）。
+- 破冰需多组合计 ≥30 分；未破冰不能动桌面已有组。
 - 组=3~4 张同点不同色；顺=3 张以上同色连续数字；鬼牌万能。
 - 没牌可出或想攒牌时才抽牌；抽牌会立刻结束回合，不能再出。
 - 牌堆空了才用 passTurn。
 speak 用简体中文短句。只输出 JSON。
-View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`
+View:\n${JSON.stringify(viewUnknown)}${logBlock}${retryBlock}`
         : `You are seat ${id} in Rummikub. Goal: empty your rack. Use view.legal only.
 Actions: drawTile / commitTurn {groups: string[][]} / passTurn (pool empty only).
-Strategy: reach 30+ initial meld (multiple new sets ok); then meld multiple sets and extend table sets; jokers are wild.
+When melding, pick the commitTurn that plays the MOST rack tiles — never a 1-tile play if a larger dump exists.
 commitTurn.groups is the FULL table at end of turn. Drawing ends the turn immediately.
 Return ONLY Action JSON.
-View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
+View:\n${JSON.stringify(viewUnknown)}${logBlock}${retryBlock}`;
 
       let lastErr = "ai failed";
       for (let attempt = 0; attempt < 3; attempt++) {
@@ -73,8 +110,8 @@ View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
               model: PLAY_MODEL,
               thinking: { type: "disabled" },
               system: zh
-                ? `你是会凑组的拉密真人对手。只输出合法 Action JSON；speak 用简体中文。${rulesBlock}`
-                : `You are a sharp Rummikub player. Output one legal Action JSON.${rulesBlock}`,
+                ? `你是会凑组的拉密真人对手。出牌必须一次打出尽可能多的手牌。只输出合法 Action JSON；speak 用简体中文。${rulesBlock}`
+                : `You are a sharp Rummikub player. Dump as many rack tiles as possible in one commit. Output one legal Action JSON.${rulesBlock}`,
               messages: [{ role: "user", content: prompt }],
               maxTokens: 1024,
             },
@@ -94,11 +131,12 @@ View:\n${JSON.stringify(view)}${logBlock}${retryBlock}`;
             speak?: string;
           };
           if (!obj?.type) throw new Error("bad shape");
+          const upgraded = upgradeDump(view, id, obj);
           return {
             action: {
-              type: obj.type,
+              type: upgraded.type,
               playerId: id,
-              payload: obj.payload ?? {},
+              payload: upgraded.payload,
             },
             speak:
               typeof obj.speak === "string" ? obj.speak.trim() : undefined,

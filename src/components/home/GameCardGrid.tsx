@@ -10,6 +10,7 @@ import { Sidebar } from "./Sidebar";
 import { PlayerCountSlider } from "./PlayerCountSlider";
 import { SearchableSelect } from "./SearchableSelect";
 import { SearchBox } from "./SearchBox";
+import { PlayFilterButton } from "./PlayFilterButton";
 import { RecentGames } from "./RecentGames";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -331,6 +332,14 @@ export function GameCardGrid({ games }: Props) {
 
         {/* Mobile: horizontal scroll filter strip */}
         <div className="flex gap-2 overflow-x-auto pb-2 lg:hidden">
+          {allTags.includes(playTag) && (
+            <PlayFilterButton
+              label={playTag}
+              selected={selectedTags.has(playTag)}
+              onToggle={() => toggleTag(playTag)}
+              layout="pill"
+            />
+          )}
           <button
             onClick={() => setSelectedCategory(null)}
             className={`cursor-pointer shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
@@ -356,19 +365,6 @@ export function GameCardGrid({ games }: Props) {
               {cat}
             </button>
           ))}
-          {allTags.includes(playTag) && (
-            <button
-              type="button"
-              onClick={() => toggleTag(playTag)}
-              className={`cursor-pointer shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
-                selectedTags.has(playTag)
-                  ? "bg-accent text-[#1a120e]"
-                  : "bg-accent-light text-accent-dark hover:bg-amber-100"
-              }`}
-            >
-              {playTag}
-            </button>
-          )}
           {/* Mobile: sort toggle */}
           <div className="ml-auto flex shrink-0 items-center gap-1">
             <button

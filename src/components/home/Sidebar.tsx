@@ -8,6 +8,7 @@ import { PlayerCountSlider } from "./PlayerCountSlider";
 import { SearchableSelect } from "./SearchableSelect";
 import { SearchBox } from "./SearchBox";
 import { AnimatedNumber } from "./AnimatedNumber";
+import { PlayFilterButton } from "./PlayFilterButton";
 
 interface Props {
   searchQuery: string;
@@ -91,6 +92,14 @@ export function Sidebar({
           </span>
         </div>
       </div>
+
+      {hasPlayTag && playTag && (
+        <PlayFilterButton
+          label={playTag}
+          selected={selectedTags.has(playTag)}
+          onToggle={() => onToggleTag(playTag)}
+        />
+      )}
 
       {/* Search box */}
       <SearchBox
@@ -213,20 +222,6 @@ export function Sidebar({
             optionBgClass="hover:bg-violet-50"
           />
         </div>
-      )}
-
-      {hasPlayTag && playTag && (
-        <button
-          type="button"
-          onClick={() => onToggleTag(playTag)}
-          className={`relative w-full cursor-pointer rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 ${
-            selectedTags.has(playTag)
-              ? "bg-accent text-[#1a120e]"
-              : "text-stone-600 hover:bg-amber-50 hover:text-primary"
-          }`}
-        >
-          {playTag}
-        </button>
       )}
 
       {/* Tags searchable select */}

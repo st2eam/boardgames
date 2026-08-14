@@ -15,9 +15,10 @@ interface Props {
 const difficultyColor: Record<string, string> = difficultyColors;
 
 function useTags(game: GameSummary, t: ReturnType<typeof useTranslations<"game">>) {
-  const descriptive = [...game.tags];
+  const playNow = t("playNow");
+  const descriptive = game.tags.filter((tag) => tag !== playNow);
   const functional: string[] = [];
-  if (game.hasPlay) functional.push(t("playNow"));
+  if (game.hasPlay) functional.push(playNow);
   if (game.hasFlow) functional.push(t("viewFlow"));
   if (game.hasScore) functional.push(t("scoreTracker"));
   if (game.hasTrainer) {

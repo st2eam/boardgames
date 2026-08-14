@@ -132,14 +132,16 @@ export function GameFamilyCard({ games, sortMode }: Props) {
                   {t("scoreCalculator")}
                 </span>
               )}
-              {base.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] font-medium text-stone-500"
-                >
-                  {tag}
-                </span>
-              ))}
+              {base.tags
+                .filter((tag) => tag !== t("playNow"))
+                .map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] font-medium text-stone-500"
+                  >
+                    {tag}
+                  </span>
+                ))}
             </div>
             <span
               className={`h-2 w-2 shrink-0 rounded-full ${difficultyColors[base.difficulty]}`}

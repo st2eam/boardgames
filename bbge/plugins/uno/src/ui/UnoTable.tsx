@@ -10,6 +10,7 @@ import {
   PlayTableShell,
   SeatSpeechSlot,
   ThinkingStatusBanner,
+  useIsMobileLayout,
   useSeatBubbles,
 } from "@bbge/ui";
 import { UnoCardBack, UnoCardView } from "./UnoCardView";
@@ -85,6 +86,7 @@ export function UnoTable({
 }: PluginTableProps) {
   const zh = locale === "zh";
   const view = viewUnknown as UnoView;
+  const mobile = useIsMobileLayout();
   const [sideOpen, setSideOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const bubbles = useSeatBubbles({ playLog, chat, durationMs: 3800 });
@@ -187,6 +189,9 @@ export function UnoTable({
   const others = view.seats.filter((s) => !s.isYou);
   const youSeat = view.seats.find((s) => s.isYou);
 
+  const centerSize = mobile ? "md" : "lg";
+  const handSize = mobile ? "sm" : "md";
+
   const logPanel = (
     <PlayLogChatPanel
       locale={locale}
@@ -241,14 +246,14 @@ export function UnoTable({
 
         <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
           {/* Opponents */}
-          <div className="flex shrink-0 flex-wrap justify-center gap-2 px-1">
+          <div className="flex shrink-0 gap-2 overflow-x-auto overscroll-contain px-1 pb-1 lg:flex-wrap lg:justify-center">
             {others.map((s) => {
               const active = view.currentPlayerId === s.id;
               return (
                 <div
                   key={s.id}
                   data-seat-id={s.id}
-                  className={`relative flex min-w-[5.5rem] flex-col items-center rounded-xl border px-2 py-1.5 ${
+                  className={`relative flex min-w-[5.5rem] shrink-0 flex-col items-center rounded-xl border px-2 py-1.5 ${
                     s.eliminated
                       ? "border-stone-300 opacity-40"
                       : active
@@ -264,7 +269,7 @@ export function UnoTable({
                     {Array.from({ length: Math.min(s.handCount, 8) }).map(
                       (_, i) => (
                         <div key={i} className="-ml-4 first:ml-0">
-                          <UnoCardBack size="sm" />
+                          <UnoCardBack size="sm" edition={view.edition} />
                         </div>
                       ),
                     )}
@@ -300,7 +305,7 @@ export function UnoTable({
           </div>
 
           {/* Center: discard + deck */}
-          <div className="flex min-h-0 flex-1 items-center justify-center gap-4">
+          <div className="flex min-h-0 flex-1 items-center justify-center gap-3 sm:gap-4">
             <button
               type="button"
               disabled={!legalTypes.has("drawCard")}
@@ -309,20 +314,20 @@ export function UnoTable({
               }
               className="flex flex-col items-center gap-1 disabled:opacity-40"
             >
-              <UnoCardBack size="lg" />
+              <UnoCardBack size={centerSize} edition={view.edition} />
               <span className="text-[10px] font-semibold text-primary-dark">
                 {zh ? "抽牌" : "Draw"}
               </span>
             </button>
             <div className="flex flex-col items-center gap-1">
-              <UnoCardView card={view.discardTop} size="lg" />
+              <UnoCardView card={view.discardTop} size={centerSize} />
               <span className="text-[10px] text-stone-500">
                 {zh ? "弃牌" : "Discard"}
               </span>
             </div>
             {view.drawnCard && (
               <div className="flex flex-col items-center gap-1">
-                <UnoCardView card={view.drawnCard} size="lg" selected />
+                <UnoCardView card={view.drawnCard} size={centerSize} selected />
                 <div className="flex gap-1">
                   {legalTypes.has("playDrawn") && (
                     <button
@@ -458,30 +463,32 @@ export function UnoTable({
                   )}
                 </div>
               </div>
-              <div className="flex justify-center gap-1 overflow-x-auto pb-1">
-                {(view.you?.hand ?? []).map((c) => (
-                  <UnoCardView
-                    key={c.id}
-                    card={c}
-                    size="md"
-                    selected={selectedId === c.id}
-                    dimmed={!playableIds.has(c.id) && view.phase === "playing"}
-                    onClick={
-                      playableIds.has(c.id)
-                        ? () => {
-                            if (
-                              c.color == null ||
-                              c.kind.startsWith("wild")
-                            ) {
-                              setSelectedId(c.id);
-                            } else {
-                              playCard(c.id);
+              <div className="overflow-x-auto pb-1">
+                <div className="mx-auto flex w-max min-w-full justify-center gap-1">
+                  {(view.you?.hand ?? []).map((c) => (
+                    <UnoCardView
+                      key={c.id}
+                      card={c}
+                      size={handSize}
+                      selected={selectedId === c.id}
+                      dimmed={!playableIds.has(c.id) && view.phase === "playing"}
+                      onClick={
+                        playableIds.has(c.id)
+                          ? () => {
+                              if (
+                                c.color == null ||
+                                c.kind.startsWith("wild")
+                              ) {
+                                setSelectedId(c.id);
+                              } else {
+                                playCard(c.id);
+                              }
                             }
-                          }
-                        : undefined
-                    }
-                  />
-                ))}
+                          : undefined
+                      }
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           )}

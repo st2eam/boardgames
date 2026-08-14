@@ -213,7 +213,7 @@ function applyPlayedCard(
     payload: {
       playerId: actorId,
       cardId: card.id,
-      face,
+      face: { ...face },
       color: state.currentColor,
     },
   });

@@ -1,5 +1,7 @@
 "use client";
 
+import { unoBackUrl } from "./cardArt";
+
 type CardV = {
   id: string;
   color: "red" | "yellow" | "green" | "blue" | null;
@@ -77,7 +79,13 @@ export function UnoCardView({
   );
 }
 
-export function UnoCardBack({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
+export function UnoCardBack({
+  size = "md",
+  edition,
+}: {
+  size?: "sm" | "md" | "lg";
+  edition?: string;
+}) {
   const dims =
     size === "lg"
       ? "h-24 w-[4.25rem]"
@@ -86,7 +94,12 @@ export function UnoCardBack({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
         : "h-20 w-[3.5rem]";
   return (
     <div
-      className={`${dims} shrink-0 rounded-xl border-2 border-white/30 bg-gradient-to-br from-red-700 via-stone-900 to-amber-500 shadow-md`}
+      className={`${dims} shrink-0 rounded-xl border-2 border-white/30 shadow-md`}
+      style={{
+        backgroundImage: `url(${unoBackUrl(edition)})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     />
   );
 }

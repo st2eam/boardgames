@@ -34,6 +34,8 @@ export function RummikubTileView({
   onClick,
   onPointerDown,
   dragging,
+  fromRack,
+  fromRackLabel,
   size = "md",
 }: {
   tile: TileV;
@@ -42,6 +44,8 @@ export function RummikubTileView({
   onClick?: () => void;
   onPointerDown?: (e: React.PointerEvent) => void;
   dragging?: boolean;
+  fromRack?: boolean;
+  fromRackLabel?: string;
   size?: "sm" | "md" | "lg";
 }) {
   const dims = DIMS[size];
@@ -66,7 +70,9 @@ export function RummikubTileView({
       className={`${dims} relative shrink-0 select-none rounded-md border-2 font-heading font-bold shadow-sm transition ${bg} ${
         selected
           ? "-translate-y-1.5 border-accent ring-2 ring-accent"
-          : "border-white/60"
+          : fromRack
+            ? "border-accent ring-1 ring-accent"
+            : "border-white/60"
       } ${dimmed ? "opacity-40" : ""} ${
         dragging ? "scale-110 shadow-lg" : ""
       } ${
@@ -77,6 +83,11 @@ export function RummikubTileView({
             : "cursor-default"
       }`}
     >
+      {fromRack && fromRackLabel ? (
+        <span className="absolute left-0 top-0 z-10 rounded-br-sm rounded-tl-[3px] bg-accent px-0.5 text-[7px] font-bold leading-3 text-[#1a120e]">
+          {fromRackLabel}
+        </span>
+      ) : null}
       <span className="absolute inset-0 flex items-center justify-center">
         {face}
       </span>

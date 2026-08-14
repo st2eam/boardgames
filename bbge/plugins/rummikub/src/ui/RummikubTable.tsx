@@ -329,6 +329,17 @@ export function RummikubTable({
     setDrag({ tile, x: e.clientX, y: e.clientY });
   };
 
+  const returnToRack = useCallback(
+    (tileId: string) => {
+      if (!snapRackIds.has(tileId)) return;
+      setDraft((d) => moveTile(d, tileId, { type: "rack", index: 9999 }, nextGroupId));
+    },
+    [nextGroupId, snapRackIds],
+  );
+
+  const fromRackLabel = zh ? "手" : "R";
+  const draggingFromRack = Boolean(drag && snapRackIds.has(drag.tile.id));
+
   const dispatch = (action: Action) => {
     onAction(action);
     setDrag(null);
@@ -488,7 +499,9 @@ export function RummikubTable({
                         : "border-red-400 bg-red-50/80"
                     }`}
                   >
-                    {set.tiles.map((t, i) => (
+                    {set.tiles.map((t, i) => {
+                      const fromRack = snapRackIds.has(t.id);
+                      return (
                       <div key={t.id} className="relative flex items-center">
                         <div
                           data-rk-drop="slot"
@@ -496,18 +509,38 @@ export function RummikubTable({
                           data-index={i}
                           className={`self-stretch ${drag ? "w-2.5" : "w-0.5"}`}
                         />
-                        <RummikubTileView
-                          tile={t}
-                          size="sm"
-                          dimmed={drag?.tile.id === t.id}
-                          onPointerDown={
-                            canDragTile(t.id)
-                              ? (e) => startDrag(t, e)
-                              : undefined
-                          }
-                        />
+                        <div className="relative">
+                          <RummikubTileView
+                            tile={t}
+                            size="sm"
+                            dimmed={drag?.tile.id === t.id}
+                            fromRack={fromRack}
+                            fromRackLabel={fromRack ? fromRackLabel : undefined}
+                            onPointerDown={
+                              canDragTile(t.id)
+                                ? (e) => startDrag(t, e)
+                                : undefined
+                            }
+                          />
+                          {fromRack && isMyTurn && (
+                            <button
+                              type="button"
+                              title={zh ? "收回手牌" : "Return to rack"}
+                              aria-label={zh ? "收回手牌" : "Return to rack"}
+                              className="absolute -right-1 -top-1 z-10 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-bold leading-none text-[#1a120e] shadow"
+                              onPointerDown={(e) => e.stopPropagation()}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                returnToRack(t.id);
+                              }}
+                            >
+                              ×
+                            </button>
+                          )}
+                        </div>
                       </div>
-                    ))}
+                      );
+                    })}
                     <div
                       data-rk-drop="slot"
                       data-group-id={set.id}
@@ -518,12 +551,23 @@ export function RummikubTable({
                 );
               })}
               {drag && (
-                <div
-                  data-rk-drop="new"
-                  className="flex min-h-10 min-w-0 basis-[calc(50%-0.25rem)] items-center justify-center rounded-lg border-2 border-dashed border-accent/70 bg-amber-50/70 px-2 py-1.5 text-[11px] font-semibold text-primary-dark"
-                >
-                  {zh ? "放到这里成为新组合" : "Drop to start a new set"}
-                </div>
+                <>
+                  <div
+                    data-rk-drop="new"
+                    className="flex min-h-10 min-w-0 basis-[calc(50%-0.25rem)] items-center justify-center rounded-lg border-2 border-dashed border-accent/70 bg-amber-50/70 px-2 py-1.5 text-[11px] font-semibold text-primary-dark"
+                  >
+                    {zh ? "放到这里成为新组合" : "Drop to start a new set"}
+                  </div>
+                  {draggingFromRack && (
+                    <div
+                      data-rk-drop="rack"
+                      data-index={9999}
+                      className="flex min-h-10 min-w-0 basis-[calc(50%-0.25rem)] items-center justify-center rounded-lg border-2 border-dashed border-sky-400 bg-sky-50/80 px-2 py-1.5 text-[11px] font-semibold text-sky-800"
+                    >
+                      {zh ? "拖到这里收回手牌" : "Drop to return to rack"}
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -598,7 +642,11 @@ export function RummikubTable({
               <div
                 data-rk-drop="rack"
                 data-index={draft.rack.length}
-                className="overflow-x-auto pb-1"
+                className={`overflow-x-auto pb-1 ${
+                  draggingFromRack
+                    ? "rounded-lg ring-2 ring-sky-400 ring-offset-1"
+                    : ""
+                }`}
               >
                 <div className="mx-auto flex w-max min-w-full items-center justify-center">
                   {draft.rack.map((t, i) => (
@@ -644,8 +692,8 @@ export function RummikubTable({
           ) : (
             <p className="text-center text-[11px] text-stone-500">
               {zh
-                ? "拖动手牌或桌面牌组牌 · 每组独立校验，全部合法后结束回合 · 乱了就重置 · 抽牌则本回合结束"
-                : "Drag rack or table tiles · each set is checked · end when all are valid · reset if stuck · drawing ends the turn"}
+                ? "金边「手」是本回合打出的手牌，点 × 或拖回牌架可收回 · 每组独立校验，全部合法后结束回合 · 乱了就重置 · 抽牌则本回合结束"
+                : "Gold “R” tiles are from your rack this turn — tap × or drag back to return · each set is checked · end when all are valid · reset if stuck · drawing ends the turn"}
             </p>
           )}
         </div>
@@ -656,7 +704,15 @@ export function RummikubTable({
           className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-1/2"
           style={{ left: drag.x, top: drag.y }}
         >
-          <RummikubTileView tile={drag.tile} size={tileSize} dragging />
+          <RummikubTileView
+            tile={drag.tile}
+            size={tileSize}
+            dragging
+            fromRack={snapRackIds.has(drag.tile.id)}
+            fromRackLabel={
+              snapRackIds.has(drag.tile.id) ? fromRackLabel : undefined
+            }
+          />
         </div>
       )}
 

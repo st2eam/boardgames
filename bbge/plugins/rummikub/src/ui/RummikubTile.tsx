@@ -36,6 +36,7 @@ export function RummikubTileView({
   dragging,
   fromRack,
   fromRackLabel,
+  lockTouch,
   size = "md",
 }: {
   tile: TileV;
@@ -46,6 +47,7 @@ export function RummikubTileView({
   dragging?: boolean;
   fromRack?: boolean;
   fromRackLabel?: string;
+  lockTouch?: boolean;
   size?: "sm" | "md" | "lg";
 }) {
   const dims = DIMS[size];
@@ -77,7 +79,7 @@ export function RummikubTileView({
         dragging ? "scale-110 shadow-lg" : ""
       } ${
         onPointerDown
-          ? "cursor-grab touch-manipulation active:cursor-grabbing"
+          ? `cursor-grab active:cursor-grabbing ${lockTouch ? "touch-none" : "touch-manipulation"}`
           : interactive
             ? "cursor-pointer active:scale-95"
             : "cursor-default"

@@ -339,7 +339,7 @@ export function RummikubTable({
 
   const onTilePointerDown = (tile: TileV, e: React.PointerEvent) => {
     if (!canDragTile(tile.id)) return;
-    if (e.pointerType !== "touch") {
+    if (!mobile || e.pointerType !== "touch") {
       e.preventDefault();
       e.stopPropagation();
       beginDrag(tile, e.clientX, e.clientY);
@@ -413,7 +413,7 @@ export function RummikubTable({
   }, [drag, finishDrag]);
 
   useEffect(() => {
-    if (!drag) return;
+    if (!drag || !mobile) return;
     let raf = 0;
     const tick = () => {
       const el = tableScrollRef.current;
@@ -432,7 +432,7 @@ export function RummikubTable({
       cancelAnimationFrame(raf);
       document.body.style.touchAction = prevTouch;
     };
-  }, [drag]);
+  }, [drag, mobile]);
 
   const returnToRack = useCallback(
     (tileId: string) => {
@@ -602,11 +602,13 @@ export function RummikubTable({
                       data-rk-drop="group"
                       data-group-id={set.id}
                       data-index={set.tiles.length}
-                      className={`flex min-w-0 basis-[calc(50%-0.25rem)] items-center gap-0.5 overflow-x-auto overscroll-x-contain rounded-lg border-2 px-2 py-1.5 [touch-action:pan-x] ${
-                        valid
-                          ? "border-emerald-400 bg-emerald-50/80"
-                          : "border-red-400 bg-red-50/80"
-                      }`}
+                    className={`flex min-w-0 basis-[calc(50%-0.25rem)] items-center gap-0.5 overflow-x-auto rounded-lg border-2 px-2 py-1.5 ${
+                      mobile ? "overscroll-x-contain [touch-action:pan-x]" : ""
+                    } ${
+                      valid
+                        ? "border-emerald-400 bg-emerald-50/80"
+                        : "border-red-400 bg-red-50/80"
+                    }`}
                     >
                       {set.tiles.map((t, i) => {
                         const fromRack = snapRackIds.has(t.id);
@@ -626,6 +628,7 @@ export function RummikubTable({
                               dimmed={drag?.tile.id === t.id}
                               fromRack={fromRack}
                               fromRackLabel={fromRack ? fromRackLabel : undefined}
+                              lockTouch={!mobile}
                               onPointerDown={
                                 canDragTile(t.id)
                                   ? (e) => onTilePointerDown(t, e)
@@ -660,9 +663,28 @@ export function RummikubTable({
                     </div>
                   );
                 })}
+                {!mobile && drag && (
+                  <>
+                    <div
+                      data-rk-drop="new"
+                      className="flex min-h-10 min-w-0 basis-[calc(50%-0.25rem)] items-center justify-center rounded-lg border-2 border-dashed border-accent/70 bg-amber-50/70 px-2 py-1.5 text-[11px] font-semibold text-primary-dark"
+                    >
+                      {zh ? "放到这里成为新组合" : "Drop to start a new set"}
+                    </div>
+                    {draggingFromRack && (
+                      <div
+                        data-rk-drop="rack"
+                        data-index={9999}
+                        className="flex min-h-10 min-w-0 basis-[calc(50%-0.25rem)] items-center justify-center rounded-lg border-2 border-dashed border-sky-400 bg-sky-50/80 px-2 py-1.5 text-[11px] font-semibold text-sky-800"
+                      >
+                        {zh ? "拖到这里收回手牌" : "Drop to return to rack"}
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
             </div>
-            {isMyTurn && (
+            {mobile && isMyTurn && (
               <div className="flex shrink-0 gap-1.5 px-2 pb-0.5">
                 <div
                   data-rk-drop="new"
@@ -757,7 +779,9 @@ export function RummikubTable({
               <div
                 data-rk-drop="rack"
                 data-index={draft.rack.length}
-                className={`overflow-x-auto overscroll-x-contain pb-1 [touch-action:pan-x] ${
+                className={`overflow-x-auto pb-1 ${
+                  mobile ? "overscroll-x-contain [touch-action:pan-x]" : ""
+                } ${
                   draggingFromRack
                     ? "rounded-lg ring-2 ring-sky-400 ring-offset-1"
                     : ""
@@ -776,6 +800,7 @@ export function RummikubTable({
                         size={tileSize}
                         selected={holdId === t.id}
                         dimmed={drag?.tile.id === t.id}
+                        lockTouch={!mobile}
                         onPointerDown={
                           canDragTile(t.id)
                             ? (e) => onTilePointerDown(t, e)
@@ -808,8 +833,12 @@ export function RummikubTable({
           ) : (
             <p className="text-center text-[11px] text-stone-500">
               {zh
-                ? "手机长按拖牌、横滑看组内牌 · 底部可新建一组 · 金边「手」点 × 收回"
-                : "Mobile: long-press to drag, swipe to browse a set · drop at the bottom for a new set"}
+                ? mobile
+                  ? "长按拖牌、横滑看组内牌 · 底部可新建一组 · 金边「手」点 × 收回"
+                  : "拖动手牌或桌面牌组牌 · 金边「手」点 × 或拖回牌架收回 · 全合法后结束回合"
+                : mobile
+                  ? "Long-press to drag, swipe to browse a set · drop at the bottom for a new set"
+                  : "Drag tiles to meld · gold “R” tiles return via × or drop on rack · end when all sets are valid"}
             </p>
           )}
         </div>

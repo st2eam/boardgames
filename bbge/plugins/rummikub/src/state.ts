@@ -10,8 +10,6 @@ export type RummikubPlayer = {
   rack: RummikubTile[];
   initialMeldDone: boolean;
   score: number;
-  /** Whether this player has drawn a tile on the current turn. */
-  drewThisTurn: boolean;
 };
 
 export type TableSet = {
@@ -35,8 +33,6 @@ export type RummikubState = {
   matchOver: boolean;
   round: number;
   endReason: "emptyRack" | "depleted" | null;
-  /** Points melded by the current player this turn (initial-meld tracking). */
-  meldThisTurn: number;
 };
 
 export type RummikubConfig = {
@@ -59,14 +55,8 @@ export type RummikubAction =
       clientActionId?: string;
     }
   | {
-      type: "playNewSet";
+      type: "commitTurn";
       playerId: PlayerId;
-      payload: { tileIds: string[] };
-      clientActionId?: string;
-    }
-  | {
-      type: "extendSet";
-      playerId: PlayerId;
-      payload: { targetSetId: string; tileIds: string[] };
+      payload: { groups: string[][] };
       clientActionId?: string;
     };

@@ -21,27 +21,35 @@ const COLOR_LABEL_ZH: Record<string, string> = {
   orange: "橙",
 };
 
+const DIMS = {
+  lg: "h-14 w-11 text-lg",
+  sm: "h-8 w-6 text-xs",
+  md: "h-11 w-8 text-base",
+} as const;
+
 export function RummikubTileView({
   tile,
   selected,
   dimmed,
   onClick,
+  onPointerDown,
+  dragging,
   size = "md",
 }: {
   tile: TileV;
   selected?: boolean;
   dimmed?: boolean;
   onClick?: () => void;
+  onPointerDown?: (e: React.PointerEvent) => void;
+  dragging?: boolean;
   size?: "sm" | "md" | "lg";
 }) {
-  const dims =
-    size === "lg"
-      ? "h-14 w-11 text-lg"
-      : size === "sm"
-        ? "h-8 w-6 text-xs"
-        : "h-11 w-8 text-base";
+  const dims = DIMS[size];
   const isJoker = tile.joker || tile.color == null;
-  const bg = isJoker ? "bg-gradient-to-br from-amber-300 to-amber-500 text-stone-900" : COLOR_BG[tile.color!];
+  const bg = isJoker
+    ? "bg-gradient-to-br from-amber-300 to-amber-500 text-stone-900"
+    : COLOR_BG[tile.color!];
+  const interactive = Boolean(onClick || onPointerDown);
 
   const face = isJoker ? (
     <span className="text-base leading-none">★</span>
@@ -50,22 +58,29 @@ export function RummikubTileView({
   );
 
   return (
-    <button
-      type="button"
-      disabled={!onClick}
+    <div
+      role={interactive ? "button" : "img"}
+      tabIndex={interactive ? 0 : undefined}
       onClick={onClick}
-      className={`${dims} relative shrink-0 touch-manipulation rounded-md border-2 font-heading font-bold shadow-sm transition ${bg} ${
+      onPointerDown={onPointerDown}
+      className={`${dims} relative shrink-0 select-none rounded-md border-2 font-heading font-bold shadow-sm transition ${bg} ${
         selected
           ? "-translate-y-1.5 border-accent ring-2 ring-accent"
           : "border-white/60"
       } ${dimmed ? "opacity-40" : ""} ${
-        onClick ? "cursor-pointer active:scale-95" : "cursor-default"
+        dragging ? "scale-110 shadow-lg" : ""
+      } ${
+        onPointerDown
+          ? "cursor-grab touch-none active:cursor-grabbing"
+          : interactive
+            ? "cursor-pointer active:scale-95"
+            : "cursor-default"
       }`}
     >
       <span className="absolute inset-0 flex items-center justify-center">
         {face}
       </span>
-    </button>
+    </div>
   );
 }
 

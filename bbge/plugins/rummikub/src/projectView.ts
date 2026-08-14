@@ -38,7 +38,6 @@ export function projectRummikubView(
           rack: you.rack.map(tile),
           initialMeldDone: you.initialMeldDone,
           score: you.score,
-          meldThisTurn: state.meldThisTurn,
           rackPoints: you.rack.reduce((s, t) => s + tilePoints(t), 0),
         }
       : null,

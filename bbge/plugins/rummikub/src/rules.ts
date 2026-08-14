@@ -3,11 +3,13 @@ import type { ApplyContext, Event, PlayerId, VictoryResult } from "@bbge/core";
 import {
   buildRummikubDeck,
   sortHand,
-  sortSet,
   tilePoints,
-  type RummikubTile,
 } from "./cards";
-import { isValidSet, setPoints } from "./sets";
+import {
+  assignSetIds,
+  candidateCommitActions,
+  evaluateCommit,
+} from "./commit";
 import type {
   RummikubAction,
   RummikubConfig,
@@ -27,8 +29,6 @@ function currentId(state: RummikubState): PlayerId {
 
 function advanceTurn(state: RummikubState): void {
   state.currentIndex = (state.currentIndex + 1) % state.turnOrder.length;
-  state.meldThisTurn = 0;
-  for (const p of state.players) p.drewThisTurn = false;
 }
 
 function finishEmptyRack(
@@ -94,7 +94,6 @@ export function createRummikubState(
     rack: [],
     initialMeldDone: false,
     score: 0,
-    drewThisTurn: false,
   }));
 
   for (let i = 0; i < 14; i++) {
@@ -120,7 +119,6 @@ export function createRummikubState(
     matchOver: false,
     round: 1,
     endReason: null,
-    meldThisTurn: 0,
   };
 }
 
@@ -139,99 +137,11 @@ export function continueRummikubMatch(
     ctx,
   );
   next.round = state.round + 1;
-  // Carry scores forward across rounds.
   next.players.forEach((p) => {
     const prev = state.players.find((x) => x.id === p.id);
     if (prev) p.score = prev.score;
   });
   return { state: next, events };
-}
-
-function newSetMoves(
-  state: RummikubState,
-  actor: RummikubPlayer,
-): RummikubAction[] {
-  const out: RummikubAction[] = [];
-  const rack = actor.rack;
-
-  // Runs by color.
-  const byColor = new Map<string, RummikubTile[]>();
-  for (const t of rack) {
-    if (t.joker || t.color == null) continue;
-    const list = byColor.get(t.color) ?? [];
-    list.push(t);
-    byColor.set(t.color, list);
-  }
-  const jokers = rack.filter((t) => t.joker);
-  for (const group of byColor.values()) {
-    group.sort((a, b) => (a.number ?? 0) - (b.number ?? 0));
-    for (let i = 0; i < group.length; i++) {
-      for (let j = i + 1; j < group.length; j++) {
-        const a = group[i]!.number!;
-        const b = group[j]!.number!;
-        if (b - a + 1 < 3) continue;
-        const picked = group.slice(i, j + 1).filter((t) => t.number! >= a && t.number! <= b);
-        const need = b - a + 1 - picked.length;
-        if (need > jokers.length) continue;
-        const candidate = picked.concat(jokers.slice(0, need));
-        if (!isValidSet(candidate)) continue;
-        const points = setPoints(candidate);
-        if (!actor.initialMeldDone && state.meldThisTurn + points < 30) continue;
-        out.push({
-          type: "playNewSet",
-          playerId: actor.id,
-          payload: { tileIds: candidate.map((t) => t.id) },
-        });
-      }
-    }
-  }
-
-  // Groups.
-  const byNumber = new Map<number, RummikubTile[]>();
-  for (const t of rack) {
-    if (t.joker || t.number == null) continue;
-    const list = byNumber.get(t.number) ?? [];
-    list.push(t);
-    byNumber.set(t.number, list);
-  }
-  for (const group of byNumber.values()) {
-    for (let size = 3; size <= 4; size++) {
-      const picked = group.slice(0, size);
-      const need = size - picked.length;
-      if (need > jokers.length) continue;
-      const candidate = picked.concat(jokers.slice(0, need));
-      if (!isValidSet(candidate)) continue;
-      const points = setPoints(candidate);
-      if (!actor.initialMeldDone && state.meldThisTurn + points < 30) continue;
-      out.push({
-        type: "playNewSet",
-        playerId: actor.id,
-        payload: { tileIds: candidate.map((t) => t.id) },
-      });
-    }
-  }
-
-  return out;
-}
-
-function extendMoves(
-  state: RummikubState,
-  actor: RummikubPlayer,
-): RummikubAction[] {
-  const out: RummikubAction[] = [];
-  if (!actor.initialMeldDone) return out;
-  for (const set of state.table) {
-    for (const t of actor.rack) {
-      if (isValidSet([...set.tiles, t])) {
-        out.push({
-          type: "extendSet",
-          playerId: actor.id,
-          payload: { targetSetId: set.id, tileIds: [t.id] },
-        });
-      }
-    }
-  }
-  return out;
 }
 
 export function legalRummikubActions(
@@ -243,19 +153,20 @@ export function legalRummikubActions(
   const actor = player(state, playerId);
 
   const out: RummikubAction[] = [];
-  if (state.pool.length > 0 && !actor.drewThisTurn) {
+  if (state.pool.length > 0) {
     out.push({ type: "drawTile", playerId, payload: {} });
   }
-  out.push(...newSetMoves(state, actor));
-  out.push(...extendMoves(state, actor));
-
-  if (
-    !out.some((a) => a.type === "passTurn") &&
-    (actor.drewThisTurn || state.pool.length === 0)
-  ) {
+  out.push(
+    ...candidateCommitActions(
+      state.table,
+      actor.rack,
+      actor.initialMeldDone,
+      playerId,
+    ),
+  );
+  if (state.pool.length === 0) {
     out.push({ type: "passTurn", playerId, payload: {} });
   }
-
   return out;
 }
 
@@ -263,27 +174,26 @@ export function validateRummikubAction(
   state: RummikubState,
   action: RummikubAction,
 ): true | { error: string } {
-  const legal = legalRummikubActions(state, action.playerId);
-  const ok = legal.some((a) => {
-    if (a.type !== action.type) return false;
-    if (action.type === "playNewSet") {
-      return (
-        a.type === "playNewSet" &&
-        a.payload.tileIds.length === action.payload.tileIds.length &&
-        action.payload.tileIds.every((id) => a.payload.tileIds.includes(id))
-      );
-    }
-    if (action.type === "extendSet") {
-      return (
-        a.type === "extendSet" &&
-        a.payload.targetSetId === action.payload.targetSetId &&
-        a.payload.tileIds.length === action.payload.tileIds.length &&
-        action.payload.tileIds.every((id) => a.payload.tileIds.includes(id))
-      );
-    }
-    return true;
-  });
-  return ok ? true : { error: "illegal action" };
+  if (state.phase !== "playing") return { error: "illegal action" };
+  if (currentId(state) !== action.playerId) return { error: "illegal action" };
+  const actor = player(state, action.playerId);
+
+  if (action.type === "drawTile") {
+    return state.pool.length > 0 ? true : { error: "illegal action" };
+  }
+  if (action.type === "passTurn") {
+    return state.pool.length === 0 ? true : { error: "illegal action" };
+  }
+  if (action.type === "commitTurn") {
+    const result = evaluateCommit({
+      table: state.table,
+      rack: actor.rack,
+      initialMeldDone: actor.initialMeldDone,
+      groups: action.payload.groups,
+    });
+    return result.ok ? true : { error: result.error };
+  }
+  return { error: "illegal action" };
 }
 
 export function applyRummikubAction(
@@ -300,11 +210,11 @@ export function applyRummikubAction(
       if (!t) return;
       actor.rack.push(t);
       actor.rack = sortHand(actor.rack);
-      actor.drewThisTurn = true;
       events.push({
         type: "rummikub/drew",
         payload: { playerId: actor.id, count: 1 },
       });
+      advanceTurn(draft);
       return;
     }
 
@@ -321,56 +231,26 @@ export function applyRummikubAction(
       return;
     }
 
-    if (action.type === "playNewSet") {
-      const ids = new Set(action.payload.tileIds);
-      const tiles = actor.rack.filter((t) => ids.has(t.id));
-      if (tiles.length !== ids.size) return;
-      if (!isValidSet(tiles)) return;
-      const points = setPoints(tiles);
-      if (!actor.initialMeldDone && draft.meldThisTurn + points < 30) return;
-
-      actor.rack = actor.rack.filter((t) => !ids.has(t.id));
-      draft.table.push({ id: `s${draft.setSeq++}`, tiles: sortSet(tiles) });
-      draft.meldThisTurn += points;
-      if (!actor.initialMeldDone && draft.meldThisTurn >= 30) {
-        actor.initialMeldDone = true;
-      }
-      events.push({
-        type: "rummikub/played",
-        payload: {
-          playerId: actor.id,
-          setIds: [`s${draft.setSeq - 1}`],
-          points,
-          tileCount: tiles.length,
-        },
+    if (action.type === "commitTurn") {
+      const result = evaluateCommit({
+        table: draft.table,
+        rack: actor.rack,
+        initialMeldDone: actor.initialMeldDone,
+        groups: action.payload.groups,
       });
+      if (!result.ok) return;
 
-      if (actor.rack.length === 0) {
-        finishEmptyRack(draft, actor.id, events);
-        return;
-      }
-      advanceTurn(draft);
-      return;
-    }
+      actor.rack = sortHand(result.remainingRack);
+      draft.table = assignSetIds(draft.table, result.groups, () => `s${draft.setSeq++}`);
+      if (!actor.initialMeldDone) actor.initialMeldDone = true;
 
-    if (action.type === "extendSet") {
-      if (!actor.initialMeldDone) return;
-      const set = draft.table.find((s) => s.id === action.payload.targetSetId);
-      if (!set) return;
-      const ids = new Set(action.payload.tileIds);
-      const tiles = actor.rack.filter((t) => ids.has(t.id));
-      if (tiles.length !== ids.size) return;
-      if (!isValidSet([...set.tiles, ...tiles])) return;
-
-      actor.rack = actor.rack.filter((t) => !ids.has(t.id));
-      set.tiles = sortSet([...set.tiles, ...tiles]);
       events.push({
         type: "rummikub/played",
         payload: {
           playerId: actor.id,
-          setIds: [set.id],
-          points: setPoints(tiles),
-          tileCount: tiles.length,
+          setIds: draft.table.map((s) => s.id),
+          points: result.points,
+          tileCount: result.playedCount,
         },
       });
 

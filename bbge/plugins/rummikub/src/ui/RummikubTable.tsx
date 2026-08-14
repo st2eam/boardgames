@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
 import {
@@ -13,13 +13,27 @@ import {
   useIsMobileLayout,
   useSeatBubbles,
 } from "@bbge/ui";
-import { RummikubTileBack, RummikubTileView, tileLabel } from "./RummikubTile";
+import {
+  evaluateCommit,
+  INITIAL_MELD,
+  type CommitTile,
+} from "../commit";
+import type { RummikubTile } from "../cards";
+import { isValidSet, setPoints } from "../sets";
+import { RummikubTileBack, RummikubTileView } from "./RummikubTile";
 
 type TileV = {
   id: string;
   color: string | null;
   number: number | null;
   joker: boolean;
+};
+
+type GroupV = { id: string; tiles: TileV[] };
+
+type Draft = {
+  groups: GroupV[];
+  rack: TileV[];
 };
 
 type RummikubView = {
@@ -30,13 +44,12 @@ type RummikubView = {
   round: number;
   poolCount: number;
   endReason: "emptyRack" | "depleted" | null;
-  table: { id: string; tiles: TileV[] }[];
+  table: GroupV[];
   you: {
     id: string;
     rack: TileV[];
     initialMeldDone: boolean;
     score: number;
-    meldThisTurn: number;
     rackPoints: number;
   } | null;
   seats: {
@@ -50,7 +63,146 @@ type RummikubView = {
   legal: { type: string; payload?: Record<string, unknown> }[];
 };
 
-const INITIAL_MELD = 30;
+type DragState = {
+  tile: TileV;
+  x: number;
+  y: number;
+};
+
+type DropTarget =
+  | { type: "group"; groupId: string; index: number }
+  | { type: "rack"; index: number }
+  | { type: "new" };
+
+function asTiles(tiles: TileV[]): RummikubTile[] {
+  return tiles as RummikubTile[];
+}
+
+function membershipKey(ids: string[]): string {
+  return ids.slice().sort().join(",");
+}
+
+function snapshotKey(view: RummikubView): string {
+  const rack = view.you?.rack.map((t) => t.id).join(",") ?? "";
+  const table = view.table
+    .map((s) => `${s.id}:${s.tiles.map((t) => t.id).join(",")}`)
+    .join("|");
+  return `${view.round}:${view.currentPlayerId}:${rack}:${table}`;
+}
+
+function fromView(view: RummikubView): Draft {
+  return {
+    groups: view.table.map((s) => ({
+      id: s.id,
+      tiles: s.tiles.slice(),
+    })),
+    rack: view.you?.rack.slice() ?? [],
+  };
+}
+
+function cloneDraft(d: Draft): Draft {
+  return {
+    groups: d.groups.map((g) => ({ id: g.id, tiles: g.tiles.slice() })),
+    rack: d.rack.slice(),
+  };
+}
+
+function isDirty(draft: Draft, snap: Draft): boolean {
+  if (draft.rack.length !== snap.rack.length) return true;
+  if (draft.groups.length !== snap.groups.length) return true;
+  const rackA = draft.rack.map((t) => t.id).join(",");
+  const rackB = snap.rack.map((t) => t.id).join(",");
+  if (rackA !== rackB) return true;
+  for (let i = 0; i < draft.groups.length; i++) {
+    const a = draft.groups[i]!.tiles.map((t) => t.id).join(",");
+    const b = snap.groups[i]!.tiles.map((t) => t.id).join(",");
+    if (a !== b) return true;
+  }
+  return false;
+}
+
+function readDrop(x: number, y: number): DropTarget | null {
+  const el = document.elementFromPoint(x, y);
+  if (!el) return null;
+  const node = (el as HTMLElement).closest("[data-rk-drop]") as HTMLElement | null;
+  if (!node) return null;
+  const kind = node.dataset.rkDrop;
+  if (kind === "slot") {
+    return {
+      type: "group",
+      groupId: node.dataset.groupId ?? "",
+      index: Number(node.dataset.index ?? 0),
+    };
+  }
+  if (kind === "rack-slot") {
+    return { type: "rack", index: Number(node.dataset.index ?? 0) };
+  }
+  if (kind === "rack") return { type: "rack", index: Number(node.dataset.index ?? 9999) };
+  if (kind === "group") {
+    return {
+      type: "group",
+      groupId: node.dataset.groupId ?? "",
+      index: Number(node.dataset.index ?? 9999),
+    };
+  }
+  if (kind === "new") return { type: "new" };
+  return null;
+}
+
+function moveTile(draft: Draft, tileId: string, dest: DropTarget, nextId: () => string): Draft {
+  const next = cloneDraft(draft);
+  let tile: TileV | undefined;
+  let fromGroup: { gi: number; ti: number } | null = null;
+
+  const rackIdx = next.rack.findIndex((t) => t.id === tileId);
+  if (rackIdx >= 0) {
+    tile = next.rack.splice(rackIdx, 1)[0];
+  } else {
+    for (let gi = 0; gi < next.groups.length; gi++) {
+      const ti = next.groups[gi]!.tiles.findIndex((t) => t.id === tileId);
+      if (ti >= 0) {
+        tile = next.groups[gi]!.tiles.splice(ti, 1)[0];
+        fromGroup = { gi, ti };
+        break;
+      }
+    }
+  }
+  if (!tile) return draft;
+
+  if (dest.type === "rack") {
+    const idx = Math.max(0, Math.min(dest.index, next.rack.length));
+    next.rack.splice(idx, 0, tile);
+  } else if (dest.type === "new") {
+    next.groups.push({ id: nextId(), tiles: [tile] });
+  } else {
+    let gi = next.groups.findIndex((g) => g.id === dest.groupId);
+    if (gi < 0) {
+      next.groups.push({ id: dest.groupId || nextId(), tiles: [tile] });
+    } else {
+      let index = dest.index;
+      if (fromGroup && fromGroup.gi === gi && fromGroup.ti < index) index -= 1;
+      index = Math.max(0, Math.min(index, next.groups[gi]!.tiles.length));
+      next.groups[gi]!.tiles.splice(index, 0, tile);
+    }
+  }
+
+  next.groups = next.groups.filter((g) => g.tiles.length > 0);
+  return next;
+}
+
+function icePoints(draft: Draft, snap: Draft): number {
+  const orig = new Set(
+    snap.groups.map((s) => membershipKey(s.tiles.map((t) => t.id))),
+  );
+  let pts = 0;
+  for (const g of draft.groups) {
+    const key = membershipKey(g.tiles.map((t) => t.id));
+    if (orig.has(key)) continue;
+    const tiles = asTiles(g.tiles);
+    if (isValidSet(tiles)) pts += setPoints(tiles);
+  }
+  return pts;
+}
 
 export function RummikubTable({
   locale,
@@ -70,8 +222,21 @@ export function RummikubTable({
   const view = viewUnknown as RummikubView;
   const mobile = useIsMobileLayout();
   const [sideOpen, setSideOpen] = useState(false);
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const bubbles = useSeatBubbles({ playLog, chat, durationMs: 4000 });
+
+  const key = snapshotKey(view);
+  const [draft, setDraft] = useState<Draft>(() => fromView(view));
+  const [drag, setDrag] = useState<DragState | null>(null);
+  const seqRef = useRef(0);
+  const viewKeyRef = useRef(key);
+
+  if (viewKeyRef.current !== key) {
+    viewKeyRef.current = key;
+    setDraft(fromView(view));
+    setDrag(null);
+  }
+
+  const snap = useMemo(() => fromView(view), [key]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const actorId = myId;
   const isMyTurn =
@@ -80,52 +245,93 @@ export function RummikubTable({
     !thinkingId &&
     view.phase !== "finished";
 
+  const iced = Boolean(view.you?.initialMeldDone);
+  const snapRackIds = useMemo(
+    () => new Set(snap.rack.map((t) => t.id)),
+    [snap],
+  );
+  const snapTableIds = useMemo(() => {
+    const s = new Set<string>();
+    for (const g of snap.groups) for (const t of g.tiles) s.add(t.id);
+    return s;
+  }, [snap]);
+
+  const dirty = isDirty(draft, snap);
   const legalTypes = useMemo(
     () => new Set(view.legal.map((a) => a.type)),
     [view.legal],
   );
 
-  const selectedSet = useMemo(
-    () => new Set(selectedIds),
-    [selectedIds],
+  const commit = useMemo(() => {
+    if (!view.you) return { ok: false as const, error: "no you" };
+    const groups = draft.groups
+      .map((g) => g.tiles.map((t) => t.id))
+      .filter((g) => g.length > 0);
+    return evaluateCommit({
+      table: snap.groups as { id: string; tiles: CommitTile[] }[],
+      rack: snap.rack as CommitTile[],
+      initialMeldDone: iced,
+      groups,
+    });
+  }, [draft, snap, iced, view.you]);
+
+  const nextGroupId = useCallback(() => {
+    seqRef.current += 1;
+    return `local-${seqRef.current}`;
+  }, []);
+
+  const canDragTile = useCallback(
+    (tileId: string) => {
+      if (!isMyTurn) return false;
+      if (!iced && snapTableIds.has(tileId)) return false;
+      return true;
+    },
+    [isMyTurn, iced, snapTableIds],
   );
 
-  // A "playNewSet" suggestion that exactly matches the current selection.
-  const matchingNewSet = useMemo(() => {
-    if (selectedIds.length === 0) return null;
-    return view.legal.find(
-      (a) =>
-        a.type === "playNewSet" &&
-        (a.payload?.tileIds as string[]).length === selectedIds.length &&
-        (a.payload?.tileIds as string[]).every((id) => selectedIds.includes(id)),
-    );
-  }, [view.legal, selectedIds]);
-
-  // A single-selected tile that can extend a specific set.
-  const extendTargets = useMemo(() => {
-    if (selectedIds.length !== 1) return new Map<string, string>();
-    const map = new Map<string, string>();
-    for (const a of view.legal) {
-      if (
-        a.type === "extendSet" &&
-        (a.payload?.tileIds as string[]).length === 1 &&
-        (a.payload?.tileIds as string[])[0] === selectedIds[0]
-      ) {
-        map.set(a.payload?.targetSetId as string, selectedIds[0]!);
+  const finishDrag = useCallback(
+    (x: number, y: number, tile: TileV) => {
+      const dest = readDrop(x, y);
+      setDrag(null);
+      if (!dest) return;
+      if (dest.type === "rack" && snapTableIds.has(tile.id) && !snapRackIds.has(tile.id)) {
+        return;
       }
-    }
-    return map;
-  }, [view.legal, selectedIds]);
+      setDraft((d) => moveTile(d, tile.id, dest, nextGroupId));
+    },
+    [nextGroupId, snapRackIds, snapTableIds],
+  );
+
+  useEffect(() => {
+    if (!drag) return;
+    const tile = drag.tile;
+    const move = (e: PointerEvent) => {
+      e.preventDefault();
+      setDrag((d) => (d ? { ...d, x: e.clientX, y: e.clientY } : d));
+    };
+    const up = (e: PointerEvent) => {
+      finishDrag(e.clientX, e.clientY, tile);
+    };
+    window.addEventListener("pointermove", move, { passive: false });
+    window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", up);
+    return () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
+    };
+  }, [drag, finishDrag]);
+
+  const startDrag = (tile: TileV, e: React.PointerEvent) => {
+    if (!canDragTile(tile.id)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    setDrag({ tile, x: e.clientX, y: e.clientY });
+  };
 
   const dispatch = (action: Action) => {
     onAction(action);
-    setSelectedIds([]);
-  };
-
-  const toggleSelect = (id: string) => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
-    );
+    setDrag(null);
   };
 
   const status = useMemo(() => {
@@ -150,16 +356,18 @@ export function RummikubTable({
         : `Waiting for ${nameOf?.(view.currentPlayerId ?? "") ?? ""}`;
     }
     if (view.you && !view.you.initialMeldDone) {
-      const need = Math.max(0, INITIAL_MELD - view.you.meldThisTurn);
+      const have = icePoints(draft, snap);
+      const need = Math.max(0, INITIAL_MELD - have);
       return zh
-        ? `你的回合 · 首次出牌需 ${INITIAL_MELD} 分（还差 ${need}）`
-        : `Your turn · initial meld ${INITIAL_MELD} (${need} to go)`;
+        ? `你的回合 · 首次出牌需 ${INITIAL_MELD} 分（已组 ${have}，还差 ${need}）`
+        : `Your turn · initial meld ${INITIAL_MELD} (have ${have}, ${need} to go)`;
     }
-    return zh ? "你的回合 · 出牌或抽牌" : "Your turn · meld or draw";
-  }, [view, thinkingId, isMyTurn, zh, nameOf]);
+    return zh ? "你的回合 · 拖牌组牌，全合法后结束" : "Your turn · drag tiles, end when valid";
+  }, [view, thinkingId, isMyTurn, zh, nameOf, draft, snap]);
 
   const others = view.seats.filter((s) => !s.isYou);
   const youSeat = view.seats.find((s) => s.isYou);
+  const tileSize = mobile ? "sm" : "md";
 
   const logPanel = (
     <PlayLogChatPanel
@@ -186,7 +394,7 @@ export function RummikubTable({
         </>
       }
     >
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 overflow-hidden sm:gap-2">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 overflow-hidden select-none sm:gap-2">
         <ThinkingStatusBanner
           locale={locale}
           text={status}
@@ -195,7 +403,6 @@ export function RummikubTable({
         />
 
         <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
-          {/* Opponents */}
           <div className="flex shrink-0 gap-2 overflow-x-auto overscroll-contain px-1 pb-1 lg:flex-wrap lg:justify-center">
             {others.map((s) => {
               const active = view.currentPlayerId === s.id;
@@ -244,12 +451,11 @@ export function RummikubTable({
             })}
           </div>
 
-          {/* Center: table sets + pool */}
           <div className="flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto px-2 py-1">
             <div className="flex w-full items-center justify-center gap-3">
               <button
                 type="button"
-                disabled={!legalTypes.has("drawTile")}
+                disabled={!legalTypes.has("drawTile") || dirty || !isMyTurn}
                 onClick={() =>
                   dispatch({ type: "drawTile", playerId: actorId, payload: {} })
                 }
@@ -262,47 +468,66 @@ export function RummikubTable({
               </button>
             </div>
 
-            {view.table.length === 0 ? (
-              <p className="text-xs text-stone-400">
-                {zh ? "桌面暂无组合" : "No melds on the table yet"}
-              </p>
-            ) : (
-              <div className="flex w-full max-w-2xl flex-col gap-1.5">
-                {view.table.map((set) => (
+            <div className="flex w-full max-w-3xl flex-wrap gap-2">
+              {draft.groups.length === 0 && !drag ? (
+                <p className="w-full text-center text-xs text-stone-400">
+                  {zh ? "桌面暂无组合 · 把手牌拖到这里" : "No melds · drag tiles here"}
+                </p>
+              ) : null}
+              {draft.groups.map((set) => {
+                const valid = isValidSet(asTiles(set.tiles));
+                return (
                   <div
                     key={set.id}
-                    className="flex items-center gap-1 rounded-lg border border-border bg-white/70 px-2 py-1.5"
+                    data-rk-drop="group"
+                    data-group-id={set.id}
+                    data-index={set.tiles.length}
+                    className={`flex min-w-0 basis-[calc(50%-0.25rem)] items-center gap-0.5 overflow-x-auto rounded-lg border-2 px-2 py-1.5 ${
+                      valid
+                        ? "border-emerald-400 bg-emerald-50/80"
+                        : "border-red-400 bg-red-50/80"
+                    }`}
                   >
-                    <div className="flex items-center gap-0.5 overflow-x-auto">
-                      {set.tiles.map((t) => (
-                        <RummikubTileView key={t.id} tile={t} size="sm" />
-                      ))}
-                    </div>
-                    {extendTargets.has(set.id) && (
-                      <button
-                        type="button"
-                        className="ml-auto shrink-0 rounded-md bg-accent px-2 py-1 text-[10px] font-bold text-[#1a120e]"
-                        onClick={() =>
-                          dispatch({
-                            type: "extendSet",
-                            playerId: actorId,
-                            payload: {
-                              targetSetId: set.id,
-                              tileIds: [extendTargets.get(set.id)!],
-                            },
-                          })
-                        }
-                      >
-                        {zh ? "加入" : "Add"}
-                      </button>
-                    )}
+                    {set.tiles.map((t, i) => (
+                      <div key={t.id} className="relative flex items-center">
+                        <div
+                          data-rk-drop="slot"
+                          data-group-id={set.id}
+                          data-index={i}
+                          className={`self-stretch ${drag ? "w-2.5" : "w-0.5"}`}
+                        />
+                        <RummikubTileView
+                          tile={t}
+                          size="sm"
+                          dimmed={drag?.tile.id === t.id}
+                          onPointerDown={
+                            canDragTile(t.id)
+                              ? (e) => startDrag(t, e)
+                              : undefined
+                          }
+                        />
+                      </div>
+                    ))}
+                    <div
+                      data-rk-drop="slot"
+                      data-group-id={set.id}
+                      data-index={set.tiles.length}
+                      className={`min-h-8 ${drag ? "w-3" : "w-1"}`}
+                    />
                   </div>
-                ))}
-              </div>
-            )}
+                );
+              })}
+              {drag && (
+                <div
+                  data-rk-drop="new"
+                  className="flex min-h-10 min-w-0 basis-[calc(50%-0.25rem)] items-center justify-center rounded-lg border-2 border-dashed border-accent/70 bg-amber-50/70 px-2 py-1.5 text-[11px] font-semibold text-primary-dark"
+                >
+                  {zh ? "放到这里成为新组合" : "Drop to start a new set"}
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* You */}
           {youSeat && view.you && (
             <div
               data-seat-id={youSeat.id}
@@ -321,22 +546,16 @@ export function RummikubTable({
                   )}
                 </p>
                 <div className="flex flex-wrap gap-1">
-                  {matchingNewSet && (
+                  {dirty && isMyTurn && (
                     <button
                       type="button"
-                      className="rounded-lg bg-accent px-2.5 py-1 text-xs font-bold text-[#1a120e]"
-                      onClick={() =>
-                        dispatch({
-                          type: "playNewSet",
-                          playerId: actorId,
-                          payload: { tileIds: selectedIds },
-                        })
-                      }
+                      className="rounded-lg border border-border px-2.5 py-1 text-xs font-bold"
+                      onClick={() => setDraft(fromView(view))}
                     >
-                      {zh ? "打出组合" : "Play set"}
+                      {zh ? "重置" : "Reset"}
                     </button>
                   )}
-                  {legalTypes.has("passTurn") && (
+                  {legalTypes.has("passTurn") && isMyTurn && !dirty && (
                     <button
                       type="button"
                       className="rounded-lg border border-border px-2.5 py-1 text-xs font-bold"
@@ -348,43 +567,66 @@ export function RummikubTable({
                         })
                       }
                     >
-                      {zh ? "结束回合" : "Pass"}
+                      {zh ? "结束对局" : "End game"}
                     </button>
                   )}
+                  <button
+                    type="button"
+                    disabled={!isMyTurn || !commit.ok}
+                    className={`rounded-lg px-2.5 py-1 text-xs font-bold ${
+                      isMyTurn && commit.ok
+                        ? "bg-accent text-[#1a120e] shadow-sm"
+                        : "bg-stone-200 text-stone-400"
+                    }`}
+                    onClick={() => {
+                      if (!commit.ok) return;
+                      dispatch({
+                        type: "commitTurn",
+                        playerId: actorId,
+                        payload: {
+                          groups: draft.groups.map((g) =>
+                            g.tiles.map((t) => t.id),
+                          ),
+                        },
+                      });
+                    }}
+                  >
+                    {zh ? "结束回合" : "End turn"}
+                  </button>
                 </div>
               </div>
-              <div className="overflow-x-auto pb-1">
-                <div className="mx-auto flex w-max min-w-full justify-center gap-1">
-                  {view.you.rack.map((t) => (
-                    <RummikubTileView
-                      key={t.id}
-                      tile={t}
-                      size={mobile ? "sm" : "md"}
-                      selected={selectedSet.has(t.id)}
-                      onClick={
-                        isMyTurn ? () => toggleSelect(t.id) : undefined
-                      }
-                    />
+              <div
+                data-rk-drop="rack"
+                data-index={draft.rack.length}
+                className="overflow-x-auto pb-1"
+              >
+                <div className="mx-auto flex w-max min-w-full items-center justify-center">
+                  {draft.rack.map((t, i) => (
+                    <div key={t.id} className="relative flex items-center">
+                      <div
+                        data-rk-drop="rack-slot"
+                        data-index={i}
+                        className={drag ? "w-2.5 min-h-8" : "w-1 min-h-6"}
+                      />
+                      <RummikubTileView
+                        tile={t}
+                        size={tileSize}
+                        dimmed={drag?.tile.id === t.id}
+                        onPointerDown={
+                          canDragTile(t.id)
+                            ? (e) => startDrag(t, e)
+                            : undefined
+                        }
+                      />
+                    </div>
                   ))}
+                  <div
+                    data-rk-drop="rack-slot"
+                    data-index={draft.rack.length}
+                    className={drag ? "w-3 min-h-8" : "w-1 min-h-6"}
+                  />
                 </div>
               </div>
-              {selectedIds.length > 0 && (
-                <p className="mt-1 text-center text-[10px] text-stone-500">
-                  {zh
-                    ? `已选 ${selectedIds.length} 张：${selectedIds
-                        .map((id) => {
-                          const t = view.you?.rack.find((x) => x.id === id);
-                          return t ? tileLabel(t, zh) : id;
-                        })
-                        .join(" · ")}`
-                    : `Selected ${selectedIds.length}: ${selectedIds
-                        .map((id) => {
-                          const t = view.you?.rack.find((x) => x.id === id);
-                          return t ? tileLabel(t, zh) : id;
-                        })
-                        .join(" · ")}`}
-                </p>
-              )}
             </div>
           )}
         </div>
@@ -402,12 +644,21 @@ export function RummikubTable({
           ) : (
             <p className="text-center text-[11px] text-stone-500">
               {zh
-                ? "点牌选中 · 打出同点数组或同色顺子 · 首次需 30 分破冰"
-                : "Select tiles · make runs or groups · initial meld 30"}
+                ? "拖动手牌或桌面牌组牌 · 每组独立校验，全部合法后结束回合 · 乱了就重置 · 抽牌则本回合结束"
+                : "Drag rack or table tiles · each set is checked · end when all are valid · reset if stuck · drawing ends the turn"}
             </p>
           )}
         </div>
       </div>
+
+      {drag && (
+        <div
+          className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-1/2"
+          style={{ left: drag.x, top: drag.y }}
+        >
+          <RummikubTileView tile={drag.tile} size={tileSize} dragging />
+        </div>
+      )}
 
       <PlaySideSheet
         open={sideOpen}

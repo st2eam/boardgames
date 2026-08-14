@@ -77,7 +77,7 @@ export function RummikubTileView({
         dragging ? "scale-110 shadow-lg" : ""
       } ${
         onPointerDown
-          ? "cursor-grab touch-none active:cursor-grabbing"
+          ? "cursor-grab touch-manipulation active:cursor-grabbing"
           : interactive
             ? "cursor-pointer active:scale-95"
             : "cursor-default"

@@ -22,6 +22,7 @@ interface Props {
   totalCount: number;
   filteredCount: number;
   familyTags?: Set<string>;
+  playTag?: string;
   playerCounts: number[];
   selectedPlayerCount: number | null;
   onSelectPlayerCount: (n: number | null) => void;
@@ -44,6 +45,7 @@ export function Sidebar({
   totalCount,
   filteredCount,
   familyTags,
+  playTag,
   playerCounts,
   selectedPlayerCount,
   onSelectPlayerCount,
@@ -55,7 +57,10 @@ export function Sidebar({
   const t = useTranslations("home");
   const tc = useTranslations("common");
 
-  const regularTags = allTags.filter((t) => !familyTags?.has(t));
+  const regularTags = allTags.filter(
+    (tag) => !familyTags?.has(tag) && tag !== playTag,
+  );
+  const hasPlayTag = Boolean(playTag && allTags.includes(playTag));
   const seriesTags = allTags.filter((t) => familyTags?.has(t));
 
   const selectedSeriesTags = useMemo(
@@ -63,8 +68,13 @@ export function Sidebar({
     [selectedTags, familyTags]
   );
   const selectedRegularTags = useMemo(
-    () => new Set(Array.from(selectedTags).filter((t) => !familyTags?.has(t))),
-    [selectedTags, familyTags]
+    () =>
+      new Set(
+        Array.from(selectedTags).filter(
+          (tag) => !familyTags?.has(tag) && tag !== playTag,
+        ),
+      ),
+    [selectedTags, familyTags, playTag]
   );
 
   return (
@@ -203,6 +213,20 @@ export function Sidebar({
             optionBgClass="hover:bg-violet-50"
           />
         </div>
+      )}
+
+      {hasPlayTag && playTag && (
+        <button
+          type="button"
+          onClick={() => onToggleTag(playTag)}
+          className={`relative w-full cursor-pointer rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+            selectedTags.has(playTag)
+              ? "bg-accent text-[#1a120e]"
+              : "text-stone-600 hover:bg-amber-50 hover:text-primary"
+          }`}
+        >
+          {playTag}
+        </button>
       )}
 
       {/* Tags searchable select */}

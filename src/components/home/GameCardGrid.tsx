@@ -132,10 +132,17 @@ export function GameCardGrid({ games }: Props) {
     selectedTags.size > 0 ||
     selectedPlayerCount !== null;
 
-  const { enriched, familyTagSet } = useMemo(
-    () => deriveFamilyTags(games, locale),
-    [games, locale]
-  );
+  const playTag = t("playNow");
+
+  const { enriched, familyTagSet } = useMemo(() => {
+    const derived = deriveFamilyTags(games, locale);
+    const enriched = derived.enriched.map((g) => {
+      if (!g.hasPlay) return g;
+      if (g.tags.includes(playTag)) return g;
+      return { ...g, tags: [playTag, ...g.tags] };
+    });
+    return { enriched, familyTagSet: derived.familyTagSet };
+  }, [games, locale, playTag]);
 
   const allTags = useMemo(() => {
     const raw = Array.from(new Set(enriched.flatMap((g) => g.tags)));
@@ -280,16 +287,21 @@ export function GameCardGrid({ games }: Props) {
     [allTags, familyTagSet]
   );
   const mobileRegularTags = useMemo(
-    () => allTags.filter((t) => !familyTagSet.has(t)),
-    [allTags, familyTagSet]
+    () => allTags.filter((tag) => !familyTagSet.has(tag) && tag !== playTag),
+    [allTags, familyTagSet, playTag]
   );
   const mobileSelectedSeriesTags = useMemo(
     () => new Set(Array.from(selectedTags).filter((t) => familyTagSet.has(t))),
     [selectedTags, familyTagSet]
   );
   const mobileSelectedRegularTags = useMemo(
-    () => new Set(Array.from(selectedTags).filter((t) => !familyTagSet.has(t))),
-    [selectedTags, familyTagSet]
+    () =>
+      new Set(
+        Array.from(selectedTags).filter(
+          (tag) => !familyTagSet.has(tag) && tag !== playTag,
+        ),
+      ),
+    [selectedTags, familyTagSet, playTag]
   );
 
   const toggleTag = (tag: string) => {
@@ -344,6 +356,19 @@ export function GameCardGrid({ games }: Props) {
               {cat}
             </button>
           ))}
+          {allTags.includes(playTag) && (
+            <button
+              type="button"
+              onClick={() => toggleTag(playTag)}
+              className={`cursor-pointer shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 ${
+                selectedTags.has(playTag)
+                  ? "bg-accent text-[#1a120e]"
+                  : "bg-accent-light text-accent-dark hover:bg-amber-100"
+              }`}
+            >
+              {playTag}
+            </button>
+          )}
           {/* Mobile: sort toggle */}
           <div className="ml-auto flex shrink-0 items-center gap-1">
             <button
@@ -409,6 +434,7 @@ export function GameCardGrid({ games }: Props) {
             totalCount={games.length}
             filteredCount={filtered.length}
             familyTags={familyTagSet}
+            playTag={playTag}
             playerCounts={playerCounts}
             selectedPlayerCount={selectedPlayerCount}
             onSelectPlayerCount={setSelectedPlayerCount}

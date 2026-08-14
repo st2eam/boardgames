@@ -16,7 +16,8 @@
     "sortLabel": "Sort by",
     "sortEnglish": "EN",
     "sortChinese": "CN",
-    "sortByBggRank": "BGG"
+    "sortByBggRank": "BGG",
+    "playNow": "Play Now"
   },
   "game": {
     "players": "Players",

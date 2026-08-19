@@ -2,13 +2,13 @@
 
 > [English version / 英文版](README-en.md)
 
-一个精心整理的现代桌游规则参考网站，覆盖 **56** 款游戏（含扩展/变体），支持中英双语、交互式决策树、训练器、**BBGE 在线对局**、LLM 对话查询，纯静态站点部署到 GitHub Pages。
+一个精心整理的现代桌游规则参考网站，覆盖 **57** 款游戏（含扩展/变体），支持中英双语、交互式决策树、训练器、**BBGE 在线对局**、LLM 对话查询，纯静态站点部署到 GitHub Pages。
 
 ## 功能特性
 
-- **56 款游戏规则**：经过网络验证的中英双语完整规则
-- **50 款交互式决策树**：分步交互流程，含侧边栏目录导航
-- **13 款自动计分器**：`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` / `category` / `feature-calc` / `card-type` 等，支持多人同屏计分，localStorage 持久化
+- **57 款游戏规则**：经过网络验证的中英双语完整规则
+- **51 款交互式决策树**：分步交互流程，含侧边栏目录导航
+- **14 款自动计分器**：`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` / `category` / `feature-calc` / `card-type` 等，支持多人同屏计分，localStorage 持久化
 - **5 款训练器**：麻将/日麻听牌、21 点基本策略、德州扑克 GTO 翻前、围棋死活题
 - **5 款 BBGE 在线对局**：情书、德州扑克、谁是牛头王、围棋、CABO — 设计规范 [`docs/games/`](docs/games/)
 - **番符计算器**：日麻番数/符数/点数自动计算器，可视化选牌（14 张）→ 指定和牌 → 标记副露 → 自动拆解牌型、检测役种、计算符数与点数
@@ -35,7 +35,7 @@ npm run dev
 npm run build
 ```
 
-> **维护提示**：新增/调整游戏后，请同步更新下方「游戏清单」与文首数量（当前：`56` 游戏 / `50` 决策树 / `13` 计分 / `5` 训练器 / `1` 计算器 / `5` BBGE 对局）。可用 `node scripts/print-project-stats.mjs` 快速核对。BBGE 行为变更请同步 [`docs/games/<slug>.md`](docs/games/)。
+> **维护提示**：新增/调整游戏后，请同步更新下方「游戏清单」与文首数量（当前：`57` 游戏 / `51` 决策树 / `14` 计分 / `5` 训练器 / `1` 计算器 / `5` BBGE 对局）。可用 `node scripts/print-project-stats.mjs` 快速核对。BBGE 行为变更请同步 [`docs/games/<slug>.md`](docs/games/)。
 
 ---
 
@@ -87,6 +87,7 @@ npm run build
 | 谁是牛头王（30周年） | ✅ | ✅ | ✅ 计分 · 🎮 多模式在线对局 |
 | 棕榈岛 (Palm Island) | ✅ | ✅ | ✅ 计分 |
 | 工业革命：伯明翰 (Brass: Birmingham) | ✅ | ✅ | ✅ 计分 |
+| 星空觅迹 (SETI) | ✅ | ✅ | ✅ 计分 |
 | 围棋 | ✅ | ✅ | 🎯 死活题 · 🎮 9/13/19 路对局 |
 
 ### 游戏系列
@@ -137,7 +138,7 @@ content/games/
 │   ├── calculator.json           # 可选：计算器配置（如日麻番符）
 │   ├── zh/rules.md               # 中文规则
 │   └── en/rules.md               # 英文规则
-└── ...（共 50 款游戏；含 `play.json` 的可在线对局）
+└── ...（共 57 款游戏；含 `play.json` 的可在线对局）
 
 public/data/                       # prebuild 生成，勿手改作为源
 ├── games-meta.json               # 轻量索引（chat system prompt 用）

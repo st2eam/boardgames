@@ -241,6 +241,24 @@
   },
   {
     "name": {
+      "en": "SETI: Search for Extraterrestrial Intelligence",
+      "zh": "星空觅迹"
+    },
+    "players": "1-4",
+    "duration": "40-160 min",
+    "difficulty": "hard",
+    "tags": [
+      "strategy",
+      "space",
+      "engine-building",
+      "board"
+    ],
+    "category": "board",
+    "bggRank": 14,
+    "slug": "seti"
+  },
+  {
+    "name": {
       "en": "Legends of the Three Kingdoms",
       "zh": "三国杀"
     },

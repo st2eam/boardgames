@@ -32,6 +32,7 @@ UNO is the classic family card game where players take turns matching a card in 
 
 ## How to Play
 
+![Match color or number, play 1 card, or draw 1](/images/rules/uno/turn-flow.svg)
 On your turn, play **one** card from your hand that matches the top discard by:
 - **Color** — Same color
 - **Number** — Same number
@@ -48,6 +49,7 @@ When playing your **second-to-last card** (leaving one card in hand), you must c
 
 ## Action Cards
 
+![Skip, Reverse, and Draw Two](/images/rules/uno/action-cards.svg)
 | Card | Effect |
 |------|--------|
 | **Skip** | Next player loses their turn |
@@ -84,6 +86,7 @@ When playing with only 2 players:
 
 ## Scoring
 
+![Empty hand wins; leftover cards score; first to 500](/images/rules/uno/scoring.svg)
 Points are scored from all cards remaining in opponents' hands:
 
 | Card Type | Points |

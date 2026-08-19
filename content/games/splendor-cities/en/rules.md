@@ -98,7 +98,6 @@ End-game trigger matches the base game (usually finish the round after someone r
 ## III. The Orient
 
 ![Orient cards mix into each level and change how nobles are claimed](/images/rules/splendor-cities/orient.svg)
-
 The East opens its wealth; patrons chase the exotic. Can you reshape your commercial empire?
 
 Orient cards put nobles at the center of new strategies — claim them faster, reserve them, or keep cards valuable after they are gone.

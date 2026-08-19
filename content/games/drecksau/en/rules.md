@@ -27,6 +27,8 @@ Dirty Pig (originally Drecksau) is a quick and fun card game designed by Frank B
 
 ## How to Play
 
+![Mud dirties your pig; Rain washes unprotected pigs; Barns block rain](/images/rules/drecksau/mud-weather.svg)
+
 On your turn, you **must play 1 card** from your hand, then **draw 1 card** from the draw pile.
 
 ### Card Effects
@@ -49,5 +51,7 @@ On your turn, you **must play 1 card** from your hand, then **draw 1 card** from
 - When the draw pile is empty, shuffle the discard pile to form a new draw pile.
 
 ## Winning
+
+![First player with every pig dirty wins immediately](/images/rules/drecksau/winning.svg)
 
 The **first player** to have ALL of their pigs showing the dirty side wins immediately!

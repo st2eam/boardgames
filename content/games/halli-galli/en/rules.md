@@ -20,6 +20,10 @@
 
 ## How to Play
 
+![Flip one card away from you; only the top is visible](/images/rules/halli-galli/flip-one.svg)
+
+![Ring when visible tops show exactly five of one fruit](/images/rules/halli-galli/ring-five.svg)
+
 The player to the dealer's left starts. On your turn:
 
 1. Flip the top card of your draw pile **away from yourself** so opponents see it at the same time as you (or slightly before).
@@ -47,6 +51,7 @@ When your draw pile is empty you stop flipping, but you are **not** out yet: you
 
 ## End of the Game
 
+![False ring pays a card; last two fight; most cards wins](/images/rules/halli-galli/game-end.svg)
 When only **two** players remain, continue until one of them correctly rings and takes the face-up stacks. That player (or the one with more cards) wins — count cards; most cards wins.
 
 **Special (final duel):** If a player rings falsely ("Sorry!") while only two remain, the **opponent** takes all face-up stacks and the game ends.

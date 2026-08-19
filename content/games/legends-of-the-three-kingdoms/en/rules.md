@@ -13,6 +13,7 @@ Sanguosha is a Chinese card game inspired by the Romance of the Three Kingdoms. 
 
 ## 3. Roles & Victory Conditions
 
+![Monarch and loyalists vs rebels; traitor wins alone / 主公忠臣对反贼，内奸独自获胜](/images/rules/legends-of-the-three-kingdoms/identity-win.svg)
 | Role | Team | Objective |
 |------|------|-----------|
 | **Monarch (主公)** | Ruler | Eliminate all Rebels and the Traitor |
@@ -31,6 +32,7 @@ Roles are kept secret except the Monarch, who reveals immediately.
 
 ## 5. Game Flow
 
+![Turn: prepare, judge, draw, play, discard, end / 回合：准备、判定、摸牌、出牌、弃牌、结束](/images/rules/legends-of-the-three-kingdoms/turn-flow.svg)
 Each turn consists of **six phases** in order:
 
 ```

@@ -24,9 +24,12 @@ Leave specialists and challenges in the box.
 
 ## Communication
 
+![No hints; chips are the language; red order must be true](/images/rules/the-gang/chips-language.svg)
 You may **not** show, name, or hint your pocket cards. You also may not leak deductions that exist **only** because you know your own hand. Public board information is fair. **Chips are the language.** Watch who takes which chip and how ranks change across rounds.
 
 ## How a heist works
+
+![Four silent rounds: white, yellow, orange, then red](/images/rules/the-gang/heist-rounds.svg)
 
 Shuffle the 52-card deck. Deal **2 pocket cards** facedown to each player (look at your own anytime). Leave space for **5** community cards.
 
@@ -66,6 +69,8 @@ Then start the next heist (reshuffle). A game has **3–5** heists.
 - **Lose:** three alarms red (whichever happens first).
 
 ## Hand rankings (weak → strong)
+
+![Standard poker ranks from high card to straight flush](/images/rules/the-gang/hand-ranks.svg)
 
 Use **exactly five** cards. Ace is high, or low in A-2-3-4-5 only. Suits are equal. Kickers fill out a five-card hand.
 

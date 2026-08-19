@@ -27,6 +27,7 @@ Spring, Summer, Autumn, Winter, Plum, Orchid, Bamboo, Chrysanthemum — 1 each.
 
 ## Game Flow
 
+![Turn: draw one, evaluate, discard one / 巡目：摸一张、判断、打出一张](/images/rules/mahjong/turn-flow.svg)
 ### 1. Setup
 
 1. **Shuffle**: Mix all tiles face-down
@@ -55,6 +56,7 @@ When another player discards a tile, you may claim it:
 
 ## Winning Conditions
 
+![Win with 4 sets plus a pair, or a special hand / 胡牌：四面子一对，或特殊牌型](/images/rules/mahjong/winning-hand.svg)
 ### Standard Winning Hand
 
 A complete hand must form:

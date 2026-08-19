@@ -17,11 +17,15 @@ Shuffle all expansion cards into the base game deck. Each player starts with 3 p
 
 ## New Win Condition
 
+![Win if all pigs are dirty or all pigs are pretty](/images/rules/drecksau-sauschon/new-win.svg)
+
 You win by being the first to have ALL your pigs in the **same state**:
 - **All Dirty Pigs** — win the Mud Bucket
 - **All Pretty Pigs** — win the Golden Trophy
 
 ## New Card Effects
+
+![Pretty Pig, Escape, and Lucky Bird](/images/rules/drecksau-sauschon/new-cards.svg)
 
 ### Pretty Pig (Schönsau)
 Place on **any** pig card (yours or opponent's), whether clean or dirty. The pig becomes a Pretty Pig.

@@ -2,6 +2,10 @@
 
 ## Overview
 
+![Three modes: Spy, Loyal Hero, Adaptation / 三大模式：用间、忠胆英杰、应变](/images/rules/legends-of-the-three-kingdoms-wind-and-cloud/three-modes.svg)
+
+![Requires the base game; pick one of the three modes / 需要基础版，三大模式择一游玩](/images/rules/legends-of-the-three-kingdoms-wind-and-cloud/pick-one-mode.svg)
+
 **Wind and Cloud Gathering** (风云际会) is an official expansion pack for *Legends of the Three Kingdoms* (Sanguosha), released by Yoka Games in 2025. It is a compilation of **three popular variant game modes** — the Spy Chapter (用间篇), the Loyal Hero Chapter (忠胆英杰), and the Adaptation Chapter (应变篇) — each with unique mechanics, cards, and strategies.
 
 **Requires the base game (Legends of the Three Kingdoms) to play.**

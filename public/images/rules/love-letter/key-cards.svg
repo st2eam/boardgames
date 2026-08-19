@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Key cards / 关键卡牌</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Guard 守卫</text>
+    <text x="130.7" y="120" fill="#5D4037">Name a card</text>
+    <text x="130.7" y="148" fill="#8D6E63">猜对手的牌</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Handmaid 侍女</text>
+    <text x="360.0" y="120" fill="#5D4037">You are safe</text>
+    <text x="360.0" y="148" fill="#8D6E63">本回合受保护</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Princess 公主</text>
+    <text x="589.3" y="120" fill="#5D4037">Discard = out</text>
+    <text x="589.3" y="148" fill="#8D6E63">打出或弃掉出局</text>
+  </g>
+</svg>

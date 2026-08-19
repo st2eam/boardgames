@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
+  <rect width="720" height="160" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Game end / 游戏结束</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="52" width="329.0" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="188.5" y="88" fill="#5D4037" font-weight="700">Hit 15 points</text>
+    <text x="188.5" y="110" fill="#8D6E63">有人达到 15 分</text>
+    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="367.0" y="52" width="329.0" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="531.5" y="88" fill="#5D4037" font-weight="700">Fewest points win</text>
+    <text x="531.5" y="110" fill="#8D6E63">分数最少者获胜</text>
+  </g>
+</svg>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Winning hand / 胡牌牌型</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="102.0" y="82" fill="#5D4037" font-weight="700" font-size="15">4 sets 四面子</text>
+    <text x="102.0" y="120" fill="#5D4037">Chow or pung</text>
+    <text x="102.0" y="148" fill="#8D6E63">顺子或刻子</text>
+    <rect x="196.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="274.0" y="82" fill="#5D4037" font-weight="700" font-size="15">+ 1 pair 加一对将</text>
+    <text x="274.0" y="120" fill="#5D4037">Two identical</text>
+    <text x="274.0" y="148" fill="#8D6E63">两张相同</text>
+    <rect x="368.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="446.0" y="82" fill="#5D4037" font-weight="700" font-size="15">= 14 tiles 共十四张</text>
+    <text x="446.0" y="120" fill="#5D4037">Standard win</text>
+    <text x="446.0" y="148" fill="#8D6E63">标准胡牌</text>
+    <rect x="540.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="618.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Or special 或特殊胡</text>
+    <text x="618.0" y="120" fill="#5D4037">7 pairs / orphans</text>
+    <text x="618.0" y="148" fill="#8D6E63">七对或十三幺</text>
+  </g>
+</svg>

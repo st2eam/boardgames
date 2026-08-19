@@ -49,7 +49,6 @@ At the end of your turn, you may hold **no more than 10 tokens** (including gold
 ## Bonuses
 
 ![Purchased cards give permanent gem discounts that stack](/images/rules/splendor/bonuses.svg)
-
 Each purchased development card displays a gem icon in the upper-right corner. This provides a **permanent bonus** that counts as 1 gem of that color for all future purchases. Bonuses stack — if you own 3 cards with a blue bonus, you effectively have 3 free blue gems every turn.
 
 ## Noble Visits

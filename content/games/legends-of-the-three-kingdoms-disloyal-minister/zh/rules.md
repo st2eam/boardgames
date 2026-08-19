@@ -12,6 +12,7 @@
 
 ## 7 种身份模式
 
+![Seven identity modes change alliances; details stay on the mode cards / 七种身份模式改变阵营，细则见模式卡](/images/rules/legends-of-the-three-kingdoms-disloyal-minister/seven-modes.svg)
 本扩展包含 7 种截然不同的身份配置，每种都创造出独特的社交推理体验。每种模式改变了存在的身份、胜利条件以及联盟运作方式。
 
 ### 核心设计理念
@@ -24,6 +25,7 @@
 
 ## 使用方法
 
+![Choose a mode, deal its roles, then play a standard Sanguosha turn / 选模式、发身份，再按标准回合进行](/images/rules/legends-of-the-three-kingdoms-disloyal-minister/how-to-use.svg)
 1. 在游戏开始前选择 7 种身份模式之一。
 2. 根据所选模式的设置规则分发对应的身份牌。
 3. 遵循标准的三国杀回合流程（判定阶段 → 摸牌阶段 → 出牌阶段 → 弃牌阶段 → 结束阶段）。

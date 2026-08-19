@@ -20,6 +20,8 @@ Each card is double-sided: the front shows the card value and the animal, while 
 
 ## How to Play
 
+![Cover two halves that sum to your card, or expand face down](/images/rules/just-wild/play-matching.svg)
+
 Players take turns clockwise. On your turn, you must place a card on the table, then **refill your hand to 3 cards** from your personal draw pile.
 
 ### Option A: Play a Card Face Up (Cover)
@@ -43,9 +45,12 @@ Each species has 10 special cards showing baby animals (numbered 1–10). When y
 
 ## Card Back Information
 
+![The two back numbers sum to the front value](/images/rules/just-wild/card-backs.svg)
 The back of every card shows two numbers whose sum equals the front value. This means you can deduce the front value of face-down cards (yours or opponents') by reading the numbers on the back.
 
 ## End of Game & Scoring
+
+![When you play your last card, each visible half of your species is 1 point](/images/rules/just-wild/scoring.svg)
 
 Players do **not** end the game simultaneously. When you play your **last card**:
 

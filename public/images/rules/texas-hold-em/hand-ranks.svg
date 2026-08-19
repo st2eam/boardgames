@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+  <rect width="720" height="300" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Hand ranks (high) / 牌型（从大）</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <text x="360" y="48" fill="#5D4037" font-size="12">Strong · 强牌</text>
+    <rect x="24.0" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Royal / SF</text>
+    <text x="131.3" y="108" fill="#8D6E63">皇家/同花顺</text>
+    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="252.7" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Quads</text>
+    <text x="360.0" y="108" fill="#8D6E63">四条</text>
+    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="481.3" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Full house</text>
+    <text x="588.7" y="108" fill="#8D6E63">葫芦</text>
+    <text x="360" y="158" fill="#5D4037" font-size="12">Weaker · 较弱</text>
+    <rect x="24.0" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="131.3" y="198" fill="#5D4037" font-weight="700">Flush / straight</text>
+    <text x="131.3" y="218" fill="#8D6E63">同花 / 顺子</text>
+    <path d="M238.7 204h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="252.7" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="360.0" y="198" fill="#5D4037" font-weight="700">Trips / two pair</text>
+    <text x="360.0" y="218" fill="#8D6E63">三条 / 两对</text>
+    <path d="M467.3 204h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="481.3" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="588.7" y="198" fill="#5D4037" font-weight="700">Pair / high card</text>
+    <text x="588.7" y="218" fill="#8D6E63">一对 / 高牌</text>
+  </g>
+</svg>

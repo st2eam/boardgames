@@ -21,6 +21,7 @@ In some rules, one five of each suit is replaced with a red version, counting as
 
 ## Game Structure
 
+![East-only is four east hands; hanchan adds south / 东风战四局；东南战再打南场](/images/rules/riichi-mahjong/game-structure.svg)
 ### Match Types
 
 - **East-only (Tonpuusen)**: East 1 → East 4 (minimum 4 hands)
@@ -42,6 +43,7 @@ In some rules, one five of each suit is replaced with a red version, counting as
 
 ## Core Rules
 
+![Riichi locks a concealed tenpai hand; dora add han / 立直锁定门前听牌；宝牌加番](/images/rules/riichi-mahjong/riichi-dora.svg)
 ### Winning Conditions
 
 Standard form: 4 sets + 1 pair = 14 tiles
@@ -151,6 +153,7 @@ Dora don't count as yaku but add +1 han each.
 
 ## Scoring System
 
+![Score from han and fu; mangan and above are capped / 按番与符计分，满贯起封顶](/images/rules/riichi-mahjong/scoring.svg)
 ### Basic Formula
 
 Points = Fu × 2^(han+2)

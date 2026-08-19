@@ -114,7 +114,6 @@ Game ends at **8** districts.
 ## Character Abilities
 
 ![Characters act in rank order from Assassin (1) to Warlord (8)](/images/rules/citadels/call-order.svg)
-
 Abilities are optional unless the rules say **must** / **cannot**. Once per turn.
 
 ### Rank 1

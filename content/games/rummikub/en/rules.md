@@ -82,7 +82,6 @@ Manipulation is the heart of Rummikub strategy. You may freely rearrange tiles o
 ## Jokers
 
 ![A joker stands in for any tile and counts as that tile’s value](/images/rules/rummikub/joker.svg)
-
 - A joker can **substitute for any tile**
 - In the initial meld, a joker counts as the value of the tile it represents
 - Any player holding the **exact tile** a joker represents may replace it

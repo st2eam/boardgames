@@ -55,6 +55,7 @@ Play **1 floor card** that complements a solitary card on an opponent's top floo
 
 ## Key Rules
 
+![Pay costs, follow icons, race the goal](/images/rules/gotown/key-rules.svg)
 - There is no hand limit.
 - If the draw pile runs out, shuffle the discard pile to form a new draw pile.
 - A floor protected by a Guard Dog cannot be stolen or destroyed until the Dog is removed with a Bone.
@@ -63,5 +64,4 @@ Play **1 floor card** that complements a solitary card on an opponent's top floo
 ## Winning
 
 ![Two cards summing to 9 make a floor; first to five floors wins](/images/rules/gotown/scoring.svg)
-
 The **first player** to complete **5 floors** on their tower wins immediately!

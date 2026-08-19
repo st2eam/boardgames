@@ -90,7 +90,6 @@ Then start the next Age (or end the game after Age III).
 ## Science
 
 ![Identical symbols score n²; each complete set of three types is +7](/images/rules/7-wonders/science.svg)
-
 Green symbols (and some Wonder stages) score **both**:
 
 - **Identical:** 1 / 4 / 9 / 16 / 25 / 36 / 49 for 1–7 copies of one type

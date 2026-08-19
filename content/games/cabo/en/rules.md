@@ -22,6 +22,7 @@ Race to get as close to Cabo as possible and find the legendary unicorn. The num
 
 ## How to Play
 
+![Draw to discard or swap, take discard and swap, or call CABO](/images/rules/cabo/turn-flow.svg)
 Play proceeds clockwise. On your turn, choose **one** action:
 
 ### 1. Draw from Draw Pile
@@ -52,6 +53,7 @@ When swapping a drawn card with 2+ of your cards, the selected cards **must have
 
 ## Card Special Abilities
 
+![7–8 peek yourself, 9–10 spy, 11–12 blind swap](/images/rules/cabo/abilities.svg)
 When you draw from the Draw Pile and choose to discard, these numbers grant abilities:
 
 | Number | Ability | Effect |
@@ -64,6 +66,7 @@ When you draw from the Draw Pile and choose to discard, these numbers grant abil
 
 ## End of Round
 
+![After CABO, others take one last turn, then reveal and sum](/images/rules/cabo/cabo-call.svg)
 A round ends when either:
 - A player **calls CABO** and all others take one final turn
 - The **Draw Pile is depleted**

@@ -31,6 +31,7 @@
 
 ## 航程流程
 
+![Voyage: auction, place, dice boats, payout / 航程：竞拍、放置、掷骰、分红](/images/rules/manila/voyage-flow.svg)
 每轮航程按以下顺序进行：
 
 1. 竞拍 **港务长**
@@ -70,6 +71,7 @@
 
 ## 3. 放置同伙与移动舢板
 
+![Accomplice spots: ware, port, pirates, insurance / 同伙格：货物、港口、海盗、保险](/images/rules/manila/accomplice-spots.svg)
 本阶段包含 **三轮放置同伙**，每轮之后进行 **一轮舢板移动**。
 
 **3 人局例外：** 共有 **4** 轮放置与 **3** 轮移动。先连续进行两轮放置，再按「放置 → 移动」交替。
@@ -130,6 +132,7 @@
 
 ## 4. 利润分配
 
+![Payout order: pirates, ware, port, shipyard / 分红顺序：海盗、货物、港口、船坞](/images/rules/manila/profit-order.svg)
 向成功的同伙支付利润：
 
 1. **海盗** — 仅当第 3 轮结束停在 13 格被劫掠时；均分货物装载利润（仅一名海盗则独吞）。

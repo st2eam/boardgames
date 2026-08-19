@@ -23,8 +23,6 @@ Spots is a push-your-luck dice game for 1â€“4 players. You roll dice and place t
 
 ## How to Play
 
-![Do a trick (flip a tile, roll and place) or score completed dogs](/images/rules/spots/tricks.svg)
-
 ![Place matching dice on dogs; bury the rest; bust if the yard exceeds 7](/images/rules/spots/dice-place.svg)
 
 Players take turns clockwise. On your turn, choose one of two actions:
@@ -78,6 +76,7 @@ If you fill **all** your face-up dogs during a trick, score them **instantly** â
 
 ## Resetting Trick Tiles
 
+![When the tile says, flip it back](/images/rules/spots/tricks.svg)
 When only **1 face-up trick tile** remains at the start of your turn:
 
 1. Place **1 treat** from the supply onto the last face-up tile.

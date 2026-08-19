@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
+  <rect width="720" height="160" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Ko rule / 劫争</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="102.8" y="88" fill="#5D4037" font-weight="700">Capture one</text>
+    <text x="102.8" y="110" fill="#8D6E63">提掉一子</text>
+    <path d="M181.5 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="195.5" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="274.2" y="88" fill="#5D4037" font-weight="700">No instant recapture</text>
+    <text x="274.2" y="110" fill="#8D6E63">禁止立即回提</text>
+    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="367.0" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="445.8" y="88" fill="#5D4037" font-weight="700">Play elsewhere</text>
+    <text x="445.8" y="110" fill="#8D6E63">先在他处落子</text>
+    <path d="M524.5 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="538.5" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="617.2" y="88" fill="#5D4037" font-weight="700">Then may retake</text>
+    <text x="617.2" y="110" fill="#8D6E63">之后才可提回</text>
+  </g>
+</svg>

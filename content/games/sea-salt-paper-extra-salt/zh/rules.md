@@ -10,6 +10,10 @@
 
 ## 新卡牌
 
+![水母+泳客锁对手；龙虾看顶 5 留 1](/images/rules/sea-salt-paper-extra-salt/new-duos.svg)
+
+![海星三人组、海马补收集、螃蟹大军](/images/rules/sea-salt-paper-extra-salt/specials.svg)
+
 ### 组合牌
 
 #### 水母 + 泳客
@@ -39,6 +43,7 @@
 
 ## 卡牌数量一览
 
+![看张数表，组合仍是 2，喊停仍可用](/images/rules/sea-salt-paper-extra-salt/counts.svg)
 | 卡牌 | 数量 | 类型 |
 |------|:----:|------|
 | 水母 | 2 | 组合牌（与泳客配对） |

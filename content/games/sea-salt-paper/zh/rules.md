@@ -21,6 +21,10 @@
 
 ## 回合流程
 
+![抽 2 留 1 或拿弃牌，然后可打出双人组](/images/rules/sea-salt-paper/draw-choose.svg)
+
+![满 7 分可喊停或最后机会](/images/rules/sea-salt-paper/stop-last-chance.svg)
+
 轮到你时，按顺序执行：
 
 ### 第一步：拿取一张牌（必须执行）
@@ -52,6 +56,8 @@
 ---
 
 ## 卡牌类型与计分
+
+![双人组、收集牌与美人鱼计分方式不同](/images/rules/sea-salt-paper/card-types.svg)
 
 无论卡牌在手中还是打在面前，都参与计分。
 

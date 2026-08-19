@@ -32,6 +32,7 @@
 
 ## 回合流程
 
+![Turn: roll, move counter-clockwise, trigger space / 回合：掷骰、逆时针走、触发格子](/images/rules/arena-magnate-haw/turn-flow.svg)
 每回合执行以下步骤：
 
 1. **投骰子** — 投出一枚骰子，以 **逆时针** 方向前进对应点数
@@ -105,6 +106,7 @@
 
 ## 出售项目
 
+![Sell at 50% or auction; no assets plus debt is bankruptcy / 半价或拍卖；无资产仍欠债则破产](/images/rules/arena-magnate-haw/sell-bankruptcy.svg)
 玩家可以在 **任何时候** 出售自己的项目：
 
 - **出售给榴莲教练**：以项目总价（含升级费用）的 **50%** 出售

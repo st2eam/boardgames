@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
+  <rect width="720" height="160" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Discard abilities / 弃牌能力</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="131.3" y="88" fill="#5D4037" font-weight="700">7–8 Peek self</text>
+    <text x="131.3" y="110" fill="#8D6E63">7–8 看自己</text>
+    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="88" fill="#5D4037" font-weight="700">9–10 Spy other</text>
+    <text x="360.0" y="110" fill="#8D6E63">9–10 看别人</text>
+    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="588.7" y="88" fill="#5D4037" font-weight="700">11–12 Swap blind</text>
+    <text x="588.7" y="110" fill="#8D6E63">11–12 盲换</text>
+  </g>
+</svg>

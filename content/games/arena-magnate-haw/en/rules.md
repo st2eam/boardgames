@@ -32,6 +32,7 @@ The player who most recently ate durian goes first! All players proceed clockwis
 
 ## Turn Sequence
 
+![Turn: roll, move counter-clockwise, trigger space / 回合：掷骰、逆时针走、触发格子](/images/rules/arena-magnate-haw/turn-flow.svg)
 Each turn consists of:
 
 1. **Roll dice** — Roll one die and move that many spaces **counter-clockwise**
@@ -105,6 +106,7 @@ When another player lands on your entertainment facility, roll **two dice** and 
 
 ## Selling Facilities
 
+![Sell at 50% or auction; no assets plus debt is bankruptcy / 半价或拍卖；无资产仍欠债则破产](/images/rules/arena-magnate-haw/sell-bankruptcy.svg)
 Players may sell their facilities **at any time**:
 
 - **Sell to Coach Durian**: Sell at **50%** of total facility value (including upgrade costs)

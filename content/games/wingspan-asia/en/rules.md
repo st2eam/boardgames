@@ -25,6 +25,7 @@ Wingspan Asia is the third expansion for Wingspan, adding 90 new Asian bird card
 
 ## Setup (as Card Expansion)
 
+![Shuffle Asia birds in; keep the base board](/images/rules/wingspan-asia/setup.svg)
 Shuffle the 90 Asian bird cards and 14 bonus cards into the corresponding base game decks. All bird powers are fully compatible with the base game and all previous expansions.
 
 ## New Game Modes

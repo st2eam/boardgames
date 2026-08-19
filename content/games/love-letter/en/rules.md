@@ -28,6 +28,7 @@ To win a round, you must either have the **highest-value card** at the end of th
 
 ## Game Play
 
+![Draw 1, play 1 of the two cards, keep the other](/images/rules/love-letter/draw-play.svg)
 Love Letter is played over several rounds. Take turns in clockwise order.
 
 ### Player Turn
@@ -49,6 +50,7 @@ Some effects knock you out of the current round. When this happens:
 
 ## Card Effects — Full Game (2–6 Players)
 
+![Guard names a card, Handmaid protects, Princess knocks you out](/images/rules/love-letter/key-cards.svg)
 | Value | № | Name | Effect description |
 |:-----:|:-:|------|--------------------|
 | 9 | 1 | **Princess** | If you play or discard this card, you are out of the round. |
@@ -77,6 +79,7 @@ Some effects knock you out of the current round. When this happens:
 
 ## End of a Round
 
+![Round ends when the deck is empty or one player remains](/images/rules/love-letter/round-end.svg)
 A round ends in one of two ways:
 
 ### Deck Runs Out

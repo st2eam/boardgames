@@ -22,6 +22,10 @@ This **30th Anniversary Edition** adds:
 
 ## Base Game (2–10 players)
 
+![Everyone plays 1 card; place low to high into 4 rows](/images/rules/6-nimmt-30th-anniversary/play-to-rows.svg)
+
+![The sixth card in a row takes the first five](/images/rules/6-nimmt-30th-anniversary/take-sixth.svg)
+
 ### Setup
 
 1. Shuffle all number cards; deal **10** to each player.
@@ -64,6 +68,7 @@ Use only `players × 10 + 4` cards (values 1 through that count). Draft hands fa
 
 ## Fan Special Cards (add one variant at a time)
 
+![Add only one fan variant at a time](/images/rules/6-nimmt-30th-anniversary/fan-specials.svg)
 ### Even/Odd
 
 Place the card left of the **lowest** starter; show even/odd to match that number. That row only accepts even **or** odd cards (as shown). Whenever anyone takes a row, move the marker to the row whose **last** card is currently lowest and flip even/odd to match.

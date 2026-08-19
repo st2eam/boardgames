@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Organizations / 机构</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="102.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Keep 1 board 留一块机构板</text>
+    <text x="102.0" y="120" fill="#5D4037">Dealt 2, keep 1</text>
+    <text x="102.0" y="148" fill="#8D6E63">抽两留一</text>
+    <rect x="196.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="274.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Quick Start 快速开局</text>
+    <text x="274.0" y="120" fill="#5D4037">Skip round 1</text>
+    <text x="274.0" y="148" fill="#8D6E63">跳过缓慢首轮</text>
+    <rect x="368.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="446.0" y="82" fill="#5D4037" font-weight="700" font-size="15">4 rounds only 只打四回合</text>
+    <text x="446.0" y="120" fill="#5D4037">Play rounds 2–5</text>
+    <text x="446.0" y="148" fill="#8D6E63">进行第2至5轮</text>
+    <rect x="540.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="618.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Income later 收入延后</text>
+    <text x="618.0" y="120" fill="#5D4037">Start of 3, 4, 5</text>
+    <text x="618.0" y="148" fill="#8D6E63">第3、4、5轮初</text>
+  </g>
+</svg>

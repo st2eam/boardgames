@@ -25,6 +25,7 @@ Exploding Kittens is a highly-strategic, kitty-powered version of Russian Roulet
 
 ## How to Play
 
+![Play any number of cards, then you must draw](/images/rules/exploding-kittens/turn-flow.svg)
 On your turn, you may play any number of cards (or none), then you **must draw** a card from the top of the deck.
 
 If you draw an Exploding Kitten:
@@ -33,6 +34,7 @@ If you draw an Exploding Kitten:
 
 ## Card Reference
 
+![Exploding Kitten kills you unless you Defuse](/images/rules/exploding-kittens/explode-vs-defuse.svg)
 | Card | Effect |
 |------|--------|
 | **Exploding Kitten** | You must defuse it or die |
@@ -47,6 +49,7 @@ If you draw an Exploding Kitten:
 
 ## Cat Card Combos
 
+![Pair steals a random card; triple names a card](/images/rules/exploding-kittens/cat-combos.svg)
 - **Two of a kind** — Steal 1 random card from any player
 - **Three of a kind** — Name a specific card and take it from any player (if they have it)
 - **Five different** — Take any 1 card from the discard pile

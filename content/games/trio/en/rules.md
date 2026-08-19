@@ -11,6 +11,7 @@ TRIO (originally published as *nana* in Japan) is a set-collection card game whe
 
 ## Setup
 
+![Hands stay sorted; you may only reveal the ends](/images/rules/trio/sorted-hands.svg)
 1. Choose a game mode: **Simple** or **Spicy** (recommended to start with Simple).
 2. Shuffle all 36 cards.
 3. Deal cards to each player based on player count:
@@ -27,6 +28,7 @@ TRIO (originally published as *nana* in Japan) is a set-collection card game whe
 
 ## How to Play
 
+![Flip a center card or ask a hand for its highest or lowest](/images/rules/trio/ask-rank.svg)
 Players take turns clockwise. On your turn, you reveal numbered cards **one at a time**, trying to find three cards showing the same number.
 
 ### Revealing Cards
@@ -52,6 +54,7 @@ Your turn ends in one of two ways:
 
 ## Winning the Game
 
+![Collect three of a rank; win with 3 sets or the 7s](/images/rules/trio/set-collection.svg)
 ### Simple Mode
 
 You win by achieving **either** of these:

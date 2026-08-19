@@ -35,6 +35,7 @@
 
 ## 棋组与气
 
+![Liberties are empty orthogonal neighbors; a group shares them / 气是正交空邻点，整组共享](/images/rules/go/liberties.svg)
 每颗棋子都依靠周围的空交叉点"呼吸"，这些空交叉点称为**气（Liberties）**。
 
 上下左右相连（斜线不算）的同色棋子组成一个**棋组（Group / Chain）**，同一棋组共享所有气。
@@ -50,6 +51,7 @@
 
 ## 提子
 
+![Fill the last liberty and the whole group is captured / 填尽最后一口气，整组被提](/images/rules/go/capture.svg)
 当一个棋组的**最后一口气**被对方堵住时，该棋组立即被提走（**提子 / Capture**），并从棋盘上移除。
 
 例如：
@@ -74,6 +76,7 @@
 
 ## 劫
 
+![After a ko capture you must play elsewhere before recapturing / 提劫后须先在他处落子才能回提](/images/rules/go/ko.svg)
 有时双方可能形成可以无限来回提子的局面，这种情况称为**劫（Ko）**。
 
 最简单的劫形：

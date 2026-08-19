@@ -22,6 +22,10 @@
 
 ## 基础规则（2–10 人）
 
+![每人同时出 1 张，从小到大归入 4 行](/images/rules/6-nimmt-30th-anniversary/play-to-rows.svg)
+
+![某行第 6 张必须收走前 5 张](/images/rules/6-nimmt-30th-anniversary/take-sixth.svg)
+
 ### 准备
 
 1. 洗混全部数字牌，每人发 **10** 张。
@@ -64,6 +68,7 @@
 
 ## 粉丝特殊牌（每次只加一种）
 
+![粉丝特殊牌每次只加一种](/images/rules/6-nimmt-30th-anniversary/fan-specials.svg)
 ### 奇偶（Even/Odd）
 
 放在**最小**起始牌左侧，并翻到与该数奇偶一致的一面。该行只能接偶数或奇数（依牌面）。每当有人收行，把标记移到当前**末牌最小**的那一行，并按奇偶翻面。

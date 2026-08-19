@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Place a card / 出一张牌</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Cover two halves 盖住两半</text>
+    <text x="130.7" y="120" fill="#5D4037">Value = their sum</text>
+    <text x="130.7" y="148" fill="#8D6E63">点数等于两半之和</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Or expand 或扩张</text>
+    <text x="360.0" y="120" fill="#5D4037">Play face down</text>
+    <text x="360.0" y="148" fill="#8D6E63">扣着贴在旁边</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Refill to 3 补到手牌 3</text>
+    <text x="589.3" y="120" fill="#5D4037">Then next player</text>
+    <text x="589.3" y="148" fill="#8D6E63">然后轮到下家</text>
+  </g>
+</svg>

@@ -11,6 +11,7 @@
 
 ## 牌面点数
 
+![2–10 为面值，人头 10 点，A 为 1 或 11](/images/rules/blackjack/card-values.svg)
 | 牌面 | 点数 |
 |------|------|
 | 2-10 | 面值 |
@@ -18,6 +19,8 @@
 | A | 1 或 11（取对手牌有利的值） |
 
 ## 游戏流程
+
+![要牌、停牌或加倍](/images/rules/blackjack/player-actions.svg)
 
 ### 1. 下注
 
@@ -66,6 +69,8 @@
 | 玩家Blackjack | 赔率3:2 |
 
 ## 硬牌与软牌
+
+![硬牌没有按 11 的 A；软牌 A 算 11；超过 21 爆牌](/images/rules/blackjack/hard-vs-soft.svg)
 
 - **硬牌（Hard Hand）**：不含A的手牌，或A只能计为1的手牌（如 A+6+10 = 硬17）
 - **软牌（Soft Hand）**：含A且A计为11的手牌（如 A+6 = 软17）

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
   <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Casino Payout / 赌场结算</text>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Payout / 结算</text>
   <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
     <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Ties out 平局出局</text>
-    <text x="130.7" y="120" fill="#5D4037">Tied counts win nothing</text>
-    <text x="130.7" y="148" fill="#8D6E63">数量相同则都空手</text>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Most dice wins 骰最多者赢</text>
+    <text x="130.7" y="120" fill="#5D4037">Most dice wins</text>
+    <text x="130.7" y="148" fill="#8D6E63">骰最多者赢</text>
     <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Most 最多</text>
-    <text x="360.0" y="120" fill="#5D4037">Takes the higher card</text>
-    <text x="360.0" y="148" fill="#8D6E63">拿金额较高的那张</text>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Ties cancel 平手抵消</text>
+    <text x="360.0" y="120" fill="#5D4037">Ties cancel</text>
+    <text x="360.0" y="148" fill="#8D6E63">平手抵消</text>
     <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Second 第二</text>
-    <text x="589.3" y="120" fill="#5D4037">Takes the other card</text>
-    <text x="589.3" y="148" fill="#8D6E63">拿剩下那张</text>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Casino pays bills 赌场付钱</text>
+    <text x="589.3" y="120" fill="#5D4037">Casino pays bills</text>
+    <text x="589.3" y="148" fill="#8D6E63">赌场付钱</text>
   </g>
 </svg>

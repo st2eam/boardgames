@@ -10,6 +10,10 @@ Shuffle all 8 expansion cards into the base game deck. No other rule changes are
 
 ## New Cards
 
+![Jellyfish+Swimmer locks opponents; Lobster looks at 5](/images/rules/sea-salt-paper-extra-salt/new-duos.svg)
+
+![Starfish trio, Seahorse collector, Crab multiplier](/images/rules/sea-salt-paper-extra-salt/specials.svg)
+
 ### Duo Cards
 
 #### Jellyfish + Swimmer (水母 + 泳客)
@@ -39,6 +43,7 @@ Shuffle all 8 expansion cards into the base game deck. No other rule changes are
 
 ## Card Count Summary
 
+![Use the count table; duos still 2; STOP still works](/images/rules/sea-salt-paper-extra-salt/counts.svg)
 | Card | Quantity | Type |
 |------|:--------:|------|
 | Jellyfish | 2 | Duo (pairs with Swimmer) |

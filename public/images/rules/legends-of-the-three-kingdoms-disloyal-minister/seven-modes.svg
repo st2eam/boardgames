@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Seven identity modes / 七种身份模式</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="102.0" y="82" fill="#5D4037" font-weight="700" font-size="15">7 setups 七种配置</text>
+    <text x="102.0" y="120" fill="#5D4037">On mode cards</text>
+    <text x="102.0" y="148" fill="#8D6E63">细则见模式卡</text>
+    <rect x="196.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="274.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Asymmetric info 情报不对称</text>
+    <text x="274.0" y="120" fill="#5D4037">Some know more</text>
+    <text x="274.0" y="148" fill="#8D6E63">有人信息更多</text>
+    <rect x="368.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="446.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Shifting sides 阵营可变</text>
+    <text x="446.0" y="120" fill="#5D4037">Allegiance may flip</text>
+    <text x="446.0" y="148" fill="#8D6E63">中途可能改阵营</text>
+    <rect x="540.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="618.0" y="82" fill="#5D4037" font-weight="700" font-size="15">New roles 新身份</text>
+    <text x="618.0" y="120" fill="#5D4037">Tyrant, madman…</text>
+    <text x="618.0" y="148" fill="#8D6E63">暴君、失心疯等</text>
+  </g>
+</svg>

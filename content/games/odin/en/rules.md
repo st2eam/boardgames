@@ -23,6 +23,8 @@ Chinese edition title: **维京怒火**.
 
 ## How to Play
 
+![Play a higher set of the same size or one more, then take one beaten card](/images/rules/odin/play-or-take.svg)
+
 The game is played over several **hands**. Each hand is divided into **rounds**.
 
 ### Starting a Round
@@ -68,6 +70,8 @@ If **all but one** player pass consecutively, discard any cards left in the midd
 
 ## End of a Hand
 
+![Emptying your hand ends it; leftover cards score 1 each](/images/rules/odin/hand-end.svg)
+
 A hand ends in either way:
 
 1. **Empty hand:** You play card(s) and have **no cards left**. Do **not** pick up a card from the middle. The hand ends immediately.
@@ -83,6 +87,7 @@ Collect and shuffle all cards. Deal 9 to each player. The player to the **left**
 
 ## End of the Game
 
+![When someone hits 15, fewest points wins](/images/rules/odin/game-end.svg)
 Recommended for a first game: play until a player reaches **15** or more points. Then the player with the **fewest** points wins (ties share victory).
 
 | Length | Play to |

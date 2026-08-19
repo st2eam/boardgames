@@ -27,6 +27,7 @@
 
 ## 游戏流程
 
+![Turn: draw one, evaluate, discard one / 巡目：摸一张、判断、打出一张](/images/rules/mahjong/turn-flow.svg)
 ### 1. 开局准备
 
 1. **洗牌**：将所有牌面朝下混合洗匀
@@ -55,6 +56,7 @@
 
 ## 胡牌条件
 
+![Win with 4 sets plus a pair, or a special hand / 胡牌：四面子一对，或特殊牌型](/images/rules/mahjong/winning-hand.svg)
 ### 标准胡牌型
 
 手牌需组成以下结构：

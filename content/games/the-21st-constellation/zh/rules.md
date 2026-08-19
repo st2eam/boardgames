@@ -46,6 +46,7 @@
 
 ## 回合流程
 
+![Each turn: play spells, draw a star, or pass / 每回合：出术卡、抽群星卡、或空过](/images/rules/the-21st-constellation/turn-flow.svg)
 每回合玩家**二选一**执行：
 
 ### 选项一：使用术卡
@@ -67,6 +68,7 @@
 
 ## 星之共鸣
 
+![Pairs and sequences draw spells; each slot resonates once / 对子与顺子抽术卡，每个星位只能共鸣一次](/images/rules/the-21st-constellation/star-resonance.svg)
 当明面群星卡出现特定牌型时，触发「星之共鸣」，可抽取对应术卡：
 
 | 牌型 | 条件 | 奖励 |

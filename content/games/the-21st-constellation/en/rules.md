@@ -46,6 +46,7 @@ Use the full Star Card deck (1–K, two of each). Players sitting across from ea
 
 ## Turn Structure
 
+![Each turn: play spells, draw a star, or pass / 每回合：出术卡、抽群星卡、或空过](/images/rules/the-21st-constellation/turn-flow.svg)
 On your turn, choose ONE of the following:
 
 ### Option 1: Play Spell Cards
@@ -67,6 +68,7 @@ On your turn, choose ONE of the following:
 
 ## Star Resonance
 
+![Pairs and sequences draw spells; each slot resonates once / 对子与顺子抽术卡，每个星位只能共鸣一次](/images/rules/the-21st-constellation/star-resonance.svg)
 When your face-up Star Cards form specific patterns, "Star Resonance" triggers and you draw bonus Spell Cards:
 
 | Pattern | Condition | Reward |

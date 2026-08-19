@@ -35,6 +35,7 @@ UNO Show 'Em No Mercy 是美泰（Mattel）出版的最残忍版 UNO。拥有 16
 
 ## 特殊规则
 
+![抽牌可叠加同等或更高；手牌 25 张即淘汰](/images/rules/uno-show-em-no-mercy/stacking-mercy.svg)
 ### 叠加规则
 罚抽牌**可以叠加**。有人对你打出罚抽牌（+2、+4、+6、+10）时，你可以打出**相同或更高数值**的罚抽牌将惩罚传给下家。总数持续累加，直到有人无法叠加，该玩家必须抽取**所有**累计的牌。
 
@@ -49,6 +50,7 @@ UNO Show 'Em No Mercy 是美泰（Mattel）出版的最残忍版 UNO。拥有 16
 
 ## 功能牌
 
+![全弃、全跳过、万能抽六/抽十](/images/rules/uno-show-em-no-mercy/action-highlights.svg)
 | 卡牌 | 效果 |
 |------|------|
 | **跳过** | 下家跳过回合 |
@@ -64,6 +66,7 @@ UNO Show 'Em No Mercy 是美泰（Mattel）出版的最残忍版 UNO。拥有 16
 
 ## 获胜条件
 
+![打空手牌或成为最后留下的人即可获胜](/images/rules/uno-show-em-no-mercy/two-ways-to-win.svg)
 两种获胜方式：
 1. **出完手牌** — 率先打完所有手牌
 2. **最后存活** — 其他所有玩家被无情规则淘汰

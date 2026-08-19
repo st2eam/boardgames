@@ -23,6 +23,8 @@ Texas Hold'em is the most widely played poker variant in the world. Each player 
 
 ## Betting Rounds
 
+![Pre-flop, flop, turn, river, then showdown](/images/rules/texas-hold-em/streets.svg)
+
 A hand consists of four betting rounds:
 
 | Round | Action |
@@ -39,6 +41,8 @@ After the final betting round comes **showdown**:
 - The best 5-card hand wins the pot.
 
 ## Available Actions
+
+![Fold, call, or raise when facing a bet](/images/rules/texas-hold-em/actions.svg)
 
 | Action | Condition | Description |
 |--------|-----------|-------------|
@@ -59,6 +63,7 @@ For example, with A♥ A♦ in hand and K♠ K♣ K♥ Q♠ Q♥ on the board, y
 
 ## Hand Rankings (Highest to Lowest)
 
+![From royal flush down to high card](/images/rules/texas-hold-em/hand-ranks.svg)
 | Rank | Hand | Example | Notes |
 |:---:|------|---------|-------|
 | 1 | **Royal Flush** 🏆 | A♠ K♠ Q♠ J♠ 10♠ | Suited 10-J-Q-K-A |

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Turn: Trick or Score / 回合：技巧或得分</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Reset tricks / 重置技能</text>
   <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Flip a trick tile</text>
-    <text x="131.3" y="110" fill="#8D6E63">翻开技巧板</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Roll / place / bury</text>
-    <text x="360.0" y="110" fill="#8D6E63">掷骰 / 放置 / 埋藏</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Or score filled dogs</text>
-    <text x="588.7" y="110" fill="#8D6E63">或结算已填满的狗</text>
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">When the tile says 看板块时机</text>
+    <text x="130.7" y="120" fill="#5D4037">When the tile says</text>
+    <text x="130.7" y="148" fill="#8D6E63">看板块时机</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Flip it back 翻回去</text>
+    <text x="360.0" y="120" fill="#5D4037">Flip it back</text>
+    <text x="360.0" y="148" fill="#8D6E63">翻回去</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Usable again 又能用</text>
+    <text x="589.3" y="120" fill="#5D4037">Usable again</text>
+    <text x="589.3" y="148" fill="#8D6E63">又能用</text>
   </g>
 </svg>

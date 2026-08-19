@@ -16,6 +16,7 @@ Love Letter Premium Edition is a complete edition for **2–8** suitors. With **
 
 ## Setup (2–4 Players)
 
+![2–4 play the 16-card classic; 5–8 use all 32](/images/rules/love-letter-premium/player-counts.svg)
 Assemble this **16-card** deck (set the other 16 aside):
 
 | Value | Card | Qty |
@@ -100,6 +101,7 @@ Tokens can be gained mid-round (Bishop, Constable, Jester, etc.), so a player ca
 
 ## Expansion Cards (5–8 Only)
 
+![Classic cards for all counts; expansion cards only at 5–8](/images/rules/love-letter-premium/classic-vs-expansion.svg)
 | Value | Card | Qty (in 32) | Effect |
 |:-----:|------|:-----------:|--------|
 | 9 | **Bishop** | 1 | Name a number and a player. If they hold it → gain **1 ♥** (win immediately if that reaches the target). That player may then discard (Princess still knocks out) and redraw. At **end-of-round compare**, Princess still beats Bishop; Bishop is 9 for all other effects. |

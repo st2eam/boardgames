@@ -2,6 +2,10 @@
 
 ## 概述
 
+![Three modes: Spy, Loyal Hero, Adaptation / 三大模式：用间、忠胆英杰、应变](/images/rules/legends-of-the-three-kingdoms-wind-and-cloud/three-modes.svg)
+
+![Requires the base game; pick one of the three modes / 需要基础版，三大模式择一游玩](/images/rules/legends-of-the-three-kingdoms-wind-and-cloud/pick-one-mode.svg)
+
 **《风云际会》**是游卡桌游于2025年推出的官方扩展包，集成了**三大热门变体模式**——用间篇、忠胆英杰、应变篇——每个模式都有独特的机制、卡牌和策略。
 
 **需要基础版（三国杀标准版）才能游玩。**

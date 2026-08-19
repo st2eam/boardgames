@@ -25,6 +25,8 @@ You are a gang of thieves who just robbed an art museum. The heist was easy — 
 
 ## How to Play
 
+![Play one card, take matching loot or steal, draw back to 5](/images/rules/art-robbery/take-or-steal.svg)
+
 The game has **four raids**. At the start of each raid, place that raid's 9 Loot tiles face up in the middle.
 
 | Raid | Collection |
@@ -63,6 +65,8 @@ Some Loot tiles (especially value **0**) show white dots — **Alibis**. Each wh
 
 ## End of a Raid
 
+![Last tile ends the raid; Boss needs a 4 or 5; loot is then safe](/images/rules/art-robbery/raid-end.svg)
+
 A raid ends when the **last tile** is taken from the middle.
 
 1. **Boss check:** You may keep the Boss tile only if you also have a **4 or 5** tile from the **same raid**. Otherwise return the Boss tile to the box.
@@ -73,6 +77,7 @@ A raid ends when the **last tile** is taken from the middle.
 
 ## End of the Game
 
+![Fewest Alibis are caught; remaining players sum loot](/images/rules/art-robbery/game-end.svg)
 After the fourth raid:
 
 ### 1. Alibis

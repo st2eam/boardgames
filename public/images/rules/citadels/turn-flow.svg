@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">A Character Turn / 角色回合</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+  <rect width="720" height="300" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">A round / 一轮</text>
   <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Call rank 1→8</text>
-    <text x="131.3" y="110" fill="#8D6E63">按 1→8 点名</text>
+    <rect x="24.0" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Draft a role</text>
+    <text x="131.3" y="108" fill="#8D6E63">选角色</text>
     <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Gold or district</text>
-    <text x="360.0" y="110" fill="#8D6E63">金币或建筑</text>
+    <rect x="252.7" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Call 1–8</text>
+    <text x="360.0" y="108" fill="#8D6E63">按 1–8 叫</text>
     <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Build (optional)</text>
-    <text x="588.7" y="110" fill="#8D6E63">建造（可选）</text>
+    <rect x="481.3" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Act in order</text>
+    <text x="588.7" y="108" fill="#8D6E63">按号行动</text>
+    <rect x="24.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="188.5" y="198" fill="#5D4037" font-weight="700">Take gold or card</text>
+    <text x="188.5" y="218" fill="#8D6E63">拿钱或牌</text>
+    <path d="M353.0 204h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="367.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="531.5" y="198" fill="#5D4037" font-weight="700">Build a district</text>
+    <text x="531.5" y="218" fill="#8D6E63">建城区</text>
   </g>
 </svg>

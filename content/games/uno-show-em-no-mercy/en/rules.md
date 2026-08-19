@@ -35,6 +35,7 @@ Match the top discard by **color**, **number**, or **symbol**. If you can't play
 
 ## Special Rules
 
+![Stack equal-or-higher draws; 25+ cards eliminates you](/images/rules/uno-show-em-no-mercy/stacking-mercy.svg)
 ### Stacking Rule
 Draw cards **CAN be stacked**. If someone plays a Draw card on you (+2, +4, +6, +10), you may play a Draw card of **equal or higher value** to pass the penalty to the next player. The total accumulates until a player cannot stack, and they must draw **all** accumulated cards.
 
@@ -49,6 +50,7 @@ If a player ever has **25 or more cards** in their hand, they are **immediately 
 
 ## Action Cards
 
+![Discard All, Skip Everyone, Wild Draw Six/Ten](/images/rules/uno-show-em-no-mercy/action-highlights.svg)
 | Card | Effect |
 |------|--------|
 | **Skip** | Next player loses their turn |
@@ -64,6 +66,7 @@ If a player ever has **25 or more cards** in their hand, they are **immediately 
 
 ## Winning
 
+![Win by emptying your hand or being last standing](/images/rules/uno-show-em-no-mercy/two-ways-to-win.svg)
 Two ways to win:
 1. **Empty your hand** — be the first to play all your cards
 2. **Last player standing** — all other players eliminated by the Mercy Rule

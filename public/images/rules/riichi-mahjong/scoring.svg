@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Scoring snapshot / 计分速览</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="102.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Han 番</text>
+    <text x="102.0" y="120" fill="#5D4037">Yaku + dora</text>
+    <text x="102.0" y="148" fill="#8D6E63">役种加宝牌</text>
+    <rect x="196.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="274.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Fu 符</text>
+    <text x="274.0" y="120" fill="#5D4037">Wait / sets</text>
+    <text x="274.0" y="148" fill="#8D6E63">听牌与面子</text>
+    <rect x="368.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="446.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Formula 公式</text>
+    <text x="446.0" y="120" fill="#5D4037">Fu × 2^(han+2)</text>
+    <text x="446.0" y="148" fill="#8D6E63">符×2^(番+2)</text>
+    <rect x="540.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="618.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Caps 封顶</text>
+    <text x="618.0" y="120" fill="#5D4037">Mangan and up</text>
+    <text x="618.0" y="148" fill="#8D6E63">满贯起固定点</text>
+  </g>
+</svg>

@@ -18,6 +18,24 @@
   },
   {
     "name": {
+      "en": "The Gang",
+      "zh": "纸牌帮"
+    },
+    "players": "3-6",
+    "duration": "20 min",
+    "difficulty": "medium",
+    "tags": [
+      "card",
+      "cooperative",
+      "poker"
+    ],
+    "category": "card",
+    "bggRank": 365,
+    "price": 0,
+    "slug": "the-gang"
+  },
+  {
+    "name": {
       "en": "The 21st Constellation",
       "zh": "群星二十一"
     },

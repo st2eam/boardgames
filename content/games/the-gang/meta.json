@@ -1,0 +1,13 @@
+{
+  "name": {
+    "en": "The Gang",
+    "zh": "纸牌帮"
+  },
+  "players": "3-6",
+  "duration": "20 min",
+  "difficulty": "medium",
+  "tags": ["card", "cooperative", "poker"],
+  "category": "card",
+  "bggRank": 365,
+  "price": 0
+}

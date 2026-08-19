@@ -1,0 +1,116 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "Basic game: no specialists or challenges.\n\n1. 3 alarms + 3 vaults **gray up**.\n2. Each player: Gameplay + Hand Ranking card.\n3. Keep chips with stars **≤ player count** (light side).\n\n**Win:** 3 gold vaults. **Lose:** 3 red alarms. 3–6 players; more people is harder. **Do not bluff.**",
+        "zh": "基础局：不用专家卡与挑战卡。\n\n1. 3 警报 + 3 金库 **灰色朝上**。\n2. 每人流程卡 + 牌型表。\n3. 留下星数 **≤ 人数** 的筹码（浅色朝上）。\n\n**胜：** 三座金库翻金。**负：** 三张警报翻红。3–6 人，人越多越难。**不要诈唬。**"
+      },
+      "options": [
+        { "label": { "en": "Heist Rounds", "zh": "劫案流程" }, "next": "heist" },
+        { "label": { "en": "Chips", "zh": "筹码" }, "next": "chips" },
+        { "label": { "en": "Talking", "zh": "交流限制" }, "next": "talk" }
+      ]
+    },
+    "talk": {
+      "title": { "en": "Talking", "zh": "交流限制" },
+      "content": {
+        "en": "No showing, naming, or hinting **pocket cards**. Do not share deductions that exist only because you know your own hand.\n\nBoard cards are public. **Chips** are how you communicate. Watch who takes which star and how ranks change round to round.",
+        "zh": "不能展示、说出或暗示 **底牌**。也不能泄露「只因看见自己的牌才知道」的信息。\n\n公共牌可谈。**筹码** 才是交流方式。观察谁拿了几星、各轮排名如何变。"
+      },
+      "options": [
+        { "label": { "en": "Chips", "zh": "筹码" }, "next": "chips" },
+        { "label": { "en": "Heist Rounds", "zh": "劫案流程" }, "next": "heist" }
+      ]
+    },
+    "heist": {
+      "title": { "en": "Heist Rounds", "zh": "劫案流程" },
+      "content": {
+        "en": "Deal **2** pockets. Four Hold ’em-style rounds:\n\n1. Pre-flop → **white** chips\n2. Flop (3 cards) → **yellow**\n3. Turn (1) → **orange**\n4. River (1) → **red**\n\nThen **showdown** on red chips only. Next heist: reshuffle.",
+        "zh": "发 **2** 张底牌。四轮类似德州：\n\n1. 翻牌前 → **白** 筹码\n2. 翻牌（3 张）→ **黄**\n3. 转牌（1 张）→ **橙**\n4. 河牌（1 张）→ **红**\n\n然后只按 **红筹** 摊牌。下次劫案重新洗牌。"
+      },
+      "options": [
+        { "label": { "en": "Chips", "zh": "筹码" }, "next": "chips" },
+        { "label": { "en": "Showdown", "zh": "摊牌" }, "next": "showdown" }
+      ]
+    },
+    "chips": {
+      "title": { "en": "Chips", "zh": "筹码" },
+      "content": {
+        "en": "Stars = relative hand strength (**1** = weakest).\n\nNo turn order. Take a current-color chip from the center **or** from someone else. Never two of the same color. You may return yours to the center; you may not give one to another player.\n\nKeep older chips in a row so others see your history.",
+        "zh": "星数 = 相对牌力（**1** = 最弱）。\n\n没有回合顺序。从中央或别人面前拿本轮颜色筹码。不能持有两枚同色。可放回中央，不能塞给别人。\n\n旧筹码排成一排，让别人看到判断变化。"
+      },
+      "options": [
+        { "label": { "en": "Showdown", "zh": "摊牌" }, "next": "showdown" },
+        { "label": { "en": "Talking", "zh": "交流限制" }, "next": "talk" }
+      ]
+    },
+    "showdown": {
+      "title": { "en": "Showdown", "zh": "摊牌" },
+      "content": {
+        "en": "Reveal **red** chips from **1 star up**. Best **exact 5** from 7 cards.\n\nEach hand must be **≥** all previous → flip a **vault** gold.\nAnyone weaker than a previous player → flip an **alarm** red.\n\n**True tie** (identical 5 cards): order among those players is ignored.",
+        "zh": "按红筹从 **1 星起** 亮牌。从 7 张里组 **恰好 5 张** 最佳牌。\n\n每次都不弱于之前所有人 → 金库翻 **金**。\n有人弱于先前玩家 → 警报翻 **红**。\n\n**完全平手**（五张相同）：平手者之间顺序无所谓。"
+      },
+      "options": [
+        { "label": { "en": "Hand Ranks", "zh": "牌型" }, "next": "ranks" },
+        { "label": { "en": "Game End", "zh": "胜负" }, "next": "end" }
+      ]
+    },
+    "ranks": {
+      "title": { "en": "Hand Ranks", "zh": "牌型" },
+      "content": {
+        "en": "Weak → strong: high card, pair, two pair, trips, straight, flush, full house, quads, straight flush, royal flush.\n\nAce high, or A-2-3-4-5 only. No K-A-2-3-4. Suits equal. Kickers fill five cards. Full house: trips first, then pair.",
+        "zh": "弱 → 强：高牌、一对、两对、三条、顺子、同花、葫芦、四条、同花顺、皇家同花顺。\n\nA 最大，仅 A-2-3-4-5 可当最小。禁止 K-A-2-3-4。花色同等。踢脚补满五张。葫芦先比三条再比对子。"
+      },
+      "options": [
+        { "label": { "en": "Showdown", "zh": "摊牌" }, "next": "showdown" },
+        { "label": { "en": "Harder Modes", "zh": "进阶模式" }, "next": "modes" }
+      ]
+    },
+    "end": {
+      "title": { "en": "Game End", "zh": "胜负" },
+      "content": {
+        "en": "**Win** when three vaults are gold. **Lose** when three alarms are red.\n\nA game lasts 3–5 heists. Play a full basic game before adding challenges.",
+        "zh": "**三座金库翻金** 即胜。**三张警报翻红** 即负。\n\n整局 3–5 次劫案。先打完基础局再加挑战。"
+      },
+      "options": [
+        { "label": { "en": "Harder Modes", "zh": "进阶模式" }, "next": "modes" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    },
+    "modes": {
+      "title": { "en": "Harder Modes", "zh": "进阶模式" },
+      "content": {
+        "en": "**Advanced:** heist 1 is basic. After that, success → a **challenge** next heist; fail → a **specialist**. Each lasts one heist.\n\n**Professional:** Advanced minus Quick Access. One random challenge lasts **all game**, plus the usual extra card from heist 2.\n\n**Master Thief:** no specialists; lose on **2** alarms; always **two** challenges (swap the lowest number each heist).",
+        "zh": "**进阶：** 第一次仍是基础局。之后成功 → 下次加 **挑战**；失败 → 加 **专家**。各只生效一次劫案。\n\n**专业：** 进阶但去掉快速通道。开局随机 1 张挑战 **整局常驻**，第二次起再额外加一张。\n\n**神偷：** 无专家；**两次** 警报即负；始终 **两张** 挑战（每次弃掉编号最小再抽新的）。"
+      },
+      "options": [
+        { "label": { "en": "Challenges", "zh": "挑战卡" }, "next": "challenges" },
+        { "label": { "en": "Specialists", "zh": "专家卡" }, "next": "specialists" }
+      ]
+    },
+    "challenges": {
+      "title": { "en": "Challenges", "zh": "挑战卡" },
+      "content": {
+        "en": "1 Quick Access: skip white / go to flop.\n2–3 / 6–7: lock 1-star or highest chips; or redraw pockets if flop has / lacks JQK.\n4 Retina: guess a pocket **rank** of the top red chip.\n5 skip orange. 8 Blackout: discard last round’s chips.\n9 Fingerprint: guess top red chip’s **hand type**.\n10 three pocket cards.",
+        "zh": "1 快速通道：跳过白筹，直接翻牌。\n2–3 / 6–7：锁定 1 星或最高星；或按翻牌有/无 JQK 重抽底牌。\n4 视网膜：猜红筹最高者底牌中的一个 **点数**。\n5 跳过橙筹。8 停电：弃掉上一轮筹码。\n9 指纹：猜红筹最高者的 **牌型**。\n10 三张底牌。"
+      },
+      "options": [
+        { "label": { "en": "Specialists", "zh": "专家卡" }, "next": "specialists" },
+        { "label": { "en": "Harder Modes", "zh": "进阶模式" }, "next": "modes" }
+      ]
+    },
+    "specialists": {
+      "title": { "en": "Specialists", "zh": "专家卡" },
+      "content": {
+        "en": "Help after a failed heist (group picks who, before showdown):\n\nshow 1 card · say only your **rank** · count face cards · count a chosen rank · swap a drawn card · pass one pocket left · suitless Jack · announce point sum · redeal pockets · **Muscle** beats same rank.",
+        "zh": "失败后的援助（摊牌前全组指定使用者）：\n\n给一人看 1 张 · 只报 **牌型等级** · 报人头牌数量 · 报某点数张数 · 抽换 1 张 · 传 1 张给左边 · 无花色杰克 · 报点数和 · 重发底牌 · **打手** 同级必胜。"
+      },
+      "options": [
+        { "label": { "en": "Challenges", "zh": "挑战卡" }, "next": "challenges" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    }
+  }
+}

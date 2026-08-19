@@ -26,6 +26,16 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/the-gang/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/the-gang/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/the-21st-constellation/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -634,6 +644,16 @@
     <loc>https://st2eam.github.io/boardgames/zh/games/texas-hold-em/trainer/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/the-gang/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/the-gang/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/the-21st-constellation/</loc>

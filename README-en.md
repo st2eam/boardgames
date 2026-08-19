@@ -2,12 +2,12 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — **54** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — **55** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **54 game rules**: web-verified, complete bilingual rules (EN/ZH)
-- **48 interactive decision trees**: step-by-step flow with sidebar outline navigation
+- **55 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **49 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **12 automatic score trackers**: `cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` / `category` / `feature-calc` / `card-type`, etc.
 - **5 trainers**: Mahjong/Riichi tenpai, Blackjack basic strategy, Texas Hold'em GTO preflop, Go tsumego
 - **5 BBGE online playables**: Love Letter, Texas Hold'em, 6 nimmt!, Go, CABO — designs in [`docs/games/`](docs/games/)
@@ -35,7 +35,7 @@ npm run dev
 npm run build
 ```
 
-> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `54` / `48` flow / `12` score / `5` trainer / `1` calculator / `5` BBGE play). Run `node scripts/print-project-stats.mjs` to verify. Sync BBGE behavior in [`docs/games/<slug>.md`](docs/games/).
+> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `55` / `49` flow / `12` score / `5` trainer / `1` calculator / `5` BBGE play). Run `node scripts/print-project-stats.mjs` to verify. Sync BBGE behavior in [`docs/games/<slug>.md`](docs/games/).
 
 ---
 
@@ -62,6 +62,7 @@ npm run build
 | Game | Rules | Decision Tree | Score / Trainer / Play |
 |------|:-----:|:-------------:|:---------------------:|
 | Texas Hold'em | ✅ | ✅ | 🎯 GTO Preflop · 🎮 Cash table |
+| The Gang | ✅ | ✅ | — |
 | Harmonies | ✅ | ✅ | — |
 | Modern Art | ✅ | ✅ | — |
 | GoTown | ✅ | ✅ | — |

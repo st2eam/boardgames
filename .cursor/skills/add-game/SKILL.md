@@ -1,6 +1,6 @@
 ---
 name: add-game
-description: Add new board games, DLCs, expansions, or variants to The Game Shelf project. Use when user asks to add a game, create game content, or set up a new game entry.
+description: Add new board games, DLCs, expansions, or variants to The Game Shelf project. Use when user asks to add a game, create game content, or set up a new game entry. Includes bilingual rules.md, flow.json, and SVG diagrams at key mechanics.
 ---
 
 # Adding Games to The Game Shelf
@@ -168,6 +168,7 @@ Edge cases, variants, clarifications.
 - Use **Markdown tables** for structured data (card types, scoring, comparisons)
 - Use `**bold**` for key terms and card names
 - Keep language natural — the rules are for human reading, not training data
+- **Diagrams:** follow `.cursor/skills/rule-svg-diagrams/SKILL.md`. 请在关键的节点上尽量加入svg图片 — turn flow, spatial/network ideas, resource priority, card anatomy, board transformations. Files go in `public/images/rules/{slug}/`. Write SVG CJK via Python (the Write tool corrupts it).
 
 ### Step 5: Register the slug
 
@@ -634,6 +635,7 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] Series fields set correctly (if applicable)
 - [ ] `en/rules.md` written with standard structure
 - [ ] `zh/rules.md` written (matching English content)
+- [ ] Key-mechanic SVG diagrams in `public/images/rules/{slug}/` (see `rule-svg-diagrams` skill)
 - [ ] `flow.json` created at game root with bilingual title/content/label (**required**)
 - [ ] `score.json` evaluated — created if game has point-based scoring
 - [ ] `trainer.json` evaluated — created if game has trainable skills
@@ -648,6 +650,10 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 ---
 
 ## Common Pitfalls (Lessons Learned)
+
+### SVG diagrams: Write tool corrupts Chinese
+
+Rule diagrams live in `public/images/rules/{slug}/`. Do **not** use the editor Write tool for SVG that contains CJK — write UTF-8 via Python and read the file back. Full spec: `.cursor/skills/rule-svg-diagrams/SKILL.md`.
 
 ### flow.json: Use `startNode` NOT `start`
 

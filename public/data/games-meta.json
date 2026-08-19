@@ -68,6 +68,25 @@
   },
   {
     "name": {
+      "en": "Las Vegas Royale",
+      "zh": "拉斯维加斯：豪华版"
+    },
+    "players": "2-5",
+    "duration": "40-60 min",
+    "difficulty": "easy",
+    "tags": [
+      "dice",
+      "area-control",
+      "family",
+      "board"
+    ],
+    "category": "board",
+    "bggRank": 944,
+    "price": 181,
+    "slug": "las-vegas-royale"
+  },
+  {
+    "name": {
       "en": "Drecksau",
       "zh": "脏小猪"
     },

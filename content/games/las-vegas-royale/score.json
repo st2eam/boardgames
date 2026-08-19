@@ -1,0 +1,30 @@
+{
+  "type": "card-type",
+  "engine": "card-type",
+  "direction": "high-wins",
+  "multiRound": true,
+  "players": { "min": 2, "max": 5 },
+  "cardTypes": [
+    { "id": "chip", "name": { "en": "Leftover chip ($10,000)", "zh": "剩余筹码（$10,000）" }, "value": 10000, "group": "chip" },
+    { "id": "30k", "name": { "en": "$30,000", "zh": "$30,000" }, "value": 30000, "group": "money" },
+    { "id": "40k", "name": { "en": "$40,000", "zh": "$40,000" }, "value": 40000, "group": "money" },
+    { "id": "50k", "name": { "en": "$50,000", "zh": "$50,000" }, "value": 50000, "group": "money" },
+    { "id": "60k", "name": { "en": "$60,000", "zh": "$60,000" }, "value": 60000, "group": "money" },
+    { "id": "70k", "name": { "en": "$70,000", "zh": "$70,000" }, "value": 70000, "group": "money" },
+    { "id": "80k", "name": { "en": "$80,000", "zh": "$80,000" }, "value": 80000, "group": "money" },
+    { "id": "90k", "name": { "en": "$90,000", "zh": "$90,000" }, "value": 90000, "group": "money" },
+    { "id": "100k", "name": { "en": "$100,000", "zh": "$100,000" }, "value": 100000, "group": "money" }
+  ],
+  "filters": [
+    {
+      "id": "group",
+      "name": { "en": "Type", "zh": "类型" },
+      "field": "group",
+      "values": [
+        { "id": "all", "name": { "en": "All", "zh": "全部" } },
+        { "id": "money", "name": { "en": "Money cards", "zh": "现金卡" } },
+        { "id": "chip", "name": { "en": "Chips", "zh": "筹码" } }
+      ]
+    }
+  ]
+}

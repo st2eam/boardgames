@@ -1,0 +1,131 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Setup", "zh": "游戏准备" },
+      "content": {
+        "en": "1. Dice arena in the center, casino ring **1–6** around it.\n2. Reveal **6 pairs** of money cards. Highest total → casino **6**, then **5** … down to **1**. Tied totals: higher single card → higher casino.\n3. Each player: **7 small + 1 Biggy** and **2 chips**.\n\n**Main game:** random **3 tiles** on casinos **1–3**; leftover money is the **bank**; set 24 cards aside for later rounds.",
+        "zh": "1. 中央放骰盘，赌场环 **1–6** 围住。\n2. 翻出 **6 对** 现金卡。总额最高 → **6 号**，然后 **5 号**……直到 **1 号**。总额相同则单张更高者放编号更大的赌场。\n3. 每人 **7 小 + 1 大骰** 和 **2 枚筹码**。\n\n**完整规则：** 随机 **3 张板块** 放 **1–3 号**；剩余现金作 **银行**；预留 24 张给后续回合。"
+      },
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "your-turn" },
+        { "label": { "en": "Casino Tiles", "zh": "赌场板块" }, "next": "tiles" },
+        { "label": { "en": "2-Player", "zh": "2 人变体" }, "next": "two-player" }
+      ]
+    },
+    "your-turn": {
+      "title": { "en": "On Your Turn", "zh": "你的回合" },
+      "content": {
+        "en": "1. Roll **all remaining dice** into the arena.\n2. Optional: pay **1 chip** to **pass** — take the dice back; you do **not** place this turn.\n3. Otherwise pick **one number** and place **every** matching die (no partials).\n4. **Main game:** placing on casinos **1–3** **activates** that tile.\n\nNo dice left → skip. Oldest player starts round 1.",
+        "zh": "1. 把 **剩余全部骰子** 掷进骰盘。\n2. 可选：花 **1 枚筹码过牌** — 骰子收回，本回合不放置。\n3. 否则选定 **一个点数**，将该点数 **全部** 放入（不可部分放置）。\n4. **完整规则：** 放入 **1–3 号** 会 **触发** 板块。\n\n没有骰子则跳过。第 1 回合由最年长者开始。"
+      },
+      "options": [
+        { "label": { "en": "Biggy & Chips", "zh": "大骰与筹码" }, "next": "biggy-chips" },
+        { "label": { "en": "Payout", "zh": "结算" }, "next": "payout" },
+        { "label": { "en": "Casino Tiles", "zh": "赌场板块" }, "next": "tiles" }
+      ]
+    },
+    "biggy-chips": {
+      "title": { "en": "Biggy & Chips", "zh": "大骰与筹码" },
+      "content": {
+        "en": "**Biggy** = **2** small dice for majority, ties, and High Five. On Knockout? it still fills only **one** bar slot.\n\n**Chips:** after a bad roll, pay 1 to sit out (dice return to your supply). Leftover chips carry over. At game end each is **$10,000**. Bank never pays chips as change.",
+        "zh": "**大骰** 在多数、并列、击掌庆祝中计为 **2** 枚小骰。酩酊大醉时仍只占酒吧 **1** 个名额。\n\n**筹码：** 掷得差可花 1 枚过牌（骰子收回储备）。未用筹码带到下回合。终局每枚 **$10,000**。银行找零不给筹码。"
+      },
+      "options": [
+        { "label": { "en": "Payout", "zh": "结算" }, "next": "payout" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "your-turn" }
+      ]
+    },
+    "payout": {
+      "title": { "en": "Payout", "zh": "结算" },
+      "content": {
+        "en": "When the last die is placed:\n\n**Ties:** same dice count (Biggy = 2) → **all tied players** take their dice back, win nothing.\n\n**Pay:** most dice → **higher** card; second → the other card. Leftover cards go **under the pile**.\n\n**Next round:** +2 chips each, new 6 pairs, pass start to casino **6**’s higher-card winner.",
+        "zh": "最后一枚骰子放完后：\n\n**并列：** 数量相同（大骰 = 2）→ **所有并列者** 收回骰子、不得分。\n\n**发钱：** 最多 → **高额** 卡；次多 → 另一张。剩余卡放回牌堆 **底部**。\n\n**下一回合：** 每人 +2 筹码，再发 6 对现金，起始玩家 = **6 号** 高额卡获得者。"
+      },
+      "options": [
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" },
+        { "label": { "en": "Tie Examples", "zh": "并列示例" }, "next": "tie-examples" },
+        { "label": { "en": "Casino Tiles", "zh": "赌场板块" }, "next": "tiles" }
+      ]
+    },
+    "tie-examples": {
+      "title": { "en": "Tie Examples", "zh": "并列示例" },
+      "content": {
+        "en": "**A:** Anna 5, Ben 3, Carla Biggy+1 (=3), Denny 1 → Ben and Carla leave.\n\n**B:** Anna Biggy (=2), Carla 2, Ben 1, Denny 1 → **everyone** leaves.\n\nOnly **untied** players can take that casino’s cards.",
+        "zh": "**A：** Anna 5，Ben 3，Carla 大骰+1（=3），Denny 1 → Ben 与 Carla 出局。\n\n**B：** Anna 大骰（=2），Carla 2，Ben 1，Denny 1 → **全员** 出局。\n\n只有 **未并列** 的玩家能拿该赌场的卡。"
+      },
+      "options": [
+        { "label": { "en": "Payout", "zh": "结算" }, "next": "payout" },
+        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" }
+      ]
+    },
+    "game-end": {
+      "title": { "en": "Game End", "zh": "游戏结束" },
+      "content": {
+        "en": "After **3 rounds**, add money cards + **$10,000 per leftover chip**.\n\nHighest total wins. Tie → most **cards + chips**. Still tied → shared win.\n\nMoney in the box: $30k–$100k (no $10k/$20k bills — those values come from leftover chips and some tiles).",
+        "zh": "**3 个回合** 后，现金卡 + 每枚剩余筹码 **$10,000**。\n\n总额最高获胜。平局 → 比较 **卡张数 + 筹码数**。仍平 → 并列获胜。\n\n盒内现金为 $30k–$100k（没有 $10k/$20k 钞票 — 这些面额来自剩余筹码和部分板块）。"
+      },
+      "options": [
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "2-Player", "zh": "2 人变体" }, "next": "two-player" }
+      ]
+    },
+    "two-player": {
+      "title": { "en": "2-Player Variant", "zh": "2 人变体" },
+      "content": {
+        "en": "Each round, roll **8 unused-color dice** and place them on matching casinos. They are an **imaginary player**. Money they would win goes **under the pile**.\n\nBlank gray dice from tiles are a **different** imaginary player.",
+        "zh": "每回合用未使用颜色的 **8 枚骰** 掷一次并按点数放入。它们是一名 **虚构玩家**。其“赢得”的现金放回牌堆 **底部**。\n\n板块的灰色空白骰是 **另一名** 虚构玩家。"
+      },
+      "options": [
+        { "label": { "en": "Payout", "zh": "结算" }, "next": "payout" },
+        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+      ]
+    },
+    "tiles": {
+      "title": { "en": "Casino Tiles", "zh": "赌场板块" },
+      "content": {
+        "en": "Main game only. Each round, 3 random double-sided tiles go on casinos **1–3**. Placing any dice there **activates** the tile.\n\nHouse rule: fewer or more tiles (max **6**).\n\nUsed tiles may return next round unless you set them aside.",
+        "zh": "仅完整规则。每回合随机 3 张双面板块放在 **1–3 号**。在此放骰会 **触发** 板块。\n\n可约定用更少或更多（最多 **6** 张）。\n\n除非自行搁置，用过的板块下回合可能再出现。"
+      },
+      "options": [
+        { "label": { "en": "Tiles A–C", "zh": "板块 A–C" }, "next": "tiles-ac" },
+        { "label": { "en": "Tiles D–E", "zh": "板块 D–E" }, "next": "tiles-de" },
+        { "label": { "en": "Tiles F–H", "zh": "板块 F–H" }, "next": "tiles-fh" }
+      ]
+    },
+    "tiles-ac": {
+      "title": { "en": "Tiles A–C", "zh": "板块 A–C" },
+      "content": {
+        "en": "**Lucky Punch:** fist 1–3 tokens; left neighbor guesses. Wrong → 2 chips / $30k / $40k.\n\n**Jackpot:** roll 2 black. 7 or doubles → current jackpot, reset to $30k; else advance (max $80k).\n\n**Prime Time:** if you win the higher card, roll 2 black and may place 0–2 as yours before payout.\n\n**Fifty Fifty:** roll, optionally bet higher/lower. Same total twice or a miss → nothing.\n\n**High Five:** 5th die (or 3+Biggy) → $100k at payout.\n\n**Bad Luck:** fewest dice here (incl. 0), **before** ties, pay $50k.",
+        "zh": "**幸运一击：** 握 1–3 枚指示物让下家猜。猜错 → 2 筹码 / $30k / $40k。\n\n**幸运彩池：** 掷 2 黑骰。7 或对子 → 领当前奖金并重置到 $30k；否则前进（最高 $80k）。\n\n**黄金时段：** 若你拿高额卡，掷 2 黑骰，结算前可把 0–2 枚当作自己的骰放入。\n\n**五十五十：** 掷骰后可猜更高/更低。同总和连出或猜错 → 无奖。\n\n**击掌庆祝：** 第 5 枚（或 3+大骰）→ 结算兑 $100k。\n\n**霉运：** 移除并列前，此处最少（含 0）者付 $50k。"
+      },
+      "options": [
+        { "label": { "en": "Tiles D–E", "zh": "板块 D–E" }, "next": "tiles-de" },
+        { "label": { "en": "Casino Tiles", "zh": "赌场板块" }, "next": "tiles" }
+      ]
+    },
+    "tiles-de": {
+      "title": { "en": "Tiles D–E", "zh": "板块 D–E" },
+      "content": {
+        "en": "**Pay Day:** casinos with your color × $10k. $10k/$20k → chips; $30k–$60k → cash.\n\n**Power Play:** sole majority here → token. Next turn you may set 1 die to any number and place it (activates). No clear leader → token returns.\n\n**No Entry!:** close another casino (no dice / no activations). Advance track for a reward. Later activations may move the token.\n\n**Knockout?:** each foe puts 1 remaining die in the bar (max 2). You retrieve yours. Bar dice skip payout. Biggy = 1 slot.",
+        "zh": "**连本带利：** 有你骰子的赌场数 × $10k。$10k/$20k → 筹码；$30k–$60k → 现金。\n\n**数量优势：** 独自领先则拿标记。下回合可将 1 枚骰转到任意点数放入（会触发）。无人明确领先 → 标记放回。\n\n**此路不通：** 关闭另一赌场（不能放骰/触发）。轨道前进领奖。之后触发可移动标记。\n\n**酩酊大醉：** 对手各放 1 枚剩余骰进酒吧（最多 2）。你取回自己的。酒吧骰不参与结算。大骰占 1 格。"
+      },
+      "options": [
+        { "label": { "en": "Tiles F–H", "zh": "板块 F–H" }, "next": "tiles-fh" },
+        { "label": { "en": "Casino Tiles", "zh": "赌场板块" }, "next": "tiles" }
+      ]
+    },
+    "tiles-fh": {
+      "title": { "en": "Tiles F–H", "zh": "板块 F–H" },
+      "content": {
+        "en": "**Block It! / Handicap:** gray blanks act as an extra imaginary player (separate from 2p neutrals).\n\n**Black Box:** left of the winner splits 6 tokens 3+3 / 4+2 / 5+1; winner picks a pile.\n\n**Double Down:** optional extra “casino” paying $60k / $30k.\n\n**Nice Dice:** park a die on its number; evicted die goes to that casino (no activate). Payout: chips or cash.\n\n**My Choice:** pick one of two black-die results (chips, cash, activate another tile, set/return a die, or $60k space).",
+        "zh": "**拦截 / 让赛：** 灰色空白骰是额外虚构玩家（与 2 人中立骰分开）。\n\n**黑盒：** 赢家左边把 6 枚标记分成 3+3 / 4+2 / 5+1，赢家选一堆。\n\n**双倍下注：** 可选的额外“赌场”，发 $60k / $30k。\n\n**鸿运当头：** 把骰放到对应点数格；被挤走的骰进入该赌场（不触发）。结算领筹码或现金。\n\n**任君选择：** 两枚黑骰选一个结果（筹码、现金、触发其他板块、转/收回骰、或 $60k 格）。"
+      },
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "your-turn" },
+        { "label": { "en": "Payout", "zh": "结算" }, "next": "payout" },
+        { "label": { "en": "Casino Tiles", "zh": "赌场板块" }, "next": "tiles" }
+      ]
+    }
+  }
+}

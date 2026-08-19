@@ -2,13 +2,13 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — **50** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — **52** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **50 game rules**: web-verified, complete bilingual rules (EN/ZH)
-- **44 interactive decision trees**: step-by-step flow with sidebar outline navigation
-- **9 automatic score trackers**: `cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` / `category` / `feature-calc`, etc.
+- **52 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **46 interactive decision trees**: step-by-step flow with sidebar outline navigation
+- **10 automatic score trackers**: `cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` / `category` / `feature-calc` / `card-type`, etc.
 - **5 trainers**: Mahjong/Riichi tenpai, Blackjack basic strategy, Texas Hold'em GTO preflop, Go tsumego
 - **5 BBGE online playables**: Love Letter, Texas Hold'em, 6 nimmt!, Go, CABO — designs in [`docs/games/`](docs/games/)
 - **Score calculator**: Riichi Mahjong han/fu/points — tile picker → winning tile → open melds → auto yaku/fu/points
@@ -35,7 +35,7 @@ npm run dev
 npm run build
 ```
 
-> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `50` / `44` flow / `9` score / `5` trainer / `1` calculator / `4` BBGE play). Run `node scripts/print-project-stats.mjs` to verify. Sync BBGE behavior in [`docs/games/<slug>.md`](docs/games/).
+> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `52` / `46` flow / `10` score / `5` trainer / `1` calculator / `5` BBGE play). Run `node scripts/print-project-stats.mjs` to verify. Sync BBGE behavior in [`docs/games/<slug>.md`](docs/games/).
 
 ---
 
@@ -79,6 +79,7 @@ npm run build
 | Odin | ✅ | ✅ | ✅ Score |
 | Halli Galli | ✅ | ✅ | — |
 | Manila | ✅ | ✅ | — |
+| Las Vegas Royale | ✅ | ✅ | ✅ Score |
 | The Lord of the Rings: Duel for Middle-earth | ✅ | ✅ | — |
 | 6 nimmt! 30 Years Anniversary Edition | ✅ | ✅ | ✅ Score · 🎮 Multi-mode play |
 | Palm Island | ✅ | ✅ | ✅ Score |

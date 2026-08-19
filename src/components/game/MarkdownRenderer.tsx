@@ -125,6 +125,29 @@ export function MarkdownRenderer({ content }: Props) {
           </blockquote>
         ),
         hr: () => <hr className="my-6 border-border" />,
+        img: ({ src, alt }) => {
+          if (!src || typeof src !== "string") return null;
+          const href =
+            src.startsWith("http") || src.startsWith("/boardgames")
+              ? src
+              : src.startsWith("/")
+                ? `/boardgames${src}`
+                : src;
+          return (
+            <figure className="my-6">
+              <img
+                src={href}
+                alt={alt ?? ""}
+                className="mx-auto w-full max-w-2xl rounded-2xl border border-border bg-white shadow-card"
+              />
+              {alt ? (
+                <figcaption className="mt-2 text-center text-sm text-stone-500">
+                  {alt}
+                </figcaption>
+              ) : null}
+            </figure>
+          );
+        },
       }}
     >
       {content}

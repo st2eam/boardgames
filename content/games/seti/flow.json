@@ -9,7 +9,8 @@
       },
       "options": [
         { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
-        { "label": { "en": "Free Actions", "zh": "自由行动" }, "next": "free" }
+        { "label": { "en": "Free Actions", "zh": "自由行动" }, "next": "free" },
+        { "label": { "en": "Card Anatomy", "zh": "卡牌结构" }, "next": "card-anatomy" }
       ]
     },
     "turn": {
@@ -49,8 +50,8 @@
     "scan": {
       "title": { "en": "Scan and Analyze", "zh": "扫描与分析" },
       "content": {
-        "en": "**Scan:** 1 credit + 2 energy. Mark Earth’s sector; discard a card-row card and mark a matching-color sector; refill. Activate telescope techs. At least 2 signals, up to 4.\n\nMarking a signal: leftmost data → your pool, your marker in its place. Extra markers still help **win**. Second slot space: **2 VP**. Completing a sector: most markers (later wins ties). Winner takes the star reward; contributors get 1 publicity; refill data.\n\n**Analyze:** 1 energy if the **top** computer row is full. Clear computer data; mark one analyze trace. Pool max **6**.",
-        "zh": "**扫描：** 1 资金 + 2 能量。标地球扇区；弃卡牌行 1 张并在匹配色扇区再标；补行。可启动望远镜科技。至少 2 个信号，最多 4。\n\n标记信号：最左数据进你的池，换成你的标记。多放的仍参与 **争夺**。槽第 2 格立刻 **2 分**。扇区完成：标记最多者胜（后放者优先）。胜者拿恒星奖励；参与者各 1 声望；数据补满。\n\n**分析：** 电脑 **顶行** 满时花 1 能量。清空电脑数据，标 1 个分析痕迹。数据池最多 **6**。"
+        "en": "**Scan:** 1 credit + 2 energy, in any order: mark Earth’s sector; discard a card-row card and mark a matching-colour sector; activate telescope techs. Refill the row at the **end**. At least 2 signals, up to 4.\n\nMarking a signal is mandatory: leftmost data → your pool, your marker in its place. Extra markers still help **win**. Second slot space: **2 VP**. Completing a sector (after the main action): most markers (later wins ties). Winner takes the star reward; contributors get 1 publicity; second place leaves a marker on the first data space; refill.\n\n**Analyze:** 1 energy if the **top** computer row is full. Clear **all** computer data (pool stays); mark one analyze trace. Pool max **6**.",
+        "zh": "**扫描：** 1 资金 + 2 能量，任意顺序：标地球扇区；弃卡牌行 1 张并在匹配色扇区再标；启动望远镜科技。**全部做完** 再补行。至少 2 个信号，最多 4。\n\n标记信号强制：最左数据进你的池，换成你的标记。多放的仍参与 **争夺**。槽第 2 格立刻 **2 分**。扇区完成（主行动结束后）：标记最多者胜（后放者优先）。胜者拿恒星奖励；参与者各 1 声望；第二名在数据槽第一格留标记；其余用数据补满。\n\n**分析：** 电脑 **顶行** 满时花 1 能量。清空电脑 **全部** 数据（池留下），标 1 个分析痕迹。数据池最多 **6**。"
       },
       "options": [
         { "label": { "en": "Play a Card", "zh": "打牌" }, "next": "cards" },
@@ -64,6 +65,7 @@
         "zh": "付牌面费用，结算白色效果。效果里的发射/扫描/研发 **不再** 付标准费用。\n\n**条件任务：** 留在面前，条件满足时可当自由行动完成（打出当下也可以）。\n**触发任务：** 只统计打出 **之后** 做的事。圈全标完即完成。\n**金框卡：** 留到终局计分。\n\n其他牌结算后弃掉。"
       },
       "options": [
+        { "label": { "en": "Card Anatomy", "zh": "卡牌结构" }, "next": "card-anatomy" },
         { "label": { "en": "Research / Rotate", "zh": "研发 / 旋转" }, "next": "research" },
         { "label": { "en": "Free Actions", "zh": "自由行动" }, "next": "free" }
       ]
@@ -131,7 +133,30 @@
       },
       "options": [
         { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Techs", "zh": "科技" }, "next": "techs" }
+      ]
+    },
+    "card-anatomy": {
+      "title": { "en": "Card Anatomy", "zh": "卡牌结构" },
+      "content": {
+        "en": "Spend a card for **only one** benefit:\n\n- **White effect** = main action (pay the printed cost). Nested launch/scan/research **skip** the usual action cost.\n- **Corner icon** = discard as a free action.\n- **Income type** = what you gain each round if tucked.\n- **Sector colour** = Scan matching.\n\n**Conditional mission:** complete as a free action when true (even immediately).\n**Triggerable:** only things you do **after** playing it. One trigger marks one circle.\n**Gold box:** keep for end-game VP.",
+        "zh": "花掉一张牌只能用 **其中一种** 好处：\n\n- **白色效果** = 主行动（付牌面费用）。嵌套的发射/扫描/研发 **不再** 付标准费用。\n- **边角图标** = 弃掉当自由行动。\n- **收入种类** = 塞入后每轮拿什么。\n- **扇区颜色** = 扫描匹配。\n\n**条件任务：** 成立时可当自由行动完成（打出当下也可以）。\n**触发任务：** 只统计打出 **之后** 做的事。一次触发只标一个圈。\n**金框：** 留到终局计分。"
+      },
+      "options": [
+        { "label": { "en": "Play a Card", "zh": "打牌" }, "next": "cards" },
         { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    },
+    "techs": {
+      "title": { "en": "Technologies", "zh": "科技" },
+      "content": {
+        "en": "**Research (6 publicity):** rotate, take a new tech, gain its bonus. First from a stack: **2 VP**. Card techs rotate but cost no publicity.\n\n**Probe:** dual probes (limit 2, free launch when taken) · asteroids (publicity, no extra leave cost) · land −1 energy · moons.\n**Telescope (Scan only):** mark adjacent to Earth instead · discard a hand card for an extra match · 1 publicity for Mercury’s sector · 1 energy to launch or gain a move.\n**Computer:** extra column (2 VP on top, printed reward below). Analyze still only needs the **top** row full.",
+        "zh": "**研发（6 声望）：** 旋转，拿新科技，拿印出奖励。该叠第一块：**2 分**。卡牌送科技要旋转但不花声望。\n\n**探测器：** 双探测器（上限 2，拿取时免费发射）· 小行星（声望，离开不再加移动）· 着陆 −1 能量 · 卫星。\n**望远镜（仅扫描）：** 改标地球邻区 · 弃手牌再匹配一扇区 · 1 声望标水星扇区 · 1 能量发射或拿 1 移动。\n**电脑：** 加一列（上格 2 分，下格印出奖励）。分析仍只需 **顶行** 满。"
+      },
+      "options": [
+        { "label": { "en": "Research / Rotate", "zh": "研发 / 旋转" }, "next": "research" },
+        { "label": { "en": "Scan / Analyze", "zh": "扫描 / 分析" }, "next": "scan" }
       ]
     }
   }

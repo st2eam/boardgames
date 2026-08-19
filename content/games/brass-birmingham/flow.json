@@ -9,13 +9,14 @@
       },
       "options": [
         { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
-        { "label": { "en": "Network & Connection", "zh": "网络与连通" }, "next": "network-concept" }
+        { "label": { "en": "Network & Connection", "zh": "网络与连通" }, "next": "network-concept" },
+        { "label": { "en": "Cards", "zh": "卡牌种类" }, "next": "cards" }
       ]
     },
     "turn": {
       "title": { "en": "Your Turn", "zh": "你的回合" },
       "content": {
-        "en": "**2 actions** (same action twice OK). **Canal round 1: 1 action.**\n\nEach action or pass discards **1 card**. Wilds return to their piles.\n\nOnly **Build** needs a matching card. Then draw back to **8**. Spent money sits **on your character**.\n\n**End of round:** least spent goes first (ties keep order), cash to bank, then **income** (skip after the last round of the game). Negative income: pay, or sell your industries at **half cost rounded down**. Still short: **−1 VP per £1**.\n\n**8 / 9 / 10** rounds per era at **4 / 3 / 2** players.",
+        "en": "**2 actions** (same action twice OK). **Canal round 1: 1 action.**\n\nEach action or pass discards **1 card**. Wilds return to their piles.\n\nOnly **Build** needs a matching card. Then draw back to **8**. Spent money sits **on your character**.\n\n**End of round:** least spent goes first (ties keep relative order), cash to bank, then **income** (skip after the last round of the game).\n\nNegative income: pay the bank. If short, sell your own industries (not links) at **half printed cost, rounded down**, and stop as soon as you can pay. Still short: **−1 VP per £1**.\n\n**8 / 9 / 10** rounds per era at **4 / 3 / 2** players.",
         "zh": "**2 次行动**（可重复）。**运河第 1 轮只有 1 次。**\n\n每次行动或跳过都弃 **1 张**。万能牌回抽牌区。\n\n只有 **建造** 需要匹配的牌。然后补手至 **8**。花钱放在 **人物上**。\n\n**回合结束：** 花钱最少者下轮先手（相同则保持顺序），钱回银行，再收 **收入**（全盘最后一轮不收）。负收入：付钱，或按 **造价一半向下取整** 卖掉自己的产业。仍不够：**每缺 £1 扣 1 分**。\n\n每个时代 **4 / 3 / 2** 人为 **8 / 9 / 10** 轮。"
       },
       "options": [
@@ -119,12 +120,23 @@
     "scoring": {
       "title": { "en": "Era Scoring", "zh": "时代计分" },
       "content": {
-        "en": "When hands empty:\n\n1. Each of **your links:** 1 VP per icon in adjacent locations; **remove** the link.\n2. **Flipped** industries: VP in the bottom-left. Unflipped = 0.\n\n**Canal extra:** remove all **level 1** tiles from the **board**; reset merchant beer; flip facedown discard bottoms; shuffle all discards; draw 8.\n\nAfter **Rail** scoring: most VP wins. Ties: highest income, then most money.",
-        "zh": "手牌用尽后：\n\n1. **你的每条连接：** 相邻地点每个图标 1 分；计分后 **拿走**。\n2. **已翻面** 产业：左下角胜利分。未翻面 = 0。\n\n**运河额外：** 从 **地图** 移除所有 **1 级** 产业；重置商人啤酒；翻开弃牌堆底；所有弃牌洗成新库；抽 8。\n\n**铁路** 计分后：分数最高获胜。平手先比收入，再比剩余金钱。"
+        "en": "When hands empty:\n\n1. Each of **your links:** 1 VP per **industry icon** in the two adjacent cities; **remove** the link. A 2-icon city plus a 3-icon city = **5 VP** for that canal/rail.\n2. **Flipped** industries: VP in the bottom-left. Unflipped = 0. Loop the track past 100.\n\n**Canal extra:** remove all **level 1** tiles from the **board** (level 2+ stay and can score again); reset merchant beer; flip facedown discard bottoms; shuffle all discards; draw 8.\n\nAfter **Rail** scoring: most VP wins. Ties: highest income, then most money.",
+        "zh": "手牌用尽后：\n\n1. **你的每条连接：** 相邻两城每个 **产业图标** 1 分；计分后 **拿走**。2 图标城 + 3 图标城 = 这条 **5 分**。\n2. **已翻面** 产业：左下角胜利分。未翻面 = 0。超过 100 绕圈。\n\n**运河额外：** 从 **地图** 移除所有 **1 级** 产业（2 级及以上留下，铁路时代还能再计）；重置商人啤酒；翻开弃牌堆底；所有弃牌洗成新库；抽 8。\n\n**铁路** 计分后：分数最高获胜。平手先比收入，再比剩余金钱。"
       },
       "options": [
         { "label": { "en": "Introductory Game", "zh": "入门变体" }, "next": "intro" },
         { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    },
+    "cards": {
+      "title": { "en": "Cards", "zh": "卡牌种类" },
+      "content": {
+        "en": "**Location:** any industry at that named city, even off-network.\n**Wild location:** any city **except** the two farm breweries.\n**Industry:** that type, **in your network** only.\n**Wild industry:** any industry (farms allowed).\n\nWilds return to their piles, not your discard. Only Build needs a matching card.",
+        "zh": "**地点：** 该具名城市任意产业，即使不在网络内。\n**万能地点：** 任意城市，**不含** 两处农场酒厂。\n**产业：** 该种类，且必须在 **你的网络** 内。\n**万能产业：** 任意产业（可以建农场）。\n\n万能牌回抽牌区，不进弃牌。只有建造需要匹配的牌。"
+      },
+      "options": [
+        { "label": { "en": "Build", "zh": "建造" }, "next": "build" },
+        { "label": { "en": "Scout", "zh": "勘察" }, "next": "develop-loan-scout" }
       ]
     },
     "intro": {

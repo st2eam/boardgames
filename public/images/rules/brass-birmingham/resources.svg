@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Coal · Iron · Beer / 煤 · 铁 · 啤酒</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24" y="48" width="216" height="188" rx="14" fill="#fff" stroke="#5D4037"/>
+    <text x="132" y="78" fill="#5D4037" font-weight="700" font-size="16">Coal 煤</text>
+    <text x="132" y="108" fill="#8D6E63">必须连通</text>
+    <text x="132" y="136" fill="#5D4037">1. 最近已连通的煤矿</text>
+    <text x="132" y="160" fill="#5D4037">2. 否则煤炭市场</text>
+    <text x="132" y="184" fill="#8D6E63">不能取自己刚建的煤</text>
+    <text x="132" y="208" fill="#C4952A">建造当下可卖市场</text>
+    <rect x="252" y="48" width="216" height="188" rx="14" fill="#fff" stroke="#C4952A"/>
+    <text x="360" y="78" fill="#5D4037" font-weight="700" font-size="16">Iron 铁</text>
+    <text x="360" y="108" fill="#8D6E63">不需要连通</text>
+    <text x="360" y="136" fill="#5D4037">1. 任意铁厂上的铁</text>
+    <text x="360" y="160" fill="#5D4037">2. 否则钢铁市场</text>
+    <text x="360" y="184" fill="#8D6E63">任意地方都能拿</text>
+    <text x="360" y="208" fill="#C4952A">建造当下可卖市场</text>
+    <rect x="480" y="48" width="216" height="188" rx="14" fill="#fff" stroke="#8D6E63"/>
+    <text x="588" y="78" fill="#5D4037" font-weight="700" font-size="16">Beer 啤酒</text>
+    <text x="588" y="108" fill="#8D6E63">出售 / 部分建造</text>
+    <text x="588" y="136" fill="#5D4037">自己的酒厂不需连通</text>
+    <text x="588" y="160" fill="#5D4037">对手酒厂必须连通</text>
+    <text x="588" y="184" fill="#5D4037">商人啤酒须连通商人</text>
+    <text x="588" y="208" fill="#C4952A">不能喝刚卖出的啤酒</text>
+  </g>
+</svg>

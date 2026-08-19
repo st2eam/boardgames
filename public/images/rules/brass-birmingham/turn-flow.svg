@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title">
+  <title id="title">Brass Birmingham turn and round flow</title>
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Your turn / 你的回合</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24" y="52" width="150" height="64" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="99" y="78" fill="#5D4037">Action 1</text>
+    <text x="99" y="98" fill="#8D6E63">行动 1 · 弃 1 张</text>
+    <rect x="198" y="52" width="150" height="64" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="273" y="78" fill="#5D4037">Action 2</text>
+    <text x="273" y="98" fill="#8D6E63">可重复 · 再弃 1 张</text>
+    <rect x="372" y="52" width="150" height="64" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="447" y="78" fill="#5D4037">Draw to 8</text>
+    <text x="447" y="98" fill="#8D6E63">补手至 8</text>
+    <rect x="546" y="52" width="150" height="64" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="621" y="78" fill="#5D4037">£ on character</text>
+    <text x="621" y="98" fill="#8D6E63">花钱放人物上</text>
+  </g>
+  <path d="M174 84h24" stroke="#C4952A" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M348 84h24" stroke="#C4952A" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M522 84h24" stroke="#C4952A" stroke-width="2" marker-end="url(#a)"/>
+  <text x="360" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">End of round / 回合结束</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="90" y="168" width="240" height="80" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="210" y="198" fill="#5D4037">Least spent goes first</text>
+    <text x="210" y="220" fill="#8D6E63">花钱最少者下轮先手</text>
+    <rect x="390" y="168" width="240" height="80" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="510" y="198" fill="#5D4037">Then take income</text>
+    <text x="510" y="220" fill="#8D6E63">然后收取收入</text>
+  </g>
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0 0l8 4-8 4z" fill="#C4952A"/>
+    </marker>
+  </defs>
+</svg>

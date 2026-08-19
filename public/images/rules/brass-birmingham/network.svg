@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+  <rect width="720" height="300" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Your network ≠ connected / 网络 ≠ 连通</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12">
+    <circle cx="120" cy="120" r="38" fill="#fff" stroke="#C4952A" stroke-width="3"/>
+    <text x="120" y="116" text-anchor="middle" fill="#5D4037" font-weight="700">Birmingham</text>
+    <text x="120" y="134" text-anchor="middle" fill="#C4952A">伯明翰</text>
+    <circle cx="320" cy="120" r="38" fill="#fff" stroke="#8D6E63" stroke-width="2"/>
+    <text x="320" y="116" text-anchor="middle" fill="#5D4037" font-weight="700">Redditch</text>
+    <text x="320" y="134" text-anchor="middle" fill="#8D6E63">雷迪奇</text>
+    <line x1="158" y1="120" x2="282" y2="120" stroke="#C4952A" stroke-width="6"/>
+    <text x="220" y="108" text-anchor="middle" fill="#C4952A">你的连接</text>
+    <circle cx="520" cy="120" r="38" fill="#fff" stroke="#5D4037" stroke-width="2"/>
+    <text x="520" y="116" text-anchor="middle" fill="#5D4037" font-weight="700">Oxford</text>
+    <text x="520" y="134" text-anchor="middle" fill="#8D6E63">牛津</text>
+    <line x1="358" y1="120" x2="482" y2="120" stroke="#90A4AE" stroke-width="6" stroke-dasharray="8 4"/>
+    <text x="420" y="108" text-anchor="middle" fill="#607D8B">对手连接</text>
+  </g>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13">
+    <rect x="40" y="190" width="300" height="86" rx="12" fill="#fff" stroke="#C4952A"/>
+    <text x="190" y="218" text-anchor="middle" fill="#C4952A" font-weight="700">In your network 你的网络</text>
+    <text x="190" y="242" text-anchor="middle" fill="#5D4037">有你的产业，或与你的连接相邻</text>
+    <text x="190" y="262" text-anchor="middle" fill="#8D6E63">Birmingham + Redditch</text>
+    <rect x="380" y="190" width="300" height="86" rx="12" fill="#fff" stroke="#5D4037"/>
+    <text x="530" y="218" text-anchor="middle" fill="#5D4037" font-weight="700">Connected 连通</text>
+    <text x="530" y="242" text-anchor="middle" fill="#5D4037">沿任何人的连接走出一条路</text>
+    <text x="530" y="262" text-anchor="middle" fill="#8D6E63">因此也连到 Oxford 牛津</text>
+  </g>
+</svg>

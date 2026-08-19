@@ -21,6 +21,7 @@ export class FeatureCalcEngine implements ScoringEngine {
   private evalFormula(formula: string, n: number): number {
     switch (formula) {
       case "n": return n;
+      case "n*-1": return -n;
       case "n*2": return n * 2;
       case "n*3": return n * 3;
       case "n+2*shields": return n;

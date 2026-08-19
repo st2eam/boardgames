@@ -581,6 +581,21 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/7-wonders/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/7-wonders/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/7-wonders/score/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/palm-island/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1172,6 +1187,21 @@
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/6-nimmt-30th-anniversary/score/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/7-wonders/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/7-wonders/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/7-wonders/score/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

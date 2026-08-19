@@ -35,7 +35,7 @@ Both locales use the **same path**. Alt text is the caption (`MarkdownRenderer` 
 ![回合：两次行动、补手至 8、花钱放人物上](/images/rules/brass-birmingham/turn-flow.svg)
 ```
 
-- Path starts with `/images/…`. **Never** write `/boardgames` — the renderer prefixes `basePath`.
+- Path starts with `/images/…`. **Never** write `/boardgames` — the renderer prefixes `basePath`. Export (PDF / Markdown) rewrites these to absolute `/boardgames` URLs.
 - Place the image **immediately after** the heading or short intro for that mechanic, before the long procedure.
 - Filename: kebab-case, English (`turn-flow.svg`, `network.svg`).
 

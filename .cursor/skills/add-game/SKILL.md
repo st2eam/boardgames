@@ -689,8 +689,8 @@ These are rendered as styled inline tile elements in the web UI, converted to in
 
 When adding custom inline rendering (like mahjong tiles), ensure three paths work:
 1. **Web**: `MarkdownRenderer` with remark plugin + custom `code` component
-2. **PDF export**: `inlineFormat()` in `ExportButton.tsx` must handle the shortcode BEFORE markdown link processing (order matters — `[3m]` looks like a markdown link)
-3. **Markdown download**: `replaceShortcodesText()` converts shortcodes to readable text
+2. **PDF export**: `inlineFormat()` in `ExportButton.tsx` must handle the shortcode BEFORE markdown link processing (order matters — `[3m]` looks like a markdown link). Images `![](/images/…)` are rewritten to absolute `/boardgames` URLs and rendered as `<img>`.
+3. **Markdown download**: `replaceShortcodesText()` converts shortcodes to readable text; `rewriteMarkdownAssetLinks()` turns `/images/…` into absolute site URLs.
 
 ### Trainer hand generation
 

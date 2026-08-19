@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { shortcodeToInlineHTML, replaceShortcodesText } from "@/lib/mahjong/shortcode";
 
-const basePath = process.env.__NEXT_ROUTER_BASEPATH || "";
+const basePath = process.env.__NEXT_ROUTER_BASEPATH || "/boardgames";
 
 const CARD_DOWNLOADS: Record<string, string> = {
   trio: `${basePath}/downloads/trio-cards.zip`,
@@ -37,7 +37,9 @@ export function ExportButton({ markdown, gameName, slug }: Props) {
   }, [open]);
 
   function downloadMarkdown() {
-    const converted = replaceShortcodesText(markdown);
+    const converted = rewriteMarkdownAssetLinks(
+      replaceShortcodesText(markdown)
+    );
     const blob = new Blob([converted], { type: "text/markdown;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -73,6 +75,9 @@ export function ExportButton({ markdown, gameName, slug }: Props) {
   strong { font-weight: 600; }
   code { background: #f5f5f4; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
   hr { border: none; border-top: 1px solid #e7e5e4; margin: 1.5em 0; }
+  figure { margin: 1.2em 0; text-align: center; break-inside: avoid; }
+  figure img { max-width: 100%; height: auto; border: 1px solid #e7e5e4; border-radius: 12px; background: #fafaf5; }
+  figcaption { margin-top: 0.4em; font-size: 0.85em; color: #78716c; }
   @media print { body { padding: 0; } }
 </style>
 </head>
@@ -83,9 +88,27 @@ export function ExportButton({ markdown, gameName, slug }: Props) {
     const container = win.document.getElementById("content")!;
     renderMarkdownToHTML(markdown, container, win.document);
 
-    setTimeout(() => {
-      win.print();
-    }, 300);
+    const imgs = Array.from(container.querySelectorAll("img"));
+    const ready =
+      imgs.length === 0
+        ? Promise.resolve()
+        : Promise.all(
+            imgs.map((img) =>
+              img.decode
+                ? img.decode().catch(() => undefined)
+                : new Promise<void>((resolve) => {
+                    if (img.complete) resolve();
+                    else {
+                      img.onload = () => resolve();
+                      img.onerror = () => resolve();
+                    }
+                  })
+            )
+          );
+
+    ready.finally(() => {
+      setTimeout(() => win.print(), 50);
+    });
 
     setOpen(false);
   }
@@ -195,6 +218,14 @@ function renderMarkdownToHTML(
 
   while (i < lines.length) {
     const line = lines[i];
+
+    const imageLine = line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (imageLine) {
+      flushTable();
+      container.appendChild(createFigure(doc, imageLine[1], imageLine[2]));
+      i++;
+      continue;
+    }
 
     if (line.startsWith("# ")) {
       flushTable();
@@ -330,16 +361,69 @@ function renderMarkdownToHTML(
   }
 }
 
+function isExternalHref(href: string): boolean {
+  return /^(https?:|data:|mailto:|blob:)/i.test(href);
+}
+
+/** Site-root paths like `/images/…` become `/boardgames/images/…`. */
+function withBasePath(href: string): string {
+  const trimmed = href.trim();
+  if (!trimmed || isExternalHref(trimmed) || trimmed.startsWith("#")) {
+    return trimmed;
+  }
+  if (basePath && (trimmed === basePath || trimmed.startsWith(`${basePath}/`))) {
+    return trimmed;
+  }
+  if (trimmed.startsWith("/")) return `${basePath}${trimmed}`;
+  return trimmed;
+}
+
+function toAbsoluteExportUrl(href: string): string {
+  const path = withBasePath(href);
+  if (isExternalHref(path) || path.startsWith("#")) return path;
+  if (typeof window === "undefined") return path;
+  return `${window.location.origin}${path}`;
+}
+
+/** Rewrite `![alt](/images/…)` (and other root-relative markdown links) for download. */
+function rewriteMarkdownAssetLinks(md: string): string {
+  return md.replace(
+    /(!?)\[([^\]]*)\]\(([^)]+)\)/g,
+    (_match, bang: string, text: string, href: string) =>
+      `${bang}[${text}](${toAbsoluteExportUrl(href)})`
+  );
+}
+
+function createFigure(doc: Document, alt: string, href: string): HTMLElement {
+  const figure = doc.createElement("figure");
+  const img = doc.createElement("img");
+  img.src = toAbsoluteExportUrl(href);
+  img.alt = alt;
+  figure.appendChild(img);
+  if (alt) {
+    const caption = doc.createElement("figcaption");
+    caption.textContent = alt;
+    figure.appendChild(caption);
+  }
+  return figure;
+}
+
 function inlineFormat(text: string): string {
   return text
     .replace(/\[([1-9][mps]|[ESWN]|[CFB])\]/g, (_, code) => {
       return shortcodeToInlineHTML(code);
+    })
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, href) => {
+      const src = toAbsoluteExportUrl(href);
+      const caption = alt ? `<figcaption>${alt}</figcaption>` : "";
+      return `<figure><img src="${src}" alt="${alt}">${caption}</figure>`;
     })
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
     .replace(/`(.+?)`/g, "<code>$1</code>")
     .replace(
       /\[([^\]]+)\]\(([^)]+)\)/g,
-      '<a href="$2" style="color:#2563eb">$1</a>'
+      (_, label, href) =>
+        `<a href="${toAbsoluteExportUrl(href)}" style="color:#2563eb">${label}</a>`
     );
 }

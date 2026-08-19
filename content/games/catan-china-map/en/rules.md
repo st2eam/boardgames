@@ -6,6 +6,8 @@ Catan: China Map is a geographic scenario variant of Catan, using a fixed map of
 
 ## What's Different from Base Catan
 
+![Fixed China map, marked building sites, and red trade routes instead of harbors](/images/rules/catan-china-map/differences.svg)
+
 | | Base Catan | China Map |
 |---|---|---|
 | **Map** | Random hex arrangement | Fixed China geography |
@@ -21,6 +23,8 @@ Catan: China Map is a geographic scenario variant of Catan, using a fixed map of
 Use the fixed China Map board. Place number tokens on the designated hexes as shown in the rulebook. Place the 7 monument models at their marked locations.
 
 ## Rule Changes
+
+![Great Wall and monuments add VP; still first to 10, fewest wall sections lose 1](/images/rules/catan-china-map/cities-wall.svg)
 
 ### 1. Fixed Building Positions
 

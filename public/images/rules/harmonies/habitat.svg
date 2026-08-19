@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Place Habitat / 放置栖息地</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Must place all 3 必须放完 3</text>
+    <text x="130.7" y="120" fill="#5D4037">On your personal board</text>
+    <text x="130.7" y="148" fill="#8D6E63">放到个人板上</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Stack to 3 可叠 3 层</text>
+    <text x="360.0" y="120" fill="#5D4037">Follow token stacking</text>
+    <text x="360.0" y="148" fill="#8D6E63">遵守叠放规则</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Match pattern 匹配图案</text>
+    <text x="589.3" y="120" fill="#5D4037">Then place animal cubes</text>
+    <text x="589.3" y="148" fill="#8D6E63">匹配后放动物方块</text>
+  </g>
+</svg>

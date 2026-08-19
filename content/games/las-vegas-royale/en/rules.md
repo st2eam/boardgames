@@ -33,6 +33,8 @@ At the start of **each** round:
 
 ## How to Play
 
+![Roll remaining dice, pick one face, place every die showing that number](/images/rules/las-vegas-royale/place-dice.svg)
+
 Three rounds. Oldest player starts round 1; later rounds start with whoever won the **higher** card at casino **6** (or the next lower casino if nobody won there). Play clockwise.
 
 ### On Your Turn
@@ -57,6 +59,8 @@ The larger die counts as **two** small dice for majority, ties, High Five, and s
 - Each leftover chip is worth **$10,000** at game end. The bank never pays chips as change.
 
 ## Payout
+
+![Ties leave empty-handed; most dice take the higher bill, second takes the other](/images/rules/las-vegas-royale/payout.svg)
 
 When the last player places their last die:
 

@@ -40,6 +40,8 @@ Bomb Busters is a cooperative deduction game for 2–5 players designed by Hisas
 
 ## How to Play
 
+![Point at a teammate’s wire, name a value; a match cuts both wires](/images/rules/bomb-busters/guess-wire.svg)
+
 Starting with the Captain, players take turns clockwise. On your turn, you **must** perform one of three actions:
 
 ### Dual Cut (Main Action)
@@ -69,6 +71,8 @@ Solo cuts are based on public information and cannot fail.
 If **all** your remaining uncut wires are red, reveal them. This removes you from play — your turns are skipped going forward.
 
 ## Special Wires
+
+![Yellow wires share one value; a wrong red guess explodes the bomb](/images/rules/bomb-busters/special-wires.svg)
 
 ### Yellow Wires
 

@@ -22,6 +22,8 @@ Same as original Splendor: 3 levels of Pokémon cards (4 face-up each), Pokébal
 
 ## Turn Actions
 
+![One action: tokens, catch a Pokémon, or reserve](/images/rules/splendor-pokemon/turn-actions.svg)
+
 Same four actions as original Splendor:
 
 1. **Collect 3 different Pokéballs** (3 different colors)
@@ -32,6 +34,8 @@ Same four actions as original Splendor:
 Token limit remains **10 per player**.
 
 ## New Mechanic: Evolution
+
+![End of turn: evolve with bonuses only; old Pokémon goes under the Trainer tile](/images/rules/splendor-pokemon/evolution.svg)
 
 At the **end of your turn** (after checking the token limit), you may evolve **one** of your caught Pokémon:
 

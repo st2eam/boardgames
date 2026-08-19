@@ -23,6 +23,8 @@ Designed by **Brett J. Gilbert** and **Trevor Benjamin**, published by **Alley C
 
 ## How to Play
 
+![Draw a tile, your symbol face up, place orthogonally adjacent](/images/rules/tic-tac-trek/place.svg)
+
 On your turn:
 
 1. **Draw** 1 tile from the bag.
@@ -49,6 +51,8 @@ When the tile you just placed completes a trek:
 - If all **6** of your campfires are already on the board, **move** one of them onto the newly placed tile instead.
 
 ## End of the Game & Scoring
+
+![A trek of three symbols places a campfire; score empty spaces around it](/images/rules/tic-tac-trek/trek-scoring.svg)
 
 The game ends when the **last tile** from the bag has been placed.
 

@@ -23,6 +23,8 @@ GoTown is a competitive card game published by Helvetiq, designed by Morten & Al
 
 ## How to Play
 
+![Draw one card, then take any number of build, steal, or special actions](/images/rules/gotown/turn.svg)
+
 On your turn:
 
 1. **Draw 1 card** from the draw pile.
@@ -59,5 +61,7 @@ Play **1 floor card** that complements a solitary card on an opponent's top floo
 - You can build multiple floors in a single turn if you have the cards.
 
 ## Winning
+
+![Two cards summing to 9 make a floor; first to five floors wins](/images/rules/gotown/scoring.svg)
 
 The **first player** to complete **5 floors** on their tower wins immediately!

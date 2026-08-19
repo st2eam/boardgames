@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Flock Mode (6–7) / 群鸟模式（6–7 人）</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Two groups 两组</text>
+    <text x="130.7" y="120" fill="#5D4037">Each shares a feeder</text>
+    <text x="130.7" y="148" fill="#8D6E63">每组共用喂鸟器</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Simultaneous 同时</text>
+    <text x="360.0" y="120" fill="#5D4037">One player per group acts</text>
+    <text x="360.0" y="148" fill="#8D6E63">每组一人同时行动</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Needs base 需基础版</text>
+    <text x="589.3" y="120" fill="#5D4037">Extra mats and cubes</text>
+    <text x="589.3" y="148" fill="#8D6E63">需要基础版组件</text>
+  </g>
+</svg>

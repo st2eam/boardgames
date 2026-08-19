@@ -22,6 +22,8 @@ Shuffle the expansion bird cards, bonus cards, and goal tiles into the correspon
 
 ## New Mechanics
 
+![Nectar is wild food; spent nectar scores by habitat majority](/images/rules/wingspan-oceania/nectar.svg)
+
 ### Nectar
 
 Nectar is the biggest new mechanic:
@@ -60,6 +62,8 @@ The expansion adds new goal tiles including:
 - Rounds with no end goal (a new possibility)
 
 ## Key Differences from Base Game
+
+![Oceania mats add reset actions and faster early food; nectar needs the new kit](/images/rules/wingspan-oceania/new-mats.svg)
 
 | Aspect | Base Game | Oceania |
 |--------|-----------|---------|

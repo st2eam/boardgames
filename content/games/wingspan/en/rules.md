@@ -39,6 +39,8 @@ Each bird you play extends a chain of powerful combinations in one of three habi
 
 ## How to Play
 
+![One action: play a bird, gain food, lay eggs, or draw cards](/images/rules/wingspan/habitat-actions.svg)
+
 The game lasts **4 rounds**, with turns decreasing each round:
 
 | Round | Turns per Player |
@@ -96,6 +98,8 @@ Select one bird card from your hand. To play it:
 When activating brown powers in a habitat, always go **right to left** — the most recently played bird activates last.
 
 ## Round End
+
+![Score the round goal, remove action cubes, pass the first-player token](/images/rules/wingspan/round-end.svg)
 
 After all players have placed all their action cubes for the round:
 

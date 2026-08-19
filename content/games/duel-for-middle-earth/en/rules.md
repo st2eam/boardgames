@@ -33,6 +33,8 @@ At the start of each chapter, arrange that chapter’s cards in the central play
 
 ## How to Play
 
+![Take an uncovered chapter card (play or discard) or buy a Landmark](/images/rules/duel-for-middle-earth/take-card.svg)
+
 Players alternate turns. On your turn, choose **one**:
 
 ### A. Take a Chapter card
@@ -93,6 +95,8 @@ When you place or move Units into a region with enemy Units, resolve a **conflic
 Movements (e.g. Purple): move Units to adjacent regions one step at a time; resolve conflicts after each move.
 
 ## Game End
+
+![Win immediately via the Ring, 6 races, or all 7 regions; else most regions](/images/rules/duel-for-middle-earth/win-conditions.svg)
 
 ### Immediate wins (check after relevant effects)
 

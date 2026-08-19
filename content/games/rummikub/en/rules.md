@@ -19,6 +19,8 @@ Rummikub is a tile-based game for 2-4 players that combines elements of Rummy an
 
 ## Valid Combinations
 
+![Groups are same number different colors; runs are same color consecutive](/images/rules/rummikub/sets-runs.svg)
+
 All tiles played must form one of these combinations, each with **at least 3 tiles**:
 
 ### Group
@@ -42,6 +44,8 @@ All tiles played must form one of these combinations, each with **at least 3 til
 > Note: 1 cannot follow 13 to wrap around (12-13-1 is invalid).
 
 ## Gameplay
+
+![First play must total at least 30 from your own tiles](/images/rules/rummikub/initial-30.svg)
 
 ### Initial Meld
 
@@ -76,6 +80,8 @@ Manipulation is the heart of Rummikub strategy. You may freely rearrange tiles o
 > ⚠️ At the end of your turn, no tiles on the table may be left "orphaned." Every tile must belong to a valid group or run.
 
 ## Jokers
+
+![A joker stands in for any tile and counts as that tile’s value](/images/rules/rummikub/joker.svg)
 
 - A joker can **substitute for any tile**
 - In the initial meld, a joker counts as the value of the tile it represents

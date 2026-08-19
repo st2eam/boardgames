@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">What’s Different / 与基础版的区别</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Fixed map 固定地图</text>
+    <text x="130.7" y="120" fill="#5D4037">China geography, not hexes</text>
+    <text x="130.7" y="148" fill="#8D6E63">中国地理，非随机六角</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Sites 建造点</text>
+    <text x="360.0" y="120" fill="#5D4037">Marked positions only</text>
+    <text x="360.0" y="148" fill="#8D6E63">只能建在标记位置</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Routes 商路</text>
+    <text x="589.3" y="120" fill="#5D4037">Red paths replace harbors</text>
+    <text x="589.3" y="148" fill="#8D6E63">红线取代港口</text>
+  </g>
+</svg>

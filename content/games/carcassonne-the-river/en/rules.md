@@ -13,6 +13,8 @@
 
 ## Setup
 
+![Remove the start tile; place the source, shuffle the river, lake on the bottom](/images/rules/carcassonne-the-river/river-setup.svg)
+
 1. Return the normal starting tile from the base game to the box — it will not be used.
 2. Separate the **source** tile and the **lake** tile from the 12 river tiles.
 3. Shuffle the remaining 10 river tiles and stack them face down.
@@ -44,6 +46,8 @@ The River expansion does not introduce any new scoring rules. All scoring follow
 - Cities, roads, and monasteries on river tiles score normally.
 
 ## Differences from Base Game
+
+![Place all 12 river tiles first; no U-turns; the river also splits fields](/images/rules/carcassonne-the-river/differences.svg)
 
 | Aspect | Base Game | With The River |
 |--------|-----------|----------------|

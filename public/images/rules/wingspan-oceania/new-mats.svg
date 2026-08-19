@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Oceania Mats / 大洋洲玩家板</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Reset actions 重置行动</text>
+    <text x="130.7" y="120" fill="#5D4037">Reroll feeder or tray</text>
+    <text x="130.7" y="148" fill="#8D6E63">可重置喂鸟器或牌列</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Faster start 前期更快</text>
+    <text x="360.0" y="120" fill="#5D4037">More food and cards</text>
+    <text x="360.0" y="148" fill="#8D6E63">前期食物和牌更多</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Need nectar kit 花蜜配件</text>
+    <text x="589.3" y="120" fill="#5D4037">Mats + nectar dice</text>
+    <text x="589.3" y="148" fill="#8D6E63">花蜜需新板和新骰</text>
+  </g>
+</svg>

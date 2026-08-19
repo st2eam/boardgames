@@ -29,6 +29,10 @@ Shuffle the 90 Asian bird cards and 14 bonus cards into the corresponding base g
 
 ## New Game Modes
 
+![Duet: play a bird, place a map token matching habitat and a trait](/images/rules/wingspan-asia/duet.svg)
+
+![Flock splits 6–7 players into two groups who take turns at the same time](/images/rules/wingspan-asia/flock.svg)
+
 ### Duet Mode (1–2 Players)
 
 Duet mode uses a dedicated **Duet Map** board instead of standard goal tiles. It can be played standalone or integrated with any card mix.

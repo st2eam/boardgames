@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+  <rect width="720" height="300" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Call Order (Ranks 1–8) / 点名顺序（1–8 阶）</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <text x="360" y="48" fill="#5D4037" font-size="12">Early ranks · 前段</text>
+    <rect x="24.0" y="58" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="102.8" y="88" fill="#5D4037" font-weight="700">1 Assassin</text>
+    <text x="102.8" y="108" fill="#8D6E63">1 刺客</text>
+    <path d="M181.5 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="195.5" y="58" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="274.2" y="88" fill="#5D4037" font-weight="700">2 Thief</text>
+    <text x="274.2" y="108" fill="#8D6E63">2 盗贼</text>
+    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="367.0" y="58" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="445.8" y="88" fill="#5D4037" font-weight="700">3 Magician</text>
+    <text x="445.8" y="108" fill="#8D6E63">3 魔术师</text>
+    <path d="M524.5 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="538.5" y="58" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="617.2" y="88" fill="#5D4037" font-weight="700">4 King</text>
+    <text x="617.2" y="108" fill="#8D6E63">4 国王</text>
+    <text x="360" y="158" fill="#5D4037" font-size="12">Later ranks · 后段</text>
+    <rect x="24.0" y="168" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="102.8" y="198" fill="#5D4037" font-weight="700">5 Bishop</text>
+    <text x="102.8" y="218" fill="#8D6E63">5 主教</text>
+    <path d="M181.5 204h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="195.5" y="168" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="274.2" y="198" fill="#5D4037" font-weight="700">6 Merchant</text>
+    <text x="274.2" y="218" fill="#8D6E63">6 商人</text>
+    <path d="M353.0 204h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="367.0" y="168" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="445.8" y="198" fill="#5D4037" font-weight="700">7 Architect</text>
+    <text x="445.8" y="218" fill="#8D6E63">7 建筑师</text>
+    <path d="M524.5 204h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="538.5" y="168" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="617.2" y="198" fill="#5D4037" font-weight="700">8 Warlord</text>
+    <text x="617.2" y="218" fill="#8D6E63">8 军阀</text>
+  </g>
+</svg>

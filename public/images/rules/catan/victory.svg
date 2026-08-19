@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">10 Victory Points / 10 胜利点</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Buildings 建筑</text>
+    <text x="130.7" y="120" fill="#5D4037">Settlement 1 · City 2</text>
+    <text x="130.7" y="148" fill="#8D6E63">定居点 1 · 城市 2</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Awards 奖励</text>
+    <text x="360.0" y="120" fill="#5D4037">Longest road / largest army</text>
+    <text x="360.0" y="148" fill="#8D6E63">最长道路 / 最大军队</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Win 获胜</text>
+    <text x="589.3" y="120" fill="#5D4037">10 VP on your turn</text>
+    <text x="589.3" y="148" fill="#8D6E63">自己回合达到 10 点</text>
+  </g>
+</svg>

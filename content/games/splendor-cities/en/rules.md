@@ -25,6 +25,8 @@ Place this tile in front of the first player so you remember that the player to 
 
 ## I. Cities
 
+![Cities replace nobles: meet prestige and bonuses, claim a city to win](/images/rules/splendor-cities/cities.svg)
+
 Bruges, Lyon, Lisbon, Seville, Venice, Florence, Pisa — each city wants a unique masterpiece and will spend lavishly. Can you meet their demands?
 
 ### Setup
@@ -61,6 +63,8 @@ When a player takes a city tile, **finish the current round**.
 
 ## II. Trading Posts
 
+![After a noble visit, place a coat of arms to keep a trade power](/images/rules/splendor-cities/trading-posts.svg)
+
 With sea routes to India open, each guild founds new posts. Who adapts fastest to the new rules of trade?
 
 This module slightly shortens the game and grants twisting powers — watch your opponents!
@@ -92,6 +96,8 @@ End-game trigger matches the base game (usually finish the round after someone r
 ---
 
 ## III. The Orient
+
+![Orient cards mix into each level and change how nobles are claimed](/images/rules/splendor-cities/orient.svg)
 
 The East opens its wealth; patrons chase the exotic. Can you reshape your commercial empire?
 

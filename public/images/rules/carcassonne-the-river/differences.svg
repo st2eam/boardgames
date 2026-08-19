@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">River Phase / 河流阶段</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Place all 12 先放完 12</text>
+    <text x="130.7" y="120" fill="#5D4037">Then switch to land tiles</text>
+    <text x="130.7" y="148" fill="#8D6E63">再改抽普通板块</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">No U-turns 禁止掉头</text>
+    <text x="360.0" y="120" fill="#5D4037">Bends cannot reverse</text>
+    <text x="360.0" y="148" fill="#8D6E63">弯道不能折回</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Fields split 田野被分</text>
+    <text x="589.3" y="120" fill="#5D4037">River divides fields</text>
+    <text x="589.3" y="148" fill="#8D6E63">河流也分割田野</text>
+  </g>
+</svg>

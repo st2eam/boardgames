@@ -36,6 +36,8 @@ Set aside all other characters and unique districts. Use:
 
 ## How to Play
 
+![Call ranks 1 to 8; take gold or a district, then optionally build](/images/rules/citadels/turn-flow.svg)
+
 Each round: **selection phase**, then **turn phase**.
 
 ### Selection Phase (4–8 players, 8 characters)
@@ -81,6 +83,8 @@ Then the next rank is called. After all ranks, a new round begins; the crowned p
 
 ## Game End & Scoring
 
+![A city completes at 7 districts; finish the round then score gold plus bonuses](/images/rules/citadels/game-end.svg)
+
 A city is **completed** at **7** districts (4–8 players) or **8** (2–3 players). A city may exceed that. The round **always finishes**. Then score:
 
 - **1 point** per gold of each district’s cost (beautify gold counts)
@@ -108,6 +112,8 @@ Use ranks **1–9**. Each player has two characters.
 Game ends at **8** districts.
 
 ## Character Abilities
+
+![Characters act in rank order from Assassin (1) to Warlord (8)](/images/rules/citadels/call-order.svg)
 
 Abilities are optional unless the rules say **must** / **cannot**. Once per turn.
 

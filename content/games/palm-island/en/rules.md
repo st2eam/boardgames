@@ -23,6 +23,8 @@ Each card has **4 orientations** (front/back × top/bottom half). Only the **fac
 
 ## How to Play
 
+![Act on one of the top two cards using stored resources, or discard the top](/images/rules/palm-island/two-card.svg)
+
 Each turn, do **one**:
 
 1. **Act** on **one of the top 2** cards (see Actions), **or**
@@ -54,6 +56,8 @@ At most **4** cards may be stored (sticking out) at once. To store a fifth, firs
 Stored resources **carry over** between rounds.
 
 ## End of Round
+
+![When the round tracker is on top, flip or rotate it and put it at the back](/images/rules/palm-island/round.svg)
 
 When the **round tracker** is on top, the round ends. Flip/rotate it to the next number and put it at the back. You cannot activate it when it is only the second card.
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Round Scoring / 回合计分</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">End 结束</text>
+    <text x="130.7" y="120" fill="#5D4037">5th of an artist played</text>
+    <text x="130.7" y="148" fill="#8D6E63">同一画家第 5 张打出</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Value 市值</text>
+    <text x="360.0" y="120" fill="#5D4037">Top 3: 30 / 20 / 10</text>
+    <text x="360.0" y="148" fill="#8D6E63">前三名 30 / 20 / 10</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Sell 卖出</text>
+    <text x="589.3" y="120" fill="#5D4037">Sold paintings pay out</text>
+    <text x="589.3" y="148" fill="#8D6E63">本回合买到的画兑现</text>
+  </g>
+</svg>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+  <rect width="720" height="300" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Four Habitat Actions / 四个栖息地行动</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <text x="360" y="48" fill="#5D4037" font-size="12">Play · Forest · 打出 · 森林</text>
+    <rect x="24.0" y="58" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="188.5" y="88" fill="#5D4037" font-weight="700">Play a bird</text>
+    <text x="188.5" y="108" fill="#8D6E63">打出鸟牌</text>
+    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="367.0" y="58" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="531.5" y="88" fill="#5D4037" font-weight="700">Gain food</text>
+    <text x="531.5" y="108" fill="#8D6E63">获取食物</text>
+    <text x="360" y="158" fill="#5D4037" font-size="12">Grassland · Wetlands · 草地 · 湿地</text>
+    <rect x="24.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="188.5" y="198" fill="#5D4037" font-weight="700">Lay eggs</text>
+    <text x="188.5" y="218" fill="#8D6E63">产卵</text>
+    <path d="M353.0 204h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="367.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="531.5" y="198" fill="#5D4037" font-weight="700">Draw cards</text>
+    <text x="531.5" y="218" fill="#8D6E63">抽鸟牌</text>
+  </g>
+</svg>

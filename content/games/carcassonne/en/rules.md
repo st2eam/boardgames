@@ -20,6 +20,8 @@ Carcassonne is a classic tile-laying game set in the medieval French countryside
 
 ## How to Play
 
+![Place a tile, optionally deploy a meeple, then score completed features](/images/rules/carcassonne/turn.svg)
+
 On your turn, you must perform the following actions in order:
 
 ### 1. Draw and Place a Tile
@@ -62,6 +64,8 @@ When the last tile is placed, the game ends. Uncompleted features score partial 
 | **Field** | 3 points per completed city adjacent to the field |
 
 ## Farmer Scoring
+
+![Farmers stay until the end and score 3 points per completed city they supply](/images/rules/carcassonne/farmer.svg)
 
 Farmers are never returned during the game. At the end, each field supplies each completed city it touches. Each city scores 3 points for **each field** that connects to it. The player(s) with the most farmers in each field earn those points.
 

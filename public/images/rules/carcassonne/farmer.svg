@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Farmers / 农夫</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Stay 留下</text>
+    <text x="130.7" y="120" fill="#5D4037">Never return mid-game</text>
+    <text x="130.7" y="148" fill="#8D6E63">局中不收回</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Fields 田野</text>
+    <text x="360.0" y="120" fill="#5D4037">River/roads split fields</text>
+    <text x="360.0" y="148" fill="#8D6E63">道路与城市分割田野</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Score 计分</text>
+    <text x="589.3" y="120" fill="#5D4037">3 VP per completed city</text>
+    <text x="589.3" y="148" fill="#8D6E63">每座完成城市 3 分</text>
+  </g>
+</svg>

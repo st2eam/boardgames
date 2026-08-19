@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+  <rect width="720" height="300" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Your Turn — One Action / 你的回合：选一项</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="58" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="188.5" y="88" fill="#5D4037" font-weight="700">Take 3 tokens</text>
+    <text x="188.5" y="108" fill="#8D6E63">拿 3 种代币</text>
+    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="367.0" y="58" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="531.5" y="88" fill="#5D4037" font-weight="700">Take 2 same</text>
+    <text x="531.5" y="108" fill="#8D6E63">拿 2 枚同色</text>
+    <rect x="24.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="188.5" y="198" fill="#5D4037" font-weight="700">Catch a Pokémon</text>
+    <text x="188.5" y="218" fill="#8D6E63">捕捉宝可梦</text>
+    <path d="M353.0 204h14" stroke="#C4952A" stroke-width="2"/>
+    <rect x="367.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="531.5" y="198" fill="#5D4037" font-weight="700">Reserve + gold</text>
+    <text x="531.5" y="218" fill="#8D6E63">预留并拿金</text>
+  </g>
+</svg>

@@ -22,6 +22,8 @@ Shuffle the expansion bird cards, bonus cards, and goal tiles into the correspon
 
 ## New Mechanics
 
+![Teal powers resolve after the last turn of the round, before the goal](/images/rules/wingspan-europe/round-end-powers.svg)
+
 ### Round End Powers (Teal)
 
 The biggest new addition. Round-end bird powers resolve after all turns in the round are complete, but **before** scoring the end-of-round goal:
@@ -47,6 +49,8 @@ Some birds count double toward end-of-round goals — but only for goals that co
 Birds with an asterisk (✱) in their food cost have an alternative cost explained in the card text (e.g., hunting/fishing powers where you roll dice outside the birdfeeder).
 
 ## New End-of-Round Goals
+
+![Mix in extra food tokens, sideways birds, and new round goals](/images/rules/wingspan-europe/extra-food.svg)
 
 The expansion adds 5 new goal tiles:
 - Food in personal supply

@@ -26,6 +26,8 @@
 
 ## How to Play — Your Turn
 
+![Take three tokens (mandatory), optionally take an animal card, place cubes](/images/rules/harmonies/turn.svg)
+
 On your turn, take actions in any order. One is mandatory; two are optional:
 
 | Action | Type |
@@ -94,6 +96,8 @@ All players get an equal number of turns. If triggered mid-round, remaining play
 ---
 
 ## Scoring
+
+![Place all three tokens on your board; match a habitat pattern to score animals](/images/rules/harmonies/habitat.svg)
 
 ### 🌳 Trees
 

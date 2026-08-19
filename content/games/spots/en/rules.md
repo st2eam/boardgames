@@ -23,6 +23,10 @@ Spots is a push-your-luck dice game for 1–4 players. You roll dice and place t
 
 ## How to Play
 
+![Do a trick (flip a tile, roll and place) or score completed dogs](/images/rules/spots/tricks.svg)
+
+![Place matching dice on dogs; bury the rest; bust if the yard exceeds 7](/images/rules/spots/dice-place.svg)
+
 Players take turns clockwise. On your turn, choose one of two actions:
 
 ### Action 1: Do a Trick

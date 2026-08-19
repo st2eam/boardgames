@@ -29,6 +29,8 @@ This edition updates art, symbols (including colorblind icons), some cards and W
 
 ## How to Play
 
+![Each Age: 7 cards, play one and pass; six turns, then military](/images/rules/7-wonders/draft.svg)
+
 Three Ages in order. Points are counted only after Age III.
 
 **Neighbors** = left and right players. **City** = your Wonder plus all constructed cards.
@@ -75,6 +77,8 @@ Resources are **not spent**; each symbol may be used **once per turn**.
 
 ## Military conflicts
 
+![Compare shields each Age; science scores n² plus 7 per complete set](/images/rules/7-wonders/military-science.svg)
+
 At the end of each Age, compare **shields** (red cards + Wonder) with each neighbor:
 
 - Equal → nothing
@@ -84,6 +88,8 @@ At the end of each Age, compare **shields** (red cards + Wonder) with each neigh
 Then start the next Age (or end the game after Age III).
 
 ## Science
+
+![Identical symbols score n²; each complete set of three types is +7](/images/rules/7-wonders/science.svg)
 
 Green symbols (and some Wonder stages) score **both**:
 

@@ -19,6 +19,8 @@ Splendor is an engine-building card game for 2-4 players designed by Marc André
 
 ## Turn Actions
 
+![One action: 3 gems, 2 same color, buy a card, or reserve with gold](/images/rules/splendor/turn-actions.svg)
+
 On your turn, choose **exactly one** of the following four actions:
 
 ### 1. Take 3 Different Gems
@@ -46,9 +48,13 @@ At the end of your turn, you may hold **no more than 10 tokens** (including gold
 
 ## Bonuses
 
+![Purchased cards give permanent gem discounts that stack](/images/rules/splendor/bonuses.svg)
+
 Each purchased development card displays a gem icon in the upper-right corner. This provides a **permanent bonus** that counts as 1 gem of that color for all future purchases. Bonuses stack — if you own 3 cards with a blue bonus, you effectively have 3 free blue gems every turn.
 
 ## Noble Visits
+
+![Meet bonus requirements and a noble visits for 3 prestige](/images/rules/splendor/nobles.svg)
 
 At the end of your turn (after purchasing), check if you meet the requirements of any noble tile. If you do, that noble **automatically visits** you — take the tile for **3 prestige points**. You may only receive 1 noble per turn. You cannot refuse a noble visit.
 

@@ -33,6 +33,8 @@
 
 ## 游戏流程
 
+![拿一张未被盖住的篇章卡（打出或弃掉），或购买地标](/images/rules/duel-for-middle-earth/take-card.svg)
+
 双方轮流行动。你的回合选择 **一项**：
 
 ### A. 拿取一张章节牌
@@ -93,6 +95,8 @@
 移动（如紫牌）：每次移动到相邻地区一步，逐步结算冲突。
 
 ## 游戏结束
+
+![魔戒、6 种族或占据全部 7 地区立即获胜；否则比地区数](/images/rules/duel-for-middle-earth/win-conditions.svg)
 
 ### 即时胜利（相关效果后立即检查）
 

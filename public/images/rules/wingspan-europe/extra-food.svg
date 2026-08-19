@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Extra Food and Birds / 额外食物与鸟牌</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Mix in 混入</text>
+    <text x="130.7" y="120" fill="#5D4037">81 birds + extra tokens</text>
+    <text x="130.7" y="148" fill="#8D6E63">81 张鸟 + 额外食物</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Sideways 横放</text>
+    <text x="360.0" y="120" fill="#5D4037">Some cover two spaces</text>
+    <text x="360.0" y="148" fill="#8D6E63">有的占同一行两格</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">New goals 新目标</text>
+    <text x="589.3" y="120" fill="#5D4037">Food in supply, columns…</text>
+    <text x="589.3" y="148" fill="#8D6E63">个人食物、填满列…</text>
+  </g>
+</svg>

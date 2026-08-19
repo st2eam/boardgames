@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Three Immediate Wins / 三种立即获胜</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
+    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
+    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Ring 魔戒</text>
+    <text x="130.7" y="120" fill="#5D4037">Doom or catch Frodo</text>
+    <text x="130.7" y="148" fill="#8D6E63">登末日山或抓住佛罗多</text>
+    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Races 种族</text>
+    <text x="360.0" y="120" fill="#5D4037">6 different Race symbols</text>
+    <text x="360.0" y="148" fill="#8D6E63">6 种不同种族符号</text>
+    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Map 地图</text>
+    <text x="589.3" y="120" fill="#5D4037">Present in all 7 regions</text>
+    <text x="589.3" y="148" fill="#8D6E63">7 个地区都有存在</text>
+  </g>
+</svg>

@@ -41,6 +41,8 @@ On your turn, play one painting card from your hand and conduct the auction indi
 
 ## Auction Types
 
+![Four auctions: open, once around, sealed, and fixed price](/images/rules/modern-art/auction-types.svg)
+
 ### Open Auction
 Starting from the player to the left of the Auctioneer, players bid freely. Each bid must exceed the previous. The highest bidder pays the Auctioneer and takes the painting. If no one bids, the Auctioneer gets it for free.
 
@@ -57,6 +59,8 @@ The Auctioneer sets a price. Starting left, each player may buy at that price or
 The Auctioneer plays the card and may pair it with a second painting **from the same artist** in their hand. If they cannot or choose not to, the next player clockwise may contribute a matching card. The pair is auctioned as one lot using Open Auction rules. The player who contributed the second card splits the payment with the Auctioneer.
 
 ## Rounds & Scoring
+
+![Fifth painting of an artist ends the round; sold works pay 30 / 20 / 10](/images/rules/modern-art/round-scoring.svg)
 
 A round ends immediately when the **5th painting** of any single artist is played. That 5th card is **not** auctioned — it is discarded.
 

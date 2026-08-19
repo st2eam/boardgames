@@ -406,6 +406,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/brass-birmingham/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/brass-birmingham/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/brass-birmingham/score/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/spots/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1024,6 +1039,21 @@
     <loc>https://st2eam.github.io/boardgames/zh/games/bomb-busters/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/brass-birmingham/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/brass-birmingham/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/brass-birmingham/score/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/spots/</loc>

@@ -681,6 +681,25 @@
   },
   {
     "name": {
+      "en": "Brass: Birmingham",
+      "zh": "工业革命：伯明翰"
+    },
+    "players": "2-4",
+    "duration": "60-120 min",
+    "difficulty": "hard",
+    "tags": [
+      "strategy",
+      "economic",
+      "network",
+      "industry",
+      "board"
+    ],
+    "category": "board",
+    "bggRank": 1,
+    "slug": "brass-birmingham"
+  },
+  {
+    "name": {
       "en": "Spots",
       "zh": "狗运当骰"
     },

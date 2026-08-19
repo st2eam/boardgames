@@ -1,0 +1,58 @@
+{
+  "type": "feature-calc",
+  "engine": "feature-calc",
+  "direction": "high-wins",
+  "players": { "min": 2, "max": 8 },
+  "features": [
+    {
+      "id": "district-cost",
+      "name": { "en": "District costs", "zh": "建筑费用合计" },
+      "inputType": "number",
+      "formula": "n",
+      "description": {
+        "en": "1 pt per gold of cost (include beautify)",
+        "zh": "每点建筑费用 1 分（含美化金币）"
+      }
+    },
+    {
+      "id": "five-types",
+      "name": { "en": "All five types", "zh": "五色齐全" },
+      "inputType": "number",
+      "formula": "n*3",
+      "description": {
+        "en": "Enter 1 if you have all five district types",
+        "zh": "拥有全部五种区域则输入 1"
+      }
+    },
+    {
+      "id": "first-complete",
+      "name": { "en": "First completed city", "zh": "最先完成城市" },
+      "inputType": "number",
+      "formula": "n*4",
+      "description": {
+        "en": "Enter 1 if you finished first this game",
+        "zh": "本局最先完成则输入 1"
+      }
+    },
+    {
+      "id": "other-complete",
+      "name": { "en": "Completed city (not first)", "zh": "完成城市（非最先）" },
+      "inputType": "number",
+      "formula": "n*2",
+      "description": {
+        "en": "Enter 1 if you completed but were not first",
+        "zh": "完成但不是最先则输入 1"
+      }
+    },
+    {
+      "id": "unique-extra",
+      "name": { "en": "Unique district extras", "zh": "特殊区域额外分" },
+      "inputType": "number",
+      "formula": "n",
+      "description": {
+        "en": "Dragon Gate, Map Room, Treasury, etc.",
+        "zh": "龙门、地图室、国库等额外分"
+      }
+    }
+  ]
+}

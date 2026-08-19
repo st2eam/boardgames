@@ -256,6 +256,21 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/citadels/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/citadels/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/citadels/score/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/exploding-kittens/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -832,6 +847,21 @@
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/cabo/score/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/citadels/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/citadels/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/citadels/score/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

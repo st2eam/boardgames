@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Seven identity modes / 七种身份模式</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="102.0" y="82" fill="#5D4037" font-weight="700" font-size="15">7 setups 七种配置</text>
-    <text x="102.0" y="120" fill="#5D4037">On mode cards</text>
-    <text x="102.0" y="148" fill="#8D6E63">细则见模式卡</text>
-    <rect x="196.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="274.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Asymmetric info 情报不对称</text>
-    <text x="274.0" y="120" fill="#5D4037">Some know more</text>
-    <text x="274.0" y="148" fill="#8D6E63">有人信息更多</text>
-    <rect x="368.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="446.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Shifting sides 阵营可变</text>
-    <text x="446.0" y="120" fill="#5D4037">Allegiance may flip</text>
-    <text x="446.0" y="148" fill="#8D6E63">中途可能改阵营</text>
-    <rect x="540.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="618.0" y="82" fill="#5D4037" font-weight="700" font-size="15">New roles 新身份</text>
-    <text x="618.0" y="120" fill="#5D4037">Tyrant, madman…</text>
-    <text x="618.0" y="148" fill="#8D6E63">暴君、失心疯等</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img">
+<rect width="720" height="250" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Seven mode cards / 七种模式卡</text>
+<g><rect x="40" y="55" width="80" height="90" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="48" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">1</text><rect x="48" y="131" width="64" height="7" rx="2" fill="#C4952A"/></g><g><rect x="135" y="55" width="80" height="90" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="143" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">2</text><rect x="143" y="131" width="64" height="7" rx="2" fill="#5D4037"/></g><g><rect x="230" y="55" width="80" height="90" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="238" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">3</text><rect x="238" y="131" width="64" height="7" rx="2" fill="#5D4037"/></g><g><rect x="325" y="55" width="80" height="90" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="333" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">4</text><rect x="333" y="131" width="64" height="7" rx="2" fill="#5D4037"/></g><g><rect x="420" y="55" width="80" height="90" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="428" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">5</text><rect x="428" y="131" width="64" height="7" rx="2" fill="#5D4037"/></g><g><rect x="515" y="55" width="80" height="90" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="523" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">6</text><rect x="523" y="131" width="64" height="7" rx="2" fill="#5D4037"/></g><g><rect x="610" y="55" width="80" height="90" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="618" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">7</text><rect x="618" y="131" width="64" height="7" rx="2" fill="#5D4037"/></g><text x="360" y="165" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">阵营写法印在模式卡上，这里不剧透</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">七种身份模式改变阵营；细则只写在模式卡上</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Seven identity modes change alliances; details stay on the mode cards</text>
 </svg>

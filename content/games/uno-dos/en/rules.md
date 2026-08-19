@@ -68,7 +68,7 @@ Multiple color match bonuses stack (e.g., two Double Color Matches = place 2 car
 
 ## Calling DOS!
 
-![With exactly 2 cards, shout DOS or draw 2 if caught](/images/rules/uno-dos/dos-shout.svg)
+![With exactly 2 cards shout DOS, or draw 2 if caught](/images/rules/uno-dos/dos-shout.svg)
 When you have **exactly 2 cards** remaining, you must call **"DOS!"**
 
 - Forget and get caught by another player → **draw 2 cards** as penalty (drawn at end of turn)

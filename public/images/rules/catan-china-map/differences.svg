@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">What’s Different / 与基础版的区别</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Fixed map 固定地图</text>
-    <text x="130.7" y="120" fill="#5D4037">China geography, not hexes</text>
-    <text x="130.7" y="148" fill="#8D6E63">中国地理，非随机六角</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Sites 建造点</text>
-    <text x="360.0" y="120" fill="#5D4037">Marked positions only</text>
-    <text x="360.0" y="148" fill="#8D6E63">只能建在标记位置</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Routes 商路</text>
-    <text x="589.3" y="120" fill="#5D4037">Red paths replace harbors</text>
-    <text x="589.3" y="148" fill="#8D6E63">红线取代港口</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
+<rect width="720" height="280" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Fixed China map / 固定中国地图</text>
+<polygon points="80,80 200,55 320,90 300,160 140,170" fill="#C5E1A5" stroke="#2E7D32" stroke-width="2"/><polygon points="160,90 147,106 173,106" fill="#C4952A" stroke="#5D4037"/><rect x="150" y="106" width="20" height="11" fill="#C4952A" stroke="#5D4037"/><polygon points="240,100 227,116 253,116" fill="#5D4037" stroke="#5D4037"/><rect x="230" y="116" width="20" height="11" fill="#5D4037" stroke="#5D4037"/><text x="200" y="190" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">指定建造点</text><line x1="400" y1="70" x2="620" y2="70" stroke="#C62828" stroke-width="6"/><line x1="400" y1="70" x2="480" y2="140" stroke="#C62828" stroke-width="6"/><line x1="620" y1="70" x2="560" y2="150" stroke="#C62828" stroke-width="6"/><text x="510" y="175" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">红线商路，不是港口</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">用地图上印好的中国地形；房子只能放标记点；红线商路取代港口</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Fixed China map, marked building sites, red trade routes instead of harbors</text>
 </svg>

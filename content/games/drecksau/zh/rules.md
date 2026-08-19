@@ -52,6 +52,6 @@
 
 ## 获胜条件
 
-![第一个让所有猪都变脏的人立即获胜](/images/rules/drecksau/winning.svg)
+![第一个把每头猪都弄脏的人立即获胜](/images/rules/drecksau/winning.svg)
 
 **率先**让自己所有小猪都翻到脏面的玩家立即获胜！

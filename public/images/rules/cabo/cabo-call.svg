@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Calling CABO / 喊 CABO</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">You call CABO</text>
-    <text x="131.3" y="110" fill="#8D6E63">你喊 CABO</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Others 1 last turn</text>
-    <text x="360.0" y="110" fill="#8D6E63">其他人各 1 回合</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Reveal &amp; sum</text>
-    <text x="588.7" y="110" fill="#8D6E63">翻开加总比低</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
+<rect width="720" height="280" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">CABO! then one last turn / 喊完每人再动一次</text>
+<text x="120" y="100" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="700" fill="#C4952A">CABO!</text><text x="120" y="125" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">你喊停</text><path d="M200 95 L260 95" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><g><rect x="280" y="55" width="44" height="64" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="288" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">1</text><rect x="288" y="105" width="28" height="7" rx="2" fill="#5D4037"/></g><g><rect x="330" y="55" width="44" height="64" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="338" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">2</text><rect x="338" y="105" width="28" height="7" rx="2" fill="#5D4037"/></g><g><rect x="380" y="55" width="44" height="64" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="388" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">3</text><rect x="388" y="105" width="28" height="7" rx="2" fill="#5D4037"/></g><text x="355" y="140" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">其他人再行动一次</text><path d="M440 95 L500 95" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><g><rect x="520" y="50" width="48" height="70" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="528" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">3</text><rect x="528" y="106" width="32" height="7" rx="2" fill="#1565C0"/></g><g><rect x="575" y="50" width="48" height="70" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="583" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">5</text><rect x="583" y="106" width="32" height="7" rx="2" fill="#C62828"/></g><text x="568" y="140" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">翻开加总</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">喊 CABO 后其他人各再行动一次，然后所有人翻开比点数和</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">After CABO, others take one last turn, then reveal and sum</text>
 </svg>

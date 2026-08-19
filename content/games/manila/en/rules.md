@@ -71,7 +71,7 @@ Each punt uses its own sea route (spaces **0–13**, then Manila). Place each pu
 
 ## 3. Place Accomplices & Move Punts
 
-![Accomplice spots: ware, port, pirates, insurance / 同伙格：货物、港口、海盗、保险](/images/rules/manila/accomplice-spots.svg)
+![Accomplice spots: ware, port, pirates, insurance](/images/rules/manila/accomplice-spots.svg)
 This phase has **three accomplice-placement rounds**, each followed by a **punt movement round**.
 
 **3-player exception:** there are **4** placement rounds and **3** movement rounds. After the first placement round, do a second placement round, then begin alternating placement → movement as usual.
@@ -132,7 +132,7 @@ Moving past 13 docks the punt in the next vacant port. Pilots cannot affect punt
 
 ## 4. Profit Distribution
 
-![Payout order: pirates, ware, port, shipyard / 分红顺序：海盗、货物、港口、船坞](/images/rules/manila/profit-order.svg)
+![Payout order: pirates, ware, port, shipyard](/images/rules/manila/profit-order.svg)
 Pay successful accomplices:
 
 1. **Pirates** — only for punts plundered after round 3 on space 13; split the ware-load profit equally (solo pirate takes all).

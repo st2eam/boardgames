@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Discard abilities / 弃牌能力</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">7–8 Peek self</text>
-    <text x="131.3" y="110" fill="#8D6E63">7–8 看自己</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">9–10 Spy other</text>
-    <text x="360.0" y="110" fill="#8D6E63">9–10 看别人</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">11–12 Swap blind</text>
-    <text x="588.7" y="110" fill="#8D6E63">11–12 盲换</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Discard peek / spy / swap / 弃牌看、窥、换</text>
+<g><rect x="70" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="78" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">7</text><rect x="78" y="116" width="40" height="7" rx="2" fill="#1565C0"/></g><g><rect x="140" y="70" width="48" height="64" rx="8" fill="#fff" stroke="#8D6E63" stroke-width="1.6"/><text x="148" y="92" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">?</text><rect x="148" y="120" width="32" height="7" rx="2" fill="#8D6E63"/></g><text x="118" y="155" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">7–8 看自己</text><g><rect x="280" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="288" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#2E7D32">9</text><rect x="288" y="116" width="40" height="7" rx="2" fill="#2E7D32"/></g><g><rect x="350" y="70" width="48" height="64" rx="8" fill="#fff" stroke="#8D6E63" stroke-width="1.6"/><text x="358" y="92" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">?</text><rect x="358" y="120" width="32" height="7" rx="2" fill="#8D6E63"/></g><text x="328" y="155" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">9–10 看别人</text><g><rect x="470" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="478" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">11</text><rect x="478" y="116" width="40" height="7" rx="2" fill="#C4952A"/></g><path d="M540 90 L590 90" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><g><rect x="600" y="70" width="48" height="64" rx="8" fill="#fff" stroke="#8D6E63" stroke-width="1.6"/><text x="608" y="92" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">?</text><rect x="608" y="120" width="32" height="7" rx="2" fill="#8D6E63"/></g><text x="545" y="155" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">11–12 盲换</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">弃 7–8 看自己一张；9–10 看别人一张；11–12 不看就换</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">7–8 peek yourself, 9–10 spy, 11–12 blind swap</text>
 </svg>

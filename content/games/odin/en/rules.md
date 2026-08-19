@@ -87,7 +87,7 @@ Collect and shuffle all cards. Deal 9 to each player. The player to the **left**
 
 ## End of the Game
 
-![When someone hits 15, fewest points wins](/images/rules/odin/game-end.svg)
+![Hit 15 points; fewest points win](/images/rules/odin/game-end.svg)
 Recommended for a first game: play until a player reaches **15** or more points. Then the player with the **fewest** points wins (ties share victory).
 
 | Length | Play to |

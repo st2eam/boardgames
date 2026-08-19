@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">7+ points: end it / 满 7 分可结束</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">STOP 停</text>
-    <text x="130.7" y="120" fill="#5D4037">Score now, all full</text>
-    <text x="130.7" y="148" fill="#8D6E63">立刻结束，全员完整计分</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">LAST CHANCE 最后机会</text>
-    <text x="360.0" y="120" fill="#5D4037">Others +1 turn</text>
-    <text x="360.0" y="148" fill="#8D6E63">其他人再各 1 回合</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Caller lead? 发起者最高？</text>
-    <text x="589.3" y="120" fill="#5D4037">Bonus or only color</text>
-    <text x="589.3" y="148" fill="#8D6E63">领先拿奖励，否则只计颜色</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">7+ : STOP or LAST CHANCE / 满 7 分喊停</text>
+<g><rect x="70" y="50" width="64" height="90" rx="8" fill="#fff" stroke="#00897B" stroke-width="1.6"/><text x="78" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#00897B">蟹</text><rect x="78" y="126" width="48" height="7" rx="2" fill="#00897B"/></g><g><rect x="145" y="50" width="64" height="90" rx="8" fill="#fff" stroke="#1565C0" stroke-width="1.6"/><text x="153" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">贝</text><rect x="153" y="126" width="48" height="7" rx="2" fill="#1565C0"/></g><text x="175" y="160" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#C4952A">7+</text><rect x="320" y="60" width="140" height="80" rx="12" fill="#fff" stroke="#C4952A" stroke-width="2.5"/><text x="390" y="95" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037">STOP</text><text x="390" y="118" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">立刻比分</text><rect x="500" y="60" width="160" height="80" rx="12" fill="#fff" stroke="#5D4037"/><text x="580" y="95" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#5D4037">LAST CHANCE</text><text x="580" y="118" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">别人再来一轮</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">手里满 7 分可以喊停立刻结束，或喊最后机会让别人再动一次</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">At 7+ declare STOP now or LAST CHANCE</text>
 </svg>

@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Round end / 回合结束</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Goal scoring</text>
-    <text x="131.3" y="110" fill="#8D6E63">目标计分</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Remove a die</text>
-    <text x="360.0" y="110" fill="#8D6E63">拿走一颗骰</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Fewer actions next</text>
-    <text x="588.7" y="110" fill="#8D6E63">下轮少一次行动</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Goal, remove cubes, pass token / 目标、收回方块、传标记</text>
+<rect x="50" y="55" width="120" height="90" rx="10" fill="#fff" stroke="#C4952A" stroke-width="2"/><text x="110" y="95" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">回合目标</text><text x="110" y="118" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">+分</text><rect x="230" y="80" width="20" height="20" rx="3" fill="#5D4037" stroke="#5D4037" stroke-width="1"/><rect x="256" y="80" width="20" height="20" rx="3" fill="#5D4037" stroke="#5D4037" stroke-width="1"/><rect x="282" y="80" width="20" height="20" rx="3" fill="#5D4037" stroke="#5D4037" stroke-width="1"/><text x="266" y="125" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">收回行动方块</text><circle cx="480" cy="95" r="20" fill="#C4952A" stroke="#5D4037" stroke-width="1.4"/><circle cx="480" cy="95" r="15" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M520 95 L580 95" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><text x="560" y="125" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">起始玩家传下去</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">先结算回合目标，收回行动方块，再把起始玩家标记传给下家</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Score the round goal, remove action cubes, pass the first-player token</text>
 </svg>

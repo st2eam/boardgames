@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">How cards score / 卡牌怎么计分</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Duo 双人组</text>
-    <text x="130.7" y="120" fill="#5D4037">1 per pair + effect</text>
-    <text x="130.7" y="148" fill="#8D6E63">每对 1 分并可发动</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Collector 收集</text>
-    <text x="360.0" y="120" fill="#5D4037">More copies, more pts</text>
-    <text x="360.0" y="148" fill="#8D6E63">张数越多分越高</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Mermaid 美人鱼</text>
-    <text x="589.3" y="120" fill="#5D4037">1 per top color</text>
-    <text x="589.3" y="148" fill="#8D6E63">按最多颜色计分</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Duos · collectors · mermaids / 双人组 · 收集 · 美人鱼</text>
+<g><rect x="70" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="78" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#00897B">蟹</text><rect x="78" y="116" width="40" height="7" rx="2" fill="#00897B"/></g><g><rect x="135" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="143" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#00897B">蟹</text><rect x="143" y="116" width="40" height="7" rx="2" fill="#00897B"/></g><text x="130" y="148" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">双人组 2 分</text><g><rect x="280" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#1565C0" stroke-width="1.6"/><text x="288" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">1</text><rect x="288" y="116" width="40" height="7" rx="2" fill="#1565C0"/></g><g><rect x="340" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#1565C0" stroke-width="1.6"/><text x="348" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">2</text><rect x="348" y="116" width="40" height="7" rx="2" fill="#1565C0"/></g><g><rect x="400" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#1565C0" stroke-width="1.6"/><text x="408" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">3</text><rect x="408" y="116" width="40" height="7" rx="2" fill="#1565C0"/></g><text x="365" y="148" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">收集牌累加</text><g><rect x="530" y="50" width="64" height="80" rx="8" fill="#fff" stroke="#C4952A" stroke-width="1.6"/><text x="538" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">鱼</text><rect x="538" y="116" width="48" height="7" rx="2" fill="#C4952A"/></g><text x="562" y="148" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">美人鱼翻倍</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">双人组固定 2 分；收集牌张数越多越高；美人鱼另算</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Duos score 2; collectors scale; mermaids score separately</text>
 </svg>

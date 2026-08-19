@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Brutal actions / 狠招功能牌</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Discard All 全弃</text>
-    <text x="130.7" y="120" fill="#5D4037">Dump that color</text>
-    <text x="130.7" y="148" fill="#8D6E63">弃掉该色全部</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Skip Everyone 全跳过</text>
-    <text x="360.0" y="120" fill="#5D4037">You play again</text>
-    <text x="360.0" y="148" fill="#8D6E63">你立刻再出</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Wild +6 / +10 万能+6/+10</text>
-    <text x="589.3" y="120" fill="#5D4037">Huge draw hit</text>
-    <text x="589.3" y="148" fill="#8D6E63">巨额抽牌惩罚</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
+<rect width="720" height="280" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Brutal actions / 狠招功能牌</text>
+<g><rect x="50" y="50" width="70" height="100" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="58" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">全弃</text><rect x="58" y="136" width="54" height="7" rx="2" fill="#C62828"/></g><text x="85" y="168" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="11" fill="#8D6E63">Discard All</text><g><rect x="220" y="50" width="70" height="100" rx="8" fill="#fff" stroke="#1565C0" stroke-width="1.6"/><text x="228" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">全跳</text><rect x="228" y="136" width="54" height="7" rx="2" fill="#1565C0"/></g><text x="255" y="168" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="11" fill="#8D6E63">Skip Everyone</text><g><rect x="390" y="50" width="70" height="100" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="398" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">+6</text><rect x="398" y="136" width="54" height="7" rx="2" fill="#C4952A"/></g><text x="425" y="168" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="11" fill="#8D6E63">Wild +6</text><g><rect x="560" y="50" width="70" height="100" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="568" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">+10</text><rect x="568" y="136" width="54" height="7" rx="2" fill="#C4952A"/></g><text x="595" y="168" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="11" fill="#8D6E63">Wild +10</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">全弃把手里同色一次出完；全跳过所有人；万能可让下家抽 6 或 10</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Discard All dumps a color; Skip Everyone; Wild Draw 6 / 10</text>
 </svg>

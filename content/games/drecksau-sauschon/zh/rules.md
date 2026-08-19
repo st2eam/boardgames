@@ -17,7 +17,7 @@
 
 ## 新的获胜条件
 
-![全部变脏或全部变美即可获胜](/images/rules/drecksau-sauschon/new-win.svg)
+![率先让所有猪同一状态：全脏或全漂亮](/images/rules/drecksau-sauschon/new-win.svg)
 
 率先让所有猪处于**同一状态**即可获胜：
 - **全部是脏小猪** — 赢得泥桶
@@ -25,7 +25,7 @@
 
 ## 新增卡牌效果
 
-![靓猪、溜走、幸运鸟](/images/rules/drecksau-sauschon/new-cards.svg)
+![扩展混入漂亮小猪、逃走卡和幸运小鸟](/images/rules/drecksau-sauschon/new-cards.svg)
 
 ### 漂亮小猪卡（Schönsau）
 放置在**任意一张**猪卡上（自己或对手的，无论干净或肮脏）。该猪变成漂亮小猪。

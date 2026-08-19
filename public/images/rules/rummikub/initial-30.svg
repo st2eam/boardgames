@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Initial Meld / 首次出牌</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Need 30 需 30 分</text>
-    <text x="130.7" y="120" fill="#5D4037">Sum of face values</text>
-    <text x="130.7" y="148" fill="#8D6E63">牌面点数之和</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Own tiles 只用自己的</text>
-    <text x="360.0" y="120" fill="#5D4037">No table manipulation yet</text>
-    <text x="360.0" y="148" fill="#8D6E63">还不能动桌上的牌</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Else draw 否则抽牌</text>
-    <text x="589.3" y="120" fill="#5D4037">Draw 1 and end turn</text>
-    <text x="589.3" y="148" fill="#8D6E63">抽 1 张并结束回合</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Opening meld ≥ 30 / 首次至少 30 分</text>
+<g><rect x="60" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="68" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">10</text><rect x="68" y="116" width="40" height="7" rx="2" fill="#C62828"/></g><g><rect x="125" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="133" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">11</text><rect x="133" y="116" width="40" height="7" rx="2" fill="#C62828"/></g><g><rect x="190" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="198" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">12</text><rect x="198" y="116" width="40" height="7" rx="2" fill="#C62828"/></g><text x="155" y="148" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">红 10-11-12 = 33</text><text x="400" y="95" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="700" fill="#C4952A">≥ 30</text><text x="400" y="120" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">必须用自己手里的牌</text><g><rect x="520" y="55" width="70" height="80" rx="8" fill="#fff" stroke="#90A4AE" stroke-width="1.6"/><text x="528" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#90A4AE">Joker</text><rect x="528" y="121" width="54" height="7" rx="2" fill="#90A4AE"/></g><text x="555" y="152" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">首次不能靠桌上的牌</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">第一次出牌必须用自己手里的牌凑满至少 30 分</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">First play must total at least 30 from your own tiles</text>
 </svg>

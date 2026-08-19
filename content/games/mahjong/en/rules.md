@@ -27,7 +27,7 @@ Spring, Summer, Autumn, Winter, Plum, Orchid, Bamboo, Chrysanthemum — 1 each.
 
 ## Game Flow
 
-![Turn: draw one, evaluate, discard one / 巡目：摸一张、判断、打出一张](/images/rules/mahjong/turn-flow.svg)
+![Turn: draw one, evaluate, discard one](/images/rules/mahjong/turn-flow.svg)
 ### 1. Setup
 
 1. **Shuffle**: Mix all tiles face-down

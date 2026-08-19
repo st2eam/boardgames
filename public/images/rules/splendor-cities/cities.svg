@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Cities / 城市</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Replace nobles 替代贵族</text>
-    <text x="130.7" y="120" fill="#5D4037">Replace nobles</text>
-    <text x="130.7" y="148" fill="#8D6E63">替代贵族</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Claim a city 占领城市</text>
-    <text x="360.0" y="120" fill="#5D4037">Claim a city</text>
-    <text x="360.0" y="148" fill="#8D6E63">占领城市</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">That city is the race 城市即胜利</text>
-    <text x="589.3" y="120" fill="#5D4037">That city is the race</text>
-    <text x="589.3" y="148" fill="#8D6E63">城市即胜利</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Claim a city to win / 拿下一座城市获胜</text>
+<rect x="80" y="80" width="20" height="20" rx="3" fill="#1565C0" stroke="#5D4037" stroke-width="1"/><rect x="108" y="80" width="20" height="20" rx="3" fill="#2E7D32" stroke="#5D4037" stroke-width="1"/><rect x="136" y="80" width="20" height="20" rx="3" fill="#C62828" stroke="#5D4037" stroke-width="1"/><text x="118" y="122" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">声望 + 奖励</text><path d="M200 90 L260 90" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><rect x="280" y="50" width="120" height="90" rx="12" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="340" y="90" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037">城市</text><text x="340" y="114" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">取代贵族</text><text x="520" y="100" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="18" font-weight="700" fill="#C4952A">WIN</text><text x="520" y="124" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">拿下即获胜</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">城市取代贵族：声望和奖励够了就拿走城市，拿到即获胜</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Cities replace nobles: meet prestige and bonuses, claim a city to win</text>
 </svg>

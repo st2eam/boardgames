@@ -68,7 +68,7 @@ DOS 是 Mattel 于 2018 年推出的 UNO 续作。与 UNO 通过颜色/数字匹
 
 ## 喊 DOS!
 
-![还剩 2 张必须喊 DOS，被抓到抽 2 张](/images/rules/uno-dos/dos-shout.svg)
+![还剩 2 张必须喊 DOS，被抓到抽 2](/images/rules/uno-dos/dos-shout.svg)
 当手中**恰好剩 2 张牌**时，必须喊 **"DOS!"**
 
 - 忘记喊且被其他玩家指出 → **罚抽 2 张牌**（在回合结束时抽）

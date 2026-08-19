@@ -50,7 +50,7 @@
 
 ## 游戏结束与计分
 
-![打出最后一张时，每种可见半牌计 1 分](/images/rules/just-wild/scoring.svg)
+![打出最后一张时，每个露出的物种半边计 1 分](/images/rules/just-wild/scoring.svg)
 
 各玩家**不会同时结束**游戏。当你打出**最后一张牌**时：
 

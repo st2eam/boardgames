@@ -13,7 +13,7 @@ Wind Sound Again (风声再临) is a spy-themed hidden identity card game for 3-
 
 ## Factions & Victory Conditions
 
-![Latent red, military blue, agent solo; three black cards kill / 潜伏红、军情蓝、特工独自；三张黑情报死亡](/images/rules/the-message-attack-by-stratagem/factions.svg)
+![Red and blue pass intel; some identities stay hidden](/images/rules/the-message-attack-by-stratagem/factions.svg)
 | Faction | Color | Victory Condition |
 |---------|-------|-------------------|
 | **Latent (潜伏)** | Red | Any teammate collects 3 red intelligence cards |

@@ -1,31 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-  <rect width="720" height="300" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Hand ranks (high) / 牌型（从大）</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <text x="360" y="48" fill="#5D4037" font-size="12">Strong · 强牌</text>
-    <rect x="24.0" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Royal / SF</text>
-    <text x="131.3" y="108" fill="#8D6E63">皇家/同花顺</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Quads</text>
-    <text x="360.0" y="108" fill="#8D6E63">四条</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Full house</text>
-    <text x="588.7" y="108" fill="#8D6E63">葫芦</text>
-    <text x="360" y="158" fill="#5D4037" font-size="12">Weaker · 较弱</text>
-    <rect x="24.0" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="198" fill="#5D4037" font-weight="700">Flush / straight</text>
-    <text x="131.3" y="218" fill="#8D6E63">同花 / 顺子</text>
-    <path d="M238.7 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="360.0" y="198" fill="#5D4037" font-weight="700">Trips / two pair</text>
-    <text x="360.0" y="218" fill="#8D6E63">三条 / 两对</text>
-    <path d="M467.3 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="588.7" y="198" fill="#5D4037" font-weight="700">Pair / high card</text>
-    <text x="588.7" y="218" fill="#8D6E63">一对 / 高牌</text>
-  </g>
+<rect width="720" height="300" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Stronger five-card hands / 五张牌从大到小</text>
+<g><rect x="40" y="50" width="44" height="64" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="48" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">A</text><rect x="48" y="100" width="28" height="7" rx="2" fill="#C62828"/></g><g><rect x="88" y="50" width="44" height="64" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="96" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">K</text><rect x="96" y="100" width="28" height="7" rx="2" fill="#C62828"/></g><g><rect x="136" y="50" width="44" height="64" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="144" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">Q</text><rect x="144" y="100" width="28" height="7" rx="2" fill="#C62828"/></g><g><rect x="184" y="50" width="44" height="64" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="192" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">J</text><rect x="192" y="100" width="28" height="7" rx="2" fill="#C62828"/></g><g><rect x="232" y="50" width="44" height="64" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="240" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">10</text><rect x="240" y="100" width="28" height="7" rx="2" fill="#C62828"/></g><text x="300" y="90" text-anchor="start" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">皇家同花顺</text><g><rect x="40" y="160" width="44" height="64" rx="8" fill="#fff" stroke="#1565C0" stroke-width="1.6"/><text x="48" y="182" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">9</text><rect x="48" y="210" width="28" height="7" rx="2" fill="#1565C0"/></g><g><rect x="88" y="160" width="44" height="64" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="96" y="182" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">9</text><rect x="96" y="210" width="28" height="7" rx="2" fill="#C62828"/></g><g><rect x="136" y="160" width="44" height="64" rx="8" fill="#fff" stroke="#2E7D32" stroke-width="1.6"/><text x="144" y="182" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#2E7D32">9</text><rect x="144" y="210" width="28" height="7" rx="2" fill="#2E7D32"/></g><g><rect x="184" y="160" width="44" height="64" rx="8" fill="#fff" stroke="#F9A825" stroke-width="1.6"/><text x="192" y="182" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#F9A825">9</text><rect x="192" y="210" width="28" height="7" rx="2" fill="#F9A825"/></g><g><rect x="232" y="160" width="44" height="64" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="240" y="182" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">2</text><rect x="240" y="210" width="28" height="7" rx="2" fill="#5D4037"/></g><text x="300" y="200" text-anchor="start" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">四条</text><text x="40" y="250" text-anchor="start" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">往下还有葫芦、同花、顺子、三条、两对、一对、高牌</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">皇家同花顺最大，高牌最小；比的是这五张组成的牌型</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Royal flush is strongest; high card is weakest</text>
 </svg>

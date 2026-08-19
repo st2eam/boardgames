@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Who wins / 谁获胜</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">False ring 按错铃</text>
-    <text x="130.7" y="120" fill="#5D4037">Give 1 to each</text>
-    <text x="130.7" y="148" fill="#8D6E63">每人赔 1 张</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Two left 只剩两人</text>
-    <text x="360.0" y="120" fill="#5D4037">Correct ring ends</text>
-    <text x="360.0" y="148" fill="#8D6E63">按对应结束</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Most cards 牌最多</text>
-    <text x="589.3" y="120" fill="#5D4037">That player wins</text>
-    <text x="589.3" y="148" fill="#8D6E63">该玩家获胜</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">False ring / last two / most cards / 按错、剩两人、牌多者胜</text>
+<circle cx="120" cy="100" r="28" fill="#F9A825" stroke="#5D4037"/><text x="120" y="148" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">按错 → 赔 1 张</text><g><rect x="280" y="55" width="56" height="80" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="288" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">A</text><rect x="288" y="121" width="40" height="7" rx="2" fill="#5D4037"/></g><g><rect x="350" y="55" width="56" height="80" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="358" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">B</text><rect x="358" y="121" width="40" height="7" rx="2" fill="#5D4037"/></g><text x="350" y="152" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">剩两人对决</text><g><rect x="500" y="55" width="48" height="68" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="508" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">1</text><rect x="508" y="109" width="32" height="7" rx="2" fill="#C62828"/></g><g><rect x="512" y="59" width="48" height="68" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="520" y="81" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">2</text><rect x="520" y="113" width="32" height="7" rx="2" fill="#C62828"/></g><g><rect x="524" y="63" width="48" height="68" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="532" y="85" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">3</text><rect x="532" y="117" width="32" height="7" rx="2" fill="#C62828"/></g><g><rect x="536" y="67" width="48" height="68" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="544" y="89" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">4</text><rect x="544" y="121" width="32" height="7" rx="2" fill="#C62828"/></g><text x="560" y="152" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">牌多者胜</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">按错铃赔一张给别人；剩两人时打到其中一人没牌；牌多者获胜</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">False ring pays a card; last two fight; most cards wins</text>
 </svg>

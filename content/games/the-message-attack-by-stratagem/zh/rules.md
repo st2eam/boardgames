@@ -13,7 +13,7 @@
 
 ## 阵营与胜利条件
 
-![Latent red, military blue, agent solo; three black cards kill / 潜伏红、军情蓝、特工独自；三张黑情报死亡](/images/rules/the-message-attack-by-stratagem/factions.svg)
+![红蓝传情报；部分身份保持隐藏](/images/rules/the-message-attack-by-stratagem/factions.svg)
 | 阵营 | 颜色 | 胜利条件 |
 |------|------|---------|
 | **潜伏** | 红色 | 同阵营任一玩家面前收集 3 张红色情报 |

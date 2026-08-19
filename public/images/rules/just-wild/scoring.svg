@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">End scoring / 终局计分</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="328.0" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="188.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Sets 套牌</text>
-    <text x="188.0" y="120" fill="#5D4037">Score your groups</text>
-    <text x="188.0" y="148" fill="#8D6E63">按组成套计分</text>
-    <rect x="368.0" y="48" width="328.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="532.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Leftovers 剩牌</text>
-    <text x="532.0" y="120" fill="#5D4037">Usually penalty</text>
-    <text x="532.0" y="148" fill="#8D6E63">多为扣分</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img">
+<rect width="720" height="250" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Last card: score visible halves / 出完看露出的半边</text>
+<g><rect x="80" y="50" width="64" height="90" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="88" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">0</text><rect x="88" y="126" width="48" height="7" rx="2" fill="#C4952A"/></g><text x="112" y="158" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">打出最后一张</text><rect x="280" y="55" width="90" height="70" rx="8" fill="#fff" stroke="#5D4037"/><text x="325" y="80" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">物种半边</text><text x="325" y="108" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#C4952A">+1</text><rect x="390" y="55" width="90" height="70" rx="8" fill="#fff" stroke="#5D4037"/><text x="435" y="80" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">另一半</text><text x="435" y="108" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#C4952A">+1</text><rect x="500" y="55" width="90" height="70" rx="8" fill="#fff" stroke="#C4952A" stroke-width="2"/><text x="545" y="80" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">合计</text><text x="545" y="108" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#C4952A">2</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">打出最后一张时，场上露出的每个物种半边计 1 分</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">When you play your last card, each visible half of your species is 1 point</text>
 </svg>

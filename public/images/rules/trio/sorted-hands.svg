@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Hands stay sorted / 手牌保持排序</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Sort low → high</text>
-    <text x="131.3" y="110" fill="#8D6E63">从低到高排好</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Only the ends</text>
-    <text x="360.0" y="110" fill="#8D6E63">只能动两端</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Never the middle</text>
-    <text x="588.7" y="110" fill="#8D6E63">不能翻中间</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Sorted hand, ends only / 排好序，只能翻两端</text>
+<g><rect x="90" y="55" width="56" height="80" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="98" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">3</text><rect x="98" y="121" width="40" height="7" rx="2" fill="#8D6E63"/></g><g><rect x="160" y="55" width="56" height="80" rx="8" fill="#fff" stroke="#90A4AE" stroke-width="1.6"/><text x="168" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#90A4AE">·</text><rect x="168" y="121" width="40" height="7" rx="2" fill="#90A4AE"/></g><g><rect x="230" y="55" width="56" height="80" rx="8" fill="#fff" stroke="#90A4AE" stroke-width="1.6"/><text x="238" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#90A4AE">·</text><rect x="238" y="121" width="40" height="7" rx="2" fill="#90A4AE"/></g><g><rect x="300" y="55" width="56" height="80" rx="8" fill="#fff" stroke="#90A4AE" stroke-width="1.6"/><text x="308" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#90A4AE">·</text><rect x="308" y="121" width="40" height="7" rx="2" fill="#90A4AE"/></g><g><rect x="370" y="55" width="56" height="80" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="378" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">K</text><rect x="378" y="121" width="40" height="7" rx="2" fill="#8D6E63"/></g><text x="118" y="155" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">可翻</text><text x="370" y="155" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">盖着</text><text x="538" y="155" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">可翻</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">手牌从低到高排好，问牌时只能翻开最左或最右</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Hands stay sorted; you may only reveal the ends</text>
 </svg>

@@ -21,7 +21,7 @@
 
 ## 游戏结构
 
-![East-only is four east hands; hanchan adds south / 东风战四局；东南战再打南场](/images/rules/riichi-mahjong/game-structure.svg)
+![东风战四局；东南战再打南场](/images/rules/riichi-mahjong/game-structure.svg)
 ### 对局构成
 
 - **东风战**：东一局 → 东四局（最少 4 局）
@@ -153,7 +153,7 @@
 
 ## 计分系统
 
-![Score from han and fu; mangan and above are capped / 按番与符计分，满贯起封顶](/images/rules/riichi-mahjong/scoring.svg)
+![番来自役种和宝牌，再乘符；满贯起固定点](/images/rules/riichi-mahjong/scoring.svg)
 ### 基本公式
 
 得点 = 符数 × 2^(番数+2)

@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">On your turn / 你的回合</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Flip 1 away</text>
-    <text x="131.3" y="110" fill="#8D6E63">向外翻 1 张</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Top card only</text>
-    <text x="360.0" y="110" fill="#8D6E63">只看最上面</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Next player</text>
-    <text x="588.7" y="110" fill="#8D6E63">下家继续</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Flip one away from you / 向外翻一张</text>
+<g><rect x="80" y="60" width="70" height="90" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="88" y="70" width="54" height="70" rx="4" fill="#D7CCC8"/></g><g><rect x="100" y="70" width="70" height="90" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="108" y="80" width="54" height="70" rx="4" fill="#D7CCC8"/></g><g><rect x="200" y="50" width="70" height="100" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="208" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#F9A825">蕉</text><rect x="208" y="136" width="54" height="7" rx="2" fill="#F9A825"/></g><path d="M160 95 L195 80" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><text x="235" y="168" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">只看最上面</text><text x="500" y="100" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">翻的方向离开自己</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">向外翻 1 张；每人面前只看最上面那张</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Flip one card away from you; only the top is visible</text>
 </svg>

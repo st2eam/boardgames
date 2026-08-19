@@ -1,31 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-  <rect width="720" height="300" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Military and Science / 军事与科学</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <text x="360" y="48" fill="#5D4037" font-size="12">End of Age military · 时代结束军事</text>
-    <rect x="24.0" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Compare shields</text>
-    <text x="131.3" y="108" fill="#8D6E63">比较盾牌</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Win +1 / +3 / +5</text>
-    <text x="360.0" y="108" fill="#8D6E63">胜 +1 / +3 / +5</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Loss −1</text>
-    <text x="588.7" y="108" fill="#8D6E63">负 −1</text>
-    <text x="360" y="158" fill="#5D4037" font-size="12">Green science · 绿色科学</text>
-    <rect x="24.0" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="198" fill="#5D4037" font-weight="700">Same symbol n²</text>
-    <text x="131.3" y="218" fill="#8D6E63">同符号 n²</text>
-    <path d="M238.7 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="360.0" y="198" fill="#5D4037" font-weight="700">Set of 3: +7</text>
-    <text x="360.0" y="218" fill="#8D6E63">三种一套 +7</text>
-    <path d="M467.3 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="588.7" y="198" fill="#5D4037" font-weight="700">Add both totals</text>
-    <text x="588.7" y="218" fill="#8D6E63">两项相加</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Shields each Age · science as left / 每时代比盾，科学另算</text>
+<path d="M100 60 l30 8 v28 c0 22 -30 36 -30 36 s-30-14 -30-36 v-28z" fill="#fff" stroke="#5D4037" stroke-width="2"/><text x="100" y="145" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">盾 3</text><path d="M230 70 l22 6 v20 c0 16 -22 26 -22 26 s-22-10 -22-26 v-20z" fill="#fff" stroke="#8D6E63" stroke-width="2"/><text x="230" y="145" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">盾 1</text><text x="165" y="175" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">盾多者赢军事</text><circle cx="480" cy="90" r="14" fill="#fff" stroke="#5D4037"/><rect x="510" y="76" width="28" height="28" rx="3" fill="#fff" stroke="#C4952A"/><polygon points="560,76 574,104 546,104" fill="#fff" stroke="#00897B"/><text x="530" y="125" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">科学仍按平方</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">每个时代比盾牌，多的一方得分；科学按同符号平方再加套装 +7</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Compare shields each Age; science scores n² plus 7 per complete set</text>
 </svg>

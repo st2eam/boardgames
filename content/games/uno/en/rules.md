@@ -86,7 +86,7 @@ When playing with only 2 players:
 
 ## Scoring
 
-![Empty hand wins; leftover cards score; first to 500](/images/rules/uno/scoring.svg)
+![Empty your hand; leftover cards score; first to 500](/images/rules/uno/scoring.svg)
 Points are scored from all cards remaining in opponents' hands:
 
 | Card Type | Points |

@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Available actions / 可选行动</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Fold 盖牌</text>
-    <text x="130.7" y="120" fill="#5D4037">Give up the pot</text>
-    <text x="130.7" y="148" fill="#8D6E63">放弃这锅</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Call / Check 跟注 / 过牌</text>
-    <text x="360.0" y="120" fill="#5D4037">Match or pass</text>
-    <text x="360.0" y="148" fill="#8D6E63">跟上或免费过</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Raise / Bet 加注 / 下注</text>
-    <text x="589.3" y="120" fill="#5D4037">Make it cost more</text>
-    <text x="589.3" y="148" fill="#8D6E63">提高代价</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Facing a bet / 面对下注</text>
+<circle cx="90" cy="100" r="18" fill="#C62828" stroke="#5D4037" stroke-width="1.4"/><circle cx="90" cy="100" r="13" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="118" cy="108" r="18" fill="#1565C0" stroke="#5D4037" stroke-width="1.4"/><circle cx="118" cy="108" r="13" fill="none" stroke="#fff" stroke-width="1.5"/><text x="104" y="145" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">桌上已有注</text><g><rect x="250" y="55" width="70" height="90" rx="8" fill="#fff" stroke="#8D6E63" stroke-width="1.6"/><text x="258" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">fold</text></g><text x="285" y="162" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">弃牌</text><g><rect x="370" y="55" width="70" height="90" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="378" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">call</text></g><circle cx="390" cy="88" r="12" fill="#C4952A" stroke="#5D4037" stroke-width="1.4"/><circle cx="390" cy="88" r="7" fill="none" stroke="#fff" stroke-width="1.5"/><text x="405" y="162" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">跟注</text><g><rect x="490" y="55" width="70" height="90" rx="8" fill="#fff" stroke="#C4952A" stroke-width="1.6"/><text x="498" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">raise</text></g><circle cx="510" cy="80" r="12" fill="#C4952A" stroke="#5D4037" stroke-width="1.4"/><circle cx="510" cy="80" r="7" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="528" cy="88" r="12" fill="#C4952A" stroke="#5D4037" stroke-width="1.4"/><circle cx="528" cy="88" r="7" fill="none" stroke="#fff" stroke-width="1.5"/><text x="525" y="162" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">加注</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">面对别人的筹码：丢掉手牌、跟到同样多、或再加一截</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Fold, call the bet, or raise when facing chips</text>
 </svg>

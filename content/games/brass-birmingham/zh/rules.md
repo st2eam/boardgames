@@ -176,7 +176,7 @@
 
 ## 资源
 
-![煤需要连通；铁不需要；啤酒看是谁的酒厂](/images/rules/brass-birmingham/resources.svg)
+![煤需要连接；铁不需要；啤酒看是谁的酒厂](/images/rules/brass-birmingham/resources.svg)
 
 ### 煤
 

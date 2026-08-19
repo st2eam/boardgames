@@ -27,7 +27,7 @@
 
 ## 游戏流程
 
-![Turn: draw one, evaluate, discard one / 巡目：摸一张、判断、打出一张](/images/rules/mahjong/turn-flow.svg)
+![巡目：摸一张、判断、打出一张](/images/rules/mahjong/turn-flow.svg)
 ### 1. 开局准备
 
 1. **洗牌**：将所有牌面朝下混合洗匀

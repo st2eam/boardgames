@@ -79,7 +79,7 @@
 
 ## 一轮结束
 
-![牌堆抽空比点数，或只剩一人立即获胜](/images/rules/love-letter/round-end.svg)
+![牌库抽空或只剩一人时结束本轮](/images/rules/love-letter/round-end.svg)
 本轮在以下两种情况之一结束：
 
 ### 牌堆耗尽

@@ -32,14 +32,14 @@
 
 ## 信号指示物
 
-![During Scan spend at most two tokens to discard extra row cards / 扫描时最多用两个信号，多弃牌行并标记扇区](/images/rules/seti-space-agencies/signal-tokens.svg)
+![扫描时最多用两个信号，多弃牌行并标记扇区](/images/rules/seti-space-agencies/signal-tokens.svg)
 在 **扫描** 行动中可弃掉信号指示物：每弃 1 枚，再从卡牌行弃 **1 张**，并在匹配扇区标记信号。
 
 卡牌行要等 **整次扫描结束** 才补牌，因此一次扫描最多用 **2** 枚。只标记信号、但 **不是扫描** 的效果不能花指示物。
 
 ## 使用机构
 
-![Keep one organization, use Quick Start, play four rounds / 留一个机构，用快速开局，只打四回合](/images/rules/seti-space-agencies/organizations.svg)
+![留一个机构，用快速开局，只打四回合](/images/rules/seti-space-agencies/organizations.svg)
 机构取代本体起始收入卡，并与 **快速开始卡一起使用**。
 
 ### 准备改动

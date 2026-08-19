@@ -13,7 +13,7 @@
 
 ## 3. 身份与胜利条件
 
-![Monarch and loyalists vs rebels; traitor wins alone / 主公忠臣对反贼，内奸独自获胜](/images/rules/legends-of-the-three-kingdoms/identity-win.svg)
+![主公忠臣对反贼，内奸独自获胜](/images/rules/legends-of-the-three-kingdoms/identity-win.svg)
 | 身份 | 阵营 | 目标 |
 |------|------|------|
 | **主公** | 主公方 | 消灭所有反贼和内奸 |

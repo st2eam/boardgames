@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Scoring / 计分</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Empty hand wins</text>
-    <text x="131.3" y="110" fill="#8D6E63">先出完获胜</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Score leftovers</text>
-    <text x="360.0" y="110" fill="#8D6E63">对手剩牌计分</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">First to 500</text>
-    <text x="588.7" y="110" fill="#8D6E63">先到 500 分</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
+<rect width="720" height="280" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Empty hand scores leftovers / 出完，对手剩牌计分</text>
+<g><rect x="80" y="55" width="64" height="90" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="88" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">0</text><rect x="88" y="131" width="48" height="7" rx="2" fill="#C62828"/></g><text x="112" y="162" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">你出完</text><g><rect x="280" y="70" width="56" height="80" rx="8" fill="#fff" stroke="#1565C0" stroke-width="1.6"/><text x="288" y="92" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">5</text><rect x="288" y="136" width="40" height="7" rx="2" fill="#1565C0"/></g><g><rect x="350" y="70" width="56" height="80" rx="8" fill="#fff" stroke="#F9A825" stroke-width="1.6"/><text x="358" y="92" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#F9A825">+2</text><rect x="358" y="136" width="40" height="7" rx="2" fill="#F9A825"/></g><g><rect x="420" y="70" width="56" height="80" rx="8" fill="#fff" stroke="#2E7D32" stroke-width="1.6"/><text x="428" y="92" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#2E7D32">9</text><rect x="428" y="136" width="40" height="7" rx="2" fill="#2E7D32"/></g><text x="385" y="168" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">对手剩牌 → 记到你的分</text><text x="360" y="200" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">先到 500 分获胜</text><text x="360" y="228" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">先打空手牌；对手手里剩下的牌记到你的分，先到 500</text>
+<text x="360" y="246" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Empty your hand; leftover cards score for you. First to 500 wins.</text>
 </svg>

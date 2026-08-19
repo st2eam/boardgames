@@ -32,14 +32,14 @@ Read a new species’ sheet only when it is discovered, same as the base game.
 
 ## Signal tokens
 
-![During Scan spend at most two tokens to discard extra row cards / 扫描时最多用两个信号，多弃牌行并标记扇区](/images/rules/seti-space-agencies/signal-tokens.svg)
+![During Scan spend at most two tokens to discard extra row cards and mark that sector](/images/rules/seti-space-agencies/signal-tokens.svg)
 During a **Scan** action you may discard signal tokens: for each token, discard **1 extra** card from the card row and mark a signal in a matching sector.
 
 The row refills only after the **entire** Scan, so you can spend **at most 2** tokens on one Scan. Effects that mark signals but are **not** a Scan cannot spend tokens.
 
 ## Playing with organizations
 
-![Keep one organization, use Quick Start, play four rounds / 留一个机构，用快速开局，只打四回合](/images/rules/seti-space-agencies/organizations.svg)
+![Keep one organization, use Quick Start, play four rounds](/images/rules/seti-space-agencies/organizations.svg)
 Organizations replace the base starting-income card and are used **together with Quick Start cards**.
 
 ### Setup changes

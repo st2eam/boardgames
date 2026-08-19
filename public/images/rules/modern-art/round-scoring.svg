@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Round Scoring / 回合计分</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">End 结束</text>
-    <text x="130.7" y="120" fill="#5D4037">5th of an artist played</text>
-    <text x="130.7" y="148" fill="#8D6E63">同一画家第 5 张打出</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Value 市值</text>
-    <text x="360.0" y="120" fill="#5D4037">Top 3: 30 / 20 / 10</text>
-    <text x="360.0" y="148" fill="#8D6E63">前三名 30 / 20 / 10</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Sell 卖出</text>
-    <text x="589.3" y="120" fill="#5D4037">Sold paintings pay out</text>
-    <text x="589.3" y="148" fill="#8D6E63">本回合买到的画兑现</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img">
+<rect width="720" height="270" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">5th painting ends the round / 第 5 张结束回合</text>
+<g><rect x="40" y="50" width="48" height="70" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="48" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">画</text><rect x="48" y="106" width="32" height="7" rx="2" fill="#C62828"/></g><g><rect x="95" y="50" width="48" height="70" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="103" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">画</text><rect x="103" y="106" width="32" height="7" rx="2" fill="#C62828"/></g><g><rect x="150" y="50" width="48" height="70" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="158" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">画</text><rect x="158" y="106" width="32" height="7" rx="2" fill="#C62828"/></g><g><rect x="205" y="50" width="48" height="70" rx="8" fill="#fff" stroke="#C62828" stroke-width="1.6"/><text x="213" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">画</text><rect x="213" y="106" width="32" height="7" rx="2" fill="#C62828"/></g><g><rect x="260" y="50" width="48" height="70" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="268" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">画</text><rect x="268" y="106" width="32" height="7" rx="2" fill="#C4952A"/></g><text x="150" y="140" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">同一画家第 5 张</text><text x="430" y="80" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">30</text><text x="500" y="80" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">20</text><text x="570" y="80" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">10</text><text x="500" y="110" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">卖出的画兑现</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">同一画家第 5 张结束回合；卖出的画按 30 / 20 / 10 给钱</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Fifth painting of an artist ends the round; sold works pay 30 / 20 / 10</text>
 </svg>

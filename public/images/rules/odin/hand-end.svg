@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">End of a hand / 一手结束</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Score the take 计本手</text>
-    <text x="130.7" y="120" fill="#5D4037">Score the take</text>
-    <text x="130.7" y="148" fill="#8D6E63">计本手</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Refill 补牌</text>
-    <text x="360.0" y="120" fill="#5D4037">Refill</text>
-    <text x="360.0" y="148" fill="#8D6E63">补牌</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Next hand 下一手</text>
-    <text x="589.3" y="120" fill="#5D4037">Next hand</text>
-    <text x="589.3" y="148" fill="#8D6E63">下一手</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img">
+<rect width="720" height="250" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Empty hand ends it / 打空手牌结束该手</text>
+<g><rect x="80" y="50" width="56" height="80" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="88" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">K</text><rect x="88" y="116" width="40" height="7" rx="2" fill="#5D4037"/></g><text x="108" y="148" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">打出最后一张</text><g><rect x="280" y="55" width="56" height="80" rx="8" fill="#fff" stroke="#8D6E63" stroke-width="1.6"/><text x="288" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">3</text><rect x="288" y="121" width="40" height="7" rx="2" fill="#8D6E63"/></g><g><rect x="340" y="55" width="56" height="80" rx="8" fill="#fff" stroke="#8D6E63" stroke-width="1.6"/><text x="348" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">5</text><rect x="348" y="121" width="40" height="7" rx="2" fill="#8D6E63"/></g><g><rect x="400" y="55" width="56" height="80" rx="8" fill="#fff" stroke="#8D6E63" stroke-width="1.6"/><text x="408" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">9</text><rect x="408" y="121" width="40" height="7" rx="2" fill="#8D6E63"/></g><text x="370" y="152" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">别人每张剩牌 1 分</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">有人打空手牌结束该手；其他人每剩 1 张计 1 分</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Emptying your hand ends it; leftover cards score 1 each</text>
 </svg>

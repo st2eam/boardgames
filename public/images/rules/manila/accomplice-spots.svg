@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Accomplice spaces / 同伙位置</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="102.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Ware 货物</text>
-    <text x="102.0" y="120" fill="#5D4037">Share if Manila</text>
-    <text x="102.0" y="148" fill="#8D6E63">到港才分红</text>
-    <rect x="196.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="274.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Port / yard 港口船坞</text>
-    <text x="274.0" y="120" fill="#5D4037">Printed payout</text>
-    <text x="274.0" y="148" fill="#8D6E63">按格上金额</text>
-    <rect x="368.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="446.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Pirates 海盗船</text>
-    <text x="446.0" y="120" fill="#5D4037">Board or plunder</text>
-    <text x="446.0" y="148" fill="#8D6E63">登船或洗劫</text>
-    <rect x="540.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="618.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Insurance 保险</text>
-    <text x="618.0" y="120" fill="#5D4037">Take 10 now</text>
-    <text x="618.0" y="148" fill="#8D6E63">立刻拿10比索</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Accomplice spots / 同伙格子</text>
+<rect x="50" y="55" width="140" height="100" rx="12" fill="#fff" stroke="#F9A825" stroke-width="2"/><circle cx="120" cy="85" r="5.9399999999999995" fill="#F9A825" stroke="#5D4037" stroke-width="1"/><path d="M109.2 108.4 Q120 90.4 130.8 108.4 Z" fill="#F9A825" stroke="#5D4037" stroke-width="1"/><text x="120" y="135" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">货物</text><rect x="220" y="55" width="140" height="100" rx="12" fill="#fff" stroke="#1565C0" stroke-width="2"/><circle cx="290" cy="85" r="5.9399999999999995" fill="#1565C0" stroke="#5D4037" stroke-width="1"/><path d="M279.2 108.4 Q290 90.4 300.8 108.4 Z" fill="#1565C0" stroke="#5D4037" stroke-width="1"/><text x="290" y="135" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">港口</text><rect x="390" y="55" width="140" height="100" rx="12" fill="#fff" stroke="#5D4037" stroke-width="2"/><circle cx="460" cy="85" r="5.9399999999999995" fill="#5D4037" stroke="#5D4037" stroke-width="1"/><path d="M449.2 108.4 Q460 90.4 470.8 108.4 Z" fill="#5D4037" stroke="#5D4037" stroke-width="1"/><text x="460" y="135" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">海盗</text><rect x="560" y="55" width="140" height="100" rx="12" fill="#fff" stroke="#C4952A" stroke-width="2"/><circle cx="630" cy="85" r="5.9399999999999995" fill="#C4952A" stroke="#5D4037" stroke-width="1"/><path d="M619.2 108.4 Q630 90.4 640.8 108.4 Z" fill="#C4952A" stroke="#5D4037" stroke-width="1"/><text x="630" y="135" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">保险</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">同伙可以站在货物、港口、海盗或保险格子上分钱</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Accomplice spots: ware, port, pirates, insurance</text>
 </svg>

@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">End of Round / 轮次结束</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Tracker on top</text>
-    <text x="131.3" y="110" fill="#8D6E63">回合标记到顶</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Flip / rotate it</text>
-    <text x="360.0" y="110" fill="#8D6E63">翻转或旋转标记</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Put at the back</text>
-    <text x="588.7" y="110" fill="#8D6E63">放到牌堆底</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+<rect width="720" height="260" fill="#FAFAF5"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Round tracker to the back / 回合标记翻到牌底</text>
+<g><rect x="80" y="50" width="70" height="100" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="88" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">R</text><rect x="88" y="136" width="54" height="7" rx="2" fill="#C4952A"/></g><g><rect x="160" y="60" width="60" height="86" rx="8" fill="#fff" stroke="#2E7D32" stroke-width="1.6"/><text x="168" y="82" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#2E7D32">岛</text><rect x="168" y="132" width="44" height="7" rx="2" fill="#2E7D32"/></g><g><rect x="230" y="60" width="60" height="86" rx="8" fill="#fff" stroke="#2E7D32" stroke-width="1.6"/><text x="238" y="82" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#2E7D32">岛</text><rect x="238" y="132" width="44" height="7" rx="2" fill="#2E7D32"/></g><text x="155" y="168" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">标记在最上面</text><path d="M320 95 L380 95" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><g><rect x="420" y="55" width="64" height="90" rx="8" fill="#fff" stroke="#C4952A" stroke-width="1.6"/><text x="428" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">R</text><rect x="428" y="131" width="48" height="7" rx="2" fill="#C4952A"/></g><text x="452" y="162" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">翻转/旋转后放到最后</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">回合标记露在最上面时，翻转或旋转它，再放到牌堆底</text>
+<text x="360" y="266" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">When the round tracker is on top, flip or rotate it and put it at the back</text>
 </svg>

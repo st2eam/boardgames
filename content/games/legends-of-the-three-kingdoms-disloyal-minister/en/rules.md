@@ -12,7 +12,7 @@ Disloyal Minister (不臣之君) is a 2026 expansion for Sanguosha (Legends of t
 
 ## The 7 Identity Modes
 
-![Seven identity modes change alliances; details stay on the mode cards / 七种身份模式改变阵营，细则见模式卡](/images/rules/legends-of-the-three-kingdoms-disloyal-minister/seven-modes.svg)
+![Seven identity modes change alliances; details stay on the mode cards](/images/rules/legends-of-the-three-kingdoms-disloyal-minister/seven-modes.svg)
 This expansion contains 7 distinct identity configurations, each creating a unique social deduction experience. Each mode modifies which roles exist, their win conditions, and how alliances work.
 
 ### Key Design Philosophy
@@ -25,7 +25,7 @@ Unlike the standard Monarch/Loyalist/Rebel/Spy setup, these modes introduce:
 
 ## How to Use
 
-![Choose a mode, deal its roles, then play a standard Sanguosha turn / 选模式、发身份，再按标准回合进行](/images/rules/legends-of-the-three-kingdoms-disloyal-minister/how-to-use.svg)
+![Choose a mode, deal its roles, then play a standard Sanguosha turn](/images/rules/legends-of-the-three-kingdoms-disloyal-minister/how-to-use.svg)
 1. Choose one of the 7 identity modes before the game begins.
 2. Distribute the mode-specific role cards according to the chosen mode's setup rules.
 3. Follow the standard Sanguosha turn structure (Judge → Draw → Play → Discard → End).

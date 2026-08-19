@@ -8,5 +8,8 @@
   "difficulty": "hard",
   "tags": ["strategy", "space", "engine-building", "board"],
   "category": "board",
+  "family": "seti",
+  "familyOrder": 0,
+  "variantType": "base",
   "bggRank": 14
 }

@@ -254,8 +254,32 @@
       "board"
     ],
     "category": "board",
+    "family": "seti",
+    "familyOrder": 0,
+    "variantType": "base",
     "bggRank": 14,
     "slug": "seti"
+  },
+  {
+    "name": {
+      "en": "SETI: Space Agencies",
+      "zh": "星空觅迹：航天机构"
+    },
+    "players": "1-4",
+    "duration": "40-120 min",
+    "difficulty": "hard",
+    "tags": [
+      "strategy",
+      "space",
+      "engine-building",
+      "asymmetric"
+    ],
+    "category": "board",
+    "family": "seti",
+    "familyOrder": 1,
+    "variantType": "expansion",
+    "requiresBase": true,
+    "slug": "seti-space-agencies"
   },
   {
     "name": {

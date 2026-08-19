@@ -171,6 +171,16 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/seti-space-agencies/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/seti-space-agencies/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/legends-of-the-three-kingdoms/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -819,6 +829,16 @@
     <loc>https://st2eam.github.io/boardgames/zh/games/seti/score/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/seti-space-agencies/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/seti-space-agencies/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/legends-of-the-three-kingdoms/</loc>

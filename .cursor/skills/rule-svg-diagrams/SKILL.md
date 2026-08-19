@@ -1,36 +1,39 @@
 ---
 name: rule-svg-diagrams
-description: Add situation-sketch SVG diagrams at key board-game mechanics so a glance shows how to play that step. Use when writing or expanding en/zh rules.md, illustrating a confusing rule, or adding public/images/rules SVGs.
+description: Add SVG diagrams at key board-game mechanics — table-state sketches by default, plus a flowchart when the sequence itself is the hard part. Use when writing or expanding en/zh rules.md, illustrating a confusing rule, or adding public/images/rules SVGs.
 ---
 
 # Rule SVG diagrams
 
 请在关键的节点上尽量加入svg图片.
 
-A diagram must be a **miniature of the table** — cards, tiles, dice, tokens, rows, cities — so someone who has not read the paragraph still sees the move. Do **not** draw a conventional flowchart (bilingual boxes + arrows that only repeat "Roll → Trade → Build").
+Default: a **miniature of the table** (cards, tiles, dice, tokens, rows, cities) so a glance shows the move. Flowcharts are **allowed when the sequence is the thing being taught** — phases, branches, timing — not as a substitute for every heading.
 
-**Canonical examples (copy this kind of thinking):**
+**Table-state examples:**
 
 - `brass-birmingham/network.svg` — cities and links; network ≠ connected is visible
-- `seti/scan-computer.svg` — data slots and computer grid, not a process list
-- `seti/rotation.svg` — concentric discs, not "step 1 / step 2" boxes
+- `seti/scan-computer.svg` — data slots and computer grid
+- `seti/rotation.svg` — concentric discs
+- UNO matching: red 7 on discard, blue 7 in hand glowing
 
-**Anti-pattern:** `flow_svg` rows of white cards labeled Match → Play → Draw.
+**Flowchart is worth it when** the order or branch would be missed in a snapshot, for example:
 
-## What to draw
+- Brass turn: two actions → draw to 8 → cash on the pawn → reorder → income
+- SETI turn: one main action + free extras → milestones → maybe discover
+- A round with simultaneous play then a strict resolution order
 
-Pick **2–4 key nodes** where a first-time player would freeze. Each image is **one worked example**.
+**Skip the flowchart when** it only restates the heading in boxes (`Roll → Trade → Build` next to a section already named Turn Structure). Prefer a worked example of that step instead.
 
-| Good (situation) | Bad (flowchart) |
-|------------------|-----------------|
-| UNO: a red 7 on the discard, a blue 7 in hand glowing | "Match color → play 1 → else draw" |
-| 6 nimmt: four numbered rows, a 6th card taking a row | "All play 1 → low to high → join rows" |
-| Catan: a hex with 6, die showing 6, houses on vertices, resources flying in | "Roll → produce → trade → build" |
-| Carcassonne: two tiles with matching city edges + a meeple | "Draw tile → place → meeple → score" |
-| Texas hold'em: 2 hole cards + 3 community + empty turn/river | "Preflop → flop → turn → river" |
-| Go: a small grid, liberties as empty dots, a captured stone | "Place → surround → remove" |
+Pick **2–4 key nodes** per game. Mix types: often one overview flowchart plus situation sketches for the confusing moves.
 
-Labels only name **what is already in the picture** (this 7 matches that 7). One short bilingual caption under the scene is enough.
+| Situation sketch | Flowchart (when needed) |
+|------------------|-------------------------|
+| UNO: red 7 discard, blue 7 glowing | Brass: 2 actions, money on pawn, then income |
+| 6 nimmt: four rows, 6th card taking a row | SETI: main action → milestone → discover |
+| Catan: hex 6 + die 6 + houses taking resources | A branching auction or character-call order |
+| Go: liberties as empty dots | — |
+
+Labels name **what is in the picture**. One short bilingual caption is enough.
 
 ## Files and markdown
 
@@ -60,7 +63,8 @@ Both locales use the **same path**. Alt text is the caption.
 | Muted | `#8D6E63` |
 | Paper | `#fff` |
 
-- Draw the objects (rounded cards, cubes, meeples, hexes, dice pips). Highlight the legal move with gold stroke.
+- Situation sketches: draw the objects; gold stroke = the legal move.
+- Flowcharts: same palette, short bilingual labels, only as many boxes as the reader must keep in order.
 - Title optional; if present: `English / 中文` in Georgia.
 - CJK font stack: `'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif` (SVG is an `<img>`, page fonts do not apply).
 - No publisher art, no photos, no 8px text.
@@ -78,7 +82,7 @@ assert "数字" in path.read_text(encoding="utf-8")  # a string actually in the 
 
 ## Do not
 
-- Rows of process boxes connected by arrows as the whole diagram.
+- A flowchart whose boxes only repeat the section title.
 - One diagram per heading “for completeness”.
 - Raster PNG/WebP; inline SVG in markdown.
 - Spoil hidden content (unused SETI species, hidden generals).

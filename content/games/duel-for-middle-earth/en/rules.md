@@ -33,7 +33,7 @@ At the start of each chapter, arrange that chapter’s cards in the central play
 
 ## How to Play
 
-![Take an uncovered chapter card (play or discard) or buy a Landmark](/images/rules/duel-for-middle-earth/take-card.svg)
+![Only take an uncovered card](/images/rules/duel-for-middle-earth/take-card.svg)
 
 Players alternate turns. On your turn, choose **one**:
 

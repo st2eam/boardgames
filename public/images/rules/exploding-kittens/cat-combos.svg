@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Cat combos / 猫咪组合</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="329.0" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="188.5" y="88" fill="#5D4037" font-weight="700">Pair: steal random</text>
-    <text x="188.5" y="110" fill="#8D6E63">一对：偷随机牌</text>
-    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="52" width="329.0" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="531.5" y="88" fill="#5D4037" font-weight="700">Triple: name a card</text>
-    <text x="531.5" y="110" fill="#8D6E63">三张：点名要牌</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Two matching cats steal / 两张同猫偷一张</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<g><rect x="80" y="50" width="70" height="100" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="88" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">猫</text><rect x="88" y="136" width="54" height="7" rx="2" fill="#C4952A"/></g><g><rect x="160" y="50" width="70" height="100" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="168" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">猫</text><rect x="168" y="136" width="54" height="7" rx="2" fill="#C4952A"/></g><path d="M250 100 L330 100" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><rect x="360" y="50" width="70" height="100" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="368" y="60" width="54" height="80" rx="4" fill="#D7CCC8"/><text x="360" y="185" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">打出一对猫，从别人手里抽一张</text>
+  <text x="360" y="203" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Play a matching cat pair to steal one card</text></svg>

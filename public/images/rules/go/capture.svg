@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Capture / 提子</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Last liberty filled</text>
-    <text x="131.3" y="110" fill="#8D6E63">最后一口气被填</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Whole group off</text>
-    <text x="360.0" y="110" fill="#8D6E63">整组立刻提走</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Become prisoners</text>
-    <text x="588.7" y="110" fill="#8D6E63">成为对方俘虏</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">No liberties → take the stone / 没气就提子</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<line x1="120" y1="50" x2="220" y2="50" stroke="#5D4037" stroke-width="1.5"/><line x1="120" y1="50" x2="120" y2="150" stroke="#5D4037" stroke-width="1.5"/><line x1="120" y1="100" x2="220" y2="100" stroke="#5D4037" stroke-width="1.5"/><line x1="170" y1="50" x2="170" y2="150" stroke="#5D4037" stroke-width="1.5"/><line x1="120" y1="150" x2="220" y2="150" stroke="#5D4037" stroke-width="1.5"/><line x1="220" y1="50" x2="220" y2="150" stroke="#5D4037" stroke-width="1.5"/><circle cx="170" cy="100" r="16" fill="#fff" stroke="#90A4AE" stroke-width="2" stroke-dasharray="4 3"/><circle cx="120" cy="100" r="16" fill="#5D4037"/><circle cx="220" cy="100" r="16" fill="#5D4037"/><circle cx="170" cy="50" r="16" fill="#5D4037"/><circle cx="170" cy="150" r="16" fill="#5D4037"/><text x="480" y="100" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">白子四气都被占</text>
+  <text x="480" y="118" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">White had four liberties</text><text x="480" y="140" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">虚线 = 被提走</text>
+  <text x="480" y="158" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Dashed = captured and removed</text><text x="360" y="220" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">围住以后从棋盘拿掉</text>
+  <text x="360" y="238" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Surround it, then take it off</text></svg>

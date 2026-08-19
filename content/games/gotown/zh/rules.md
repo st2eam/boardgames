@@ -23,7 +23,7 @@
 
 ## 游戏流程
 
-![抽 1 张牌，然后可进行任意次建造、偷楼或特殊牌行动](/images/rules/gotown/turn.svg)
+![住宅牌盖在住宅地块上](/images/rules/gotown/turn.svg)
 
 轮到你时：
 

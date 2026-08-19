@@ -23,7 +23,7 @@
 
 ## 游戏流程
 
-![翻前、翻牌、转牌、河牌，然后摊牌](/images/rules/texas-hold-em/streets.svg)
+![两张底牌加三张翻牌，转牌河牌还没开](/images/rules/texas-hold-em/streets.svg)
 
 每局牌分四轮下注：
 

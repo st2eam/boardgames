@@ -33,7 +33,7 @@
 
 ## 游戏流程
 
-![掷剩余骰子，选一个点数，该点数全部放入对应赌场](/images/rules/las-vegas-royale/place-dice.svg)
+![选 3 点则三颗 3 都进 3 号赌场](/images/rules/las-vegas-royale/place-dice.svg)
 
 共 **3 个回合**。第 1 回合由最年长玩家开始；之后由 **6 号赌场高额卡** 的获得者开始（若无人获奖，则看编号次低的赌场）。顺时针进行。
 

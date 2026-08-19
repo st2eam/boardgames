@@ -56,7 +56,7 @@ When another player discards a tile, you may claim it:
 
 ## Winning Conditions
 
-![Win with 4 sets plus a pair, or a special hand / 胡牌：四面子一对，或特殊牌型](/images/rules/mahjong/winning-hand.svg)
+![Four sets plus a pair to win](/images/rules/mahjong/winning-hand.svg)
 ### Standard Winning Hand
 
 A complete hand must form:

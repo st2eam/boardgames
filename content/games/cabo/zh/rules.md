@@ -22,7 +22,7 @@
 
 ## 游戏流程
 
-![抽牌弃或换、拿弃牌必须换，或喊 CABO](/images/rules/cabo/turn-flow.svg)
+![开局只看外侧两张，中间两张是盲的](/images/rules/cabo/turn-flow.svg)
 按顺时针方向进行，轮到你时选择以下**一项**行动：
 
 ### 1. 从牌堆抽取

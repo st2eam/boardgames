@@ -23,7 +23,7 @@
 
 ## 游戏流程
 
-![对顶上两张之一行动（用侧边资源支付），或弃掉最上面那张](/images/rules/palm-island/two-card.svg)
+![只用露出来的两张当资源](/images/rules/palm-island/two-card.svg)
 
 每回合必须做 **一项**：
 

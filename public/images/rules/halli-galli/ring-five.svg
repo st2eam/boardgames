@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Ring the bell / 按铃</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Exactly 5 fruit</text>
-    <text x="131.3" y="110" fill="#8D6E63">同一种水果正好 5</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Ring first</text>
-    <text x="360.0" y="110" fill="#8D6E63">抢先按铃</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Take all stacks</text>
-    <text x="588.7" y="110" fill="#8D6E63">收走所有明牌</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Exactly 5 of one fruit / 同一种水果刚好 5 个</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="50" y="60" width="90" height="110" rx="10" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="95" y="115" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="28" font-weight="700" fill="#F9A825">2</text><text x="95" y="145" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#F9A825">蕉</text><rect x="160" y="60" width="90" height="110" rx="10" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="205" y="115" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="28" font-weight="700" fill="#F9A825">3</text><text x="205" y="145" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#F9A825">蕉</text><rect x="270" y="60" width="90" height="110" rx="10" fill="#fff" stroke="#5D4037" stroke-width="1.5"/><text x="315" y="115" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="28" font-weight="700" fill="#2E7D32">1</text><text x="315" y="145" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#2E7D32">柠</text><rect x="380" y="60" width="90" height="110" rx="10" fill="#fff" stroke="#5D4037" stroke-width="1.5"/><text x="425" y="115" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="28" font-weight="700" fill="#C62828">2</text><text x="425" y="145" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#C62828">莓</text><circle cx="560" cy="115" r="36" fill="#C4952A" stroke="#5D4037" stroke-width="2"/><text x="560" y="122" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="18" font-weight="700" fill="#fff">铃</text><text x="360" y="210" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">2 蕉 + 3 蕉 = 5，立刻按铃</text>
+  <text x="360" y="228" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">2 bananas + 3 bananas = 5 — ring now</text></svg>

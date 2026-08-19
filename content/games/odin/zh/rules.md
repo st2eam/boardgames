@@ -21,7 +21,7 @@
 
 ## 游戏流程
 
-![打出张数相同或多 1 的更大牌组，再拿走 1 张被压的牌](/images/rules/odin/play-or-take.svg)
+![用更大牌组压上，再拿走一张](/images/rules/odin/play-or-take.svg)
 
 整局由若干**手牌局（hand）**组成；每手牌局再分成多个**轮次（round）**。
 

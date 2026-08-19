@@ -43,7 +43,7 @@
 
 ## 核心规则
 
-![Riichi locks a concealed tenpai hand; dora add han / 立直锁定门前听牌；宝牌加番](/images/rules/riichi-mahjong/riichi-dora.svg)
+![指示 3 万则 4 万是宝牌](/images/rules/riichi-mahjong/riichi-dora.svg)
 ### 和牌条件
 
 标准形：4 面子 + 1 雀头 = 14 张

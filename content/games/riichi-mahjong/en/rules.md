@@ -43,7 +43,7 @@ In some rules, one five of each suit is replaced with a red version, counting as
 
 ## Core Rules
 
-![Riichi locks a concealed tenpai hand; dora add han / 立直锁定门前听牌；宝牌加番](/images/rules/riichi-mahjong/riichi-dora.svg)
+![Indicator 3-man makes 4-man dora](/images/rules/riichi-mahjong/riichi-dora.svg)
 ### Winning Conditions
 
 Standard form: 4 sets + 1 pair = 14 tiles

@@ -41,7 +41,7 @@ On your turn, play one painting card from your hand and conduct the auction indi
 
 ## Auction Types
 
-![Four auctions: open, once around, sealed, and fixed price](/images/rules/modern-art/auction-types.svg)
+![The icon picks open, once-around, sealed, or fixed](/images/rules/modern-art/auction-types.svg)
 
 ### Open Auction
 Starting from the player to the left of the Auctioneer, players bid freely. Each bid must exceed the previous. The highest bidder pays the Auctioneer and takes the painting. If no one bids, the Auctioneer gets it for free.

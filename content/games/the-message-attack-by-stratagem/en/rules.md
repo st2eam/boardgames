@@ -47,7 +47,7 @@ If all players decline, the intelligence returns to the sender who **must** acce
 
 ## Turn Structure
 
-![Draw, play actions, transmit one intelligence, discard to six / 摸牌、出行动、传递一张情报、弃至六张](/images/rules/the-message-attack-by-stratagem/turn-flow.svg)
+![The intel travels and may be intercepted](/images/rules/the-message-attack-by-stratagem/turn-flow.svg)
 Each turn follows these phases in order:
 
 ### 1. Draw Phase

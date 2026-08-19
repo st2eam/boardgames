@@ -30,7 +30,7 @@ Catan (formerly The Settlers of Catan) is a multiplayer board game designed by K
 
 ## Turn Structure
 
-![Roll, collect resources, trade, then build](/images/rules/catan/turn.svg)
+![Roll 6: houses on the 6-hex take resources](/images/rules/catan/turn.svg)
 
 ### 1. Roll the Dice
 Roll both dice. The sum determines which hexes produce resources. Any hex with that number produces one resource card for each adjacent settlement and two for each adjacent city. If a 7 is rolled, the Robber is activated.

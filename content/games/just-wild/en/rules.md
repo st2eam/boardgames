@@ -20,7 +20,7 @@ Each card is double-sided: the front shows the card value and the animal, while 
 
 ## How to Play
 
-![Cover two halves that sum to your card, or expand face down](/images/rules/just-wild/play-matching.svg)
+![3+5=8 so an 8 can cover](/images/rules/just-wild/play-matching.svg)
 
 Players take turns clockwise. On your turn, you must place a card on the table, then **refill your hand to 3 cards** from your personal draw pile.
 

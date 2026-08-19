@@ -21,7 +21,7 @@
 
 ## 回合流程
 
-![抽 2 留 1 或拿弃牌，然后可打出双人组](/images/rules/sea-salt-paper/draw-choose.svg)
+![抽 2 张留下 1 张](/images/rules/sea-salt-paper/draw-choose.svg)
 
 ![满 7 分可喊停或最后机会](/images/rules/sea-salt-paper/stop-last-chance.svg)
 

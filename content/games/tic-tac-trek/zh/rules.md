@@ -23,7 +23,7 @@
 
 ## 游戏流程
 
-![抽一块板块，己方符号朝上，正交相邻放置](/images/rules/tic-tac-trek/place.svg)
+![三个相同符号连线就开始走线](/images/rules/tic-tac-trek/place.svg)
 
 轮到你时：
 

@@ -35,7 +35,7 @@ Players alternate placing one stone of their color on any vacant **intersection*
 
 ## Groups and Liberties
 
-![Liberties are empty orthogonal neighbors; a group shares them / 气是正交空邻点，整组共享](/images/rules/go/liberties.svg)
+![Two stones share gold-dot liberties](/images/rules/go/liberties.svg)
 Every stone depends on adjacent empty intersections to "breathe." These empty intersections are called **liberties**.
 
 Stones of the same color connected orthogonally (not diagonally) form a **group** (or chain), and the entire group shares all its liberties.
@@ -51,7 +51,7 @@ These three black stones belong to the same group and share their surrounding em
 
 ## Capture
 
-![Fill the last liberty and the whole group is captured / 填尽最后一口气，整组被提](/images/rules/go/capture.svg)
+![White is surrounded and taken off](/images/rules/go/capture.svg)
 When a group's **last liberty** is filled by an opponent stone, the entire group is immediately **captured** and removed from the board.
 
 For example:
@@ -76,7 +76,7 @@ The black group's last liberty is filled, so it is immediately captured.
 
 ## The Ko Rule
 
-![After a ko capture you must play elsewhere before recapturing / 提劫后须先在他处落子才能回提](/images/rules/go/ko.svg)
+![Cannot recapture the ko point this turn](/images/rules/go/ko.svg)
 Sometimes a position allows infinite back-and-forth capture of a single stone — this is called a **ko**.
 
 The simplest ko shape:

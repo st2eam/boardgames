@@ -23,7 +23,7 @@ GoTown is a competitive card game published by Helvetiq, designed by Morten & Al
 
 ## How to Play
 
-![Draw one card, then take any number of build, steal, or special actions](/images/rules/gotown/turn.svg)
+![Build a housing card on a housing plot](/images/rules/gotown/turn.svg)
 
 On your turn:
 

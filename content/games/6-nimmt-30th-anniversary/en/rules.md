@@ -22,9 +22,9 @@ This **30th Anniversary Edition** adds:
 
 ## Base Game (2–10 players)
 
-![Everyone plays 1 card; place low to high into 4 rows](/images/rules/6-nimmt-30th-anniversary/play-to-rows.svg)
+![24 joins the 12 — smallest difference](/images/rules/6-nimmt-30th-anniversary/play-to-rows.svg)
 
-![The sixth card in a row takes the first five](/images/rules/6-nimmt-30th-anniversary/take-sixth.svg)
+![The 6th card takes five; yours starts a new row](/images/rules/6-nimmt-30th-anniversary/take-sixth.svg)
 
 ### Setup
 

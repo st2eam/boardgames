@@ -28,7 +28,7 @@
 
 ## 游戏流程
 
-![抽 1 张，打出 2 张中的 1 张，留下另一张](/images/rules/love-letter/draw-play.svg)
+![抽 1 张后必须打出 1 张](/images/rules/love-letter/draw-play.svg)
 游戏进行多轮。玩家按顺时针轮流行动。
 
 ### 玩家回合

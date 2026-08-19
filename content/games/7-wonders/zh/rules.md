@@ -29,7 +29,7 @@
 
 ## 游戏流程
 
-![每个时代发 7 张，打 1 张传剩余；6 回合后结算军事](/images/rules/7-wonders/draft.svg)
+![7 张留 1 张，其余传给邻居](/images/rules/7-wonders/draft.svg)
 
 按时代 I → II → III 进行。只在时代 III 结束后计分。
 

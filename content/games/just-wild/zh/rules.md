@@ -20,7 +20,7 @@
 
 ## 游戏流程
 
-![盖住点数相加等于你牌的两半，或扣着扩张](/images/rules/just-wild/play-matching.svg)
+![3+5=8 才能把 8 盖上去](/images/rules/just-wild/play-matching.svg)
 
 玩家按顺时针依次行动。轮到你时，必须将一张卡牌放到桌面上，然后从个人抽牌堆**补满手牌至 3 张**。
 

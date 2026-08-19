@@ -20,7 +20,7 @@
 
 ## 快速规则回顾
 
-![可出任意张后必须抽牌；拆弹或爆炸出局](/images/rules/exploding-kittens-nsfw-edition/draw-or-explode.svg)
+![抽到爆炸猫必须拆弹](/images/rules/exploding-kittens-nsfw-edition/draw-or-explode.svg)
 1. **准备：** 取出所有爆炸猫牌和拆弹牌。每人发 1 张拆弹牌 + 7 张随机牌。将剩余拆弹牌和爆炸猫牌（比玩家人数少一张）洗入抽牌堆。
 
 2. **你的回合：** 可以打出任意数量的手牌（或不出），然后**抽一张牌**结束回合。

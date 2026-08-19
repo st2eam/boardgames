@@ -19,7 +19,7 @@ Each round, take turns in turn-order-track order. You get **two actions** (the f
 
 Scout replaces original Brass’s double-build.
 
-![Turn: two actions, draw to 8, money on your character; end of round reorders then income](/images/rules/brass-birmingham/turn-flow.svg)
+![Two actions, each discards a card; cash sits on your pawn](/images/rules/brass-birmingham/turn-flow.svg)
 
 ## Components
 

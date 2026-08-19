@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Dual Cut / 双人剪线</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Point at a wire</text>
-    <text x="131.3" y="110" fill="#8D6E63">指向一根导线</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Name a value</text>
-    <text x="360.0" y="110" fill="#8D6E63">说出一个数值</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Match = both cut</text>
-    <text x="588.7" y="110" fill="#8D6E63">正确则两根剪开</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Point at a wire and name its number / 指一根线并报数字</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="50" y="50" width="24" height="120" rx="6" fill="#BCAAA4" stroke="#5D4037"/><text x="62" y="190" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#5D4037">?</text><rect x="140" y="50" width="24" height="120" rx="6" fill="#C4952A" stroke="#5D4037"/><text x="152" y="190" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#5D4037">4</text><rect x="230" y="50" width="24" height="120" rx="6" fill="#BCAAA4" stroke="#5D4037"/><text x="242" y="190" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#5D4037">?</text><rect x="320" y="50" width="24" height="120" rx="6" fill="#BCAAA4" stroke="#5D4037"/><text x="332" y="190" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#5D4037">2</text><rect x="410" y="50" width="24" height="120" rx="6" fill="#BCAAA4" stroke="#5D4037"/><text x="422" y="190" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#5D4037">?</text><text x="500" y="100" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#5D4037">「这是 4」</text><text x="360" y="215" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">猜对：剪开。猜错：看导线颜色惩罚</text>
+  <text x="360" y="233" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Right: cut it. Wrong: the wire’s color punishes you</text></svg>

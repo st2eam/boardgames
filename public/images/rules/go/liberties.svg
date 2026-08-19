@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Liberties / 气</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="102.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Empty neighbor 空邻交叉点</text>
-    <text x="102.0" y="120" fill="#5D4037">Orthogonal only</text>
-    <text x="102.0" y="148" fill="#8D6E63">只算上下左右</text>
-    <rect x="196.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="274.0" y="82" fill="#5D4037" font-weight="700" font-size="15">A stone needs air 单子要有气</text>
-    <text x="274.0" y="120" fill="#5D4037">Each empty point</text>
-    <text x="274.0" y="148" fill="#8D6E63">每个空点一口气</text>
-    <rect x="368.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="446.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Groups share 棋组共享气</text>
-    <text x="446.0" y="120" fill="#5D4037">Connected same color</text>
-    <text x="446.0" y="148" fill="#8D6E63">同色正交相连</text>
-    <rect x="540.0" y="48" width="156.0" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="618.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Zero = dead 气尽则死</text>
-    <text x="618.0" y="120" fill="#5D4037">Cannot stay</text>
-    <text x="618.0" y="148" fill="#8D6E63">不能留在棋盘</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Liberties are empty neighbors / 气是上下左右的空点</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<line x1="80" y1="50" x2="212" y2="50" stroke="#5D4037" stroke-width="1.5"/><line x1="80" y1="50" x2="80" y2="182" stroke="#5D4037" stroke-width="1.5"/><line x1="80" y1="94" x2="212" y2="94" stroke="#5D4037" stroke-width="1.5"/><line x1="124" y1="50" x2="124" y2="182" stroke="#5D4037" stroke-width="1.5"/><line x1="80" y1="138" x2="212" y2="138" stroke="#5D4037" stroke-width="1.5"/><line x1="168" y1="50" x2="168" y2="182" stroke="#5D4037" stroke-width="1.5"/><line x1="80" y1="182" x2="212" y2="182" stroke="#5D4037" stroke-width="1.5"/><line x1="212" y1="50" x2="212" y2="182" stroke="#5D4037" stroke-width="1.5"/><circle cx="124" cy="94" r="16" fill="#5D4037"/><circle cx="168" cy="94" r="16" fill="#5D4037"/><circle cx="80" cy="94" r="5" fill="#C4952A"/><circle cx="124" cy="50" r="5" fill="#C4952A"/><circle cx="124" cy="138" r="5" fill="#C4952A"/><circle cx="168" cy="50" r="5" fill="#C4952A"/><circle cx="168" cy="138" r="5" fill="#C4952A"/><circle cx="212" cy="94" r="5" fill="#C4952A"/><text x="480" y="90" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">这两子连成一组</text>
+  <text x="480" y="108" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Two stones, one group</text><text x="480" y="140" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">金点 = 它们共享的气</text>
+  <text x="480" y="158" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Gold dots = shared liberties</text><text x="360" y="240" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">气尽就会被提走</text>
+  <text x="360" y="258" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">No liberties left → captured</text></svg>

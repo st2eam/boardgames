@@ -36,7 +36,7 @@
 
 ## 游戏流程
 
-![按 1 到 8 点名；拿金币或建筑，然后可选建造](/images/rules/citadels/turn-flow.svg)
+![按 1 到 8 点名，叫到你的角色才行动](/images/rules/citadels/turn-flow.svg)
 
 每回合：**选角阶段**，然后 **行动阶段**。
 
@@ -113,7 +113,7 @@
 
 ## 角色能力
 
-![角色按阶点名：刺客 1 到军阀 8](/images/rules/citadels/call-order.svg)
+![国王从 1 号叫到 8 号](/images/rules/citadels/call-order.svg)
 能力可选，除非规则写 **必须** / **不能**。每回合各用一次。
 
 ### 1 号

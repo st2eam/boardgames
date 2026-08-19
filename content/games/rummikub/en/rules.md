@@ -19,7 +19,7 @@ Rummikub is a tile-based game for 2-4 players that combines elements of Rummy an
 
 ## Valid Combinations
 
-![Groups are same number different colors; runs are same color consecutive](/images/rules/rummikub/sets-runs.svg)
+![A red run 5-6-7, or three 8s as a group](/images/rules/rummikub/sets-runs.svg)
 
 All tiles played must form one of these combinations, each with **at least 3 tiles**:
 

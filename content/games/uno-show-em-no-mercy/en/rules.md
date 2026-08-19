@@ -35,7 +35,7 @@ Match the top discard by **color**, **number**, or **symbol**. If you can't play
 
 ## Special Rules
 
-![Stack equal-or-higher draws; 25+ cards eliminates you](/images/rules/uno-show-em-no-mercy/stacking-mercy.svg)
+![Draw 2 and Draw 4 stack; next player draws the total](/images/rules/uno-show-em-no-mercy/stacking-mercy.svg)
 ### Stacking Rule
 Draw cards **CAN be stacked**. If someone plays a Draw card on you (+2, +4, +6, +10), you may play a Draw card of **equal or higher value** to pass the penalty to the next player. The total accumulates until a player cannot stack, and they must draw **all** accumulated cards.
 

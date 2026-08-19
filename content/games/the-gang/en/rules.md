@@ -29,7 +29,7 @@ You may **not** show, name, or hint your pocket cards. You also may not leak ded
 
 ## How a heist works
 
-![Four silent rounds: white, yellow, orange, then red](/images/rules/the-gang/heist-rounds.svg)
+![Four silent streets, chips only](/images/rules/the-gang/heist-rounds.svg)
 
 Shuffle the 52-card deck. Deal **2 pocket cards** facedown to each player (look at your own anytime). Leave space for **5** community cards.
 

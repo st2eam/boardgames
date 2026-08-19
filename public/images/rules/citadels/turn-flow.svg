@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-  <rect width="720" height="300" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">A round / 一轮</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Draft a role</text>
-    <text x="131.3" y="108" fill="#8D6E63">选角色</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Call 1–8</text>
-    <text x="360.0" y="108" fill="#8D6E63">按 1–8 叫</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Act in order</text>
-    <text x="588.7" y="108" fill="#8D6E63">按号行动</text>
-    <rect x="24.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="188.5" y="198" fill="#5D4037" font-weight="700">Take gold or card</text>
-    <text x="188.5" y="218" fill="#8D6E63">拿钱或牌</text>
-    <path d="M353.0 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="531.5" y="198" fill="#5D4037" font-weight="700">Build a district</text>
-    <text x="531.5" y="218" fill="#8D6E63">建城区</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Call roles 1–8 / 从 1 号叫到 8 号</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="30" y="55" width="74" height="90" rx="10" fill="#fff" stroke="#5D4037" stroke-width="1.4"/><text x="67" y="110" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="700" fill="#5D4037">1</text><rect x="115" y="55" width="74" height="90" rx="10" fill="#fff" stroke="#5D4037" stroke-width="1.4"/><text x="152" y="110" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="700" fill="#5D4037">2</text><rect x="200" y="55" width="74" height="90" rx="10" fill="#fff" stroke="#5D4037" stroke-width="1.4"/><text x="237" y="110" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="700" fill="#5D4037">3</text><rect x="285" y="55" width="74" height="90" rx="10" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="322" y="110" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="700" fill="#5D4037">4</text><rect x="370" y="55" width="74" height="90" rx="10" fill="#fff" stroke="#5D4037" stroke-width="1.4"/><text x="407" y="110" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="700" fill="#5D4037">5</text><rect x="455" y="55" width="74" height="90" rx="10" fill="#fff" stroke="#5D4037" stroke-width="1.4"/><text x="492" y="110" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="700" fill="#5D4037">6</text><rect x="540" y="55" width="74" height="90" rx="10" fill="#fff" stroke="#5D4037" stroke-width="1.4"/><text x="577" y="110" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="700" fill="#5D4037">7</text><rect x="625" y="55" width="74" height="90" rx="10" fill="#fff" stroke="#5D4037" stroke-width="1.4"/><text x="662" y="110" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="700" fill="#5D4037">8</text><text x="360" y="175" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">国王按数字点名；轮到你的角色才行动</text>
+  <text x="360" y="193" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">King calls numbers; you act only when your role is called</text></svg>

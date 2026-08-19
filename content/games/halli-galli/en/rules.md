@@ -22,7 +22,7 @@
 
 ![Flip one card away from you; only the top is visible](/images/rules/halli-galli/flip-one.svg)
 
-![Ring when visible tops show exactly five of one fruit](/images/rules/halli-galli/ring-five.svg)
+![2 + 3 bananas = 5 — ring the bell](/images/rules/halli-galli/ring-five.svg)
 
 The player to the dealer's left starts. On your turn:
 

@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Explode vs Defuse / 爆炸与拆弹</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Kitten 爆炸猫</text>
-    <text x="130.7" y="120" fill="#5D4037">You are out</text>
-    <text x="130.7" y="148" fill="#8D6E63">没有拆弹就出局</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Defuse 拆弹</text>
-    <text x="360.0" y="120" fill="#5D4037">Survive</text>
-    <text x="360.0" y="148" fill="#8D6E63">活下来</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Put back 放回牌堆</text>
-    <text x="589.3" y="120" fill="#5D4037">Anywhere secret</text>
-    <text x="589.3" y="148" fill="#8D6E63">偷偷插回任意处</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Draw a kitten → defuse or die / 抽到爆炸猫就要拆弹</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="60" y="60" width="70" height="100" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="68" y="70" width="54" height="80" rx="4" fill="#D7CCC8"/><text x="95" y="180" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">抽牌堆</text><path d="M145 110 L210 110" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><rect x="220" y="55" width="80" height="110" rx="10" fill="#FFCDD2" stroke="#C62828" stroke-width="3"/><text x="260" y="120" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#C62828" font-weight="700">爆</text><path d="M315 110 L380 110" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><g><rect x="400" y="60" width="70" height="100" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="408" y="82" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#2E7D32">D</text><rect x="408" y="146" width="54" height="7" rx="2" fill="#2E7D32"/></g><text x="435" y="180" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#2E7D32">拆弹</text><text x="360" y="215" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">有拆弹：把爆炸猫塞回牌堆。没有：出局</text>
+  <text x="360" y="233" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Defuse: stuff the kitten back. None: you are out</text></svg>

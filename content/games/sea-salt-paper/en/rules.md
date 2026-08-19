@@ -21,7 +21,7 @@ Sea Salt & Paper is a set-collection and push-your-luck card game for 2-4 player
 
 ## Turn Structure
 
-![Draw 2 keep 1, or take a discard; then optional Duos](/images/rules/sea-salt-paper/draw-choose.svg)
+![Draw two, keep one](/images/rules/sea-salt-paper/draw-choose.svg)
 
 ![At 7+ declare STOP now or LAST CHANCE](/images/rules/sea-salt-paper/stop-last-chance.svg)
 

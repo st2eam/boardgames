@@ -56,7 +56,7 @@
 
 ## 胡牌条件
 
-![Win with 4 sets plus a pair, or a special hand / 胡牌：四面子一对，或特殊牌型](/images/rules/mahjong/winning-hand.svg)
+![四组面子加一对眼才能胡](/images/rules/mahjong/winning-hand.svg)
 ### 标准胡牌型
 
 手牌需组成以下结构：

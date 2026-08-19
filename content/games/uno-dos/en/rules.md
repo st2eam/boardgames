@@ -23,7 +23,7 @@ DOS is the sequel to UNO, launched by Mattel in 2018. Unlike UNO's color/number 
 
 ## Core Rules: Matching
 
-![Match a center card with one card or two that sum](/images/rules/uno-dos/two-card-matching.svg)
+![Play two cards; each must match the discard](/images/rules/uno-dos/two-card-matching.svg)
 Matching is by **number only**. For each Center Row card, you may use up to **2 hand cards** to match:
 
 ### Single Match

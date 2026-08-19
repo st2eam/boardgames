@@ -23,7 +23,7 @@
 
 ## 游戏流程
 
-![点数对上空位；放不下的埋院子；合计超过 7 则爆掉](/images/rules/spots/dice-place.svg)
+![掷出 3 只能放进 3 号空位](/images/rules/spots/dice-place.svg)
 
 玩家按顺时针轮流行动。每回合选择以下两种行动之一：
 

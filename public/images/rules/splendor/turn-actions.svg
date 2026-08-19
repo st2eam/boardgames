@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-  <rect width="720" height="300" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Your Turn — One Action / 你的回合：选一项</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="58" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="188.5" y="88" fill="#5D4037" font-weight="700">Take 3 gems</text>
-    <text x="188.5" y="108" fill="#8D6E63">拿 3 种筹码</text>
-    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="58" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="531.5" y="88" fill="#5D4037" font-weight="700">Take 2 same</text>
-    <text x="531.5" y="108" fill="#8D6E63">拿 2 枚同色</text>
-    <rect x="24.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="188.5" y="198" fill="#5D4037" font-weight="700">Buy a card</text>
-    <text x="188.5" y="218" fill="#8D6E63">购买发展卡</text>
-    <path d="M353.0 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="531.5" y="198" fill="#5D4037" font-weight="700">Reserve + gold</text>
-    <text x="531.5" y="218" fill="#8D6E63">预留并拿金</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Take gems or buy a card / 拿宝石或买卡</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="50" y="80" width="28" height="28" rx="3" fill="#1565C0" stroke="#5D4037" stroke-width="1"/><rect x="86" y="80" width="28" height="28" rx="3" fill="#2E7D32" stroke="#5D4037" stroke-width="1"/><rect x="122" y="80" width="28" height="28" rx="3" fill="#C62828" stroke="#5D4037" stroke-width="1"/><text x="100" y="130" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5D4037">3 种不同</text><rect x="230" y="80" width="28" height="28" rx="3" fill="#F9A825" stroke="#5D4037" stroke-width="1"/><rect x="266" y="80" width="28" height="28" rx="3" fill="#F9A825" stroke="#5D4037" stroke-width="1"/><text x="262" y="130" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5D4037">或 2 个相同</text><rect x="400" y="55" width="90" height="120" rx="10" fill="#fff" stroke="#C4952A" stroke-width="2.5"/><text x="445" y="90" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">费用</text><rect x="415" y="100" width="16" height="16" rx="3" fill="#1565C0" stroke="#5D4037" stroke-width="1"/><rect x="437" y="100" width="16" height="16" rx="3" fill="#1565C0" stroke="#5D4037" stroke-width="1"/><rect x="459" y="100" width="16" height="16" rx="3" fill="#C62828" stroke="#5D4037" stroke-width="1"/><text x="445" y="145" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="18" font-weight="700" fill="#C4952A">3</text><text x="445" y="195" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5D4037">买下后留下减免</text><text x="360" y="235" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">每回合只做一件：拿筹码，或付钱买卡</text>
+  <text x="360" y="253" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">One action: take tokens, or pay to buy the card</text></svg>

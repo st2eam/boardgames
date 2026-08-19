@@ -22,7 +22,7 @@ Race to get as close to Cabo as possible and find the legendary unicorn. The num
 
 ## How to Play
 
-![Draw to discard or swap, take discard and swap, or call CABO](/images/rules/cabo/turn-flow.svg)
+![Peek the two outer cards; the middle two stay blind](/images/rules/cabo/turn-flow.svg)
 Play proceeds clockwise. On your turn, choose **one** action:
 
 ### 1. Draw from Draw Pile

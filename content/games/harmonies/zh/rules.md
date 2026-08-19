@@ -26,7 +26,7 @@
 
 ## 回合流程
 
-![必须拿 3 个地形，可选拿一张动物卡，再放置动物方块](/images/rules/harmonies/turn.svg)
+![地形排列对上动物卡才能放动物](/images/rules/harmonies/turn.svg)
 
 在自己的回合中，按任意顺序执行以下行动。一项为**必须**，两项为**可选**：
 

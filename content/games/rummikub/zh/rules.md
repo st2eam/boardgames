@@ -19,7 +19,7 @@
 
 ## 有效组合
 
-![组是同点数不同色；顺是同色连续数字；都至少 3 张](/images/rules/rummikub/sets-runs.svg)
+![红 5-6-7 是顺，三个 8 是刻](/images/rules/rummikub/sets-runs.svg)
 
 所有打出的牌必须形成以下两种组合之一，且每组**至少 3 块**：
 

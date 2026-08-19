@@ -28,7 +28,7 @@ TRIO (originally published as *nana* in Japan) is a set-collection card game whe
 
 ## How to Play
 
-![Flip a center card or ask a hand for its highest or lowest](/images/rules/trio/ask-rank.svg)
+![Ask for 7s only if you already have a 7](/images/rules/trio/ask-rank.svg)
 Players take turns clockwise. On your turn, you reveal numbered cards **one at a time**, trying to find three cards showing the same number.
 
 ### Revealing Cards

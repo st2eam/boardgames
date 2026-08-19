@@ -32,7 +32,7 @@
 
 ## 5. 游戏流程
 
-![Turn: prepare, judge, draw, play, discard, end / 回合：准备、判定、摸牌、出牌、弃牌、结束](/images/rules/legends-of-the-three-kingdoms/turn-flow.svg)
+![对距离内的人出杀，对方可闪](/images/rules/legends-of-the-three-kingdoms/turn-flow.svg)
 每个回合包含 **六个阶段**，依次执行：
 
 ```

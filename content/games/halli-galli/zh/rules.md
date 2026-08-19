@@ -22,7 +22,7 @@
 
 ![向外翻 1 张，每人只看最上面那张](/images/rules/halli-galli/flip-one.svg)
 
-![明牌合计正好 5 个同种水果时抢按铃](/images/rules/halli-galli/ring-five.svg)
+![2 个蕉加 3 个蕉刚好 5，按铃](/images/rules/halli-galli/ring-five.svg)
 
 发牌者左手边的玩家先开始。轮到你时：
 

@@ -31,7 +31,7 @@ The first voyage begins with the auction for Harbor Master.
 
 ## Voyage Structure
 
-![Voyage: auction, place, dice boats, payout / 航程：竞拍、放置、掷骰、分红](/images/rules/manila/voyage-flow.svg)
+![The die moves that cargo ship](/images/rules/manila/voyage-flow.svg)
 Each voyage follows this order:
 
 1. Auction the office of **Harbor Master**

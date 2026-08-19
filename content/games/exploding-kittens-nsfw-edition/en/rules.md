@@ -20,7 +20,7 @@ This is a standalone game for **2-5 players** (does not require the original Red
 
 ## Quick Rules Recap
 
-![Play any cards then must draw; Defuse or explode](/images/rules/exploding-kittens-nsfw-edition/draw-or-explode.svg)
+![Drawing a kitten still needs a defuse](/images/rules/exploding-kittens-nsfw-edition/draw-or-explode.svg)
 1. **Setup:** Remove all Exploding Kitten and Defuse cards. Deal 1 Defuse to each player + 7 random cards. Shuffle remaining Defuse cards and Exploding Kittens (one fewer than the number of players) back into the draw pile.
 
 2. **On your turn:** Play as many cards as you want (or none), then **draw one card** to end your turn.

@@ -33,7 +33,7 @@ At the start of **each** round:
 
 ## How to Play
 
-![Roll remaining dice, pick one face, place every die showing that number](/images/rules/las-vegas-royale/place-dice.svg)
+![Choose 3: every 3 goes to casino 3](/images/rules/las-vegas-royale/place-dice.svg)
 
 Three rounds. Oldest player starts round 1; later rounds start with whoever won the **higher** card at casino **6** (or the next lower casino if nobody won there). Play clockwise.
 

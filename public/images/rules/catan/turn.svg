@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Turn Structure / 回合流程</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="102.8" y="88" fill="#5D4037" font-weight="700">Roll</text>
-    <text x="102.8" y="110" fill="#8D6E63">掷骰</text>
-    <path d="M181.5 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="195.5" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="274.2" y="88" fill="#5D4037" font-weight="700">Produce</text>
-    <text x="274.2" y="110" fill="#8D6E63">产出资源</text>
-    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="445.8" y="88" fill="#5D4037" font-weight="700">Trade</text>
-    <text x="445.8" y="110" fill="#8D6E63">交易</text>
-    <path d="M524.5 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="538.5" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="617.2" y="88" fill="#5D4037" font-weight="700">Build</text>
-    <text x="617.2" y="110" fill="#8D6E63">建造</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+  <rect width="720" height="300" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Roll 6 → hex 6 pays / 掷出 6，写着 6 的地出产</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<polygon points="240.6,175.0 180.0,210.0 119.4,175.0 119.4,105.0 180.0,70.0 240.6,105.0" fill="#C5E1A5" stroke="#7CB342" stroke-width="2"/><circle cx="180" cy="140" r="22" fill="#fff" stroke="#5D4037"/><text x="180" y="146" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#5D4037">6</text><polygon points="130,88 114,104 146,104" fill="#C4952A" stroke="#5D4037" stroke-width="1"/><rect x="117" y="104" width="26" height="11.2" fill="#C4952A" stroke="#5D4037" stroke-width="1"/><polygon points="230,88 214,104 246,104" fill="#5D4037" stroke="#5D4037" stroke-width="1"/><rect x="217" y="104" width="26" height="11.2" fill="#5D4037" stroke="#5D4037" stroke-width="1"/><rect x="320" y="120" width="48" height="48" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.8"/><text x="344.0" y="151.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#5D4037">6</text><rect x="420" y="110" width="16" height="16" rx="3" fill="#F9A825" stroke="#5D4037" stroke-width="1"/><rect x="444" y="110" width="16" height="16" rx="3" fill="#F9A825" stroke="#5D4037" stroke-width="1"/><rect x="420" y="136" width="16" height="16" rx="3" fill="#8D6E63" stroke="#5D4037" stroke-width="1"/><path d="M250 140 L310 140" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><path d="M370 140 L410 140" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><text x="360" y="250" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">骰子是 6：这块地旁的房子各拿资源（城市拿 2）</text>
+  <text x="360" y="268" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Die shows 6: houses on this hex take resources</text></svg>

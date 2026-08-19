@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Take a card / 拿一张牌</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Draw 2, keep 1 抽 2 留 1</text>
-    <text x="130.7" y="120" fill="#5D4037">Other to a discard</text>
-    <text x="130.7" y="148" fill="#8D6E63">另一张放到弃牌</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Or take discard 或拿弃牌</text>
-    <text x="360.0" y="120" fill="#5D4037">Top of one pile</text>
-    <text x="360.0" y="148" fill="#8D6E63">只能拿某堆顶</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Then play Duos 然后出双人组</text>
-    <text x="589.3" y="120" fill="#5D4037">Optional effects</text>
-    <text x="589.3" y="148" fill="#8D6E63">可选触发效果</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Draw 2, keep 1 / 抽 2 留 1</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="80" y="60" width="52" height="74" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="88" y="70" width="36" height="54" rx="4" fill="#D7CCC8"/><rect x="150" y="60" width="52" height="74" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="158" y="70" width="36" height="54" rx="4" fill="#D7CCC8"/><path d="M230 100 L300 100" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><g><rect x="320" y="55" width="60" height="86" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="328" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">蟹</text><rect x="328" y="127" width="44" height="7" rx="2" fill="#C62828"/></g><g><rect x="400" y="70" width="52" height="74" rx="8" fill="#fff" stroke="#1565C0" stroke-width="1.6"/><text x="408" y="92" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">贝</text><rect x="408" y="130" width="36" height="7" rx="2" fill="#1565C0"/></g><path d="M480 100 L540 70" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><g><rect x="560" y="50" width="52" height="74" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="568" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C62828">蟹</text><rect x="568" y="110" width="36" height="7" rx="2" fill="#C62828"/></g><text x="380" y="175" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">另一张弃掉</text><text x="360" y="210" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">留下一张进手牌，另一张进弃牌</text>
+  <text x="360" y="228" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Keep one in hand, discard the other</text></svg>

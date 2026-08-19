@@ -32,7 +32,7 @@ Roles are kept secret except the Monarch, who reveals immediately.
 
 ## 5. Game Flow
 
-![Turn: prepare, judge, draw, play, discard, end / 回合：准备、判定、摸牌、出牌、弃牌、结束](/images/rules/legends-of-the-three-kingdoms/turn-flow.svg)
+![Play Sha in range; Shan cancels it](/images/rules/legends-of-the-three-kingdoms/turn-flow.svg)
 Each turn consists of **six phases** in order:
 
 ```

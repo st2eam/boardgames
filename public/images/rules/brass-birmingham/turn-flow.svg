@@ -1,37 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title">
-  <title id="title">Brass Birmingham turn and round flow</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
   <rect width="720" height="280" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Your turn / 你的回合</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24" y="52" width="150" height="64" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="99" y="78" fill="#5D4037">Action 1</text>
-    <text x="99" y="98" fill="#8D6E63">行动 1 · 弃 1 张</text>
-    <rect x="198" y="52" width="150" height="64" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="273" y="78" fill="#5D4037">Action 2</text>
-    <text x="273" y="98" fill="#8D6E63">可重复 · 再弃 1 张</text>
-    <rect x="372" y="52" width="150" height="64" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="447" y="78" fill="#5D4037">Draw to 8</text>
-    <text x="447" y="98" fill="#8D6E63">补手至 8</text>
-    <rect x="546" y="52" width="150" height="64" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="621" y="78" fill="#5D4037">£ on character</text>
-    <text x="621" y="98" fill="#8D6E63">花钱放人物上</text>
-  </g>
-  <path d="M174 84h24" stroke="#C4952A" stroke-width="2" marker-end="url(#a)"/>
-  <path d="M348 84h24" stroke="#C4952A" stroke-width="2" marker-end="url(#a)"/>
-  <path d="M522 84h24" stroke="#C4952A" stroke-width="2" marker-end="url(#a)"/>
-  <text x="360" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">End of round / 回合结束</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="90" y="168" width="240" height="80" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="210" y="198" fill="#5D4037">Least spent goes first</text>
-    <text x="210" y="220" fill="#8D6E63">花钱最少者下轮先手</text>
-    <rect x="390" y="168" width="240" height="80" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="510" y="198" fill="#5D4037">Then take income</text>
-    <text x="510" y="220" fill="#8D6E63">然后收取收入</text>
-  </g>
-  <defs>
-    <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-      <path d="M0 0l8 4-8 4z" fill="#C4952A"/>
-    </marker>
-  </defs>
-</svg>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Two actions, money on your pawn / 两次行动，花钱放人物上</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="40" y="50" width="120" height="90" rx="12" fill="#fff" stroke="#C4952A" stroke-width="2.5"/><text x="100" y="90" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#5D4037">行动 1</text><g><rect x="78" y="100" width="44" height="28" rx="8" fill="#fff" stroke="#8D6E63" stroke-width="1.6"/><text x="86" y="122" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">×</text><rect x="86" y="114" width="28" height="7" rx="2" fill="#8D6E63"/></g><rect x="180" y="50" width="120" height="90" rx="12" fill="#fff" stroke="#C4952A" stroke-width="2.5"/><text x="240" y="90" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#5D4037">行动 2</text><g><rect x="218" y="100" width="44" height="28" rx="8" fill="#fff" stroke="#8D6E63" stroke-width="1.6"/><text x="226" y="122" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#8D6E63">×</text><rect x="226" y="114" width="28" height="7" rx="2" fill="#8D6E63"/></g><rect x="330" y="55" width="36" height="52" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="338" y="65" width="20" height="32" rx="4" fill="#D7CCC8"/><rect x="372" y="55" width="36" height="52" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="380" y="65" width="20" height="32" rx="4" fill="#D7CCC8"/><rect x="414" y="55" width="36" height="52" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="422" y="65" width="20" height="32" rx="4" fill="#D7CCC8"/><rect x="456" y="55" width="36" height="52" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="464" y="65" width="20" height="32" rx="4" fill="#D7CCC8"/><rect x="498" y="55" width="36" height="52" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="506" y="65" width="20" height="32" rx="4" fill="#D7CCC8"/><rect x="540" y="55" width="36" height="52" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="548" y="65" width="20" height="32" rx="4" fill="#D7CCC8"/><rect x="582" y="55" width="36" height="52" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="590" y="65" width="20" height="32" rx="4" fill="#D7CCC8"/><rect x="624" y="55" width="36" height="52" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="632" y="65" width="20" height="32" rx="4" fill="#D7CCC8"/><text x="490" y="125" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">补回 8 张</text><circle cx="120" cy="190" r="28" fill="#FFECB3" stroke="#5D4037"/><text x="120" y="196" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5D4037">人物</text><rect x="160" y="178" width="16" height="16" rx="3" fill="#C4952A" stroke="#5D4037" stroke-width="1"/><rect x="182" y="178" width="16" height="16" rx="3" fill="#C4952A" stroke="#5D4037" stroke-width="1"/><rect x="204" y="178" width="16" height="16" rx="3" fill="#C4952A" stroke="#5D4037" stroke-width="1"/><text x="400" y="190" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">花掉的钱先堆在人物上，用来比下轮顺序</text>
+  <text x="400" y="208" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Spent cash sits on your pawn for next turn order</text></svg>

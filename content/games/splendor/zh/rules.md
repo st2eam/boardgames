@@ -19,7 +19,7 @@
 
 ## 回合行动
 
-![每回合选一项：3 种筹码、2 枚同色、买卡或预留拿金](/images/rules/splendor/turn-actions.svg)
+![拿 3 种不同筹码，或付钱买卡](/images/rules/splendor/turn-actions.svg)
 
 每回合必须从以下四个行动中**选择一个**执行：
 

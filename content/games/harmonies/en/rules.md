@@ -26,7 +26,7 @@
 
 ## How to Play — Your Turn
 
-![Take three tokens (mandatory), optionally take an animal card, place cubes](/images/rules/harmonies/turn.svg)
+![Match the habitat pattern, then place the animal](/images/rules/harmonies/turn.svg)
 
 On your turn, take actions in any order. One is mandatory; two are optional:
 

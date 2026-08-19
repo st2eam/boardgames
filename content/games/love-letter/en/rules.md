@@ -28,7 +28,7 @@ To win a round, you must either have the **highest-value card** at the end of th
 
 ## Game Play
 
-![Draw 1, play 1 of the two cards, keep the other](/images/rules/love-letter/draw-play.svg)
+![Draw one, then play one of the two](/images/rules/love-letter/draw-play.svg)
 Love Letter is played over several rounds. Take turns in clockwise order.
 
 ### Player Turn

@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Choose one action / 选择一个行动</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Draw pile 抽牌堆</text>
-    <text x="130.7" y="120" fill="#5D4037">Discard or swap</text>
-    <text x="130.7" y="148" fill="#8D6E63">弃掉或替换</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Discard pile 弃牌堆</text>
-    <text x="360.0" y="120" fill="#5D4037">Must swap</text>
-    <text x="360.0" y="148" fill="#8D6E63">必须替换</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Call CABO 喊 CABO</text>
-    <text x="589.3" y="120" fill="#5D4037">Skip; last turns</text>
-    <text x="589.3" y="148" fill="#8D6E63">跳过，进入末回合</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Remember two cards / 开局只看自己的两张</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="80" y="70" width="52" height="74" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="88" y="80" width="36" height="54" rx="4" fill="#D7CCC8"/><g><rect x="160" y="70" width="52" height="74" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="168" y="92" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#1565C0">4</text><rect x="168" y="130" width="36" height="7" rx="2" fill="#1565C0"/></g><rect x="240" y="70" width="52" height="74" rx="8" fill="#EFEBE9" stroke="#5D4037" stroke-width="1.4"/><rect x="248" y="80" width="36" height="54" rx="4" fill="#D7CCC8"/><g><rect x="320" y="70" width="52" height="74" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="328" y="92" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">K</text><rect x="328" y="130" width="36" height="7" rx="2" fill="#5D4037"/></g><text x="226" y="175" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5D4037">开局翻看外侧两张，再盖回去</text><text x="360" y="215" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">其余两张永远盲着，直到用能力看或换</text>
+  <text x="360" y="233" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">The other two stay secret until a peek or swap</text></svg>

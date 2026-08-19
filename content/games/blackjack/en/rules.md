@@ -20,7 +20,7 @@ Blackjack (also known as 21) is a casino card game where players compete against
 
 ## Game Flow
 
-![Hit, stand, or double down](/images/rules/blackjack/player-actions.svg)
+![Soft 17 hits a 3 to make 20](/images/rules/blackjack/player-actions.svg)
 
 ### 1. Place Bets
 
@@ -70,7 +70,7 @@ After all players have acted:
 
 ## Hard Hand vs Soft Hand
 
-![Hard has no Ace as 11; soft Ace counts 11; bust over 21](/images/rules/blackjack/hard-vs-soft.svg)
+![Soft 17 still counts the ace as 11](/images/rules/blackjack/hard-vs-soft.svg)
 
 - **Hard hand**: A hand without an Ace, or where the Ace counts as 1 (e.g., A+6+10 = 17 hard)
 - **Soft hand**: A hand with an Ace counted as 11 (e.g., A+6 = soft 17)

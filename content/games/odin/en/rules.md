@@ -23,7 +23,7 @@ Chinese edition title: **维京怒火**.
 
 ## How to Play
 
-![Play a higher set of the same size or one more, then take one beaten card](/images/rules/odin/play-or-take.svg)
+![Cover with a higher set, then take one card](/images/rules/odin/play-or-take.svg)
 
 The game is played over several **hands**. Each hand is divided into **rounds**.
 

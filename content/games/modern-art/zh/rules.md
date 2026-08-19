@@ -41,7 +41,7 @@
 
 ## 拍卖类型
 
-![四种拍卖：公开、轮流一次、暗标、定价](/images/rules/modern-art/auction-types.svg)
+![看画上图标决定公开、轮流、暗标还是定价](/images/rules/modern-art/auction-types.svg)
 
 ### 公开拍卖
 从拍卖师左侧玩家开始自由叫价。每次出价必须高于前一次。出价最高者向拍卖师支付金额并获得画作。无人出价则拍卖师免费获得。

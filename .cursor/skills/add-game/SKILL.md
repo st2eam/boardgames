@@ -168,7 +168,7 @@ Edge cases, variants, clarifications.
 - Use **Markdown tables** for structured data (card types, scoring, comparisons)
 - Use `**bold**` for key terms and card names
 - Keep language natural — the rules are for human reading, not training data
-- **Diagrams:** follow `.cursor/skills/rule-svg-diagrams/SKILL.md`. 请在关键的节点上尽量加入svg图片 — turn flow, spatial/network ideas, resource priority, card anatomy, board transformations. Files go in `public/images/rules/{slug}/`. Write SVG CJK via Python (the Write tool corrupts it).
+- **Diagrams:** follow `.cursor/skills/rule-svg-diagrams/SKILL.md`. 请在关键的节点上尽量加入svg图片 — **situation sketches** of the table (cards, tiles, dice), not bilingual flowchart boxes. Files go in `public/images/rules/{slug}/`. Write SVG CJK via Python (the Write tool corrupts it).
 
 ### Step 5: Register the slug
 

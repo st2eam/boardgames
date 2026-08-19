@@ -33,7 +33,7 @@
 
 ## 游戏流程
 
-![拿一张未被盖住的篇章卡（打出或弃掉），或购买地标](/images/rules/duel-for-middle-earth/take-card.svg)
+![只能拿没被盖住的篇章卡](/images/rules/duel-for-middle-earth/take-card.svg)
 
 双方轮流行动。你的回合选择 **一项**：
 

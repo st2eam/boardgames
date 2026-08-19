@@ -39,7 +39,7 @@ Each bird you play extends a chain of powerful combinations in one of three habi
 
 ## How to Play
 
-![One action: play a bird, gain food, lay eggs, or draw cards](/images/rules/wingspan/habitat-actions.svg)
+![Pick forest: gain food for birds in that column](/images/rules/wingspan/habitat-actions.svg)
 
 The game lasts **4 rounds**, with turns decreasing each round:
 

@@ -40,7 +40,7 @@
 
 ## 游戏流程
 
-![指向队友一根导线并说出数值；猜对则两根一起剪开](/images/rules/bomb-busters/guess-wire.svg)
+![指着一根线报数字，对了就剪](/images/rules/bomb-busters/guess-wire.svg)
 
 从队长开始，玩家按顺时针轮流行动。每回合**必须**执行以下三种行动之一：
 

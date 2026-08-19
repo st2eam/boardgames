@@ -22,9 +22,9 @@
 
 ## 基础规则（2–10 人）
 
-![每人同时出 1 张，从小到大归入 4 行](/images/rules/6-nimmt-30th-anniversary/play-to-rows.svg)
+![24 接到 12 后面，因为差值最小](/images/rules/6-nimmt-30th-anniversary/play-to-rows.svg)
 
-![某行第 6 张必须收走前 5 张](/images/rules/6-nimmt-30th-anniversary/take-sixth.svg)
+![第 6 张收走前 5 张，自己留下开新行](/images/rules/6-nimmt-30th-anniversary/take-sixth.svg)
 
 ### 准备
 

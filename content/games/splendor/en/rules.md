@@ -19,7 +19,7 @@ Splendor is an engine-building card game for 2-4 players designed by Marc André
 
 ## Turn Actions
 
-![One action: 3 gems, 2 same color, buy a card, or reserve with gold](/images/rules/splendor/turn-actions.svg)
+![Take 3 different tokens, or buy a card](/images/rules/splendor/turn-actions.svg)
 
 On your turn, choose **exactly one** of the following four actions:
 

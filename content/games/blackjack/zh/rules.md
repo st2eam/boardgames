@@ -20,7 +20,7 @@
 
 ## 游戏流程
 
-![要牌、停牌或加倍](/images/rules/blackjack/player-actions.svg)
+![A+6 再要 3 变成 20](/images/rules/blackjack/player-actions.svg)
 
 ### 1. 下注
 
@@ -70,7 +70,7 @@
 
 ## 硬牌与软牌
 
-![硬牌没有按 11 的 A；软牌 A 算 11；超过 21 爆牌](/images/rules/blackjack/hard-vs-soft.svg)
+![软 17 的 A 仍可当 11](/images/rules/blackjack/hard-vs-soft.svg)
 
 - **硬牌（Hard Hand）**：不含A的手牌，或A只能计为1的手牌（如 A+6+10 = 硬17）
 - **软牌（Soft Hand）**：含A且A计为11的手牌（如 A+6 = 软17）

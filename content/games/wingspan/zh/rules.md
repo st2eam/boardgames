@@ -39,7 +39,7 @@
 
 ## 游戏流程
 
-![每回合一项：打出鸟牌、获取食物、产卵或抽牌](/images/rules/wingspan/habitat-actions.svg)
+![选森林列：按这一列的鸟拿食物](/images/rules/wingspan/habitat-actions.svg)
 
 游戏共进行 **4 个回合**，每回合行动次数递减：
 

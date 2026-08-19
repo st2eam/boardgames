@@ -23,7 +23,7 @@ Each card has **4 orientations** (front/back × top/bottom half). Only the **fac
 
 ## How to Play
 
-![Act on one of the top two cards using stored resources, or discard the top](/images/rules/palm-island/two-card.svg)
+![Only the two visible cards are resources](/images/rules/palm-island/two-card.svg)
 
 Each turn, do **one**:
 

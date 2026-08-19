@@ -1,39 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-  <rect width="720" height="300" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Riichi and dora / 立直与宝牌</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <text x="360" y="48" fill="#5D4037" font-size="12">Riichi · 立直</text>
-    <rect x="24.0" y="58" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="102.8" y="88" fill="#5D4037" font-weight="700">Concealed tenpai</text>
-    <text x="102.8" y="108" fill="#8D6E63">门前听牌</text>
-    <path d="M181.5 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="195.5" y="58" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="274.2" y="88" fill="#5D4037" font-weight="700">Declare riichi</text>
-    <text x="274.2" y="108" fill="#8D6E63">宣言立直</text>
-    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="58" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="445.8" y="88" fill="#5D4037" font-weight="700">Pay 1000</text>
-    <text x="445.8" y="108" fill="#8D6E63">放立直棒</text>
-    <path d="M524.5 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="538.5" y="58" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="617.2" y="88" fill="#5D4037" font-weight="700">Hand locked</text>
-    <text x="617.2" y="108" fill="#8D6E63">不许换牌</text>
-    <text x="360" y="158" fill="#5D4037" font-size="12">Dora · 宝牌</text>
-    <rect x="24.0" y="168" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="102.8" y="198" fill="#5D4037" font-weight="700">Flip indicator</text>
-    <text x="102.8" y="218" fill="#8D6E63">翻指示牌</text>
-    <path d="M181.5 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="195.5" y="168" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="274.2" y="198" fill="#5D4037" font-weight="700">Next tile +1 han</text>
-    <text x="274.2" y="218" fill="#8D6E63">下一张+1番</text>
-    <path d="M353.0 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="168" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="445.8" y="198" fill="#5D4037" font-weight="700">Ura after win</text>
-    <text x="445.8" y="218" fill="#8D6E63">立直和了翻里</text>
-    <path d="M524.5 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="538.5" y="168" width="157.5" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="617.2" y="198" fill="#5D4037" font-weight="700">Not a yaku</text>
-    <text x="617.2" y="218" fill="#8D6E63">宝牌不算役</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Dora is the next tile / 宝牌是指示牌的下一张</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="80" y="60" width="80" height="100" rx="8" fill="#EFEBE9" stroke="#5D4037"/><text x="120" y="120" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#8D6E63">指示</text><text x="120" y="145" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037">3万</text><path d="M180 110 L250 110" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><rect x="270" y="60" width="80" height="100" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="310" y="120" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#C4952A">宝牌</text><text x="310" y="145" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037">4万</text><text x="360" y="195" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">翻开 3 万，那么 4 万每张额外计翻</text>
+  <text x="360" y="213" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Indicator 3-man → each 4-man is dora</text></svg>

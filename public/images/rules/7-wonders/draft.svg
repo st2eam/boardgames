@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Draft an Age / 时代轮抽</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">7 cards each</text>
-    <text x="131.3" y="110" fill="#8D6E63">每人 7 张</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Play 1, pass rest</text>
-    <text x="360.0" y="110" fill="#8D6E63">打 1 张，传剩余</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">3 Ages, 6 turns</text>
-    <text x="588.7" y="110" fill="#8D6E63">3 个时代，各 6 回合</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Draft 1, pass the rest / 选 1 张，其余传走</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<g><rect x="40" y="55" width="70" height="96" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="48" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">1</text><rect x="48" y="137" width="54" height="7" rx="2" fill="#5D4037"/></g><g><rect x="130" y="55" width="70" height="96" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="138" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">2</text><rect x="138" y="137" width="54" height="7" rx="2" fill="#5D4037"/></g><g><rect x="220" y="55" width="70" height="96" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="228" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">3</text><rect x="228" y="137" width="54" height="7" rx="2" fill="#C4952A"/></g><g><rect x="310" y="55" width="70" height="96" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="318" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">4</text><rect x="318" y="137" width="54" height="7" rx="2" fill="#5D4037"/></g><g><rect x="400" y="55" width="70" height="96" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="408" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">5</text><rect x="408" y="137" width="54" height="7" rx="2" fill="#5D4037"/></g><g><rect x="490" y="55" width="70" height="96" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="498" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">6</text><rect x="498" y="137" width="54" height="7" rx="2" fill="#5D4037"/></g><g><rect x="580" y="55" width="70" height="96" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.6"/><text x="588" y="77" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">7</text><rect x="588" y="137" width="54" height="7" rx="2" fill="#5D4037"/></g><path d="M600 160 L680 160" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><text x="360" y="175" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">传给邻居 Pass to neighbor</text><text x="360" y="215" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">7 张里留下 1 张，剩下的整叠传给下家</text>
+  <text x="360" y="233" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Keep 1 of 7, pass the other six</text></svg>

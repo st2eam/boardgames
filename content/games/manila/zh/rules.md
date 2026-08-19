@@ -31,7 +31,7 @@
 
 ## 航程流程
 
-![Voyage: auction, place, dice boats, payout / 航程：竞拍、放置、掷骰、分红](/images/rules/manila/voyage-flow.svg)
+![骰子几点，那条货船走几格](/images/rules/manila/voyage-flow.svg)
 每轮航程按以下顺序进行：
 
 1. 竞拍 **港务长**

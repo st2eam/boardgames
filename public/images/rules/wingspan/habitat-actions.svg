@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-  <rect width="720" height="300" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Four Habitat Actions / 四个栖息地行动</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <text x="360" y="48" fill="#5D4037" font-size="12">Play · Forest · 打出 · 森林</text>
-    <rect x="24.0" y="58" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="188.5" y="88" fill="#5D4037" font-weight="700">Play a bird</text>
-    <text x="188.5" y="108" fill="#8D6E63">打出鸟牌</text>
-    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="58" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="531.5" y="88" fill="#5D4037" font-weight="700">Gain food</text>
-    <text x="531.5" y="108" fill="#8D6E63">获取食物</text>
-    <text x="360" y="158" fill="#5D4037" font-size="12">Grassland · Wetlands · 草地 · 湿地</text>
-    <rect x="24.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="188.5" y="198" fill="#5D4037" font-weight="700">Lay eggs</text>
-    <text x="188.5" y="218" fill="#8D6E63">产卵</text>
-    <path d="M353.0 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="531.5" y="198" fill="#5D4037" font-weight="700">Draw cards</text>
-    <text x="531.5" y="218" fill="#8D6E63">抽鸟牌</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">One habitat action / 选一列做一次</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="50" y="50" width="200" height="150" rx="12" fill="#C5E1A5" stroke="#C4952A" stroke-width="2.5"/><text x="150" y="85" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037" font-weight="700">森林</text><text x="150" y="130" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#8D6E63">这一列 = 食物</text><rect x="120" y="145" width="16" height="16" rx="3" fill="#6D4C41" stroke="#5D4037" stroke-width="1"/><rect x="146" y="145" width="16" height="16" rx="3" fill="#C62828" stroke="#5D4037" stroke-width="1"/><rect x="172" y="145" width="16" height="16" rx="3" fill="#F9A825" stroke="#5D4037" stroke-width="1"/><rect x="270" y="50" width="200" height="150" rx="12" fill="#FFF9C4" stroke="#5D4037" stroke-width="1.5"/><text x="370" y="85" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037" font-weight="700">草原</text><text x="370" y="130" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#8D6E63">这一列 = 蛋</text><rect x="490" y="50" width="200" height="150" rx="12" fill="#BBDEFB" stroke="#5D4037" stroke-width="1.5"/><text x="590" y="85" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037" font-weight="700">湿地</text><text x="590" y="130" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="14" fill="#8D6E63">这一列 = 牌</text><text x="360" y="230" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">本回合只选一列：森林拿食物（鸟越多拿越多）</text>
+  <text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Pick one column this turn; forest here gains food</text></svg>

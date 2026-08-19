@@ -23,7 +23,7 @@ DOS 是 Mattel 于 2018 年推出的 UNO 续作。与 UNO 通过颜色/数字匹
 
 ## 核心规则：匹配方式
 
-![用一张同数或两张相加匹配中央牌](/images/rules/uno-dos/two-card-matching.svg)
+![一次出两张，每张都要接得上弃牌](/images/rules/uno-dos/two-card-matching.svg)
 匹配**只看数字**。对于中央行的每张牌，你最多可用 **2 张手牌**来匹配：
 
 ### 单张匹配

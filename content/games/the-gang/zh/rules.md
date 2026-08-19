@@ -29,7 +29,7 @@
 
 ## 一次劫案
 
-![四轮沉默：白、黄、橙，最后红色](/images/rules/the-gang/heist-rounds.svg)
+![四轮公共牌，只能推筹码不能说话](/images/rules/the-gang/heist-rounds.svg)
 
 洗匀 52 张牌。每人暗发 **2 张底牌**（随时可看自己的）。桌面留出 **5 张** 公共牌位置。
 

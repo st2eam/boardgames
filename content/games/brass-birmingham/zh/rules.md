@@ -19,7 +19,7 @@
 
 勘察取代原作的「双建造」。
 
-![回合：两次行动、补手至 8、花钱放人物上；回合结束先改顺序再收收入](/images/rules/brass-birmingham/turn-flow.svg)
+![两次行动各弃 1 张，花钱堆在人物上](/images/rules/brass-birmingham/turn-flow.svg)
 
 ## 组件
 

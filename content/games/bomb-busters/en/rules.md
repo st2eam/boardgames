@@ -40,7 +40,7 @@ Bomb Busters is a cooperative deduction game for 2–5 players designed by Hisas
 
 ## How to Play
 
-![Point at a teammate’s wire, name a value; a match cuts both wires](/images/rules/bomb-busters/guess-wire.svg)
+![Point at a wire and name its number](/images/rules/bomb-busters/guess-wire.svg)
 
 Starting with the Captain, players take turns clockwise. On your turn, you **must** perform one of three actions:
 

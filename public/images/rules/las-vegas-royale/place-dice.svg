@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
-  <rect width="720" height="240" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Place One Face / 放同一点数</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="130.7" y="82" fill="#5D4037" font-weight="700" font-size="15">Roll 掷骰</text>
-    <text x="130.7" y="120" fill="#5D4037">All remaining dice</text>
-    <text x="130.7" y="148" fill="#8D6E63">掷出全部剩余骰子</text>
-    <rect x="253.3" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="82" fill="#5D4037" font-weight="700" font-size="15">Choose 选择</text>
-    <text x="360.0" y="120" fill="#5D4037">Exactly one number</text>
-    <text x="360.0" y="148" fill="#8D6E63">只选一个点数</text>
-    <rect x="482.7" y="48" width="213.3" height="172" rx="14" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="589.3" y="82" fill="#5D4037" font-weight="700" font-size="15">Place all 全放</text>
-    <text x="589.3" y="120" fill="#5D4037">Every die of that face</text>
-    <text x="589.3" y="148" fill="#8D6E63">该点数的骰子全部放入</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">All dice of one face go / 同一点数全部放进该赌场</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="40" y="80" width="42" height="42" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.8"/><text x="61.0" y="108.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#5D4037">3</text><rect x="90" y="80" width="42" height="42" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.8"/><text x="111.0" y="108.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#5D4037">3</text><rect x="140" y="80" width="42" height="42" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.8"/><text x="161.0" y="108.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#5D4037">3</text><rect x="190" y="80" width="42" height="42" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.8"/><text x="211.0" y="108.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#5D4037">5</text><rect x="240" y="80" width="42" height="42" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.8"/><text x="261.0" y="108.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#5D4037">6</text><path d="M250 100 L340 100" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><rect x="360" y="60" width="280" height="100" rx="12" fill="#fff" stroke="#C4952A" stroke-width="2"/><text x="500" y="95" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037" font-weight="700">赌场 3</text><rect x="430" y="105" width="32" height="32" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.8"/><text x="446.0" y="128.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#5D4037">3</text><rect x="470" y="105" width="32" height="32" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.8"/><text x="486.0" y="128.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#5D4037">3</text><rect x="510" y="105" width="32" height="32" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.8"/><text x="526.0" y="128.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#5D4037">3</text><text x="360" y="200" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">选点数 3：三颗 3 全部进入 3 号赌场</text>
+  <text x="360" y="218" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Pick face 3: every 3 goes to casino 3</text></svg>

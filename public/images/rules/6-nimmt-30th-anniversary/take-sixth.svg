@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">The sixth card / 第 6 张</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Row already has 5</text>
-    <text x="131.3" y="110" fill="#8D6E63">该行已有 5 张</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">You play the 6th</text>
-    <text x="360.0" y="110" fill="#8D6E63">你打出第 6 张</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Take the five</text>
-    <text x="588.7" y="110" fill="#8D6E63">收走前 5 张</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">6th card takes the row / 第 6 张收走该行</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<g><rect x="40" y="80" width="44" height="58" rx="6" fill="#FFCDD2" stroke="#5D4037" stroke-width="1.4"/><text x="62.0" y="115.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">40</text></g><g><rect x="90" y="80" width="44" height="58" rx="6" fill="#FFCDD2" stroke="#5D4037" stroke-width="1.4"/><text x="112.0" y="115.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">44</text></g><g><rect x="140" y="80" width="44" height="58" rx="6" fill="#FFCDD2" stroke="#5D4037" stroke-width="1.4"/><text x="162.0" y="115.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">50</text></g><g><rect x="190" y="80" width="44" height="58" rx="6" fill="#FFCDD2" stroke="#5D4037" stroke-width="1.4"/><text x="212.0" y="115.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">55</text></g><g><rect x="240" y="80" width="44" height="58" rx="6" fill="#FFCDD2" stroke="#5D4037" stroke-width="1.4"/><text x="262.0" y="115.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">58</text></g><g><rect x="290" y="70" width="50" height="66" rx="6" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="315.0" y="109.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">62</text></g><text x="190" y="170" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#C62828">这 5 张进你的牛头堆</text><g><rect x="480" y="80" width="44" height="58" rx="6" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="502.0" y="115.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#5D4037">62</text></g><text x="502" y="170" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">62 留下成新行</text><text x="360" y="210" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">放第 6 张：先拿走前 5 张，你的牌成为新起始</text>
+  <text x="360" y="228" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">6th card: take the five, yours starts a new row</text></svg>

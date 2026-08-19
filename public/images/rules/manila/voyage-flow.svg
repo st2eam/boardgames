@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Voyage phases / 航程阶段</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="102.8" y="88" fill="#5D4037" font-weight="700">Auction</text>
-    <text x="102.8" y="110" fill="#8D6E63">竞拍港务长</text>
-    <path d="M181.5 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="195.5" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="274.2" y="88" fill="#5D4037" font-weight="700">Place</text>
-    <text x="274.2" y="110" fill="#8D6E63">放置同伙</text>
-    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="445.8" y="88" fill="#5D4037" font-weight="700">Dice boats</text>
-    <text x="445.8" y="110" fill="#8D6E63">掷骰移舢板</text>
-    <path d="M524.5 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="538.5" y="52" width="157.5" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="617.2" y="88" fill="#5D4037" font-weight="700">Payout</text>
-    <text x="617.2" y="110" fill="#8D6E63">利润分配</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Boats move by the dice / 船按骰子走格子</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<text x="40" y="70" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5D4037">人参</text><rect x="100" y="50" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="170" y="50" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="240" y="50" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="310" y="50" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="380" y="50" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="450" y="50" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="100" y="50" width="60" height="32" rx="4" fill="#C4952A" stroke="#5D4037"/><text x="40" y="115" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5D4037">玉石</text><rect x="100" y="95" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="170" y="95" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="240" y="95" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="310" y="95" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="380" y="95" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="450" y="95" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="170" y="95" width="60" height="32" rx="4" fill="#C4952A" stroke="#5D4037"/><text x="40" y="160" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5D4037">丝绸</text><rect x="100" y="140" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="170" y="140" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="240" y="140" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="310" y="140" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="380" y="140" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="450" y="140" width="60" height="32" rx="4" fill="#fff" stroke="#5D4037"/><rect x="240" y="140" width="60" height="32" rx="4" fill="#C4952A" stroke="#5D4037"/><rect x="580" y="90" width="40" height="40" rx="8" fill="#fff" stroke="#5D4037" stroke-width="1.8"/><text x="600.0" y="117.0" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700" fill="#5D4037">3</text><text x="360" y="210" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">掷出几，对应货物的船就走几格</text>
+  <text x="360" y="228" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">The die moves that good’s ship that many spaces</text></svg>

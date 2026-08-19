@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-  <rect width="720" height="300" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Light vs Dark / 光明面与黑暗面</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <text x="360" y="48" fill="#5D4037" font-size="12">Light side · 光明面</text>
-    <rect x="24.0" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Draw One</text>
-    <text x="131.3" y="108" fill="#8D6E63">下家抽 1</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Skip</text>
-    <text x="360.0" y="108" fill="#8D6E63">跳过下家</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="58" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Wild Draw Two</text>
-    <text x="588.7" y="108" fill="#8D6E63">万能抽 2</text>
-    <text x="360" y="158" fill="#5D4037" font-size="12">Dark side · 黑暗面</text>
-    <rect x="24.0" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="198" fill="#5D4037" font-weight="700">Draw Five</text>
-    <text x="131.3" y="218" fill="#8D6E63">下家抽 5</text>
-    <path d="M238.7 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="360.0" y="198" fill="#5D4037" font-weight="700">Skip Everyone</text>
-    <text x="360.0" y="218" fill="#8D6E63">跳过所有人</text>
-    <path d="M467.3 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="168" width="214.7" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="588.7" y="198" fill="#5D4037" font-weight="700">Wild Draw Color</text>
-    <text x="588.7" y="218" fill="#8D6E63">抽到指定色</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img">
+  <rect width="720" height="240" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Flip turns the whole deck / 翻转牌让所有人换面</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<g><rect x="80" y="50" width="70" height="100" rx="8" fill="#fff" stroke="#F9A825" stroke-width="1.6"/><text x="88" y="72" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#F9A825">7</text><rect x="88" y="136" width="54" height="7" rx="2" fill="#F9A825"/></g><text x="115" y="170" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5D4037">光明面</text><path d="M180 100 L280 100" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><g><rect x="300" y="40" width="80" height="110" rx="8" fill="#fff" stroke="#C4952A" stroke-width="3"/><text x="308" y="62" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#C4952A">FLIP</text><rect x="308" y="136" width="64" height="7" rx="2" fill="#C4952A"/></g><path d="M410 100 L510 100" stroke="#C4952A" stroke-width="2.5" marker-end="url(#arr)"/><rect x="520" y="50" width="70" height="100" rx="8" fill="#37474F" stroke="#C4952A" stroke-width="3"/><text x="555" y="110" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#fff">7</text><text x="555" y="170" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5D4037">黑暗面</text><text x="360" y="205" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">打出翻转后，弃牌堆和手牌全部翻到另一面</text>
+  <text x="360" y="223" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Play Flip: every card turns to the other side</text></svg>

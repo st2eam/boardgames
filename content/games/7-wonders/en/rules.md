@@ -29,7 +29,7 @@ This edition updates art, symbols (including colorblind icons), some cards and W
 
 ## How to Play
 
-![Each Age: 7 cards, play one and pass; six turns, then military](/images/rules/7-wonders/draft.svg)
+![Keep 1 of 7, pass the rest](/images/rules/7-wonders/draft.svg)
 
 Three Ages in order. Points are counted only after Age III.
 

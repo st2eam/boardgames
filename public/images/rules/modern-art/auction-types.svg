@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-  <rect width="720" height="300" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Four Auction Types / 四种拍卖</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="58" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="188.5" y="88" fill="#5D4037" font-weight="700">Open</text>
-    <text x="188.5" y="108" fill="#8D6E63">公开出价</text>
-    <path d="M353.0 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="58" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="531.5" y="88" fill="#5D4037" font-weight="700">Once around</text>
-    <text x="531.5" y="108" fill="#8D6E63">轮流一次</text>
-    <rect x="24.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="188.5" y="198" fill="#5D4037" font-weight="700">Sealed</text>
-    <text x="188.5" y="218" fill="#8D6E63">暗标</text>
-    <path d="M353.0 204h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="367.0" y="168" width="329.0" height="72" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="531.5" y="198" fill="#5D4037" font-weight="700">Fixed price</text>
-    <text x="531.5" y="218" fill="#8D6E63">定价</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Four ways to sell / 四种拍卖怎么出价</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="40" y="50" width="150" height="150" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.6"/><text x="115" y="95" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037" font-weight="700">公开</text><text x="115" y="140" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">大家一起喊价</text><rect x="210" y="50" width="150" height="150" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.6"/><text x="285" y="95" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037" font-weight="700">轮流一次</text><text x="285" y="140" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">每人只出一次</text><rect x="380" y="50" width="150" height="150" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.6"/><text x="455" y="95" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037" font-weight="700">暗标</text><text x="455" y="140" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">同时盖住出价</text><rect x="550" y="50" width="150" height="150" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.6"/><text x="625" y="95" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="16" fill="#5D4037" font-weight="700">定价</text><text x="625" y="140" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">牌上写多少就是多少</text><text x="360" y="230" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">看左上角图标决定这一张怎么卖</text>
+  <text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">The icon on the painting picks the auction</text></svg>

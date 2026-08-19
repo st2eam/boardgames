@@ -23,7 +23,7 @@ Texas Hold'em is the most widely played poker variant in the world. Each player 
 
 ## Betting Rounds
 
-![Pre-flop, flop, turn, river, then showdown](/images/rules/texas-hold-em/streets.svg)
+![Two hole cards plus the flop; turn and river still down](/images/rules/texas-hold-em/streets.svg)
 
 A hand consists of four betting rounds:
 

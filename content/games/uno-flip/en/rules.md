@@ -18,7 +18,7 @@ UNO Flip is a twist on classic UNO featuring a double-sided deck. The deck has a
 
 ## Light Side Cards
 
-![Light side is milder; Dark side is harsher](/images/rules/uno-flip/light-vs-dark.svg)
+![Flip turns every card to the dark side](/images/rules/uno-flip/light-vs-dark.svg)
 | Card | Effect |
 |------|--------|
 | **Draw One** (Blue/Green/Yellow/Red) | Next player draws 1 card and skips their turn |
@@ -41,7 +41,7 @@ UNO Flip is a twist on classic UNO featuring a double-sided deck. The deck has a
 
 ## How to Play
 
-![Play Flip to turn all hands and piles to the other side](/images/rules/uno-flip/flip-card.svg)
+![The Flip card turns the whole deck](/images/rules/uno-flip/flip-card.svg)
 1. On your turn, play a card matching the top of the discard pile by **color**, **number**, or **symbol**.
 2. If you cannot play, draw one card. You may play it immediately if it matches.
 3. When playing your second-to-last card, say **"UNO!"** before your next turn begins. If caught not saying it, draw 2 penalty cards.

@@ -23,7 +23,7 @@ Designed by **Brett J. Gilbert** and **Trevor Benjamin**, published by **Alley C
 
 ## How to Play
 
-![Draw a tile, your symbol face up, place orthogonally adjacent](/images/rules/tic-tac-trek/place.svg)
+![Three matching symbols start a trek](/images/rules/tic-tac-trek/place.svg)
 
 On your turn:
 

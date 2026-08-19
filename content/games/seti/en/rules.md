@@ -8,7 +8,7 @@ Over **five rounds**, launch probes to nearby planets and moons, scan distant st
 
 The player with the starting-player marker takes the first turn of a round. Play clockwise, skipping anyone who has already passed. After round 5, highest score wins.
 
-![One main action plus free actions, then milestones, then any discovery](/images/rules/seti/turn-flow.svg)
+![One main action, free extras, then milestones](/images/rules/seti/turn-flow.svg)
 
 ## Components
 

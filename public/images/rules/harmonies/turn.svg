@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img">
-  <rect width="720" height="160" fill="#FAFAF5"/>
-  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Your Turn / 你的回合</text>
-  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" text-anchor="middle">
-    <rect x="24.0" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#C4952A" stroke-width="1.5"/>
-    <text x="131.3" y="88" fill="#5D4037" font-weight="700">Take 3 tokens</text>
-    <text x="131.3" y="110" fill="#8D6E63">拿 3 个地形</text>
-    <path d="M238.7 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="252.7" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="360.0" y="88" fill="#5D4037" font-weight="700">Optional animal card</text>
-    <text x="360.0" y="110" fill="#8D6E63">可选动物卡</text>
-    <path d="M467.3 94h14" stroke="#C4952A" stroke-width="2"/>
-    <rect x="481.3" y="52" width="214.7" height="84" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
-    <text x="588.7" y="88" fill="#5D4037" font-weight="700">Place cubes</text>
-    <text x="588.7" y="110" fill="#8D6E63">放置动物方块</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Tokens must match the animal / 标记要和动物卡图案一致</text>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
+<rect x="80" y="80" width="36" height="36" rx="6" fill="#A5D6A7" stroke="#5D4037"/><rect x="120" y="80" width="36" height="36" rx="6" fill="#90CAF9" stroke="#5D4037"/><rect x="160" y="80" width="36" height="36" rx="6" fill="#A5D6A7" stroke="#5D4037"/><rect x="280" y="60" width="140" height="90" rx="10" fill="#fff" stroke="#C4952A" stroke-width="2.5"/><text x="350" y="100" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">动物卡</text><rect x="300" y="110" width="20" height="20" fill="#A5D6A7"/><rect x="325" y="110" width="20" height="20" fill="#90CAF9"/><rect x="350" y="110" width="20" height="20" fill="#A5D6A7"/><circle cx="520" cy="90" r="7.700000000000001" fill="#C4952A" stroke="#5D4037" stroke-width="1"/><path d="M506 120.80000000000001 Q520 95.6 534 120.80000000000001 Z" fill="#C4952A" stroke="#5D4037" stroke-width="1"/><text x="360" y="200" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">板上的地形排列对上了，才能放下这只动物</text>
+  <text x="360" y="218" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Place the animal only when the habitat pattern matches</text></svg>

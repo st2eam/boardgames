@@ -36,7 +36,7 @@ Set aside all other characters and unique districts. Use:
 
 ## How to Play
 
-![Call ranks 1 to 8; take gold or a district, then optionally build](/images/rules/citadels/turn-flow.svg)
+![Roles 1–8 are called; act when yours is named](/images/rules/citadels/turn-flow.svg)
 
 Each round: **selection phase**, then **turn phase**.
 
@@ -113,7 +113,7 @@ Game ends at **8** districts.
 
 ## Character Abilities
 
-![Characters act in rank order from Assassin (1) to Warlord (8)](/images/rules/citadels/call-order.svg)
+![The king calls 1 through 8](/images/rules/citadels/call-order.svg)
 Abilities are optional unless the rules say **must** / **cannot**. Once per turn.
 
 ### Rank 1

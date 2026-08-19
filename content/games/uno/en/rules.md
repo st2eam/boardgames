@@ -32,7 +32,7 @@ UNO is the classic family card game where players take turns matching a card in 
 
 ## How to Play
 
-![Match color or number, play 1 card, or draw 1](/images/rules/uno/turn-flow.svg)
+![Discard is a red 7; a blue 7 matches by number](/images/rules/uno/turn-flow.svg)
 On your turn, play **one** card from your hand that matches the top discard by:
 - **Color** — Same color
 - **Number** — Same number
@@ -49,7 +49,7 @@ When playing your **second-to-last card** (leaving one card in hand), you must c
 
 ## Action Cards
 
-![Skip, Reverse, and Draw Two](/images/rules/uno/action-cards.svg)
+![Skip, reverse, and draw two](/images/rules/uno/action-cards.svg)
 | Card | Effect |
 |------|--------|
 | **Skip** | Next player loses their turn |

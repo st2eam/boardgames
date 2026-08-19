@@ -47,7 +47,7 @@
 
 ## 回合流程
 
-![Draw, play actions, transmit one intelligence, discard to six / 摸牌、出行动、传递一张情报、弃至六张](/images/rules/the-message-attack-by-stratagem/turn-flow.svg)
+![情报沿通道传，途中可能被截获](/images/rules/the-message-attack-by-stratagem/turn-flow.svg)
 每个回合按以下阶段依次执行：
 
 ### 1. 摸牌阶段

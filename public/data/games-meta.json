@@ -1118,5 +1118,22 @@
     "price": 10,
     "bggRank": 1073,
     "slug": "palm-island"
+  },
+  {
+    "name": {
+      "en": "Petiquette",
+      "zh": "动物礼仪师"
+    },
+    "players": "2-6",
+    "duration": "20 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "party",
+      "family",
+      "deduction"
+    ],
+    "category": "card",
+    "slug": "petiquette"
   }
 ]

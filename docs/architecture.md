@@ -56,7 +56,7 @@ Rules:
 |---------|---------|------|---------------|--------|
 | Rules | `en\|zh/rules.md` | `games/[slug]/page.tsx` | `MarkdownRenderer`, … | — |
 | Flow | root `flow.json` (`startNode`) | `…/flow/page.tsx` | `DecisionTree` | — |
-| Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/components/game/score/registry.tsx) → dedicated trackers or `ScoreTracker` | `src/lib/score/` |
+| Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/components/game/score/registry.tsx) → dedicated multi-round trackers | `src/lib/score/` (input helpers) |
 | Trainer | `trainer.json` | `…/trainer/page.tsx` | [`trainer/registry.tsx`](../src/components/game/trainer/registry.tsx) | `src/lib/<game>/` |
 | Calculator | `calculator.json` | `…/calculator/page.tsx` | `ScoreCalculator` | `src/lib/mahjong/` |
 | Play (BBGE) | `play.json` (+ optional `editions`) | `…/play/page.tsx` | PlayShell → bbge runtime + plugin table UI (Love Letter: BGA DOM, full/premium); **开始游戏** first in `GameHeader` (edition menu when configured); homepage Play Now | `bbge/*` + `plugins/<pluginId>`; design in [`docs/games/<slug>.md`](games/) |

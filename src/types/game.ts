@@ -30,48 +30,14 @@ export interface FlowData {
   nodes: Record<string, FlowNode>;
 }
 
-// --- Score Calculator Types ---
+// --- Score Tracker Types ---
+// Dedicated multi-player, multi-round running totals only (no generic end-game calculators).
 
-export interface CardDef {
-  id: string;
-  name: Record<"en" | "zh", string>;
-  color?: string;
-  count?: number;
-  group?: string;
-  points?: number;
-  multiplies?: string;
-  tier?: string;
-}
-
-export interface CardGroup {
-  id: string;
-  name: Record<"en" | "zh", string>;
-  cards: CardDef[];
-}
-
-export interface CardTypeDef {
-  id: string;
-  name: Record<"en" | "zh", string>;
-  value: number;
-  group?: string;
-}
-
-export interface CategoryDef {
-  id: string;
-  name: Record<"en" | "zh", string>;
-  value: number;
-  max?: number;
-}
-
-export interface FeatureDef {
-  id: string;
-  name: Record<"en" | "zh", string>;
-  inputType: "number";
-  formula: string;
-  description?: Record<"en" | "zh", string>;
-}
-
-export type ScoreConfigType = "formula" | "card-select" | "card-type" | "category" | "feature-calc" | "rounds" | "cabo-multi" | "sea-salt-multi" | "just-wild-multi" | "nimmt-multi";
+export type ScoreConfigType =
+  | "cabo-multi"
+  | "sea-salt-multi"
+  | "just-wild-multi"
+  | "nimmt-multi";
 
 export interface ScoreConfig {
   type: ScoreConfigType;
@@ -81,31 +47,6 @@ export interface ScoreConfig {
   targetByPlayers?: Record<string, number>;
   players: { min: number; max: number };
   multiRound?: boolean;
-  rounds?: number;
-  startingScore?: number;
-  unit?: Record<"en" | "zh", string>;
-  cards?: CardDef[];
-  cardGroups?: CardGroup[];
-  cardTypes?: CardTypeDef[];
-  categories?: CategoryDef[];
-  features?: FeatureDef[];
-  scoringRules?: Record<string, unknown>;
-  filters?: FilterDef[];
-  colorDist?: ColorDef[];
-}
-
-export interface ColorDef {
-  id: string;
-  name: Record<"en" | "zh", string>;
-  hex: string;
-  count: number;
-}
-
-export interface FilterDef {
-  id: string;
-  name: Record<"en" | "zh", string>;
-  field: string;
-  values: { id: string; name: Record<"en" | "zh", string> }[];
 }
 
 // --- Trainer Config ---

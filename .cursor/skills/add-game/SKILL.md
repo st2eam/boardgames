@@ -250,20 +250,18 @@ Aim for **5–15 nodes**. Fewer is better for simple games; complex games may ne
 
 ### Step 6b: Evaluate and create score.json (if applicable)
 
-After creating the flow, evaluate whether the game needs a score tracker. **Create `score.json` if ANY of these apply:**
+After creating the flow, evaluate whether the game needs a score tracker. **Create `score.json` only if the table needs a shared running total:**
 
-- The game has point-based scoring (not just win/lose)
-- Players accumulate scores across rounds
-- Scoring involves counting cards, tiles, or resources with different values
-- There's a target score to reach
-- End-game scoring requires adding up multiple categories
+- Multiple players score every round (or every few rounds)
+- Totals accumulate until a target / elimination line
+- **or** a single round's scoring is too fiddly for paper (e.g. Sea Salt Paper combos)
 
 **Skip `score.json` if:**
-- The game is purely win/lose (no point scoring)
-- Scoring is trivial (e.g., "whoever finishes first wins")
-- The game is cooperative with pass/fail outcomes
+- End-game category totaling (Catan, 7 Wonders, Carcassonne, Citadels, SETI, Brass)
+- Scoring is a trivial per-round number (leftover cards, match counts)
+- Win/lose only, first-to-finish, or co-op pass/fail
 
-Refer to the "Adding a Score Tracker" section below for engine selection and examples.
+There is **no** generic calculator. New trackers are dedicated components — see "Adding a Score Tracker" below.
 
 ### Step 6c: Evaluate and create trainer.json (if applicable)
 
@@ -442,58 +440,29 @@ Do NOT skip the reminder for cover / rank / price gaps.
 
 ---
 
-## Adding a Score Tracker (Auto-Calculator)
+## Adding a Score Tracker
 
-If the game involves scoring, create a `score.json` in the game's root directory. The score tracker auto-calculates points based on user selections.
+Only for **multi-player running totals** across rounds (or fiddly per-round combo scoring). Do **not** add a `score.json` that is just "fill in end-game categories."
 
-### Engine selection
+Existing types (each has a dedicated component — no generic engine):
 
-| Engine | When to use | Key fields |
-|--------|-------------|------------|
-| `sea-salt` | Complex formula-based scoring (Sea Salt & Paper) | `cards` with groups (duo/collector/multiplier/mermaid) |
-| `card-type` | Score by card type × count (UNO, Splendor) | `cardTypes` with value per type |
-| `category` | Score by category × count (Catan, King of Wilderness) | `categories` with value per item |
-| `feature-calc` | Input quantities, apply formula (Carcassonne) | `features` with formula strings |
-| `card-sum` | Select cards from a list, sum their points | `cards` or `cardGroups` with `points` |
+| Type | Component | When |
+|------|-----------|------|
+| `cabo-multi` | `CaboScoreTracker` | Per-round penalty totals to a target; low score wins |
+| `sea-salt-multi` | `SeaSaltScoreTracker` | Per-round combo scoring, then accumulate to a player-count target |
+| `just-wild-multi` | `JustWildScoreTracker` | Running totals + leftover tokens as tiebreak |
+| `nimmt-multi` | `NimmtScoreTracker` | Per-round bull heads to a target; low score wins |
 
-### Example: Card Type engine (UNO)
+### Example (CABO)
 
 ```json
 {
-  "type": "card-type",
-  "engine": "card-type",
-  "direction": "high-wins",
-  "target": 500,
+  "type": "cabo-multi",
+  "engine": "cabo-multi",
+  "direction": "low-wins",
+  "target": 100,
   "multiRound": true,
-  "players": { "min": 2, "max": 10 },
-  "cardTypes": [
-    { "id": "num5", "name": { "en": "Number 5", "zh": "数字 5" }, "value": 5, "group": "number" },
-    { "id": "skip", "name": { "en": "Skip", "zh": "禁止" }, "value": 20, "group": "action" }
-  ],
-  "filters": [
-    { "id": "group", "name": { "en": "Type", "zh": "类型" }, "field": "group",
-      "values": [
-        { "id": "all", "name": { "en": "All", "zh": "全部" } },
-        { "id": "number", "name": { "en": "Numbers", "zh": "数字牌" } },
-        { "id": "action", "name": { "en": "Action", "zh": "功能牌" } }
-      ]
-    }
-  ]
-}
-```
-
-### Example: Feature Calc engine (Carcassonne)
-
-```json
-{
-  "type": "feature-calc",
-  "engine": "feature-calc",
-  "direction": "high-wins",
-  "players": { "min": 2, "max": 5 },
-  "features": [
-    { "id": "road", "name": { "en": "Road (tiles)", "zh": "道路（块数）" }, "inputType": "number", "formula": "n", "description": { "en": "1 pt/tile", "zh": "每块1分" } },
-    { "id": "city", "name": { "en": "City (tiles)", "zh": "城市（块数）" }, "inputType": "number", "formula": "n*2", "description": { "en": "2 pts/tile", "zh": "每块2分" } }
-  ]
+  "players": { "min": 2, "max": 4 }
 }
 ```
 
@@ -501,20 +470,22 @@ If the game involves scoring, create a `score.json` in the game's root directory
 
 | Field | Required | Description |
 |-------|:--------:|-------------|
-| `type` | ✅ | UI layout type |
-| `engine` | ✅ | Calculation engine name |
+| `type` | ✅ | Dedicated tracker type above |
+| `engine` | ✅ | Same string as `type` (kept for the JSON shape) |
 | `direction` | ✅ | `"high-wins"` or `"low-wins"` |
-| `multiRound` |  | Enable multi-round with confirm button |
+| `multiRound` |  | Running totals across rounds |
 | `target` |  | Fixed target score |
 | `targetByPlayers` |  | Target varies by player count: `{"2": 40, "3": 35}` |
 | `players` | ✅ | `{ "min": N, "max": N }` |
-| `cards` |  | Card list with `id`, `name`, `color`, `count`, `group`, `points` |
-| `cardTypes` |  | Card type list with `id`, `name`, `value`, `group` |
-| `categories` |  | Category list with `id`, `name`, `value`, optional `max` |
-| `features` |  | Feature inputs with `id`, `name`, `inputType`, `formula`, `description` |
-| `filters` |  | Filter definitions for the card selector UI |
 
-The score tracker page is auto-generated at `/[locale]/games/[slug]/score/` when `score.json` exists.
+The score page is generated at `/[locale]/games/[slug]/score/` when `score.json` exists.
+
+To add a **new** dedicated tracker:
+
+1. Add the type to `ScoreConfigType` in `src/types/game.ts`
+2. Create the component under `src/components/game/score/`
+3. Register it in `src/components/game/score/registry.tsx`
+4. Ship `score.json` with that `type`
 
 ---
 
@@ -637,7 +608,7 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] `zh/rules.md` written (matching English content)
 - [ ] Key-mechanic SVG diagrams in `public/images/rules/{slug}/` (see `rule-svg-diagrams` skill)
 - [ ] `flow.json` created at game root with bilingual title/content/label (**required**)
-- [ ] `score.json` evaluated — created if game has point-based scoring
+- [ ] `score.json` evaluated — created only for multi-player running totals (or fiddly per-round scoring)
 - [ ] `trainer.json` evaluated — created if game has trainable skills
 - [ ] `calculator.json` added for games with score calculators (if applicable)
 - [ ] `play.json` evaluated — only if shipping BBGE online play (+ `docs/games/{slug}.md` + plugin)

@@ -81,11 +81,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/las-vegas-royale/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/drecksau/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -121,19 +116,9 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/catan/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/catan-china-map/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/catan-china-map/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/sea-salt-paper/</loc>
@@ -164,11 +149,6 @@
     <loc>https://st2eam.github.io/boardgames/en/games/seti/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/seti/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/seti-space-agencies/</loc>
@@ -256,11 +236,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/carcassonne/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/carcassonne-the-river/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -299,11 +274,6 @@
     <loc>https://st2eam.github.io/boardgames/en/games/citadels/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/citadels/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/exploding-kittens/</loc>
@@ -441,11 +411,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/brass-birmingham/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/spots/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -581,11 +546,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/odin/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/halli-galli/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -641,11 +601,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/7-wonders/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/palm-island/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -656,11 +611,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/palm-island/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/petiquette/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -669,11 +619,6 @@
     <loc>https://st2eam.github.io/boardgames/en/games/petiquette/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/petiquette/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/</loc>
@@ -756,11 +701,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/las-vegas-royale/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/drecksau/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -796,19 +736,9 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/catan/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/catan-china-map/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/catan-china-map/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/sea-salt-paper/</loc>
@@ -839,11 +769,6 @@
     <loc>https://st2eam.github.io/boardgames/zh/games/seti/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/seti/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/seti-space-agencies/</loc>
@@ -931,11 +856,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/carcassonne/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/carcassonne-the-river/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -974,11 +894,6 @@
     <loc>https://st2eam.github.io/boardgames/zh/games/citadels/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/citadels/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/exploding-kittens/</loc>
@@ -1116,11 +1031,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/brass-birmingham/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/spots/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1256,11 +1166,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/odin/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/halli-galli/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1316,11 +1221,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/7-wonders/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/palm-island/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1331,11 +1231,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/palm-island/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/petiquette/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1344,10 +1239,5 @@
     <loc>https://st2eam.github.io/boardgames/zh/games/petiquette/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/petiquette/score/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
 </urlset>

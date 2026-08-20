@@ -8,7 +8,7 @@
 
 - **59 款游戏规则**：经过网络验证的中英双语完整规则
 - **53 款交互式决策树**：分步交互流程，含侧边栏目录导航
-- **15 款自动计分器**：`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` / `category` / `feature-calc` / `card-type` 等，支持多人同屏计分，localStorage 持久化
+- **4 款多人计分器**：CABO、海盐折纸、牛头王、荒野之王 — 跨回合累计，localStorage 持久化
 - **5 款训练器**：麻将/日麻听牌、21 点基本策略、德州扑克 GTO 翻前、围棋死活题
 - **5 款 BBGE 在线对局**：情书、德州扑克、谁是牛头王、围棋、CABO — 设计规范 [`docs/games/`](docs/games/)
 - **番符计算器**：日麻番数/符数/点数自动计算器，可视化选牌（14 张）→ 指定和牌 → 标记副露 → 自动拆解牌型、检测役种、计算符数与点数
@@ -35,7 +35,7 @@ npm run dev
 npm run build
 ```
 
-> **维护提示**：新增/调整游戏后，请同步更新下方「游戏清单」与文首数量（当前：`59` 游戏 / `53` 决策树 / `15` 计分 / `5` 训练器 / `1` 计算器 / `5` BBGE 对局）。可用 `node scripts/print-project-stats.mjs` 快速核对。BBGE 行为变更请同步 [`docs/games/<slug>.md`](docs/games/)。
+> **维护提示**：新增/调整游戏后，请同步更新下方「游戏清单」与文首数量（当前：`59` 游戏 / `53` 决策树 / `4` 计分 / `5` 训练器 / `1` 计算器 / `5` BBGE 对局）。可用 `node scripts/print-project-stats.mjs` 快速核对。BBGE 行为变更请同步 [`docs/games/<slug>.md`](docs/games/)。
 
 ---
 
@@ -77,17 +77,17 @@ npm run build
 | 狗运当骰 (Spots) | ✅ | ✅ | — |
 | 跋涉远足 (Tic Tac Trek) | ✅ | ✅ | — |
 | 神偷大盗 (Art Robbery) | ✅ | ✅ | — |
-| 维京怒火 (Odin) | ✅ | ✅ | ✅ 计分 |
+| 维京怒火 (Odin) | ✅ | ✅ | — |
 | 哈铃果铃 (Halli Galli) | ✅ | ✅ | — |
-| 动物礼仪师 (Petiquette) | ✅ | ✅ | ✅ 计分 |
+| 动物礼仪师 (Petiquette) | ✅ | ✅ | — |
 | 马尼拉 (Manila) | ✅ | ✅ | — |
-| 拉斯维加斯：豪华版 (Las Vegas Royale) | ✅ | ✅ | ✅ 计分 |
-| 富饶之城 (Citadels) | ✅ | ✅ | ✅ 计分 |
-| 七大奇迹 (7 Wonders) | ✅ | ✅ | ✅ 计分 |
+| 拉斯维加斯：豪华版 (Las Vegas Royale) | ✅ | ✅ | — |
+| 富饶之城 (Citadels) | ✅ | ✅ | — |
+| 七大奇迹 (7 Wonders) | ✅ | ✅ | — |
 | 魔戒：中洲对决 | ✅ | ✅ | — |
 | 谁是牛头王（30周年） | ✅ | ✅ | ✅ 计分 · 🎮 多模式在线对局 |
-| 棕榈岛 (Palm Island) | ✅ | ✅ | ✅ 计分 |
-| 工业革命：伯明翰 (Brass: Birmingham) | ✅ | ✅ | ✅ 计分 |
+| 棕榈岛 (Palm Island) | ✅ | ✅ | — |
+| 工业革命：伯明翰 (Brass: Birmingham) | ✅ | ✅ | — |
 | 围棋 | ✅ | ✅ | 🎯 死活题 · 🎮 9/13/19 路对局 |
 
 ### 游戏系列
@@ -110,9 +110,9 @@ npm run build
 | | 璀璨宝石：宝可梦版 | 变体（可独立） | ✅ | ✅ | — |
 | 海盐折纸 | 海盐折纸 | 本体 | ✅ | ✅ | ✅ 计分 |
 | | 盐趣倍增 | DLC（需本体） | ✅ | — | — |
-| 卡坦岛 | 卡坦岛 | 本体 | ✅ | ✅ | ✅ 计分 |
-| | 中国版图 | 变体（可独立） | ✅ | — | ✅ 计分 |
-| 卡卡颂 | 卡卡颂 | 本体 | ✅ | ✅ | ✅ 计分 |
+| 卡坦岛 | 卡坦岛 | 本体 | ✅ | ✅ | — |
+| | 中国版图 | 变体（可独立） | ✅ | — | — |
+| 卡卡颂 | 卡卡颂 | 本体 | ✅ | ✅ | — |
 | | 卡卡颂：河流 | DLC（需本体） | ✅ | — | — |
 | 麻将 | 麻将 | 本体 | ✅ | ✅ | 🎯 听牌训练 |
 | | 日本麻将 | 变体（可独立） | ✅ | ✅ | 🎯 听牌训练 + 🧮 番符计算 |
@@ -122,7 +122,7 @@ npm run build
 | | 大洋洲篇 | DLC（需本体） | ✅ | ✅ | — |
 | 情书 | 情书 | 本体 | ✅ | ✅ | 🎮 在线对局（经典/完整/拓展） |
 | | 情书：珍藏版 | 变体（可独立） | ✅ | ✅ | 🎮 默认拓展版对局 |
-| 星空觅迹 | 星空觅迹 | 本体 | ✅ | ✅ | ✅ 计分 |
+| 星空觅迹 | 星空觅迹 | 本体 | ✅ | ✅ | — |
 | | 航天机构 | DLC（需本体） | ✅ | ✅ | — |
 
 ---
@@ -156,14 +156,14 @@ src/
 ├── components/
 │   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
 │   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
-│   ├── game/score/               # ScoreTracker + Cabo / SeaSalt / JustWild 专用多人计分
+│   ├── game/score/               # Cabo / SeaSalt / JustWild / Nimmt 专用多人计分
 │   ├── game/trainer/             # Tenpai / Preflop / Blackjack / Go 等训练器 UI
 │   ├── game/calculator/          # 日麻番符计算器
 │   ├── chat/                     # ChatToggle, ChatIsland（懒加载）, ChatDialog, ChatMessages
 │   └── layout/                   # Header, Footer, BackToTop
 ├── lib/content/                  # Repository + Factory（读 content/games）
 ├── lib/mahjong/                  # 麻将核心（听牌 / 番符 / 役种）
-├── lib/score/                    # 计分 hook + engines
+├── lib/score/                    # 计分数值输入辅助
 ├── lib/texas-holdem/             # GTO 翻前
 ├── lib/ai/                       # DeepSeekAdapter（Anthropic SSE）、ChatStrategies、tool-handlers
 ├── lib/chat/                     # ChatProvider、错误分类、IndexedDB 存储
@@ -241,7 +241,7 @@ src/
 | `/en/costs` | 花费统计 |
 | `/en/games/catan` | 规则页：GameHeader + 规则正文 + 导出 + 相关游戏 + 对话 |
 | `/en/games/catan/flow` | 交互式决策树（仅 flow.json 存在时生成） |
-| `/en/games/catan/score` | 计分器（仅 score.json 存在时生成） |
+| `/en/games/cabo/score` | 计分器（仅 score.json 存在时生成） |
 | `/en/games/mahjong/trainer` | 训练器（仅 trainer.json 存在时生成） |
 | `/en/games/riichi-mahjong/calculator` | 计算器（仅 calculator.json 存在时生成） |
 | `/en/games/texas-hold-em/play/` | BBGE 在线对局（仅 `play.json` 存在时生成；Host / AI / 分享链接） |
@@ -280,17 +280,14 @@ src/
 
 ### 计分器
 
-独立页面 `/[locale]/games/[slug]/score/`，仅有 `score.json` 的游戏会生成此页面。
-
-采用 **引擎策略模式**，根据 `score.json` 中的 `type` 字段匹配计分组件，实现自动计分。
+独立页面 `/[locale]/games/[slug]/score/`，仅有 `score.json` 的游戏会生成此页面。只做 **多人、多回合累计记分**（或单轮算分很烦的组合），不做终局填数字。
 
 | 类型 | 组件 | 适用游戏 |
 |------|------|---------|
-| `just-wild-multi` | JustWildScoreTracker | 荒野之王（多人同屏，含指示物平局判定） |
+| `just-wild-multi` | JustWildScoreTracker | 荒野之王（累计分 + 指示物平局） |
 | `cabo-multi` | CaboScoreTracker | Cabo（多人回合制，含 -50 重置） |
-| `sea-salt-multi` | SeaSaltScoreTracker | 海盐折纸（配对各色卡牌 + 美人鱼计分） |
-| `category` | ScoreTracker（通用） | 卡坦岛、卡坦岛中国版图 |
-| `feature-calc` | ScoreTracker（通用） | 卡卡颂、维京怒火 (Odin) |
+| `sea-salt-multi` | SeaSaltScoreTracker | 海盐折纸（每轮牌分 + 颜色分，累加到目标） |
+| `nimmt-multi` | NimmtScoreTracker | 谁是牛头王（每轮牛头累计到 66） |
 
 ### 交互式决策树
 
@@ -332,7 +329,7 @@ src/
 | **Repository** | `GameRepository.ts` | 统一封装文件系统内容访问 |
 | **Factory** | `GameFactory.ts` | 组装 Game 领域对象，分离构造与数据访问 |
 | **Strategy** | `GlobalChatStrategy` / `GameChatStrategy` | 不同对话范围的 prompt 和 tool 定义 |
-| **Strategy** | `ScoringEngine` + dedicated trackers (`CaboScoreTracker`, `SeaSaltScoreTracker`, `JustWildScoreTracker`) | 不同游戏的自动计分 |
+| **Strategy** | dedicated trackers (`CaboScoreTracker`, `SeaSaltScoreTracker`, `JustWildScoreTracker`, `NimmtScoreTracker`) | 多人多回合记分 |
 | **Adapter** | `DeepSeekAdapter.ts` | 隔离 LLM 提供商，方便替换 |
 | **Context+Provider** | `ChatProvider.tsx` | 统一管理消息、流式活动、API Key、错误分类 |
 
@@ -381,37 +378,30 @@ src/
 
 1. 在 `content/games/` 下创建目录，包含 `meta.json`、`en/rules.md`、`zh/rules.md`
 2. 可选：添加 `flow.json`（放在游戏根目录，双语 title/content/label）
-3. 可选：添加 `score.json` 提供计分器
+3. 可选：添加 `score.json` 提供多人累计记分器（不要做终局填数字）
 4. 在 `content/games/index.json` 中注册 slug
 5. 如属于某个系列，在 `meta.json` 中添加 `family`、`familyOrder`、`variantType` 字段
 6. 运行 `npm run build` 验证构建通过
 
-### score.json（自动计分器配置）
+### score.json（多人累计记分器）
+
+只在「多人 × 多回合累计（或单轮算分很烦）」时添加。终局分类加总不要做计分器。
 
 ```json
 {
-  "type": "cabo-multi | sea-salt-multi | just-wild-multi | category | feature-calc | ...",
-  "engine": "category | feature-calc | sea-salt | card-sum | card-type",
-  "direction": "high-wins | low-wins",
+  "type": "cabo-multi",
+  "engine": "cabo-multi",
+  "direction": "low-wins",
   "target": 100,
-  "targetByPlayers": { "2": 30, "3": 30, "4": 30 },
-  "players": { "min": 2, "max": 4 },
   "multiRound": true,
-  "categories": [
-    { "id": "village", "name": { "en": "Village", "zh": "村庄" }, "value": 1, "max": 5 }
-  ],
-  "features": [
-    { "id": "road", "name": { "en": "Road", "zh": "道路" }, "inputType": "number", "formula": "n" }
-  ]
+  "players": { "min": 2, "max": 4 }
 }
 ```
 
 | 字段 | 说明 |
 |------|------|
-| `type` | 计分器类型（决定 UI 组件：`*-multi` → 专用多人组件，其他 → 通用 ScoreTracker） |
-| `engine` | 通用计分引擎名称（仅通用 ScoreTracker 使用） |
+| `type` | 专用组件：`cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` |
 | `direction` | `high-wins`（高分赢）/ `low-wins`（低分赢） |
-| `multiRound` | 是否支持多轮确认累计 |
+| `multiRound` | 跨回合累计 |
 | `target` / `targetByPlayers` | 目标分数或按人数不同目标 |
-| `categories` | 分类计数项（含名称、单位分值、上限） |
-| `features` | 特征输入项（含名称、公式、描述） |
+| `players` | 人数范围 |

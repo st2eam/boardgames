@@ -42,7 +42,7 @@ Static export (`output: "export"`, `basePath: "/boardgames"`, `trailingSlash: tr
 |---------|--------------|------|
 | Rules | `en\|zh/rules.md` | `games/[slug]/page.tsx` |
 | Flow | **root** `flow.json` (bilingual; `startNode`, not `start`) | `…/flow/page.tsx` → `DecisionTree` |
-| Score | `score.json` | `…/score/page.tsx` → `score/registry.tsx` (dedicated trackers or `ScoreTracker` + engines) |
+| Score | `score.json` | `…/score/page.tsx` → `score/registry.tsx` (dedicated multi-round trackers only) |
 | Trainer | `trainer.json` | `…/trainer/page.tsx` → `trainer/registry.tsx` + `src/lib/<domain>/` |
 | Calculator | `calculator.json` | `…/calculator/page.tsx` |
 

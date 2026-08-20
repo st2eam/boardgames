@@ -129,9 +129,11 @@ Cover images live in `public/images/games/<slug>.<ext>` (webp, png, jpg, jpeg).
 
 **Adding a cover:** drop the image file into `public/images/games/<slug>.<ext>` — prebuild picks it up automatically. No code changes needed.
 
-### Score Calculator System
+### Score Tracker System
 
-Score calculators are powered by `content/games/<slug>/score.json`. The `type` field determines which component renders:
+Only **multi-player, multi-round running totals** (or fiddly per-round combo scoring) get a `score.json`. Do not add end-game category calculators.
+
+`type` dispatches a dedicated tracker:
 
 | Type | Component | Games |
 |------|-----------|-------|
@@ -139,11 +141,8 @@ Score calculators are powered by `content/games/<slug>/score.json`. The `type` f
 | `sea-salt-multi` | `SeaSaltScoreTracker` | Sea Salt Paper |
 | `just-wild-multi` | `JustWildScoreTracker` | Just Wild (荒野之王) |
 | `nimmt-multi` | `NimmtScoreTracker` | 6 nimmt! (谁是牛头王) |
-| `category` / others | `ScoreTracker` (generic engine-based) | Catan, Carcassonne, etc. |
 
-Custom tracker components are self-contained with their own UI, localStorage persistence, and multi-player support. The generic `ScoreTracker` uses pluggable engines defined in `src/lib/score/engines/`.
-
-**ScoreConfigType** (in `src/types/game.ts`) lists all valid types. To add a new dedicated tracker:
+Trackers are self-contained (UI, localStorage, multi-player). To add one:
 1. Add the type string to `ScoreConfigType`
 2. Create the component in `src/components/game/score/`
 3. Register it in `src/components/game/score/registry.tsx`
@@ -158,4 +157,4 @@ Core types in `src/types/game.ts`:
 - `FlowData` — startNode + nodes record
 - `FlowNode` — title (bilingual), content (bilingual markdown), options array
 - `FlowOption` — label (bilingual), next (node key)
-- `ScoreConfig` — type, engine, direction, players, multiRound, target/targetByPlayers, categories/cards/features
+- `ScoreConfig` — type, engine, direction, players, multiRound, target/targetByPlayers

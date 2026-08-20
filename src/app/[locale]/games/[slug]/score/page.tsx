@@ -79,7 +79,7 @@ export default async function ScorePage({ params }: Props) {
           {locale === "zh" ? `${gameName} 计分器` : `${gameName} Score Tracker`}
         </h1>
       </div>
-      <ScoreByType slug={slug} config={scoreConfig} locale={locale} />
+      <ScoreByType config={scoreConfig} locale={locale} />
     </div>
   );
 }

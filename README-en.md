@@ -8,7 +8,7 @@ A curated, bilingual reference website for modern board game rules — **59** ga
 
 - **59 game rules**: web-verified, complete bilingual rules (EN/ZH)
 - **53 interactive decision trees**: step-by-step flow with sidebar outline navigation
-- **15 automatic score trackers**: `cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi` / `category` / `feature-calc` / `card-type`, etc.
+- **4 multi-player score trackers**: CABO, Sea Salt & Paper, 6 nimmt!, Just Wild — running totals, localStorage
 - **5 trainers**: Mahjong/Riichi tenpai, Blackjack basic strategy, Texas Hold'em GTO preflop, Go tsumego
 - **5 BBGE online playables**: Love Letter, Texas Hold'em, 6 nimmt!, Go, CABO — designs in [`docs/games/`](docs/games/)
 - **Score calculator**: Riichi Mahjong han/fu/points — tile picker → winning tile → open melds → auto yaku/fu/points
@@ -35,7 +35,7 @@ npm run dev
 npm run build
 ```
 
-> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `59` / `53` flow / `15` score / `5` trainer / `1` calculator / `5` BBGE play). Run `node scripts/print-project-stats.mjs` to verify. Sync BBGE behavior in [`docs/games/<slug>.md`](docs/games/).
+> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `59` / `53` flow / `4` score / `5` trainer / `1` calculator / `5` BBGE play). Run `node scripts/print-project-stats.mjs` to verify. Sync BBGE behavior in [`docs/games/<slug>.md`](docs/games/).
 
 ---
 
@@ -77,17 +77,17 @@ npm run build
 | Spots | ✅ | ✅ | — |
 | Tic Tac Trek | ✅ | ✅ | — |
 | Art Robbery | ✅ | ✅ | — |
-| Odin | ✅ | ✅ | ✅ Score |
+| Odin | ✅ | ✅ | — |
 | Halli Galli | ✅ | ✅ | — |
-| Petiquette | ✅ | ✅ | ✅ Score |
+| Petiquette | ✅ | ✅ | — |
 | Manila | ✅ | ✅ | — |
-| Las Vegas Royale | ✅ | ✅ | ✅ Score |
-| Citadels | ✅ | ✅ | ✅ Score |
-| 7 Wonders | ✅ | ✅ | ✅ Score |
+| Las Vegas Royale | ✅ | ✅ | — |
+| Citadels | ✅ | ✅ | — |
+| 7 Wonders | ✅ | ✅ | — |
 | The Lord of the Rings: Duel for Middle-earth | ✅ | ✅ | — |
 | 6 nimmt! 30 Years Anniversary Edition | ✅ | ✅ | ✅ Score · 🎮 Multi-mode play |
-| Palm Island | ✅ | ✅ | ✅ Score |
-| Brass: Birmingham | ✅ | ✅ | ✅ Score |
+| Palm Island | ✅ | ✅ | — |
+| Brass: Birmingham | ✅ | ✅ | — |
 | Go | ✅ | ✅ | 🎯 Tsumego · 🎮 9/13/19 play |
 
 ### Series
@@ -110,9 +110,9 @@ npm run build
 | | Splendor: Pokémon | Variant (standalone) | ✅ | ✅ | — |
 | Sea Salt & Paper | Sea Salt & Paper | Base | ✅ | ✅ | ✅ Score |
 | | Extra Salt | DLC (req. base) | ✅ | — | — |
-| Catan | Catan | Base | ✅ | ✅ | ✅ Score |
-| | China Map | Variant (standalone) | ✅ | — | ✅ Score |
-| Carcassonne | Carcassonne | Base | ✅ | ✅ | ✅ Score |
+| Catan | Catan | Base | ✅ | ✅ | — |
+| | China Map | Variant (standalone) | ✅ | — | — |
+| Carcassonne | Carcassonne | Base | ✅ | ✅ | — |
 | | The River | DLC (req. base) | ✅ | — | — |
 | Mahjong | Mahjong | Base | ✅ | ✅ | 🎯 Tenpai Trainer |
 | | Riichi Mahjong | Variant (standalone) | ✅ | ✅ | 🎯 Trainer + 🧮 Calculator |
@@ -122,7 +122,7 @@ npm run build
 | | Oceania | DLC (req. base) | ✅ | ✅ | — |
 | Love Letter | Love Letter | Base | ✅ | ✅ | 🎮 Online play (classic/full/expansion) |
 | | Premium Edition | Variant (standalone) | ✅ | ✅ | 🎮 Defaults to expansion play |
-| SETI | SETI | Base | ✅ | ✅ | ✅ Score |
+| SETI | SETI | Base | ✅ | ✅ | — |
 | | Space Agencies | DLC (req. base) | ✅ | ✅ | — |
 
 ---
@@ -150,14 +150,14 @@ src/
 ├── components/
 │   ├── home/                     # Cards, family cards, cover, sidebar
 │   ├── game/                     # Header, markdown, decision tree, export, related
-│   ├── game/score/               # Generic + Cabo / SeaSalt / JustWild trackers
+│   ├── game/score/               # Cabo / SeaSalt / JustWild / Nimmt trackers
 │   ├── game/trainer/             # Tenpai / Preflop / Blackjack / Go trainers
 │   ├── game/calculator/          # Riichi han/fu calculator
 │   ├── chat/                     # ChatToggle, ChatIsland (lazy), Dialog, Messages
 │   └── layout/                   # Header, Footer, BackToTop
 ├── lib/content/                  # Repository + Factory
 ├── lib/mahjong/                  # Tenpai / scoring / yaku
-├── lib/score/                    # Score hooks + engines
+├── lib/score/                    # Numeric input helpers
 ├── lib/texas-holdem/             # GTO preflop
 ├── lib/ai/                       # DeepSeekAdapter (Anthropic SSE), strategies, tools
 ├── lib/chat/                     # ChatProvider, error mapping, IndexedDB
@@ -235,7 +235,7 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 | `/en/costs` | Cost tracker |
 | `/en/games/catan` | Rule page: header + rules + export + related games + chat |
 | `/en/games/catan/flow` | Interactive decision tree (only if `flow.json` exists) |
-| `/en/games/catan/score` | Score tracker (only if `score.json` exists) |
+| `/en/games/cabo/score` | Score tracker (only if `score.json` exists) |
 | `/en/games/mahjong/trainer` | Trainer (only if `trainer.json` exists) |
 | `/en/games/riichi-mahjong/calculator` | Calculator (only if `calculator.json` exists) |
 | `/en/games/texas-hold-em/play/` | BBGE online play (only if `play.json` exists; Host / AI / share link) |
@@ -355,7 +355,7 @@ Quick steps:
 
 1. Create directory under `content/games/` with `meta.json`, `en/rules.md`, `zh/rules.md`
 2. Optionally add `flow.json` at the game root (bilingual title/content/label)
-3. Optionally add `score.json` for score tracking
+3. Optionally add `score.json` for a multi-player running-total tracker (not end-game category math)
 4. Register the slug in `content/games/index.json`
 5. If part of a series, add `family`, `familyOrder`, `variantType` to `meta.json`
 6. Run `npm run build` to verify

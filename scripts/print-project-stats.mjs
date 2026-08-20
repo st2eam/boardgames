@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Print live content stats for README sync.
+ * Print live content stats for README intro counts.
  * Usage: node scripts/print-project-stats.mjs
  */
 import fs from "node:fs";

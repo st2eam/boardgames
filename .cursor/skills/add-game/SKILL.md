@@ -380,11 +380,7 @@ Reference: Love Letter `loveLetterPlayModule` + [`docs/games/love-letter.md`](..
 
 Update these files to reflect the new game:
 
-1. **`README.md`** (Chinese) and **`README-en.md`** (English)
-   - Add the game to the game list table
-   - If standalone: add to "独立游戏 / Standalone" section
-   - If series member: add to the appropriate series row in "游戏系列 / Series" section
-   - Update the game count in the subtitle (e.g. "覆盖 23 款游戏" → "覆盖 24 款游戏")
+1. **`README.md` / `README-en.md`**：用 `node scripts/print-project-stats.mjs` 核对后，只改文首规模数字（游戏 / 决策树 / 记分 / 训练 / 计算器 / 对局）。不要往 README 里加游戏清单。
 
 2. **If playable (BBGE):** add/update `docs/games/{slug}.md` and `docs/games/README.md` status row. Keep aligned with the running table UI / Actions.
 
@@ -576,7 +572,7 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] `calculator.json` added for games with score calculators (if applicable)
 - [ ] `play.json` evaluated — only if shipping BBGE online play (+ `docs/games/{slug}.md` + plugin)
 - [ ] Slug registered in `content/games/index.json`
-- [ ] `README.md` and `README-en.md` updated
+- [ ] `README.md` / `README-en.md` 文首规模数字已按 `print-project-stats` 更新（无游戏清单）
 - [ ] `npm run build` succeeds (`npm run test:bbge` if playable)
 - [ ] Visual check: card renders, links work, decision tree works, AI chat works; Play first in header if `hasPlay`
 - [ ] Reminded user about missing cover / `bggRank` / `price`; applied BGG fallback for rank if still unanswered

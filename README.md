@@ -2,54 +2,72 @@
 
 > [English version](README-en.md)
 
-[在线站点](https://st2eam.github.io/boardgames/) · 中英双语桌游规则参考站。桌边查规则、跟流程、少量记分/训练/对局，以及用站内规则问 AI。
+静态导出的中英双语桌游规则站：[st2eam.github.io/boardgames](https://st2eam.github.io/boardgames/)。无 CMS、无 API routes、无运行时 Node；内容以文件为源，构建时生成静态页，部署在 GitHub Pages（`basePath: /boardgames`）。
 
-当前规模（以 `content/games/` 为准）：**59** 款游戏（含扩展/变体）、**53** 决策树、**4** 记分器、**5** 训练器、**1** 番符计算器、**5** 款可在线对局。数量可用 `node scripts/print-project-stats.mjs` 核对。
+规模（`content/games/`，可用 `node scripts/print-project-stats.mjs` 核对）：**59** 款游戏（含扩展/变体）、**53** 决策树、**4** 记分器、**5** 训练器、**1** 番符计算器、**5** 款 BBGE 对局。
 
 ## Features
 
-- **为桌边用，不是为刷百科。** 决策树按「现在发生了什么」往下点；PWA 可离线打开规则和工具，不依赖当场有网。
-- **一站从查规则到练到手。** 同一套内容里接决策树、听牌/策略训练、日麻番符，以及 Host 权威的浏览器对局（情书、德州、牛头王、围棋、CABO），不是外链到别的 App。
-- **记分器很少，但都有用。** 只留多人跨回合累计（CABO、海盐、牛头王、荒野之王）。终局填数字那种不做。
-- **AI 查的是本站规则。** 对话预载或按需拉取站内 Markdown，再辅以网页搜索；Key 和历史在浏览器 IndexedDB，站点本身没有后端。
-- **加游戏就是加一个文件夹。** `content/games/<slug>/` 里放双语规则和可选 `flow.json` 等，构建时生成静态页。没有 CMS，GitHub Pages 直接托管。
-- **封面不会 404。** 构建扫描封面清单，缺图用占位、不发无效 `<img>`。
+- **File-based content.** 每款游戏一个目录：`meta.json`、`en|zh/rules.md`，以及可选的 `flow.json` / `score.json` / `trainer.json` / `calculator.json` / `play.json`。`generateStaticParams` 按配置文件是否存在挂路由。
+- **双平面数据。** SSG 经 `GameRepository` / `GameFactory` 读 `content/`；客户端（对话、封面）只 fetch 构建产物 `public/data/`。后者不可手改。
+- **决策树。** 双语 `flow.json`（`startNode` + nodes），`DecisionTree` 按节点跳转，带大纲与回溯。
+- **记分器准入。** 仅多人跨回合累计（CABO、海盐折纸、6 nimmt!、Just Wild）。终局分类加总不做；默认不写 `score.json`。见 [`docs/score-system.md`](docs/score-system.md)。
+- **训练 / 计算。** 麻将听牌、21 点基本策略、德州翻前、围棋死活；日麻番符计算器。领域逻辑在 `src/lib/<domain>/`，UI 经 registry 挂载。
+- **BBGE 对局。** Host 权威状态机 + PeerJS；情书、德州、6 nimmt!、围棋、CABO。设计稿在 [`docs/games/`](docs/games/)，运行时在 `bbge/`。
+- **客户端 LLM。** 浏览器直连 DeepSeek Anthropic Messages API；工具上下文来自站内 Markdown（`games-meta.json` + `rules/<slug>.json`），并可用服务端 `web_search`。Key 与历史存 IndexedDB（`idb-keyval`）。
+- **Catalog。** next-intl `[locale]` 路由（无 middleware）；系列用 `family` 堆叠；分类 / 标签 / 人数筛选。
+- **静态托管约束。** PWA：HTML 与 `/data/` network-first。封面走 `cover-manifest.json`，缺图占位、不探测多后缀，避免 404。规则可导出 PDF / Markdown。
 
-## 能做什么
+## Stack
 
-- **规则**：每款游戏中英 Markdown，首页按分类、标签、人数筛选；同系列堆叠展示。
-- **决策树**：逐步跳转，带目录和返回。
-- **记分器**：只做多人、跨回合累计（CABO、海盐折纸、牛头王、荒野之王），不做终局填数字。
-- **训练 / 计算**：麻将听牌、21 点基本策略、德州扑克翻前、围棋死活；日麻番符计算。
-- **在线对局（BBGE）**：情书、德州扑克、谁是牛头王、围棋、CABO（Host + 链接 / AI）。
-- **AI 问答**：浏览器直连 DeepSeek，可查站内规则或网页搜索；Key 和历史存在本地。
-- **离线**：PWA；规则和工具可离线，对话在离线时降级。
+| 层 | 选择 | 约束 |
+|----|------|------|
+| App | Next.js 16.2 App Router | `output: "export"`，`trailingSlash`，无 SSR / API |
+| UI | Tailwind v4 | token 在 [`src/app/globals.css`](src/app/globals.css)；不上 Antd / Less |
+| i18n | next-intl | 静态导出不能用 middleware；`[locale]` 目录路由 |
+| 规则渲染 | react-markdown + remark-gfm | RSC，规则页无客户端 JS |
+| 内容 | `content/games/` | 无 axios / Zustand；状态在 feature 内 |
+| 对局 | `bbge/` + PeerJS | 与 `features/` 分离 |
+| 部署 | GitHub Actions → Pages | [`deploy.yml`](.github/workflows/deploy.yml) |
 
-## 怎么跑
+分层与红线：[`docs/architecture.md`](docs/architecture.md)。ADR：[001](docs/decisions/ADR-001-next-static-export.md) 静态导出、[002](docs/decisions/ADR-002-keep-tailwind-not-antd.md) Tailwind、[003](docs/decisions/ADR-003-content-repository-no-axios.md) Repository。
 
-需要 Node.js >= 20。
+## Build
+
+```
+content/games ──► GameRepository / GameFactory ──► app/[locale] ──► features
+       │
+       └──► prebuild (generate-game-data) ──► public/data ──► client fetch
+```
+
+| Hook | Script | 产物 |
+|------|--------|------|
+| `prebuild` | `generate-game-data.mjs` | `games-meta.json`、`rules/<slug>.json`、`cover-manifest.json` |
+| `build` | `next build` | `out/` |
+| `postbuild` | `generate-sw-precache.mjs`、`generate-seo.mjs` | SW precache、sitemap |
+
+源码分层：页面 `src/app/[locale]/`（Server Components），UI `src/features/`，布局 `src/shared/layout/`。
+
+## Local
+
+Node.js >= 22。
 
 ```bash
 npm install
-npm run dev    # 本地预览
-npm run build  # 静态导出到 out/
+npm run dev     # Turbopack
+npm run build   # 静态导出到 out/
 ```
 
-`main` 推送后由 [GitHub Actions](.github/workflows/deploy.yml) 发到 GitHub Pages（`/boardgames/`）。
+`main` 推送后由 Actions 发布到 `/boardgames/`。
 
-## 技术与结构（概要）
-
-纯静态站：Next.js App Router + `output: "export"`，无后端、无 API routes。样式是 Tailwind v4，token 在 [`src/app/globals.css`](src/app/globals.css)。
-
-游戏正文在 `content/games/<slug>/`（`meta.json`、`en|zh/rules.md`，以及可选的 `flow` / `score` / `trainer` / `calculator` / `play`）。页面在 `src/app/[locale]/`，界面在 `src/features/`。构建时读文件生成 `public/data/`，不要手改生成物。
-
-## 想改代码或加游戏
+## Docs
 
 | 文档 | 用途 |
 |------|------|
-| [`docs/architecture.md`](docs/architecture.md) | 分层、数据流、红线 |
-| [`docs/development-guide.md`](docs/development-guide.md) | 怎么改、禁止事项 |
-| [`AGENTS.md`](AGENTS.md) | Agent 入口（先读哪份 skill） |
-| [`.cursor/skills/add-game`](.cursor/skills/add-game/SKILL.md) | 加一款游戏 |
-| [`docs/score-system.md`](docs/score-system.md) | 记分器准入（默认不做） |
-| [`docs/games/`](docs/games/) | 在线对局设计 |
+| [`docs/architecture.md`](docs/architecture.md) | 分层、双平面、红线 |
+| [`docs/development-guide.md`](docs/development-guide.md) | 改动方式 |
+| [`AGENTS.md`](AGENTS.md) | Agent 入口 / skill 路由 |
+| [`.cursor/skills/add-game`](.cursor/skills/add-game/SKILL.md) | 新增游戏 |
+| [`docs/score-system.md`](docs/score-system.md) | 记分器准入（默认跳过） |
+| [`docs/games/`](docs/games/) | BBGE 对局设计 |
+| [`docs/decisions/`](docs/decisions/) | ADR |

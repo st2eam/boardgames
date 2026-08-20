@@ -272,6 +272,17 @@ Platform: Host authority, deterministic Actions, plugins never talk to the netwo
 - RelatedGames: same-series navigation (if family grouping exists)
 - ChatToggle: LLM chat (game/global switch; desktop fullscreen)
 
+### Score Tracker
+
+Page `/[locale]/games/[slug]/score/` is generated only when `score.json` exists. **Default is skip.** Only multi-player running totals (or fiddly per-round combos). No end-game category forms. Gate: [`docs/score-system.md`](docs/score-system.md) and [`.claude/skills/add-score-tracker`](.claude/skills/add-score-tracker/SKILL.md).
+
+| Type | Component | Game |
+|------|-----------|------|
+| `just-wild-multi` | JustWildScoreTracker | Just Wild |
+| `cabo-multi` | CaboScoreTracker | CABO |
+| `sea-salt-multi` | SeaSaltScoreTracker | Sea Salt & Paper |
+| `nimmt-multi` | NimmtScoreTracker | 6 nimmt! |
+
 ### Decision Tree
 
 - Two-column layout: sidebar outline + content area

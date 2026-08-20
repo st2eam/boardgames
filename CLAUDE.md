@@ -131,9 +131,9 @@ Cover images live in `public/images/games/<slug>.<ext>` (webp, png, jpg, jpeg).
 
 ### Score Tracker System
 
-Only **multi-player, multi-round running totals** (or fiddly per-round combo scoring) get a `score.json`. Do not add end-game category calculators.
+Canonical: [`docs/score-system.md`](docs/score-system.md) + [`.claude/skills/add-score-tracker`](.claude/skills/add-score-tracker/SKILL.md).
 
-`type` dispatches a dedicated tracker:
+Only **multi-player, multi-round running totals** (or fiddly per-round combo scoring) get a `score.json`. Do not add end-game category calculators. Default is skip.
 
 | Type | Component | Games |
 |------|-----------|-------|
@@ -141,12 +141,6 @@ Only **multi-player, multi-round running totals** (or fiddly per-round combo sco
 | `sea-salt-multi` | `SeaSaltScoreTracker` | Sea Salt Paper |
 | `just-wild-multi` | `JustWildScoreTracker` | Just Wild (荒野之王) |
 | `nimmt-multi` | `NimmtScoreTracker` | 6 nimmt! (谁是牛头王) |
-
-Trackers are self-contained (UI, localStorage, multi-player). To add one:
-1. Add the type string to `ScoreConfigType`
-2. Create the component in `src/components/game/score/`
-3. Register it in `src/components/game/score/registry.tsx`
-4. Set the game's `score.json` to the new type
 
 ### Types
 

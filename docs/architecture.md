@@ -56,7 +56,7 @@ Rules:
 |---------|---------|------|---------------|--------|
 | Rules | `en\|zh/rules.md` | `games/[slug]/page.tsx` | `MarkdownRenderer`, … | — |
 | Flow | root `flow.json` (`startNode`) | `…/flow/page.tsx` | `DecisionTree` | — |
-| Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/components/game/score/registry.tsx) → dedicated multi-round trackers | `src/lib/score/` (input helpers) |
+| Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/components/game/score/registry.tsx) → dedicated multi-round trackers ([gate](score-system.md)) | `src/lib/score/` (input helpers) |
 | Trainer | `trainer.json` | `…/trainer/page.tsx` | [`trainer/registry.tsx`](../src/components/game/trainer/registry.tsx) | `src/lib/<game>/` |
 | Calculator | `calculator.json` | `…/calculator/page.tsx` | `ScoreCalculator` | `src/lib/mahjong/` |
 | Play (BBGE) | `play.json` (+ optional `editions`) | `…/play/page.tsx` | PlayShell → bbge runtime + plugin table UI (Love Letter: BGA DOM, full/premium); **开始游戏** first in `GameHeader` (edition menu when configured); homepage Play Now | `bbge/*` + `plugins/<pluginId>`; design in [`docs/games/<slug>.md`](games/) |
@@ -85,7 +85,11 @@ Follow **[add-game Step 6d](../.cursor/skills/add-game/SKILL.md)** + **[BBGE ski
 
 ### Adding a dedicated score tracker
 
-1. Add type to `ScoreConfigType` in `src/types/game.ts`
+Follow **[add-score-tracker](../.claude/skills/add-score-tracker/SKILL.md)** + **[score-system.md](score-system.md)**. **Default is skip** — only multi-player running totals (or fiddly per-round combos). No end-game category forms.
+
+If the gate passes:
+
+1. Add type to `ScoreConfigType` in `src/types/game.ts` (or reuse `cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi`)
 2. Component under `src/components/game/score/`
 3. Register in `src/components/game/score/registry.tsx`
 4. Set the game's `score.json` `type`
@@ -109,8 +113,10 @@ Follow **[add-game Step 6d](../.cursor/skills/add-game/SKILL.md)** + **[BBGE ski
 |-------------|----------|
 | [`CLAUDE.md`](../CLAUDE.md) | Commands, i18n quirks, family system, cover/chat overview |
 | [`.cursor/rules/code-modification.mdc`](../.cursor/rules/code-modification.mdc) | Layer / feature wiring norms while editing |
+| [`docs/score-system.md`](score-system.md) | Score tracker gate + current `*-multi` types |
 | [`docs/trainer-system.md`](trainer-system.md) | Trainer anatomy and how to add types |
 | [`docs/games/`](games/) | Per-game BBGE play designs (`<slug>.md`) |
 | [`.cursor/skills/browser-board-game-engine/`](../.cursor/skills/browser-board-game-engine/SKILL.md) | Playable engine platform |
 | `.cursor/skills/add-game/SKILL.md` | End-to-end new game / expansion (rules content) |
+| `.claude/skills/add-score-tracker` | Score tracker: skip vs add, then wire or create a type |
 | `.claude/skills/add-trainer` | New trainer type checklist |

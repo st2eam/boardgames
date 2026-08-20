@@ -280,7 +280,7 @@ src/
 
 ### 计分器
 
-独立页面 `/[locale]/games/[slug]/score/`，仅有 `score.json` 的游戏会生成此页面。只做 **多人、多回合累计记分**（或单轮算分很烦的组合），不做终局填数字。
+独立页面 `/[locale]/games/[slug]/score/`，仅有 `score.json` 的游戏会生成此页面。只做 **多人、多回合累计记分**（或单轮算分很烦的组合），不做终局填数字。准入规则见 [`docs/score-system.md`](docs/score-system.md) 与 [`.claude/skills/add-score-tracker`](.claude/skills/add-score-tracker/SKILL.md)。
 
 | 类型 | 组件 | 适用游戏 |
 |------|------|---------|
@@ -385,7 +385,7 @@ src/
 
 ### score.json（多人累计记分器）
 
-只在「多人 × 多回合累计（或单轮算分很烦）」时添加。终局分类加总不要做计分器。
+只在「多人 × 多回合累计（或单轮算分很烦）」时添加。终局分类加总不要做计分器。详见 [`docs/score-system.md`](docs/score-system.md)。
 
 ```json
 {

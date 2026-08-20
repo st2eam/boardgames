@@ -1,6 +1,6 @@
 ---
 name: add-game
-description: Add new board games, DLCs, expansions, or variants to The Game Shelf project. Use when user asks to add a game, create game content, or set up a new game entry. Includes bilingual rules.md, flow.json, and SVG diagrams at key mechanics.
+description: Add new board games, DLCs, expansions, or variants to The Game Shelf project. Use when user asks to add a game, create game content, or set up a new game entry. Includes bilingual rules.md, flow.json, and SVG diagrams at key mechanics. Score trackers: only multi-player running totals — see add-score-tracker.
 ---
 
 # Adding Games to The Game Shelf
@@ -35,7 +35,7 @@ If rules can't be found, leave `rules.md` with only the heading — don't guess.
 content/games/{slug}/
 ├── meta.json       # required
 ├── flow.json       # required — single bilingual decision tree
-├── score.json      # if applicable — score tracker config
+├── score.json      # only if multi-player running totals — see add-score-tracker
 ├── trainer.json    # if applicable — trainer config
 ├── calculator.json # if applicable — score calculator config (e.g., riichi fan/fu)
 ├── play.json       # if applicable — BBGE online play binding
@@ -250,18 +250,21 @@ Aim for **5–15 nodes**. Fewer is better for simple games; complex games may ne
 
 ### Step 6b: Evaluate and create score.json (if applicable)
 
-After creating the flow, evaluate whether the game needs a score tracker. **Create `score.json` only if the table needs a shared running total:**
+Follow **[add-score-tracker](../../../.claude/skills/add-score-tracker/SKILL.md)** + [`docs/score-system.md`](../../../docs/score-system.md). **Default is skip.**
+
+**Create `score.json` only if** the table needs a shared running total:
 
 - Multiple players score every round (or every few rounds)
 - Totals accumulate until a target / elimination line
 - **or** a single round's scoring is too fiddly for paper (e.g. Sea Salt Paper combos)
 
 **Skip `score.json` if:**
-- End-game category totaling (Catan, 7 Wonders, Carcassonne, Citadels, SETI, Brass)
-- Scoring is a trivial per-round number (leftover cards, match counts)
+
+- End-game category totaling (Catan, 7 Wonders, Carcassonne, Citadels, SETI, Brass, Palm Island)
+- A trivial per-round number (leftover cards, match counts — Odin, Petiquette)
 - Win/lose only, first-to-finish, or co-op pass/fail
 
-There is **no** generic calculator. New trackers are dedicated components — see "Adding a Score Tracker" below.
+There is **no** generic calculator. Do not add a form that only adds category numbers. If the gate passes, reuse an existing `*-multi` type or add a dedicated component — details in the skill above.
 
 ### Step 6c: Evaluate and create trainer.json (if applicable)
 
@@ -442,50 +445,10 @@ Do NOT skip the reminder for cover / rank / price gaps.
 
 ## Adding a Score Tracker
 
-Only for **multi-player running totals** across rounds (or fiddly per-round combo scoring). Do **not** add a `score.json` that is just "fill in end-game categories."
+Do not duplicate the gate here. Use:
 
-Existing types (each has a dedicated component — no generic engine):
-
-| Type | Component | When |
-|------|-----------|------|
-| `cabo-multi` | `CaboScoreTracker` | Per-round penalty totals to a target; low score wins |
-| `sea-salt-multi` | `SeaSaltScoreTracker` | Per-round combo scoring, then accumulate to a player-count target |
-| `just-wild-multi` | `JustWildScoreTracker` | Running totals + leftover tokens as tiebreak |
-| `nimmt-multi` | `NimmtScoreTracker` | Per-round bull heads to a target; low score wins |
-
-### Example (CABO)
-
-```json
-{
-  "type": "cabo-multi",
-  "engine": "cabo-multi",
-  "direction": "low-wins",
-  "target": 100,
-  "multiRound": true,
-  "players": { "min": 2, "max": 4 }
-}
-```
-
-### Field reference
-
-| Field | Required | Description |
-|-------|:--------:|-------------|
-| `type` | ✅ | Dedicated tracker type above |
-| `engine` | ✅ | Same string as `type` (kept for the JSON shape) |
-| `direction` | ✅ | `"high-wins"` or `"low-wins"` |
-| `multiRound` |  | Running totals across rounds |
-| `target` |  | Fixed target score |
-| `targetByPlayers` |  | Target varies by player count: `{"2": 40, "3": 35}` |
-| `players` | ✅ | `{ "min": N, "max": N }` |
-
-The score page is generated at `/[locale]/games/[slug]/score/` when `score.json` exists.
-
-To add a **new** dedicated tracker:
-
-1. Add the type to `ScoreConfigType` in `src/types/game.ts`
-2. Create the component under `src/components/game/score/`
-3. Register it in `src/components/game/score/registry.tsx`
-4. Ship `score.json` with that `type`
+- [`.claude/skills/add-score-tracker/SKILL.md`](../../../.claude/skills/add-score-tracker/SKILL.md) — decide skip vs add, then wire or create a type
+- [`docs/score-system.md`](../../../docs/score-system.md) — architecture, current types, JSON shape
 
 ---
 
@@ -608,7 +571,7 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] `zh/rules.md` written (matching English content)
 - [ ] Key-mechanic SVG diagrams in `public/images/rules/{slug}/` (see `rule-svg-diagrams` skill)
 - [ ] `flow.json` created at game root with bilingual title/content/label (**required**)
-- [ ] `score.json` evaluated — created only for multi-player running totals (or fiddly per-round scoring)
+- [ ] `score.json` evaluated — **default skip**; created only per add-score-tracker gate
 - [ ] `trainer.json` evaluated — created if game has trainable skills
 - [ ] `calculator.json` added for games with score calculators (if applicable)
 - [ ] `play.json` evaluated — only if shipping BBGE online play (+ `docs/games/{slug}.md` + plugin)

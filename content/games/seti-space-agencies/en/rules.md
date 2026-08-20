@@ -103,6 +103,6 @@ If the rival should add an advanced action card and none remain, they advance on
 
 ## Scoring
 
-Same as the base game after round 5’s last pass (gold-box cards, gold tiles, alien extras). Use the base SETI score tracker.
+Same as the base game after round 5’s last pass (gold-box cards, gold tiles, alien extras).
 
 Do not read unused alien sheets in advance.

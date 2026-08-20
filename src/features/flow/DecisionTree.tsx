@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef, lazy, Suspense } from "react";
 import type { FlowData } from "@/types/game";
-import { MarkdownRenderer } from "./MarkdownRenderer";
+import { MarkdownRenderer } from "@/features/rules/MarkdownRenderer";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "motion/react";
 

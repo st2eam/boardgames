@@ -1,6 +1,6 @@
 "use client";
 
-import { useChat } from "@/components/chat/ChatProvider";
+import { useChat } from "@/features/chat/ChatProvider";
 import { ChatMessages } from "./ChatMessages";
 import { ChatInput } from "./ChatInput";
 import { ApiKeyModal } from "./ApiKeyModal";

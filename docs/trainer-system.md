@@ -5,14 +5,14 @@
 ```
 content/games/<slug>/trainer.json   ← config (data)
 src/lib/<game>/                      ← game logic (question generation, answer checking)
-src/components/game/trainer/         ← UI components + registry.tsx (type dispatch)
+src/features/trainer/         ← UI components + registry.tsx (type dispatch)
 src/app/[locale]/games/[slug]/trainer/page.tsx  ← page router (loads config, renders TrainerByType)
 ```
 
 Each trainer is a self-contained system with:
 1. **Config** (`trainer.json`) — declares the trainer type, difficulties, and game-specific settings
 2. **Game library** (`src/lib/<game>/`) — generates scenarios/questions and computes correct answers
-3. **UI component** (`src/components/game/trainer/`) — renders the interactive trainer
+3. **UI component** (`src/features/trainer/`) — renders the interactive trainer
 4. **Registry** — `trainer/registry.tsx` maps `type` → titles, SEO copy, and component
 5. **Page route** — loads config and renders `<TrainerByType />`
 
@@ -53,7 +53,7 @@ Each trainer is a self-contained system with:
 
 ## How the Page Router Works
 
-`src/app/[locale]/games/[slug]/trainer/page.tsx` loads config; dispatch lives in `src/components/game/trainer/registry.tsx`:
+`src/app/[locale]/games/[slug]/trainer/page.tsx` loads config; dispatch lives in `src/features/trainer/registry.tsx`:
 
 ```
 TRAINER_TITLES / TRAINER_DESCRIPTIONS — type → { en, zh } for page title + SEO
@@ -185,7 +185,7 @@ const [scenario, setScenario] = useState<Scenario>(() => generateScenario());
 
 ### Step 2: Register the type in the registry
 
-In `src/components/game/trainer/registry.tsx`:
+In `src/features/trainer/registry.tsx`:
 
 1. Add entries to `TRAINER_TITLES` and `TRAINER_DESCRIPTIONS`
 2. Import your component and add a `case` in `TrainerByType`
@@ -203,7 +203,7 @@ src/lib/<your-game>/
 ### Step 4: Create the UI component
 
 ```
-src/components/game/trainer/<your-game>/
+src/features/trainer/<your-game>/
   YourTrainer.tsx  — main component
   ... sub-components
 ```

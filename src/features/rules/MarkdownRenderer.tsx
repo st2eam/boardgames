@@ -2,7 +2,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { remarkMahjongTiles } from "@/lib/remark-mahjong-tiles";
 import { parseShortcode } from "@/lib/mahjong/shortcode";
-import { InlineTile } from "./trainer/InlineTile";
+import { InlineTile } from "@/features/trainer/InlineTile";
 import { extractToc } from "@/lib/markdown-toc";
 
 interface Props {

@@ -8,7 +8,7 @@ import {
   formatGoBoardContext,
   goTutorSuggestedPrompts,
 } from "@/lib/go/boardContext";
-import { ChatToggle } from "@/components/chat/ChatToggle";
+import { ChatToggle } from "@/features/chat/ChatToggle";
 import { GoBoard } from "./GoBoard";
 import { TrainerStats } from "../TrainerStats";
 

@@ -1,9 +1,9 @@
 import type { TrainerConfig } from "@/types/game";
 import type { GoTrainerConfig } from "@/lib/go/types";
-import { TenpaiTrainer } from "@/components/game/trainer/TenpaiTrainer";
-import { BasicStrategyTrainer } from "@/components/game/trainer/blackjack/BasicStrategyTrainer";
-import { PreflopTrainer } from "@/components/game/trainer/texas-holdem/PreflopTrainer";
-import { GoTsumegoTrainer } from "@/components/game/trainer/go/GoTsumegoTrainer";
+import { TenpaiTrainer } from "@/features/trainer/TenpaiTrainer";
+import { BasicStrategyTrainer } from "@/features/trainer/blackjack/BasicStrategyTrainer";
+import { PreflopTrainer } from "@/features/trainer/texas-holdem/PreflopTrainer";
+import { GoTsumegoTrainer } from "@/features/trainer/go/GoTsumegoTrainer";
 
 export const TRAINER_TITLES: Record<string, { en: string; zh: string }> = {
   tenpai: { en: "Tenpai Trainer", zh: "听牌训练" },

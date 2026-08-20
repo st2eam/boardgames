@@ -12,7 +12,7 @@ npm run lint         # ESLint
 
 ## Architecture
 
-**Next.js 16.2.4** (Turbopack) with **`output: "export"`** and **`trailingSlash: true`**. Static HTML only — no SSR, no API routes.
+**Next.js 16.2.4** (Turbopack) with **`output: "export"`** and **`trailingSlash: true`**. Static HTML only — no SSR, no API routes. UI lives in `src/features/` and `src/shared/layout/`; routes stay in `src/app/[locale]/`. See [`docs/architecture.md`](docs/architecture.md).
 
 ### Bilingual Routing (next-intl)
 
@@ -95,7 +95,7 @@ Games can belong to a family (e.g., UNO, Exploding Kittens, Sanguosha, Dirty Pig
 
 ### Chat System
 
-- `ChatProvider` (`src/components/chat/ChatProvider.tsx`) manages global chat state
+- `ChatProvider` (`src/features/chat/ChatProvider.tsx`) manages global chat state
 - API key stored client-side in IndexedDB via `idb-keyval`
 - Two scopes: `global` (homepage — "Ask about any game") and `game` (game pages with rule context)
 - Floating FAB button + dialog with messages, input, and API key modal
@@ -122,7 +122,7 @@ Cover images live in `public/images/games/<slug>.<ext>` (webp, png, jpg, jpeg).
 - Generates `public/data/cover-manifest.json` — `{ "<slug>": "<ext>" }` mapping
 - Reports missing covers in build output (e.g., `Missing: carcassonne-the-river`)
 
-**Runtime** (`GameCover` component in `src/components/home/GameCover.tsx`):
+**Runtime** (`GameCover` in `src/features/catalog/GameCover.tsx`):
 - Fetches `cover-manifest.json` on first load (cached in memory)
 - Loads the correct format directly — no `<img>` tag at all for games without covers
 - Missing covers render with gradient placeholder, **zero 404s**

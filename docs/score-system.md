@@ -4,8 +4,8 @@ Score pages exist to keep a **shared running total** at the table. They are not 
 
 ```
 content/games/<slug>/score.json          ← config (type + target + player range)
-src/components/game/score/<Name>.tsx     ← dedicated tracker (UI + localStorage)
-src/components/game/score/registry.tsx   ← type → component
+src/features/score/<Name>.tsx     ← dedicated tracker (UI + localStorage)
+src/features/score/registry.tsx   ← type → component
 src/app/[locale]/games/[slug]/score/     ← page (only if score.json exists)
 src/lib/score/numberInput.ts             ← shared numeric input helper
 ```
@@ -78,8 +78,8 @@ The dedicated component may ignore most JSON fields and hardcode targets (Sea Sa
 
 1. Confirm the **gate** above — if it fails, stop. No `score.json`.
 2. Add the type to `ScoreConfigType` in `src/types/game.ts`
-3. Create `src/components/game/score/<Name>ScoreTracker.tsx` (`"use client"`)
-4. Register it in `src/components/game/score/registry.tsx`
+3. Create `src/features/score/<Name>ScoreTracker.tsx` (`"use client"`)
+4. Register it in `src/features/score/registry.tsx`
 5. Ship `content/games/<slug>/score.json` with that `type`
 6. `npm run build` — `/[locale]/games/[slug]/score/` is generated only when the file exists
 

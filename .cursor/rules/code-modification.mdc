@@ -5,14 +5,14 @@ alwaysApply: true
 
 # Code Modification (The Game Shelf)
 
-Grounded in how this repo actually works. Before extending features or moving code across layers, read `docs/architecture.md`. For adding a game end-to-end, use `.cursor/skills/add-game/SKILL.md`. For score trackers, use `.claude/skills/add-score-tracker` + `docs/score-system.md` (multi-player running totals only; no end-game calculators). For new trainer types, use `.claude/skills/add-trainer` + `docs/trainer-system.md`. After verify, follow `verify-then-push.mdc`.
+Grounded in how this repo actually works. Before extending features or moving code across layers, read `docs/architecture.md` and `docs/development-guide.md`. For adding a game end-to-end, use `.cursor/skills/add-game/SKILL.md`. For score trackers, use `.claude/skills/add-score-tracker` + `docs/score-system.md` (multi-player running totals only; no end-game calculators). For new trainer types, use `.claude/skills/add-trainer` + `docs/trainer-system.md`. After verify, follow `verify-then-push.mdc`.
 
 ## Layers (do not blur)
 
 | Path | Role |
 |------|------|
 | `content/games/` | **Source of truth** for games (`index.json`, `meta.json`, `en\|zh/rules.md`, root `flow.json` / `score.json` / `trainer.json` / `calculator.json`) |
-| `src/` | App Router UI, domain libs, types |
+| `src/` | App Router (`app/`), feature UI (`features/`), shared layout, domain libs, types |
 | `public/data/` | **Generated** by `prebuild` (`games-meta.json`, `rules/<slug>.json`, `cover-manifest.json`) — not a hand-edit source of truth |
 | `scripts/` | Only lifecycle hooks: `generate-game-data` (prebuild), `generate-sw-precache` + `generate-seo` (postbuild). Keep `generate-icons.mjs` for icon regen; do not revive one-off scripts |
 
@@ -26,7 +26,7 @@ Static export (`output: "export"`, `basePath: "/boardgames"`, `trailingSlash: tr
 
 ## Server vs client
 
-- Keep `src/app/[locale]/**/page.tsx` as **Server Components**. Put `"use client"` on interactive pieces under `src/components/`, not on whole game pages just for hooks.
+- Keep `src/app/[locale]/**/page.tsx` as **Server Components**. Put `"use client"` on interactive pieces under `src/features/` or `src/shared/`, not on whole game pages just for hooks.
 - Feature pages: config exists in content → `generateStaticParams` filters → page branches on `type` → client component.
 
 ## i18n (as used today)
@@ -40,11 +40,11 @@ Static export (`output: "export"`, `basePath: "/boardgames"`, `trailingSlash: tr
 
 | Feature | Content file | Page |
 |---------|--------------|------|
-| Rules | `en\|zh/rules.md` | `games/[slug]/page.tsx` |
-| Flow | **root** `flow.json` (bilingual; `startNode`, not `start`) | `…/flow/page.tsx` → `DecisionTree` |
-| Score | `score.json` | `…/score/page.tsx` → `score/registry.tsx` (dedicated multi-round trackers only; see `docs/score-system.md`) |
-| Trainer | `trainer.json` | `…/trainer/page.tsx` → `trainer/registry.tsx` + `src/lib/<domain>/` |
-| Calculator | `calculator.json` | `…/calculator/page.tsx` |
+| Rules | `en\|zh/rules.md` | `games/[slug]/page.tsx` → `features/rules` |
+| Flow | **root** `flow.json` (bilingual; `startNode`, not `start`) | `…/flow/page.tsx` → `features/flow/DecisionTree` |
+| Score | `score.json` | `…/score/page.tsx` → `features/score/registry.tsx` (see `docs/score-system.md`) |
+| Trainer | `trainer.json` | `…/trainer/page.tsx` → `features/trainer/registry.tsx` + `src/lib/<domain>/` |
+| Calculator | `calculator.json` | `…/calculator/page.tsx` → `features/calculator` |
 
 Shared types live in `src/types/game.ts` (or domain `src/lib/<x>/`). Do not add a parallel `src/lib/content/types.ts`.
 

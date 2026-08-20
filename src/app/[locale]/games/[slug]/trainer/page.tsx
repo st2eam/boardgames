@@ -3,7 +3,7 @@ import {
   TRAINER_DESCRIPTIONS,
   TRAINER_TITLES,
   TrainerByType,
-} from "@/components/game/trainer/registry";
+} from "@/features/trainer/registry";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";

@@ -343,7 +343,7 @@ group as Flow / Score / Trainer / Calculator.
 
 ### 9.1 Surface: `GameHeader` action row
 
-Implementation target today: `src/components/game/GameHeader.tsx`.
+Implementation target today: `src/features/rules/GameHeader.tsx`.
 
 Button order in `GameHeader` (left → right). **Play is always first** among
 feature actions when `hasPlay` is true:

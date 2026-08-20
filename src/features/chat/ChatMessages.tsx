@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { motion } from "motion/react";
-import { useChat } from "@/components/chat/ChatProvider";
+import { useChat } from "@/features/chat/ChatProvider";
 import type { ChatActivity, ChatMessage } from "@/lib/chat/types";
 import { useTranslations } from "next-intl";
 

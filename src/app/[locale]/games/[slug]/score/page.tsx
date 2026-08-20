@@ -1,5 +1,5 @@
 import { GameRepository } from "@/lib/content/GameRepository";
-import { ScoreByType } from "@/components/game/score/registry";
+import { ScoreByType } from "@/features/score/registry";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";

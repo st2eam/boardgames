@@ -1,6 +1,6 @@
 import { GameRepository } from "@/lib/content/GameRepository";
 import type { GameMeta } from "@/types/game";
-import { CostDashboard } from "@/components/costs/CostDashboard";
+import { CostDashboard } from "@/features/costs/CostDashboard";
 import { buildPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 

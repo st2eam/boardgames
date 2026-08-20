@@ -1,8 +1,8 @@
 import type { ScoreConfig } from "@/types/game";
-import { CaboScoreTracker } from "@/components/game/score/CaboScoreTracker";
-import { SeaSaltScoreTracker } from "@/components/game/score/SeaSaltScoreTracker";
-import { JustWildScoreTracker } from "@/components/game/score/JustWildScoreTracker";
-import { NimmtScoreTracker } from "@/components/game/score/NimmtScoreTracker";
+import { CaboScoreTracker } from "@/features/score/CaboScoreTracker";
+import { SeaSaltScoreTracker } from "@/features/score/SeaSaltScoreTracker";
+import { JustWildScoreTracker } from "@/features/score/JustWildScoreTracker";
+import { NimmtScoreTracker } from "@/features/score/NimmtScoreTracker";
 
 interface ScoreByTypeProps {
   config: ScoreConfig;

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { buildPageMetadata, getCoverImageUrl } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PlayPageClient } from "@/components/game/play/PlayPageClient";
+import { PlayPageClient } from "@/features/play/PlayPageClient";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;

@@ -75,7 +75,7 @@ The `type` field is the contract between config, page router, and component. Pic
 
 ### B2. Register in trainer registry
 
-Edit `src/components/game/trainer/registry.tsx`:
+Edit `src/features/trainer/registry.tsx`:
 
 1. **Add display names** to `TRAINER_TITLES`:
    ```ts
@@ -113,7 +113,7 @@ export { checkAnswer, getCorrectAnswer } from "./strategy";
 ### B4. Create UI component
 
 ```
-src/components/game/trainer/<your-game>/
+src/features/trainer/<your-game>/
   YourTrainer.tsx  — main component
 ```
 

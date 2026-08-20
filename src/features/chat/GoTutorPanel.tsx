@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { ChatProvider, useChat } from "@/components/chat/ChatProvider";
-import { ChatMessages } from "@/components/chat/ChatMessages";
-import { ApiKeyModal } from "@/components/chat/ApiKeyModal";
+import { ChatProvider, useChat } from "@/features/chat/ChatProvider";
+import { ChatMessages } from "@/features/chat/ChatMessages";
+import { ApiKeyModal } from "@/features/chat/ApiKeyModal";
 import type { ChatScope } from "@/lib/chat/types";
 
 interface Props {

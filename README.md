@@ -153,20 +153,14 @@ public/sw.js                       # Service Worker 模板（postbuild 注入预
 
 src/
 ├── app/[locale]/                 # 页面路由（含 costs / games/*/flow|score|trainer|calculator）
-├── components/
-│   ├── home/                     # GameCard, GameFamilyCard, GameCardGrid, GameCover, Sidebar
-│   ├── game/                     # GameHeader, MarkdownRenderer, DecisionTree, ExportButton, RelatedGames
-│   ├── game/score/               # Cabo / SeaSalt / JustWild / Nimmt 专用多人计分
-│   ├── game/trainer/             # Tenpai / Preflop / Blackjack / Go 等训练器 UI
-│   ├── game/calculator/          # 日麻番符计算器
-│   ├── chat/                     # ChatToggle, ChatIsland（懒加载）, ChatDialog, ChatMessages
-│   └── layout/                   # Header, Footer, BackToTop
+├── features/                     # 功能 UI（catalog / rules / flow / score / trainer / calculator / play / chat / costs）
+├── shared/layout/                # Header, Footer, BackToTop
 ├── lib/content/                  # Repository + Factory（读 content/games）
 ├── lib/mahjong/                  # 麻将核心（听牌 / 番符 / 役种）
 ├── lib/score/                    # 计分数值输入辅助
 ├── lib/texas-holdem/             # GTO 翻前
 ├── lib/ai/                       # DeepSeekAdapter（Anthropic SSE）、ChatStrategies、tool-handlers
-├── lib/chat/                     # ChatProvider、错误分类、IndexedDB 存储
+├── lib/chat/                     # IndexedDB 存储、错误分类（非 React）
 └── types/                        # TypeScript 类型定义
 ```
 

@@ -72,8 +72,8 @@ Put the file at `content/games/<slug>/score.json`. No component change.
 Only after the gate passes **and** no existing type fits.
 
 1. Add the kebab-case key to `ScoreConfigType` in `src/types/game.ts`
-2. Create `src/components/game/score/<Name>ScoreTracker.tsx` with `"use client"`
-3. Register a case in `src/components/game/score/registry.tsx`
+2. Create `src/features/score/<Name>ScoreTracker.tsx` with `"use client"`
+3. Register a case in `src/features/score/registry.tsx`
 4. Ship `score.json` with that `type` / `engine`
 5. `npm run build`
 

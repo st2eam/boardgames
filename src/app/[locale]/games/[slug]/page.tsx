@@ -1,11 +1,11 @@
 import { GameFactory } from "@/lib/content/GameFactory";
 import { GameRepository } from "@/lib/content/GameRepository";
-import { GameHeader } from "@/components/game/GameHeader";
-import { MarkdownRenderer } from "@/components/game/MarkdownRenderer";
-import { RulesToc } from "@/components/game/RulesToc";
-import { RelatedGames } from "@/components/game/RelatedGames";
-import { TrackRecentVisit } from "@/components/game/TrackRecentVisit";
-import { ChatToggle } from "@/components/chat/ChatToggle";
+import { GameHeader } from "@/features/rules/GameHeader";
+import { MarkdownRenderer } from "@/features/rules/MarkdownRenderer";
+import { RulesToc } from "@/features/rules/RulesToc";
+import { RelatedGames } from "@/features/rules/RelatedGames";
+import { TrackRecentVisit } from "@/features/rules/TrackRecentVisit";
+import { ChatToggle } from "@/features/chat/ChatToggle";
 import { goTutorSuggestedPrompts } from "@/lib/go/boardContext";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";

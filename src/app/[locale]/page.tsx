@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { GameFactory } from "@/lib/content/GameFactory";
 import { GameRepository } from "@/lib/content/GameRepository";
-import { GameCardGrid } from "@/components/home/GameCardGrid";
-import { ChatToggle } from "@/components/chat/ChatToggle";
+import { GameCardGrid } from "@/features/catalog/GameCardGrid";
+import { ChatToggle } from "@/features/chat/ChatToggle";
 import { buildPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 

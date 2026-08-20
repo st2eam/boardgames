@@ -1,7 +1,7 @@
 "use client";
 
 import type { Decomposition } from "@/lib/mahjong";
-import { MahjongTile } from "@/components/game/trainer/MahjongTile";
+import { MahjongTile } from "@/features/trainer/MahjongTile";
 
 interface Props {
   decomposition: Decomposition | null;

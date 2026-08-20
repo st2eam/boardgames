@@ -1,7 +1,7 @@
 "use client";
 
 import { TILE_COUNT } from "@/lib/mahjong";
-import { MahjongTile } from "@/components/game/trainer/MahjongTile";
+import { MahjongTile } from "@/features/trainer/MahjongTile";
 
 interface Props {
   hand: number[];

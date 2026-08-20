@@ -1,5 +1,5 @@
 import { GameRepository } from "@/lib/content/GameRepository";
-import { ScoreCalculator } from "@/components/game/calculator/ScoreCalculator";
+import { ScoreCalculator } from "@/features/calculator/ScoreCalculator";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";

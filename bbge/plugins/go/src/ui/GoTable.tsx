@@ -9,7 +9,7 @@ import {
   SeatSpeechSlot,
   useSeatBubbles,
 } from "@bbge/ui";
-import { GoTutorPanel } from "@/components/chat/GoTutorPanel";
+import { GoTutorPanel } from "@/features/chat/GoTutorPanel";
 import {
   formatGoPlayContext,
   goTutorSuggestedPrompts,

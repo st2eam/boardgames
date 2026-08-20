@@ -1,18 +1,18 @@
 # Architecture Blueprint
 
-Cross-feature map of The Game Shelf. For day-to-day commands and feature details, see [`CLAUDE.md`](../CLAUDE.md). For trainers specifically, see [`docs/trainer-system.md`](trainer-system.md).
+Cross-feature map of The Game Shelf. Day-to-day: [`CLAUDE.md`](../CLAUDE.md). How to change code: [`development-guide.md`](development-guide.md). Folders: [`project-structure.md`](project-structure.md). Patterns: [`design-patterns.md`](design-patterns.md).
 
 ## Overview
 
-Static Next.js App Router site (`output: "export"`, `basePath: "/boardgames"`, `trailingSlash: true`). Content is file-based; there is no CMS, API routes, or runtime Node server.
+Static Next.js App Router site (`output: "export"`, `basePath: "/boardgames"`, `trailingSlash: true`). Content is file-based; there is no CMS, API routes, or runtime Node server. See [ADR-001](decisions/ADR-001-next-static-export.md).
 
 ```
-content/games ──► GameRepository / GameFactory ──► app/[locale] pages ──► components
+content/games ──► GameRepository / GameFactory ──► app/[locale] pages ──► features
        │                                                              │
        └──► prebuild (generate-game-data) ──► public/data ──► client fetch (chat, covers)
 ```
 
-**Dependency direction:** `content` → `lib/content` → `pages` → `components` → `lib/<domain>`. Do not reverse that arrow (e.g. domain libs must not import pages).
+**Dependency direction:** `content` → `lib/content` → `pages` → `features` → `lib/<domain>` / `bbge`. Do not reverse that arrow.
 
 ## Dual data plane
 
@@ -23,7 +23,7 @@ content/games ──► GameRepository / GameFactory ──► app/[locale] page
 
 Rules:
 
-- Pages never invent a parallel content loader.
+- Pages never invent a parallel content loader ([ADR-003](decisions/ADR-003-content-repository-no-axios.md)).
 - Client fetches always use the `/boardgames/` prefix.
 - Covers use `cover-manifest.json` only — no multi-extension `<img>` probing.
 - `public/data/` is **generated**; edit `content/` (or cover files under `public/images/games/`), then rebuild.
@@ -41,64 +41,70 @@ Rules:
 | Path | Role |
 |------|------|
 | `content/games/` | Source of truth: `index.json`, per-game `meta.json`, `en\|zh/rules.md`, optional `flow.json` / `score.json` / `trainer.json` / `calculator.json` / `play.json` |
-| `docs/games/<slug>.md` | Per-game **playable (BBGE)** design specs — one file per slug when Play is planned or shipped |
-| `src/app/[locale]/` | **Server Components** — load data, SEO, hand props to client roots |
-| `src/components/` | UI; `"use client"` on interactive pieces (including providers like `ChatProvider`) |
-| `src/lib/content/` | FS loaders (`GameRepository`, `GameFactory`, `markdown`) |
-| `src/lib/<domain>/` | Pure(ish) game logic: `mahjong`, `blackjack`, `texas-holdem`, `go`, `score/engines`, `ai` |
-| `src/lib/chat/` | Chat persistence helpers only (`storage`, `types`, `errors`) — not React providers |
+| `docs/games/<slug>.md` | Per-game **playable (BBGE)** design specs |
+| `src/app/[locale]/` | **Server Components** — load data, SEO, hand props to feature UI |
+| `src/features/` | Feature UI (`catalog`, `rules`, `flow`, `score`, `trainer`, `calculator`, `play`, `chat`, `costs`) |
+| `src/shared/layout/` | Header, Footer, BackToTop |
+| `src/lib/content/` | FS loaders (`GameRepository`, `GameFactory`, `markdown`) — only content warehouse |
+| `src/lib/<domain>/` | Pure(ish) game logic: `mahjong`, `blackjack`, `texas-holdem`, `go`, `score`, `ai` |
+| `src/lib/chat/` | Chat persistence helpers only — not React providers |
 | `src/types/game.ts` | Shared content/feature types — do not add `src/lib/content/types.ts` |
+| `bbge/` | Playable engine — do not fold into `features/` |
 | `scripts/` | Lifecycle hooks only (prebuild / postbuild / icon regen) |
+
+Stack ADRs: [no Vite SPA](decisions/ADR-001-next-static-export.md), [no Ant Design/Less](decisions/ADR-002-keep-tailwind-not-antd.md), [no axios/Zustand](decisions/ADR-003-content-repository-no-axios.md).
 
 ## Feature extension points
 
 | Feature | Content | Page | UI / dispatch | Domain |
 |---------|---------|------|---------------|--------|
-| Rules | `en\|zh/rules.md` | `games/[slug]/page.tsx` | `MarkdownRenderer`, … | — |
-| Flow | root `flow.json` (`startNode`) | `…/flow/page.tsx` | `DecisionTree` | — |
-| Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/components/game/score/registry.tsx) → dedicated multi-round trackers ([gate](score-system.md)) | `src/lib/score/` (input helpers) |
-| Trainer | `trainer.json` | `…/trainer/page.tsx` | [`trainer/registry.tsx`](../src/components/game/trainer/registry.tsx) | `src/lib/<game>/` |
-| Calculator | `calculator.json` | `…/calculator/page.tsx` | `ScoreCalculator` | `src/lib/mahjong/` |
-| Play (BBGE) | `play.json` (+ optional `editions`) | `…/play/page.tsx` | PlayShell → bbge runtime + plugin table UI (Love Letter: BGA DOM, full/premium); **开始游戏** first in `GameHeader` (edition menu when configured); homepage Play Now | `bbge/*` + `plugins/<pluginId>`; design in [`docs/games/<slug>.md`](games/) |
-| Chat | runtime `public/data` | `ChatToggle` on home/game pages | `components/chat/*` + `ChatProvider` | `src/lib/ai/`, `src/lib/chat/` |
+| Rules | `en\|zh/rules.md` | `games/[slug]/page.tsx` | `features/rules` | — |
+| Flow | root `flow.json` (`startNode`) | `…/flow/page.tsx` | [`DecisionTree`](../src/features/flow/DecisionTree.tsx) | — |
+| Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/features/score/registry.tsx) ([gate](score-system.md)) | `src/lib/score/` |
+| Trainer | `trainer.json` | `…/trainer/page.tsx` | [`trainer/registry.tsx`](../src/features/trainer/registry.tsx) | `src/lib/<game>/` |
+| Calculator | `calculator.json` | `…/calculator/page.tsx` | `features/calculator` | `src/lib/mahjong/` |
+| Play (BBGE) | `play.json` | `…/play/page.tsx` | `features/play` → bbge runtime | `bbge/*` + [`docs/games/`](games/) |
+| Chat | runtime `public/data` | `ChatToggle` | `features/chat` | `src/lib/ai/`, `src/lib/chat/` |
+| Catalog | summaries | `[locale]/page.tsx` | `features/catalog` | — |
+| Costs | `meta.price` | `…/costs/page.tsx` | `features/costs` | — |
 
 Pattern for gated features: config exists in content → `generateStaticParams` filters → page loads config → registry (or single component) renders client UI.
 
 ### Adding a BBGE playable game
 
-Follow **[add-game Step 6d](../.cursor/skills/add-game/SKILL.md)** + **[BBGE skill](../.cursor/skills/browser-board-game-engine/SKILL.md)** (“Adding a new playable game”):
+Follow **[add-game Step 6d](../.cursor/skills/add-game/SKILL.md)** + **[BBGE skill](../.cursor/skills/browser-board-game-engine/SKILL.md)**:
 
 1. Design `docs/games/<slug>.md`
 2. Plugin + `PluginPlayModule` under `bbge/plugins/<pluginId>/`
 3. Table UI uses shared `BattleLogList` + `PlaySideSheet` for 战报
-4. `registerPlayModule` in `src/lib/bbge/registerPlayPlugins.ts` (PlayShell stays generic)
-5. Optional LLM factory in `src/lib/bbge/llmSeats.ts` (locale-aware `speak`; append `opts.battleLog`)
+4. `registerPlayModule` in `src/lib/bbge/registerPlayPlugins.ts`
+5. Optional LLM factory in `src/lib/bbge/llmSeats.ts`
 6. `content/games/<slug>/play.json` → `pluginId`
 7. `npm run test:bbge` + `npm run build` → push `origin/main`
 
 ### Adding a trainer type
 
 1. Domain logic under `src/lib/<game>/`
-2. UI under `src/components/game/trainer/`
-3. Register in `src/components/game/trainer/registry.tsx` (component + titles/descriptions)
-4. Ship `trainer.json` on the game — see [trainer-system.md](trainer-system.md) and `.claude/skills/add-trainer`
+2. UI under `src/features/trainer/`
+3. Register in `src/features/trainer/registry.tsx`
+4. Ship `trainer.json` — see [trainer-system.md](trainer-system.md) and `.claude/skills/add-trainer`
 
 ### Adding a dedicated score tracker
 
-Follow **[add-score-tracker](../.claude/skills/add-score-tracker/SKILL.md)** + **[score-system.md](score-system.md)**. **Default is skip** — only multi-player running totals (or fiddly per-round combos). No end-game category forms.
+Follow **[add-score-tracker](../.claude/skills/add-score-tracker/SKILL.md)** + **[score-system.md](score-system.md)**. **Default is skip.**
 
 If the gate passes:
 
-1. Add type to `ScoreConfigType` in `src/types/game.ts` (or reuse `cabo-multi` / `sea-salt-multi` / `just-wild-multi` / `nimmt-multi`)
-2. Component under `src/components/game/score/`
-3. Register in `src/components/game/score/registry.tsx`
+1. Add type to `ScoreConfigType` in `src/types/game.ts`
+2. Component under `src/features/score/`
+3. Register in `src/features/score/registry.tsx`
 4. Set the game's `score.json` `type`
 
 ## Server vs client
 
 - Keep `src/app/[locale]/**/page.tsx` as Server Components.
-- Put `"use client"` under `src/components/`, not on whole game pages just for hooks.
-- React providers that hold UI state live next to their feature UI (e.g. `components/chat/ChatProvider.tsx`).
+- Put `"use client"` under `src/features/` or `src/shared/`, not on whole game pages just for hooks.
+- React providers that hold UI state live next to their feature UI (`features/chat/ChatProvider.tsx`).
 
 ## Red lines
 
@@ -106,17 +112,25 @@ If the gate passes:
 - Preserve `basePath` / trailing slashes in links and SEO helpers (`src/lib/seo.ts`).
 - Service worker: network-first for HTML/`/data/`; do not break navigation fallbacks; do not auto-reload on first `controllerchange`.
 - Do not reintroduce monolithic `games-index.json`.
+- Do not add Ant Design, Less, axios, Zustand, or empty per-feature `services/` folders.
 
 ## Related docs & skills
 
 | Doc / skill | Use when |
 |-------------|----------|
 | [`CLAUDE.md`](../CLAUDE.md) | Commands, i18n quirks, family system, cover/chat overview |
-| [`.cursor/rules/code-modification.mdc`](../.cursor/rules/code-modification.mdc) | Layer / feature wiring norms while editing |
-| [`docs/score-system.md`](score-system.md) | Score tracker gate + current `*-multi` types |
-| [`docs/trainer-system.md`](trainer-system.md) | Trainer anatomy and how to add types |
-| [`docs/games/`](games/) | Per-game BBGE play designs (`<slug>.md`) |
-| [`.cursor/skills/browser-board-game-engine/`](../.cursor/skills/browser-board-game-engine/SKILL.md) | Playable engine platform |
-| `.cursor/skills/add-game/SKILL.md` | End-to-end new game / expansion (rules content) |
-| `.claude/skills/add-score-tracker` | Score tracker: skip vs add, then wire or create a type |
-| `.claude/skills/add-trainer` | New trainer type checklist |
+| [`development-guide.md`](development-guide.md) | How to change the repo |
+| [`project-structure.md`](project-structure.md) | Directory roles |
+| [`design-patterns.md`](design-patterns.md) | Patterns in use |
+| [`docs/decisions/`](decisions/) | ADRs |
+| [`.cursor/rules/code-modification.mdc`](../.cursor/rules/code-modification.mdc) | Layer / feature wiring while editing |
+| [`docs/score-system.md`](score-system.md) | Score tracker gate |
+| [`docs/trainer-system.md`](trainer-system.md) | Trainer anatomy |
+| [`docs/games/`](games/) | BBGE play designs |
+| [`.cursor/skills/page-development`](../.cursor/skills/page-development/SKILL.md) | New App Router page |
+| [`.cursor/skills/component-development`](../.cursor/skills/component-development/SKILL.md) | UI + tokens |
+| [`.cursor/skills/testing`](../.cursor/skills/testing/SKILL.md) | lint / build / bbge tests |
+| `.cursor/skills/add-game/SKILL.md` | New game / expansion |
+| `.claude/skills/add-score-tracker` | Score tracker skip vs add |
+| `.claude/skills/add-trainer` | New trainer type |
+| `.cursor/skills/browser-board-game-engine` | Playable engine |

@@ -1,8 +1,8 @@
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { BackToTop } from "@/components/layout/BackToTop";
+import { Header } from "@/shared/layout/Header";
+import { Footer } from "@/shared/layout/Footer";
+import { BackToTop } from "@/shared/layout/BackToTop";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

@@ -7,5 +7,7 @@
   "duration": "20 min",
   "difficulty": "easy",
   "tags": ["card", "party", "family", "deduction"],
-  "category": "card"
+  "category": "card",
+  "price": 136,
+  "bggRank": 7173
 }

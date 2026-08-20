@@ -4,8 +4,8 @@
     "overview": {
       "title": { "en": "Game Overview", "zh": "游戏概述" },
       "content": {
-        "en": "**Petiquette** (动物礼仪师). Thomas Sellner / Oink Games (2025).\n\nFive random sequence cards + a **?** shuffled into a row. Secretly invent animal + hat + number for the gap. **No official answer.** If anyone else built the same combo, you score.\n\n**Players:** 2–6 · **Time:** ~20 min · **Ages:** 7+",
-        "zh": "**动物礼仪师（Petiquette）**。Thomas Sellner / Oink Games（2025）。\n\n5 张随机序列牌再洗入 **？** 排成一行。秘密为缺口发明「动物+帽子+数字」。**没有标准答案。** 有人和你组得一样就得分。\n\n**人数：** 2–6 · **时长：** 约 20 分钟 · **年龄：** 7+"
+        "en": "**Petiquette** (动物礼仪师). Thomas Sellner / Oink Games (2025).\n\nHumans are curious creatures. Even when cards are randomly lined up, we can't help but find patterns...and ideally we're thinking along the same lines.\n\nEach round: five random cards (animal + hat + number 1–5) plus a **?** in the row. Secretly choose the card that most properly fits. **No single answer is correct**; if someone chooses the same card as you, you both score.\n\nCompetitive or co-operative. **Players:** 2–6 · **Time:** ~20 min · **Ages:** 7+",
+        "zh": "**动物礼仪师（Petiquette）**。Thomas Sellner / Oink Games（2025）。\n\n人类天生好奇。即使卡牌是随机排成一列，我们也忍不住找规律……最理想的是其他人也跟你想到一块儿。\n\n每轮：5 张随机牌（动物+帽子+数字 1–5）再加行里的 **？**。秘密选出你认为最适合接上规律的那张。**没有唯一正确答案**；有人和你选同一张，双方都得分。\n\n可对抗或合作。**人数：** 2–6 · **时长：** 约 20 分钟 · **年龄：** 7+"
       },
       "options": [
         { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },

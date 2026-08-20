@@ -4,9 +4,13 @@
 
 **Petiquette** (动物礼仪师 / ペチケ) is a 2025 party game by **Thomas Sellner**, published by **Oink Games** (artwork **Jun Sasaki**, illustrations **Hisanori Hiraoka**). Ages 7+.
 
-Humans spot patterns even in a random line of cards. Each round you see **five** sequence cards plus a **?** card mixed in, invent a “proper” animal + hat + number for the gap, and hope someone else invented the **same** combination. There is no official answer.
+Humans are curious creatures. Even when cards are randomly lined up, we can't help but find patterns...and ideally we're thinking along the same lines.
 
-**Players:** 2–6 · **Time:** about 20 minutes · **Modes:** competitive or cooperative.
+Each round in Petiquette, players look at a line-up of five random cards — with cards showing one of three animals that is wearing one of three hats, with a number from 1–5 at top — and try to find some logic or pattern within them. Each player secretly chooses the card they think would most properly fit into that pattern. For example, if the sequence is "red, red, yellow...", you might feel that yellow should come next. If it's "dog, cat, bird...", then maybe dog feels right...but what about "dog, cat, dog, cat, bird"? No single answer is correct, but if someone chooses the same card as you, you both earn points.
+
+Petiquette can be played either competitively or co-operatively.
+
+**Players:** 2–6 · **Time:** about 20 minutes.
 
 ## Components
 

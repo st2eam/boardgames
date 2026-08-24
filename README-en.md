@@ -10,7 +10,7 @@ A curated, bilingual reference website for modern board game rules — **59** ga
 - **53 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **4 multi-player score trackers**: CABO, Sea Salt & Paper, 6 nimmt!, Just Wild — running totals, localStorage
 - **5 trainers**: Mahjong/Riichi tenpai, Blackjack basic strategy, Texas Hold'em GTO preflop, Go tsumego
-- **5 BBGE online playables**: Love Letter, Texas Hold'em, 6 nimmt!, Go, CABO — designs in [`docs/games/`](docs/games/)
+- **8 BBGE online playables**: Love Letter, Texas Hold'em, 6 nimmt!, Go, CABO, UNO, TRIO, Rummikub. Peer invitations use revisioned snapshots, action acknowledgements, and same-session refresh recovery — see [`docs/bbge-networking.md`](docs/bbge-networking.md).
 - **Score calculator**: Riichi Mahjong han/fu/points — tile picker → winning tile → open melds → auto yaku/fu/points
 - **Game family grouping**: UNO, Drecksau, LotTK, Exploding Kittens, Splendor, Sea Salt & Paper, Catan, Carcassonne, Wingspan, Mahjong, Love Letter, SETI
 - **DLC / variant support**: stacked family cards for expansions and standalone variants
@@ -35,7 +35,7 @@ npm run dev
 npm run build
 ```
 
-> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `59` / `53` flow / `4` score / `5` trainer / `1` calculator / `5` BBGE play). Run `node scripts/print-project-stats.mjs` to verify. Sync BBGE behavior in [`docs/games/<slug>.md`](docs/games/).
+> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `59` / `53` flow / `4` score / `5` trainer / `1` calculator / `8` BBGE play). Run `node scripts/print-project-stats.mjs` to verify. Sync game behavior in [`docs/games/<slug>.md`](docs/games/) and invitation behavior in [`docs/bbge-networking.md`](docs/bbge-networking.md).
 
 ---
 
@@ -243,8 +243,11 @@ A **directed graph**: each node is a rule snippet + jump options. `flow.json` is
 | 6 nimmt! | [`docs/games/6-nimmt-30th-anniversary.md`](docs/games/6-nimmt-30th-anniversary.md) | Multi-mode; trap-aware heuristics |
 | Go | [`docs/games/go.md`](docs/games/go.md) | 9/13/19; liberty/atari policy + LLM speak |
 | CABO | [`docs/games/cabo.md`](docs/games/cabo.md) | 2–4; memory swaps; race to 100; card art pack |
+| UNO | [`docs/games/uno.md`](docs/games/uno.md) | Classic, Flip, and No Mercy editions; responsive card table |
+| TRIO | [`docs/games/trio.md`](docs/games/trio.md) | Memory and deduction card sets |
+| Rummikub | [`docs/games/rummikub.md`](docs/games/rummikub.md) | Tile runs/groups, 30-point opening meld, mock/LLM AI |
 
-Platform: Host authority, deterministic Actions, plugins never talk to the network — see [BBGE skill](.cursor/skills/browser-board-game-engine/SKILL.md).
+Platform: Host authority, deterministic Actions, plugins never talk to the network. Peer room protocol and recovery rules: [`docs/bbge-networking.md`](docs/bbge-networking.md).
 
 ---
 

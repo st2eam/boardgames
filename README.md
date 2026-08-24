@@ -4,7 +4,7 @@
 
 静态导出的中英双语桌游规则站：[st2eam.github.io/boardgames](https://st2eam.github.io/boardgames/)。无 CMS、无 API routes、无运行时 Node；内容以文件为源，构建时生成静态页，部署在 GitHub Pages（`basePath: /boardgames`）。
 
-规模（`content/games/`，可用 `node scripts/print-project-stats.mjs` 核对）：**59** 款游戏（含扩展/变体）、**53** 决策树、**4** 记分器、**5** 训练器、**1** 番符计算器、**5** 款 BBGE 对局。
+规模（`content/games/`，可用 `node scripts/print-project-stats.mjs` 核对）：**59** 款游戏（含扩展/变体）、**53** 决策树、**4** 记分器、**5** 训练器、**1** 番符计算器、**8** 款 BBGE 对局。
 
 ## Features
 
@@ -13,7 +13,7 @@
 - **决策树。** 双语 `flow.json`（`startNode` + nodes），`DecisionTree` 按节点跳转，带大纲与回溯。
 - **记分器准入。** 仅多人跨回合累计（CABO、海盐折纸、6 nimmt!、Just Wild）。终局分类加总不做；默认不写 `score.json`。见 [`docs/score-system.md`](docs/score-system.md)。
 - **训练 / 计算。** 麻将听牌、21 点基本策略、德州翻前、围棋死活；日麻番符计算器。领域逻辑在 `src/lib/<domain>/`，UI 经 registry 挂载。
-- **BBGE 对局。** Host 权威状态机 + PeerJS；情书、德州、6 nimmt!、围棋、CABO。设计稿在 [`docs/games/`](docs/games/)，运行时在 `bbge/`。
+- **BBGE 对局。** Host 权威状态机 + PeerJS；情书、德州、6 nimmt!、围棋、CABO、UNO、TRIO、拉密。邀请联机使用 revision 快照、动作确认与刷新恢复；设计稿在 [`docs/games/`](docs/games/)，联机规范在 [`docs/bbge-networking.md`](docs/bbge-networking.md)，运行时在 `bbge/`。
 - **客户端 LLM。** 浏览器直连 DeepSeek Anthropic Messages API；工具上下文来自站内 Markdown（`games-meta.json` + `rules/<slug>.json`），并可用服务端 `web_search`。Key 与历史存 IndexedDB（`idb-keyval`）。
 - **Catalog。** next-intl `[locale]` 路由（无 middleware）；系列用 `family` 堆叠；分类 / 标签 / 人数筛选。
 - **静态托管约束。** PWA：HTML 与 `/data/` network-first。封面走 `cover-manifest.json`，缺图占位、不探测多后缀，避免 404。规则可导出 PDF / Markdown。

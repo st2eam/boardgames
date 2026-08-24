@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title desc">
+  <title id="title">Startups deck and Market choice</title>
+  <desc id="desc">A deck draw adds capital to every Market card, while taking a Market card collects its capital.</desc>
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="34" y="38" fill="#5D4037" font-family="Georgia,serif" font-size="24" font-weight="700">Choose a share / 选择股份</text>
+  <g transform="translate(42 70)" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+    <rect width="132" height="158" rx="14" fill="#fff" stroke="#5D4037" stroke-width="2"/>
+    <text x="66" y="29" fill="#5D4037" font-size="16" font-weight="700" text-anchor="middle">DECK / 牌堆</text>
+    <rect x="39" y="48" width="54" height="72" rx="7" fill="#E95478" stroke="#5D4037" stroke-width="2"/>
+    <text x="66" y="92" fill="#fff" font-family="Georgia,serif" font-size="18" font-weight="700" text-anchor="middle">?</text>
+    <text x="66" y="145" fill="#8D6E63" font-size="13" text-anchor="middle">draw 1 / 抽 1 张</text>
+  </g>
+  <path d="M189 145 H249" stroke="#C4952A" stroke-width="5" stroke-linecap="round"/><path d="M238 134 L253 145 L238 156" fill="none" stroke="#C4952A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="221" y="118" fill="#C4952A" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="14" font-weight="700" text-anchor="middle">pay / 付费</text>
+  <g transform="translate(270 70)" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+    <rect width="250" height="158" rx="14" fill="#fff" stroke="#D7C8B3" stroke-width="2"/>
+    <text x="125" y="29" fill="#5D4037" font-size="16" font-weight="700" text-anchor="middle">MARKET / 市场</text>
+    <g transform="translate(32 49)" fill="#F7D6DF" stroke="#5D4037" stroke-width="2"><rect width="47" height="68" rx="7"/><rect x="57" width="47" height="68" rx="7"/><rect x="114" width="47" height="68" rx="7"/></g>
+    <g fill="#C4952A" stroke="#8D6E63" stroke-width="1"><circle cx="55" cy="132" r="12"/><circle cx="112" cy="132" r="12"/><circle cx="169" cy="132" r="12"/></g>
+    <g fill="#5D4037" font-family="Georgia,serif" font-size="14" font-weight="700" text-anchor="middle"><text x="55" y="137">1</text><text x="112" y="137">1</text><text x="169" y="137">1</text></g>
+  </g>
+  <path d="M546 145 H602" stroke="#C4952A" stroke-width="5" stroke-linecap="round"/><path d="M590 134 L605 145 L590 156" fill="none" stroke="#C4952A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(620 83)" font-family="'PingFang SC','Microsoft YaHei',sans-serif" text-anchor="middle"><text x="28" y="25" fill="#5D4037" font-size="15" font-weight="700">TAKE / 拿走</text><rect x="4" y="41" width="48" height="68" rx="7" fill="#F7D6DF" stroke="#5D4037" stroke-width="2"/><circle cx="28" cy="128" r="12" fill="#C4952A" stroke="#8D6E63"/><text x="28" y="133" fill="#5D4037" font-family="Georgia,serif" font-size="14" font-weight="700">1</text></g>
+</svg>

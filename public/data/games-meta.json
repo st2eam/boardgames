@@ -1202,5 +1202,25 @@
     "price": 15,
     "bggRank": 110,
     "slug": "scout"
+  },
+  {
+    "name": {
+      "en": "Startups",
+      "zh": "Startups"
+    },
+    "players": "3-7",
+    "duration": "20 min",
+    "difficulty": "medium",
+    "tags": [
+      "card",
+      "investment",
+      "majority",
+      "hand-management",
+      "tactical"
+    ],
+    "category": "card",
+    "price": 26,
+    "bggRank": 888,
+    "slug": "startups"
   }
 ]

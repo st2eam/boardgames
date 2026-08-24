@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="title desc">
+  <title id="title">Startups Anti-Monopoly chip</title>
+  <desc id="desc">The sole largest shareholder holds an Anti-Monopoly chip and is restricted from taking company cards while protected from adding capital to them.</desc>
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="35" y="39" fill="#5D4037" font-family="Georgia,serif" font-size="24" font-weight="700">Anti-Monopoly / 反垄断</text>
+  <g transform="translate(42 70)" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+    <rect width="235" height="145" rx="14" fill="#fff" stroke="#D7C8B3" stroke-width="2"/>
+    <text x="117" y="30" fill="#5D4037" font-size="16" font-weight="700" text-anchor="middle">PORTFOLIOS / 投资组合</text>
+    <g transform="translate(37 48)" fill="#F7D6DF" stroke="#5D4037" stroke-width="2"><rect width="40" height="58" rx="6"/><rect x="44" width="40" height="58" rx="6"/><rect x="88" width="40" height="58" rx="6"/><rect x="146" width="40" height="58" rx="6"/><rect x="190" width="40" height="58" rx="6"/></g>
+    <text x="82" y="128" fill="#C4952A" font-size="14" font-weight="700" text-anchor="middle">3 shares / 3 股</text><text x="188" y="128" fill="#8D6E63" font-size="14" text-anchor="middle">2 shares / 2 股</text>
+  </g>
+  <path d="M294 140 H363" stroke="#C4952A" stroke-width="5" stroke-linecap="round"/><path d="M352 129 L367 140 L352 151" fill="none" stroke="#C4952A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(390 76)" font-family="'PingFang SC','Microsoft YaHei',sans-serif" text-anchor="middle"><circle cx="62" cy="62" r="57" fill="#C4952A" stroke="#5D4037" stroke-width="3"/><text x="62" y="57" fill="#fff" font-size="15" font-weight="700">SOLE LEADER</text><text x="62" y="79" fill="#fff" font-size="15" font-weight="700">唯一最大股东</text></g>
+  <g transform="translate(530 70)" font-family="'PingFang SC','Microsoft YaHei',sans-serif"><rect width="154" height="145" rx="14" fill="#fff" stroke="#D7C8B3" stroke-width="2"/><text x="77" y="31" fill="#5D4037" font-size="15" font-weight="700" text-anchor="middle">CHIP EFFECT / 效果</text><text x="15" y="67" fill="#B45309" font-size="18" font-weight="700">×</text><text x="40" y="67" fill="#8D6E63" font-size="13">take Market</text><text x="40" y="86" fill="#8D6E63" font-size="13">不能拿市场牌</text><text x="15" y="116" fill="#C4952A" font-size="18" font-weight="700">✓</text><text x="40" y="116" fill="#8D6E63" font-size="13">skip Capital</text><text x="40" y="135" fill="#8D6E63" font-size="13">免放资本</text></g>
+</svg>

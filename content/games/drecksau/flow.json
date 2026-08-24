@@ -98,7 +98,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/drecksau/mud-weather.svg",
+        "alt": {
+          "en": "Mud dirties your pig; Rain washes unprotected pigs; Barns block rain",
+          "zh": "泥巴弄脏自己的猪，下雨冲洗，猪圈挡雨"
+        }
+      }
     },
     "winning": {
       "title": {
@@ -131,7 +138,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/drecksau/winning.svg",
+        "alt": {
+          "en": "First player with every pig dirty wins immediately",
+          "zh": "第一个把每头猪都弄脏的人立即获胜"
+        }
+      }
     }
   }
 }

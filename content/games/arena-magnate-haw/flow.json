@@ -363,7 +363,14 @@
           },
           "next": "bankrupt"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/arena-magnate-haw/sell-bankruptcy.svg",
+        "alt": {
+          "en": "Sell at 50% or auction; no assets plus debt is bankruptcy",
+          "zh": "半价或拍卖；无资产仍欠债则破产"
+        }
+      }
     },
     "bankrupt": {
       "title": {
@@ -427,7 +434,14 @@
           },
           "next": "roll"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/arena-magnate-haw/turn-flow.svg",
+        "alt": {
+          "en": "Turn: roll, move counter-clockwise, trigger space",
+          "zh": "回合：掷骰、逆时针走、触发格子"
+        }
+      }
     },
     "victory": {
       "title": {

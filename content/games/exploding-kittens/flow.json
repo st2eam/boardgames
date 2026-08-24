@@ -39,7 +39,14 @@
           },
           "next": "winning"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/exploding-kittens/explode-vs-defuse.svg",
+        "alt": {
+          "en": "Defuse stuffs the kitten back into the deck",
+          "zh": "有拆弹就把猫塞回牌堆"
+        }
+      }
     },
     "turn": {
       "title": {
@@ -121,7 +128,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/exploding-kittens/turn-flow.svg",
+        "alt": {
+          "en": "Drawing a kitten needs a Defuse",
+          "zh": "抽到爆炸猫必须打拆弹"
+        }
+      }
     },
     "defuse": {
       "title": {
@@ -462,7 +476,14 @@
           },
           "next": "winning"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/exploding-kittens/cat-combos.svg",
+        "alt": {
+          "en": "Two matching cats steal one card",
+          "zh": "两张同猫偷别人一张牌"
+        }
+      }
     },
     "winning": {
       "title": {

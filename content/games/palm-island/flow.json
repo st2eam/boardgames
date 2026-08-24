@@ -2,83 +2,220 @@
   "startNode": "setup",
   "nodes": {
     "setup": {
-      "title": { "en": "Setup (Solo)", "zh": "准备（单人）" },
+      "title": {
+        "en": "Setup (Solo)",
+        "zh": "准备（单人）"
+      },
       "content": {
         "en": "1. Take red or blue **17-card** core deck.\n2. Orient every card: white **sun** on front, **top-left**.\n3. Shuffle 16 cards (keep orientation); put **round tracker** at the **bottom**.\n4. During play: only look at the **top 3** cards.\n\n**Goal:** after **8 rounds**, maximize victory **stars**.",
         "zh": "1. 取红或蓝 **17 张**核心牌库。\n2. 每张牌：白色**太阳**在正面**左上角**。\n3. 洗混 16 张（保持朝向）；**轮次卡**放在**最底**。\n4. 游戏中只能看牌库**顶上 3 张**。\n\n**目标：** **8 轮**后尽量多得胜利**星星**。"
       },
       "options": [
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
-        { "label": { "en": "Actions", "zh": "行动" }, "next": "actions" },
-        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
-      ]
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Actions",
+            "zh": "行动"
+          },
+          "next": "actions"
+        },
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/palm-island/two-card.svg",
+        "alt": {
+          "en": "Only the two visible cards are resources",
+          "zh": "只用露出来的两张当资源"
+        }
+      }
     },
     "turn": {
-      "title": { "en": "Your Turn", "zh": "你的回合" },
+      "title": {
+        "en": "Your Turn",
+        "zh": "你的回合"
+      },
       "content": {
         "en": "Do **one**:\n\n1. **Act** on one of the **top 2** cards (pay cost → store / rotate / flip → to back), **or**\n2. **Discard** the top card to the back unchanged.\n\nActing on the 2nd card leaves the 1st in place. Never discard the 2nd. If neither top card is usable → must discard the 1st.",
         "zh": "做 **一项**：\n\n1. 对**顶上 2 张之一**行动（付费 → 储存 / 旋转 / 翻面 → 放到牌库底），**或**\n2. **弃掉**顶牌，原样放到牌库底。\n\n对第 2 张行动时第 1 张不动。不能弃第 2 张。两张都无法行动 → 必须弃第 1 张。"
       },
       "options": [
-        { "label": { "en": "Actions", "zh": "行动" }, "next": "actions" },
-        { "label": { "en": "Paying & Limit", "zh": "支付与上限" }, "next": "pay" },
-        { "label": { "en": "End of Round", "zh": "轮次结束" }, "next": "round-end" }
+        {
+          "label": {
+            "en": "Actions",
+            "zh": "行动"
+          },
+          "next": "actions"
+        },
+        {
+          "label": {
+            "en": "Paying & Limit",
+            "zh": "支付与上限"
+          },
+          "next": "pay"
+        },
+        {
+          "label": {
+            "en": "End of Round",
+            "zh": "轮次结束"
+          },
+          "next": "round-end"
+        }
       ]
     },
     "actions": {
-      "title": { "en": "Actions", "zh": "行动" },
+      "title": {
+        "en": "Actions",
+        "zh": "行动"
+      },
       "content": {
         "en": "| Action | Effect |\n|--------|--------|\n| **Store** | Rotate **90° clockwise**; resources stick out of the side |\n| **Rotate** | Rotate **180°** (same face) — upgrade |\n| **Flip** | Flip front↔back — upgrade |\n\nThen place the card at the **back** of the deck.",
         "zh": "| 行动 | 效果 |\n|------|------|\n| **储存** | **顺时针 90°**；资源从侧面露出 |\n| **旋转** | **转 180°**（同面）— 升级 |\n| **翻面** | 正反翻转 — 升级 |\n\n然后放到牌库**底部**。"
       },
       "options": [
-        { "label": { "en": "Paying & Limit", "zh": "支付与上限" }, "next": "pay" },
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+        {
+          "label": {
+            "en": "Paying & Limit",
+            "zh": "支付与上限"
+          },
+          "next": "pay"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
       ]
     },
     "pay": {
-      "title": { "en": "Paying & Limit", "zh": "支付与上限" },
+      "title": {
+        "en": "Paying & Limit",
+        "zh": "支付与上限"
+      },
       "content": {
         "en": "Pay with **stored** cards: rotate them **90° counterclockwise** in place (`/` = or). Extra resources on a spent card are lost.\n\nMax **4** stored cards. To store another, first reset one. If a stored card hits the **top**, unstore it immediately and send to back.\n\nStored resources **keep** between rounds.",
         "zh": "用**已储存**牌支付：在原位**逆时针 90°**（`/` = 或者）。多付的资源浪费。\n\n最多储存 **4** 张。要再存须先转回一张。储存牌到**顶**时立即转回并放到牌库底。\n\n储存资源**跨轮保留**。"
       },
       "options": [
-        { "label": { "en": "End of Round", "zh": "轮次结束" }, "next": "round-end" },
-        { "label": { "en": "Actions", "zh": "行动" }, "next": "actions" }
+        {
+          "label": {
+            "en": "End of Round",
+            "zh": "轮次结束"
+          },
+          "next": "round-end"
+        },
+        {
+          "label": {
+            "en": "Actions",
+            "zh": "行动"
+          },
+          "next": "actions"
+        }
       ]
     },
     "round-end": {
-      "title": { "en": "End of Round", "zh": "轮次结束" },
+      "title": {
+        "en": "End of Round",
+        "zh": "轮次结束"
+      },
       "content": {
         "en": "Round tracker on **top** → flip/rotate to next number → to back.\n\nRounds **4 → 5**: use the **1/5** side (smaller numbers).\n\nAfter **8** rounds → score.",
         "zh": "轮次卡在**顶** → 翻到下一数字 → 放到牌库底。\n\n第 **4 → 5** 轮：用 **1/5** 那一面（较小数字）。\n\n**8** 轮后 → 计分。"
       },
       "options": [
-        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
-        { "label": { "en": "Modes", "zh": "其他模式" }, "next": "modes" },
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
-      ]
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        },
+        {
+          "label": {
+            "en": "Modes",
+            "zh": "其他模式"
+          },
+          "next": "modes"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/palm-island/round.svg",
+        "alt": {
+          "en": "When the round tracker is on top, flip or rotate it and put it at the back",
+          "zh": "回合标记到顶时翻转或旋转，再放到牌堆底"
+        }
+      }
     },
     "scoring": {
-      "title": { "en": "Scoring", "zh": "计分" },
+      "title": {
+        "en": "Scoring",
+        "zh": "计分"
+      },
       "content": {
         "en": "Sum **stars** on the **active area** of every card.\n\nSolo: beat your high score.\n\nCompetitive: highest stars; ties → most upgrades → most stored resources.",
         "zh": "统计每张牌**有效区域**上的**星星**总和。\n\n单人：挑战最高分。\n\n竞争：星星最高；平局比升级数，再比储存资源。"
       },
       "options": [
-        { "label": { "en": "Modes", "zh": "其他模式" }, "next": "modes" },
-        { "label": { "en": "Setup", "zh": "准备" }, "next": "setup" }
+        {
+          "label": {
+            "en": "Modes",
+            "zh": "其他模式"
+          },
+          "next": "modes"
+        },
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "准备"
+          },
+          "next": "setup"
+        }
       ]
     },
     "modes": {
-      "title": { "en": "Other Modes", "zh": "其他模式" },
+      "title": {
+        "en": "Other Modes",
+        "zh": "其他模式"
+      },
       "content": {
         "en": "- **Competitive** — race for outposts / milestones.\n- **Cooperative** — jointly upgrade disasters before round 8 or all lose; group score = lowest player.\n- **Feats** — solo achievements for future games.\n\nFull details in the official rulebook.",
         "zh": "- **竞争** — 争夺前哨 / 里程碑。\n- **合作** — 第 8 轮前共同升级灾难，否则全败；团体分取最低分。\n- **成就** — 单人成就，影响后续局。\n\n完整细则见官方规则书。"
       },
       "options": [
-        { "label": { "en": "Setup", "zh": "准备" }, "next": "setup" },
-        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "准备"
+          },
+          "next": "setup"
+        },
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        }
       ]
     }
   }

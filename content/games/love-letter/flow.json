@@ -79,7 +79,14 @@
           },
           "next": "round-end"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/love-letter/draw-play.svg",
+        "alt": {
+          "en": "Draw one, then play one of the two",
+          "zh": "抽 1 张后必须打出 1 张"
+        }
+      }
     },
     "cards": {
       "title": {
@@ -119,7 +126,14 @@
           },
           "next": "turn"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/love-letter/key-cards.svg",
+        "alt": {
+          "en": "Guard names a card, Handmaid protects, Princess knocks you out",
+          "zh": "守卫猜牌、侍女保护、打出公主出局"
+        }
+      }
     },
     "low-cards": {
       "title": {
@@ -272,7 +286,14 @@
           },
           "next": "cards"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/love-letter/round-end.svg",
+        "alt": {
+          "en": "Round ends when the deck is empty or one player remains",
+          "zh": "牌库抽空或只剩一人时结束本轮"
+        }
+      }
     }
   }
 }

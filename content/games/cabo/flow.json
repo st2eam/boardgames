@@ -112,7 +112,14 @@
           },
           "next": "calling-cabo"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/cabo/turn-flow.svg",
+        "alt": {
+          "en": "Peek the two outer cards; the middle two stay blind",
+          "zh": "开局只看外侧两张，中间两张是盲的"
+        }
+      }
     },
     "multi-card-swap": {
       "title": {
@@ -145,7 +152,14 @@
           },
           "next": "scoring"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/cabo/abilities.svg",
+        "alt": {
+          "en": "7–8 peek yourself, 9–10 spy, 11–12 blind swap",
+          "zh": "7–8 看自己，9–10 看别人，11–12 盲换"
+        }
+      }
     },
     "calling-cabo": {
       "title": {
@@ -185,7 +199,14 @@
           },
           "next": "peek-swap-spy"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/cabo/cabo-call.svg",
+        "alt": {
+          "en": "After CABO, others take one last turn, then reveal and sum",
+          "zh": "喊 CABO 后其他人各再行动一次，然后翻开加总"
+        }
+      }
     },
     "scoring": {
       "title": {

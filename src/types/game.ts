@@ -19,10 +19,18 @@ export interface FlowOption {
   next: string;
 }
 
+export interface FlowIllustration {
+  /** Reuses the matching key-mechanic SVG from the rules document. */
+  src: string;
+  /** Localized accessible caption, shown beneath the image. */
+  alt: Record<"en" | "zh", string>;
+}
+
 export interface FlowNode {
   title: Record<"en" | "zh", string>;
   content: Record<"en" | "zh", string>;
   options: FlowOption[];
+  illustration?: FlowIllustration;
 }
 
 export interface FlowData {

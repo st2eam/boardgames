@@ -227,7 +227,14 @@
           },
           "next": "turn"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/carcassonne/turn.svg",
+        "alt": {
+          "en": "City edge to city edge, then maybe a meeple",
+          "zh": "城对城放板块，然后可以放米宝"
+        }
+      }
     },
     "road-scoring": {
       "title": {
@@ -361,7 +368,14 @@
           },
           "next": "turn"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/carcassonne/farmer.svg",
+        "alt": {
+          "en": "Farmer on the field scores connected cities",
+          "zh": "农夫躺田里，终局按连着的城计分"
+        }
+      }
     },
     "final-scoring": {
       "title": {

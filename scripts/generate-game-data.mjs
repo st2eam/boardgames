@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { validateGameContent } from "./validate-game-content.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -22,6 +23,7 @@ function loadMd(filePath) {
 }
 
 function main() {
+  validateGameContent();
   fs.mkdirSync(PUBLIC, { recursive: true });
   fs.mkdirSync(path.join(PUBLIC, "rules"), { recursive: true });
 

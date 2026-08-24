@@ -72,7 +72,14 @@
           },
           "next": "winning"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/uno-flip/light-vs-dark.svg",
+        "alt": {
+          "en": "Flip turns every card to the dark side",
+          "zh": "打出翻转后所有牌换到黑暗面"
+        }
+      }
     },
     "dark-side": {
       "title": {
@@ -152,7 +159,14 @@
           },
           "next": "dark-actions"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/uno-flip/flip-card.svg",
+        "alt": {
+          "en": "The Flip card turns the whole deck",
+          "zh": "翻转牌让整副牌换面"
+        }
+      }
     },
     "light-actions": {
       "title": {

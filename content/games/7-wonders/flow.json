@@ -2,92 +2,239 @@
   "startNode": "setup",
   "nodes": {
     "setup": {
-      "title": { "en": "Setup", "zh": "游戏准备" },
+      "title": {
+        "en": "Setup",
+        "zh": "游戏准备"
+      },
       "content": {
         "en": "1. Each player: a **Wonder board**, **Day or Night** (first games: Day), **3 coins**.\n2. Coins and military tokens in the center.\n3. Age decks: keep cards whose player number **≤** player count.\n4. Age III guilds: draw **players + 2** purple cards at random.\n\n**3–7 players.** No 2-player rules in this edition.",
         "zh": "1. 每人一块 **奇观板**，选 **日或夜**（首局用日面），**3 金币**。\n2. 金币与军事指示物放中央。\n3. 时代牌库：只留人数标记 **≤** 实际人数的牌。\n4. 时代 III 行会：随机抽 **人数 + 2** 张紫牌。\n\n**3–7 人。** 本版无双人规则。"
       },
       "options": [
-        { "label": { "en": "An Age", "zh": "一个时代" }, "next": "age" },
-        { "label": { "en": "Wonders", "zh": "奇观" }, "next": "wonders" }
+        {
+          "label": {
+            "en": "An Age",
+            "zh": "一个时代"
+          },
+          "next": "age"
+        },
+        {
+          "label": {
+            "en": "Wonders",
+            "zh": "奇观"
+          },
+          "next": "wonders"
+        }
       ]
     },
     "age": {
-      "title": { "en": "An Age", "zh": "一个时代" },
+      "title": {
+        "en": "An Age",
+        "zh": "一个时代"
+      },
       "content": {
         "en": "Deal **7** cards. **6** simultaneous turns:\n\n1. Choose 1 card facedown.\n2. Everyone plays at once: **build / wonder stage / sell for 3 coins**.\n3. Pass leftovers **left** (Ages I & III) or **right** (Age II).\n\nLast turn: 2 cards → play 1, discard 1 **with no coins**. Then **military**.",
         "zh": "发 **7** 张。**6** 个同步回合：\n\n1. 暗选 1 张。\n2. 同时打出：**建造 / 奇观阶段 / 卖 3 金**。\n3. 剩余手牌时代 I、III **向左**，时代 II **向右**。\n\n最后一回合：2 张 → 打 1 张，另 1 张 **弃掉不拿钱**。然后 **军事**。"
       },
       "options": [
-        { "label": { "en": "Construction", "zh": "建造" }, "next": "construct" },
-        { "label": { "en": "Military", "zh": "军事" }, "next": "military" },
-        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
-      ]
+        {
+          "label": {
+            "en": "Construction",
+            "zh": "建造"
+          },
+          "next": "construct"
+        },
+        {
+          "label": {
+            "en": "Military",
+            "zh": "军事"
+          },
+          "next": "military"
+        },
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/7-wonders/draft.svg",
+        "alt": {
+          "en": "Keep 1 of 7, pass the rest",
+          "zh": "7 张留 1 张，其余传给邻居"
+        }
+      }
     },
     "construct": {
-      "title": { "en": "Construction", "zh": "建造" },
+      "title": {
+        "en": "Construction",
+        "zh": "建造"
+      },
       "content": {
         "en": "No two **same-name** buildings.\n\nResources are **reused** (once per symbol per turn).\n\n**Buy** brown / grey / starting resources from neighbors for **2 coins** each. Not yellow, not Wonder-stage production. Pay with coins you already had; no same-turn neighbor builds.\n\n**Chains:** matching icon → free (or still pay resources).",
         "zh": "不能有两张 **同名** 建筑。\n\n资源 **不消耗**（每符号每回合一次）。\n\n向邻居买棕色 / 灰色 / 起始资源，每个 **2 金**。不能买黄牌产出或奇观阶段产出。用回合开始已有金币；不能买对方本回合刚建的。\n\n**连锁：** 图标相同 → 免费（也可付资源）。"
       },
       "options": [
-        { "label": { "en": "An Age", "zh": "一个时代" }, "next": "age" },
-        { "label": { "en": "Effects", "zh": "效果" }, "next": "effects" }
+        {
+          "label": {
+            "en": "An Age",
+            "zh": "一个时代"
+          },
+          "next": "age"
+        },
+        {
+          "label": {
+            "en": "Effects",
+            "zh": "效果"
+          },
+          "next": "effects"
+        }
       ]
     },
     "military": {
-      "title": { "en": "Military", "zh": "军事" },
+      "title": {
+        "en": "Military",
+        "zh": "军事"
+      },
       "content": {
         "en": "End of each Age: compare **shields** with each neighbor.\n\n- Tie → nothing\n- Lower → **−1** defeat\n- Higher → Age I **+1**, Age II **+3**, Age III **+5**",
         "zh": "每个时代结束：用 **盾牌** 与左右邻居比较。\n\n- 平 → 无\n- 较少 → **−1** 失败\n- 较多 → 时代 I **+1**，II **+3**，III **+5**"
       },
       "options": [
-        { "label": { "en": "Science", "zh": "科学" }, "next": "science" },
-        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
-      ]
+        {
+          "label": {
+            "en": "Science",
+            "zh": "科学"
+          },
+          "next": "science"
+        },
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/7-wonders/military-science.svg",
+        "alt": {
+          "en": "Compare shields each Age; science scores n² plus 7 per complete set",
+          "zh": "每时代比较盾牌；科学按同符号平方再加每套三种 +7"
+        }
+      }
     },
     "science": {
-      "title": { "en": "Science", "zh": "科学" },
+      "title": {
+        "en": "Science",
+        "zh": "科学"
+      },
       "content": {
         "en": "Score **both**:\n\n- Copies of one symbol: **n²** (1, 4, 9, 16, 25…)\n- Each set of **3 different** symbols: **+7**\n\nWild science (Wonder / Scientists Guild) is chosen at **game end**.",
         "zh": "**两项都计**：\n\n- 同种符号：**n²**（1、4、9、16、25…）\n- 每套 **三种不同** 符号：**+7**\n\n万能科学（奇观 / 科学家行会）在 **终局** 才选定。"
       },
       "options": [
-        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
-        { "label": { "en": "Effects", "zh": "效果" }, "next": "effects" }
-      ]
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        },
+        {
+          "label": {
+            "en": "Effects",
+            "zh": "效果"
+          },
+          "next": "effects"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/7-wonders/science.svg",
+        "alt": {
+          "en": "Identical symbols score n²; each complete set of three types is +7",
+          "zh": "同符号按平方计分；每凑齐一套三种再 +7"
+        }
+      }
     },
     "scoring": {
-      "title": { "en": "Scoring", "zh": "计分" },
+      "title": {
+        "en": "Scoring",
+        "zh": "计分"
+      },
       "content": {
         "en": "After Age III military:\n\nWonder VP + **1 per 3 coins** + military tokens + blue + yellow effects + science + guilds.\n\nHighest wins. Tie → most coins. Still tied → share.",
         "zh": "时代 III 军事之后：\n\n奇观分 + **每 3 金 1 分** + 军事指示物 + 蓝 + 黄效果 + 科学 + 行会。\n\n最高分胜。平局比金币。仍平则并列。"
       },
       "options": [
-        { "label": { "en": "Wonders", "zh": "奇观" }, "next": "wonders" },
-        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+        {
+          "label": {
+            "en": "Wonders",
+            "zh": "奇观"
+          },
+          "next": "wonders"
+        },
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        }
       ]
     },
     "effects": {
-      "title": { "en": "Effects", "zh": "效果" },
+      "title": {
+        "en": "Effects",
+        "zh": "效果"
+      },
       "content": {
         "en": "**Trade 1:** pointed neighbor’s browns (or greys) cost 1.\n**Halicarnassus:** build 1 from discard for free the turn the stage is built.\n**Babylon Night:** play the 7th card each Age.\n**Olympia Day:** first card of each **color** free (whole game).\n**Olympia Night:** first / last card of each **Age** free.\n**Decorators Guild:** 7 VP if the Wonder is fully built.",
         "zh": "**买 1 金：** 箭头邻居的棕色（或灰色）只要 1 金。\n**哈利卡纳苏斯：** 建成该阶段的回合从弃牌免费建 1 张。\n**巴比伦夜面：** 每个时代打第 7 张。\n**奥林匹亚日面：** 每种 **颜色** 的第一张免费（整局）。\n**奥林匹亚夜面：** 每个 **时代** 的首张 / 末张免费。\n**装饰者行会：** 奇观全部建成则 7 分。"
       },
       "options": [
-        { "label": { "en": "Wonders", "zh": "奇观" }, "next": "wonders" },
-        { "label": { "en": "Construction", "zh": "建造" }, "next": "construct" }
+        {
+          "label": {
+            "en": "Wonders",
+            "zh": "奇观"
+          },
+          "next": "wonders"
+        },
+        {
+          "label": {
+            "en": "Construction",
+            "zh": "建造"
+          },
+          "next": "construct"
+        }
       ]
     },
     "wonders": {
-      "title": { "en": "Wonders", "zh": "奇观" },
+      "title": {
+        "en": "Wonders",
+        "zh": "奇观"
+      },
       "content": {
         "en": "Costs are on the board (rebalanced in 2020).\n\n| Board | Start |\n|-------|-------|\n| Alexandria | Glass |\n| Babylon | **Wood** |\n| Ephesus | Papyrus |\n| Giza | Stone |\n| Halicarnassus | Cloth |\n| Olympia | **Clay** |\n| Rhodes | Ore |\n\nDay = simpler VP/coins/resources. Night = extra stages or special rules.",
         "zh": "费用印在板上（2020 有再平衡）。\n\n| 奇观 | 起始 |\n|------|------|\n| 亚历山大 | 玻璃 |\n| 巴比伦 | **木头** |\n| 以弗所 | 纸莎草 |\n| 吉萨 | 石头 |\n| 哈利卡纳苏斯 | 布 |\n| 奥林匹亚 | **黏土** |\n| 罗德岛 | 矿石 |\n\n日面更直观（分/钱/资源）。夜面阶段更多或规则更特殊。"
       },
       "options": [
-        { "label": { "en": "Effects", "zh": "效果" }, "next": "effects" },
-        { "label": { "en": "An Age", "zh": "一个时代" }, "next": "age" }
+        {
+          "label": {
+            "en": "Effects",
+            "zh": "效果"
+          },
+          "next": "effects"
+        },
+        {
+          "label": {
+            "en": "An Age",
+            "zh": "一个时代"
+          },
+          "next": "age"
+        }
       ]
     }
   }

@@ -98,7 +98,14 @@
           },
           "next": "blinds"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/texas-hold-em/actions.svg",
+        "alt": {
+          "en": "Fold, call, or raise when facing a bet",
+          "zh": "面对下注时弃牌、跟注或加注"
+        }
+      }
     },
     "flop": {
       "title": {
@@ -298,7 +305,14 @@
           },
           "next": "river"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/texas-hold-em/streets.svg",
+        "alt": {
+          "en": "Two hole cards plus the flop; turn and river still down",
+          "zh": "两张底牌加三张翻牌，转牌河牌还没开"
+        }
+      }
     },
     "hand-rankings": {
       "title": {
@@ -331,7 +345,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/texas-hold-em/hand-ranks.svg",
+        "alt": {
+          "en": "From royal flush down to high card",
+          "zh": "从皇家同花顺到高牌"
+        }
+      }
     }
   }
 }

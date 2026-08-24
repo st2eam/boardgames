@@ -2,152 +2,404 @@
   "startNode": "setup",
   "nodes": {
     "setup": {
-      "title": { "en": "Setup", "zh": "游戏准备" },
+      "title": {
+        "en": "Setup",
+        "zh": "游戏准备"
+      },
       "content": {
         "en": "Board day/night. Remove cards and merchants whose player icon is **above** your count.\n\n**2p:** no blue/teal locations; no merchants in Warrington or Nottingham.\n**3p:** no teal locations; no Nottingham merchant.\n\nWilds face up. Shuffle the rest as the deck. Merchants on spaces for your count; 1 beer on each non-blank merchant.\n\nCoal market: fill all but **one** £1 space. Iron market: fill all but **both** £1 spaces.\n\nEach player: **£17**, mat, links, unflipped industries, VP **0**, income **10**, hand **8**, plus **1 facedown** discard. Shuffle characters onto turn order.",
         "zh": "地图昼/夜面。人数图标 **高于** 实际人数的卡与商人放回盒中。\n\n**2 人：** 无蓝/青地点；沃灵顿与诺丁汉不放商人。\n**3 人：** 无青地点；诺丁汉不放商人。\n\n万能牌面朝上。其余洗成牌库。商人放到对应人数栏；非空白商人旁各 1 啤酒。\n\n煤炭市场：留 **1 个** £1 格空。钢铁市场：留 **两个** £1 格空。\n\n每人：**£17**、垫、连接、未翻面产业、胜利分 **0**、收入 **10**、手牌 **8**，再抽 **1 张面朝下** 作弃牌。人物洗匀放到顺序轨道。"
       },
       "options": [
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
-        { "label": { "en": "Network & Connection", "zh": "网络与连通" }, "next": "network-concept" },
-        { "label": { "en": "Cards", "zh": "卡牌种类" }, "next": "cards" }
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Network & Connection",
+            "zh": "网络与连通"
+          },
+          "next": "network-concept"
+        },
+        {
+          "label": {
+            "en": "Cards",
+            "zh": "卡牌种类"
+          },
+          "next": "cards"
+        }
       ]
     },
     "turn": {
-      "title": { "en": "Your Turn", "zh": "你的回合" },
+      "title": {
+        "en": "Your Turn",
+        "zh": "你的回合"
+      },
       "content": {
         "en": "**2 actions** (same action twice OK). **Canal round 1: 1 action.**\n\nEach action or pass discards **1 card**. Wilds return to their piles.\n\nOnly **Build** needs a matching card. Then draw back to **8**. Spent money sits **on your character**.\n\n**End of round:** least spent goes first (ties keep relative order), cash to bank, then **income** (skip after the last round of the game).\n\nNegative income: pay the bank. If short, sell your own industries (not links) at **half printed cost, rounded down**, and stop as soon as you can pay. Still short: **−1 VP per £1**.\n\n**8 / 9 / 10** rounds per era at **4 / 3 / 2** players.",
         "zh": "**2 次行动**（可重复）。**运河第 1 轮只有 1 次。**\n\n每次行动或跳过都弃 **1 张**。万能牌回抽牌区。\n\n只有 **建造** 需要匹配的牌。然后补手至 **8**。花钱放在 **人物上**。\n\n**回合结束：** 花钱最少者下轮先手（相同则保持顺序），钱回银行，再收 **收入**（全盘最后一轮不收）。负收入：付钱，或按 **造价一半向下取整** 卖掉自己的产业。仍不够：**每缺 £1 扣 1 分**。\n\n每个时代 **4 / 3 / 2** 人为 **8 / 9 / 10** 轮。"
       },
       "options": [
-        { "label": { "en": "Build", "zh": "建造" }, "next": "build" },
-        { "label": { "en": "Network", "zh": "连接" }, "next": "network" },
-        { "label": { "en": "Develop / Loan / Scout", "zh": "研发 / 贷款 / 勘察" }, "next": "develop-loan-scout" }
-      ]
+        {
+          "label": {
+            "en": "Build",
+            "zh": "建造"
+          },
+          "next": "build"
+        },
+        {
+          "label": {
+            "en": "Network",
+            "zh": "连接"
+          },
+          "next": "network"
+        },
+        {
+          "label": {
+            "en": "Develop / Loan / Scout",
+            "zh": "研发 / 贷款 / 勘察"
+          },
+          "next": "develop-loan-scout"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/brass-birmingham/turn-flow.svg",
+        "alt": {
+          "en": "Two actions, each discards a card; cash sits on your pawn",
+          "zh": "两次行动各弃 1 张，花钱堆在人物上"
+        }
+      }
     },
     "build": {
-      "title": { "en": "Build", "zh": "建造" },
+      "title": {
+        "en": "Build",
+        "zh": "建造"
+      },
       "content": {
         "en": "**Location / wild location:** any industry in that city (wilds **cannot** hit farm breweries), even off-network.\n**Industry / wild industry:** that type, **in your network**.\n\nLowest tile from your mat. Pay the slot cost; consume coal/iron.\n\n**Canal:** max **1 of yours** per city. **Rail:** several of yours OK. Canal-icon tiles cannot be built in Rail, except **level 1 pottery**.\n\nNew mine/works get printed cubes. Brewery: **1** beer (Canal) or **2** (Rail).\n\n**Market sale only when built:** connected coal mine, or any iron works → dump cubes to market (high price first). Last cube flips the tile.\n\n**Empty board:** industry card → that industry anywhere legal; any card → a link anywhere (still pay coal for rails).",
         "zh": "**地点 / 万能地点：** 该城任意产业（万能地点 **不能** 建农场酒厂），即使不在网络内。\n**产业 / 万能产业：** 该种类，且在 **你的网络** 内。\n\n从垫上取最低级。付槽位费用，耗煤/铁。\n\n**运河：** 每城最多 **1 块你的**。**铁路：** 可多块。带运河图标的不能在铁路时代建造，**1 级陶器除外**。\n\n新矿/铁厂放印出的方块。酒厂：运河 **1** 桶，铁路 **2** 桶。\n\n**仅建造当下可卖市场：** 已连商人栏的煤矿，或任意铁厂 → 方块填市场（先高价）。最后一颗使板块翻面。\n\n**空板：** 产业卡可在任意合法格建该产业；任意卡可在任意合法线铺连接（铁路仍耗煤）。"
       },
       "options": [
-        { "label": { "en": "Overbuild", "zh": "覆盖建造" }, "next": "overbuild" },
-        { "label": { "en": "Resources", "zh": "资源" }, "next": "resources" },
-        { "label": { "en": "Farm Breweries", "zh": "农场酒厂" }, "next": "farms" }
+        {
+          "label": {
+            "en": "Overbuild",
+            "zh": "覆盖建造"
+          },
+          "next": "overbuild"
+        },
+        {
+          "label": {
+            "en": "Resources",
+            "zh": "资源"
+          },
+          "next": "resources"
+        },
+        {
+          "label": {
+            "en": "Farm Breweries",
+            "zh": "农场酒厂"
+          },
+          "next": "farms"
+        }
       ]
     },
     "network-concept": {
-      "title": { "en": "Your Network", "zh": "你的网络" },
+      "title": {
+        "en": "Your Network",
+        "zh": "你的网络"
+      },
       "content": {
         "en": "A location is in **your network** if it has **your** industry **or** sits beside **your** link.\n\nTwo places are **connected** if a path of **anyone’s** links joins them. Connection matters for coal, selling to merchants, and drinking **opponent** beer.\n\nYour **own** brewery beer needs **no** connection.",
         "zh": "某地点属于 **你的网络**：上面有 **你的** 产业，或与 **你的** 连接相邻。\n\n两地 **连通**：能沿 **任何人的** 连接走出一条路。耗煤、向商人出售、喝 **对手** 啤酒都需要连通。\n\n**自己的** 酒厂啤酒 **不需要** 连接。"
       },
       "options": [
-        { "label": { "en": "Network Action", "zh": "连接行动" }, "next": "network" },
-        { "label": { "en": "Build", "zh": "建造" }, "next": "build" }
-      ]
+        {
+          "label": {
+            "en": "Network Action",
+            "zh": "连接行动"
+          },
+          "next": "network"
+        },
+        {
+          "label": {
+            "en": "Build",
+            "zh": "建造"
+          },
+          "next": "build"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/brass-birmingham/network.svg",
+        "alt": {
+          "en": "Your network is your tiles and cities next to your links. Connected means a path of anyone’s links.",
+          "zh": "你的网络是你的产业以及与你的连接相邻的城市。连通指沿任何人的连接走出一条路。"
+        }
+      }
     },
     "network": {
-      "title": { "en": "Network", "zh": "连接" },
+      "title": {
+        "en": "Network",
+        "zh": "连接"
+      },
       "content": {
         "en": "Discard any card. New link must touch **your network** (unless you have nothing on the board).\n\n**Canal:** canals only, **1** link for **£3**.\n**Rail:** rails only. **1** for **£5 + 1 coal**, or **2** for **£15 + 1 brewery beer** (not merchant) **+ 1 coal each**. Place each rail separately; each must reach coal **after** it is placed. Opponent beer for a double rail must connect to the **second** rail.",
         "zh": "弃任意牌。新连接须贴着 **你的网络**（除非板上没有你的板块）。\n\n**运河：** 只能铺运河，**1** 条 **£3**。\n**铁路：** 只能铺铁路。**1** 条 **£5 + 1 煤**，或 **2** 条 **£15 + 1 桶酒厂啤酒**（不能用商人啤酒）**+ 每条 1 煤**。每条分开放置，放置后须连到煤。双铺若用对手啤酒，须连通 **第二条**。"
       },
       "options": [
-        { "label": { "en": "Resources", "zh": "资源" }, "next": "resources" },
-        { "label": { "en": "Your Network", "zh": "你的网络" }, "next": "network-concept" },
-        { "label": { "en": "Sell", "zh": "出售" }, "next": "sell" }
+        {
+          "label": {
+            "en": "Resources",
+            "zh": "资源"
+          },
+          "next": "resources"
+        },
+        {
+          "label": {
+            "en": "Your Network",
+            "zh": "你的网络"
+          },
+          "next": "network-concept"
+        },
+        {
+          "label": {
+            "en": "Sell",
+            "zh": "出售"
+          },
+          "next": "sell"
+        }
       ]
     },
     "develop-loan-scout": {
-      "title": { "en": "Develop, Loan, Scout", "zh": "研发、贷款、勘察" },
+      "title": {
+        "en": "Develop, Loan, Scout",
+        "zh": "研发、贷款、勘察"
+      },
       "content": {
         "en": "**Develop:** discard any card. Remove **1 or 2** lowest tiles from your mat (any industries) and pay **1 iron each**. Lightbulb pottery **cannot** be developed.\n\n**Loan:** discard any card. **£30**, income **3 levels** back (sit on the highest space of the new level). Never repaid. Illegal below income **−10**.\n\n**Scout:** discard **3 cards** (action + 2 more). Take 1 wild location + 1 wild industry. **Illegal if you already hold a wild.**",
         "zh": "**研发：** 弃任意牌。从垫上移除 **1 或 2** 块当前最低级产业（可不同种），每块 **1 铁**。灯泡陶器 **不能研发**。\n\n**贷款：** 弃任意牌。拿 **£30**，收入 **后退 3 级**（停在新级别最高格）。永不偿还。不能降到 **−10** 以下。\n\n**勘察：** 弃 **3 张**（行动牌 + 再 2 张）。拿 1 张万能地点 + 1 张万能产业。**手上已有万能牌则不能勘察。**"
       },
       "options": [
-        { "label": { "en": "Resources", "zh": "资源" }, "next": "resources" },
-        { "label": { "en": "Sell", "zh": "出售" }, "next": "sell" },
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+        {
+          "label": {
+            "en": "Resources",
+            "zh": "资源"
+          },
+          "next": "resources"
+        },
+        {
+          "label": {
+            "en": "Sell",
+            "zh": "出售"
+          },
+          "next": "sell"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
       ]
     },
     "sell": {
-      "title": { "en": "Sell", "zh": "出售" },
+      "title": {
+        "en": "Sell",
+        "zh": "出售"
+      },
       "content": {
         "en": "Discard any card. Sell each unflipped mill / manufacturer / pottery that is **connected** to a merchant with that icon: pay beer, **flip**, gain printed **income spaces**, then you may sell another.\n\nYou may drink **1 merchant beer** at the merchant you sell to.\n\n**Bonuses:** Gloucester = free develop (no iron; not lightbulb pottery) · Oxford = **+2 income spaces** · Nottingham / Shrewsbury = printed VP · Warrington = **£5**.\n\nCannot Sell if you cannot pay the beer.",
         "zh": "弃任意牌。每块已 **连通** 到带对应图标商人的未翻面棉纺厂 / 制造厂 / 陶器：付啤酒、**翻面**、前进印出的 **收入格**，然后可继续卖。\n\n可喝你正在出售的那位商人旁的 **1 桶商人啤酒**。\n\n**奖励：** 格洛斯特 = 免费研发（不耗铁；不能研发灯泡陶器）· 牛津 = **收入 +2 格** · 诺丁汉 / 什鲁斯伯里 = 印出的胜利分 · 沃灵顿 = **£5**。\n\n付不起啤酒则不能出售。"
       },
       "options": [
-        { "label": { "en": "Resources", "zh": "资源" }, "next": "resources" },
-        { "label": { "en": "Era Scoring", "zh": "时代计分" }, "next": "scoring" }
+        {
+          "label": {
+            "en": "Resources",
+            "zh": "资源"
+          },
+          "next": "resources"
+        },
+        {
+          "label": {
+            "en": "Era Scoring",
+            "zh": "时代计分"
+          },
+          "next": "scoring"
+        }
       ]
     },
     "resources": {
-      "title": { "en": "Coal, Iron, Beer", "zh": "煤、铁、啤酒" },
+      "title": {
+        "en": "Coal, Iron, Beer",
+        "zh": "煤、铁、啤酒"
+      },
       "content": {
         "en": "**Coal** (after placing): closest connected unflipped mine (any owner, free), else coal market via a merchant coal icon (**£8** if empty).\n\n**Iron** (no connection): any unflipped iron works (free), else iron market (**£6** if empty).\n\n**Beer:** your unflipped brewery (no connection) · opponent brewery (must connect) · merchant beer on Sell only. Double rail needs **brewery** beer, not merchant beer.\n\nMills/manuf/pottery flip on **Sell**. Mines/works/breweries flip when the **last** resource leaves. Flip = income **spaces**, cap level **30**.",
         "zh": "**煤**（放置后）：最近的已连通未翻面煤矿（无论谁的，免费），否则经商人煤图标买煤炭市场（空市 **£8**）。\n\n**铁**（不需连接）：任意未翻面铁厂（免费），否则钢铁市场（空市 **£6**）。\n\n**啤酒：** 自己的未翻面酒厂（不需连接）· 对手酒厂（必须连通）· 商人啤酒仅出售时。双铺铁路必须用 **酒厂** 啤酒，不能用商人啤酒。\n\n棉纺/制造/陶器在 **出售** 时翻面。矿/铁厂/酒厂在 **最后一颗** 资源被取走时翻面。翻面 = 收入前进 **格数**，上限 **30 级**。"
       },
       "options": [
-        { "label": { "en": "Build", "zh": "建造" }, "next": "build" },
-        { "label": { "en": "Sell", "zh": "出售" }, "next": "sell" },
-        { "label": { "en": "Network", "zh": "连接" }, "next": "network" }
-      ]
+        {
+          "label": {
+            "en": "Build",
+            "zh": "建造"
+          },
+          "next": "build"
+        },
+        {
+          "label": {
+            "en": "Sell",
+            "zh": "出售"
+          },
+          "next": "sell"
+        },
+        {
+          "label": {
+            "en": "Network",
+            "zh": "连接"
+          },
+          "next": "network"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/brass-birmingham/resources.svg",
+        "alt": {
+          "en": "Coal needs a connection; iron does not; beer depends on whose brewery",
+          "zh": "煤需要连接；铁不需要；啤酒看是谁的酒厂"
+        }
+      }
     },
     "overbuild": {
-      "title": { "en": "Overbuild", "zh": "覆盖建造" },
+      "title": {
+        "en": "Overbuild",
+        "zh": "覆盖建造"
+      },
       "content": {
         "en": "Replace a tile with a **higher level of the same industry** (still pay the new cost).\n\n**Yours:** any industry. Leftover cubes/barrels go to supply.\n**Opponent:** **only** coal or iron, and **only** if **no** cubes of that type remain on tiles **or** in that market.\n\nOverbuilt tiles leave the game (no era VP). Income and VP already earned stay.",
         "zh": "用 **同产业更高级** 板块替换（仍付新费用）。\n\n**自己的：** 任意产业。剩余方块/酒桶回供应。\n**对手的：** **仅** 煤矿或铁厂，且全图（含市场）已 **没有** 该资源方块。\n\n被覆盖的板块移出游戏（不再计时代分）。已经拿到的收入和胜利分保留。"
       },
       "options": [
-        { "label": { "en": "Build", "zh": "建造" }, "next": "build" },
-        { "label": { "en": "Era Scoring", "zh": "时代计分" }, "next": "scoring" }
+        {
+          "label": {
+            "en": "Build",
+            "zh": "建造"
+          },
+          "next": "build"
+        },
+        {
+          "label": {
+            "en": "Era Scoring",
+            "zh": "时代计分"
+          },
+          "next": "scoring"
+        }
       ]
     },
     "farms": {
-      "title": { "en": "Farm Breweries", "zh": "农场酒厂" },
+      "title": {
+        "en": "Farm Breweries",
+        "zh": "农场酒厂"
+      },
       "content": {
         "en": "Two unnamed brewery-only spots. Build with a **brewery** or **wild industry** card only (not a wild location).\n\nCannock’s farm needs a link on the line to Cannock.\nA link between **Kidderminster and Worcester** also connects their farm — do not place a second link there.",
         "zh": "两处未命名、仅酒厂格。只能用 **酒厂卡** 或 **万能产业**（不能用万能地点）。\n\n坎诺克的农场需在通往坎诺克的线上铺连接。\n**基德明斯特–伍斯特** 之间的一条连接同时连上其农场——不能再铺第二条。"
       },
       "options": [
-        { "label": { "en": "Build", "zh": "建造" }, "next": "build" },
-        { "label": { "en": "Network", "zh": "连接" }, "next": "network" }
+        {
+          "label": {
+            "en": "Build",
+            "zh": "建造"
+          },
+          "next": "build"
+        },
+        {
+          "label": {
+            "en": "Network",
+            "zh": "连接"
+          },
+          "next": "network"
+        }
       ]
     },
     "scoring": {
-      "title": { "en": "Era Scoring", "zh": "时代计分" },
+      "title": {
+        "en": "Era Scoring",
+        "zh": "时代计分"
+      },
       "content": {
         "en": "When hands empty:\n\n1. Each of **your links:** 1 VP per **industry icon** in the two adjacent cities; **remove** the link. A 2-icon city plus a 3-icon city = **5 VP** for that canal/rail.\n2. **Flipped** industries: VP in the bottom-left. Unflipped = 0. Loop the track past 100.\n\n**Canal extra:** remove all **level 1** tiles from the **board** (level 2+ stay and can score again); reset merchant beer; flip facedown discard bottoms; shuffle all discards; draw 8.\n\nAfter **Rail** scoring: most VP wins. Ties: highest income, then most money.",
         "zh": "手牌用尽后：\n\n1. **你的每条连接：** 相邻两城每个 **产业图标** 1 分；计分后 **拿走**。2 图标城 + 3 图标城 = 这条 **5 分**。\n2. **已翻面** 产业：左下角胜利分。未翻面 = 0。超过 100 绕圈。\n\n**运河额外：** 从 **地图** 移除所有 **1 级** 产业（2 级及以上留下，铁路时代还能再计）；重置商人啤酒；翻开弃牌堆底；所有弃牌洗成新库；抽 8。\n\n**铁路** 计分后：分数最高获胜。平手先比收入，再比剩余金钱。"
       },
       "options": [
-        { "label": { "en": "Introductory Game", "zh": "入门变体" }, "next": "intro" },
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+        {
+          "label": {
+            "en": "Introductory Game",
+            "zh": "入门变体"
+          },
+          "next": "intro"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
       ]
     },
     "cards": {
-      "title": { "en": "Cards", "zh": "卡牌种类" },
+      "title": {
+        "en": "Cards",
+        "zh": "卡牌种类"
+      },
       "content": {
         "en": "**Location:** any industry at that named city, even off-network.\n**Wild location:** any city **except** the two farm breweries.\n**Industry:** that type, **in your network** only.\n**Wild industry:** any industry (farms allowed).\n\nWilds return to their piles, not your discard. Only Build needs a matching card.",
         "zh": "**地点：** 该具名城市任意产业，即使不在网络内。\n**万能地点：** 任意城市，**不含** 两处农场酒厂。\n**产业：** 该种类，且必须在 **你的网络** 内。\n**万能产业：** 任意产业（可以建农场）。\n\n万能牌回抽牌区，不进弃牌。只有建造需要匹配的牌。"
       },
       "options": [
-        { "label": { "en": "Build", "zh": "建造" }, "next": "build" },
-        { "label": { "en": "Scout", "zh": "勘察" }, "next": "develop-loan-scout" }
+        {
+          "label": {
+            "en": "Build",
+            "zh": "建造"
+          },
+          "next": "build"
+        },
+        {
+          "label": {
+            "en": "Scout",
+            "zh": "勘察"
+          },
+          "next": "develop-loan-scout"
+        }
       ]
     },
     "intro": {
-      "title": { "en": "Introductory Game", "zh": "入门变体" },
+      "title": {
+        "en": "Introductory Game",
+        "zh": "入门变体"
+      },
       "content": {
         "en": "Play **Canal Era only**, including normal Canal scoring, then add:\n\n1. **1 VP per £4** (max **15**).\n2. VP equal to your **income level** (negative income loses VP).\n3. Score **level 2+** industries **again**.",
         "zh": "只打 **运河时代**（含正常运河计分），然后额外：\n\n1. 每 **£4** 得 **1 分**（最多 **15**）。\n2. 得分为当前 **收入等级**（负收入扣分）。\n3. **2 级及以上** 产业再计一次印出的胜利分。"
       },
       "options": [
-        { "label": { "en": "Era Scoring", "zh": "时代计分" }, "next": "scoring" },
-        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" }
+        {
+          "label": {
+            "en": "Era Scoring",
+            "zh": "时代计分"
+          },
+          "next": "scoring"
+        },
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        }
       ]
     }
   }

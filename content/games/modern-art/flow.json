@@ -208,7 +208,14 @@
           },
           "next": "round-end"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/modern-art/auction-types.svg",
+        "alt": {
+          "en": "The icon picks open, once-around, sealed, or fixed",
+          "zh": "看画上图标决定公开、轮流、暗标还是定价"
+        }
+      }
     },
     "sealed-auction": {
       "title": {
@@ -436,7 +443,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/modern-art/round-scoring.svg",
+        "alt": {
+          "en": "Fifth painting of an artist ends the round; sold works pay 30 / 20 / 10",
+          "zh": "同一画家第 5 张结束回合；卖出的画按 30 / 20 / 10 兑现"
+        }
+      }
     }
   }
 }

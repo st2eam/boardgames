@@ -72,7 +72,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/uno/turn-flow.svg",
+        "alt": {
+          "en": "Discard is a red 7; a blue 7 matches by number",
+          "zh": "弃牌是红 7，手牌蓝 7 因数字相同可以出"
+        }
+      }
     },
     "action-cards": {
       "title": {
@@ -105,7 +112,14 @@
           },
           "next": "scoring"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/uno/action-cards.svg",
+        "alt": {
+          "en": "Skip, reverse, and draw two",
+          "zh": "跳过、反转、+2 三种功能牌"
+        }
+      }
     },
     "wild-cards": {
       "title": {
@@ -204,7 +218,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/uno/scoring.svg",
+        "alt": {
+          "en": "Empty your hand; leftover cards score; first to 500",
+          "zh": "先打空手牌；对手剩牌记分，先到 500"
+        }
+      }
     },
     "winning": {
       "title": {

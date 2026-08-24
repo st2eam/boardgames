@@ -72,7 +72,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/the-message-attack-by-stratagem/turn-flow.svg",
+        "alt": {
+          "en": "The intel travels and may be intercepted",
+          "zh": "情报沿通道传，途中可能被截获"
+        }
+      }
     },
     "card-actions": {
       "title": {
@@ -171,7 +178,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/the-message-attack-by-stratagem/factions.svg",
+        "alt": {
+          "en": "Red and blue pass intel; some identities stay hidden",
+          "zh": "红蓝传情报；部分身份保持隐藏"
+        }
+      }
     }
   }
 }

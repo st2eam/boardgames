@@ -1,0 +1,90 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Prepare the river stack",
+        "zh": "准备河流牌堆"
+      },
+      "content": {
+        "en": "Remove the normal start tile. Put the source in the middle, shuffle the ten middle river tiles, and place the lake at the bottom of that stack.",
+        "zh": "收起普通起始板块，将源头放在中央；洗混十块中段河流板块，并把湖泊放在牌堆最底部。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Place river tiles",
+            "zh": "铺设河流板块"
+          },
+          "next": "river"
+        },
+        {
+          "label": {
+            "en": "What changes?",
+            "zh": "有哪些变化？"
+          },
+          "next": "differences"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/carcassonne-the-river/river-setup.svg",
+        "alt": {
+          "en": "Remove the start tile; place the source, shuffle the river, lake on the bottom",
+          "zh": "收起起始板块；先放源头，洗河牌，湖泊放在牌堆底"
+        }
+      }
+    },
+    "river": {
+      "title": {
+        "en": "Finish the river before land tiles",
+        "zh": "先铺完河流再抽地形"
+      },
+      "content": {
+        "en": "Players draw only river tiles until the lake is placed. Continue the river, match all other terrain normally, never make a U-turn with two consecutive bend tiles, and do not place meeples on the river itself.",
+        "zh": "湖泊放下前，玩家只抽河流板块。河流必须接续，其他地形照常匹配；连续两张弯河不能同向形成掉头，且不能把米宝放到河流本身。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "After the lake",
+            "zh": "放下湖泊后"
+          },
+          "next": "differences"
+        },
+        {
+          "label": {
+            "en": "Back to setup",
+            "zh": "回到准备"
+          },
+          "next": "setup"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/carcassonne-the-river/differences.svg",
+        "alt": {
+          "en": "Place all 12 river tiles first; no U-turns; the river also splits fields",
+          "zh": "先放完 12 张河牌；禁止掉头；河流也会分割田野"
+        }
+      }
+    },
+    "differences": {
+      "title": {
+        "en": "Return to normal Carcassonne",
+        "zh": "回归基础卡卡颂"
+      },
+      "content": {
+        "en": "After all twelve river tiles are placed, draw normal land tiles and continue normally. The river divides fields, but it adds no new scoring rules.",
+        "zh": "十二块河流板块全部铺完后，改抽普通地形板块并按基础规则继续。河流会分割农田，但不增加额外计分规则。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Set up another river",
+            "zh": "重新准备河流"
+          },
+          "next": "setup"
+        }
+      ]
+    }
+  }
+}

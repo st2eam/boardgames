@@ -79,7 +79,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/gotown/turn.svg",
+        "alt": {
+          "en": "Build a housing card on a housing plot",
+          "zh": "住宅牌盖在住宅地块上"
+        }
+      }
     },
     "build-floor": {
       "title": {
@@ -152,7 +159,14 @@
           },
           "next": "turn"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/gotown/key-rules.svg",
+        "alt": {
+          "en": "Pay costs, follow icons, race the goal",
+          "zh": "付费用、跟图标、抢目标"
+        }
+      }
     },
     "special-cards": {
       "title": {
@@ -225,7 +239,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/gotown/scoring.svg",
+        "alt": {
+          "en": "Two cards summing to 9 make a floor; first to five floors wins",
+          "zh": "两张合计 9 的牌建成一层；先建成 5 层者立即获胜"
+        }
+      }
     }
   }
 }

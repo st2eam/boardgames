@@ -4,6 +4,7 @@ import { remarkMahjongTiles } from "@/lib/remark-mahjong-tiles";
 import { parseShortcode } from "@/lib/mahjong/shortcode";
 import { InlineTile } from "@/features/trainer/InlineTile";
 import { extractToc } from "@/lib/markdown-toc";
+import { RuleIllustration } from "./RuleIllustration";
 
 interface Props {
   content: string;
@@ -127,26 +128,7 @@ export function MarkdownRenderer({ content }: Props) {
         hr: () => <hr className="my-6 border-border" />,
         img: ({ src, alt }) => {
           if (!src || typeof src !== "string") return null;
-          const href =
-            src.startsWith("http") || src.startsWith("/boardgames")
-              ? src
-              : src.startsWith("/")
-                ? `/boardgames${src}`
-                : src;
-          return (
-            <figure className="my-6">
-              <img
-                src={href}
-                alt={alt ?? ""}
-                className="mx-auto w-full max-w-2xl rounded-2xl border border-border bg-white shadow-card"
-              />
-              {alt ? (
-                <figcaption className="mt-2 text-center text-sm text-stone-500">
-                  {alt}
-                </figcaption>
-              ) : null}
-            </figure>
-          );
+          return <RuleIllustration src={src} alt={alt ?? ""} />;
         },
       }}
     >

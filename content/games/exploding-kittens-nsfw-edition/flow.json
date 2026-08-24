@@ -1,0 +1,116 @@
+{
+  "startNode": "edition",
+  "nodes": {
+    "edition": {
+      "title": {
+        "en": "Know the Black Box",
+        "zh": "了解黑盒版"
+      },
+      "content": {
+        "en": "Black Box is a standalone adult-art edition for two to five players. Its rules and card counts match the original Red Box; the two decks can combine for up to nine players.",
+        "zh": "黑盒版是支持二至五人的成人插画独立版，规则和牌数与红盒原版相同；两副牌混用最多可支持九人。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Set up the deck",
+            "zh": "准备牌堆"
+          },
+          "next": "setup"
+        },
+        {
+          "label": {
+            "en": "Turn and explosion",
+            "zh": "回合与爆炸"
+          },
+          "next": "turn"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/exploding-kittens-nsfw-edition/red-vs-black.svg",
+        "alt": {
+          "en": "Same rules; Black Box is adult art; mix up to 9 players",
+          "zh": "规则相同；黑盒为成人插画；可混组最多 9 人"
+        }
+      }
+    },
+    "setup": {
+      "title": {
+        "en": "Deal Defuses first",
+        "zh": "先发拆弹牌"
+      },
+      "content": {
+        "en": "Remove Exploding Kittens and Defuses. Deal one Defuse plus seven random cards to each player, then shuffle the remaining Defuses and one fewer Exploding Kitten than players into the draw pile.",
+        "zh": "先取出爆炸猫和拆弹牌；每人发一张拆弹牌加七张随机牌，再将剩余拆弹牌和比玩家人数少一张的爆炸猫洗回牌堆。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Take a turn",
+            "zh": "进行回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Edition differences",
+            "zh": "版本差异"
+          },
+          "next": "edition"
+        }
+      ]
+    },
+    "turn": {
+      "title": {
+        "en": "Play freely, then draw",
+        "zh": "自由出牌后抽一张"
+      },
+      "content": {
+        "en": "On your turn, play any number of cards or none, then draw one to end your turn. Drawing an Exploding Kitten requires a Defuse; after defusing, secretly return it anywhere in the deck.",
+        "zh": "你的回合可以打任意数量的牌，也可以不打；随后抽一张结束回合。抽到爆炸猫必须用拆弹牌，并秘密把它放回牌堆任意位置。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Win the game",
+            "zh": "获胜条件"
+          },
+          "next": "win"
+        },
+        {
+          "label": {
+            "en": "Back to setup",
+            "zh": "回到准备"
+          },
+          "next": "setup"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/exploding-kittens-nsfw-edition/draw-or-explode.svg",
+        "alt": {
+          "en": "Drawing a kitten still needs a defuse",
+          "zh": "抽到爆炸猫必须拆弹"
+        }
+      }
+    },
+    "win": {
+      "title": {
+        "en": "Be the last player standing",
+        "zh": "成为最后存活者"
+      },
+      "content": {
+        "en": "A player without a Defuse when drawing an Exploding Kitten is eliminated. The final remaining player wins.",
+        "zh": "抽到爆炸猫而没有拆弹牌的玩家淘汰；最后仍留在游戏中的玩家获胜。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Start another game",
+            "zh": "再开一局"
+          },
+          "next": "setup"
+        }
+      ]
+    }
+  }
+}

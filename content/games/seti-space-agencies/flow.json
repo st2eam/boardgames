@@ -2,69 +2,173 @@
   "startNode": "overview",
   "nodes": {
     "overview": {
-      "title": { "en": "What This Adds", "zh": "扩展加入什么" },
+      "title": {
+        "en": "What This Adds",
+        "zh": "扩展加入什么"
+      },
       "content": {
         "en": "Needs the **SETI** base game.\n\n**Always mix in:** 42 cards, 3 new aliens (still pick 2 of 8), signal tokens.\n\n**Organizations + Quick Start:** 11 asymmetric agencies. Game is **4 rounds** (play 2–5 only). Publicity starts at **0**.\n\nDo not play 5 rounds with organizations. Do not play 4 rounds of Quick Start without an org (use the base income card if you insist).",
         "zh": "需要《星空觅迹》**本体**。\n\n**无论是否用机构都加入：** 42 张牌、3 个新种族（仍从 8 个里抽 2 个）、信号指示物。\n\n**机构 + 快速开始：** 11 个非对称机构。游戏 **4 轮**（只打 2–5）。声望从 **0** 开始。\n\n不要带着机构打 5 轮。不要只用快速开始、不带机构打 4 轮（若坚持，用本体收入卡代替机构）。"
       },
       "options": [
-        { "label": { "en": "Organization Setup", "zh": "机构准备" }, "next": "org-setup" },
-        { "label": { "en": "Signal Tokens", "zh": "信号指示物" }, "next": "signals" }
+        {
+          "label": {
+            "en": "Organization Setup",
+            "zh": "机构准备"
+          },
+          "next": "org-setup"
+        },
+        {
+          "label": {
+            "en": "Signal Tokens",
+            "zh": "信号指示物"
+          },
+          "next": "signals"
+        }
       ]
     },
     "org-setup": {
-      "title": { "en": "Organization Setup", "zh": "机构准备" },
+      "title": {
+        "en": "Organization Setup",
+        "zh": "机构准备"
+      },
       "content": {
         "en": "End-of-round stacks for rounds **2, 3, 4** only. Start scores **1–4** as usual. Publicity **0**.\n\nDeal **2 orgs + 3 Quick Start + 4 cards**. Keep **1 org + 2 Quick Start + all 4 cards**. Resolve both Quick Starts and the org’s starting effects together.\n\n**First game:** orgs **1–4**, give each player 1 of those, 2 Quick Starts (not 3), 4 cards.\n\nIncome at the **start of rounds 3, 4, 5** — not at game start.",
         "zh": "只为第 **2、3、4** 轮准备回合结束牌。开局分数仍 **1–4**。声望 **0**。\n\n发 **2 机构 + 3 张快速开始 + 4 张牌**。留 **1 机构 + 2 张快速开始 + 全部 4 张**。同时结算两张快速开始与机构开局效果。\n\n**首局：** 机构 **1–4**，每人其中 1 块、2 张快速开始（不是 3）、4 张牌。\n\n收入在第 **3、4、5** 轮开始时收——开局不收。"
       },
       "options": [
-        { "label": { "en": "Quick Start Cards", "zh": "快速开始卡" }, "next": "quick-start" },
-        { "label": { "en": "Org Board", "zh": "机构板" }, "next": "org-board" }
+        {
+          "label": {
+            "en": "Quick Start Cards",
+            "zh": "快速开始卡"
+          },
+          "next": "quick-start"
+        },
+        {
+          "label": {
+            "en": "Org Board",
+            "zh": "机构板"
+          },
+          "next": "org-board"
+        }
       ]
     },
     "quick-start": {
-      "title": { "en": "Quick Start Cards", "zh": "快速开始卡" },
+      "title": {
+        "en": "Quick Start Cards",
+        "zh": "快速开始卡"
+      },
       "content": {
         "en": "**Top:** place the printed orbiter / traces / signals. **No** normal bonuses.\n**Bottom:** resources, VP, other effects.\n\nReturn to the box unless tucked for income.\n\n**1–2p:** before drafting, reveal **4** Quick Starts as **neutrals** (top half only). Neutral sector markers count as another player; they never win (max 2). Second place leaves one neutral in the sector.",
         "zh": "**上半：** 放置印出的入轨 / 痕迹 / 信号。**没有** 通常奖励。\n**下半：** 资源、分数、其他效果。\n\n除非塞作收入，否则放回盒中。\n\n**1–2 人：** 挑选前亮 **4** 张快速开始作 **中立**（只用上半）。中立扇区标记当作另一玩家；不可能获胜（最多 2 枚）。第二名在扇区留 1 枚中立。"
       },
       "options": [
-        { "label": { "en": "Org Board", "zh": "机构板" }, "next": "org-board" },
-        { "label": { "en": "1–2p / Solo", "zh": "1–2 人 / 单人" }, "next": "low-count" }
-      ]
+        {
+          "label": {
+            "en": "Org Board",
+            "zh": "机构板"
+          },
+          "next": "org-board"
+        },
+        {
+          "label": {
+            "en": "1–2p / Solo",
+            "zh": "1–2 人 / 单人"
+          },
+          "next": "low-count"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/seti-space-agencies/organizations.svg",
+        "alt": {
+          "en": "Keep one organization, use Quick Start, play four rounds",
+          "zh": "留一个机构，用快速开局，只打四回合"
+        }
+      }
     },
     "org-board": {
-      "title": { "en": "Org Board", "zh": "机构板" },
+      "title": {
+        "en": "Org Board",
+        "zh": "机构板"
+      },
       "content": {
         "en": "**Passive** always on. **Once per round** is a free action; mark it, clear the mark when you take income.\n\nTucks happen **after** starting resources, one by one.\n\n**Helion Assembly / Cosmos Strategy Group:** top abilities are **not** triggerable missions (a trigger may mark both a mission and the ability).\n**Futurespan:** only one prepared card; it is not in hand. Once-per-round needs the token on the score track.",
         "zh": "**被动**始终生效。**每轮一次**是自由行动；用后做标记，收收入时清掉。\n\n塞牌在开局资源 **之后**，一张一张来。\n\n**Helion Assembly / Cosmos Strategy Group：** 最上方能力 **不算** 触发任务（一次触发可同时标任务和该能力）。\n**Futurespan：** 只能准备 1 张牌，不算在手中。每轮一次要求指示物在计分轨上。"
       },
       "options": [
-        { "label": { "en": "Signal Tokens", "zh": "信号指示物" }, "next": "signals" },
-        { "label": { "en": "What This Adds", "zh": "扩展加入什么" }, "next": "overview" }
+        {
+          "label": {
+            "en": "Signal Tokens",
+            "zh": "信号指示物"
+          },
+          "next": "signals"
+        },
+        {
+          "label": {
+            "en": "What This Adds",
+            "zh": "扩展加入什么"
+          },
+          "next": "overview"
+        }
       ]
     },
     "signals": {
-      "title": { "en": "Signal Tokens", "zh": "信号指示物" },
+      "title": {
+        "en": "Signal Tokens",
+        "zh": "信号指示物"
+      },
       "content": {
         "en": "Only during a **Scan**. Discard 1 token → discard 1 extra card-row card and mark a matching sector.\n\nRow refills after the **whole** Scan, so **max 2** tokens per Scan. Marking signals without scanning does **not** spend tokens.",
         "zh": "仅在 **扫描** 时。弃 1 枚 → 再弃卡牌行 1 张，在匹配扇区标记。\n\n整次扫描结束后才补行，因此每次扫描最多 **2** 枚。不是扫描、只标信号的效果 **不能** 花指示物。"
       },
       "options": [
-        { "label": { "en": "1–2p / Solo", "zh": "1–2 人 / 单人" }, "next": "low-count" },
-        { "label": { "en": "Organization Setup", "zh": "机构准备" }, "next": "org-setup" }
-      ]
+        {
+          "label": {
+            "en": "1–2p / Solo",
+            "zh": "1–2 人 / 单人"
+          },
+          "next": "low-count"
+        },
+        {
+          "label": {
+            "en": "Organization Setup",
+            "zh": "机构准备"
+          },
+          "next": "org-setup"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/seti-space-agencies/signal-tokens.svg",
+        "alt": {
+          "en": "During Scan spend at most two tokens to discard extra row cards and mark that sector",
+          "zh": "扫描时最多用两个信号，多弃牌行并标记扇区"
+        }
+      }
     },
     "low-count": {
-      "title": { "en": "1–2 Players and Solo", "zh": "1–2 人与单人" },
+      "title": {
+        "en": "1–2 Players and Solo",
+        "zh": "1–2 人与单人"
+      },
       "content": {
         "en": "**Solo:** set up as 2p. Rival: extra starting action card, publicity **4**, no org. Except 1-star: no level I objectives; reveal 3× II plus **2** long-term tiles. Pick your org after seeing those.\n\n**Long-term:** completed tile leaves the game. End of rounds 2–4: rival progress per unfinished task. One trigger → one task. No leftover long-term scoring for the rival.\n\nOut of advanced rival cards → progress instead.",
         "zh": "**单人：** 按 2 人布置。对手：额外起始行动卡、声望 **4**、没有机构。除 1 星外：无 I 级目标；亮 3 张 II 级 + **2** 块长期目标。看完再选机构。\n\n**长期：** 完成后移出。第 2–4 轮结束：每项未完成让对手进度 +1。一次触发只标一项。对手终局不为剩余长期目标计分。\n\n高级行动卡用尽 → 改为前进进度。"
       },
       "options": [
-        { "label": { "en": "What This Adds", "zh": "扩展加入什么" }, "next": "overview" },
-        { "label": { "en": "Quick Start Cards", "zh": "快速开始卡" }, "next": "quick-start" }
+        {
+          "label": {
+            "en": "What This Adds",
+            "zh": "扩展加入什么"
+          },
+          "next": "overview"
+        },
+        {
+          "label": {
+            "en": "Quick Start Cards",
+            "zh": "快速开始卡"
+          },
+          "next": "quick-start"
+        }
       ]
     }
   }

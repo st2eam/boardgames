@@ -65,7 +65,14 @@
           },
           "next": "catch-special"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/splendor-pokemon/turn-actions.svg",
+        "alt": {
+          "en": "One action: tokens, catch a Pokémon, or reserve",
+          "zh": "每回合选一项：拿代币、捕捉宝可梦或预留"
+        }
+      }
     },
     "take3": {
       "title": {
@@ -186,7 +193,14 @@
           },
           "next": "endcheck"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/splendor-pokemon/evolution.svg",
+        "alt": {
+          "en": "End of turn: evolve with bonuses only; old Pokémon goes under the Trainer tile",
+          "zh": "回合结束可用永久奖励进化，旧宝可梦垫到训练家板下"
+        }
+      }
     },
     "evolve": {
       "title": {

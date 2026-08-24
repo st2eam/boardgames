@@ -12,19 +12,31 @@
       },
       "options": [
         {
-          "label": { "en": "I. Cities", "zh": "一、城市" },
+          "label": {
+            "en": "I. Cities",
+            "zh": "一、城市"
+          },
           "next": "cities"
         },
         {
-          "label": { "en": "II. Trading Posts", "zh": "二、商站" },
+          "label": {
+            "en": "II. Trading Posts",
+            "zh": "二、商站"
+          },
           "next": "posts"
         },
         {
-          "label": { "en": "III. The Orient", "zh": "三、东方" },
+          "label": {
+            "en": "III. The Orient",
+            "zh": "三、东方"
+          },
           "next": "orient"
         },
         {
-          "label": { "en": "IV. Strongholds", "zh": "四、要塞" },
+          "label": {
+            "en": "IV. Strongholds",
+            "zh": "四、要塞"
+          },
           "next": "strongholds"
         }
       ]
@@ -40,14 +52,27 @@
       },
       "options": [
         {
-          "label": { "en": "Claiming a City", "zh": "如何获得城市" },
+          "label": {
+            "en": "Claiming a City",
+            "zh": "如何获得城市"
+          },
           "next": "cities-claim"
         },
         {
-          "label": { "en": "Back to Modules", "zh": "返回模块列表" },
+          "label": {
+            "en": "Back to Modules",
+            "zh": "返回模块列表"
+          },
           "next": "overview"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/splendor-cities/cities.svg",
+        "alt": {
+          "en": "Cities replace nobles: meet prestige and bonuses, claim a city to win",
+          "zh": "城市取代贵族：满足声望与奖励后拿下城市获胜"
+        }
+      }
     },
     "cities-claim": {
       "title": {
@@ -60,11 +85,17 @@
       },
       "options": [
         {
-          "label": { "en": "Cities – Winner", "zh": "城市 — 胜负" },
+          "label": {
+            "en": "Cities – Winner",
+            "zh": "城市 — 胜负"
+          },
           "next": "cities-end"
         },
         {
-          "label": { "en": "Back to Cities Setup", "zh": "返回城市准备" },
+          "label": {
+            "en": "Back to Cities Setup",
+            "zh": "返回城市准备"
+          },
           "next": "cities"
         }
       ]
@@ -80,7 +111,10 @@
       },
       "options": [
         {
-          "label": { "en": "Other Modules", "zh": "其他模块" },
+          "label": {
+            "en": "Other Modules",
+            "zh": "其他模块"
+          },
           "next": "overview"
         }
       ]
@@ -96,11 +130,17 @@
       },
       "options": [
         {
-          "label": { "en": "Gaining Powers", "zh": "获得能力" },
+          "label": {
+            "en": "Gaining Powers",
+            "zh": "获得能力"
+          },
           "next": "posts-powers"
         },
         {
-          "label": { "en": "Back to Modules", "zh": "返回模块列表" },
+          "label": {
+            "en": "Back to Modules",
+            "zh": "返回模块列表"
+          },
           "next": "overview"
         }
       ]
@@ -116,10 +156,20 @@
       },
       "options": [
         {
-          "label": { "en": "Other Modules", "zh": "其他模块" },
+          "label": {
+            "en": "Other Modules",
+            "zh": "其他模块"
+          },
           "next": "overview"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/splendor-cities/trading-posts.svg",
+        "alt": {
+          "en": "After a noble visit, place a coat of arms to keep a trade power",
+          "zh": "贵族来访后放置纹章，获得持续到终局的商站能力"
+        }
+      }
     },
     "orient": {
       "title": {
@@ -132,14 +182,27 @@
       },
       "options": [
         {
-          "label": { "en": "Orient Card Effects", "zh": "东方牌效果" },
+          "label": {
+            "en": "Orient Card Effects",
+            "zh": "东方牌效果"
+          },
           "next": "orient-cards"
         },
         {
-          "label": { "en": "Back to Modules", "zh": "返回模块列表" },
+          "label": {
+            "en": "Back to Modules",
+            "zh": "返回模块列表"
+          },
           "next": "overview"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/splendor-cities/orient.svg",
+        "alt": {
+          "en": "Orient cards mix into each level and change how nobles are claimed",
+          "zh": "东方卡混入各级牌堆，并改变争夺贵族的方式"
+        }
+      }
     },
     "orient-cards": {
       "title": {
@@ -152,7 +215,10 @@
       },
       "options": [
         {
-          "label": { "en": "Other Modules", "zh": "其他模块" },
+          "label": {
+            "en": "Other Modules",
+            "zh": "其他模块"
+          },
           "next": "overview"
         }
       ]
@@ -168,11 +234,17 @@
       },
       "options": [
         {
-          "label": { "en": "Occupation & Conquest", "zh": "占领与征服" },
+          "label": {
+            "en": "Occupation & Conquest",
+            "zh": "占领与征服"
+          },
           "next": "strongholds-powers"
         },
         {
-          "label": { "en": "Back to Modules", "zh": "返回模块列表" },
+          "label": {
+            "en": "Back to Modules",
+            "zh": "返回模块列表"
+          },
           "next": "overview"
         }
       ]
@@ -188,7 +260,10 @@
       },
       "options": [
         {
-          "label": { "en": "Other Modules", "zh": "其他模块" },
+          "label": {
+            "en": "Other Modules",
+            "zh": "其他模块"
+          },
           "next": "overview"
         }
       ]

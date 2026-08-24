@@ -32,7 +32,14 @@
           },
           "next": "expansion"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/love-letter-premium/player-counts.svg",
+        "alt": {
+          "en": "2–4 play the 16-card classic; 5–8 use all 32",
+          "zh": "2–4 人用经典 16 张；5–8 人用全部 32 张"
+        }
+      }
     },
     "turn": {
       "title": {
@@ -98,7 +105,14 @@
           },
           "next": "turn"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/love-letter-premium/classic-vs-expansion.svg",
+        "alt": {
+          "en": "Classic cards for all counts; expansion cards only at 5–8",
+          "zh": "经典卡牌各人数共用，扩展卡牌仅 5–8 人"
+        }
+      }
     },
     "expansion": {
       "title": {

@@ -126,7 +126,14 @@
           },
           "next": "winning"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/uno-show-em-no-mercy/action-highlights.svg",
+        "alt": {
+          "en": "Discard All, Skip Everyone, Wild Draw Six/Ten",
+          "zh": "全弃、全跳过、万能抽六/抽十"
+        }
+      }
     },
     "wild-cards": {
       "title": {
@@ -206,7 +213,14 @@
           },
           "next": "turn"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/uno-show-em-no-mercy/stacking-mercy.svg",
+        "alt": {
+          "en": "Draw 2 and Draw 4 stack; next player draws the total",
+          "zh": "+2 和 +4 可以叠，下家抽总和"
+        }
+      }
     },
     "seven-swap": {
       "title": {
@@ -338,7 +352,14 @@
           },
           "next": "turn"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/uno-show-em-no-mercy/two-ways-to-win.svg",
+        "alt": {
+          "en": "Win by emptying your hand or being last standing",
+          "zh": "打空手牌或成为最后留下的人即可获胜"
+        }
+      }
     }
   }
 }

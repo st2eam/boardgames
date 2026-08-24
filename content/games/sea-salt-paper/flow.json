@@ -65,7 +65,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/sea-salt-paper/draw-choose.svg",
+        "alt": {
+          "en": "Draw two, keep one",
+          "zh": "抽 2 张留下 1 张"
+        }
+      }
     },
     "card-types": {
       "title": {
@@ -98,7 +105,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/sea-salt-paper/card-types.svg",
+        "alt": {
+          "en": "Duos, collectors, and mermaids score differently",
+          "zh": "双人组、收集牌与美人鱼计分方式不同"
+        }
+      }
     },
     "ending-round": {
       "title": {
@@ -131,7 +145,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/sea-salt-paper/stop-last-chance.svg",
+        "alt": {
+          "en": "At 7+ declare STOP now or LAST CHANCE",
+          "zh": "满 7 分可喊停或最后机会"
+        }
+      }
     }
   }
 }

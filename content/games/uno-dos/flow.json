@@ -1,0 +1,142 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Set up the Center Row",
+        "zh": "准备中央行"
+      },
+      "content": {
+        "en": "Deal seven cards to every player. Turn two cards face up beside the draw pile to make the Center Row; the player to the dealer's left starts.",
+        "zh": "每人发七张牌，在抽牌堆旁翻开两张组成中央行；庄家左手边玩家先开始。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "How do matches work?",
+            "zh": "如何匹配？"
+          },
+          "next": "match"
+        },
+        {
+          "label": {
+            "en": "Turn sequence",
+            "zh": "回合流程"
+          },
+          "next": "turn"
+        }
+      ]
+    },
+    "match": {
+      "title": {
+        "en": "Match one number or two numbers",
+        "zh": "单张或双张数字匹配"
+      },
+      "content": {
+        "en": "For each Center Row card, play one hand card of the same number, or up to two cards whose values add to that number. Matching its color earns the stated bonus.",
+        "zh": "对中央行每张牌，可出一张相同数字，或至多两张数字相加相等的手牌；颜色也匹配时获得对应奖励。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Turn sequence",
+            "zh": "回合流程"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Calling DOS",
+            "zh": "喊 DOS"
+          },
+          "next": "dos"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/uno-dos/two-card-matching.svg",
+        "alt": {
+          "en": "Play two cards; each must match the discard",
+          "zh": "一次出两张，每张都要接得上弃牌"
+        }
+      }
+    },
+    "turn": {
+      "title": {
+        "en": "Resolve the whole turn",
+        "zh": "完成整个回合"
+      },
+      "content": {
+        "en": "Match as many Center Row cards as you can, discard matched cards, refill the row to two, then apply color bonuses. If you cannot match, draw one and place a hand card into the Center Row.",
+        "zh": "尽量匹配中央行，弃掉所有匹配牌，将中央行补回两张后结算颜色奖励；无法匹配时抽一张，并必须放一张手牌到中央行。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Calling DOS",
+            "zh": "喊 DOS"
+          },
+          "next": "dos"
+        },
+        {
+          "label": {
+            "en": "Winning and scoring",
+            "zh": "获胜与计分"
+          },
+          "next": "scoring"
+        }
+      ]
+    },
+    "dos": {
+      "title": {
+        "en": "Call DOS at two cards",
+        "zh": "剩两张喊 DOS"
+      },
+      "content": {
+        "en": "The moment your hand reaches exactly two cards, call DOS. If another player catches you before the next turn, draw two penalty cards at the end of that turn.",
+        "zh": "手牌恰好剩两张时立刻喊 DOS；若下一回合前被其他玩家抓到，回合结束时罚抽两张。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Winning and scoring",
+            "zh": "获胜与计分"
+          },
+          "next": "scoring"
+        },
+        {
+          "label": {
+            "en": "Back to matching",
+            "zh": "回到匹配"
+          },
+          "next": "match"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/uno-dos/dos-shout.svg",
+        "alt": {
+          "en": "With exactly 2 cards shout DOS, or draw 2 if caught",
+          "zh": "还剩 2 张必须喊 DOS，被抓到抽 2"
+        }
+      }
+    },
+    "scoring": {
+      "title": {
+        "en": "Empty your hand to win",
+        "zh": "清空手牌获胜"
+      },
+      "content": {
+        "en": "The first player to empty their hand wins the round and scores opponents' remaining cards. First to 200 points wins the game, unless the table agreed to another target.",
+        "zh": "率先清空手牌者赢得本轮，并取得对手剩余手牌的分数；通常先到 200 分者赢得整场。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Set up another round",
+            "zh": "准备下一局"
+          },
+          "next": "setup"
+        }
+      ]
+    }
+  }
+}

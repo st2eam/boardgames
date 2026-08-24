@@ -2,106 +2,280 @@
   "startNode": "setup",
   "nodes": {
     "setup": {
-      "title": { "en": "Setup", "zh": "游戏准备" },
+      "title": {
+        "en": "Setup",
+        "zh": "游戏准备"
+      },
       "content": {
         "en": "**First game:** Assassin–Warlord (ranks 1–8) plus 14 unique districts (Dragon Gate, Factory, Haunted Quarter, Imperial Treasury, Keep, Laboratory, Library, Map Room, Quarry, School of Magic, Smithy, Statue, Thieves’ Den, Wishing Well).\n\n1. Character tokens in rank order.\n2. Shuffle uniques with 54 basic districts; deal **4** each.\n3. Deck + gold bank. Each player **2 gold**.\n4. Oldest player takes the **crown**.\n\n3 or 8 players **must** include a rank 9 character.",
         "zh": "**首局：** 刺客至军阀（1–8 号）+ 14 张特殊建筑（龙门、工厂、鬼域、国库、要塞、实验室、图书馆、地图室、采石场、魔法学院、铁匠铺、雕像、盗贼窝、许愿井）。\n\n1. 角色指示物按编号摆放。\n2. 特殊建筑与 54 张基础区域洗匀，每人 **4** 张。\n3. 牌库 + 金币银行。每人 **2 金**。\n4. 最年长者拿 **皇冠**。\n\n3 人或 8 人 **必须** 使用 9 号角色。"
       },
       "options": [
-        { "label": { "en": "Selection Phase", "zh": "选角阶段" }, "next": "selection" },
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
-        { "label": { "en": "2–3 Players", "zh": "2–3 人" }, "next": "two-three" }
+        {
+          "label": {
+            "en": "Selection Phase",
+            "zh": "选角阶段"
+          },
+          "next": "selection"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "2–3 Players",
+            "zh": "2–3 人"
+          },
+          "next": "two-three"
+        }
       ]
     },
     "selection": {
-      "title": { "en": "Selection Phase", "zh": "选角阶段" },
+      "title": {
+        "en": "Selection Phase",
+        "zh": "选角阶段"
+      },
       "content": {
         "en": "Crowned player shuffles, discards some **faceup** and **one facedown**. Rank **4** cannot be faceup-discarded.\n\n**8 characters:** 4p 2/1 · 5p 1/1 · 6–7p 0/1\n**9 characters:** 4p 3/1 · 5p 2/1 · 6p 1/1 · 7–8p 0/1\n\nDraft left from the crown. Last leftover card facedown.\n\n**Last player** in 7p (8 chars) or 8p (9 chars) also gets the facedown discard and picks one of two.",
         "zh": "持冠者洗牌，弃若干 **面朝上** 和 **1 张面朝下**。**4 号** 不能被面朝上弃掉。\n\n**8 角色：** 4 人 2/1 · 5 人 1/1 · 6–7 人 0/1\n**9 角色：** 4 人 3/1 · 5 人 2/1 · 6 人 1/1 · 7–8 人 0/1\n\n从持冠者起向左暗选。最后一张面朝下弃掉。\n\n7 人（8 角色）或 8 人（9 角色）的 **最后一名** 同时拿到开局面朝下弃牌，二选一。"
       },
       "options": [
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
-        { "label": { "en": "Characters 1–3", "zh": "角色 1–3" }, "next": "chars-13" },
-        { "label": { "en": "2–3 Players", "zh": "2–3 人" }, "next": "two-three" }
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Characters 1–3",
+            "zh": "角色 1–3"
+          },
+          "next": "chars-13"
+        },
+        {
+          "label": {
+            "en": "2–3 Players",
+            "zh": "2–3 人"
+          },
+          "next": "two-three"
+        }
       ]
     },
     "turn": {
-      "title": { "en": "On Your Turn", "zh": "你的回合" },
+      "title": {
+        "en": "On Your Turn",
+        "zh": "你的回合"
+      },
       "content": {
         "en": "Crowned player calls ranks **1 → 8/9**. Reveal if you have that character.\n\n1. **Gather:** 2 gold **or** draw 2, keep 1, rest to bottom.\n2. **Build** up to your limit (default 1). No duplicate names unless a card allows it.\n3. Use your character ability **once** (before or after building if it is type income).\n\nGold and hand size are public. Bank never runs out.",
         "zh": "持冠者按 **1 → 8/9** 点名。有该角色则翻开行动。\n\n1. **收集：** 2 金 **或** 抽 2 留 1，其余放底部。\n2. **建造** 不超过限额（默认 1）。除非卡牌允许，不能同名重复。\n3. 角色能力 **一次**（类型收入可在建造前或后）。\n\n金币与手牌张数公开。银行不会用尽。"
       },
       "options": [
-        { "label": { "en": "Characters 1–3", "zh": "角色 1–3" }, "next": "chars-13" },
-        { "label": { "en": "Characters 4–6", "zh": "角色 4–6" }, "next": "chars-46" },
-        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" }
+        {
+          "label": {
+            "en": "Characters 1–3",
+            "zh": "角色 1–3"
+          },
+          "next": "chars-13"
+        },
+        {
+          "label": {
+            "en": "Characters 4–6",
+            "zh": "角色 4–6"
+          },
+          "next": "chars-46"
+        },
+        {
+          "label": {
+            "en": "Game End",
+            "zh": "游戏结束"
+          },
+          "next": "game-end"
+        }
       ]
     },
     "chars-13": {
-      "title": { "en": "Characters 1–3", "zh": "角色 1–3" },
+      "title": {
+        "en": "Characters 1–3",
+        "zh": "角色 1–3"
+      },
       "content": {
         "en": "**1 Assassin:** name a character → they skip and stay hidden.\n**1 Witch:** gather, bewitch, pause; they only gather, then you play as them.\n**1 Magistrate:** 3 warrants (1 signed); confiscate their first paid build, refund gold.\n\n**2 Thief:** take all gold when they reveal (not rank 1 / killed / bewitched).\n**2 Spy:** name a type, peek a hand; 1 gold + 1 card per match.\n**2 Blackmailer:** 2 threats (1 flower); bribe half gold or you may reveal the flower for all gold.\n\n**3 Magician:** swap hands or mill-and-draw.\n**3 Wizard:** take 1 from a hand; may build it extra and may build duplicates.\n**3 Seer:** take 1 random from each, give 1 back; build up to 2.",
         "zh": "**1 刺客：** 点名 → 该角色整回合跳过且不翻开。\n**1 女巫：** 收集后魅惑并暂停；对方只收集，然后你扮演该角色。\n**1 治安官：** 3 枚拘票（1 已签）；没收其第一座付费建筑，金币退还。\n\n**2 盗贼：** 对方翻开时拿走全部金币（不能抢 1 号/被杀/被魅惑）。\n**2 间谍：** 指定类型看手牌；每张匹配拿 1 金并抽 1 牌。\n**2 勒索者：** 2 枚威胁（1 花边）；行贿一半金币，否则可翻花边拿走全部金币。\n\n**3 魔术师：** 整手交换或弃牌重抽。\n**3 巫师：** 从手牌拿 1 张；可额外建造且可建同名。\n**3 先知：** 每人随机拿 1 再各还 1；最多建 2 座。"
       },
       "options": [
-        { "label": { "en": "Characters 4–6", "zh": "角色 4–6" }, "next": "chars-46" },
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
-      ]
+        {
+          "label": {
+            "en": "Characters 4–6",
+            "zh": "角色 4–6"
+          },
+          "next": "chars-46"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/citadels/call-order.svg",
+        "alt": {
+          "en": "The king calls 1 through 8",
+          "zh": "国王从 1 号叫到 8 号"
+        }
+      }
     },
     "chars-46": {
-      "title": { "en": "Characters 4–6", "zh": "角色 4–6" },
+      "title": {
+        "en": "Characters 4–6",
+        "zh": "角色 4–6"
+      },
       "content": {
         "en": "**4 King / Patrician:** must take the crown. Gold (King) or cards (Patrician) per noble. If killed, still take crown at round end.\n**4 Emperor:** give crown to someone else; take 1 gold or 1 card. No 2-player. Rank 4 cannot be faceup-discarded.\n\n**5 Bishop:** rank 8 cannot target you. +1 gold per religious.\n**5 Abbot:** richest gives you 1 gold; mix gold/cards per religious.\n**5 Cardinal:** trade hand cards 1:1 for someone’s gold to finish a build. +1 card per religious.\n\n**6 Merchant:** +1 gold plus per trade.\n**6 Alchemist:** refund gold spent **building** this turn.\n**6 Trader:** unlimited trade builds; +1 gold per trade.",
         "zh": "**4 国王 / 贵族：** 必须拿皇冠。贵族建筑给金币（国王）或牌（贵族）。被杀则回合结束仍拿皇冠。\n**4 皇帝：** 把皇冠给别人，拿 1 金或 1 张牌。2 人禁用。4 号不能被面朝上弃掉。\n\n**5 主教：** 8 号不能打你。每座宗教 +1 金。\n**5 修道院长：** 最富者给你 1 金；宗教可混拿金/牌。\n**5 枢机主教：** 用手牌 1:1 换别人的金币来凑建造。每座宗教 +1 牌。\n\n**6 商人：** 额外 +1 金，外加每座商业。\n**6 炼金术士：** 退还本回合 **建造** 所花金币。\n**6 贸易商：** 商业不占限额；每座商业 +1 金。"
       },
       "options": [
-        { "label": { "en": "Characters 7–9", "zh": "角色 7–9" }, "next": "chars-79" },
-        { "label": { "en": "Characters 1–3", "zh": "角色 1–3" }, "next": "chars-13" }
+        {
+          "label": {
+            "en": "Characters 7–9",
+            "zh": "角色 7–9"
+          },
+          "next": "chars-79"
+        },
+        {
+          "label": {
+            "en": "Characters 1–3",
+            "zh": "角色 1–3"
+          },
+          "next": "chars-13"
+        }
       ]
     },
     "chars-79": {
-      "title": { "en": "Characters 7–9", "zh": "角色 7–9" },
+      "title": {
+        "en": "Characters 7–9",
+        "zh": "角色 7–9"
+      },
       "content": {
         "en": "**7 Architect:** +2 cards; build up to 3.\n**7 Navigator:** +4 gold or +4 cards; **cannot** build.\n**7 Scholar:** draw 7 keep 1, shuffle rest; build up to 2.\n\n**8 Warlord:** destroy for cost−1. **8 Diplomat:** swap (pay difference up). **8 Marshal:** buy a cost ≤3 district from another city. All: +1 gold per military. No completed-city targets.\n\n**9 Queen:** +3 gold if next to revealed rank 4 (min 5 players).\n**9 Artist:** beautify up to 2 districts (+1 cost/VP each).\n**9 Tax Collector:** builders pay 1 gold to the token; you take the pile.",
         "zh": "**7 建筑师：** +2 张牌；最多建 3。\n**7 航海家：** +4 金或 +4 牌；**不能** 建造。\n**7 学者：** 抽 7 留 1 洗回；最多建 2。\n\n**8 军阀：** 费用−1 摧毁。**8 外交官：** 交换（只你补差价）。**8 元帅：** 付钱夺走费用≤3 的建筑。皆为每座军事 +1 金。不能打已完成城市。\n\n**9 皇后：** 与翻开的 4 号相邻则 +3 金（至少 5 人）。\n**9 艺术家：** 最多美化 2 座（费用/分数各 +1）。\n**9 收税员：** 建造者往指示物放 1 金；你拿走整堆。"
       },
       "options": [
-        { "label": { "en": "Unique Districts", "zh": "特殊建筑" }, "next": "uniques" },
-        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" }
+        {
+          "label": {
+            "en": "Unique Districts",
+            "zh": "特殊建筑"
+          },
+          "next": "uniques"
+        },
+        {
+          "label": {
+            "en": "Game End",
+            "zh": "游戏结束"
+          },
+          "next": "game-end"
+        }
       ]
     },
     "uniques": {
-      "title": { "en": "Unique Districts", "zh": "特殊建筑" },
+      "title": {
+        "en": "Unique Districts",
+        "zh": "特殊建筑"
+      },
       "content": {
         "en": "First-game set:\n\n- **Dragon Gate** +2 VP · **Wishing Well** +1 VP per unique\n- **Map Room** +1 VP per card in hand · **Imperial Treasury** +1 VP per gold · **Statue** +5 if you have the crown\n- **Library** keep all drawn · **Laboratory** discard 1 → 2 gold · **Smithy** 2 gold → 3 cards\n- **Factory** other uniques −1 cost · **Quarry** may build duplicates\n- **Keep** immune to rank 8 · **School of Magic** chosen type for income\n- **Haunted Quarter** any type at game end · **Thieves’ Den** pay with cards",
         "zh": "首局套牌：\n\n- **龙门** +2 分 · **许愿井** 每座特殊 +1 分\n- **地图室** 每张手牌 +1 · **国库** 每金 +1 · **雕像** 持冠 +5\n- **图书馆** 抽牌全留 · **实验室** 弃 1 → 2 金 · **铁匠铺** 2 金 → 3 牌\n- **工厂** 其他特殊 −1 金 · **采石场** 可建同名\n- **要塞** 免疫 8 号 · **魔法学院** 收资源时自选类型\n- **鬼域** 终局算任意色 · **盗贼窝** 可用手牌付费"
       },
       "options": [
-        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" },
-        { "label": { "en": "Characters 7–9", "zh": "角色 7–9" }, "next": "chars-79" }
+        {
+          "label": {
+            "en": "Game End",
+            "zh": "游戏结束"
+          },
+          "next": "game-end"
+        },
+        {
+          "label": {
+            "en": "Characters 7–9",
+            "zh": "角色 7–9"
+          },
+          "next": "chars-79"
+        }
       ]
     },
     "game-end": {
-      "title": { "en": "Game End", "zh": "游戏结束" },
+      "title": {
+        "en": "Game End",
+        "zh": "游戏结束"
+      },
       "content": {
         "en": "Complete at **7** districts (4–8p) or **8** (2–3p). Finish the round.\n\nScore: district costs + **3** for all five types + **4** first complete / **2** other complete + unique extras.\n\nTie → highest rank revealed last round.\n\nBeautify gold sits on the card and counts as cost.",
         "zh": "**4–8 人 7 座** 或 **2–3 人 8 座** 即完成。打完当前回合。\n\n计分：建筑费用 + 五色齐全 **3** + 最先完成 **4** / 其他完成 **2** + 特殊额外分。\n\n平局 → 上回合翻开编号最大者。\n\n美化金币放在卡上，计入费用。"
       },
       "options": [
-        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
-        { "label": { "en": "2–3 Players", "zh": "2–3 人" }, "next": "two-three" }
-      ]
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        },
+        {
+          "label": {
+            "en": "2–3 Players",
+            "zh": "2–3 人"
+          },
+          "next": "two-three"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/citadels/game-end.svg",
+        "alt": {
+          "en": "A city completes at 7 districts; finish the round then score gold plus bonuses",
+          "zh": "7 座建筑完成城市；打完本轮后按造价与奖励计分"
+        }
+      }
     },
     "two-three": {
-      "title": { "en": "2–3 Players", "zh": "2–3 人" },
+      "title": {
+        "en": "2–3 Players",
+        "zh": "2–3 人"
+      },
       "content": {
         "en": "Each player drafts **two** characters (one city, one stash).\n\n**2p:** ranks 1–8, no Emperor. Discard 1 down; then keep/discard/pass until gone. End at **8** districts.\n\n**3p:** ranks 1–9. Discard 1 down; draft one each; third player discards 1 more down; draft seconds. End at **8** districts.",
         "zh": "每人选 **两个** 角色（共用一座城、一个钱袋）。\n\n**2 人：** 1–8 号，禁用皇帝。先弃 1 张暗牌；之后每次留 1、弃 1、把剩余传出。终局 **8 座**。\n\n**3 人：** 1–9 号。先弃 1 张暗牌；各选 1；第三人再弃 1；再选第二张。终局 **8 座**。"
       },
       "options": [
-        { "label": { "en": "Selection Phase", "zh": "选角阶段" }, "next": "selection" },
-        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" }
-      ]
+        {
+          "label": {
+            "en": "Selection Phase",
+            "zh": "选角阶段"
+          },
+          "next": "selection"
+        },
+        {
+          "label": {
+            "en": "Game End",
+            "zh": "游戏结束"
+          },
+          "next": "game-end"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/citadels/turn-flow.svg",
+        "alt": {
+          "en": "Roles 1–8 are called; act when yours is named",
+          "zh": "按 1 到 8 点名，叫到你的角色才行动"
+        }
+      }
     }
   }
 }

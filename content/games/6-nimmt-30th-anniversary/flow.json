@@ -2,95 +2,260 @@
   "startNode": "setup",
   "nodes": {
     "setup": {
-      "title": { "en": "Setup (Base)", "zh": "准备（基础）" },
+      "title": {
+        "en": "Setup (Base)",
+        "zh": "准备（基础）"
+      },
       "content": {
         "en": "1. Shuffle **104** number cards; deal **10** to each player (2–10).\n2. Flip **4** remaining cards as row starters (each row max **5** cards).\n3. Set aside the rest until the next round.\n\n**Goal:** fewest bullheads when someone reaches **66+**.",
         "zh": "1. 洗混 **104** 张数字牌，每人发 **10** 张（2–10 人）。\n2. 翻开剩余 **4** 张作为行起始（每行最多 **5** 张）。\n3. 其余留到下一轮。\n\n**目标：** 有人达到 **66+** 时，牛头最少者胜。"
       },
       "options": [
-        { "label": { "en": "Playing a Round", "zh": "一轮怎么玩" }, "next": "round" },
-        { "label": { "en": "Bullheads", "zh": "牛头计分" }, "next": "bullheads" },
-        { "label": { "en": "Anniversary extras", "zh": "周年额外内容" }, "next": "anniversary" }
-      ]
+        {
+          "label": {
+            "en": "Playing a Round",
+            "zh": "一轮怎么玩"
+          },
+          "next": "round"
+        },
+        {
+          "label": {
+            "en": "Bullheads",
+            "zh": "牛头计分"
+          },
+          "next": "bullheads"
+        },
+        {
+          "label": {
+            "en": "Anniversary extras",
+            "zh": "周年额外内容"
+          },
+          "next": "anniversary"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/6-nimmt-30th-anniversary/play-to-rows.svg",
+        "alt": {
+          "en": "24 joins the 12 — smallest difference",
+          "zh": "24 接到 12 后面，因为差值最小"
+        }
+      }
     },
     "round": {
-      "title": { "en": "Playing a Round", "zh": "一轮怎么玩" },
+      "title": {
+        "en": "Playing a Round",
+        "zh": "一轮怎么玩"
+      },
       "content": {
         "en": "1. All choose 1 card face down → reveal together.\n2. Place from **lowest to highest** value.\n\n**Rule 1 — Ascending:** only after a smaller last card.\n**Rule 2 — Lowest difference:** join the closest row.\n**Rule 3 — Full:** 6th card → take 5; yours starts the row.\n**Rule 4 — Too low:** take any row; yours starts it.\n\nTaken cards → **bull pile** (not hand). Repeat until hands empty.",
         "zh": "1. 全体同时选 1 张背面打出 → 一起翻开。\n2. 按点数从**小到大**入行。\n\n**规则 1 — 升序：** 只能接在更小的末牌后。\n**规则 2 — 最小差值：** 接到差值最小的行。\n**规则 3 — 满行：** 第 6 张 → 收走 5 张，你的牌成新起始。\n**规则 4 — 过小：** 自选一行收走，你的牌成新起始。\n\n收牌进**牛头堆**（不回手）。直到手牌打完。"
       },
       "options": [
-        { "label": { "en": "Bullheads", "zh": "牛头计分" }, "next": "bullheads" },
-        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" },
-        { "label": { "en": "Pro Variant", "zh": "进阶变体" }, "next": "pro" }
+        {
+          "label": {
+            "en": "Bullheads",
+            "zh": "牛头计分"
+          },
+          "next": "bullheads"
+        },
+        {
+          "label": {
+            "en": "Game End",
+            "zh": "游戏结束"
+          },
+          "next": "game-end"
+        },
+        {
+          "label": {
+            "en": "Pro Variant",
+            "zh": "进阶变体"
+          },
+          "next": "pro"
+        }
       ]
     },
     "bullheads": {
-      "title": { "en": "Bullheads", "zh": "牛头计分" },
+      "title": {
+        "en": "Bullheads",
+        "zh": "牛头计分"
+      },
       "content": {
         "en": "| Cards | Points |\n|-------|--------|\n| Normal | 1 |\n| End in 5 | 2 |\n| ×10 | 3 |\n| Doubles (11, 22…) | 5 |\n| **55** | **7** |\n\nEach bullhead = **1** negative point.",
         "zh": "| 牌型 | 分数 |\n|------|------|\n| 普通 | 1 |\n| 以 5 结尾 | 2 |\n| 10 的倍数 | 3 |\n| 对子（11、22…） | 5 |\n| **55** | **7** |\n\n每个牛头 = **1** 负分。"
       },
       "options": [
-        { "label": { "en": "Game End", "zh": "游戏结束" }, "next": "game-end" },
-        { "label": { "en": "Playing a Round", "zh": "一轮怎么玩" }, "next": "round" }
+        {
+          "label": {
+            "en": "Game End",
+            "zh": "游戏结束"
+          },
+          "next": "game-end"
+        },
+        {
+          "label": {
+            "en": "Playing a Round",
+            "zh": "一轮怎么玩"
+          },
+          "next": "round"
+        }
       ]
     },
     "game-end": {
-      "title": { "en": "Game End", "zh": "游戏结束" },
+      "title": {
+        "en": "Game End",
+        "zh": "游戏结束"
+      },
       "content": {
         "en": "After each round, add bullheads to your total.\n\nWhen someone has **≥ 66**, the player with the **lowest** total wins (ties share).\n\nAgree on another target or fixed rounds if you prefer.",
         "zh": "每轮结束后把牛头累加到总分。\n\n有人 **≥ 66** 时，总分**最低**者胜（平局共享）。\n\n也可约定其他目标分或固定轮数。"
       },
       "options": [
-        { "label": { "en": "Anniversary extras", "zh": "周年额外内容" }, "next": "anniversary" },
-        { "label": { "en": "Setup", "zh": "准备" }, "next": "setup" }
+        {
+          "label": {
+            "en": "Anniversary extras",
+            "zh": "周年额外内容"
+          },
+          "next": "anniversary"
+        },
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "准备"
+          },
+          "next": "setup"
+        }
       ]
     },
     "pro": {
-      "title": { "en": "Pro Variant (2–6)", "zh": "进阶变体（2–6）" },
+      "title": {
+        "en": "Pro Variant (2–6)",
+        "zh": "进阶变体（2–6）"
+      },
       "content": {
         "en": "Use only `players × 10 + 4` cards (1 through that number).\n\nDraft face up until each has 10; leftover **4** start the rows. Then play with base rules.",
         "zh": "只用 `人数 × 10 + 4` 张牌（从 1 到该数）。\n\n正面朝上轮流选至每人 10 张；剩下 **4** 张作行起始。之后按基础规则玩。"
       },
       "options": [
-        { "label": { "en": "Playing a Round", "zh": "一轮怎么玩" }, "next": "round" },
-        { "label": { "en": "Anniversary extras", "zh": "周年额外内容" }, "next": "anniversary" }
+        {
+          "label": {
+            "en": "Playing a Round",
+            "zh": "一轮怎么玩"
+          },
+          "next": "round"
+        },
+        {
+          "label": {
+            "en": "Anniversary extras",
+            "zh": "周年额外内容"
+          },
+          "next": "anniversary"
+        }
       ]
     },
     "anniversary": {
-      "title": { "en": "Anniversary Extras", "zh": "周年额外内容" },
+      "title": {
+        "en": "Anniversary Extras",
+        "zh": "周年额外内容"
+      },
       "content": {
         "en": "This edition adds:\n\n1. **Fan special cards** — Even/Odd, Mountain Climbing, Jumping Cow, Flippin’ Digits (one variant at a time).\n2. **Beat the Buffalo** — cooperative / solo vs the buffalo with action cards.\n\nPick a topic below.",
         "zh": "本版额外内容：\n\n1. **粉丝特殊牌** — 奇偶、登山、跳牛、翻数字（建议每次只用一种）。\n2. **击败水牛** — 合作 / 单人对抗水牛，可用行动牌。\n\n从下方选择主题。"
       },
       "options": [
-        { "label": { "en": "Fan Cards", "zh": "粉丝特殊牌" }, "next": "fan-cards" },
-        { "label": { "en": "Beat the Buffalo", "zh": "击败水牛" }, "next": "buffalo" },
-        { "label": { "en": "Setup (Base)", "zh": "准备（基础）" }, "next": "setup" }
-      ]
+        {
+          "label": {
+            "en": "Fan Cards",
+            "zh": "粉丝特殊牌"
+          },
+          "next": "fan-cards"
+        },
+        {
+          "label": {
+            "en": "Beat the Buffalo",
+            "zh": "击败水牛"
+          },
+          "next": "buffalo"
+        },
+        {
+          "label": {
+            "en": "Setup (Base)",
+            "zh": "准备（基础）"
+          },
+          "next": "setup"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/6-nimmt-30th-anniversary/fan-specials.svg",
+        "alt": {
+          "en": "Add only one fan variant at a time",
+          "zh": "粉丝特殊牌每次只加一种"
+        }
+      }
     },
     "fan-cards": {
-      "title": { "en": "Fan Special Cards", "zh": "粉丝特殊牌" },
+      "title": {
+        "en": "Fan Special Cards",
+        "zh": "粉丝特殊牌"
+      },
       "content": {
         "en": "Don’t combine — add **one** to the base game:\n\n- **Even/Odd** — one row only even or odd; marker moves after takes.\n- **Mountain Climbing** — one row descending; marker zigzags.\n- **Jumping Cow** — no value; jumps after plays/takes; counts toward row size.\n- **Flippin’ Digits** — once/round swap digits for placement order only.",
         "zh": "不要混用 — 每次只往基础局加 **一种**：\n\n- **奇偶** — 一行仅偶或奇；收行后移动标记。\n- **登山** — 一行降序；标记沿箭头折返。\n- **跳牛** — 无点数；入行/收行后跳动；计入行上限。\n- **翻数字** — 每轮一次，仅放置顺序交换个十位。"
       },
       "options": [
-        { "label": { "en": "Beat the Buffalo", "zh": "击败水牛" }, "next": "buffalo" },
-        { "label": { "en": "Anniversary extras", "zh": "周年额外内容" }, "next": "anniversary" }
-      ]
+        {
+          "label": {
+            "en": "Beat the Buffalo",
+            "zh": "击败水牛"
+          },
+          "next": "buffalo"
+        },
+        {
+          "label": {
+            "en": "Anniversary extras",
+            "zh": "周年额外内容"
+          },
+          "next": "anniversary"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/6-nimmt-30th-anniversary/take-sixth.svg",
+        "alt": {
+          "en": "The 6th card takes five; yours starts a new row",
+          "zh": "第 6 张收走前 5 张，自己留下开新行"
+        }
+      }
     },
     "buffalo": {
-      "title": { "en": "Beat the Buffalo", "zh": "击败水牛" },
+      "title": {
+        "en": "Beat the Buffalo",
+        "zh": "击败水牛"
+      },
       "content": {
         "en": "Co-op **1–6**. Buffalo also gets 10 facedown cards. Special deck by count: 1→0, 2→2, 3→4, 4→6, 5→11, 6→16; keep **2** face up.\n\nReveal with buffalo’s top card; shared team bull pile vs buffalo pile. Use actions (Take 7!, Stop!, Replace!, Insert!, Push!, First/Last, Sort) anytime; refill from deck.\n\nWin if team bullheads **<** buffalo. **1–2 players:** double team score first. Solo: no specials.",
         "zh": "合作 **1–6** 人。水牛也拿 10 张背面牌。特殊牌张数：1→0，2→2，3→4，4→6，5→11，6→16；保持 **2** 张正面。\n\n与水牛顶牌一起翻开；队伍共用牛头堆对战水牛堆。随时用行动牌（拿 7！、停、替换、插入、推、先/后出、排序），用后补牌。\n\n队伍牛头 **少于** 水牛则胜。**1–2 人**先把队伍分翻倍。单人：无特殊牌。"
       },
       "options": [
-        { "label": { "en": "Playing a Round", "zh": "一轮怎么玩" }, "next": "round" },
-        { "label": { "en": "Fan Cards", "zh": "粉丝特殊牌" }, "next": "fan-cards" },
-        { "label": { "en": "Setup (Base)", "zh": "准备（基础）" }, "next": "setup" }
+        {
+          "label": {
+            "en": "Playing a Round",
+            "zh": "一轮怎么玩"
+          },
+          "next": "round"
+        },
+        {
+          "label": {
+            "en": "Fan Cards",
+            "zh": "粉丝特殊牌"
+          },
+          "next": "fan-cards"
+        },
+        {
+          "label": {
+            "en": "Setup (Base)",
+            "zh": "准备（基础）"
+          },
+          "next": "setup"
+        }
       ]
     }
   }

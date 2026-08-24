@@ -2,161 +2,416 @@
   "startNode": "setup",
   "nodes": {
     "setup": {
-      "title": { "en": "Setup", "zh": "游戏准备" },
+      "title": {
+        "en": "Setup",
+        "zh": "游戏准备"
+      },
       "content": {
         "en": "Assemble planetary + solar system + tech boards. Randomize 3 discs and 4 sectors (8 stars). Hide **2 of 5** alien boards. Card row **3**. Fill star data slots. 12 tech stacks with a 2-point tile on each.\n\n**4** end-of-round stacks (rounds 1–4) of **players + 1** cards. Rotation reminder on round 1. Gold tiles random side up.\n\nNeutral 20/30 VP: **2** markers each at 1–2p, **1** at 3p, none at 4p.\n\nStart: VP **1–4** in order, publicity **4**, **4 credits / 3 energy / 5 cards**, then tuck **1** for income.",
         "zh": "拼好行星 + 太阳系 + 科技板。随机三层圆盘与四块扇区（8 颗恒星）。5 个种族里藏 **2** 个。卡牌行 **3** 张。填满恒星数据槽。12 叠科技，每叠顶一块 2 分。\n\n第 1–4 轮各一叠回合结束牌（**人数 + 1** 张）。旋转提醒放第 1 轮。金色板块随机面朝上。\n\n中立 20/30 分：1–2 人各 **2** 枚，3 人各 **1** 枚，4 人不用。\n\n开局：分数按顺位 **1–4**，声望 **4**，**4 资金 / 3 能量 / 5 张牌**，再塞 **1** 张作收入。"
       },
       "options": [
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
-        { "label": { "en": "Free Actions", "zh": "自由行动" }, "next": "free" },
-        { "label": { "en": "Card Anatomy", "zh": "卡牌结构" }, "next": "card-anatomy" }
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Free Actions",
+            "zh": "自由行动"
+          },
+          "next": "free"
+        },
+        {
+          "label": {
+            "en": "Card Anatomy",
+            "zh": "卡牌结构"
+          },
+          "next": "card-anatomy"
+        }
       ]
     },
     "turn": {
-      "title": { "en": "Your Turn", "zh": "你的回合" },
+      "title": {
+        "en": "Your Turn",
+        "zh": "你的回合"
+      },
       "content": {
         "en": "**5 rounds.** One **main action** plus free actions. Then milestones and any species discovered this turn. Skip players who passed.\n\n**Launch** 2 credits · **Orbit** 1 credit + 1 energy · **Land** 3 energy (2 if any orbiter is there) · **Scan** 1 credit + 2 energy · **Analyze** 1 energy (top computer row full) · **Play a card** · **Research** 6 publicity · **Pass**.\n\nA card is either its main effect **or** its discard icon, not both.",
         "zh": "**5 轮。** 1 次 **主行动** + 自由行动。然后里程碑，以及本回合发现的种族。已过牌者跳过。\n\n**发射** 2 资金 · **入轨** 1 资金 + 1 能量 · **着陆** 3 能量（已有入轨则 2）· **扫描** 1 资金 + 2 能量 · **分析** 1 能量（电脑顶行满）· **打牌** · **研发** 6 声望 · **过牌**。\n\n一张牌只能当主效果 **或** 弃掉换图标，不能两用。"
       },
       "options": [
-        { "label": { "en": "Launch / Move", "zh": "发射 / 移动" }, "next": "launch" },
-        { "label": { "en": "Orbit / Land", "zh": "入轨 / 着陆" }, "next": "orbit-land" },
-        { "label": { "en": "Scan / Analyze", "zh": "扫描 / 分析" }, "next": "scan" }
+        {
+          "label": {
+            "en": "Launch / Move",
+            "zh": "发射 / 移动"
+          },
+          "next": "launch"
+        },
+        {
+          "label": {
+            "en": "Orbit / Land",
+            "zh": "入轨 / 着陆"
+          },
+          "next": "orbit-land"
+        },
+        {
+          "label": {
+            "en": "Scan / Analyze",
+            "zh": "扫描 / 分析"
+          },
+          "next": "scan"
+        }
       ]
     },
     "launch": {
-      "title": { "en": "Launch and Move", "zh": "发射与移动" },
+      "title": {
+        "en": "Launch and Move",
+        "zh": "发射与移动"
+      },
       "content": {
         "en": "**Launch:** 2 credits, probe on Earth. Default **1 probe in space** (solar-system rings only).\n\n**Move (free):** 1 energy = 1 step, or discard a move-icon card. Adjacent, not diagonal. Leaving **asteroids** costs +1. Sun is not a space. Publicity icons (not Earth) give 1 publicity.\n\nYou may move the same turn you launch. Rotation can push probes for free.",
         "zh": "**发射：** 2 资金，探测器放地球。默认太空中 **1 个探测器**（仅太阳系环）。\n\n**移动（自由）：** 1 能量 = 1 步，或弃带移动图标的牌。相邻、不能斜移。离开 **小行星** +1。太阳不是格子。声望图标（地球除外）得 1 声望。\n\n发射当回合就能移动。旋转可能免费顶走探测器。"
       },
       "options": [
-        { "label": { "en": "Orbit / Land", "zh": "入轨 / 着陆" }, "next": "orbit-land" },
-        { "label": { "en": "Research / Rotate", "zh": "研发 / 旋转" }, "next": "research" }
+        {
+          "label": {
+            "en": "Orbit / Land",
+            "zh": "入轨 / 着陆"
+          },
+          "next": "orbit-land"
+        },
+        {
+          "label": {
+            "en": "Research / Rotate",
+            "zh": "研发 / 旋转"
+          },
+          "next": "research"
+        }
       ]
     },
     "orbit-land": {
-      "title": { "en": "Orbit and Land", "zh": "入轨与着陆" },
+      "title": {
+        "en": "Orbit and Land",
+        "zh": "入轨与着陆"
+      },
       "content": {
         "en": "Probe must sit on a planet other than Earth.\n\n**Orbit:** 1 credit + 1 energy. Figure to that planet’s orbit; take orbit bonuses. **First** orbiter: **3 VP**. No orbiter limit. Frees your in-space probe slot.\n\n**Land:** 3 energy, or **2** if any orbiter is already there. Take land bonuses (life-trace + VP). **First** lander also takes printed data (Mars: two spaces). Moons need a tech/effect; **one** lander each.",
         "zh": "探测器须在地球以外的行星格。\n\n**入轨：** 1 资金 + 1 能量。棋子放到该行星轨道，拿轨道奖励。**首位** 入轨 **3 分**。数量不限。不再占用太空探测器上限。\n\n**着陆：** 3 能量，已有任意入轨则 **2**。拿着陆奖励（生命痕迹 + 分）。**首位** 着陆再拿印出的数据（火星两格）。卫星需科技/效果；每颗 **仅 1** 个着陆器。"
       },
       "options": [
-        { "label": { "en": "Aliens", "zh": "外星种族" }, "next": "aliens" },
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+        {
+          "label": {
+            "en": "Aliens",
+            "zh": "外星种族"
+          },
+          "next": "aliens"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
       ]
     },
     "scan": {
-      "title": { "en": "Scan and Analyze", "zh": "扫描与分析" },
+      "title": {
+        "en": "Scan and Analyze",
+        "zh": "扫描与分析"
+      },
       "content": {
         "en": "**Scan:** 1 credit + 2 energy, in any order: mark Earth’s sector; discard a card-row card and mark a matching-colour sector; activate telescope techs. Refill the row at the **end**. At least 2 signals, up to 4.\n\nMarking a signal is mandatory: leftmost data → your pool, your marker in its place. Extra markers still help **win**. Second slot space: **2 VP**. Completing a sector (after the main action): most markers (later wins ties). Winner takes the star reward; contributors get 1 publicity; second place leaves a marker on the first data space; refill.\n\n**Analyze:** 1 energy if the **top** computer row is full. Clear **all** computer data (pool stays); mark one analyze trace. Pool max **6**.",
         "zh": "**扫描：** 1 资金 + 2 能量，任意顺序：标地球扇区；弃卡牌行 1 张并在匹配色扇区再标；启动望远镜科技。**全部做完** 再补行。至少 2 个信号，最多 4。\n\n标记信号强制：最左数据进你的池，换成你的标记。多放的仍参与 **争夺**。槽第 2 格立刻 **2 分**。扇区完成（主行动结束后）：标记最多者胜（后放者优先）。胜者拿恒星奖励；参与者各 1 声望；第二名在数据槽第一格留标记；其余用数据补满。\n\n**分析：** 电脑 **顶行** 满时花 1 能量。清空电脑 **全部** 数据（池留下），标 1 个分析痕迹。数据池最多 **6**。"
       },
       "options": [
-        { "label": { "en": "Play a Card", "zh": "打牌" }, "next": "cards" },
-        { "label": { "en": "Aliens", "zh": "外星种族" }, "next": "aliens" }
-      ]
+        {
+          "label": {
+            "en": "Play a Card",
+            "zh": "打牌"
+          },
+          "next": "cards"
+        },
+        {
+          "label": {
+            "en": "Aliens",
+            "zh": "外星种族"
+          },
+          "next": "aliens"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/seti/scan-computer.svg",
+        "alt": {
+          "en": "Left: sector data slot. Right: computer top row and tech column",
+          "zh": "左：扇区数据槽。右：电脑顶行与科技列"
+        }
+      }
     },
     "cards": {
-      "title": { "en": "Play a Card", "zh": "打牌" },
+      "title": {
+        "en": "Play a Card",
+        "zh": "打牌"
+      },
       "content": {
         "en": "Pay the printed cost; resolve the white effect. Nested launch/scan/research **skip** the usual action cost.\n\n**Conditional missions:** keep in front; complete as a free action when the condition is true (even immediately).\n**Triggerable missions:** mark circles only for things you do **after** playing the card. All circles marked → complete.\n**Gold-box cards:** keep for end-game VP.\n\nOtherwise discard after the effect.",
         "zh": "付牌面费用，结算白色效果。效果里的发射/扫描/研发 **不再** 付标准费用。\n\n**条件任务：** 留在面前，条件满足时可当自由行动完成（打出当下也可以）。\n**触发任务：** 只统计打出 **之后** 做的事。圈全标完即完成。\n**金框卡：** 留到终局计分。\n\n其他牌结算后弃掉。"
       },
       "options": [
-        { "label": { "en": "Card Anatomy", "zh": "卡牌结构" }, "next": "card-anatomy" },
-        { "label": { "en": "Research / Rotate", "zh": "研发 / 旋转" }, "next": "research" },
-        { "label": { "en": "Free Actions", "zh": "自由行动" }, "next": "free" }
+        {
+          "label": {
+            "en": "Card Anatomy",
+            "zh": "卡牌结构"
+          },
+          "next": "card-anatomy"
+        },
+        {
+          "label": {
+            "en": "Research / Rotate",
+            "zh": "研发 / 旋转"
+          },
+          "next": "research"
+        },
+        {
+          "label": {
+            "en": "Free Actions",
+            "zh": "自由行动"
+          },
+          "next": "free"
+        }
       ]
     },
     "research": {
-      "title": { "en": "Research and Rotate", "zh": "研发与旋转" },
+      "title": {
+        "en": "Research and Rotate",
+        "zh": "研发与旋转"
+      },
       "content": {
         "en": "**Research:** 6 publicity (must be ≥6). Rotate the solar system, take a new tech, gain its bonus, flip it onto your board. First from a stack: **2 VP**.\n\nRotation order: top disc → middle → bottom → repeat, one sector **counter-clockwise**. Probes usually move with discs; cutouts may leave them or bump them (free publicity if that space shows it).\n\nAlso rotate on the **first pass** each round. Card techs rotate but cost no publicity.",
         "zh": "**研发：** 6 声望（必须 ≥6）。旋转太阳系，拿一种新科技，拿印出奖励，翻面放到板上。该叠第一块：**2 分**。\n\n旋转顺序：顶层 → 中层 → 底层 → 循环，每次 **逆时针一格扇区**。探测器通常随盘；缺口可能不动或被顶走（该格有声望则免费拿）。\n\n每轮 **首位过牌** 也旋转。卡牌送科技要旋转但不花声望。"
       },
       "options": [
-        { "label": { "en": "Pass / Income", "zh": "过牌 / 收入" }, "next": "pass" },
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
-      ]
+        {
+          "label": {
+            "en": "Pass / Income",
+            "zh": "过牌 / 收入"
+          },
+          "next": "pass"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/seti/rotation.svg",
+        "alt": {
+          "en": "Rotate top, then middle (with top), then bottom (all three), one sector counter-clockwise",
+          "zh": "先转顶层，再转中层（顶层跟着），再转底层（三层一起），每次逆时针 1 扇区"
+        }
+      }
     },
     "free": {
-      "title": { "en": "Free Actions", "zh": "自由行动" },
+      "title": {
+        "en": "Free Actions",
+        "zh": "自由行动"
+      },
       "content": {
         "en": "Anytime on **your** turn:\n\n- Place pool data into the computer (left to right).\n- Exchange **2** cards, credits, **or** energy for **1** card, credit, or energy (not mixed).\n- Buy a card for **3 publicity** (row or deck).\n- Complete missions you qualify for.\n\nPublicity **caps at 10**. No hand limit until you pass (then 4).",
         "zh": "仅在 **自己** 回合：\n\n- 把数据池放入电脑（从左到右）。\n- 用 **2** 张牌、2 资金 **或** 2 能量换 **1** 张牌 / 资金 / 能量（不能混兑）。\n- **3 声望** 买 1 张牌（行或库）。\n- 完成已满足的任务。\n\n声望 **上限 10**。回合中手牌不限，过牌时弃到 4。"
       },
       "options": [
-        { "label": { "en": "Pass / Income", "zh": "过牌 / 收入" }, "next": "pass" },
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+        {
+          "label": {
+            "en": "Pass / Income",
+            "zh": "过牌 / 收入"
+          },
+          "next": "pass"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
       ]
     },
     "pass": {
-      "title": { "en": "Pass and Income", "zh": "过牌与收入" },
+      "title": {
+        "en": "Pass and Income",
+        "zh": "过牌与收入"
+      },
       "content": {
         "en": "Pass is a main action (free actions first):\n\n1. Discard down to **4**.\n2. First passer this round **rotates** (round 5: still rotate, discard the token).\n3. Rounds **1–4:** pick one end-of-round card from the shrinking stack.\n\nWhen all have passed: income (starting card + tucked cards), start marker left, reminder onto the next stack. You may take income as soon as you have passed.",
         "zh": "过牌是主行动（先做自由行动）：\n\n1. 手牌弃到 **4**。\n2. 本轮首位过牌者 **旋转**（第 5 轮仍转，然后丢掉指示物）。\n3. 第 **1–4** 轮：从本轮逐渐变少的牌叠选 1 张。\n\n全员过牌后：收收入（起始卡 + 已塞入的牌），起始标记左传，提醒移到下一叠。过牌后即可提前收收入。"
       },
       "options": [
-        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
-        { "label": { "en": "Milestones", "zh": "里程碑" }, "next": "milestones" }
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        },
+        {
+          "label": {
+            "en": "Milestones",
+            "zh": "里程碑"
+          },
+          "next": "milestones"
+        }
       ]
     },
     "milestones": {
-      "title": { "en": "Milestones", "zh": "里程碑" },
+      "title": {
+        "en": "Milestones",
+        "zh": "里程碑"
+      },
       "content": {
         "en": "Resolved **between turns** (after free actions).\n\n**Gold (25 / 50 / 70 VP):** mark one gold tile you have not marked; first claimer takes the highest space. You mark **3 of 4** tiles. Second lap past 100 does nothing.\n\n**Neutral (20 / 30, not 4p):** move a nonplayer marker onto the leftmost empty discovery space. May discover a species. Unused if both species are already found.\n\nIf several players crossed thresholds, resolve clockwise from the player who just finished.",
         "zh": "在回合之间结算（自由行动之后）。\n\n**金色（25 / 50 / 70 分）：** 在尚未占过的金色板块上放标记，先到者占最高格。四块中占 **三块**。超过 100 再绕圈无效。\n\n**中立（20 / 30，4 人不用）：** 把一枚非玩家标记放到最左空发现格，可能发现种族。两个种族都已发现则无效。\n\n多人同时越过时，从刚结束回合的玩家起顺时针结算。"
       },
       "options": [
-        { "label": { "en": "Aliens", "zh": "外星种族" }, "next": "aliens" },
-        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" }
-      ]
+        {
+          "label": {
+            "en": "Aliens",
+            "zh": "外星种族"
+          },
+          "next": "aliens"
+        },
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/seti/turn-flow.svg",
+        "alt": {
+          "en": "One main action, free extras, then milestones",
+          "zh": "做 1 次主行动，自由行动穿插，再看里程碑"
+        }
+      }
     },
     "aliens": {
-      "title": { "en": "Alien Species", "zh": "外星种族" },
+      "title": {
+        "en": "Alien Species",
+        "zh": "外星种族"
+      },
       "content": {
         "en": "Traces: **scan / land / analyze** (plus wildcards). Mark a matching discovery space, or overflow for **3 VP**.\n\nWhen all three discovery spaces of a species fill, discover it **after** that turn (after milestones): flip the board, read its sheet, set up cards, reward those three markers. Don’t spoil unused species.\n\nLater traces mark the species board for printed rewards. 2–3p nonplayer markers never sit on the species board itself.",
         "zh": "痕迹：**扫描 / 着陆 / 分析**（另有万能）。放到对应发现格，或放到溢出格得 **3 分**。\n\n某种族三个发现格全满后，在该回合结束（里程碑之后）发现：翻开、读规则单、设置卡牌，奖励那三枚标记。不要剧透未使用的种族。\n\n之后的痕迹占种族板拿印出奖励。2–3 人的中立标记不占种族板本身。"
       },
       "options": [
-        { "label": { "en": "Scoring", "zh": "计分" }, "next": "scoring" },
-        { "label": { "en": "Scan / Analyze", "zh": "扫描 / 分析" }, "next": "scan" }
+        {
+          "label": {
+            "en": "Scoring",
+            "zh": "计分"
+          },
+          "next": "scoring"
+        },
+        {
+          "label": {
+            "en": "Scan / Analyze",
+            "zh": "扫描 / 分析"
+          },
+          "next": "scan"
+        }
       ]
     },
     "scoring": {
-      "title": { "en": "Final Scoring", "zh": "终局计分" },
+      "title": {
+        "en": "Final Scoring",
+        "zh": "终局计分"
+      },
       "content": {
         "en": "After round 5’s last pass:\n\n1. Gold-box **end-game cards**.\n2. **Gold tiles:** sets × the value you marked.\n3. Extra VP from a discovered species.\n\nMost points wins; exact ties stand.\n\nTile examples: 3 different techs · pairs of techs · completed missions · tucked income sets · most credit **or** energy income · 3 different traces · min(sector wins, orbiters+landers) · pairs of missions/gold-box cards.",
         "zh": "第 5 轮最后一人过牌后：\n\n1. 金框 **终局计分卡**。\n2. **金色板块：** 套数 × 你占的分值。\n3. 已发现种族的额外分。\n\n分数最高获胜；完全平分则并列。\n\n板块示例：三种科技各 1 · 每 2 块科技 · 已完成任务 · 三种收入套 · 最多的资金或能量收入 · 三种痕迹 · 扇区胜与入轨/着陆的较小值 · 任务/金框卡成对。"
       },
       "options": [
-        { "label": { "en": "Setup", "zh": "游戏准备" }, "next": "setup" },
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
-        { "label": { "en": "Techs", "zh": "科技" }, "next": "techs" }
+        {
+          "label": {
+            "en": "Setup",
+            "zh": "游戏准备"
+          },
+          "next": "setup"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Techs",
+            "zh": "科技"
+          },
+          "next": "techs"
+        }
       ]
     },
     "card-anatomy": {
-      "title": { "en": "Card Anatomy", "zh": "卡牌结构" },
+      "title": {
+        "en": "Card Anatomy",
+        "zh": "卡牌结构"
+      },
       "content": {
         "en": "Spend a card for **only one** benefit:\n\n- **White effect** = main action (pay the printed cost). Nested launch/scan/research **skip** the usual action cost.\n- **Corner icon** = discard as a free action.\n- **Income type** = what you gain each round if tucked.\n- **Sector colour** = Scan matching.\n\n**Conditional mission:** complete as a free action when true (even immediately).\n**Triggerable:** only things you do **after** playing it. One trigger marks one circle.\n**Gold box:** keep for end-game VP.",
         "zh": "花掉一张牌只能用 **其中一种** 好处：\n\n- **白色效果** = 主行动（付牌面费用）。嵌套的发射/扫描/研发 **不再** 付标准费用。\n- **边角图标** = 弃掉当自由行动。\n- **收入种类** = 塞入后每轮拿什么。\n- **扇区颜色** = 扫描匹配。\n\n**条件任务：** 成立时可当自由行动完成（打出当下也可以）。\n**触发任务：** 只统计打出 **之后** 做的事。一次触发只标一个圈。\n**金框：** 留到终局计分。"
       },
       "options": [
-        { "label": { "en": "Play a Card", "zh": "打牌" }, "next": "cards" },
-        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+        {
+          "label": {
+            "en": "Play a Card",
+            "zh": "打牌"
+          },
+          "next": "cards"
+        },
+        {
+          "label": {
+            "en": "Your Turn",
+            "zh": "你的回合"
+          },
+          "next": "turn"
+        }
       ]
     },
     "techs": {
-      "title": { "en": "Technologies", "zh": "科技" },
+      "title": {
+        "en": "Technologies",
+        "zh": "科技"
+      },
       "content": {
         "en": "**Research (6 publicity):** rotate, take a new tech, gain its bonus. First from a stack: **2 VP**. Card techs rotate but cost no publicity.\n\n**Probe:** dual probes (limit 2, free launch when taken) · asteroids (publicity, no extra leave cost) · land −1 energy · moons.\n**Telescope (Scan only):** mark adjacent to Earth instead · discard a hand card for an extra match · 1 publicity for Mercury’s sector · 1 energy to launch or gain a move.\n**Computer:** extra column (2 VP on top, printed reward below). Analyze still only needs the **top** row full.",
         "zh": "**研发（6 声望）：** 旋转，拿新科技，拿印出奖励。该叠第一块：**2 分**。卡牌送科技要旋转但不花声望。\n\n**探测器：** 双探测器（上限 2，拿取时免费发射）· 小行星（声望，离开不再加移动）· 着陆 −1 能量 · 卫星。\n**望远镜（仅扫描）：** 改标地球邻区 · 弃手牌再匹配一扇区 · 1 声望标水星扇区 · 1 能量发射或拿 1 移动。\n**电脑：** 加一列（上格 2 分，下格印出奖励）。分析仍只需 **顶行** 满。"
       },
       "options": [
-        { "label": { "en": "Research / Rotate", "zh": "研发 / 旋转" }, "next": "research" },
-        { "label": { "en": "Scan / Analyze", "zh": "扫描 / 分析" }, "next": "scan" }
+        {
+          "label": {
+            "en": "Research / Rotate",
+            "zh": "研发 / 旋转"
+          },
+          "next": "research"
+        },
+        {
+          "label": {
+            "en": "Scan / Analyze",
+            "zh": "扫描 / 分析"
+          },
+          "next": "scan"
+        }
       ]
     }
   }

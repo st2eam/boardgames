@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense } from "react";
 import type { FlowData } from "@/types/game";
 import { MarkdownRenderer } from "@/features/rules/MarkdownRenderer";
+import { RuleIllustration } from "@/features/rules/RuleIllustration";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -308,6 +309,13 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
 
               {/* Content body */}
               <div className="px-5 py-5 sm:px-6">
+                {node.illustration ? (
+                  <RuleIllustration
+                    src={node.illustration.src}
+                    alt={node.illustration.alt[locale as "en" | "zh"] ?? node.illustration.alt.en}
+                    className="mt-0"
+                  />
+                ) : null}
                 <div className="rounded-xl border border-border bg-stone-50/50 p-4 sm:p-5">
                   <MarkdownRenderer content={node.content[locale as "en" | "zh"] ?? node.content.en} />
                 </div>

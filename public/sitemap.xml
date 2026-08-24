@@ -96,6 +96,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/drecksau-sauschon/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/arena-magnate-haw/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -121,6 +126,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/catan-china-map/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/sea-salt-paper/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -139,6 +149,11 @@
     <loc>https://st2eam.github.io/boardgames/en/games/sea-salt-paper-extra-salt/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/sea-salt-paper-extra-salt/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/seti/</loc>
@@ -226,6 +241,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/uno-dos/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/carcassonne/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -239,6 +259,11 @@
     <loc>https://st2eam.github.io/boardgames/en/games/carcassonne-the-river/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/carcassonne-the-river/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/the-message-attack-by-stratagem/</loc>
@@ -289,6 +314,11 @@
     <loc>https://st2eam.github.io/boardgames/en/games/exploding-kittens-nsfw-edition/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/exploding-kittens-nsfw-edition/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/splendor/</loc>
@@ -716,6 +746,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/drecksau-sauschon/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/arena-magnate-haw/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -741,6 +776,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/catan-china-map/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/sea-salt-paper/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -759,6 +799,11 @@
     <loc>https://st2eam.github.io/boardgames/zh/games/sea-salt-paper-extra-salt/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/sea-salt-paper-extra-salt/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/seti/</loc>
@@ -846,6 +891,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/uno-dos/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/carcassonne/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -859,6 +909,11 @@
     <loc>https://st2eam.github.io/boardgames/zh/games/carcassonne-the-river/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/carcassonne-the-river/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/the-message-attack-by-stratagem/</loc>
@@ -909,6 +964,11 @@
     <loc>https://st2eam.github.io/boardgames/zh/games/exploding-kittens-nsfw-edition/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/exploding-kittens-nsfw-edition/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/splendor/</loc>

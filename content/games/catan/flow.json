@@ -58,7 +58,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/catan/turn.svg",
+        "alt": {
+          "en": "Roll 6: houses on the 6-hex take resources",
+          "zh": "掷出 6：这块 6 号地旁的房子拿资源"
+        }
+      }
     },
     "robber": {
       "title": {
@@ -110,7 +117,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/catan/victory.svg",
+        "alt": {
+          "en": "First to 10 victory points on your turn wins",
+          "zh": "在自己的回合率先达到 10 胜利点即获胜"
+        }
+      }
     }
   }
 }

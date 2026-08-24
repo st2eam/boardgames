@@ -32,7 +32,14 @@
           },
           "next": "baby-tokens"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/just-wild/card-backs.svg",
+        "alt": {
+          "en": "The two back numbers sum to the front value",
+          "zh": "背面两个数字相加等于正面点数"
+        }
+      }
     },
     "turn": {
       "title": {
@@ -105,7 +112,14 @@
           },
           "next": "scoring"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/just-wild/play-matching.svg",
+        "alt": {
+          "en": "3+5=8 so an 8 can cover",
+          "zh": "3+5=8 才能把 8 盖上去"
+        }
+      }
     },
     "baby-tokens": {
       "title": {
@@ -171,7 +185,14 @@
           },
           "next": "setup"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/just-wild/scoring.svg",
+        "alt": {
+          "en": "When you play your last card, each visible half of your species is 1 point",
+          "zh": "打出最后一张时，每个露出的物种半边计 1 分"
+        }
+      }
     }
   }
 }

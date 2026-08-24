@@ -1,0 +1,97 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Set up the expansion",
+        "zh": "加入扩展"
+      },
+      "content": {
+        "en": "Shuffle all Pretty Pig, Escape, and Lucky Bird cards into the Dirty Pig base-game deck. Each player still begins with three clean pigs and three cards.",
+        "zh": "将漂亮小猪、逃走和幸运小鸟卡全部洗入《脏小猪》本体牌堆。每位玩家仍从三只干净小猪与三张手牌开始。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "How can I win?",
+            "zh": "怎样获胜？"
+          },
+          "next": "win"
+        },
+        {
+          "label": {
+            "en": "New cards",
+            "zh": "新增卡牌"
+          },
+          "next": "cards"
+        }
+      ]
+    },
+    "win": {
+      "title": {
+        "en": "Choose one complete pig state",
+        "zh": "让所有猪同一状态"
+      },
+      "content": {
+        "en": "Win immediately when every one of your pigs is dirty, or every one is pretty. A mixed display does not win.",
+        "zh": "当你的每一只猪都变脏，或每一只猪都变漂亮时立即获胜；两种状态混在一起不算。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Use Pretty Pig",
+            "zh": "使用漂亮小猪"
+          },
+          "next": "cards"
+        },
+        {
+          "label": {
+            "en": "Restart",
+            "zh": "重新准备"
+          },
+          "next": "setup"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/drecksau-sauschon/new-win.svg",
+        "alt": {
+          "en": "First to have every pig the same: all dirty or all pretty",
+          "zh": "率先让所有猪同一状态：全脏或全漂亮"
+        }
+      }
+    },
+    "cards": {
+      "title": {
+        "en": "Play the new cards",
+        "zh": "打出新增卡牌"
+      },
+      "content": {
+        "en": "Pretty Pig can cover any unlocked pig and protects it from rain and scrubbing. Escape removes that cover. Lucky Bird lets you resolve all remaining hand cards, then draw three new cards.",
+        "zh": "漂亮小猪可盖在任意未锁定的猪上，并防雨、防刷；逃走卡移除它；幸运小鸟让你结算其余所有手牌后再抽三张。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Winning condition",
+            "zh": "获胜条件"
+          },
+          "next": "win"
+        },
+        {
+          "label": {
+            "en": "Back to setup",
+            "zh": "回到准备"
+          },
+          "next": "setup"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/drecksau-sauschon/new-cards.svg",
+        "alt": {
+          "en": "Pretty-pig, escape, and lucky-bird cards shuffle in",
+          "zh": "扩展混入漂亮小猪、逃走卡和幸运小鸟"
+        }
+      }
+    }
+  }
+}

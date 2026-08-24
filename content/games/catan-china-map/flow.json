@@ -1,0 +1,116 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Set up the China map",
+        "zh": "准备中国版图"
+      },
+      "content": {
+        "en": "Use the fixed China board, place the designated number tokens, and put each monument model on its marked location. Standard Catan setup otherwise applies.",
+        "zh": "使用固定中国地图，按标记放置数字标记和七个地标模型；其余准备沿用基础卡坦。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "What changed?",
+            "zh": "有哪些变化？"
+          },
+          "next": "map"
+        },
+        {
+          "label": {
+            "en": "Special scoring",
+            "zh": "特殊得分"
+          },
+          "next": "landmarks"
+        }
+      ]
+    },
+    "map": {
+      "title": {
+        "en": "Build only where the map allows",
+        "zh": "按地图标记建设"
+      },
+      "content": {
+        "en": "The map fixes terrain and building positions. Red trade routes replace coastal harbors: building a road on one grants the printed exchange rate.",
+        "zh": "地图固定地形和建设点。红色商路取代海港：在其上修路即可获得标示的兑换比例。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Great Wall and monuments",
+            "zh": "长城与名胜"
+          },
+          "next": "landmarks"
+        },
+        {
+          "label": {
+            "en": "Victory",
+            "zh": "胜利条件"
+          },
+          "next": "victory"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/catan-china-map/differences.svg",
+        "alt": {
+          "en": "Fixed China map, marked building sites, and red trade routes instead of harbors",
+          "zh": "固定中国地图、指定建造点，红线商路取代港口"
+        }
+      }
+    },
+    "landmarks": {
+      "title": {
+        "en": "Race for wall sections and monuments",
+        "zh": "争夺长城与名胜"
+      },
+      "content": {
+        "en": "Pay the wall cost to build a section and gain its Builder-card reward. Be first to connect a road to a monument to claim its one victory point; fewest wall sections costs one point at game end.",
+        "zh": "支付长城费用建造一段并获得建筑师卡奖励；最先用道路连到名胜即可取得一分；结束时长城最少者扣一分。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Victory",
+            "zh": "胜利条件"
+          },
+          "next": "victory"
+        },
+        {
+          "label": {
+            "en": "Back to map",
+            "zh": "回到地图规则"
+          },
+          "next": "map"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/catan-china-map/cities-wall.svg",
+        "alt": {
+          "en": "Great Wall and monuments add VP; still first to 10, fewest wall sections lose 1",
+          "zh": "长城与古迹提供额外胜利点；仍是 10 分获胜，长城最少 −1"
+        }
+      }
+    },
+    "victory": {
+      "title": {
+        "en": "Reach 10 victory points",
+        "zh": "达到 10 胜利点"
+      },
+      "content": {
+        "en": "The first player to reach 10 victory points on their turn wins. Base-game points still count, together with monuments, Builder-card rewards where applicable, and the Emperor's Wrath penalty.",
+        "zh": "在自己回合率先达到 10 胜利点的玩家获胜。基础版分数照常计算，并加入名胜、建筑师卡与皇帝牌扣分。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Set up again",
+            "zh": "重新准备"
+          },
+          "next": "setup"
+        }
+      ]
+    }
+  }
+}

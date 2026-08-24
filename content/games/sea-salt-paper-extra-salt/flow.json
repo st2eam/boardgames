@@ -1,0 +1,130 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": {
+        "en": "Mix in Extra Salt",
+        "zh": "混入盐趣倍增"
+      },
+      "content": {
+        "en": "Shuffle the eight star-marked expansion cards into the Sea Salt & Paper base-game deck. All base-game turn and end-round rules remain unchanged.",
+        "zh": "将八张带星标的扩展卡洗入《海盐折纸》本体牌堆；回合和结束规则保持不变。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Duo effects",
+            "zh": "组合牌效果"
+          },
+          "next": "duos"
+        },
+        {
+          "label": {
+            "en": "Special cards",
+            "zh": "特殊卡牌"
+          },
+          "next": "specials"
+        }
+      ]
+    },
+    "duos": {
+      "title": {
+        "en": "Resolve new duo effects",
+        "zh": "结算新增组合牌"
+      },
+      "content": {
+        "en": "Jellyfish plus Swimmer locks opponents to a top-deck draw next turn. Lobster plus Crab reveals five cards, lets you keep one, then returns and shuffles the other four.",
+        "zh": "水母加泳客让对手下回合只能从牌堆顶抽牌；龙虾加螃蟹翻开五张，留一张，其余四张洗回。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Special cards",
+            "zh": "特殊卡牌"
+          },
+          "next": "specials"
+        },
+        {
+          "label": {
+            "en": "Card counts",
+            "zh": "卡牌数量"
+          },
+          "next": "counts"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/sea-salt-paper-extra-salt/new-duos.svg",
+        "alt": {
+          "en": "Jellyfish+Swimmer locks opponents; Lobster looks at 5",
+          "zh": "水母+泳客锁对手；龙虾看顶 5 留 1"
+        }
+      }
+    },
+    "specials": {
+      "title": {
+        "en": "Choose a special-card payoff",
+        "zh": "使用特殊卡牌收益"
+      },
+      "content": {
+        "en": "Starfish turns a duo into a three-card, three-point set but cancels that duo's effect. Seahorse fills a missing collector card, while Crab Multiplier scores one point per other Crab.",
+        "zh": "海星把组合对变为三张三分，但取消组合效果；海马补一张收集牌；螃蟹大军按其他螃蟹数量得分。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Card counts",
+            "zh": "卡牌数量"
+          },
+          "next": "counts"
+        },
+        {
+          "label": {
+            "en": "Back to setup",
+            "zh": "回到准备"
+          },
+          "next": "setup"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/sea-salt-paper-extra-salt/specials.svg",
+        "alt": {
+          "en": "Starfish trio, Seahorse collector, Crab multiplier",
+          "zh": "海星三人组、海马补收集、螃蟹大军"
+        }
+      }
+    },
+    "counts": {
+      "title": {
+        "en": "Know the eight new cards",
+        "zh": "了解八张新增卡"
+      },
+      "content": {
+        "en": "The expansion adds two Jellyfish, one Lobster, three Starfish, one Seahorse, and one Crab Multiplier. The normal duo and STOP rules still apply.",
+        "zh": "扩展新增两张水母、一张龙虾、三张海星、一张海马和一张螃蟹大军；组合与喊停规则仍照本体执行。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Play the duos",
+            "zh": "查看组合牌"
+          },
+          "next": "duos"
+        },
+        {
+          "label": {
+            "en": "Back to setup",
+            "zh": "回到准备"
+          },
+          "next": "setup"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/sea-salt-paper-extra-salt/counts.svg",
+        "alt": {
+          "en": "Use the count table; duos still 2; STOP still works",
+          "zh": "看张数表，组合仍是 2，喊停仍可用"
+        }
+      }
+    }
+  }
+}

@@ -110,7 +110,14 @@
           },
           "next": "resonance"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/the-21st-constellation/turn-flow.svg",
+        "alt": {
+          "en": "Each turn: play spells, draw a star, or pass",
+          "zh": "每回合：出术卡、抽群星卡、或空过"
+        }
+      }
     },
     "use-spell": {
       "title": {
@@ -228,7 +235,14 @@
           },
           "next": "turn-end"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/the-21st-constellation/star-resonance.svg",
+        "alt": {
+          "en": "Matching star values trigger Star Resonance",
+          "zh": "场上相同点数的群星触发星之共鸣"
+        }
+      }
     },
     "bust": {
       "title": {

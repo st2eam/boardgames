@@ -58,7 +58,14 @@
           },
           "next": "buy"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/splendor/turn-actions.svg",
+        "alt": {
+          "en": "Take 3 different tokens, or buy a card",
+          "zh": "拿 3 种不同筹码，或付钱买卡"
+        }
+      }
     },
     "take3": {
       "title": {
@@ -134,7 +141,14 @@
           },
           "next": "noble"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/splendor/bonuses.svg",
+        "alt": {
+          "en": "Purchased cards give permanent gem discounts that stack",
+          "zh": "已购发展卡提供可叠加的永久宝石减免"
+        }
+      }
     },
     "noble": {
       "title": {
@@ -153,7 +167,14 @@
           },
           "next": "endcheck"
         }
-      ]
+      ],
+      "illustration": {
+        "src": "/images/rules/splendor/nobles.svg",
+        "alt": {
+          "en": "Meet bonus requirements and a noble visits for 3 prestige",
+          "zh": "满足奖励条件后贵族自动来访，获得 3 声望"
+        }
+      }
     },
     "endcheck": {
       "title": {

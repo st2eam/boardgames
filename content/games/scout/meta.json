@@ -1,0 +1,13 @@
+{
+  "name": {
+    "en": "SCOUT",
+    "zh": "SCOUT"
+  },
+  "players": "2-5",
+  "duration": "20 min",
+  "difficulty": "medium",
+  "tags": ["card", "ladder-climbing", "hand-management", "tactical"],
+  "category": "card",
+  "price": 15,
+  "bggRank": 110
+}

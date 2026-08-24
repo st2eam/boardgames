@@ -1,98 +1,144 @@
 import type { WireMessage } from "./messages";
 import { parseWireMessage } from "./messages";
 
+export type PeerConnectionStatus =
+  | "connecting"
+  | "open"
+  | "disconnected"
+  | "failed";
+
 type DataConn = {
   peer: string;
+  open?: boolean;
   send: (data: unknown) => void;
   on: (ev: string, fn: (...args: never[]) => void) => void;
   close: () => void;
 };
 
-type Handler = (msg: WireMessage, fromPeer?: string) => void;
+type StatusHandler = (status: PeerConnectionStatus, reason?: string) => void;
 
-/**
- * PeerJS-backed room. Loaded dynamically so Next SSR never touches peerjs.
- * Inbound messages are buffered until `onMessage` is registered (avoids the
- * classic race: guest hello → host lobby reply before guest handler exists).
- */
-export async function createPeerRoomHost(roomId: string): Promise<{
+export type PeerRoomHost = {
   roomId: string;
-  onMessage: (cb: Handler) => void;
+  onMessage: (cb: (msg: WireMessage, fromPeer: string) => void) => void;
+  onPeerLeft: (cb: (peerId: string) => void) => void;
+  onStatus: (cb: StatusHandler) => void;
   send: (peerId: string, msg: WireMessage) => void;
   broadcast: (msg: WireMessage, except?: string) => void;
   destroy: () => void;
-}> {
+};
+
+export type PeerRoomGuest = {
+  peerId: string;
+  onMessage: (cb: (msg: WireMessage) => void) => void;
+  onStatus: (cb: StatusHandler) => void;
+  send: (msg: WireMessage) => void;
+  destroy: () => void;
+};
+
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number, label: string): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = window.setTimeout(
+      () => reject(new Error(`${label} timed out`)),
+      timeoutMs,
+    );
+    promise.then(
+      (value) => {
+        window.clearTimeout(timer);
+        resolve(value);
+      },
+      (error) => {
+        window.clearTimeout(timer);
+        reject(error);
+      },
+    );
+  });
+}
+
+/** PeerJS adapter. It deliberately knows nothing about game rules or seats. */
+export async function createPeerRoomHost(
+  roomId: string,
+  opts: { timeoutMs?: number } = {},
+): Promise<PeerRoomHost> {
+  const timeoutMs = opts.timeoutMs ?? 15_000;
   const { default: Peer } = await import("peerjs");
   const peer = new Peer(roomId);
-  await new Promise<void>((resolve, reject) => {
-    peer.on("open", () => resolve());
-    peer.on("error", (err) => reject(err));
-  });
-  const conns = new Map<string, DataConn>();
-  let handler: Handler | null = null;
-  const pending: { msg: WireMessage; fromPeer?: string }[] = [];
+  await withTimeout(
+    new Promise<void>((resolve, reject) => {
+      peer.on("open", () => resolve());
+      peer.on("error", (err) => reject(err));
+    }),
+    timeoutMs,
+    "Creating room",
+  );
 
-  const deliver = (msg: WireMessage, fromPeer?: string) => {
-    if (handler) handler(msg, fromPeer);
+  const conns = new Map<string, DataConn>();
+  let messageHandler: ((msg: WireMessage, fromPeer: string) => void) | null = null;
+  let peerLeftHandler: ((peerId: string) => void) | null = null;
+  let statusHandler: StatusHandler | null = null;
+  const pending: { msg: WireMessage; fromPeer: string }[] = [];
+  const emitStatus = (status: PeerConnectionStatus, reason?: string) =>
+    statusHandler?.(status, reason);
+  const deliver = (msg: WireMessage, fromPeer: string) => {
+    if (messageHandler) messageHandler(msg, fromPeer);
     else pending.push({ msg, fromPeer });
   };
 
   peer.on("connection", (conn) => {
     const c = conn as unknown as DataConn;
-    const earlyData: { msg: WireMessage; fromPeer: string }[] = [];
+    const early: WireMessage[] = [];
     let attached = false;
-
-    // Listen immediately — before "open" fires — so no guest hello is
-    // lost.  Buffer until the conn is tracked in `conns`.
-    c.on("data", ((data: unknown) => {
-      const msg = parseWireMessage(data);
-      if (!msg) return;
-      if (attached) {
-        deliver(msg, c.peer);
-      } else {
-        earlyData.push({ msg, fromPeer: c.peer });
-      }
-    }) as never);
-
     const attach = () => {
       if (attached) return;
       attached = true;
       conns.set(c.peer, c);
-      for (const item of earlyData) deliver(item.msg, item.fromPeer);
-      earlyData.length = 0;
+      for (const msg of early.splice(0)) deliver(msg, c.peer);
     };
-
+    c.on(
+      "data",
+      ((data: unknown) => {
+        const msg = parseWireMessage(data);
+        if (!msg) return;
+        if (attached) deliver(msg, c.peer);
+        else early.push(msg);
+      }) as never,
+    );
     c.on("open", (() => attach()) as never);
-    queueMicrotask(() => {
-      if (!attached) {
-        try { attach(); } catch { /* wait for open */ }
-      }
-    });
-    c.on("close", (() => {
-      conns.delete(c.peer);
-      attached = false;
-      // Notify host handler so seats can be removed / converted to AI.
-      deliver({ type: "peerLeft", payload: { peerId: c.peer } }, c.peer);
-    }) as never);
+    if (c.open) attach();
+    c.on(
+      "close",
+      (() => {
+        if (!attached) return;
+        attached = false;
+        conns.delete(c.peer);
+        peerLeftHandler?.(c.peer);
+      }) as never,
+    );
+    c.on("error", ((err: Error) => emitStatus("failed", err.message)) as never);
   });
+  peer.on(
+    "disconnected",
+    (() => emitStatus("disconnected", "Signalling connection lost")) as never,
+  );
+  peer.on("error", ((err: Error) => emitStatus("failed", err.message)) as never);
 
   return {
     roomId,
     onMessage(cb) {
-      handler = cb;
-      if (pending.length) {
-        const batch = pending.splice(0, pending.length);
-        for (const item of batch) cb(item.msg, item.fromPeer);
-      }
+      messageHandler = cb;
+      for (const item of pending.splice(0)) cb(item.msg, item.fromPeer);
+    },
+    onPeerLeft(cb) {
+      peerLeftHandler = cb;
+    },
+    onStatus(cb) {
+      statusHandler = cb;
+      cb("open");
     },
     send(peerId, msg) {
       conns.get(peerId)?.send(msg);
     },
     broadcast(msg, except) {
-      for (const [id, c] of conns) {
-        if (id === except) continue;
-        c.send(msg);
-      }
+      for (const [id, c] of conns) if (id !== except) c.send(msg);
     },
     destroy() {
       peer.destroy();
@@ -100,53 +146,63 @@ export async function createPeerRoomHost(roomId: string): Promise<{
   };
 }
 
-export async function createPeerRoomGuest(roomId: string): Promise<{
-  peerId: string;
-  onMessage: (cb: (msg: WireMessage) => void) => void;
-  send: (msg: WireMessage) => void;
-  destroy: () => void;
-}> {
+export async function createPeerRoomGuest(
+  roomId: string,
+  opts: { timeoutMs?: number } = {},
+): Promise<PeerRoomGuest> {
+  const timeoutMs = opts.timeoutMs ?? 15_000;
   const { default: Peer } = await import("peerjs");
   const peer = new Peer();
-  await new Promise<void>((resolve, reject) => {
-    peer.on("open", () => resolve());
-    peer.on("error", (err) => reject(err));
-  });
-  const conn = peer.connect(roomId, { reliable: true }) as unknown as DataConn & {
-    on: (ev: string, fn: (...args: never[]) => void) => void;
-  };
-  await new Promise<void>((resolve, reject) => {
-    conn.on("open", (() => resolve()) as never);
-    conn.on("error", ((err: Error) => reject(err)) as never);
-    peer.on("error", (err) => reject(err));
-  });
-  let handler: ((msg: WireMessage) => void) | null = null;
-  const pending: WireMessage[] = [];
-  conn.on("data", ((data: unknown) => {
-    const msg = parseWireMessage(data);
-    if (!msg) return;
-    if (handler) handler(msg);
-    else pending.push(msg);
-  }) as never);
+  await withTimeout(
+    new Promise<void>((resolve, reject) => {
+      peer.on("open", () => resolve());
+      peer.on("error", (err) => reject(err));
+    }),
+    timeoutMs,
+    "Connecting to PeerJS",
+  );
+  const conn = peer.connect(roomId, { reliable: true }) as unknown as DataConn;
+  await withTimeout(
+    new Promise<void>((resolve, reject) => {
+      conn.on("open", (() => resolve()) as never);
+      conn.on("error", ((err: Error) => reject(err)) as never);
+      peer.on("error", (err) => reject(err));
+    }),
+    timeoutMs,
+    "Connecting to host",
+  );
 
-  // When the host's DataConnection closes or the signalling socket drops,
-  // deliver a synthetic peerLeft so the guest UI can show a disconnect message.
-  const notifyDisconnect = () => {
-    if (handler) {
-      handler({ type: "peerLeft", payload: { peerId: roomId } });
-    }
-  };
-  conn.on("close", (() => notifyDisconnect()) as never);
-  peer.on("disconnected", (() => notifyDisconnect()) as never);
+  let messageHandler: ((msg: WireMessage) => void) | null = null;
+  let statusHandler: StatusHandler | null = null;
+  const pending: WireMessage[] = [];
+  const emitStatus = (status: PeerConnectionStatus, reason?: string) =>
+    statusHandler?.(status, reason);
+  conn.on(
+    "data",
+    ((data: unknown) => {
+      const msg = parseWireMessage(data);
+      if (!msg) return;
+      if (messageHandler) messageHandler(msg);
+      else pending.push(msg);
+    }) as never,
+  );
+  conn.on("close", (() => emitStatus("disconnected", "Host connection closed")) as never);
+  conn.on("error", ((err: Error) => emitStatus("failed", err.message)) as never);
+  peer.on(
+    "disconnected",
+    (() => emitStatus("disconnected", "Signalling connection lost")) as never,
+  );
+  peer.on("error", ((err: Error) => emitStatus("failed", err.message)) as never);
 
   return {
-    peerId: peer.id!,
+    peerId: peer.id ?? "",
     onMessage(cb) {
-      handler = cb;
-      if (pending.length) {
-        const batch = pending.splice(0, pending.length);
-        for (const msg of batch) cb(msg);
-      }
+      messageHandler = cb;
+      for (const msg of pending.splice(0)) cb(msg);
+    },
+    onStatus(cb) {
+      statusHandler = cb;
+      cb("open");
     },
     send(msg) {
       conn.send(msg);

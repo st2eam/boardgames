@@ -5,4 +5,6 @@ export {
   type LobbyState,
   type AiChatMessage,
   type AiPresenceEvent,
+  type SubmitOk,
+  type SubmitErr,
 } from "./host";

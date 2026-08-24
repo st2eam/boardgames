@@ -88,7 +88,7 @@ describe("CABO deck and setup", () => {
     expect(state.pendingModal?.values?.length).toBe(2);
     expect(state.phase).toBe("setupPeek");
 
-    const view = caboPlugin.projectView(state, "a") as {
+    const view = caboPlugin.projectView!(state, "a") as {
       you: { slots: { value: number | null; faceUp: boolean }[] };
       pendingModal: { values?: number[] } | null;
     };
@@ -103,7 +103,7 @@ describe("CABO deck and setup", () => {
     );
     state = ack.state;
     expect(state.pendingModal).toBeNull();
-    const after = caboPlugin.projectView(state, "a") as {
+    const after = caboPlugin.projectView!(state, "a") as {
       you: {
         slots: {
           value: number | null;

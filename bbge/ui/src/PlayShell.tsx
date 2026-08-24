@@ -5,6 +5,7 @@ import type { Action, Event } from "@bbge/core";
 import { createRng } from "@bbge/core";
 import { HostSession, type AiChatMessage, type LobbyState } from "@bbge/runtime";
 import type { AiSeat } from "@bbge/ai";
+import type { PeerRoomGuest, PeerRoomHost } from "@bbge/network";
 import {
   maxPlayersForMode,
   minPlayersForMode,
@@ -25,6 +26,11 @@ import {
 import { LobbyView } from "./LobbyView";
 import { requirePlayModule } from "./registry";
 import type { PlayLogEntry, PluginPlayModule } from "./plugin-types";
+import {
+  GuestRoomController,
+  HostRoomController,
+  type GuestRoomUpdate,
+} from "./room-controller";
 
 export interface PlayShellProps {
   locale: string;
@@ -138,21 +144,6 @@ const NIMMT_MODE_OPTIONS: {
     hint: { en: "1–6 coop vs buffalo", zh: "1–6 人合作对抗水牛" },
   },
 ];
-
-type PeerHost = {
-  destroy: () => void;
-  broadcast?: (m: unknown) => void;
-  send?: (peerId: string, m: unknown) => void;
-  onMessage?: (
-    cb: (msg: { type: string; payload: unknown }, fromPeer?: string) => void,
-  ) => void;
-};
-
-type PeerGuest = {
-  destroy: () => void;
-  send?: (m: unknown) => void;
-  onMessage?: (cb: (msg: { type: string; payload: unknown }) => void) => void;
-};
 
 function newRoomId(prefix: string): string {
   const bytes = new Uint8Array(6);
@@ -356,6 +347,9 @@ export function PlayShell({
   const [guestStatus, setGuestStatus] = useState<
     "connecting" | "joined" | "error"
   >("connecting");
+  const [hostRoomReady, setHostRoomReady] = useState(false);
+  const [guestActionPending, setGuestActionPending] = useState(false);
+  const [guestRetryNonce, setGuestRetryNonce] = useState(0);
 
   useEffect(() => {
     if (!joinNotice) return;
@@ -367,9 +361,10 @@ export function PlayShell({
   const playLogRef = useRef<PlayLogEntry[]>([]);
   const aiRef = useRef<Map<string, AiSeat>>(new Map());
   const llmSeatIdsRef = useRef<Set<string>>(new Set());
-  const peerRef = useRef<{ destroy: () => void } | null>(null);
-  /** Map playerId → PeerJS peerId so we can route per-player view messages. */
-  const playerToPeerRef = useRef<Map<string, string>>(new Map());
+  const peerRef = useRef<PeerRoomHost | PeerRoomGuest | null>(null);
+  const hostRoomRef = useRef<HostRoomController | null>(null);
+  const guestRoomRef = useRef<GuestRoomController | null>(null);
+  const reconnectTimerRef = useRef<number | null>(null);
   const aiRunning = useRef(false);
   const autoAdvanceRunning = useRef(false);
   const localSeatIdsRef = useRef<Set<string>>(new Set([hostId]));
@@ -387,19 +382,10 @@ export function PlayShell({
     return Object.fromEntries(seats.map((s) => [s.id, s.name]));
   }, [lobby]);
 
-  /** Push post-action state to remote seats (views are per-player). */
+  /** Push one atomic, per-seat snapshot after a host-authoritative action. */
   const publishActionResult = useCallback(
-    (result: { events: Event[]; views: Map<string, unknown> }) => {
-      const s = sessionRef.current;
-      const host = peerRef.current as PeerHost | null;
-      if (!s || !host?.send) return;
-      host.broadcast?.({ type: "events", payload: result.events });
-      host.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
-      for (const [pid, v] of result.views) {
-        // Translate playerId → PeerJS peerId so the message reaches the guest.
-        const peerId = playerToPeerRef.current.get(pid) ?? pid;
-        host.send(peerId, { type: "view", payload: v });
-      }
+    (result: { events: Event[] }) => {
+      hostRoomRef.current?.publishState(result.events);
     },
     [],
   );
@@ -441,15 +427,13 @@ export function PlayShell({
     (msg: AiChatMessage) => {
       if (isHost) {
         sessionRef.current?.pushChat(msg);
-        const host = peerRef.current as PeerHost | null;
-        host?.broadcast?.({ type: "chat", payload: msg });
+        hostRoomRef.current?.broadcastChat(msg);
         tick();
       } else {
-        (peerRef.current as PeerGuest | null)?.send?.({
-          type: "chat",
-          payload: msg,
-        });
-        setChat((c) => [...c, msg]);
+        const guest = peerRef.current as PeerRoomGuest | null;
+        const ctl = guestRoomRef.current;
+        if (!guest || !ctl) return;
+        guest.send(ctl.chatRequest(msg.text, msg.at));
       }
     },
     [isHost, tick],
@@ -491,6 +475,7 @@ export function PlayShell({
     const prefix = mod.roomIdPrefix ?? "bbge";
     const rid = newRoomId(prefix);
     queueMicrotask(() => setRoomId(rid));
+    queueMicrotask(() => setHostRoomReady(false));
     const session = new HostSession(mod.plugin, {
       seed: newSeed(),
       hostPlayerId: hostId,
@@ -509,87 +494,45 @@ export function PlayShell({
     (async () => {
       try {
         const { createPeerRoomHost } = await import("@bbge/network");
-        const host = await createPeerRoomHost(rid);
+        const host = await createPeerRoomHost(rid, { timeoutMs: 15_000 });
         if (cancelled) {
           host.destroy();
           return;
         }
         peerRef.current = host;
-        host.onMessage((msg, fromPeer) => {
-          const s = sessionRef.current;
-          if (!s) return;
-          if (msg.type === "hello") {
-            const { playerId, name } = msg.payload as {
-              playerId: string;
-              name: string;
-            };
-            const label = (name || "").trim() || playerId;
-            s.addHumanSeat(playerId, label);
-            s.setReady(playerId, true);
-            // Record playerId → peerId mapping so view messages reach the guest.
-            if (fromPeer) playerToPeerRef.current.set(playerId, fromPeer);
-            const lobbySnap = s.getLobby();
-            // Prefer direct send so the joiner always gets seats even if
-            // broadcast races the connection map.
-            if (fromPeer) {
-              host.send(fromPeer, { type: "lobby", payload: lobbySnap });
+        hostRoomRef.current = new HostRoomController({
+          session,
+          transport: host,
+          maxSeats,
+          onLobbyChanged: () => {
+            const names = session.getLobby().seats;
+            const newest = names[names.length - 1];
+            if (newest && newest.id !== hostId) {
+              setJoinNotice(locale === "zh" ? `${newest.name} 已加入房间` : `${newest.name} joined the room`);
             }
-            host.broadcast({ type: "lobby", payload: lobbySnap });
-            setJoinNotice(
-              locale === "zh"
-                ? `${label} 已加入房间`
-                : `${label} joined the room`,
-            );
             tick();
-          } else if (msg.type === "action") {
-            const result = s.submitAction(msg.payload as Action);
-            if (!result.ok) {
-              if (fromPeer) {
-                host.send(fromPeer, {
-                  type: "actionReject",
-                  payload: { error: result.error },
-                });
-              }
-              return;
-            }
+          },
+          onActionAccepted: (result) => {
             appendEvents(result.events);
-            publishActionResult(result);
             tick();
             void (async () => {
               await runAutoAdvanceIfNeeded();
               await runAiIfNeeded();
             })();
-          } else if (msg.type === "chat") {
-            s.pushChat(msg.payload as AiChatMessage);
-            host.broadcast({ type: "chat", payload: msg.payload });
+          },
+          onChat: () => tick(),
+          onGraceExpired: () => {
             tick();
-          } else if (msg.type === "peerLeft") {
-            const { peerId } = msg.payload as { peerId: string };
-            // Find playerId by peerId (small n, linear scan is fine).
-            let playerId: string | undefined;
-            playerToPeerRef.current.forEach((pp, pid) => {
-              if (pp === peerId) playerId = pid;
-            });
-            if (!playerId) return;
-            playerToPeerRef.current.delete(playerId);
-            if (s.getPhase() === "lobby") {
-              s.removeSeat(playerId);
-              localSeatIdsRef.current.delete(playerId);
-              aiRef.current.delete(playerId);
-              llmSeatIdsRef.current.delete(playerId);
-              host.broadcast({ type: "lobby", payload: s.getLobby() });
-              tick();
-            } else {
-              // Mid-game: convert the seat to AI so the game can continue.
-              s.convertToAi(playerId);
-              host.broadcast({ type: "lobby", payload: s.getLobby() });
-              tick();
-              // If it's now this AI's turn, kick off the AI loop.
-              void runAiIfNeeded();
-            }
-          }
+            void runAiIfNeeded();
+          },
         });
+        host.onStatus((status, reason) => {
+          setHostRoomReady(status === "open");
+          if (status === "failed") setError(locale === "zh" ? `联机房间创建失败：${reason ?? "未知错误"}` : `Room failed: ${reason ?? "Unknown error"}`);
+        });
+        setHostRoomReady(true);
       } catch (e) {
+        setHostRoomReady(false);
         setError(
           e instanceof Error
             ? `PeerJS: ${e.message}`
@@ -602,10 +545,12 @@ export function PlayShell({
       cancelled = true;
       peerRef.current?.destroy();
       peerRef.current = null;
+      hostRoomRef.current?.destroy();
+      hostRoomRef.current = null;
       sessionRef.current = null;
       aiRef.current.clear();
       llmSeatIdsRef.current.clear();
-      playerToPeerRef.current.clear();
+      setHostRoomReady(false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHost, pluginId]);
@@ -628,115 +573,100 @@ export function PlayShell({
   useEffect(() => {
     if (isHost || !roomIdFromUrl) return;
     let cancelled = false;
-    const guestId = `g-${Math.random().toString(36).slice(2, 8)}`;
     queueMicrotask(() => {
-      setMyId(guestId);
-      setControllingId(guestId);
       setGuestStatus("connecting");
+      setGuestActionPending(false);
     });
-    (async () => {
+    const applySync = (sync: {
+      phase: "lobby" | "playing" | "finished";
+      lobby: unknown;
+      view: unknown;
+      chat?: unknown[];
+      events?: unknown[];
+    }) => {
+      const lb = sync.lobby as LobbyState;
+      setLobby(lb);
+      setPhase(sync.phase);
+      setView(sync.view);
+      setChat((sync.chat ?? []) as AiChatMessage[]);
+      if (sync.events?.length) appendEvents(sync.events as Event[]);
+      if (typeof lb.edition === "string" && lb.edition) {
+        setEdition(
+          pluginId === "six-nimmt"
+            ? normalizeNimmtMode(lb.edition)
+            : pluginId === "go"
+              ? normalizeGoEdition(lb.edition)
+              : pluginId === "uno"
+                ? normalizeUnoEdition(lb.edition)
+                : pluginId === "trio"
+                  ? normalizeTrioMode(lb.edition)
+                  : normalizeLlEdition(lb.edition),
+        );
+      }
+      const gc = lb.gameConfig;
+      if (gc && typeof gc.smallBlind === "number" && typeof gc.bigBlind === "number" && typeof gc.startingStack === "number") {
+        setStakes({ smallBlind: gc.smallBlind, bigBlind: gc.bigBlind, startingStack: gc.startingStack });
+      }
+      setGuestActionPending(false);
+    };
+    const handleUpdate = (update: GuestRoomUpdate) => {
+      if (!update) return;
+      if (update.type === "joined") {
+        setMyId(update.playerId);
+        setControllingId(update.playerId);
+        setGuestStatus("joined");
+        applySync(update.sync);
+      } else if (update.type === "sync") {
+        applySync(update.sync);
+      } else if (update.type === "accepted") {
+        setGuestActionPending(false);
+      } else if (update.type === "rejected") {
+        setGuestActionPending(false);
+        setError(update.error);
+      } else if (update.type === "joinRejected") {
+        setGuestStatus("error");
+        setError(locale === "zh" ? `无法加入：${update.error}` : `Cannot join: ${update.error}`);
+      } else if (update.type === "chat") {
+        setChat((items) => items.some((item) => item.at === update.message.at && item.playerId === update.message.playerId && item.text === update.message.text) ? items : [...items, update.message]);
+      } else if (update.type === "aiPresence") {
+        const p = update.payload as { type: string; playerId: string; started?: boolean };
+        if (p.type === "ai/thinking") {
+          setThinkingIds((previous) => {
+            const next = p.started ? (previous.includes(p.playerId) ? previous : [...previous, p.playerId]) : previous.filter((id) => id !== p.playerId);
+            setThinkingId(next[0] ?? null);
+            return next;
+          });
+        }
+      }
+    };
+    const connect = async () => {
       try {
         const { createPeerRoomGuest } = await import("@bbge/network");
-        const guest = await createPeerRoomGuest(roomIdFromUrl);
+        const guest = await createPeerRoomGuest(roomIdFromUrl, { timeoutMs: 15_000 });
         if (cancelled) {
           guest.destroy();
           return;
         }
         peerRef.current = guest;
-        // Register handler BEFORE hello — host replies with lobby immediately.
-        guest.onMessage((msg) => {
-          if (msg.type === "lobby") {
-            const lb = msg.payload as LobbyState;
-            setLobby(lb);
-            setGuestStatus("joined");
-            if (typeof lb.edition === "string" && lb.edition) {
-              setEdition(
-                pluginId === "six-nimmt"
-                  ? normalizeNimmtMode(lb.edition)
-                  : pluginId === "go"
-                    ? normalizeGoEdition(lb.edition)
-                    : pluginId === "uno"
-                      ? normalizeUnoEdition(lb.edition)
-                      : pluginId === "trio"
-                        ? normalizeTrioMode(lb.edition)
-                        : normalizeLlEdition(lb.edition),
-              );
-            }
-            const gc = lb.gameConfig;
-            if (
-              gc &&
-              typeof gc.smallBlind === "number" &&
-              typeof gc.bigBlind === "number" &&
-              typeof gc.startingStack === "number"
-            ) {
-              setStakes({
-                smallBlind: gc.smallBlind,
-                bigBlind: gc.bigBlind,
-                startingStack: gc.startingStack,
-              });
-            }
-          }
-          if (msg.type === "view") {
-            console.log("[guest] received view", msg.payload);
-            setView(msg.payload);
-          }
-          if (msg.type === "phase")
-            setPhase(msg.payload.phase as "lobby" | "playing" | "finished");
-          if (msg.type === "events") {
-            appendEvents(msg.payload as Event[]);
-          }
-          if (msg.type === "chat") {
-            const line = msg.payload as AiChatMessage;
-            setChat((c) => {
-              if (
-                c.some(
-                  (x) =>
-                    x.at === line.at &&
-                    x.playerId === line.playerId &&
-                    x.text === line.text,
-                )
-              ) {
-                return c;
+        const ctl = new GuestRoomController(pluginId, roomIdFromUrl);
+        guestRoomRef.current = ctl;
+        guest.onMessage((msg) => handleUpdate(ctl.handle(msg)));
+        guest.onStatus((status, reason) => {
+          if (status === "open") return;
+          setGuestActionPending(false);
+          setGuestStatus("error");
+          setError(locale === "zh" ? `与房主断开：${reason ?? "连接已关闭"}。可重新连接；纯 P2P 在复杂网络下可能无法直连。` : `Disconnected from host: ${reason ?? "connection closed"}. Retry; pure P2P may fail on restrictive networks.`);
+          if (!reconnectTimerRef.current) {
+            reconnectTimerRef.current = window.setTimeout(() => {
+              reconnectTimerRef.current = null;
+              if (!cancelled) {
+                setGuestStatus("connecting");
+                setGuestRetryNonce((value) => value + 1);
               }
-              return [...c, line];
-            });
-          }
-          if (msg.type === "aiPresence") {
-            const p = msg.payload as {
-              type: string;
-              playerId: string;
-              started?: boolean;
-            };
-            if (p.type === "ai/thinking") {
-              setThinkingIds((prev) => {
-                const next = p.started
-                  ? prev.includes(p.playerId)
-                    ? prev
-                    : [...prev, p.playerId]
-                  : prev.filter((id) => id !== p.playerId);
-                setThinkingId(next[0] ?? null);
-                return next;
-              });
-            }
-          }
-          if (msg.type === "actionReject")
-            setError((msg.payload as { error: string }).error);
-          if (msg.type === "peerLeft") {
-            setGuestStatus("error");
-            setError(
-              locale === "zh"
-                ? "与房主断开连接"
-                : "Disconnected from host",
-            );
+            }, 1_500);
           }
         });
-        guest.send({
-          type: "hello",
-          payload: {
-            playerId: guestId,
-            name: displayName.trim() || guestId,
-          },
-        });
+        guest.send(ctl.joinRequest(displayName || (locale === "zh" ? "玩家" : "Player")));
       } catch (e) {
         setGuestStatus("error");
         setError(
@@ -747,13 +677,18 @@ export function PlayShell({
             : "join failed",
         );
       }
-    })();
+    };
+    void connect();
     return () => {
       cancelled = true;
       peerRef.current?.destroy();
+      peerRef.current = null;
+      guestRoomRef.current = null;
+      if (reconnectTimerRef.current) window.clearTimeout(reconnectTimerRef.current);
+      reconnectTimerRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHost, roomIdFromUrl, pluginId]);
+  }, [isHost, roomIdFromUrl, pluginId, guestRetryNonce]);
 
   const resolveAiSeat = async (
     seatId: string,
@@ -834,7 +769,6 @@ export function PlayShell({
       if (hasHuman) return;
     }
 
-    const host = peerRef.current as PeerHost | null;
     const parallelSelect =
       modRef.current.plugin.metadata.pacing === "simultaneous" &&
       actorPhase === "selecting" &&
@@ -849,9 +783,8 @@ export function PlayShell({
       setThinkingId(ids[0] ?? null);
       setThinkingDetail(detail);
       for (const id of ids) {
-        host?.broadcast?.({
-          type: "aiPresence",
-          payload: { type: "ai/thinking", playerId: id, started: true },
+        hostRoomRef.current?.broadcastAiPresence({
+          type: "ai/thinking", playerId: id, started: true,
         });
       }
     };
@@ -861,9 +794,8 @@ export function PlayShell({
       setThinkingId(null);
       setThinkingDetail(null);
       for (const id of ids) {
-        host?.broadcast?.({
-          type: "aiPresence",
-          payload: { type: "ai/thinking", playerId: id, started: false },
+        hostRoomRef.current?.broadcastAiPresence({
+          type: "ai/thinking", playerId: id, started: false,
         });
       }
     };
@@ -1192,8 +1124,7 @@ export function PlayShell({
     setEdition(next);
     setError(null);
     tick();
-    const host = peerRef.current as PeerHost | null;
-    host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
+    hostRoomRef.current?.publishState();
   };
 
   const onStakesChange = (patch: {
@@ -1213,8 +1144,7 @@ export function PlayShell({
       }
       if (next.startingStack > 100_000) next.startingStack = 100_000;
       s.setGameConfig({ ...next });
-      const host = peerRef.current as PeerHost | null;
-      host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
+      hostRoomRef.current?.publishState();
       return next;
     });
     setError(null);
@@ -1235,7 +1165,7 @@ export function PlayShell({
     const n = s.getLobby().seats.filter((x) => x.kind === "ai").length + 1;
     const id = `ai-${n}`;
     s.addAiSeat(id, locale === "zh" ? `AI ${n}` : `AI ${n}`);
-    tick();
+    broadcastLobby();
   };
 
   const onAddHotseat = () => {
@@ -1253,15 +1183,14 @@ export function PlayShell({
     const id = `p-${n}`;
     s.addHumanSeat(id, `${locale === "zh" ? "玩家" : "Player"} ${n}`);
     localSeatIdsRef.current.add(id);
-    tick();
+    broadcastLobby();
   };
 
   const broadcastLobby = () => {
     const s = sessionRef.current;
     if (!s) return;
     tick();
-    const host = peerRef.current as PeerHost | null;
-    host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
+    hostRoomRef.current?.publishState();
   };
 
   const onRemoveSeat = (playerId: string) => {
@@ -1271,7 +1200,7 @@ export function PlayShell({
     localSeatIdsRef.current.delete(playerId);
     aiRef.current.delete(playerId);
     llmSeatIdsRef.current.delete(playerId);
-    playerToPeerRef.current.delete(playerId);
+    hostRoomRef.current?.forgetPlayer(playerId);
     broadcastLobby();
   };
 
@@ -1331,20 +1260,8 @@ export function PlayShell({
       setError(r.error);
       return;
     }
-    // Broadcast initial game state to guests so they leave the lobby.
-    {
-      const host = peerRef.current as PeerHost | null;
-      const initialViews = s.allViews();
-      console.log("[host] onStart — playerToPeer map:", [...playerToPeerRef.current.entries()]);
-      console.log("[host] onStart — initialViews keys:", [...initialViews.keys()]);
-      host?.broadcast?.({ type: "lobby", payload: s.getLobby() });
-      host?.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
-      for (const [pid, v] of initialViews) {
-        const peerId = playerToPeerRef.current.get(pid) ?? pid;
-        console.log(`[host] onStart — send view for pid=${pid} to peerId=${peerId}`);
-        host?.send?.(peerId, { type: "view", payload: v });
-      }
-    }
+    // One revisioned snapshot changes lobby → playing and includes each guest's private view.
+    hostRoomRef.current?.publishState();
     setPlayLog([
       {
         id: `start-${Date.now()}`,
@@ -1395,12 +1312,7 @@ export function PlayShell({
       setPlayLog([line]);
       setChat([]);
     }
-    const host = peerRef.current as PeerHost | null;
-    host?.broadcast?.({ type: "phase", payload: { phase: s.getPhase() } });
-    for (const [pid, v] of result.views) {
-      const peerId = playerToPeerRef.current.get(pid) ?? pid;
-      host?.send?.(peerId, { type: "view", payload: v });
-    }
+    hostRoomRef.current?.publishState(result.events);
     tick();
     void (async () => {
       await runAutoAdvanceIfNeeded();
@@ -1410,10 +1322,14 @@ export function PlayShell({
 
   const onDispatch = (action: Action) => {
     if (!isHost) {
-      (peerRef.current as PeerGuest | null)?.send?.({
-        type: "action",
-        payload: action,
-      });
+      const guest = peerRef.current as PeerRoomGuest | null;
+      const ctl = guestRoomRef.current;
+      if (!guest || !ctl) {
+        setError(locale === "zh" ? "尚未连接到房主" : "Not connected to host");
+        return;
+      }
+      setGuestActionPending(true);
+      guest.send(ctl.actionRequest(action));
       return;
     }
     const s = sessionRef.current;
@@ -1480,11 +1396,12 @@ export function PlayShell({
       )}
 
       {phase === "lobby" && isHost && (
-        <div className="min-h-0 flex-1 overflow-hidden">
+        <div className="relative min-h-0 flex-1 overflow-hidden">
           <LobbyView
             locale={locale}
             lobby={lobby}
             shareUrl={shareUrl}
+            roomReady={hostRoomReady}
             displayName={displayName}
             onDisplayName={setDisplayName}
             onAddAi={onAddAi}
@@ -1583,15 +1500,15 @@ export function PlayShell({
                 : "Connecting to host…"
               : guestStatus === "error"
                 ? zhUi
-                  ? "连接失败，请检查链接或让房主重新分享"
-                  : "Connection failed — check the link / ask host to reshare"
+                  ? "连接失败。请重试；纯 P2P 在公司网络或严格 NAT 下可能无法直连。"
+                  : "Connection failed. Retry; pure P2P can fail on restrictive networks."
                 : zhUi
                   ? "已进入房间 · 等待房主开战…"
                   : "In lobby · waiting for host to start…"}
           </p>
           <label className="mt-3 block shrink-0">
             <span className="mb-1 block text-xs font-semibold text-stone-500">
-              {zhUi ? "你的昵称（下次刷新链接后生效）" : "Your name"}
+              {zhUi ? "你的昵称（断线重连时使用）" : "Your name (used on reconnect)"}
             </span>
             <input
               className="w-full max-w-xs rounded-lg border border-border px-3 py-2 text-sm"
@@ -1600,6 +1517,19 @@ export function PlayShell({
               placeholder={zhUi ? "玩家" : "Player"}
             />
           </label>
+          {guestStatus === "error" && (
+            <button
+              type="button"
+              onClick={() => {
+                setError(null);
+                setGuestStatus("connecting");
+                setGuestRetryNonce((value) => value + 1);
+              }}
+              className="mt-3 w-fit cursor-pointer rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-white hover:bg-accent-dark"
+            >
+              {zhUi ? "重新连接" : "Reconnect"}
+            </button>
+          )}
           <div className="mt-4 min-h-0 flex-1 space-y-2 overflow-y-auto">
             <p className="text-xs font-semibold uppercase tracking-wide text-stone-400">
               {zhUi
@@ -1657,13 +1587,19 @@ export function PlayShell({
       )}
 
       {(phase === "playing" || phase === "finished") && view != null ? (
-        <div className="min-h-0 flex-1 overflow-hidden">
+        <div className="relative min-h-0 flex-1 overflow-hidden">
+          {!isHost && guestActionPending && (
+            <div className="absolute z-20 m-2 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-white shadow-card">
+              {zhUi ? "正在等待房主确认…" : "Waiting for host confirmation…"}
+            </div>
+          )}
           <ErrorBoundary>
             <Table
               locale={locale}
               view={view}
               myId={controllingId}
               disabled={
+                guestActionPending ||
                 thinkingIds.length > 0 &&
                 !(
                   mod.plugin.metadata.pacing === "simultaneous" &&

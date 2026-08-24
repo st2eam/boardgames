@@ -35,13 +35,13 @@ export type AiPresenceEvent =
   | { type: "ai/thinking"; playerId: PlayerId; started: false }
   | { type: "ai/chat"; message: AiChatMessage };
 
-type SubmitOk = {
+export type SubmitOk = {
   ok: true;
   events: Event[];
   views: Map<PlayerId, unknown>;
   seq: number;
 };
-type SubmitErr = { ok: false; error: string };
+export type SubmitErr = { ok: false; error: string };
 
 export class HostSession<TState = unknown, TAction extends Action = Action> {
   private phase: SessionPhase = "lobby";
@@ -136,6 +136,16 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
     if (seat.kind === "ai") return true; // already AI
     seat.kind = "ai";
     seat.ready = true;
+    return true;
+  }
+
+  /** Restore a disconnected human to their existing seat without re-dealing. */
+  convertToHuman(id: PlayerId, name?: string): boolean {
+    const seat = this.lobby.seats.find((s) => s.id === id);
+    if (!seat) return false;
+    seat.kind = "human";
+    if (name?.trim()) seat.name = name.trim().slice(0, 80);
+    if (this.phase === "lobby") seat.ready = true;
     return true;
   }
 

@@ -12,6 +12,7 @@ interface Props {
   locale: string;
   lobby: LobbyState | null;
   shareUrl: string;
+  roomReady?: boolean;
   displayName: string;
   onDisplayName: (v: string) => void;
   onAddAi: () => void;
@@ -132,6 +133,7 @@ export function LobbyView({
   locale,
   lobby,
   shareUrl,
+  roomReady = true,
   displayName,
   onDisplayName,
   onAddAi,
@@ -310,12 +312,14 @@ export function LobbyView({
               <div className="flex gap-2">
                 <input
                   readOnly
+                  disabled={!roomReady}
                   className="min-w-0 flex-1 truncate rounded-lg border border-border bg-surface px-3 py-2.5 text-xs text-stone-600"
-                  value={shareUrl}
+                  value={roomReady ? shareUrl : zh ? "正在创建安全邀请链接…" : "Creating secure invite link…"}
                 />
                 <button
                   type="button"
-                  className="cursor-pointer shrink-0 rounded-lg bg-accent px-3 py-2.5 font-heading text-xs font-bold text-white hover:bg-accent-dark"
+                  disabled={!roomReady}
+                  className="cursor-pointer shrink-0 rounded-lg bg-accent px-3 py-2.5 font-heading text-xs font-bold text-white hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-45"
                   onClick={() => void navigator.clipboard.writeText(shareUrl)}
                 >
                   {zh ? "复制" : "Copy"}

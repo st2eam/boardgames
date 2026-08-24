@@ -4,7 +4,7 @@
 
 静态导出的中英双语桌游规则站：[st2eam.github.io/boardgames](https://st2eam.github.io/boardgames/)。无 CMS、无 API routes、无运行时 Node；内容以文件为源，构建时生成静态页，部署在 GitHub Pages（`basePath: /boardgames`）。
 
-规模（`content/games/`，可用 `node scripts/print-project-stats.mjs` 核对）：**59** 款游戏（含扩展/变体）、**53** 决策树、**4** 记分器、**5** 训练器、**1** 番符计算器、**8** 款 BBGE 对局。
+规模（`content/games/`，可用 `node scripts/print-project-stats.mjs` 核对）：**60** 款游戏（含扩展/变体）、**60** 决策树、**4** 记分器、**5** 训练器、**1** 番符计算器、**8** 款 BBGE 对局。
 
 ## Features
 

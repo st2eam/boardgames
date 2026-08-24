@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title desc">
+  <title id="title">Claim a Power token / 获得能力标记</title>
+  <desc id="desc">A Power token sits on a Chapter card. An arrow moves it to the active player's supply before the card is resolved.</desc>
+  <rect width="720" height="280" rx="24" fill="#FAFAF5"/>
+  <text x="360" y="34" text-anchor="middle" fill="#5D4037" font-family="Georgia, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700">Claim first / 先拿标记</text>
+  <g transform="translate(55 94)">
+    <rect width="208" height="152" rx="14" fill="#fff" stroke="#8D6E63" stroke-width="3"/>
+    <rect x="18" y="18" width="172" height="42" rx="8" fill="#5D4037"/>
+    <text x="104" y="45" text-anchor="middle" fill="#fff" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700">Chapter card / 章节牌</text>
+    <path d="M28 112h152" stroke="#C4952A" stroke-width="5" stroke-linecap="round"/>
+    <path d="M28 130h103" stroke="#D6C3A5" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(220 82)">
+    <circle r="29" fill="#2e3b34" stroke="#C4952A" stroke-width="5"/>
+    <circle r="17" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="3 4"/>
+    <path d="M0-12 7 0 0 12-7 0Z" fill="#C4952A"/>
+  </g>
+  <text x="220" y="59" text-anchor="middle" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14">Power token / 能力标记</text>
+  <path d="M308 164h133" fill="none" stroke="#C4952A" stroke-width="8" stroke-linecap="round"/>
+  <path d="m430 146 28 18-28 18" fill="none" stroke="#C4952A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="382" y="138" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15">take first / 先取走</text>
+  <g transform="translate(486 94)">
+    <rect width="168" height="152" rx="18" fill="#fff" stroke="#C4952A" stroke-width="3"/>
+    <text x="84" y="38" text-anchor="middle" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700">Your supply</text>
+    <text x="84" y="61" text-anchor="middle" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15">你的供应区</text>
+    <circle cx="56" cy="105" r="23" fill="#2e3b34" stroke="#C4952A" stroke-width="4"/>
+    <circle cx="112" cy="105" r="23" fill="#2e3b34" stroke="#C4952A" stroke-width="4" opacity=".6"/>
+  </g>
+  <text x="360" y="262" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15">Then play or discard the Chapter card normally / 再按基础游戏打出或弃掉章节牌</text>
+</svg>

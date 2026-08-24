@@ -8,6 +8,10 @@
   "difficulty": "medium",
   "tags": ["board", "strategy", "duel", "asymmetry"],
   "category": "board",
+  "family": "duel-for-middle-earth",
+  "familyOrder": 0,
+  "variantType": "base",
+  "requiresBase": false,
   "price": 162,
   "bggRank": 19
 }

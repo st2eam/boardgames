@@ -1,0 +1,85 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Expansion Setup", "zh": "扩展设置" },
+      "content": {
+        "en": "Separate the Ally cards by side. Each player shuffles their 7 cards, secretly draws **3**, and sets the rest aside. Each player takes a player aid and **1 Power token**. At the start of every Chapter, add **2 Power tokens** to the marked positions in that Chapter's display.",
+        "zh": "按阵营分开盟友牌。每位玩家洗匀自己的 7 张，暗抽 **3** 张，其余放到一旁。每位玩家拿 1 张帮助卡和 **1 枚能力标记**。每个章节开始时，在该章节牌阵的指定位置放 **2 枚能力标记**。"
+      },
+      "options": [
+        { "label": { "en": "Take a marked card", "zh": "拿取带标记的牌" }, "next": "take-token" },
+        { "label": { "en": "Summon an Ally", "zh": "召唤盟友" }, "next": "summon" }
+      ]
+    },
+    "take-token": {
+      "title": { "en": "Take a Power Token", "zh": "获得能力标记" },
+      "content": {
+        "en": "Did you take a Chapter card with a Power token? Take the token **first**, put it in your personal supply, then resolve the card normally.",
+        "zh": "是否拿取了一张带能力标记的章节牌？先拿取该标记，放入自己的供应区，再正常结算章节牌。"
+      },
+      "options": [
+        { "label": { "en": "Spend it on an Ally", "zh": "花费用于盟友" }, "next": "summon" },
+        { "label": { "en": "Continue the base-game turn", "zh": "继续基础游戏回合" }, "next": "base-turn" }
+      ],
+      "illustration": {
+        "src": "/images/rules/duel-for-middle-earth-allies/power-token.svg",
+        "alt": {
+          "en": "Take the Power token from a Chapter card before resolving the card",
+          "zh": "从带有能力标记的章节牌上先拿取标记，再结算该牌"
+        }
+      }
+    },
+    "summon": {
+      "title": { "en": "Summon One Ally", "zh": "召唤 1 名盟友" },
+      "content": {
+        "en": "At any point in your turn, including after revealing a new Chapter card, you may summon **one** Ally as an extra action. You may not summon a second Ally this turn.",
+        "zh": "在自己回合的任意时刻，包括刚翻开新的章节牌之后，可以把召唤 **1 名**盟友作为额外行动。本回合不能再召唤第二名盟友。"
+      },
+      "options": [
+        { "label": { "en": "Use the entry effect", "zh": "使用入场效果" }, "next": "entry" },
+        { "label": { "en": "Use an Ally already in play", "zh": "使用场上的盟友" }, "next": "exit" }
+      ]
+    },
+    "entry": {
+      "title": { "en": "Entry Effect", "zh": "入场效果" },
+      "content": {
+        "en": "Spend **1 Power token**. Flip one of your secret Ally cards face up in front of you, then resolve the effect on its left side. That Ally stays in front of you for now.",
+        "zh": "弃掉 **1 枚能力标记**。翻开自己面前 1 张暗置盟友牌，执行左侧的入场效果。这名盟友暂时留在你面前。"
+      },
+      "options": [
+        { "label": { "en": "Later: use its exit effect", "zh": "之后：使用退场效果" }, "next": "exit" },
+        { "label": { "en": "Back to the base-game turn", "zh": "回到基础游戏回合" }, "next": "base-turn" }
+      ]
+    },
+    "exit": {
+      "title": { "en": "Exit Effect", "zh": "退场效果" },
+      "content": {
+        "en": "Choose an Ally already face up in front of you. Spend **2 Power tokens**, resolve its right-side exit effect, then set that card aside. It cannot be used again this game. An Ally must enter before it can exit.",
+        "zh": "选择 1 名已在你面前正面朝上的盟友。弃掉 **2 枚能力标记**，执行右侧退场效果，然后将该牌放到一旁；本局不能再次使用。盟友必须先入场，才能退场。"
+      },
+      "options": [
+        { "label": { "en": "Review the summon sequence", "zh": "查看召唤顺序" }, "next": "summon" },
+        { "label": { "en": "Back to the base-game turn", "zh": "回到基础游戏回合" }, "next": "base-turn" }
+      ],
+      "illustration": {
+        "src": "/images/rules/duel-for-middle-earth-allies/summon-ally.svg",
+        "alt": {
+          "en": "Spend one token to reveal an Ally and resolve its entry effect; later spend two tokens to use its exit effect and set it aside",
+          "zh": "花费 1 枚标记翻开盟友并执行入场效果；之后花费 2 枚标记执行退场效果并将其移出游戏"
+        }
+      }
+    },
+    "base-turn": {
+      "title": { "en": "Base Game Still Applies", "zh": "仍按基础游戏执行" },
+      "content": {
+        "en": "Your normal turn is unchanged: take a Chapter card or Landmark tile. Allies are an extra action only. The Ring quest, Races, regions, conflicts, and all victory conditions use the base-game rules.",
+        "zh": "正常回合不变：拿取章节牌或地标。盟友只是额外行动。魔戒远征、种族、地区、冲突和全部胜利条件仍按基础游戏执行。"
+      },
+      "options": [
+        { "label": { "en": "Set up another Chapter", "zh": "准备下一章节" }, "next": "setup" },
+        { "label": { "en": "Use an Ally", "zh": "使用盟友" }, "next": "summon" }
+      ]
+    }
+  }
+}

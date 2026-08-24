@@ -606,6 +606,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/duel-for-middle-earth-allies/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/duel-for-middle-earth-allies/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/6-nimmt-30th-anniversary/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1252,6 +1262,16 @@
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/duel-for-middle-earth/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/duel-for-middle-earth-allies/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/duel-for-middle-earth-allies/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

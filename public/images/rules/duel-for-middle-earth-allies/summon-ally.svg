@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title desc">
+  <title id="title">Summon and retire an Ally / 盟友入场与退场</title>
+  <desc id="desc">Spend one Power token to reveal an Ally and use its entry effect. Later spend two tokens to use its exit effect and set the Ally aside.</desc>
+  <rect width="720" height="300" rx="24" fill="#FAFAF5"/>
+  <text x="360" y="34" text-anchor="middle" fill="#5D4037" font-family="Georgia, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700">One ally, two moments / 一名盟友，两次时机</text>
+  <g transform="translate(42 75)">
+    <text x="102" y="-15" text-anchor="middle" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700">1 token · Entry / 1 枚 · 入场</text>
+    <circle cx="22" cy="71" r="19" fill="#2e3b34" stroke="#C4952A" stroke-width="4"/>
+    <text x="22" y="77" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="16">1</text>
+    <path d="M49 71h35" stroke="#C4952A" stroke-width="6" stroke-linecap="round"/>
+    <path d="m74 59 18 12-18 12" fill="none" stroke="#C4952A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="100" y="0" width="104" height="142" rx="13" fill="#fff" stroke="#8D6E63" stroke-width="3"/>
+    <rect x="110" y="11" width="84" height="119" rx="9" fill="#5D4037"/>
+    <path d="M126 31h52M126 50h52M126 69h52" stroke="#D6C3A5" stroke-width="5" stroke-linecap="round"/>
+    <text x="152" y="166" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14">flip face up / 翻开</text>
+  </g>
+  <path d="M268 142h94" fill="none" stroke="#C4952A" stroke-width="8" stroke-linecap="round"/>
+  <path d="m350 124 26 18-26 18" fill="none" stroke="#C4952A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(400 75)">
+    <text x="125" y="-15" text-anchor="middle" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700">2 tokens · Exit / 2 枚 · 退场</text>
+    <rect x="0" y="0" width="104" height="142" rx="13" fill="#fff" stroke="#C4952A" stroke-width="4"/>
+    <rect x="11" y="11" width="82" height="56" rx="7" fill="#E8D8B8"/>
+    <rect x="11" y="75" width="82" height="55" rx="7" fill="#D8B38B"/>
+    <text x="52" y="45" text-anchor="middle" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12">ENTRY / 入场</text>
+    <text x="52" y="109" text-anchor="middle" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12">EXIT / 退场</text>
+    <circle cx="134" cy="28" r="16" fill="#2e3b34" stroke="#C4952A" stroke-width="4"/>
+    <circle cx="176" cy="28" r="16" fill="#2e3b34" stroke="#C4952A" stroke-width="4"/>
+    <text x="155" y="59" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13">discard / 弃掉</text>
+    <text x="104" y="166" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14">resolve exit → set aside</text>
+    <text x="104" y="186" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14">执行退场 → 移出游戏</text>
+  </g>
+  <text x="360" y="282" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15">Summon at most one Ally each turn / 每回合最多召唤一名盟友</text>
+</svg>

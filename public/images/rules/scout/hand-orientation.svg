@@ -1,21 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="title desc">
-  <title id="title">SCOUT fixed-order hand</title>
-  <desc id="desc">A player keeps a row of dual-value cards in order, then rotates the whole hand once.</desc>
-  <rect width="720" height="260" fill="#FAFAF5"/>
-  <text x="36" y="40" fill="#5D4037" font-family="Georgia, serif" font-size="24" font-weight="700">Keep the order / 保持顺序</text>
-  <text x="36" y="66" fill="#8D6E63" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="15">Only the entire hand may rotate before the round / 仅开局时整手牌可旋转</text>
-  <g transform="translate(48 94)" font-family="Georgia,serif" text-anchor="middle">
-    <g fill="#fff" stroke="#5D4037" stroke-width="2"><rect x="0" y="0" width="76" height="116" rx="9"/><rect x="84" y="0" width="76" height="116" rx="9"/><rect x="168" y="0" width="76" height="116" rx="9"/><rect x="252" y="0" width="76" height="116" rx="9"/></g>
-    <g fill="#C4952A" font-size="28" font-weight="700"><text x="18" y="34">1</text><text x="102" y="34">5</text><text x="186" y="34">4</text><text x="270" y="34">8</text></g>
-    <g fill="#5D4037" font-size="24" font-weight="700"><text x="58" y="101">7</text><text x="142" y="101">2</text><text x="226" y="101">9</text><text x="310" y="101">3</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title desc">
+  <title id="title">SCOUT whole-hand rotation</title>
+  <desc id="desc">A four-card hand is turned as one object by 180 degrees. The player then reads the other values with the card order reversed; no individual card is flipped or moved.</desc>
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="34" y="39" fill="#5D4037" font-family="Georgia,serif" font-size="24" font-weight="700">Turn the whole hand / 整手牌一起旋转</text>
+  <text x="34" y="65" fill="#8D6E63" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif" font-size="14">Turn all cards together; read the other values / 整手转动，改读另一端数值</text>
+  <g transform="translate(34 106)" font-family="Georgia,serif" text-anchor="middle">
+    <rect x="-12" y="-13" width="286" height="143" rx="16" fill="#fff" stroke="#D7C8B3" stroke-width="2"/>
+    <text x="131" y="-22" fill="#8D6E63" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="14">before / 旋转前</text>
+    <g fill="#fff" stroke="#5D4037" stroke-width="2"><rect x="0" y="0" width="56" height="104" rx="8"/><rect x="64" y="0" width="56" height="104" rx="8"/><rect x="128" y="0" width="56" height="104" rx="8"/><rect x="192" y="0" width="56" height="104" rx="8"/></g>
+    <g fill="#C4952A" font-size="25" font-weight="700"><text x="17" y="33">1</text><text x="81" y="33">5</text><text x="145" y="33">4</text><text x="209" y="33">8</text></g>
+    <g fill="#5D4037" font-size="22" font-weight="700"><text x="42" y="92">7</text><text x="106" y="92">2</text><text x="170" y="92">9</text><text x="234" y="92">3</text></g>
   </g>
-  <path d="M386 152 C414 100 468 96 495 132" fill="none" stroke="#C4952A" stroke-width="5" stroke-linecap="round"/>
-  <path d="M482 118 L500 132 L478 142" fill="none" stroke="#C4952A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="441" y="184" fill="#C4952A" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="16" font-weight="700" text-anchor="middle">rotate all / 整体旋转</text>
-  <g transform="translate(520 94) rotate(180 76 58)" font-family="Georgia,serif" text-anchor="middle">
-    <g fill="#fff" stroke="#5D4037" stroke-width="2"><rect x="0" y="0" width="36" height="116" rx="7"/><rect x="40" y="0" width="36" height="116" rx="7"/><rect x="80" y="0" width="36" height="116" rx="7"/><rect x="120" y="0" width="36" height="116" rx="7"/></g>
-    <g fill="#5D4037" font-size="16" font-weight="700"><text x="10" y="30">7</text><text x="50" y="30">2</text><text x="90" y="30">9</text><text x="130" y="30">3</text></g>
-    <g fill="#C4952A" font-size="16" font-weight="700"><text x="26" y="104">1</text><text x="66" y="104">5</text><text x="106" y="104">4</text><text x="146" y="104">8</text></g>
+  <g transform="translate(359 151)" fill="none" stroke="#C4952A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-14 37 C-44 3 -22 -43 18 -42 C54 -40 67 -1 45 26"/>
+    <path d="M35 10 L45 27 L26 27"/>
   </g>
-  <text x="598" y="232" fill="#8D6E63" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="14" text-anchor="middle">No swapping / 不可换位</text>
+  <text x="361" y="220" fill="#C4952A" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif" font-size="14" font-weight="700" text-anchor="middle">rotate as one / 整手转 180°</text>
+  <g transform="translate(422 106)" font-family="Georgia,serif" text-anchor="middle">
+    <rect x="-12" y="-13" width="286" height="143" rx="16" fill="#fff" stroke="#C4952A" stroke-width="3"/>
+    <text x="131" y="-22" fill="#C4952A" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="14" font-weight="700">after / 旋转后，从新视角读牌</text>
+    <g fill="#fff" stroke="#5D4037" stroke-width="2"><rect x="0" y="0" width="56" height="104" rx="8"/><rect x="64" y="0" width="56" height="104" rx="8"/><rect x="128" y="0" width="56" height="104" rx="8"/><rect x="192" y="0" width="56" height="104" rx="8"/></g>
+    <g fill="#C4952A" font-size="25" font-weight="700"><text x="17" y="33">3</text><text x="81" y="33">9</text><text x="145" y="33">2</text><text x="209" y="33">7</text></g>
+    <g fill="#5D4037" font-size="22" font-weight="700"><text x="42" y="92">8</text><text x="106" y="92">4</text><text x="170" y="92">5</text><text x="234" y="92">1</text></g>
+  </g>
+  <text x="360" y="264" fill="#8D6E63" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif" font-size="14" text-anchor="middle">No individual flips or swaps / 不是逐张翻牌，也不是换位</text>
 </svg>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
-<rect width="720" height="260" fill="#FAFAF5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img">
+<rect width="720" height="290" fill="#FAFAF5"/>
 <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
 <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Extra food, sideways birds / 额外食物与横放鸟</text>
 <rect x="80" y="80" width="20" height="20" rx="3" fill="#6D4C41" stroke="#5D4037" stroke-width="1"/><rect x="110" y="80" width="20" height="20" rx="3" fill="#C62828" stroke="#5D4037" stroke-width="1"/><rect x="140" y="80" width="20" height="20" rx="3" fill="#F9A825" stroke="#5D4037" stroke-width="1"/><text x="125" y="125" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">更多食物</text><rect x="255" y="95" width="120" height="48" rx="8" fill="#fff" stroke="#C4952A" stroke-width="2.5"/><text x="315" y="125" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">鸟（横放）</text><rect x="450" y="55" width="180" height="90" rx="10" fill="#fff" stroke="#5D4037"/><text x="540" y="95" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">新的回合目标</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">混入额外食物标记、可横放的鸟牌，以及新的回合目标</text>

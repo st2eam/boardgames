@@ -23,6 +23,20 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
+function validateSvgBounds(src) {
+  const file = path.join(RULE_IMAGES, src.replace("/images/rules/", ""));
+  const svg = fs.readFileSync(file, "utf8");
+  const viewBox = /viewBox="0 0 ([\d.]+) ([\d.]+)"/.exec(svg);
+  assert(viewBox, `${src}: SVG must declare a numeric viewBox`);
+  const height = Number(viewBox[2]);
+  const textBaselines = [...svg.matchAll(/<text\b[^>]*\by="([\d.]+)"[^>]*>/g)].map((match) => Number(match[1]));
+  const maxBaseline = Math.max(...textBaselines, 0);
+  assert(
+    maxBaseline <= height - 12,
+    `${src}: bottom text baseline (${maxBaseline}) exceeds the safe SVG area (${height})`,
+  );
+}
+
 export function validateGameContent() {
   const slugs = readJson(path.join(CONTENT, "index.json"));
   for (const slug of slugs) {
@@ -32,6 +46,7 @@ export function validateGameContent() {
     for (const src of images.en) {
       assert(src.startsWith(`/images/rules/${slug}/`), `${slug}: image must stay inside its own rules directory: ${src}`);
       assert(fs.existsSync(path.join(RULE_IMAGES, src.replace("/images/rules/", ""))), `${slug}: missing SVG ${src}`);
+      validateSvgBounds(src);
     }
 
     const flowFile = path.join(CONTENT, slug, "flow.json");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
-<rect width="720" height="280" fill="#FAFAF5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img">
+<rect width="720" height="290" fill="#FAFAF5"/>
 <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
 <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Fixed China map / 固定中国地图</text>
 <polygon points="80,80 200,55 320,90 300,160 140,170" fill="#C5E1A5" stroke="#2E7D32" stroke-width="2"/><polygon points="160,90 147,106 173,106" fill="#C4952A" stroke="#5D4037"/><rect x="150" y="106" width="20" height="11" fill="#C4952A" stroke="#5D4037"/><polygon points="240,100 227,116 253,116" fill="#5D4037" stroke="#5D4037"/><rect x="230" y="116" width="20" height="11" fill="#5D4037" stroke="#5D4037"/><text x="200" y="190" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">指定建造点</text><line x1="400" y1="70" x2="620" y2="70" stroke="#C62828" stroke-width="6"/><line x1="400" y1="70" x2="480" y2="140" stroke="#C62828" stroke-width="6"/><line x1="620" y1="70" x2="560" y2="150" stroke="#C62828" stroke-width="6"/><text x="510" y="175" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">红线商路，不是港口</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">用地图上印好的中国地形；房子只能放标记点；红线商路取代港口</text>

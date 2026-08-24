@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img">
-<rect width="720" height="260" fill="#FAFAF5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img">
+<rect width="720" height="290" fill="#FAFAF5"/>
 <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#C4952A"/></marker></defs>
 <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#5D4037" font-weight="700">Yellow share a number; red explodes / 黄线同号，红线猜错即爆</text>
 <line x1="80" y1="70" x2="220" y2="70" stroke="#F9A825" stroke-width="8"/><line x1="80" y1="100" x2="220" y2="100" stroke="#F9A825" stroke-width="8"/><text x="150" y="130" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">黄线共用一个数字</text><line x1="400" y1="85" x2="620" y2="85" stroke="#C62828" stroke-width="10"/><text x="510" y="120" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">猜错红线 → 爆炸</text><text x="360" y="248" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">黄线共用「黄」这一个数字；猜错红线则炸弹立即爆炸</text>

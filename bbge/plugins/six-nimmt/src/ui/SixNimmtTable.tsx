@@ -6,6 +6,8 @@ import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
 import {
   MatchResultBar,
+  PlayActionDock,
+  PlayHorizontalRail,
   PlayFeltFrame,
   PlayLogChatPanel,
   PlaySideSheet,
@@ -396,6 +398,31 @@ export function SixNimmtTable({
         detail={thinkingSet.size > 0 ? thinkingDetail : null}
       />
 
+      {mobile && (
+        <PlayHorizontalRail data-testid="nimmt-seat-rail" className="shrink-0">
+          {view.seats.map((s) => (
+            <div
+              key={s.id}
+              data-seat-id={s.id}
+              className={[
+                "min-w-[5.5rem] shrink-0 rounded-lg border px-2 py-1 text-[10px]",
+                s.hasPlayed && view.phase === "selecting"
+                  ? "border-emerald-300 bg-emerald-50"
+                  : "border-border bg-white/90",
+              ].join(" ")}
+            >
+              <p className="truncate font-heading font-bold text-primary-dark">
+                {s.isYou ? (zh ? "你" : "You") : s.name}
+              </p>
+              <p className="tabular-nums text-stone-500">
+                {view.mode === "buffalo" ? "—" : s.score}
+                {s.hasPlayed ? (zh ? " · 已出" : " · locked") : ""}
+              </p>
+            </div>
+          ))}
+        </PlayHorizontalRail>
+      )}
+
       {canSpecial && view.buffalo && (
         <div className="flex shrink-0 flex-wrap items-center gap-2 rounded-xl border border-amber-200 bg-amber-50/90 px-3 py-2">
           <span className="text-xs font-bold text-amber-950">
@@ -666,7 +693,7 @@ export function SixNimmtTable({
             </PlayFeltFrame>
           )}
 
-          <div className="shrink-0 rounded-xl border border-border bg-white/95 p-2 shadow-sm sm:p-2.5">
+          <PlayActionDock className="rounded-xl border border-border p-2 shadow-sm sm:p-2.5">
             <div className="mb-1 flex items-center justify-between">
               <p className="font-heading text-sm font-bold text-primary-dark">
                 {zh ? "你的手牌" : "Your hand"}
@@ -690,7 +717,10 @@ export function SixNimmtTable({
                 </span>
               )}
             </div>
-            <div className="flex flex-wrap justify-center gap-1.5 py-1">
+            <PlayHorizontalRail
+              data-testid="nimmt-hand-rail"
+              className="justify-start py-1 lg:justify-center"
+            >
               {(view.you?.hand ?? []).map((c) => (
                 <NimmtCard
                   key={c.id}
@@ -710,7 +740,7 @@ export function SixNimmtTable({
                     {zh ? "手牌已打完" : "Hand empty"}
                   </p>
                 )}
-            </div>
+            </PlayHorizontalRail>
             <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-border pt-2">
               {view.mode === "fan-flippin" &&
                 view.you?.hasFlipToken &&
@@ -760,7 +790,7 @@ export function SixNimmtTable({
                 />
               )}
             </div>
-          </div>
+          </PlayActionDock>
         </div>
 
         <aside className="hidden min-h-0 flex-col overflow-hidden lg:flex">

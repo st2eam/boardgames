@@ -29,6 +29,7 @@ export function PlayTableShell({
   const zh = locale === "zh";
   return (
     <div
+      data-testid="play-table-shell"
       className={[
         "flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/25 bg-[#efe6d8] shadow-card",
         className,
@@ -36,9 +37,9 @@ export function PlayTableShell({
         .filter(Boolean)
         .join(" ")}
     >
-      <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-[#3E2723]/15 bg-[#5D4037] px-3 py-2 text-amber-50 sm:px-4 sm:py-2.5">
-        <p className="font-heading text-sm font-bold tracking-wide">{title}</p>
-        <div className="flex flex-wrap items-center gap-2 text-xs text-amber-100/85 sm:gap-3">
+      <div className="flex shrink-0 items-center gap-2 overflow-hidden border-b border-[#3E2723]/15 bg-[#5D4037] px-3 py-2 text-amber-50 sm:px-4 sm:py-2.5">
+        <p className="min-w-0 shrink-0 truncate font-heading text-sm font-bold tracking-wide">{title}</p>
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-2 overflow-x-auto whitespace-nowrap text-xs text-amber-100/85 [scrollbar-width:none] sm:gap-3 [&::-webkit-scrollbar]:hidden">
           {toolbarExtra}
           {onOpenLog ? (
             <button

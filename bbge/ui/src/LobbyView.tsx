@@ -61,7 +61,7 @@ function SeatCard({
   onRemove?: () => void;
 }) {
   return (
-    <div className="flex items-center gap-2 rounded-xl border border-border bg-white px-2.5 py-2 shadow-sm sm:gap-3 sm:px-3 sm:py-2.5">
+    <div data-testid="lobby-seat" className="flex items-center gap-2 rounded-xl border border-border bg-white px-2.5 py-2 shadow-sm sm:gap-3 sm:px-3 sm:py-2.5">
       <span
         className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface font-heading text-xs font-bold tabular-nums text-stone-600"
         title={zh ? "行动顺序" : "Turn order"}
@@ -159,7 +159,7 @@ export function LobbyView({
   const canRemove = Boolean(onRemoveSeat);
 
   return (
-    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/20 bg-[#efe6d8] shadow-card">
+    <div data-testid="play-lobby" className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#3E2723]/20 bg-[#efe6d8] shadow-card">
       <div className="flex shrink-0 items-center justify-between gap-3 border-b border-[#3E2723]/15 bg-[#5D4037] px-4 py-3 text-amber-50">
         <div>
           <p className="font-heading text-xs font-semibold uppercase tracking-wider text-accent">
@@ -330,13 +330,13 @@ export function LobbyView({
 
           </div>
 
-          <div className="shrink-0 border-t border-border bg-white/95 p-3 sm:p-4">
+          <div data-testid="lobby-actions" className="shrink-0 border-t border-border bg-white/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:p-4">
             <div className="flex flex-wrap gap-2">
             <button
               type="button"
               onClick={onAddHotseat}
               disabled={atCap}
-              className="cursor-pointer rounded-lg border border-border bg-surface px-4 py-2.5 font-heading text-sm font-semibold text-primary-dark hover:border-accent/50 disabled:cursor-not-allowed disabled:opacity-40"
+              className="min-h-11 cursor-pointer rounded-lg border border-border bg-surface px-4 py-2.5 font-heading text-sm font-semibold text-primary-dark hover:border-accent/50 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {zh ? "加热座" : "Hotseat"}
             </button>
@@ -344,21 +344,21 @@ export function LobbyView({
               type="button"
               onClick={onAddAi}
               disabled={atCap}
-              className="cursor-pointer rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-2.5 font-heading text-sm font-semibold text-emerald-800 hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-40"
+              className="min-h-11 cursor-pointer rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-2.5 font-heading text-sm font-semibold text-emerald-800 hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {zh ? "加 AI" : "Add AI"}
             </button>
             <button
               type="button"
               onClick={onReady}
-              className="cursor-pointer rounded-lg border border-border px-4 py-2.5 font-heading text-sm font-semibold text-primary-dark hover:bg-primary-light"
+              className="min-h-11 cursor-pointer rounded-lg border border-border px-4 py-2.5 font-heading text-sm font-semibold text-primary-dark hover:bg-primary-light"
             >
               Ready
             </button>
             <button
               type="button"
               onClick={onStart}
-              className="ml-auto cursor-pointer rounded-xl bg-accent px-6 py-2.5 font-heading text-sm font-bold text-white shadow-card hover:bg-accent-dark"
+              className="ml-auto min-h-11 cursor-pointer rounded-xl bg-accent px-6 py-2.5 font-heading text-sm font-bold text-white shadow-card hover:bg-accent-dark"
             >
               {zh ? "开始游戏" : "Start match"}
             </button>

@@ -5,7 +5,10 @@ import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
 import {
   MatchResultBar,
+  PlayActionDock,
+  PlayHorizontalRail,
   PlayLogChatPanel,
+  PlayScrollableRegion,
   PlaySideSheet,
   PlayTableShell,
   SeatSpeechSlot,
@@ -522,7 +525,7 @@ export function RummikubTable({
         />
 
         <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
-          <div className="flex shrink-0 gap-2 overflow-x-auto overscroll-contain px-1 pb-1 lg:flex-wrap lg:justify-center">
+          <PlayHorizontalRail data-testid="rummikub-seat-rail" className="shrink-0">
             {others.map((s) => {
               const active = view.currentPlayerId === s.id;
               return (
@@ -568,12 +571,13 @@ export function RummikubTable({
                 </div>
               );
             })}
-          </div>
+          </PlayHorizontalRail>
 
           <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-            <div
+            <PlayScrollableRegion
               ref={tableScrollRef}
-              className="flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto overscroll-contain px-2 py-1"
+              data-testid="rummikub-table-region"
+              className="flex flex-col items-center gap-2 px-2 py-1"
             >
               <div className="flex w-full items-center justify-center gap-3">
                 <button
@@ -686,7 +690,7 @@ export function RummikubTable({
                   </>
                 )}
               </div>
-            </div>
+            </PlayScrollableRegion>
             {mobile && isMyTurn && (
               <div className="flex shrink-0 gap-1.5 px-2 pb-0.5">
                 <div
@@ -823,7 +827,7 @@ export function RummikubTable({
           )}
         </div>
 
-        <div className="shrink-0 rounded-xl border border-border bg-white/95 px-2.5 py-1.5 shadow-sm">
+        <PlayActionDock className="rounded-xl border border-border px-2.5 py-1.5 shadow-sm">
           {view.phase === "finished" ? (
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-sm text-primary-dark">{status}</p>
@@ -844,7 +848,7 @@ export function RummikubTable({
                   : "Drag tiles to meld · gold “R” tiles return via × or drop on rack · end when all sets are valid"}
             </p>
           )}
-        </div>
+        </PlayActionDock>
       </div>
 
       {drag && (

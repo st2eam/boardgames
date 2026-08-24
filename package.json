@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "eslint",
     "test:bbge": "vitest run --config bbge/vitest.config.ts",
-    "test:bbge:watch": "vitest --config bbge/vitest.config.ts"
+    "test:bbge:watch": "vitest --config bbge/vitest.config.ts",
+    "test:mobile": "playwright test"
   },
   "dependencies": {
     "@pixi/react": "^8.0.5",
@@ -32,6 +33,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

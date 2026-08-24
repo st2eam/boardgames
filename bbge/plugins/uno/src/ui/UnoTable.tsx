@@ -5,6 +5,8 @@ import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
 import {
   MatchResultBar,
+  PlayActionDock,
+  PlayHorizontalRail,
   PlayLogChatPanel,
   PlaySideSheet,
   PlayTableShell,
@@ -246,7 +248,7 @@ export function UnoTable({
 
         <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
           {/* Opponents */}
-          <div className="flex shrink-0 gap-2 overflow-x-auto overscroll-contain px-1 pb-1 lg:flex-wrap lg:justify-center">
+          <PlayHorizontalRail data-testid="uno-seat-rail" className="shrink-0">
             {others.map((s) => {
               const active = view.currentPlayerId === s.id;
               return (
@@ -302,7 +304,7 @@ export function UnoTable({
                 </div>
               );
             })}
-          </div>
+          </PlayHorizontalRail>
 
           {/* Center: discard + deck */}
           <div className="flex min-h-0 flex-1 items-center justify-center gap-3 sm:gap-4">
@@ -494,7 +496,7 @@ export function UnoTable({
           )}
         </div>
 
-        <div className="shrink-0 rounded-xl border border-border bg-white/95 px-2.5 py-1.5 shadow-sm">
+        <PlayActionDock className="rounded-xl border border-border px-2.5 py-1.5 shadow-sm">
           {view.phase === "finished" ? (
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-sm text-primary-dark">{status}</p>
@@ -519,7 +521,7 @@ export function UnoTable({
                 : "Tap hand to play · deck to draw · call UNO at 1"}
             </p>
           )}
-        </div>
+        </PlayActionDock>
       </div>
 
       {/* Color picker modal */}
@@ -531,7 +533,7 @@ export function UnoTable({
             .find((c) => c.id === selectedId)
             ?.kind.startsWith("wild"))) ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-xs rounded-2xl border border-border bg-white p-4 shadow-card">
+          <div className="max-h-[calc(100dvh-2rem)] w-full max-w-xs overflow-y-auto rounded-2xl border border-border bg-white p-4 shadow-card">
             <p className="mb-3 text-center font-heading font-bold text-primary-dark">
               {zh ? "选择颜色" : "Choose color"}
             </p>

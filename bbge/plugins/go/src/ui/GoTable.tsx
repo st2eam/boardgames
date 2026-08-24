@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import type { PluginTableProps } from "@bbge/ui";
 import {
   MatchResultBar,
+  PlayActionDock,
   PlayLogChatPanel,
   PlaySideSheet,
   SeatSpeechSlot,
@@ -169,7 +170,7 @@ export function GoTable({
     (playLog?.length ?? 0) + (chat?.length ?? 0);
 
   return (
-    <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-surface">
+    <div data-testid="go-table" className="relative flex h-full min-h-0 flex-col overflow-hidden bg-surface">
       {/* Compact chrome — seats + status only */}
       <div className="flex h-[4.25rem] shrink-0 items-center gap-1.5 border-b border-border/70 bg-white/90 px-1.5 sm:h-[4.5rem] sm:gap-2 sm:px-2">
         <div className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto overflow-y-visible text-[11px] sm:text-xs">
@@ -236,7 +237,7 @@ export function GoTable({
       </div>
 
       {/* Bottom actions: pass / resign / chat */}
-      <div className="shrink-0 border-t border-border/70 bg-white/95 px-2 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-3">
+      <PlayActionDock data-testid="go-action-dock">
         {confirmResign ? (
           <div className="mx-auto flex max-w-md gap-2">
             <button
@@ -293,7 +294,7 @@ export function GoTable({
             </button>
           </div>
         )}
-      </div>
+      </PlayActionDock>
 
       <PlaySideSheet
         locale={locale}

@@ -53,6 +53,7 @@ Rules:
 | `scripts/` | Lifecycle hooks only (prebuild / postbuild / icon regen) |
 
 在线邀请链路的协议、恢复边界和测试要求见 [BBGE 邀请联机规范](bbge-networking.md)。
+移动端桌面区域和滚动边界见 [BBGE 移动端界面规范](bbge-mobile-ui.md)。
 
 Stack ADRs: [no Vite SPA](decisions/ADR-001-next-static-export.md), [no Ant Design/Less](decisions/ADR-002-keep-tailwind-not-antd.md), [no axios/Zustand](decisions/ADR-003-content-repository-no-axios.md).
 

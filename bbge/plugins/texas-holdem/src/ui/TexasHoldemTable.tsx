@@ -6,7 +6,9 @@ import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
 import {
   MatchResultBar,
+  PlayActionDock,
   PlayFeltFrame,
+  PlayHorizontalRail,
   PlayLogChatPanel,
   PlaySideSheet,
   PlayTableShell,
@@ -212,9 +214,10 @@ export function TexasHoldemTable({
               }}
             />
             <div className="relative z-10 flex h-full min-h-0 flex-col justify-between gap-1 p-2 sm:gap-2 sm:p-3">
-              <div
+              <PlayHorizontalRail
                 ref={seatsRowRef}
-                className="-mx-1 flex items-start gap-1.5 overflow-x-auto scroll-smooth px-1 pb-0.5 pt-0.5 [scrollbar-width:none] sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden"
+                data-testid="holdem-seat-rail"
+                className="items-start gap-1.5 scroll-smooth pt-0.5 lg:justify-center"
               >
                 {view.seats
                   .filter((s) => s.id !== actorId)
@@ -231,7 +234,7 @@ export function TexasHoldemTable({
                       hideHole={showdownOpen}
                     />
                   ))}
-              </div>
+              </PlayHorizontalRail>
 
               <div className="flex flex-col items-center gap-1.5 py-1 sm:gap-2 sm:py-2">
                 <div className="flex max-w-full flex-nowrap justify-center gap-1 overflow-x-auto sm:gap-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -368,7 +371,7 @@ export function TexasHoldemTable({
         </div>
 
         {/* Action bar */}
-        <div className="shrink-0 rounded-xl border border-border bg-white/95 p-2 shadow-sm sm:p-2.5">
+        <PlayActionDock className="rounded-xl border border-border p-2 shadow-sm sm:p-2.5">
           <div className="flex flex-col gap-2">
             <div className="flex flex-wrap items-stretch gap-1.5 sm:items-end sm:gap-2">
               <button
@@ -488,7 +491,7 @@ export function TexasHoldemTable({
               ))}
             </div>
           </div>
-        </div>
+        </PlayActionDock>
       <PlaySideSheet
         locale={locale}
         open={Boolean(mobile && sideOpen)}

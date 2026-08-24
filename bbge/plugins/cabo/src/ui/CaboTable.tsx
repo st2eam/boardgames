@@ -6,11 +6,15 @@ import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
 import {
   MatchResultBar,
+  PlayActionDock,
+  PlayHorizontalRail,
   PlayLogChatPanel,
+  PlayScrollableRegion,
   PlaySideSheet,
   PlayTableShell,
   SeatSpeechSlot,
   ThinkingStatusBanner,
+  useIsMobileLayout,
   useSeatBubbles,
 } from "@bbge/ui";
 import { cardBackUrl, cardFaceUrl } from "./cardArt";
@@ -144,6 +148,7 @@ export function CaboTable({
 }: PluginTableProps) {
   const view = viewUnknown as ArenaView;
   const zh = locale === "zh";
+  const mobile = useIsMobileLayout();
   const [sideOpen, setSideOpen] = useState(false);
   type SlotPick = { seatId: string; slotIndex: number };
   const [picks, setPicks] = useState<SlotPick[]>([]);
@@ -299,6 +304,9 @@ export function CaboTable({
         data-seat-id={seat.id}
         className={[
           "relative flex min-h-0 min-w-0 flex-1 items-center gap-2 overflow-hidden rounded-xl border bg-white/95 px-2 py-1 shadow-card transition-all sm:gap-3 sm:px-3 sm:py-1.5",
+          mobile && !seat.isYou
+            ? "w-[min(18rem,calc(100vw-2.5rem))] shrink-0 flex-none"
+            : "",
           seat.isYou ? "border-accent/50 ring-1 ring-accent/20" : "border-border",
           active ? "ring-2 ring-accent/60" : "",
         ].join(" ")}
@@ -632,12 +640,20 @@ export function CaboTable({
           className="!min-h-9 !py-1 sm:!min-h-11 sm:!py-1.5"
         />
 
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 overflow-hidden sm:gap-2">
-          {others.map((s) => renderSeat(s))}
-          {youSeat ? renderSeat(youSeat) : null}
-        </div>
+        <PlayScrollableRegion className="flex flex-col gap-1.5 sm:gap-2">
+          {mobile ? (
+            <>
+              <PlayHorizontalRail data-testid="cabo-seat-rail" className="shrink-0">
+                {others.map((s) => renderSeat(s))}
+              </PlayHorizontalRail>
+              {youSeat ? renderSeat(youSeat) : null}
+            </>
+          ) : (
+            view.seats.map((s) => renderSeat(s))
+          )}
+        </PlayScrollableRegion>
 
-        <div className="shrink-0 rounded-xl border border-border bg-white/95 px-2.5 py-1.5 shadow-sm sm:px-3 sm:py-2">
+        <PlayActionDock className="rounded-xl border border-border px-2.5 py-1.5 shadow-sm sm:px-3 sm:py-2">
           {view.phase === "finished" ? (
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-sm text-primary-dark">{status}</p>
@@ -674,7 +690,7 @@ export function CaboTable({
               {actionBar()}
             </div>
           )}
-        </div>
+        </PlayActionDock>
       </div>
 
       <AnimatePresence>
@@ -685,7 +701,7 @@ export function CaboTable({
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
           >
-            <div className="max-w-sm rounded-2xl border border-border bg-white p-5 shadow-card">
+            <div className="max-h-[calc(100dvh-2rem)] w-full max-w-sm overflow-y-auto rounded-2xl border border-border bg-white p-5 shadow-card">
               <h3 className="font-heading text-lg font-bold text-primary">
                 {view.pendingModal!.type === "spyOther"
                   ? zh

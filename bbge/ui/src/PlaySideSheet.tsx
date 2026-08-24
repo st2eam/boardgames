@@ -33,7 +33,7 @@ export function PlaySideSheet({
         className="absolute inset-0 cursor-pointer"
         onClick={onClose}
       />
-      <div className="relative z-10 flex h-[70dvh] max-h-[70dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-[#efe6d8] shadow-2xl sm:h-auto sm:max-h-[80dvh] sm:max-w-md sm:rounded-2xl">
+      <div className="relative z-10 flex h-[70dvh] max-h-[70dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-[#efe6d8] pb-[env(safe-area-inset-bottom)] shadow-2xl sm:h-auto sm:max-h-[80dvh] sm:max-w-md sm:rounded-2xl sm:pb-0">
         <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
           <p className="font-heading text-sm font-bold text-primary-dark">
             {title}

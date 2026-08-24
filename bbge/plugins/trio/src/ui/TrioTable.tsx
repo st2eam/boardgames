@@ -5,11 +5,15 @@ import type { Action } from "@bbge/core";
 import type { PluginTableProps } from "@bbge/ui";
 import {
   MatchResultBar,
+  PlayActionDock,
+  PlayHorizontalRail,
   PlayLogChatPanel,
+  PlayScrollableRegion,
   PlaySideSheet,
   PlayTableShell,
   SeatSpeechSlot,
   ThinkingStatusBanner,
+  useIsMobileLayout,
   useSeatBubbles,
 } from "@bbge/ui";
 import { TrioCard } from "./TrioCard";
@@ -64,6 +68,7 @@ export function TrioTable({
 }: PluginTableProps) {
   const zh = locale === "zh";
   const view = viewUnknown as TrioView;
+  const mobile = useIsMobileLayout();
   const [sideOpen, setSideOpen] = useState(false);
   const bubbles = useSeatBubbles({ playLog, chat, durationMs: 4000 });
 
@@ -142,7 +147,7 @@ export function TrioTable({
       <div
         key={s.id}
         data-seat-id={s.id}
-        className={`relative flex min-w-[7rem] flex-col rounded-xl border px-2 py-1.5 ${
+        className={`relative flex min-w-[7rem] shrink-0 flex-col rounded-xl border px-2 py-1.5 ${
           active ? "border-sky-400 bg-sky-50" : "border-border bg-white/90"
         }`}
       >
@@ -160,10 +165,12 @@ export function TrioTable({
           </p>
         </div>
         {opts?.showHand && view.you ? (
-          <div className="mt-1 flex justify-center gap-0.5 overflow-x-auto">
-            {view.you.hand.map((c) => (
-              <TrioCard key={c.id} value={c.value} size="sm" />
-            ))}
+          <div className="mt-1 overflow-x-auto overscroll-x-contain">
+            <div className="mx-auto flex w-max min-w-full justify-center gap-0.5">
+              {view.you.hand.map((c) => (
+                <TrioCard key={c.id} value={c.value} size="sm" />
+              ))}
+            </div>
           </div>
         ) : (
           <div className="mt-1 flex items-end justify-center gap-0.5">
@@ -237,22 +244,29 @@ export function TrioTable({
           className="!min-h-9 !py-1 sm:!min-h-11"
         />
 
-        <div className="flex shrink-0 flex-wrap justify-center gap-2 px-1">
+        <PlayHorizontalRail data-testid="trio-seat-rail" className="shrink-0">
           {others.map((s) => seatBlock(s))}
-        </div>
+        </PlayHorizontalRail>
 
         {/* Center row */}
-        <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-2 overflow-hidden px-2">
+        <PlayScrollableRegion
+          data-testid="trio-center-region"
+          className="flex flex-col items-center gap-2 px-2 py-1"
+        >
           <p className="text-[11px] font-semibold text-primary-dark">
             {zh ? "桌面中央" : "Center"}
           </p>
-          <div className="flex max-w-full flex-wrap justify-center gap-1.5">
+          <div className="grid w-full max-w-md grid-cols-4 justify-items-center gap-1.5 sm:flex sm:max-w-full sm:flex-wrap sm:justify-center">
             {view.center.map((slot, i) => {
               if (slot.empty) {
                 return (
                   <div
                     key={`empty-${i}`}
-                    className="h-20 w-[3.65rem] rounded-lg border border-dashed border-stone-300"
+                    className={
+                      mobile
+                        ? "h-14 w-[2.55rem] rounded-lg border border-dashed border-stone-300"
+                        : "h-20 w-[3.65rem] rounded-lg border border-dashed border-stone-300"
+                    }
                   />
                 );
               }
@@ -261,6 +275,7 @@ export function TrioTable({
                   key={`c-${i}`}
                   value={slot.faceUp ? slot.value : null}
                   faceDown={!slot.faceUp}
+                  size={mobile ? "sm" : "md"}
                   selected={legalCenter.has(slot.slotIndex ?? i)}
                   onClick={
                     legalCenter.has(slot.slotIndex ?? i)
@@ -277,7 +292,7 @@ export function TrioTable({
             })}
           </div>
           {view.turnReveals.length > 0 && (
-            <div className="mt-1 flex items-center gap-1">
+            <div className="mt-1 flex max-w-full items-center gap-1 overflow-x-auto overscroll-x-contain">
               <span className="text-[10px] text-stone-500">
                 {zh ? "本回合" : "This turn"}
               </span>
@@ -286,11 +301,11 @@ export function TrioTable({
               ))}
             </div>
           )}
-        </div>
+        </PlayScrollableRegion>
 
         {youSeat && seatBlock(youSeat, { showHand: true })}
 
-        <div className="shrink-0 rounded-xl border border-border bg-white/95 px-2.5 py-1.5 shadow-sm">
+        <PlayActionDock className="rounded-xl border border-border px-2.5 py-1.5 shadow-sm">
           {view.phase === "finished" ? (
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-sm text-primary-dark">{status}</p>
@@ -307,7 +322,7 @@ export function TrioTable({
                 : "Tap center or Low/High · find three of a kind"}
             </p>
           )}
-        </div>
+        </PlayActionDock>
       </div>
 
       <PlaySideSheet

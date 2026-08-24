@@ -7,6 +7,7 @@ import type { PluginTableProps } from "@bbge/ui";
 import {
   MatchResultBar,
   PlayFeltFrame,
+  PlayHorizontalRail,
   PlayLogChatPanel,
   PlaySideSheet,
   PlayTableShell,
@@ -476,7 +477,7 @@ export function LoveLetterTable({
           role="dialog"
           aria-modal
         >
-          <div className="w-full max-w-md rounded-2xl border border-border bg-[#efe6d8] p-5 shadow-2xl">
+          <div className="max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto rounded-2xl border border-border bg-[#efe6d8] p-5 shadow-2xl">
             <p className="font-heading text-xs font-bold uppercase tracking-wide text-accent-dark">
               {zh ? "女男爵 · 偷看" : "Baroness · Peek"}
             </p>
@@ -522,7 +523,7 @@ export function LoveLetterTable({
           role="dialog"
           aria-modal
         >
-          <div className="w-full max-w-sm rounded-2xl border border-border bg-[#efe6d8] p-5 shadow-2xl">
+          <div className="max-h-[calc(100dvh-2rem)] w-full max-w-sm overflow-y-auto rounded-2xl border border-border bg-[#efe6d8] p-5 shadow-2xl">
             <p className="font-heading text-lg font-bold text-primary-dark">
               {zh ? "主教猜中了你" : "Bishop hit you"}
             </p>
@@ -950,7 +951,10 @@ export function LoveLetterTable({
                 )}
               </div>
 
-              <div className="flex flex-wrap items-end justify-center gap-2 py-0.5 sm:gap-4 sm:py-1">
+              <PlayHorizontalRail
+                data-testid="love-letter-hand-rail"
+                className="items-end justify-start gap-2 py-0.5 lg:justify-center lg:gap-4 lg:py-1"
+              >
                 <AnimatePresence mode="popLayout">
                   {(view.you?.hand ?? []).map((c) => {
                     const isNew = newCardIds.has(c.id);
@@ -999,7 +1003,7 @@ export function LoveLetterTable({
                     {zh ? "手牌为空" : "No cards in hand"}
                   </p>
                 )}
-              </div>
+              </PlayHorizontalRail>
 
               {/* Action row */}
               <div className="mt-2 flex flex-col gap-2 border-t border-border pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">

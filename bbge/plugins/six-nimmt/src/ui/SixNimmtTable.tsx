@@ -158,10 +158,12 @@ export function SixNimmtTable({
   }, [thinkingId, thinkingIds]);
 
   useEffect(() => {
-    setPickId(null);
-    setUseFlip(false);
-    setSpecialKind(null);
-    setSpecialFace(null);
+    queueMicrotask(() => {
+      setPickId(null);
+      setUseFlip(false);
+      setSpecialKind(null);
+      setSpecialFace(null);
+    });
   }, [view.trick, view.round, view.phase]);
 
   const canPlay =

@@ -49,16 +49,18 @@ export function useSeatBubbles({
 
   useEffect(() => {
     if (resetKey === undefined) return;
-    setBubbles({});
     for (const t of timers.current.values()) window.clearTimeout(t);
     timers.current.clear();
+    queueMicrotask(() => setBubbles({}));
   }, [resetKey]);
 
   useEffect(() => {
     for (const e of playLog) {
       if (seenLogIds.current.has(e.id)) continue;
       seenLogIds.current.add(e.id);
-      if (e.speakerId && e.bubble) showBubble(e.speakerId, e.id, e.bubble);
+      if (e.speakerId && e.bubble) {
+        queueMicrotask(() => showBubble(e.speakerId!, e.id, e.bubble!));
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- showBubble is stable enough for log appends
   }, [playLog]);
@@ -68,7 +70,7 @@ export function useSeatBubbles({
       const key = `${m.playerId}-${m.at}-${m.text}`;
       if (seenChat.current.has(key)) continue;
       seenChat.current.add(key);
-      showBubble(m.playerId, `chat-${key}`, m.text);
+      queueMicrotask(() => showBubble(m.playerId, `chat-${key}`, m.text));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chat]);

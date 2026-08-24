@@ -163,7 +163,7 @@ export function CaboTable({
   }, [thinkingId, thinkingIds]);
 
   useEffect(() => {
-    setPicks([]);
+    queueMicrotask(() => setPicks([]));
   }, [
     view.phase,
     view.round,

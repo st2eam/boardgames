@@ -179,7 +179,7 @@ function moveTile(draft: Draft, tileId: string, dest: DropTarget, nextId: () => 
   } else if (dest.type === "new") {
     next.groups.push({ id: nextId(), tiles: [tile] });
   } else {
-    let gi = next.groups.findIndex((g) => g.id === dest.groupId);
+    const gi = next.groups.findIndex((g) => g.id === dest.groupId);
     if (gi < 0) {
       next.groups.push({ id: dest.groupId || nextId(), tiles: [tile] });
     } else {
@@ -244,16 +244,19 @@ export function RummikubTable({
   } | null>(null);
   const [holdId, setHoldId] = useState<string | null>(null);
 
-  if (viewKeyRef.current !== key) {
+  useEffect(() => {
+    if (viewKeyRef.current === key) return;
     viewKeyRef.current = key;
     if (pendingRef.current) {
       window.clearTimeout(pendingRef.current.timer);
       pendingRef.current = null;
     }
-    setDraft(fromView(view));
-    setDrag(null);
-    setHoldId(null);
-  }
+    queueMicrotask(() => {
+      setDraft(fromView(view));
+      setDrag(null);
+      setHoldId(null);
+    });
+  }, [key, view]);
 
   const snap = useMemo(() => fromView(view), [key]); // eslint-disable-line react-hooks/exhaustive-deps
 

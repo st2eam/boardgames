@@ -364,9 +364,7 @@ export function PlayShell({
   }, [joinNotice]);
   const sessionRef = useRef<HostSession | null>(null);
   const modRef = useRef<PluginPlayModule>(mod);
-  modRef.current = mod;
   const playLogRef = useRef<PlayLogEntry[]>([]);
-  playLogRef.current = playLog;
   const aiRef = useRef<Map<string, AiSeat>>(new Map());
   const llmSeatIdsRef = useRef<Set<string>>(new Set());
   const peerRef = useRef<{ destroy: () => void } | null>(null);
@@ -375,6 +373,14 @@ export function PlayShell({
   const aiRunning = useRef(false);
   const autoAdvanceRunning = useRef(false);
   const localSeatIdsRef = useRef<Set<string>>(new Set([hostId]));
+
+  useEffect(() => {
+    modRef.current = mod;
+  }, [mod]);
+
+  useEffect(() => {
+    playLogRef.current = playLog;
+  }, [playLog]);
 
   const seatNames = useCallback((): Record<string, string> => {
     const seats = sessionRef.current?.getLobby().seats ?? lobby?.seats ?? [];
@@ -484,7 +490,7 @@ export function PlayShell({
     if (!isHost) return;
     const prefix = mod.roomIdPrefix ?? "bbge";
     const rid = newRoomId(prefix);
-    setRoomId(rid);
+    queueMicrotask(() => setRoomId(rid));
     const session = new HostSession(mod.plugin, {
       seed: newSeed(),
       hostPlayerId: hostId,
@@ -496,7 +502,7 @@ export function PlayShell({
     session.addHumanSeat(hostId, displayName);
     session.setReady(hostId, true);
     sessionRef.current = session;
-    setMyId(hostId);
+    queueMicrotask(() => setMyId(hostId));
     tick();
 
     let cancelled = false;
@@ -623,9 +629,11 @@ export function PlayShell({
     if (isHost || !roomIdFromUrl) return;
     let cancelled = false;
     const guestId = `g-${Math.random().toString(36).slice(2, 8)}`;
-    setMyId(guestId);
-    setControllingId(guestId);
-    setGuestStatus("connecting");
+    queueMicrotask(() => {
+      setMyId(guestId);
+      setControllingId(guestId);
+      setGuestStatus("connecting");
+    });
     (async () => {
       try {
         const { createPeerRoomGuest } = await import("@bbge/network");
@@ -767,7 +775,7 @@ export function PlayShell({
   };
 
   /** Paced host advances (e.g. 6 nimmt! one card per beat). */
-  const runAutoAdvanceIfNeeded = async () => {
+  async function runAutoAdvanceIfNeeded() {
     if (!isHost || autoAdvanceRunning.current || aiRunning.current) return;
     const s = sessionRef.current;
     if (!s || s.getPhase() !== "playing") return;
@@ -801,9 +809,9 @@ export function PlayShell({
     }
     await runAutoAdvanceIfNeeded();
     await runAiIfNeeded();
-  };
+  }
 
-  const runAiIfNeeded = async () => {
+  async function runAiIfNeeded() {
     if (aiRunning.current || autoAdvanceRunning.current) return;
     const s = sessionRef.current;
     if (!s || s.getPhase() !== "playing") return;
@@ -1146,7 +1154,7 @@ export function PlayShell({
     }
     await runAutoAdvanceIfNeeded();
     await runAiIfNeeded();
-  };
+  }
 
   const onEditionChange = (id: string) => {
     const next = isNimmt

@@ -5,7 +5,7 @@ import { getChatOpen, subscribeChatOpen } from "@/lib/floating-ui";
 
 export function BackToTop() {
   const [visible, setVisible] = useState(false);
-  const [chatOpen, setChatOpenState] = useState(false);
+  const [chatOpen, setChatOpenState] = useState(getChatOpen);
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400);
@@ -14,7 +14,6 @@ export function BackToTop() {
   }, []);
 
   useEffect(() => {
-    setChatOpenState(getChatOpen());
     return subscribeChatOpen(setChatOpenState);
   }, []);
 

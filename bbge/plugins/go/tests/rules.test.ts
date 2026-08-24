@@ -47,7 +47,7 @@ describe("go board", () => {
     expect(tryPlay(board, { row: 1, col: 1 }, "white", null)).toBeNull();
 
     // Force ko rule: after a 1-stone capture that leaves a singleton with 1 lib
-    let b = emptyBoard(9);
+    const b = emptyBoard(9);
     b[0]![1] = "black";
     b[1]![0] = "black";
     b[1]![2] = "black";

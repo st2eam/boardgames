@@ -106,7 +106,7 @@ export function ChatProvider({ children, scope, locale, onClose }: Props) {
 
   // Load chat history from IndexedDB (reload when mode switches)
   useEffect(() => {
-    setLoaded(false);
+    queueMicrotask(() => setLoaded(false));
     loadMessages(effectiveScope, locale).then((msgs) => {
       setMessages(msgs);
       setLoaded(true);

@@ -12,13 +12,20 @@ interface Props {
 
 export function MarkdownRenderer({ content }: Props) {
   const toc = extractToc(content);
-  const idQueue = toc.map((item) => item.id);
-  let headingIndex = 0;
-
-  const nextHeadingId = () => {
-    const id = idQueue[headingIndex] ?? `section-${headingIndex + 1}`;
-    headingIndex += 1;
-    return id;
+  const headingLines = content
+    .split("\n")
+    .map((line, index) => ({ line, number: index + 1 }))
+    .filter(({ line }) => /^(#{2,3})\s+/.test(line));
+  const headingIdsByLine = new Map(
+    headingLines.map(({ number }, index) => [
+      number,
+      toc[index]?.id ?? `section-${index + 1}`,
+    ]),
+  );
+  const headingId = (node: unknown) => {
+    const line = (node as { position?: { start?: { line?: number } } })?.position
+      ?.start?.line;
+    return line ? headingIdsByLine.get(line) : undefined;
   };
 
   return (
@@ -30,8 +37,8 @@ export function MarkdownRenderer({ content }: Props) {
             {children}
           </h1>
         ),
-        h2: ({ children }) => {
-          const id = nextHeadingId();
+        h2: ({ children, node }) => {
+          const id = headingId(node);
           return (
             <h2
               id={id}
@@ -41,8 +48,8 @@ export function MarkdownRenderer({ content }: Props) {
             </h2>
           );
         },
-        h3: ({ children }) => {
-          const id = nextHeadingId();
+        h3: ({ children, node }) => {
+          const id = headingId(node);
           return (
             <h3
               id={id}

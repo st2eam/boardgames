@@ -161,16 +161,11 @@ export function LoveLetterTable({
     prevHandRef.current = ids;
   }, [view.you?.hand]);
 
-  const selected = useMemo(() => {
-    if (!selectedCardId) return null;
-    const held =
-      view.pending?.type === "chancellor" ? view.pending.held : undefined;
-    return (
-      view.you?.hand.find((c) => c.id === selectedCardId) ??
-      held?.find((c) => c.id === selectedCardId) ??
-      null
-    );
-  }, [selectedCardId, view.you?.hand, view.pending]);
+  const held = view.pending?.type === "chancellor" ? view.pending.held : undefined;
+  const selected =
+    view.you?.hand.find((c) => c.id === selectedCardId) ??
+    held?.find((c) => c.id === selectedCardId) ??
+    null;
 
   const selectedRole = cardRole(selected);
   const tSpec = selectedRole ? targetSpec(selectedRole) : null;
@@ -178,7 +173,7 @@ export function LoveLetterTable({
   const needsGuess = Boolean(tSpec?.needsGuess);
   const needsPeek = Boolean(tSpec?.needsPeek);
   useEffect(() => {
-    setGuessRank(maxGuess);
+    queueMicrotask(() => setGuessRank(maxGuess));
   }, [maxGuess]);
   const targetsOk =
     !tSpec ||
@@ -412,12 +407,14 @@ export function LoveLetterTable({
       return;
     }
     if (animBusy) return;
-    setFlyPlay({
-      rank: lastDiscard!.rank,
-      role: lastDiscard!.role,
-      name: lastDiscard!.name,
-      subtitle: zh ? "出牌" : "Played",
-    });
+    queueMicrotask(() =>
+      setFlyPlay({
+        rank: lastDiscard!.rank,
+        role: lastDiscard!.role,
+        name: lastDiscard!.name,
+        subtitle: zh ? "出牌" : "Played",
+      }),
+    );
     const t = window.setTimeout(() => setFlyPlay(null), 520);
     return () => window.clearTimeout(t);
   }, [lastDiscard?.id, lastDiscard, animBusy, zh]);

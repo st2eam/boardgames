@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import type { GameSummary } from "@/types/game";
@@ -13,11 +13,7 @@ interface Props {
 export function RecentGames({ games }: Props) {
   const locale = useLocale();
   const t = useTranslations("home");
-  const [slugs, setSlugs] = useState<string[]>([]);
-
-  useEffect(() => {
-    setSlugs(getRecentGameSlugs());
-  }, []);
+  const [slugs, setSlugs] = useState<string[]>(() => getRecentGameSlugs());
 
   const bySlug = new Map(games.map((g) => [g.slug, g]));
   const recent = slugs

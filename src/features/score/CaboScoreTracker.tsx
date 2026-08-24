@@ -49,24 +49,26 @@ export function CaboScoreTracker({ locale }: Props) {
   }
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved) as PlayerData[];
-        setPlayers(parsed);
-        setPlayerCount(parsed.length);
-        setInputs(Array(parsed.length).fill(""));
-      } catch {
+    queueMicrotask(() => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved) as PlayerData[];
+          setPlayers(parsed);
+          setPlayerCount(parsed.length);
+          setInputs(Array(parsed.length).fill(""));
+        } catch {
+          const p = createPlayers(4);
+          setPlayers(p);
+          setInputs(Array(4).fill(""));
+        }
+      } else {
         const p = createPlayers(4);
         setPlayers(p);
         setInputs(Array(4).fill(""));
       }
-    } else {
-      const p = createPlayers(4);
-      setPlayers(p);
-      setInputs(Array(4).fill(""));
-    }
-    setLoaded(true);
+      setLoaded(true);
+    });
   }, []);
 
   useEffect(() => {
@@ -103,7 +105,7 @@ export function CaboScoreTracker({ locale }: Props) {
     setInputs(Array(playerCount).fill(""));
   }, [inputs, playerCount, zh]);
 
-  const useReset = useCallback((idx: number) => {
+  const applyReset = useCallback((idx: number) => {
     setPlayers((prev) =>
       prev.map((p, i) => {
         if (i !== idx || p.resetUsed) return p;
@@ -260,7 +262,7 @@ export function CaboScoreTracker({ locale }: Props) {
           return (
             <button
               key={i}
-              onClick={() => useReset(i)}
+              onClick={() => applyReset(i)}
               disabled={!canReset}
               className={`rounded-lg px-2 py-1.5 text-xs font-medium transition-colors ${
                 p.resetUsed

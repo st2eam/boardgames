@@ -8,11 +8,12 @@ export function ChatInput({ placeholder }: { placeholder?: string }) {
   const { sendMessage, isStreaming, apiKey } = useChat();
   const t = useTranslations("chat");
   const [input, setInput] = useState("");
-  const [isOffline, setIsOffline] = useState(false);
+  const [isOffline, setIsOffline] = useState(
+    () => typeof navigator !== "undefined" && !navigator.onLine,
+  );
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setIsOffline(!navigator.onLine);
     const goOffline = () => setIsOffline(true);
     const goOnline = () => setIsOffline(false);
     window.addEventListener("offline", goOffline);

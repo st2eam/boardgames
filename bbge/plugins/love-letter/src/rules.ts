@@ -352,7 +352,7 @@ export function createLoveLetterState(
   }
   const seed = config.seed ?? "love-letter";
   const rng = ctx.rng;
-  let deck = rng.shuffle(buildDeck(edition));
+  const deck = rng.shuffle(buildDeck(edition));
   const burn = deck.shift()!;
   const faceUp: Card[] = [];
   if (ids.length === 2) {
@@ -412,7 +412,7 @@ export function continueLoveLetterMatch(
   );
   const nameById = new Map(prev.players.map((p) => [p.id, p.name] as const));
 
-  let deck = ctx.rng.shuffle(buildDeck(edition));
+  const deck = ctx.rng.shuffle(buildDeck(edition));
   const burn = deck.shift()!;
   const faceUp: Card[] = [];
   if (ids.length === 2) {

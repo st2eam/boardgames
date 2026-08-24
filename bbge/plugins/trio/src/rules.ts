@@ -123,7 +123,7 @@ export function createTrioState(config: TrioConfig, ctx: ApplyContext): TrioStat
   if (n < 3 || n > 6) throw new Error("TRIO needs 3–6 players");
   const { hand: handN, center: centerN } = dealCounts(n);
 
-  let deck = ctx.rng.shuffle(buildTrioDeck());
+  const deck = ctx.rng.shuffle(buildTrioDeck());
   const players: TrioPlayer[] = config.playerIds.map((id) => ({
     id,
     name: config.playerNames[id] ?? id,

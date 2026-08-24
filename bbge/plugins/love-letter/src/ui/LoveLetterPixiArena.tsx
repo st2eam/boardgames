@@ -110,10 +110,13 @@ export function LoveLetterPixiArena({
   const cardsRef = useRef<Map<string, CardVisual>>(new Map());
   const seatNodesRef = useRef<Map<string, Container>>(new Map());
   const callbacksRef = useRef({ onSelectCard, onSelectTarget, interactive });
-  callbacksRef.current = { onSelectCard, onSelectTarget, interactive };
   const firstSync = useRef(true);
   const texturesRef = useRef<LoveLetterTextures | null>(null);
   const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    callbacksRef.current = { onSelectCard, onSelectTarget, interactive };
+  }, [onSelectCard, onSelectTarget, interactive]);
 
   useEffect(() => {
     const host = hostRef.current;

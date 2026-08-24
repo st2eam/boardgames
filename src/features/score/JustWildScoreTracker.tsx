@@ -34,21 +34,23 @@ export function JustWildScoreTracker({ locale }: Props) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved) as PlayerData[];
-        setPlayers(parsed);
-        setPlayerCount(parsed.length);
-      } catch {
+    queueMicrotask(() => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved) as PlayerData[];
+          setPlayers(parsed);
+          setPlayerCount(parsed.length);
+        } catch {
+          const p = createPlayers(4, zh);
+          setPlayers(p);
+        }
+      } else {
         const p = createPlayers(4, zh);
         setPlayers(p);
       }
-    } else {
-      const p = createPlayers(4, zh);
-      setPlayers(p);
-    }
-    setLoaded(true);
+      setLoaded(true);
+    });
   }, [zh]);
 
   useEffect(() => {

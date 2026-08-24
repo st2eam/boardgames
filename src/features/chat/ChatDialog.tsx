@@ -136,7 +136,7 @@ export function ChatDialog({ title, isExpanded = false, onToggleExpand }: Props)
 
   useEffect(() => {
     if (apiKeyLoaded && !apiKey) {
-      setShowApiModal(true);
+      queueMicrotask(() => setShowApiModal(true));
     }
   }, [apiKeyLoaded, apiKey]);
 

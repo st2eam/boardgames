@@ -653,9 +653,9 @@ export function createUnoState(config: UnoConfig, ctx: ApplyContext): UnoState {
 
   const side = "light" as const;
   const startFace = activeFace(start, side);
-  let currentColor: UnoColor = startFace.color ?? "red";
-  let currentIndex = 0;
-  let direction: 1 | -1 = 1;
+  const currentColor: UnoColor = startFace.color ?? "red";
+  const currentIndex = 0;
+  const direction: 1 | -1 = 1;
   const events: Event[] = [];
 
   const state: UnoState = {
@@ -727,14 +727,14 @@ export function continueUnoMatch(
       p.hand = [];
       p.eliminated = false;
     }
-    let deck = ctx.rng.shuffle(buildUnoDeck(draft.edition));
+    const deck = ctx.rng.shuffle(buildUnoDeck(draft.edition));
     for (let i = 0; i < HAND_SIZE; i++) {
       for (const p of draft.players) {
         const c = deck.pop();
         if (c) p.hand.push(c);
       }
     }
-    let start = deck.pop()!;
+    const start = deck.pop()!;
     draft.deck = deck;
     draft.discard = [start];
     const f = activeFace(start, "light");

@@ -49,11 +49,8 @@ interface Props {
 
 function useInView(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
   const [inView, setInView] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
   useEffect(() => {
-    if (!mounted) return;
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
@@ -62,8 +59,7 @@ function useInView(threshold = 0.15) {
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [threshold, mounted]);
-  if (!mounted) return { ref, inView: true };
+  }, [threshold]);
   return { ref, inView };
 }
 

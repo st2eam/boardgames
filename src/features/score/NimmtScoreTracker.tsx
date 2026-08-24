@@ -37,24 +37,26 @@ export function NimmtScoreTracker({ locale }: Props) {
   }
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved) as PlayerData[];
-        setPlayers(parsed);
-        setPlayerCount(parsed.length);
-        setInputs(Array(parsed.length).fill(""));
-      } catch {
+    queueMicrotask(() => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved) as PlayerData[];
+          setPlayers(parsed);
+          setPlayerCount(parsed.length);
+          setInputs(Array(parsed.length).fill(""));
+        } catch {
+          const p = createPlayers(4);
+          setPlayers(p);
+          setInputs(Array(4).fill(""));
+        }
+      } else {
         const p = createPlayers(4);
         setPlayers(p);
         setInputs(Array(4).fill(""));
       }
-    } else {
-      const p = createPlayers(4);
-      setPlayers(p);
-      setInputs(Array(4).fill(""));
-    }
-    setLoaded(true);
+      setLoaded(true);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- init once
   }, []);
 

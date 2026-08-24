@@ -102,7 +102,9 @@ export function TexasHoldemTable({
   });
 
   useEffect(() => {
-    setRaiseTo(Math.max(view.minRaiseTo, view.currentBet + view.bigBlind));
+    queueMicrotask(() =>
+      setRaiseTo(Math.max(view.minRaiseTo, view.currentBet + view.bigBlind)),
+    );
   }, [view.minRaiseTo, view.currentBet, view.bigBlind]);
 
   const isMyTurn =

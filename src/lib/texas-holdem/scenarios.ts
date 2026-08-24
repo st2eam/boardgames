@@ -40,7 +40,7 @@ export function generatePreflopScenario(): PreflopScenario {
   const position = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
 
   const rank1 = randomRank();
-  let rank2 = randomRank();
+  const rank2 = randomRank();
 
   const suit1 = randomSuit();
   // ~30% chance suited if different ranks, always different suit for pairs

@@ -19,6 +19,7 @@ export function projectTrioView(state: TrioState, viewerId: PlayerId | null) {
     currentPlayerId: state.turnOrder[state.currentIndex] ?? null,
     winners: state.winners,
     matchOver: state.matchOver,
+    pendingResolution: state.pendingResolution,
     turnReveals: state.turnReveals.map((r) =>
       r.source === "center"
         ? {

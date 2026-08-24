@@ -27,6 +27,7 @@ function currentId(state: TrioState): PlayerId {
 function advanceTurn(state: TrioState): void {
   state.currentIndex = (state.currentIndex + 1) % state.turnOrder.length;
   state.turnReveals = [];
+  state.pendingResolution = null;
 }
 
 function targetValue(reveals: TurnReveal[]): number | null {
@@ -46,6 +47,7 @@ function finishGame(state: TrioState, winnerId: PlayerId, events: Event[]): void
   state.winners = [winnerId];
   state.matchOver = true;
   state.turnReveals = [];
+  state.pendingResolution = null;
   events.push({
     type: "match/ended",
     payload: {
@@ -101,19 +103,19 @@ function succeedTrio(
   advanceTurn(state);
 }
 
-function afterReveal(state: TrioState, events: Event[]): void {
+function afterReveal(state: TrioState): void {
   const reveals = state.turnReveals;
   const values = reveals.map((r) => r.card.value);
   const first = values[0]!;
   const last = values[values.length - 1]!;
 
   if (values.length >= 2 && last !== first) {
-    bustTurn(state, events);
+    state.pendingResolution = "bust";
     return;
   }
 
   if (values.length === 3 && values.every((v) => v === first)) {
-    succeedTrio(state, first, events);
+    state.pendingResolution = "trio";
   }
 }
 
@@ -155,6 +157,7 @@ export function createTrioState(config: TrioConfig, ctx: ApplyContext): TrioStat
     currentIndex: 0,
     center,
     turnReveals: [],
+    pendingResolution: null,
     winners: [],
     matchOver: false,
   };
@@ -186,6 +189,10 @@ export function legalTrioActions(
 ): TrioAction[] {
   if (state.phase !== "playing") return [];
   if (currentId(state) !== playerId) return [];
+
+  if (state.pendingResolution) {
+    return [{ type: "confirmTurn", playerId, payload: {} }];
+  }
 
   const out: TrioAction[] = [];
   const expected = targetValue(state.turnReveals);
@@ -235,6 +242,9 @@ export function validateTrioAction(
         a.payload.slotIndex === action.payload.slotIndex
       );
     }
+    if (action.type === "confirmTurn") {
+      return a.type === "confirmTurn";
+    }
     return (
       a.type === "revealExtreme" &&
       a.payload.targetPlayerId === action.payload.targetPlayerId &&
@@ -249,6 +259,7 @@ export function applyTrioAction(
   action: TrioAction,
   _ctx: ApplyContext,
 ): { state: TrioState; events: Event[] } {
+  void _ctx;
   const events: Event[] = [];
   const next = produce(state, (draft) => {
     if (action.type === "revealCenter") {
@@ -272,7 +283,7 @@ export function applyTrioAction(
           value: card.value,
         },
       });
-      afterReveal(draft, events);
+      afterReveal(draft);
       return;
     }
 
@@ -301,7 +312,17 @@ export function applyTrioAction(
           value: card.value,
         },
       });
-      afterReveal(draft, events);
+      afterReveal(draft);
+      return;
+    }
+
+    if (action.type === "confirmTurn") {
+      if (draft.pendingResolution === "bust") {
+        bustTurn(draft, events);
+      } else if (draft.pendingResolution === "trio") {
+        const value = targetValue(draft.turnReveals);
+        if (value != null) succeedTrio(draft, value, events);
+      }
     }
   });
   return { state: next, events };

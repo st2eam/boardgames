@@ -4,6 +4,9 @@ import type { TrioModeId } from "./editions";
 
 export type TrioPhase = "playing" | "finished";
 
+/** A revealed result stays visible until the active player confirms it. */
+export type TrioPendingResolution = "bust" | "trio" | null;
+
 export type RevealEnd = "low" | "high";
 
 export type TurnReveal =
@@ -40,6 +43,7 @@ export type TrioState = {
   /** Center face-down cards (null slot = removed) */
   center: (TrioCard | null)[];
   turnReveals: TurnReveal[];
+  pendingResolution: TrioPendingResolution;
   winners: PlayerId[];
   matchOver: boolean;
 };
@@ -62,5 +66,11 @@ export type TrioAction =
       type: "revealExtreme";
       playerId: PlayerId;
       payload: { targetPlayerId: PlayerId; end: RevealEnd };
+      clientActionId?: string;
+    }
+  | {
+      type: "confirmTurn";
+      playerId: PlayerId;
+      payload?: Record<string, never>;
       clientActionId?: string;
     };

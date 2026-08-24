@@ -50,4 +50,41 @@ describe("TRIO", () => {
     expect(r.state.turnReveals).toHaveLength(1);
     expect(r.events.some((e) => e.type === "card/revealed")).toBe(true);
   });
+
+  it("keeps a mismatched reveal visible until the active player confirms", () => {
+    const { state, ctx } = fresh(3);
+    const actor = state.turnOrder[0]!;
+    const first = state.center.findIndex(Boolean);
+    const firstCard = state.center[first]!;
+    const second = state.center.findIndex(
+      (card, index) => index !== first && card?.value !== firstCard.value,
+    );
+
+    const afterFirst = applyTrioAction(
+      state,
+      { type: "revealCenter", playerId: actor, payload: { slotIndex: first } },
+      ctx,
+    ).state;
+    const afterSecond = applyTrioAction(
+      afterFirst,
+      { type: "revealCenter", playerId: actor, payload: { slotIndex: second } },
+      ctx,
+    ).state;
+
+    expect(afterSecond.pendingResolution).toBe("bust");
+    expect(afterSecond.currentIndex).toBe(0);
+    expect(afterSecond.turnReveals).toHaveLength(2);
+    expect(legalTrioActions(afterSecond, actor)).toEqual([
+      { type: "confirmTurn", playerId: actor, payload: {} },
+    ]);
+
+    const confirmed = applyTrioAction(
+      afterSecond,
+      { type: "confirmTurn", playerId: actor, payload: {} },
+      ctx,
+    );
+    expect(confirmed.state.pendingResolution).toBeNull();
+    expect(confirmed.state.currentIndex).toBe(1);
+    expect(confirmed.events.some((e) => e.type === "turn/bust")).toBe(true);
+  });
 });

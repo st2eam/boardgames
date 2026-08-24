@@ -24,6 +24,7 @@ type TrioView = {
   currentPlayerId: string | null;
   winners: string[];
   matchOver: boolean;
+  pendingResolution: "bust" | "trio" | null;
   turnReveals: {
     source: string;
     value: number;
@@ -96,6 +97,8 @@ export function TrioTable({
         a.payload?.end === end,
     );
 
+  const canConfirmTurn = view.legal.some((a) => a.type === "confirmTurn");
+
   const dispatch = (action: Action) => onAction(action);
 
   const status = useMemo(() => {
@@ -109,6 +112,16 @@ export function TrioTable({
         : `${nameOf?.(thinkingId) ?? thinkingId} thinking…`;
     }
     const chain = view.turnReveals.map((r) => r.value).join(" · ");
+    if (view.pendingResolution === "bust") {
+      return zh
+        ? `翻到不同数字：${chain}，确认后结束本回合`
+        : `Different values: ${chain}. Confirm to end this turn.`;
+    }
+    if (view.pendingResolution === "trio") {
+      return zh
+        ? `三条 ${chain}！确认后收走`
+        : `Trio ${chain}! Confirm to collect it.`;
+    }
     if (!isMyTurn) {
       return zh
         ? `等待 ${nameOf?.(view.currentPlayerId ?? "") ?? ""}${chain ? ` · ${chain}` : ""}`
@@ -316,11 +329,42 @@ export function TrioTable({
               />
             </div>
           ) : (
-            <p className="text-center text-[11px] text-stone-500">
-              {zh
-                ? "点中央牌或「最小/最大」翻牌 · 凑齐三张相同数字"
-                : "Tap center or Low/High · find three of a kind"}
-            </p>
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-center text-[11px] text-stone-500">
+                {view.pendingResolution
+                  ? zh
+                    ? "先查看翻开的牌，再确认继续"
+                    : "Review the revealed cards, then confirm."
+                  : zh
+                    ? "点中央牌或「最小/最大」翻牌 · 凑齐三张相同数字"
+                    : "Tap center or Low/High · find three of a kind"}
+              </p>
+              {canConfirmTurn && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    dispatch({
+                      type: "confirmTurn",
+                      playerId: myId,
+                      payload: {},
+                    })
+                  }
+                  className={`min-h-11 shrink-0 rounded-lg px-3 text-xs font-bold text-white shadow-sm ${
+                    view.pendingResolution === "trio"
+                      ? "bg-emerald-600 hover:bg-emerald-700"
+                      : "bg-primary hover:bg-primary-dark"
+                  }`}
+                >
+                  {view.pendingResolution === "trio"
+                    ? zh
+                      ? "确认收走"
+                      : "Collect"
+                    : zh
+                      ? "确认继续"
+                      : "Continue"}
+                </button>
+              )}
+            </div>
           )}
         </PlayActionDock>
       </div>

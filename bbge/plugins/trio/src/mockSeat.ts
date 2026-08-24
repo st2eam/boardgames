@@ -32,6 +32,18 @@ export function createMockTrioSeat(id: PlayerId): AiSeat {
         };
       }
 
+      const confirm = legal.find((x) => x.type === "confirmTurn");
+      if (confirm) {
+        progress("策略：确认翻牌结果");
+        return {
+          action: {
+            type: "confirmTurn",
+            playerId: id,
+            payload: {},
+          },
+        };
+      }
+
       const target = view.turnReveals?.[0]?.value ?? null;
       const hand = view.you?.hand ?? [];
 

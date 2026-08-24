@@ -1,0 +1,103 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Set Up the Screens", "zh": "设置屏风" },
+      "content": {
+        "en": "Form two teams. Each team secretly places one Keyword card behind its screen: the four words map to positions **1–4**. Give each team a note sheet and tokens; choose this round's Encryptor.",
+        "zh": "分成两队。每队将 1 张关键词卡暗置在自己的屏风后，4 个词对应 **1–4** 号位置。发放记录纸与标记，并选出本轮加密员。"
+      },
+      "options": [
+        { "label": { "en": "Draw a code", "zh": "抽取密码" }, "next": "encode" },
+        { "label": { "en": "How do screens work?", "zh": "屏风如何对应？" }, "next": "screen" }
+      ]
+    },
+    "screen": {
+      "title": { "en": "Private Words, Public Clues", "zh": "私密词语，公开线索" },
+      "content": {
+        "en": "Only your team sees the four numbered words behind its screen. Every spoken clue and every note you make about the opponent is public information for that opponent's team to infer from over time.",
+        "zh": "只有己方能看见自己屏风后的四个编号词。每次说出的线索，以及对手累积听到的线索，都会逐渐成为他们推断你编号词的证据。"
+      },
+      "options": [
+        { "label": { "en": "Encode a code", "zh": "加密密码" }, "next": "encode" },
+        { "label": { "en": "Back to setup", "zh": "返回设置" }, "next": "setup" }
+      ],
+      "illustration": {
+        "src": "/images/rules/decrypto/screen-code.svg",
+        "alt": {
+          "en": "Each team hides four numbered keywords behind its screen; an Encryptor turns a three-digit code into three clues",
+          "zh": "每队将四个带编号的关键词藏在屏风后；加密员把三位密码转成三条线索"
+        }
+      }
+    },
+    "encode": {
+      "title": { "en": "Give Three Ordered Clues", "zh": "按顺序给三条线索" },
+      "content": {
+        "en": "The Encryptor secretly draws a code with three different digits, for example **4–2–1**, then gives three related clues in exactly that order. Record the clues. Do not directly say, translate, spell, or trivially reveal a keyword.",
+        "zh": "加密员暗抽一张含三个不同数字的密码卡，例如 **4–2–1**，然后严格按此顺序给出三条关联线索，并记录下来。不能直接说出、翻译、拼写或显而易见地泄露关键词。"
+      },
+      "options": [
+        { "label": { "en": "Is this Round 1?", "zh": "这是第 1 轮吗？" }, "next": "first-round" },
+        { "label": { "en": "Round 2 or later", "zh": "第 2 轮或以后" }, "next": "intercept" }
+      ]
+    },
+    "first-round": {
+      "title": { "en": "Round 1: Decode Your Own Code", "zh": "第 1 轮：解读己方密码" },
+      "content": {
+        "en": "There is no interception attempt in Round 1. Your team discusses the three clues and guesses its own code. If wrong, take a Miscommunication token; if right, proceed to the next round.",
+        "zh": "第 1 轮没有截获。己方讨论三条线索并猜自己的密码。猜错则拿 1 枚失误标记；猜对则进入下一轮。"
+      },
+      "options": [
+        { "label": { "en": "Check tokens", "zh": "检查标记" }, "next": "outcome" },
+        { "label": { "en": "Next round", "zh": "下一轮" }, "next": "encode" }
+      ]
+    },
+    "intercept": {
+      "title": { "en": "Intercept, Then Decode", "zh": "先截获，再解读" },
+      "content": {
+        "en": "From Round 2 onward, the opposing team first secretly guesses the code using the clue history. Then the owning team guesses its own code. Reveal both guesses together.",
+        "zh": "从第 2 轮开始，对手先根据历史线索秘密猜密码；之后密码所属队伍猜自己的密码。最后同时揭晓两边答案。"
+      },
+      "options": [
+        { "label": { "en": "Award tokens", "zh": "发放标记" }, "next": "outcome" },
+        { "label": { "en": "Review clue order", "zh": "查看线索顺序" }, "next": "encode" }
+      ],
+      "illustration": {
+        "src": "/images/rules/decrypto/intercept-order.svg",
+        "alt": {
+          "en": "From round two onward, opponents try to intercept first; then the owning team decodes its own clues",
+          "zh": "从第二轮开始，对手先尝试截获；随后密码所属队伍再解读自己的线索"
+        }
+      }
+    },
+    "outcome": {
+      "title": { "en": "Resolve Tokens", "zh": "结算标记" },
+      "content": {
+        "en": "A correct interception gives the intercepting team **1 white Interception token**. A wrong own-code guess gives that team **1 black Miscommunication token**. Both can happen from one transmission.",
+        "zh": "截获正确的队伍获得 **1 枚白色截获标记**。己方密码猜错的队伍获得 **1 枚黑色失误标记**。同一次传递可能同时发生这两件事。"
+      },
+      "options": [
+        { "label": { "en": "Did a team get two tokens?", "zh": "有队伍拿到两枚标记吗？" }, "next": "end" },
+        { "label": { "en": "Continue to next round", "zh": "进入下一轮" }, "next": "encode" }
+      ]
+    },
+    "end": {
+      "title": { "en": "Win, Lose, or Final Guess", "zh": "胜负或最终猜词" },
+      "content": {
+        "en": "Two white tokens wins immediately; two black tokens loses immediately. If neither result occurs after Round 8, both teams identify the opponent's four keywords from the recorded clues. More correct words wins.",
+        "zh": "两枚白色标记立即获胜；两枚黑色标记立即失败。若第 8 轮后仍未结束，双方根据记录线索猜对手的四个关键词；猜对更多词的一队获胜。"
+      },
+      "options": [
+        { "label": { "en": "Review the token rules", "zh": "查看标记规则" }, "next": "outcome" },
+        { "label": { "en": "Set up a new game", "zh": "开始新游戏" }, "next": "setup" }
+      ],
+      "illustration": {
+        "src": "/images/rules/decrypto/tokens-end.svg",
+        "alt": {
+          "en": "Two white Interception tokens win; two black Miscommunication tokens lose; after round eight compare guessed keywords",
+          "zh": "拿到两枚白色截获标记获胜；拿到两枚黑色失误标记失败；第八轮后比较猜中的关键词"
+        }
+      }
+    }
+  }
+}

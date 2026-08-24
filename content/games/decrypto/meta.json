@@ -1,0 +1,13 @@
+{
+  "name": {
+    "en": "Decrypto",
+    "zh": "谍报风云"
+  },
+  "players": "3-8",
+  "duration": "15-45 min",
+  "difficulty": "medium",
+  "tags": ["party", "team", "deduction", "communication", "word-game"],
+  "category": "card",
+  "price": 0,
+  "bggRank": 117
+}

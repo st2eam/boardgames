@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title desc">
+  <title id="title">Token outcomes and final round / 标记结果与最终轮</title>
+  <desc id="desc">Two white Interception tokens win the game. Two black Miscommunication tokens lose. After round eight, teams compare how many opposing keywords they identify.</desc>
+  <rect width="720" height="280" rx="24" fill="#FAFAF5"/>
+  <text x="360" y="34" text-anchor="middle" fill="#5D4037" font-family="Georgia, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700">Track both risks / 同时追踪两种风险</text>
+  <g transform="translate(74 78)">
+    <rect width="228" height="116" rx="18" fill="#fff" stroke="#C4952A" stroke-width="4"/>
+    <circle cx="70" cy="58" r="25" fill="#fff" stroke="#5D4037" stroke-width="4"/>
+    <circle cx="140" cy="58" r="25" fill="#fff" stroke="#5D4037" stroke-width="4"/>
+    <text x="184" y="48" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700">2 white</text>
+    <text x="184" y="72" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16">intercepts</text>
+    <text x="114" y="100" text-anchor="middle" fill="#C4952A" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700">WIN / 获胜</text>
+  </g>
+  <g transform="translate(418 78)">
+    <rect width="228" height="116" rx="18" fill="#fff" stroke="#5D4037" stroke-width="4"/>
+    <circle cx="70" cy="58" r="25" fill="#253852"/>
+    <circle cx="140" cy="58" r="25" fill="#253852"/>
+    <text x="184" y="48" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700">2 black</text>
+    <text x="184" y="72" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16">errors</text>
+    <text x="114" y="100" text-anchor="middle" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700">LOSE / 失败</text>
+  </g>
+  <path d="M318 137h82" stroke="#8D6E63" stroke-width="3" stroke-dasharray="6 6"/>
+  <text x="360" y="226" text-anchor="middle" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700">No result after Round 8? / 第 8 轮后仍未结束？</text>
+  <text x="360" y="252" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15">Guess 4 opponent words; more correct wins / 猜对手 4 个词，更多正确者胜</text>
+</svg>

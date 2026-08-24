@@ -661,6 +661,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/decrypto/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/decrypto/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/zh/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -1317,6 +1327,16 @@
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/petiquette/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/decrypto/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/decrypto/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

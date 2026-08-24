@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title desc">
+  <title id="title">Screen to code clues / 屏风与密码线索</title>
+  <desc id="desc">Four secret numbered words sit behind a team screen. A code 4-2-1 becomes three ordered clues for the team.</desc>
+  <rect width="720" height="280" rx="24" fill="#FAFAF5"/>
+  <text x="360" y="32" text-anchor="middle" fill="#5D4037" font-family="Georgia, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700">Secret map → ordered clues / 秘密对应 → 有序线索</text>
+  <g transform="translate(48 61)">
+    <rect width="268" height="168" rx="16" fill="#fff" stroke="#5D4037" stroke-width="4"/>
+    <rect x="12" y="12" width="244" height="30" rx="7" fill="#253852"/>
+    <text x="134" y="33" text-anchor="middle" fill="#fff" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" font-weight="700">YOUR TEAM / 己方屏风</text>
+    <g font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" fill="#5D4037">
+      <text x="28" y="75">1</text><text x="56" y="75">pig / 小猪</text>
+      <text x="28" y="103">2</text><text x="56" y="103">candy / 糖果</text>
+      <text x="28" y="131">3</text><text x="56" y="131">tent / 帐篷</text>
+      <text x="28" y="159">4</text><text x="56" y="159">son / 儿子</text>
+    </g>
+    <path d="M174 58v104" stroke="#C4952A" stroke-width="3" stroke-dasharray="5 5"/>
+    <text x="214" y="88" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12">hidden from</text>
+    <text x="214" y="106" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12">opponents / 对手不可见</text>
+  </g>
+  <path d="M340 143h82" stroke="#C4952A" stroke-width="8" stroke-linecap="round"/>
+  <path d="m410 125 25 18-25 18" fill="none" stroke="#C4952A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(460 59)">
+    <rect width="210" height="170" rx="16" fill="#fff" stroke="#C4952A" stroke-width="4"/>
+    <text x="105" y="30" text-anchor="middle" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700">CODE 4 – 2 – 1</text>
+    <g fill="#253852" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17">
+      <text x="28" y="72">4</text><text x="58" y="72">Sam / 山姆</text>
+      <text x="28" y="106">2</text><text x="58" y="106">striped / 条纹</text>
+      <text x="28" y="140">1</text><text x="58" y="140">pink / 粉色</text>
+    </g>
+  </g>
+  <text x="360" y="264" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15">Give three related clues in code order / 按密码顺序给出三条关联线索</text>
+</svg>

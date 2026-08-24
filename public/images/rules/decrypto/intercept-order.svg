@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title desc">
+  <title id="title">Round two interception order / 第二轮起的截获顺序</title>
+  <desc id="desc">The Encryptor gives clues. The opposing team guesses the code first, then the owning team guesses its code before both answers are revealed.</desc>
+  <rect width="720" height="280" rx="24" fill="#FAFAF5"/>
+  <text x="360" y="34" text-anchor="middle" fill="#5D4037" font-family="Georgia, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="20" font-weight="700">Round 2+ / 第 2 轮起</text>
+  <g font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" text-anchor="middle">
+    <g transform="translate(42 84)">
+      <rect width="150" height="100" rx="15" fill="#fff" stroke="#5D4037" stroke-width="3"/>
+      <text x="75" y="39" fill="#5D4037" font-weight="700">Encryptor clues</text>
+      <text x="75" y="62" fill="#5D4037">加密员给线索</text>
+      <text x="75" y="84" fill="#8D6E63" font-size="13">public / 公开</text>
+    </g>
+    <g transform="translate(286 84)">
+      <rect width="150" height="100" rx="15" fill="#fff" stroke="#C4952A" stroke-width="4"/>
+      <text x="75" y="34" fill="#5D4037" font-weight="700">Opponents first</text>
+      <text x="75" y="57" fill="#5D4037">对手先截获</text>
+      <text x="75" y="80" fill="#8D6E63" font-size="13">secret guess / 秘密猜测</text>
+    </g>
+    <g transform="translate(528 84)">
+      <rect width="150" height="100" rx="15" fill="#fff" stroke="#5D4037" stroke-width="3"/>
+      <text x="75" y="34" fill="#5D4037" font-weight="700">Own team decodes</text>
+      <text x="75" y="57" fill="#5D4037">己方再解读</text>
+      <text x="75" y="80" fill="#8D6E63" font-size="13">reveal both / 同时揭晓</text>
+    </g>
+  </g>
+  <path d="M204 134h57M448 134h57" stroke="#C4952A" stroke-width="7" stroke-linecap="round"/>
+  <path d="m250 119 19 15-19 15M494 119l19 15-19 15" fill="none" stroke="#C4952A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="360" y="232" text-anchor="middle" fill="#8D6E63" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15">Past clues reveal the map / 历史线索逐渐暴露对应关系</text>
+  <text x="360" y="258" text-anchor="middle" fill="#5D4037" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" font-weight="700">Interception and own error can coexist / 截获成功和己方失误可同时发生</text>
+</svg>

@@ -1222,5 +1222,24 @@
     "price": 26,
     "bggRank": 888,
     "slug": "startups"
+  },
+  {
+    "name": {
+      "en": "Durian",
+      "zh": "榴莲"
+    },
+    "players": "2-7",
+    "duration": "20 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "bluffing",
+      "deduction",
+      "push-your-luck",
+      "party"
+    ],
+    "category": "card",
+    "bggRank": 2631,
+    "slug": "durian"
   }
 ]

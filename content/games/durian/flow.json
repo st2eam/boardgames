@@ -1,0 +1,124 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Hide Your Own Inventory", "zh": "藏好自己的库存牌" },
+      "content": {
+        "en": "Give everyone one stand and one inventory card facing away from its owner. You can see every other player’s inventory, but never your own. Put the bell and Order board in the middle.",
+        "zh": "每人拿一个卡架和一张库存牌，牌要背对主人。你看得见所有别人的库存，唯独看不见自己的。把铃和订单板放中间。"
+      },
+      "options": [
+        { "label": { "en": "What do I do on my turn?", "zh": "轮到我做什么？" }, "next": "turn" },
+        { "label": { "en": "Why can’t I see my card?", "zh": "为什么我看不见自己的牌？" }, "next": "inventory" }
+      ]
+    },
+    "inventory": {
+      "title": { "en": "Everyone Else Knows, You Guess", "zh": "别人知道，你来猜" },
+      "content": {
+        "en": "All inventory cards together are the shop’s stock. Because your card faces away from you, you infer it from the visible cards, the orders, and other players’ behavior.",
+        "zh": "所有库存牌加起来，就是店里的库存。你的牌背对你，所以只能通过看得见的牌、已经接的订单和其他人的反应来猜。"
+      },
+      "options": [
+        { "label": { "en": "Take an order", "zh": "接 1 张订单" }, "next": "take-order" },
+        { "label": { "en": "Back to setup", "zh": "返回准备" }, "next": "setup" }
+      ],
+      "illustration": {
+        "src": "/images/rules/durian/hidden-inventory.svg",
+        "alt": {
+          "en": "Every clerk has one inventory card; you can see all other cards but never your own card",
+          "zh": "每位店员有一张库存牌；你能看见其他所有人的牌，却永远看不见自己的牌"
+        }
+      }
+    },
+    "turn": {
+      "title": { "en": "Take an Order or Ring the Bell", "zh": "二选一：接订单或按铃" },
+      "content": {
+        "en": "On your turn, either draw one card and add an order, or ring the bell because you believe the current orders exceed stock. Any player may ring the bell at any time.",
+        "zh": "轮到你时，要么摸 1 张牌并接订单，要么因为觉得订单超过库存而按铃。任何玩家在任何时候都能按铃。"
+      },
+      "options": [
+        { "label": { "en": "Draw and take an order", "zh": "摸牌并接订单" }, "next": "take-order" },
+        { "label": { "en": "Ring the bell now", "zh": "现在按铃" }, "next": "ring-bell" }
+      ]
+    },
+    "take-order": {
+      "title": { "en": "Draw 1, Choose 1 Side", "zh": "摸 1 张，只选一边" },
+      "content": {
+        "en": "Draw the top card. For a Fruit card, choose exactly one side and slide that side under the check on the Order board; only that fruit group counts. A Gorilla card flips one earlier Fruit order to its other side.",
+        "zh": "摸顶牌。水果卡只能选一边，朝着订单板的勾放进去；只算这一边。摸到猩猩卡时，选一张先前水果订单，把它翻到另一边。"
+      },
+      "options": [
+        { "label": { "en": "A Fruit card", "zh": "摸到水果卡" }, "next": "fruit-order" },
+        { "label": { "en": "A Gorilla card", "zh": "摸到猩猩卡" }, "next": "gorilla-order" }
+      ]
+    },
+    "fruit-order": {
+      "title": { "en": "Choose the Order Side", "zh": "选这一边当订单" },
+      "content": {
+        "en": "Pick one of the card’s two fruit groups. Put that side in the counted order area; the other side does nothing. Then pass the turn, unless someone rings the bell.",
+        "zh": "从两边水果里选一边，放进“要计算的订单”区域；另一边不算。然后换下一位，除非有人按铃。"
+      },
+      "options": [
+        { "label": { "en": "Continue taking orders", "zh": "继续接订单" }, "next": "turn" },
+        { "label": { "en": "Check for overselling", "zh": "检查有没有卖超" }, "next": "ring-bell" }
+      ],
+      "illustration": {
+        "src": "/images/rules/durian/take-order.svg",
+        "alt": {
+          "en": "Draw one card, then choose exactly one of its two fruit sides as the new order; the other side does not count",
+          "zh": "摸一张牌后，二选一：只让其中一边水果成为新订单，另一边不计算"
+        }
+      }
+    },
+    "gorilla-order": {
+      "title": { "en": "A Gorilla Flips an Old Order", "zh": "猩猩把旧订单翻面" },
+      "content": {
+        "en": "Place the Gorilla card beside any earlier Fruit order, then turn that Fruit card around. From now on, its other fruit side is the order that counts.",
+        "zh": "把猩猩卡放到任一张先前水果订单旁边，再把那张水果卡翻面。之后改算它另一边的水果。"
+      },
+      "options": [
+        { "label": { "en": "Continue taking orders", "zh": "继续接订单" }, "next": "turn" },
+        { "label": { "en": "Ring the bell", "zh": "按铃检查" }, "next": "ring-bell" }
+      ]
+    },
+    "ring-bell": {
+      "title": { "en": "Reveal and Compare", "zh": "翻库存，比总数" },
+      "content": {
+        "en": "Reveal every inventory card. First apply any Gorilla effects in the inventory. Then compare total ordered fruit with total stock: if orders are higher, the most recent order-taker gets angry; otherwise the bell-ringer gets angry.",
+        "zh": "翻开所有库存牌。先结算库存里的猩猩效果，再把订单总数和库存总数比较：订单更多，最后接订单的人挨骂；库存够，按铃的人挨骂。"
+      },
+      "options": [
+        { "label": { "en": "Orders really exceed stock", "zh": "订单真的超过库存" }, "next": "anger" },
+        { "label": { "en": "Stock is enough", "zh": "库存其实够" }, "next": "anger" }
+      ],
+      "illustration": {
+        "src": "/images/rules/durian/ring-bell.svg",
+        "alt": {
+          "en": "Ring the bell to compare all ordered fruit against total stock: too many orders blames the last order-taker; enough stock blames the bell-ringer",
+          "zh": "按铃后比较订单水果与库存水果：订单真的超了，最后接订单的人挨骂；库存够，按铃的人挨骂"
+        }
+      }
+    },
+    "anger": {
+      "title": { "en": "Take Anger, Reset, Continue", "zh": "拿怒气，重发库存，继续" },
+      "content": {
+        "en": "The blamed player takes the next Angry Manager chip. Collect and shuffle the cards, deal fresh hidden inventory cards, then continue. If any player has anger worth 7 or more, the game ends; lowest anger wins.",
+        "zh": "挨骂的人拿最上面那枚经理怒气指示物。收回并洗牌，重新发隐藏库存牌后继续。任一人怒气累计到 7 或以上，游戏结束；怒气最少的人赢。"
+      },
+      "options": [
+        { "label": { "en": "Nobody has 7 anger", "zh": "还没人到 7 怒气" }, "next": "turn" },
+        { "label": { "en": "Someone reached 7", "zh": "有人到 7 怒气" }, "next": "winner" }
+      ]
+    },
+    "winner": {
+      "title": { "en": "The Calmest Clerk Wins", "zh": "怒气最少的人赢" },
+      "content": {
+        "en": "When a player reaches 7 or more anger, stop immediately. Compare Angry Manager values: the lowest total wins.",
+        "zh": "有人怒气达到 7 或以上就立刻停下。比较所有人的怒气总和，最少的人获胜。"
+      },
+      "options": [
+        { "label": { "en": "Set up another game", "zh": "开始新游戏" }, "next": "setup" }
+      ]
+    }
+  }
+}

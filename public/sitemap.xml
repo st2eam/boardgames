@@ -691,6 +691,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/durian/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/durian/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/zh/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -1377,6 +1387,16 @@
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/startups/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/durian/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/durian/flow/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

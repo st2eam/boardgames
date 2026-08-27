@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title desc">
+  <title id="title">Durian hidden inventory</title>
+  <desc id="desc">Three fruit inventory cards stand facing their owners, so each player can see the other cards but not their own.</desc>
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="34" y="39" fill="#5D4037" font-family="Georgia,serif" font-size="24" font-weight="700">Other people see it — you do not / 别人看得见，你看不见</text>
+  <g transform="translate(68 70)" font-family="'PingFang SC','Microsoft YaHei',sans-serif" text-anchor="middle">
+    <text x="71" y="20" fill="#8D6E63" font-size="15">OTHER CLERK / 别的店员</text><rect x="25" y="32" width="92" height="108" rx="10" fill="#F7D6DF" stroke="#5D4037" stroke-width="2"/><circle cx="52" cy="67" r="14" fill="#F2C94C"/><circle cx="89" cy="100" r="14" fill="#9B4DCA"/><text x="71" y="164" fill="#5D4037" font-size="14">you can see / 你看得见</text>
+  </g>
+  <g transform="translate(300 70)" font-family="'PingFang SC','Microsoft YaHei',sans-serif" text-anchor="middle">
+    <text x="71" y="20" fill="#C4952A" font-size="15" font-weight="700">YOUR CARD / 你的库存</text><rect x="25" y="32" width="92" height="108" rx="10" fill="#0B9C80" stroke="#5D4037" stroke-width="2"/><path d="M40 57 L102 115 M102 57 L40 115" stroke="#fff" stroke-width="5"/><text x="71" y="164" fill="#C4952A" font-size="14" font-weight="700">hidden from you / 你看不见</text>
+  </g>
+  <g transform="translate(532 70)" font-family="'PingFang SC','Microsoft YaHei',sans-serif" text-anchor="middle">
+    <text x="71" y="20" fill="#8D6E63" font-size="15">OTHER CLERK / 别的店员</text><rect x="25" y="32" width="92" height="108" rx="10" fill="#F7D6DF" stroke="#5D4037" stroke-width="2"/><circle cx="52" cy="67" r="14" fill="#EF6B73"/><circle cx="89" cy="100" r="14" fill="#7EC850"/><text x="71" y="164" fill="#5D4037" font-size="14">you can see / 你看得见</text>
+  </g>
+  <text x="360" y="260" fill="#8D6E63" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="14" text-anchor="middle">All three cards are the shop’s stock / 三张牌加起来才是库存</text>
+</svg>

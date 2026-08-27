@@ -4,6 +4,10 @@
 
 Disloyal Minister (不臣之君) is a 2026 expansion for Sanguosha (Legends of the Three Kingdoms) that revolutionizes the classic identity game mode. Instead of new hero characters, it introduces **7 brand-new identity modes** that fundamentally change how the game's faction dynamics work. Supports 4-8 players. **Requires the Sanguosha base game.**
 
+## Game Objective
+
+In Legends of the Three Kingdoms: Disloyal Minister, you enter a different identity mode with new camps and loyalties. Your goal is to understand the selected mode, find your side, and complete that mode’s unique victory condition.
+
 ## Components
 
 - Identity mode cards for 7 new game modes

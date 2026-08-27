@@ -4,6 +4,10 @@
 
 The Oceania Expansion is the second expansion for Wingspan, adding 95 new bird cards featuring birds from Australia and New Zealand, a new nectar food type, redesigned player mats, and new yellow "end of game" bird powers. This expansion requires the base game to play.
 
+## Game Objective
+
+In Wingspan Oceania, you are a bird enthusiast working with new birds and nectar. Your goal is to use those additions to build the highest-scoring preserve.
+
 ## Components
 
 - 95 bird cards (Australia/New Zealand birds)

@@ -6,6 +6,10 @@
 
 **Goal:** Hold the **most cards** when the game ends.
 
+## Game Objective
+
+In Halli Galli, you are a fast fruit watcher hovering over the bell. Your goal is to ring exactly when one fruit reaches five, collect cards, and finish with more than everyone else.
+
 ## Components
 
 - **56 fruit cards** (strawberries, bananas, limes, plums — each card shows 1–5 fruits)

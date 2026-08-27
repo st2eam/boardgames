@@ -2,11 +2,15 @@
 
 ## Overview
 
-**Remember one sentence: draw 1 card, then play 1 card.** You invest in six companies. At game end, the sole biggest holder in each company collects Capital from everybody else who owns that company.
+You invest in six companies. At game end, the sole biggest holder in each company collects Capital from everybody else who owns that company.
 
 The **Market** is the row of public cards everyone can take. Your **portfolio** is the cards already played in front of you; those cards decide who is the biggest holder.
 
 The game supports 3–7 players and usually takes about 20 minutes.
+
+## Game Objective
+
+In Startups, you are an investor backing six risky young companies. Your goal is to become a company’s sole biggest holder when it matters, then finish with the most money.
 
 ## Components
 

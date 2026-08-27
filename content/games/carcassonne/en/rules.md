@@ -4,6 +4,10 @@
 
 Carcassonne is a classic tile-laying game set in the medieval French countryside. Players take turns drawing and placing tiles to build cities, roads, monasteries, and fields. Players deploy their followers (meeples) to claim features and score points when they are completed. The player with the most points wins.
 
+## Game Objective
+
+In Carcassonne, you are shaping a medieval landscape one tile at a time. Your goal is to claim and complete valuable cities, roads, monasteries, and fields for the highest score.
+
 ## Components
 
 - **72 land tiles** — Featuring cities, roads, monasteries, and fields

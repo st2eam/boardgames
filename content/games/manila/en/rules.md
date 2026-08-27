@@ -6,6 +6,10 @@
 
 Each round (a **voyage**), three **punts** carry three of the four wares toward the harbor. Players bid for the powerful **Harbor Master** office, place **accomplices** to bet on outcomes or influence the run, then resolve dice movement, pirates, pilots, and payouts. Wares that reach Manila rise on the **black market**. When any ware hits **30**, the richest fortune wins.
 
+## Game Objective
+
+In Manila, you are a black-market merchant betting on cargo ships near colonial Manila. Your goal is to invest, manipulate voyages, and finish richer than every rival.
+
 ## Components
 
 - 1 game board

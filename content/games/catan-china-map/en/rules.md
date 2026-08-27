@@ -4,6 +4,10 @@
 
 Catan: China Map is a geographic scenario variant of Catan, using a fixed map of China instead of random hex tiles. It is a standalone product (bundled with the base game components). The core Catan rules apply, with the following additions and changes specific to the China Map.
 
+## Game Objective
+
+In Catan: China Map, you are a settler expanding across a fixed map of China. Your goal is to use its special routes and still be the first to reach 10 victory points.
+
 ## What's Different from Base Catan
 
 ![Fixed China map, marked building sites, and red trade routes instead of harbors](/images/rules/catan-china-map/differences.svg)

@@ -4,6 +4,10 @@
 
 Splendor: Pokémon is a standalone variant of Splendor themed around the Pokémon universe. Players are Pokémon trainers collecting Pokéballs to catch Pokémon, build their team, and attract Legendary Pokémon. The core mechanics remain the same as original Splendor, with key additions: an **evolution mechanic**, **Rare & Legendary Pokémon**, and a higher victory threshold of **18 points**. Does not require the original Splendor.
 
+## Game Objective
+
+In Splendor Pokémon, you are a trainer collecting Poké Balls and Pokémon. Your goal is to build your team and be the first trainer to reach 18 prestige points.
+
 ## What's Different from Original Splendor
 
 | | Original Splendor | Pokémon Edition |

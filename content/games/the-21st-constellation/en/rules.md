@@ -14,6 +14,10 @@ The 21st Constellation is a card game combining the classic "21" (Blackjack) pus
 
 ---
 
+## Game Objective
+
+In The 21st Constellation, you are a stargazer calling on magical constellations. Your goal is to build a score as close to 21 as possible without going over, then beat the other stargazers.
+
 ## Player Counts
 
 ### 2 Players: Duel · 1v1

@@ -4,6 +4,10 @@
 
 "The River" is the first mini-expansion for Carcassonne, consisting of 12 river tiles. These tiles replace the standard starting tile, creating a winding river at the start of the game that provides a more varied and spread-out initial landscape.
 
+## Game Objective
+
+In Carcassonne: The River, you lay the river that opens the landscape. Your goal is to create the river start correctly, then use the base game’s scoring to beat the other players.
+
 ## Components
 
 - **12 river tiles** (dark backs)

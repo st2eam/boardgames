@@ -2,11 +2,15 @@
 
 ## Overview
 
-**Remember one sentence: do not rearrange your hand.** On your turn, either play a connected stretch of cards to beat the table, or take one card from the left or right end of the table and slot it into your hand.
+On your turn, either play a connected stretch of cards to beat the table, or take one card from the left or right end of the table and slot it into your hand.
 
 Each card has a value at both ends. You may turn the **whole hand** once before play starts, but you never shuffle individual cards around.
 
 The standard game supports 2–5 players and is played over as many rounds as there are players.
+
+## Game Objective
+
+In SCOUT, you are a circus performer managing a hand whose order cannot change. Your goal is to beat the table with adjacent cards or scout wisely, then score best across the rounds.
 
 ## Components
 

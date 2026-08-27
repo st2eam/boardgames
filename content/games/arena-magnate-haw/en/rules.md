@@ -4,6 +4,10 @@
 
 *Arena Magnate: Haw!* is a Monopoly-style board game for 2-4 players, lasting 30-60 minutes. Players take on the role of "Little Know-Nothings" in the world of the "Big Boxing Gym," helping Coach Durian manage the gym by adding various facilities! Don't forget to keep up your daily training! The first player to own **10 houses** becomes the new coach and wins the game!
 
+## Game Objective
+
+In Arena Magnate: Haw!, you are one of Coach Durian’s aspiring gym managers. Your goal is to help the gym grow and be the first player to build ten huts.
+
 ## Components
 
 - 4 Pawns

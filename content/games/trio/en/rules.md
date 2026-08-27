@@ -4,6 +4,10 @@
 
 TRIO (originally published as *nana* in Japan) is a set-collection card game where players try to reveal three cards of the same number. Cards are hidden in the center of the table and in players' sorted hands — you can only ever access the lowest or highest card from any hand, making memory and deduction essential.
 
+## Game Objective
+
+In TRIO, you are a card sleuth remembering values at the ends of hands and in the center. Your goal is to reveal matching triples, claim trios, and meet your mode’s winning condition.
+
 ## Components
 
 - 36 cards: numbers 1–12, three copies of each

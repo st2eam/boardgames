@@ -4,6 +4,10 @@
 
 UNO is the classic family card game where players take turns matching a card in their hand with the current card shown on top of the discard pile by color, number, or symbol. Be the first to empty your hand — but don't forget to yell "UNO!" when you're down to your last card.
 
+## Game Objective
+
+In UNO, you are racing everyone else to empty a hand of colorful cards. Your goal is to match the discard pile by color, number, or symbol and be the first player with no cards left.
+
 ## Components
 
 112 cards (classic 108 + 4 new Wild cards):

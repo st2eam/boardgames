@@ -4,6 +4,10 @@
 
 The European Expansion is the first expansion for Wingspan, adding 81 new bird cards featuring birds from Europe, new round-end bird powers (teal), sideways birds, and additional goal tiles and bonus cards. This expansion requires the base game to play.
 
+## Game Objective
+
+In Wingspan Europe, you are a bird enthusiast adding Europe’s birds to a preserve. Your goal is to use their new powers to strengthen the base game and finish with the highest score.
+
 ## Components
 
 - 81 bird cards (European birds)

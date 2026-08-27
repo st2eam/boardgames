@@ -4,6 +4,10 @@
 
 **Harmonies** is a tile-laying strategy game by designer Johan Benvenuto, published by **Libellud** (2024). Players build vibrant 3D landscapes on their personal boards by placing colored terrain tokens, then populate them with animal cubes when the terrain matches the habitat patterns on their animal cards.
 
+## Game Objective
+
+In Harmonies, you are creating a layered natural landscape for wildlife. Your goal is to place terrain and animal cubes so habitats score better than your rivals’.
+
 ## Components
 
 - **1 Central Board** — double-sided (solo side / 2–4 player side)

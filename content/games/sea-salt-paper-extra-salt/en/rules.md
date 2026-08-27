@@ -4,6 +4,10 @@
 
 Extra Salt is a mini expansion for Sea Salt & Paper, adding **8 new cards** with **5 new effects** to the base game. It cannot be played standalone — requires the base game. Cards are marked with a star symbol for easy identification.
 
+## Game Objective
+
+In Sea Salt & Paper: Extra Salt, you are using extra sea creatures alongside the base game. Your goal is to turn their new effects into better sets and win under the base game’s scoring.
+
 ## Setup
 
 Shuffle all 8 expansion cards into the base game deck. No other rule changes are needed.

@@ -6,6 +6,10 @@
 
 This edition updates art, symbols (including colorblind icons), some cards and Wonder costs/effects, and **drops the 2-player variant** — use *7 Wonders Duel* for two. First-edition expansions are **not** compatible (different card backs).
 
+## Game Objective
+
+In 7 Wonders, you lead one ancient city through three ages of civilization. Your goal is to draft well, build your wonder, and finish the third age with the most victory points.
+
 ## Components
 
 - **7 Wonder boards** (Day / Night sides)

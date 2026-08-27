@@ -4,6 +4,10 @@
 
 Pig Pageant is an expansion for Dirty Pig (Drecksau) by Frank Bebenroth, published by Kosmos. It adds a new victory path: instead of only winning with all dirty pigs, you can now also win by making all your pigs into glamorous pageant contestants! **Requires the Dirty Pig base game.**
 
+## Game Objective
+
+In Drecksau: Sauschön, you enter your pigs in a very odd beauty contest. Your goal is to win by making all your pigs dirty or by making all of them beautiful.
+
 ## New Components
 
 - 16 Pretty Pig (Schönsau) cards

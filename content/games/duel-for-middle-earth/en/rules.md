@@ -4,6 +4,10 @@
 
 A two-player strategy duel inspired by *7 Wonders Duel*, set in Middle-earth. One player is the **Fellowship**, racing to destroy the One Ring; the other is **Sauron**, hunting Frodo and Sam while conquering the land. Over **three chapters**, draft cards and Landmark tiles to advance the Quest of the Ring, rally Races, and occupy regions. Win immediately by completing one of three paths — or control the most regions at the end of Chapter 3.
 
+## Game Objective
+
+In The Lord of the Rings: Duel for Middle-earth, you command either the Fellowship or Sauron. Your goal is to trigger your side’s victory through the Ring, alliances, or control of Middle-earth.
+
 ## Components
 
 - Central board (7 regions of Middle-earth)

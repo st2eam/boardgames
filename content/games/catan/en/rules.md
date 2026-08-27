@@ -4,6 +4,10 @@
 
 Catan (formerly The Settlers of Catan) is a multiplayer board game designed by Klaus Teuber. Players assume the roles of settlers, each attempting to build and develop holdings while trading and acquiring resources.
 
+## Game Objective
+
+In Catan, you are a settler developing a new island colony. Your goal is to trade resources, build settlements, cities, and roads, then be the first to reach 10 victory points.
+
 ## Components
 
 - 19 hexagonal terrain tiles

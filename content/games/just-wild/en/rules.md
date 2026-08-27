@@ -4,6 +4,10 @@
 
 Just Wild is a number puzzle and area control card game published by Helvetiq, designed by Marco Franchin and Leo Colovini. Players choose an endangered animal species — lynx, wolf, ibex, or bear — and strategically place numbered cards to expand their territory while covering opponents' animals. The player with the most visible half cards of their species at the end wins.
 
+## Game Objective
+
+In Just Wild, you guide one endangered animal species across a shared wilderness. Your goal is to leave more visible halves of your own animals on the map than any rival.
+
 ## Components
 
 - 80 cards numbered 1–10 (20 per species: lynx, wolf, ibex, bear)

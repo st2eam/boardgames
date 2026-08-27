@@ -10,6 +10,10 @@ To win a round, you must either have the **highest-value card** at the end of th
 
 > This page covers the **Full Game** edition (**Princess = 9**, **21 cards**), for **2–6 players**. A classic 2–4 player variant is noted at the end.
 
+## Game Objective
+
+In Love Letter, you are one of the princess’s suitors. Your goal is to stand out from the other suitors: use card effects to eliminate rivals, or win the final comparison with the highest hand, and ultimately deliver your letter to the princess—who seeks a trusted companion for her future reign.
+
 ## Components
 
 - **21 character cards** (see Full Game table below)

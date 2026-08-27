@@ -4,6 +4,10 @@
 
 UNO Show 'Em No Mercy is the most brutal version of UNO, published by Mattel. With 168 cards, massive draw penalties, stacking rules, hand-swapping mechanics, and the merciless elimination rule, there are two ways to win: empty your hand or knock everyone else out.
 
+## Game Objective
+
+In UNO Show ’Em No Mercy, you are surviving the harshest version of UNO. Your goal is to empty your hand first, or become the last player who has not been eliminated.
+
 ## Components
 
 168 cards:

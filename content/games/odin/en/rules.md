@@ -8,6 +8,10 @@ Chinese edition title: **维京怒火**.
 
 **Goal:** Discard all cards from your hand as often as you can. When someone reaches the point threshold (usually **15**), the player with the **fewest** points wins.
 
+## Game Objective
+
+In Odin, you are a Viking warrior playing tight groups from an ordered hand. Your goal is to empty your hand whenever possible and finish the match with the fewest points.
+
 ## Components
 
 - **54 cards** numbered **1–9** in **6 colours** (one of each number per colour)

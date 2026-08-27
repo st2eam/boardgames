@@ -4,6 +4,10 @@
 
 Mahjong is a traditional Chinese table game played with a set of 144 tiles, typically by 4 players. The goal is to be the first to form a valid winning hand by drawing and discarding tiles.
 
+## Game Objective
+
+In Mahjong, you are shaping a hand through draws and discards. Your goal is to be the first player to complete a legal winning hand.
+
 ## Tile Set
 
 ### Suited Tiles (108 tiles)

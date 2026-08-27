@@ -4,6 +4,10 @@
 
 Exploding Kittens is a highly-strategic, kitty-powered version of Russian Roulette. Players draw cards until someone draws an Exploding Kitten, at which point they explode and are out of the game — unless they have a Defuse card. The last player standing wins.
 
+## Game Objective
+
+In Exploding Kittens, you are trying not to draw the exploding cat. Your goal is to survive the deck and become the last player still in the game.
+
 ## Components
 
 - **56 cards** including:

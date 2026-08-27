@@ -6,6 +6,10 @@ In **Decrypto**, two teams try to communicate three-digit codes to their own tea
 
 The standard game uses two teams of 2–4 players (4–8 total). A 3-player variant is included at the end.
 
+## Game Objective
+
+In Decrypto, you are one half of a code team protecting four secret words. Your goal is to help teammates decode your numbered messages twice before the opposing team intercepts two of yours.
+
 ## Components
 
 - 2 team screens

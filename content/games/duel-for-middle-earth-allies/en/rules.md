@@ -6,6 +6,10 @@
 
 *Allies* was nominated for the **2025 Golden Geek Best Expansion** award.
 
+## Game Objective
+
+In Duel for Middle-earth: Allies, you command the Fellowship or Sauron with hidden allies waiting to answer. Your goal is to collect Power tokens, call allies at the right time, and achieve a base-game victory route.
+
 ## Components
 
 - 7 Fellowship Ally cards

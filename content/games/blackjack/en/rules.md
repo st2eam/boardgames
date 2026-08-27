@@ -4,6 +4,10 @@
 
 Blackjack (also known as 21) is a casino card game where players compete against the dealer. The goal is to get a hand value as close to 21 as possible without exceeding it.
 
+## Game Objective
+
+In Blackjack, you are a casino player facing the dealer. Your goal is to beat the dealer with a total as close to 21 as possible without going over.
+
 ## Components
 
 - 1-8 standard 52-card decks (casino typically uses 6-8 decks)

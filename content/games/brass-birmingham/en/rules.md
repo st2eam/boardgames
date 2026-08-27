@@ -21,6 +21,10 @@ Scout replaces original Brass’s double-build.
 
 ![Two actions, each discards a card; cash sits on your pawn](/images/rules/brass-birmingham/turn-flow.svg)
 
+## Game Objective
+
+In Brass: Birmingham, you are an industrial entrepreneur working through canal and rail eras. Your goal is to build profitable networks and industries, then earn the most victory points by 1870.
+
 ## Components
 
 - 1 double-sided board (day / night)

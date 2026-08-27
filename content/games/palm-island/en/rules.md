@@ -4,6 +4,10 @@
 
 A pocket-sized **deck-transforming** game played in the palm of your hand — no table required. With a **17-card** deck over **8 rounds**, store resources, rotate and flip cards to upgrade your village, then score victory stars. Play **solo**, or use the included modes for **competitive** / **cooperative** 2-player games (more players with extra copies).
 
+## Game Objective
+
+In Palm Island, you are developing an island using only the cards in your hand. Your goal is to rotate and flip that tiny deck into better buildings, then collect the most stars.
+
 ## Components
 
 - 2 player decks (17 cards each: red / blue stripe)

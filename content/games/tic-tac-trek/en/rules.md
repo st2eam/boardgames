@@ -4,6 +4,10 @@
 
 Designed by **Brett J. Gilbert** and **Trevor Benjamin**, published by **Alley Cat Games**, with art by **Rory Muldoon**. Explore the wilderness in this 2-player twist on tic-tac-toe: draw terrain tiles, place your **X** or **O**, complete trails of three, and camp on the edge of the unexplored wilds. The more empty space around your campfires, the higher you score.
 
+## Game Objective
+
+In Tic Tac Trek, you are a hiker laying terrain to create three connected trails. Your goal is to finish your treks, camp beside valuable empty wilderness, and score more than your opponent.
+
 ## Components
 
 - **26 wooden terrain tiles** (double-sided: **X** on one side, **O** on the other)

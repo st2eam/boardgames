@@ -6,6 +6,10 @@ You are a gang of thieves who just robbed an art museum. The heist was easy — 
 
 **Goal:** After four raids, have the most loot points — but don't finish with the fewest Alibis, or the police will catch you!
 
+## Game Objective
+
+In Art Robbery, you are a thief negotiating a four-round museum haul. Your goal is to take the most valuable loot, while avoiding the danger of ending with the fewest alibis.
+
 ## Components
 
 - **55 cards**

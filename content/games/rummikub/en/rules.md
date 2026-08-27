@@ -4,6 +4,10 @@
 
 Rummikub is a tile-based game for 2-4 players that combines elements of Rummy and Mahjong. Players arrange numbered tiles into groups and runs, aiming to be the first to play all tiles from their rack.
 
+## Game Objective
+
+In Rummikub, you are arranging numbered tiles into clean groups and runs. Your goal is to make your opening meld, keep every table set legal, and empty your rack first.
+
 ## Components
 
 - **106 numbered tiles**: 1-13 in four colors (black, red, blue, orange), 2 sets per color

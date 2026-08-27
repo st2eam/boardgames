@@ -12,6 +12,10 @@ Petiquette can be played either competitively or co-operatively.
 
 **Players:** 2–6 · **Time:** about 20 minutes.
 
+## Game Objective
+
+In Petiquette, you are a guest trying to spot an unwritten etiquette rule in animal cards. Your goal is to find a pattern the group accepts and score more than the other guests.
+
 ## Components
 
 - **45 sequence cards** — every mix of **3 animals** (dog, cat, bird), **3 hat colours** (red, yellow, blue), and **numbers 1–5**

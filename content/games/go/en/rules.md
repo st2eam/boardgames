@@ -6,6 +6,10 @@ Go (Weiqi / Baduk) is an abstract strategy board game for two players, originati
 
 The rules are remarkably simple, but the possibilities are nearly infinite — which is why Go is considered one of the deepest strategy games in existence.
 
+## Game Objective
+
+In Go, you command either black or white stones on a shared board. Your goal is to surround more territory than your opponent while capturing stones when the chance appears.
+
 ## Components
 
 - Go board (goban): standard **19×19** grid (beginners may use **13×13** or **9×9**)

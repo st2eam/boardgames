@@ -8,7 +8,7 @@ const CONTENT = path.join(ROOT, "content", "games");
 const RULE_IMAGES = path.join(ROOT, "public", "images", "rules");
 const LOCALES = ["en", "zh"];
 const IMAGE_RE = /!\[[^\]]*\]\((\/images\/rules\/[^)]+\.svg)\)/g;
-const OPENING_HEADING_RE = /^##\s+(?:\d+\.\s*)?(overview|game overview|theme|theme background|概览|概述|游戏概述|主题背景)\s*$/im;
+const OBJECTIVE_HEADING = { en: "## Game Objective", zh: "## 游戏目标" };
 
 function readJson(file) {
   return JSON.parse(fs.readFileSync(file, "utf8"));
@@ -43,7 +43,8 @@ export function validateGameContent() {
   for (const slug of slugs) {
     for (const locale of LOCALES) {
       const rules = fs.readFileSync(path.join(CONTENT, slug, locale, "rules.md"), "utf8");
-      assert(OPENING_HEADING_RE.test(rules), `${slug}: ${locale} rules need an overview heading for the player-first introduction`);
+      const occurrences = rules.split(OBJECTIVE_HEADING[locale]).length - 1;
+      assert(occurrences === 1, `${slug}: ${locale} rules need exactly one Game Objective section`);
     }
     const images = Object.fromEntries(LOCALES.map((locale) => [locale, ruleImages(slug, locale)]));
     assert(images.en.length >= 2 && images.en.length <= 4, `${slug}: expected 2-4 key SVGs, found ${images.en.length}`);

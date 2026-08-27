@@ -4,6 +4,10 @@
 
 Dirty Pig (originally Drecksau) is a quick and fun card game designed by Frank Bebenroth and published by KOSMOS. Each player has a row of clean pigs, and the goal is simple: be the first player to make ALL of your pigs dirty! Play mud cards, protect your pigs with barns, and use rain to wash your opponents' pigs clean.
 
+## Game Objective
+
+In Drecksau, you are looking after a row of pigs that would rather be muddy. Your goal is to make every one of your own pigs dirty before another player does.
+
 ## Components
 
 - Pig cards (double-sided: clean on one side, dirty on the other)

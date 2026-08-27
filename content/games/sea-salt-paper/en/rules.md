@@ -4,6 +4,10 @@
 
 Sea Salt & Paper is a set-collection and push-your-luck card game for 2-4 players. Players draw cards, play Duo pairs for effects, collect sets for points, and choose the perfect moment to end each round. The game is played over multiple rounds until one player reaches the target score.
 
+## Game Objective
+
+In Sea Salt & Paper, you are collecting a small sea of origami creatures. Your goal is to make valuable sets, choose the right moment to end each round, and reach the target score first.
+
 ## Components
 
 - 58 playing cards (origami-style sea creatures)
@@ -127,4 +131,3 @@ Each Mermaid scores **1 point per card of your most abundant color** (counting c
 | The Captain | 3 × Sailors |
 | Each Mermaid | 1 × cards of most common color |
 | Color Bonus (Last Chance) | 1 × cards of most common color |
-

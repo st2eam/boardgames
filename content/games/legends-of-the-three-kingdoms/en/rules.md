@@ -4,6 +4,10 @@
 
 Sanguosha is a Chinese card game inspired by the Romance of the Three Kingdoms. Players assume the identities of legendary heroes, each with unique abilities. Hidden roles determine each player's allegiance and victory condition.
 
+## Game Objective
+
+In Legends of the Three Kingdoms, you are a hero with a hidden identity and unique skills. Your goal is not always the same: discover your allies, then help your own camp complete its identity-specific victory condition.
+
 ## 2. Components
 
 - **Identity Cards** — 1 Monarch, 2 Loyalists, 4 Rebels, 1 Traitor (for 8 players)

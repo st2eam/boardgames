@@ -2,9 +2,13 @@
 
 ## Overview
 
-**Remember one sentence: take an order, or ring the bell.** Everyone can see the other clerks’ fruit cards but not their own. Keep taking fruit orders without asking for more fruit than the shop has — and ring the bell when you think the last order went too far.
+Everyone can see the other clerks’ fruit cards but not their own. Keep taking fruit orders without asking for more fruit than the shop has — and ring the bell when you think the last order went too far.
 
 Durian supports 2–7 players and takes about 20 minutes.
+
+## Game Objective
+
+In Durian, you are a fruit-shop clerk who can see everyone’s inventory except your own. Your goal is to judge when orders have gone too far, ring the bell at the right time, and finish with the least manager anger.
 
 ## Components
 

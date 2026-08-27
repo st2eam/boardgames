@@ -4,6 +4,10 @@
 
 Splendor is an engine-building card game for 2-4 players designed by Marc André, published by Space Cowboys. Players take on the role of Renaissance gem merchants, collecting gem tokens to purchase development cards that provide permanent bonuses and prestige points. The first player to reach **15 prestige points** triggers the final round.
 
+## Game Objective
+
+In Splendor, you are a Renaissance gem merchant building a prestige engine. Your goal is to buy development cards efficiently and be the first to reach 15 prestige points.
+
 ## Components
 
 - 40 gem tokens: 7 each in 5 colors (Diamond/White, Sapphire/Blue, Emerald/Green, Ruby/Red, Onyx/Black) + 5 Gold (wild)

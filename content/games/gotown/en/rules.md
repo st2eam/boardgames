@@ -4,6 +4,10 @@
 
 GoTown is a competitive card game published by Helvetiq, designed by Morten & Alexander Bonavent. Each player races to build a five-story skyscraper first. Floors are built by combining two cards that sum to 9. But watch out — opponents can steal your floors, destroy them, or mess with your plans!
 
+## Game Objective
+
+In GoTown, you are a developer racing rival builders upward. Your goal is to assemble your five-floor skyscraper before anyone else can finish theirs.
+
 ## Components
 
 - 32 Floor cards (values 1-8, 4 of each)

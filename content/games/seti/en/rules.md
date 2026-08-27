@@ -10,6 +10,10 @@ The player with the starting-player marker takes the first turn of a round. Play
 
 ![One main action, free extras, then milestones](/images/rules/seti/turn-flow.svg)
 
+## Game Objective
+
+In SETI, you lead a research institute searching the solar system for signs of alien life. Your goal is to earn the most prestige through exploration, signals, technology, and discoveries over five rounds.
+
 ## Components
 
 - Main board: planetary board + solar system board (3 discs, Sun, 4 sector boards) + tech board

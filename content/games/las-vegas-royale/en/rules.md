@@ -6,6 +6,10 @@
 
 This box includes a **basic game** (dice, chips, Biggy) and the **main game** (add random casino tiles to casinos 1–3). Play the main game unless you are teaching first-timers.
 
+## Game Objective
+
+In Las Vegas Royale, you are a gambler choosing where to commit whole groups of dice. Your goal is simple: after three rounds, have more cash than every rival.
+
 ## Components
 
 - 1 dice arena + 1 casino ring (six casinos, numbered **1–6**)

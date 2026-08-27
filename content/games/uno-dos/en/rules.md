@@ -4,6 +4,10 @@
 
 DOS is the sequel to UNO, launched by Mattel in 2018. Unlike UNO's color/number matching of single cards, DOS is all about **number matching** — using one or two cards to match Center Row cards by number, with color bonuses for same-color matches.
 
+## Game Objective
+
+In DOS, you are matching number cards against the two cards in the center. Your goal is to use one card or a pair with the right total, then clear your hand before the other players.
+
 ## Components
 
 - **108 cards**

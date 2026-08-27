@@ -4,6 +4,10 @@
 
 Texas Hold'em is the most widely played poker variant in the world. Each player receives 2 private hole cards and combines them with 5 community cards to make the best 5-card hand. The game blends probability, psychology, and risk management — easy to learn, endlessly deep in strategy.
 
+## Game Objective
+
+In Texas Hold’em, you are a poker player trying to read opponents as well as the board. Your goal is to win chips: either make the best five-card hand at showdown, or make every other player fold first.
+
 ## Components
 
 - Standard 52-card deck, no jokers

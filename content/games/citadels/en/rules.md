@@ -6,6 +6,10 @@
 
 This 2016 box is the deluxe edition: original characters, *The Dark City*, plus 9 new characters and 12 new unique districts (**27** characters, **30** unique districts). First games should use the classic eight characters.
 
+## Game Objective
+
+In Citadels, you are a city builder secretly choosing influential characters. Your goal is to use each role well, complete your city, and finish with the highest score.
+
 ## Components
 
 - **54** basic districts: 12 noble (yellow), 11 religious (blue), 20 trade (green), 11 military (red)

@@ -4,6 +4,10 @@
 
 Wingspan Asia is the third expansion for Wingspan, adding 90 new Asian bird cards, a standalone Duet mode for 1–2 players, and Flock mode for 6–7 players. It can be played as a card expansion mixed with the base game, or as a standalone game using the Duet mode. For Flock mode (6-7 players), the base game is required for additional player components.
 
+## Game Objective
+
+In Wingspan Asia, you are a bird enthusiast using Asia’s birds and modes. Your goal is to build the strongest preserve and meet the scoring objective of the mode you chose.
+
 ## Components
 
 - 90 bird cards (Asian birds)

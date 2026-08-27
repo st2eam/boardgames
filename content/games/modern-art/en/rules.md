@@ -4,6 +4,10 @@
 
 Modern Art is an auction game designed by Reiner Knizia. Players take on the role of art dealers buying and selling paintings from five different artists over four rounds. Each round, paintings are auctioned off using different auction types. At the end of each round, paintings are sold to the bank at market value. The player with the most money at the end wins.
 
+## Game Objective
+
+In Modern Art, you are an art dealer trading the work of five painters. Your goal is to buy and sell at the right moments, then finish four seasons with more money than anyone else.
+
 ## Components
 
 - 70 painting cards (5 artists)

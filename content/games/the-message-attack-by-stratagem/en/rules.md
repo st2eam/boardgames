@@ -4,6 +4,10 @@
 
 Wind Sound Again (风声再临) is a spy-themed hidden identity card game for 3-7 players, inspired by the acclaimed Chinese film "The Message" (风声). Players are divided into three factions — Latent Agents, Military Intelligence, and Agents — and must pass intelligence cards to allies while deducing the identities of enemies. Cards serve a dual purpose: as intelligence (by color) and as action cards (by text effect).
 
+## Game Objective
+
+In The Message: Attack by Stratagem, you are an intelligence operative with a hidden camp. Your goal is to deliver the right intelligence to allies while exposing and stopping the opposing camps.
+
 ## Components
 
 - 8 Identity cards (faction assignments)

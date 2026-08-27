@@ -12,6 +12,10 @@
 
 ---
 
+## Game Objective
+
+In Legends of the Three Kingdoms: Wind and Cloud, you enter one of three variant modes. Your goal is to understand the selected mode’s alliances and complete its specific victory condition.
+
 ## Mode 1: Spy Chapter (用间篇)
 
 The **Spy Chapter** introduces espionage and sabotage into Sanguosha with a brand-new core mechanic — **Gifting (赠予)** — plus a suite of 20+ new cards.

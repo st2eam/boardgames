@@ -8,6 +8,10 @@ You lead an **asymmetric organization** — private tech, global research networ
 
 With organizations the game is **4 rounds**: play only rounds **2, 3, 4, and 5**. Five rounds with organizations is not recommended (too long, not balanced).
 
+## Game Objective
+
+In SETI: Space Agencies, you lead an asymmetric agency with its own specialty. Your goal is to use that specialty better than your rivals and score highest under the base game’s end conditions.
+
 ## Components
 
 - 11 asymmetric organization boards

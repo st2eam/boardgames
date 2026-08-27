@@ -6,6 +6,10 @@ Wingspan is a competitive, medium-weight, card-driven engine-building board game
 
 Each bird you play extends a chain of powerful combinations in one of three habitats: **Forest**, **Grassland**, and **Wetlands**. These habitats focus on key gameplay elements: gaining food tokens, laying eggs, and drawing bird cards.
 
+## Game Objective
+
+In Wingspan, you are a bird enthusiast building a wildlife preserve. Your goal is to attract birds, power up habitats, and score the most after four rounds.
+
 ## Components
 
 - 170 bird cards

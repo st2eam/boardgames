@@ -6,6 +6,10 @@ Love Letter Premium Edition is a complete edition for **2–8** suitors. With **
 
 > This is a **standalone** edition — you do not need the 2025 Full Game box. Rules below follow the AEG / Z-Man Premium rulebook.
 
+## Game Objective
+
+In Love Letter Premium, you are a suitor competing in a larger royal court. Your goal is to win rounds by being the last player left or by holding the highest-ranked surviving card, then collect enough favor to win the game.
+
 ## Components
 
 - **32 game cards** (16 for 2–4 players; all 32 for 5–8)

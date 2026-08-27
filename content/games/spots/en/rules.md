@@ -4,6 +4,10 @@
 
 Spots is a push-your-luck dice game for 1–4 players. You roll dice and place them on matching spaces on your dog cards. Fill all the spots on your dogs to score them, but watch out — if your buried dice total more than 7, you bust and lose everything! The first player to score 6 dog cards wins.
 
+## Game Objective
+
+In Spots, you are training dogs by placing dice into their matching spots. Your goal is to fill and score six dog cards before anyone else, without busting your backyard.
+
 ## Components
 
 - Dog cards (each showing 2–4 numbered dice spaces)

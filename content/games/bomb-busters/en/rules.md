@@ -4,6 +4,10 @@
 
 Bomb Busters is a cooperative deduction game for 2–5 players designed by Hisashi Hayashi. Players form a bomb disposal squad, working together to cut matching wires and defuse a bomb before it explodes. The game features 66 progressive missions that introduce new rules and equipment, creating a campaign-style experience.
 
+## Game Objective
+
+In Bomb Busters, you are on a cooperative bomb-disposal team. Your goal is to identify matching wires and cut them safely before the bomb explodes.
+
 ## Components
 
 - 1 game board with detonator dial

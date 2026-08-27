@@ -6,6 +6,10 @@
 
 Unlike regular poker: **do not bluff**. More players = harder.
 
+## Game Objective
+
+In The Gang, you are part of a bank-robbing crew that communicates without speaking. Your goal is to rank the team’s hands correctly, open three vaults, and do it before the third alarm goes off.
+
 ## Components
 
 - 52 playing cards

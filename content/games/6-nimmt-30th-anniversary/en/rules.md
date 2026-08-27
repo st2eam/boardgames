@@ -10,6 +10,10 @@ This **30th Anniversary Edition** adds:
 - Cooperative / solo mode **Beat the Buffalo**
 - Optional **Pro** draft variant (2–6 players)
 
+## Game Objective
+
+In 6 nimmt! 30th Anniversary, you choose number cards at the same time as everyone else and try not to collect bull heads. Your goal is to finish with the lowest penalty total.
+
 ## Components
 
 | Item | Count / notes |

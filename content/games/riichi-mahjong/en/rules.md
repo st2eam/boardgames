@@ -4,6 +4,10 @@
 
 Riichi Mahjong (リーチ麻雀) is the Japanese variant of Mahjong, known for its strict rules, rich yaku (hand pattern) system, and the unique Riichi declaration mechanic. It uses 136 tiles (no flower tiles), 4 players, playing either East-only (Hanchan short) or East-South (full Hanchan) rounds.
 
+## Game Objective
+
+In Riichi Mahjong, you are balancing speed, defense, and yaku. Your goal is to win legal hands with yaku and finish the match with more points than the other players.
+
 ## Tiles
 
 | Type | Content | Count |

@@ -4,6 +4,10 @@
 
 Race to get as close to Cabo as possible and find the legendary unicorn. The numbers on cards represent your distance from it. The player closest to Cabo (lowest total score) at game end wins.
 
+## Game Objective
+
+In CABO, you are searching for the unicorn Cabo while managing four hidden cards. Your goal is to finish the round with the lowest total distance from Cabo.
+
 ## Components
 
 - 52 number cards (0-13)

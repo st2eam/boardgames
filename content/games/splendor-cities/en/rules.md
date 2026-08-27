@@ -7,6 +7,10 @@
 
 We recommend starting with **Cities** — it changes the victory condition and raises competition.
 
+## Game Objective
+
+In Splendor: Cities, you are a merchant using one expansion module with the base game. Your goal is to meet a City tile’s requirement first when using Cities, or otherwise use the chosen module to outscore rivals.
+
 ## Components
 
 | Module | Components |

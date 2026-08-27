@@ -4,6 +4,10 @@
 
 UNO Flip is a twist on classic UNO featuring a double-sided deck. The deck has a **Light Side** (gentle, similar to classic UNO) and a **Dark Side** (harsh, with more punitive action cards). Players must flip the deck between sides during play and be the first to empty their hand.
 
+## Game Objective
+
+In UNO Flip, you are racing to empty your hand while the whole deck can change from a mild side to a punishing side. Your goal is to adapt to both sides and get rid of every card first.
+
 ## Components
 
 - 112 double-sided cards (Light Side / Dark Side)

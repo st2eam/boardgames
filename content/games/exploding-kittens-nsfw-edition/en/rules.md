@@ -6,6 +6,10 @@ The Black Box edition (officially "NSFW Edition") of Exploding Kittens is the ad
 
 This is a standalone game for **2-5 players** (does not require the original Red Box). It can also be combined with the Red Box deck to support up to **9 players**.
 
+## Game Objective
+
+In Exploding Kittens: NSFW Edition, you are surviving the adult-art version of the same dangerous deck. Your goal is to avoid exploding kittens and be the last player still in the game.
+
 ## Red Box vs Black Box
 
 ![Same rules; Black Box is adult art; mix up to 9 players](/images/rules/exploding-kittens-nsfw-edition/red-vs-black.svg)

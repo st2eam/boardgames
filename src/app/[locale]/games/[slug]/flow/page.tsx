@@ -1,11 +1,9 @@
 import { GameRepository } from "@/lib/content/GameRepository";
 import { DecisionTree } from "@/features/flow/DecisionTree";
-import { GameIntro } from "@/features/rules/GameIntro";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Link from "next/link";
 import { buildPageMetadata, getCoverImageUrl } from "@/lib/seo";
-import { extractRuleIntro } from "@/lib/content/ruleIntro";
 import type { Metadata } from "next";
 
 interface Props {
@@ -48,8 +46,6 @@ export default async function FlowPage({ params }: Props) {
   const { locale, slug } = await params;
   const flowData = await GameRepository.getFlowData(slug, locale);
   const meta = await GameRepository.getGameMeta(slug);
-  const rules = await GameRepository.getGameRules(slug, locale);
-  const intro = extractRuleIntro(rules);
 
   if (!flowData || !meta) {
     notFound();
@@ -82,7 +78,6 @@ export default async function FlowPage({ params }: Props) {
       <h1 className="mb-6 font-heading text-2xl font-bold tracking-tight text-primary-dark sm:text-3xl">
         {meta.name[locale as "en" | "zh"] ?? meta.name.en}
       </h1>
-      {intro ? <GameIntro content={intro} locale={locale} /> : null}
       <DecisionTree flowData={flowData} locale={locale} slug={slug} />
     </div>
   );

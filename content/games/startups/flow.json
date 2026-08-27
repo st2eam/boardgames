@@ -2,7 +2,7 @@
   "startNode": "setup",
   "nodes": {
     "setup": {
-      "title": { "en": "Fund Six Startups", "zh": "准备六家公司" },
+      "title": { "en": "Fund Six Startups", "zh": "准备六家新创公司" },
       "content": {
         "en": "Remove 5 random Company cards. Deal 3 hidden cards and 10 one-value Capital chips to each player. Put the remaining deck face down and leave an empty Market beside it.",
         "zh": "随机移除 5 张牌。每人拿 3 张手牌与 10 枚 1 点资本（合计 10 块钱）。剩余牌面朝下放成牌堆，旁边留出市场放公开牌。"

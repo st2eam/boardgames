@@ -2,32 +2,32 @@
   "startNode": "setup",
   "nodes": {
     "setup": {
-      "title": { "en": "Fund Six Startups", "zh": "投资六家创业公司" },
+      "title": { "en": "Fund Six Startups", "zh": "准备六家公司" },
       "content": {
         "en": "Remove 5 random Company cards. Deal 3 hidden cards and 10 one-value Capital chips to each player. Put the remaining deck face down and leave an empty Market beside it.",
-        "zh": "随机移除 5 张公司卡。每位玩家获得 3 张隐藏手牌与 10 枚 1 点资本。将剩余牌堆面朝下放置，并在旁边留出空的市场区域。"
+        "zh": "随机移除 5 张牌。每人拿 3 张手牌与 10 枚 1 点资本。剩余牌面朝下放成牌堆，旁边留出市场放公开牌。"
       },
       "options": [
-        { "label": { "en": "Take a turn", "zh": "进行回合" }, "next": "turn" },
+        { "label": { "en": "Take a turn", "zh": "每回合怎么做？" }, "next": "turn" },
         { "label": { "en": "How does the Market work?", "zh": "市场如何运作？" }, "next": "take-card" }
       ]
     },
     "turn": {
-      "title": { "en": "Do Both Turn Steps", "zh": "完成两个回合步骤" },
+      "title": { "en": "Do Both Turn Steps", "zh": "每回合：摸 1 张 → 打 1 张" },
       "content": {
         "en": "First take one Company card from either the deck or Market. Then choose exactly one card from your hand and place it into your portfolio or the Market.",
-        "zh": "先从牌堆或市场拿取一张公司卡；再从手牌中恰好选择一张，放入自己的投资组合或市场。"
+        "zh": "先从牌堆摸，或从市场拿，得到 1 张牌；再从手里打 1 张到自己面前或市场。"
       },
       "options": [
-        { "label": { "en": "Draw from the deck", "zh": "从牌堆抽牌" }, "next": "draw-deck" },
-        { "label": { "en": "Take a Market card", "zh": "拿取市场牌" }, "next": "take-market" }
+        { "label": { "en": "Draw from the deck", "zh": "从牌堆摸 1 张" }, "next": "draw-deck" },
+        { "label": { "en": "Take a Market card", "zh": "从市场拿 1 张" }, "next": "take-market" }
       ]
     },
     "take-card": {
-      "title": { "en": "Deck Costs, Market Pays", "zh": "牌堆付费，市场给钱" },
+      "title": { "en": "Deck Costs, Market Pays", "zh": "摸牌要付钱，拿市场牌拿钱" },
       "content": {
         "en": "A deck draw makes every Market card cost one Capital chip. A Market pick gives you its card and every chip accumulated on it. You must still place one card from your hand afterward.",
-        "zh": "从牌堆抽牌会让市场每张牌各获得一枚资本；从市场拿牌则连同该牌及其上累积资本一并获得。之后仍必须从手牌放置一张牌。"
+        "zh": "从牌堆摸会给市场每张牌各放一枚资本；从市场拿则把牌和压在上面的资本一起拿走。之后还要从手里打 1 张。"
       },
       "options": [
         { "label": { "en": "Pay for a deck draw", "zh": "支付牌堆抽牌费用" }, "next": "draw-deck" },
@@ -42,32 +42,32 @@
       }
     },
     "draw-deck": {
-      "title": { "en": "Draw Only If You Can Fund the Market", "zh": "能资助市场才能抽牌" },
+      "title": { "en": "Draw Only If You Can Fund the Market", "zh": "资本够，才能从牌堆摸" },
       "content": {
         "en": "Draw the top deck card, then put one 1-value Capital chip on every Market card. If you lack enough chips for all those cards, choose the Market instead.",
-        "zh": "抽取牌堆顶牌，然后在市场每张牌上放一枚 1 点资本。若资本不足以覆盖所有市场牌，就必须改从市场选择。"
+        "zh": "摸牌堆顶牌，然后给市场每张牌各放一枚 1 点资本。资本不够给完所有市场牌，就不能这样摸。"
       },
       "options": [
-        { "label": { "en": "Place a hand card", "zh": "放置手牌" }, "next": "place-card" },
+        { "label": { "en": "Place a hand card", "zh": "从手里打 1 张" }, "next": "place-card" },
         { "label": { "en": "Check Anti-Monopoly protection", "zh": "检查反垄断保护" }, "next": "anti-monopoly" }
       ]
     },
     "take-market": {
-      "title": { "en": "Take One Market Share", "zh": "拿取一张市场股份" },
+      "title": { "en": "Take One Market Share", "zh": "拿一张市场牌" },
       "content": {
         "en": "Take one face-up Market card and all Capital chips on it. This turn, you cannot put a card of that same company into the Market; place it in your portfolio or choose another company for the Market.",
-        "zh": "拿取一张面朝上的市场牌及其上所有资本。本回合不可将同一家公司的牌放入市场；可将其放入投资组合，或改将另一家公司放入市场。"
+        "zh": "拿一张市场公开牌和上面所有资本。这回合不能把同一家公司的牌放回市场；可以打到自己面前，或改打另一家公司进市场。"
       },
       "options": [
-        { "label": { "en": "Place a hand card", "zh": "放置手牌" }, "next": "place-card" },
+        { "label": { "en": "Place a hand card", "zh": "从手里打 1 张" }, "next": "place-card" },
         { "label": { "en": "Who owns the chip?", "zh": "谁持有反垄断指示物？" }, "next": "anti-monopoly" }
       ]
     },
     "place-card": {
-      "title": { "en": "Invest or Feed the Market", "zh": "投资或补充市场" },
+      "title": { "en": "Invest or Feed the Market", "zh": "打到自己面前，或补进市场" },
       "content": {
         "en": "Put exactly one hand card face up into your portfolio or the Market. A portfolio card can change the majority shareholder, so immediately update that company’s Anti-Monopoly chip.",
-        "zh": "从手牌中恰好选择一张，面朝上放入投资组合或市场。放入投资组合可能改变最大股东，因此立刻更新该公司的反垄断指示物。"
+        "zh": "从手里打 1 张：放自己面前就是投资，放牌堆旁就是补市场。打到自己面前可能改变谁持股最多，立刻更新指示物。"
       },
       "options": [
         { "label": { "en": "Update Anti-Monopoly chips", "zh": "更新反垄断指示物" }, "next": "anti-monopoly" },
@@ -75,10 +75,10 @@
       ]
     },
     "anti-monopoly": {
-      "title": { "en": "Protect the Sole Leader", "zh": "保护唯一最大股东" },
+      "title": { "en": "Protect the Sole Leader", "zh": "谁持股最多？" },
       "content": {
         "en": "The sole largest portfolio holder takes that company’s Anti-Monopoly chip. A tie stays with the earlier holder. The holder cannot take its Market cards and skips adding Capital to them after a deck draw.",
-        "zh": "唯一最大持股者拿取该公司的反垄断指示物；并列时由先前持有人继续保留。持有人不能从市场拿该公司牌，从牌堆抽牌时也不必给这些市场牌放资本。"
+        "zh": "谁面前该公司牌最多，谁拿反垄断指示物；并列时原持有人继续拿。拿着它的人不能从市场拿这家公司牌，从牌堆摸牌时也不用给这些市场牌放资本。"
       },
       "options": [
         { "label": { "en": "Continue the turn", "zh": "继续回合" }, "next": "turn" },
@@ -93,10 +93,10 @@
       }
     },
     "game-end": {
-      "title": { "en": "Final Draw, Then Dividends", "zh": "最后抽牌，然后分红" },
+      "title": { "en": "Final Draw, Then Dividends", "zh": "摸到最后一张：摊牌，分钱" },
       "content": {
         "en": "After the final deck card is drawn, finish that turn. Add all hands to portfolios. For each company, every minority holder pays one 3-value Capital chip per share to the sole majority holder; a tie pays nobody.",
-        "zh": "抽到牌堆最后一张牌后，先完成该回合。将所有手牌加入投资组合。逐家公司结算：每位小股东按每张股份向唯一最大股东支付一枚 3 点资本；最大持股并列则无人获得。"
+        "zh": "摸到最后一张牌后，先完成这回合的“打 1 张”。所有人摊开手牌放到自己面前。逐家公司看谁牌最多：其他持股者每有 1 张，就付给唯一最大股东 1 枚 3 点资本；第一名并列则不分钱。"
       },
       "options": [
         { "label": { "en": "Compare wealth", "zh": "比较财富" }, "next": "winner" },

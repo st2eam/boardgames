@@ -2,7 +2,9 @@
 
 ## Overview
 
-**SCOUT** is a fast ladder-climbing card game. Your cards have a value at each end, but you may never rearrange their order. Beat the active combination with a stronger adjacent combination, or **Scout** an end card from it and insert that card into your hand for a better future turn.
+**Remember one sentence: do not rearrange your hand.** On your turn, either play a connected stretch of cards to beat the table, or take one card from the left or right end of the table and slot it into your hand.
+
+Each card has a value at both ends. You may turn the **whole hand** once before play starts, but you never shuffle individual cards around.
 
 The standard game supports 2–5 players and is played over as many rounds as there are players.
 
@@ -21,20 +23,20 @@ The standard game supports 2–5 players and is played over as many rounds as th
 3. Before play begins, a player may rotate their **entire hand** to use the values at the other ends of all cards. Individual cards cannot be flipped at this time.
 4. Put the start-player marker with the first player. The table begins empty.
 
-## Your Turn: Show or Scout
+## Your Turn: Choose One — Play or Take
 
-On your turn choose one action. In the first turn of a round, the table is empty, so the first player must **Show**.
+**Do one thing this turn:** **Show** (play) a combination, or **Scout** (take) one end card. At the start of a round the table is empty, so the first player must Show.
 
 ### Show a combination
 
 ![A stronger adjacent combination can capture the active set; otherwise Scout one end card and insert it into your hand](/images/rules/scout/show-or-scout.svg)
 
-Choose one or more **adjacent** cards in your hand. Their visible values must form either:
+Pick a stretch of **adjacent** cards from your hand. Their visible values must be either:
 
 - a **group**: all the same value; or
 - a **run**: consecutive values in ascending or descending order.
 
-Place that combination on the table. It is legal when the table is empty, or when it is stronger than the active combination. Compare combinations in this order:
+Put that stretch on the table. An empty table accepts anything legal; otherwise you must beat the active combination. Check these three things in order:
 
 | Priority | Stronger combination |
 |---|---|
@@ -42,13 +44,13 @@ Place that combination on the table. It is legal when the table is empty, or whe
 | 2 | At equal length, a group beats a run. |
 | 3 | At equal length and type, the higher-valued combination wins. |
 
-When you beat an active combination, take those previous cards and place them face down in front of you as captured cards. Your combination becomes the new active combination.
+If you beat it, take the old table cards and put them face down in front of you. Your newly played cards now wait on the table for the next player.
 
 ### Scout an end card
 
-Instead of Showing, take **one card from either end** of the active combination. Turn it to either orientation and insert it anywhere in your hand; you still may not reorder the other cards. The player who had shown that combination receives a SCOUT & SHOW chip worth 1 point.
+Instead of playing, take **one card from either end** of the active combination. Choose either orientation and slot it anywhere into your hand; the other cards do not move. The player who played that combination gets a 1-point SCOUT & SHOW chip.
 
-Normally, Scouting ends your turn. Once per round, a player with the appropriate SCOUT & SHOW opportunity may **Scout & Show**: Scout an end card, insert it, then immediately Show a legal combination.
+Normally, taking a card ends your turn. Once per round, you may **Scout & Show**: take an end card, slot it in, then immediately Show a legal combination.
 
 ## End of a Round and Scoring
 

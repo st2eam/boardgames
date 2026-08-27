@@ -168,6 +168,7 @@ Edge cases, variants, clarifications.
 - Use **Markdown tables** for structured data (card types, scoring, comparisons)
 - Use `**bold**` for key terms and card names
 - Keep language natural — the rules are for human reading, not training data
+- **Write for play, not for a rulebook index:** start each turn section with a short action loop such as **“Draw 1 → play 1”** / **“摸 1 张 → 打 1 张”**. In Chinese, prefer concrete table language (`摸牌`、`打牌`、`弃牌`、`收走`、`你面前的牌`) and introduce formal or game-specific terms in parentheses on first use. See [`docs/rule-writing-style.md`](../../../docs/rule-writing-style.md).
 - **Diagrams:** follow `.cursor/skills/rule-svg-diagrams/SKILL.md`. 请在关键的节点上尽量加入svg图片 — prefer **situation sketches** of the table (cards, tiles, dice); add a **flowchart** when the sequence or branch is the hard part. Files go in `public/images/rules/{slug}/`. Write SVG CJK via Python (the Write tool corrupts it).
 
 ### Step 5: Register the slug

@@ -5,7 +5,7 @@
       "title": { "en": "Set Up a Fixed-Order Hand", "zh": "准备不可重排的手牌" },
       "content": {
         "en": "Shuffle both card order and orientation, then deal the player-count hand size. Pick up the whole hand without rearranging it. Before play starts, you may rotate the **entire** hand once to use the values at its other ends.",
-        "zh": "同时随机洗牌顺序与朝向，并按玩家人数发牌。拿起整手牌时不可重排；开局前可以将**整手牌**整体旋转一次，改用另一端数值。"
+        "zh": "把牌的顺序和朝向都洗乱后发牌。拿起手牌就别换位置；开局前可以把**整手牌一起转 180°**，改读另一端数值。"
       },
       "options": [
         { "label": { "en": "Start the first turn", "zh": "开始首回合" }, "next": "turn" },
@@ -13,10 +13,10 @@
       ]
     },
     "hand-order": {
-      "title": { "en": "Rotate the Whole Hand, Never Rearrange", "zh": "可整体旋转，不可逐张重排" },
+      "title": { "en": "Rotate the Whole Hand, Never Rearrange", "zh": "整手旋转，不可换牌位置" },
       "content": {
         "en": "Your hand order is the puzzle. A card may be inserted only when Scouted; otherwise cards stay in their existing left-to-right order. The opening whole-hand rotation is your one way to switch every card to its other value.",
-        "zh": "手牌顺序就是这款游戏的难题。只有 Scout 得到的牌能插入手牌；其余牌始终维持既有左右顺序。开局时的整手旋转，是你同时改用所有牌另一端数值的唯一机会。"
+        "zh": "手牌顺序不能动，这就是游戏的难点。只有拿牌时能把新牌插进去；其余牌一直待在原来的位置。开局时整手旋转，是同时改读另一端数值的唯一机会。"
       },
       "options": [
         { "label": { "en": "Choose an action", "zh": "选择行动" }, "next": "turn" },
@@ -31,35 +31,35 @@
       }
     },
     "turn": {
-      "title": { "en": "Show or Scout", "zh": "Show 或 Scout" },
+      "title": { "en": "Show or Scout", "zh": "二选一：打牌或拿牌" },
       "content": {
         "en": "Choose exactly one normal action: **Show** an adjacent group/run, or **Scout** an end card from the active combination. With an empty table, the first player must Show.",
-        "zh": "选择一种普通行动：用相邻牌 **Show** 同值组／顺子，或从当前桌面组合端点 **Scout** 一张牌。桌面为空时，首位玩家必须 Show。"
+        "zh": "这一回合只做一件事：用相邻牌**打牌**，或从桌面组合端点**拿牌**。桌面为空时，首位玩家必须先打牌。"
       },
       "options": [
-        { "label": { "en": "Show a combination", "zh": "Show 一个组合" }, "next": "show" },
-        { "label": { "en": "Scout an end card", "zh": "Scout 端点牌" }, "next": "scout" }
+        { "label": { "en": "Show a combination", "zh": "打出一组牌" }, "next": "show" },
+        { "label": { "en": "Scout an end card", "zh": "从端点拿一张" }, "next": "scout" }
       ]
     },
     "show": {
-      "title": { "en": "Show Adjacent Cards", "zh": "Show 相邻手牌" },
+      "title": { "en": "Show Adjacent Cards", "zh": "打出一段相邻手牌" },
       "content": {
         "en": "Choose adjacent cards that are all equal (a group), or consecutive ascending/descending values (a run). Against an active set, compare: **more cards**, then **group over run**, then **higher values**. A winning Show captures the previous active cards face down.",
-        "zh": "选择数值全同的相邻牌（同值组），或连续递增／递减的相邻牌（顺子）。对抗桌面组合时依次比较：**牌数更多**、**同值组胜过顺子**、**数值更高**。成功压过后，面朝下收走原桌面牌。"
+        "zh": "从手上挑一段连在一起的牌：数值全同，或连续递增／递减，都可以。比大小只看：**牌更多**、**同值组胜顺子**、**数值更高**。压过后，把原桌面牌面朝下收走。"
       },
       "options": [
         { "label": { "en": "Could it beat the active set?", "zh": "能压过桌面组合吗？" }, "next": "comparison" },
-        { "label": { "en": "Instead Scout", "zh": "改为 Scout" }, "next": "scout" }
+        { "label": { "en": "Instead Scout", "zh": "改为拿牌" }, "next": "scout" }
       ]
     },
     "comparison": {
-      "title": { "en": "Beat It or Improve Your Hand", "zh": "压过它，或改善手牌" },
+      "title": { "en": "Beat It or Improve Your Hand", "zh": "压过它，或先拿一张" },
       "content": {
         "en": "A stronger adjacent combination replaces the active set and captures it. If you cannot or do not want to Show, Scout the leftmost or rightmost active card instead. You may orient and insert that one card anywhere in your hand.",
-        "zh": "更强的相邻组合会替换并收走桌面组合。若不能或不想 Show，则从桌面组合最左或最右端 Scout 一张牌；可选朝向并把这一张牌插进手牌任意位置。"
+        "zh": "能压过就打牌并收走桌面牌；不能或不想压，就从桌面最左或最右拿一张。新拿的牌可选朝向，插到手牌任意位置。"
       },
       "options": [
-        { "label": { "en": "Scout now", "zh": "现在 Scout" }, "next": "scout" },
+        { "label": { "en": "Scout now", "zh": "现在拿牌" }, "next": "scout" },
         { "label": { "en": "Check round end", "zh": "检查本轮结束" }, "next": "round-end" }
       ],
       "illustration": {
@@ -71,21 +71,21 @@
       }
     },
     "scout": {
-      "title": { "en": "Scout from Either End", "zh": "从任一端 Scout" },
+      "title": { "en": "Scout from Either End", "zh": "从任一端拿一张" },
       "content": {
         "en": "Take exactly one end card, choose either orientation, and insert it anywhere in your fixed-order hand. The active-set owner receives a 1-point SCOUT & SHOW chip. Scouting normally ends your turn; the once-per-round Scout & Show opportunity lets you immediately Show after Scouting.",
-        "zh": "只拿一张端点牌，任选朝向并插入不可重排的手牌。当前桌面组合拥有者获得一枚 1 分的 SCOUT & SHOW 指示物。普通 Scout 会结束回合；每轮一次的 Scout & Show 机会则允许 Scout 后立刻 Show。"
+        "zh": "只拿一张端点牌，任选朝向，插进手牌。原桌面组合的主人得到一枚 1 分指示物。普通拿牌后回合结束；每轮一次可“拿一张后马上打牌”。"
       },
       "options": [
-        { "label": { "en": "Has everyone Scouted?", "zh": "其他人都 Scout 了吗？" }, "next": "round-end" },
+        { "label": { "en": "Has everyone Scouted?", "zh": "其他人都拿牌了吗？" }, "next": "round-end" },
         { "label": { "en": "Next player's action", "zh": "下一位玩家行动" }, "next": "turn" }
       ]
     },
     "round-end": {
-      "title": { "en": "End the Round and Score", "zh": "结束本轮并计分" },
+      "title": { "en": "End the Round and Score", "zh": "这一轮什么时候结束？" },
       "content": {
         "en": "End immediately when someone Shows their final card, or when every other player Scouts the same active set. Score +1 per captured face-down card and per chip, then -1 per hand card. The owner of the repeatedly Scouted active set skips that hand penalty.",
-        "zh": "有人 Show 出最后一张牌，或其他所有人都对同一桌面组合 Scout 时，本轮立即结束。每张收集牌与每枚指示物各加 1 分，手中每张牌扣 1 分；被反复 Scout 的桌面组合拥有者免除手牌扣分。"
+        "zh": "有人打出最后一张牌，或其他所有人都从同一桌面组合拿牌时，本轮结束。收集牌与指示物各加 1 分，手里每剩一张扣 1 分；被大家一直拿牌的桌面组合主人不扣手牌分。"
       },
       "options": [
         { "label": { "en": "Another round remains", "zh": "还有下一轮" }, "next": "setup" },

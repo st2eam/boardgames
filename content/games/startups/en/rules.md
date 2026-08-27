@@ -2,7 +2,9 @@
 
 ## Overview
 
-In **Startups**, every player invests in six companies. At game end, only the largest shareholder in each company receives capital from every other shareholder. Build majorities, watch the market, and decide when a tempting share is worth the capital sitting on it.
+**Remember one sentence: draw 1 card, then play 1 card.** You invest in six companies. At game end, the sole biggest holder in each company collects Capital from everybody else who owns that company.
+
+The **Market** is the row of public cards everyone can take. Your **portfolio** is the cards already played in front of you; those cards decide who is the biggest holder.
 
 The game supports 3–7 players and usually takes about 20 minutes.
 
@@ -20,48 +22,48 @@ The game supports 3–7 players and usually takes about 20 minutes.
 3. Place the remaining deck face down in the center. Leave room beside it for the **Market**: face-up Company cards will accumulate there.
 4. Put the Anti-Monopoly chips nearby. Choose a starting player.
 
-## A Turn Has Two Steps
+## Every Turn: Draw 1 → Play 1
 
 ![Drawing from the deck costs one Capital chip on every Market card; taking a Market card collects all Capital chips on it](/images/rules/startups/market-choice.svg)
 
-Complete both steps in order.
+Do both steps, in this order.
 
-### 1. Take one Company card
+### 1. Draw or take 1 Company card
 
 Choose one source:
 
 | Source | What happens |
 |---|---|
-| **Deck** | Draw the top card into your hand. Then place one 1-value Capital chip on **every** card currently in the Market. You may not choose this option if you cannot pay for all Market cards. |
-| **Market** | Take any one face-up Market card into your hand, together with every Capital chip resting on it. |
+| **Draw from deck** | Draw the top card into your hand. Then put one 1-value Capital chip on **every** card in the Market. If you cannot cover every Market card, you cannot draw this way. |
+| **Take from Market** | Take one face-up Market card into your hand, plus every Capital chip sitting on that card. |
 
-### 2. Place one Company card from your hand
+### 2. Play 1 Company card from your hand
 
 Choose exactly one card in your hand and place it:
 
-- face up in your **portfolio** in front of you; or
-- face up in the **Market** beside the deck.
+- face up into your **portfolio** in front of you; or
+- face up into the **Market** beside the deck.
 
 If you took a card from the Market in Step 1, you may **not** put a card of that same company back into the Market this turn.
 
-## Anti-Monopoly Chips
+## Who Is the Biggest Holder? Anti-Monopoly Chips
 
 ![The sole largest shareholder holds a company’s Anti-Monopoly chip, which protects that company’s Market shares from two costs](/images/rules/startups/anti-monopoly.svg)
 
-For each company, the player with the most cards in their portfolio takes its **Anti-Monopoly chip**. If the lead is tied, the player who received that chip earlier keeps it until someone has strictly more shares.
+For each company, whoever has the most cards in their portfolio takes its **Anti-Monopoly chip**. If first place is tied, the current holder keeps it until someone truly has more cards.
 
-While you hold a company’s Anti-Monopoly chip:
+Holding a company’s chip changes two things:
 
 - you cannot take that company’s cards from the Market; and
 - when drawing from the deck, you do **not** place a Capital chip on that company’s Market cards.
 
-Recheck chips whenever a portfolio changes.
+Whenever someone plays a card into a portfolio, check the chip again.
 
-## Game End and Payouts
+## Last Draw: Reveal Hands, Then Pay Out
 
 ![After the final deck card is drawn, add hands to portfolios; each minority share pays three Capital to the sole majority shareholder](/images/rules/startups/final-payout.svg)
 
-When someone draws the last card from the deck, they finish their turn, then the game ends. Add every player’s remaining hand to their portfolio.
+When someone draws the last deck card, finish that player’s “play 1” step, then end the game. Everyone adds their remaining hand to their portfolio.
 
 Resolve each company separately:
 
@@ -71,7 +73,7 @@ Resolve each company separately:
 | Most shares are tied | Nobody receives a payout for that company. |
 | A player cannot pay | Use the plus/minus point chips as needed. Do not use 3-value chips just received in this same payout to pay another debt. |
 
-Add the values of your Capital chips and point chips. The richest player wins. Break a tie by most 3-value chips, then by the player who played most recently.
+Add your Capital and point chips. The richest player wins. Break a tie by most 3-value chips, then by the player who played most recently.
 
 ## Optional Four-Round Game
 

@@ -1,6 +1,7 @@
 import { GameFactory } from "@/lib/content/GameFactory";
 import { GameRepository } from "@/lib/content/GameRepository";
 import { GameHeader } from "@/features/rules/GameHeader";
+import { GameIntro } from "@/features/rules/GameIntro";
 import { MarkdownRenderer } from "@/features/rules/MarkdownRenderer";
 import { RulesToc } from "@/features/rules/RulesToc";
 import { RelatedGames } from "@/features/rules/RelatedGames";
@@ -10,6 +11,7 @@ import { goTutorSuggestedPrompts } from "@/lib/go/boardContext";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { buildPageMetadata, getCoverImageUrl, absoluteUrl } from "@/lib/seo";
+import { extractRuleIntro } from "@/lib/content/ruleIntro";
 import type { Metadata } from "next";
 
 interface Props {
@@ -58,6 +60,7 @@ export default async function GamePage({ params }: Props) {
     ? await GameRepository.getFamilyGames(game.meta.family)
     : [];
   const gameName = game.meta.name[locale as "en" | "zh"] ?? game.meta.name.en;
+  const intro = extractRuleIntro(game.rules);
 
   const trainerConfig = await GameRepository.getTrainerConfig(slug);
   const playConfig = await GameRepository.getPlayConfig(slug);
@@ -112,6 +115,7 @@ export default async function GamePage({ params }: Props) {
         {/* columns stretch so sticky TOC has a tall containing block */}
         <div className="lg:grid lg:grid-cols-[minmax(0,48rem)_14rem] lg:justify-center lg:gap-10">
           <div className="min-w-0">
+            {intro ? <GameIntro content={intro} locale={locale} /> : null}
             <div className="lg:hidden">
               <RulesToc content={game.rules} variant="mobile" />
             </div>

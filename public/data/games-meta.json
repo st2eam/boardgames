@@ -1305,5 +1305,24 @@
     "category": "party",
     "bggRank": 327,
     "slug": "magical-athlete"
+  },
+  {
+    "name": {
+      "en": "A Fake Artist Goes to New York",
+      "zh": "纽约伪艺术家"
+    },
+    "players": "5-10",
+    "duration": "20 min",
+    "difficulty": "easy",
+    "tags": [
+      "party",
+      "drawing",
+      "deduction",
+      "hidden-roles",
+      "bluffing"
+    ],
+    "category": "party",
+    "bggRank": 767,
+    "slug": "a-fake-artist-goes-to-new-york"
   }
 ]

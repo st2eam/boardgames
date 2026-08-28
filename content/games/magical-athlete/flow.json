@@ -1,0 +1,47 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Set Up the Race", "zh": "准备赛道" },
+      "content": { "en": "Place the **Mild Mile** track, sort the gold, silver, and bronze point chips, shuffle racer cards, set out tokens, and give everyone one die. Standard play is 3–6 players; use the double-racer rules for 2 players.", "zh": "摆好**温和大道**赛道，整理金、银、铜分数筹码，洗混运动员卡并放好标记，每人拿 1 颗骰子。标准为 3–6 人；2 人采用双运动员规则。" },
+      "options": [{ "label": { "en": "Draft four racers", "zh": "选秀 4 名运动员" }, "next": "draft" }, { "label": { "en": "First race", "zh": "第一场比赛" }, "next": "choose" }]
+    },
+    "draft": {
+      "title": { "en": "Draft Your Team", "zh": "选秀组队" },
+      "content": { "en": "Reveal twice as many racer cards as players. Roll for first pick, then **snake draft** two racers each: pick clockwise, reverse after the last player, and return to the first player. Repeat a second snake draft starting with the player left of the first drafter. Each player now has four racers.", "zh": "翻开玩家人数两倍的运动员卡，掷骰决定首选，进行**蛇形选秀**：顺时针选牌，最后一人选完后反向，直到每人有两名；再从首选玩家左边开始第二轮。最后每人有 4 名运动员。" },
+      "options": [{ "label": { "en": "Choose a racer", "zh": "选择出赛者" }, "next": "choose" }, { "label": { "en": "Back to setup", "zh": "返回准备" }, "next": "setup" }]
+    },
+    "choose": {
+      "title": { "en": "Before a Race", "zh": "每场赛前" },
+      "content": { "en": "Each player secretly chooses **one unused racer**, then reveals together and puts the matching token on Start. A racer can race only once. Before race one, roll to determine the first player; later, the farthest-behind or first eliminated racer determines the next first player.", "zh": "每位玩家秘密选择**1 名未使用的运动员**，同时翻开，并把对应标记放到起点。每名运动员只能参赛一次。第一场前掷骰决定先手；之后由上一场最落后或最早淘汰的运动员决定下一场先手。" },
+      "options": [{ "label": { "en": "Take a turn", "zh": "进行回合" }, "next": "turn" }, { "label": { "en": "Racer power timing", "zh": "能力时机" }, "next": "powers" }],
+      "illustration": { "src": "/images/rules/magical-athlete/choose-racer.svg", "alt": { "en": "Each player commits one unused racer to the race", "zh": "每位玩家派出一名未使用的运动员" } }
+    },
+    "turn": {
+      "title": { "en": "Your Turn: Roll and Move", "zh": "你的回合：掷骰并移动" },
+      "content": { "en": "**Roll 1 die → move that many spaces → resolve powers.** This roll-and-move is your **main move**. Continue clockwise. Powers marked **can** are optional; all other powers are mandatory. A move of 0 does not count as moving.", "zh": "**掷 1 颗骰子 → 前进对应格数 → 结算能力。** 这次掷骰移动叫**主移动**，之后顺时针继续。写着**可以**的能力可选，其余必须执行；移动 0 不算移动。" },
+      "options": [{ "label": { "en": "Resolve simultaneous powers", "zh": "结算同时触发的能力" }, "next": "powers" }, { "label": { "en": "Track terms", "zh": "赛道术语" }, "next": "terms" }, { "label": { "en": "Did second place finish?", "zh": "第二名是否冲线？" }, "next": "finish" }],
+      "illustration": { "src": "/images/rules/magical-athlete/move-and-triggers.svg", "alt": { "en": "Resolve current player, other players clockwise, then track effects", "zh": "依次结算当前玩家、顺时针其他玩家和赛道效果" } }
+    },
+    "powers": {
+      "title": { "en": "Power Priority", "zh": "能力优先顺序" },
+      "content": { "en": "When several powers trigger at the same time, resolve: **1) current player's racer, 2) other racers clockwise, 3) track-space effects**. Complete a move before resolving what it triggered, unless a power says otherwise. A finished or eliminated racer normally stops using its powers.", "zh": "多个能力同时触发时，按**1）当前玩家的运动员、2）其他运动员（顺时针）、3）赛道格效果**结算。除非能力另写，先完成移动再结算触发结果。冲线或淘汰的运动员通常不再使用能力。" },
+      "options": [{ "label": { "en": "Track terms", "zh": "赛道术语" }, "next": "terms" }, { "label": { "en": "Back to turn", "zh": "返回回合" }, "next": "turn" }]
+    },
+    "terms": {
+      "title": { "en": "Trip, Warp, and Track Spaces", "zh": "绊倒、传送与赛道格" },
+      "content": { "en": "**Trip:** finish this move, then skip your next main move; other powers can still work. **Warp:** reposition without counting as movement or passing. Start is a space. Stop on a Wild Wilds star for a bronze point, an arrow for its separate move, or TRIP to trip. Sharing means racers are stopped together, not merely passing through.", "zh": "**绊倒：**完成本次移动，下一次主移动跳过；其他能力仍可能生效。**传送：**重新放置但不算移动或超越。起点算一格。狂野荒原中，停在星格拿铜分，箭头格作其独立移动，TRIP 格会绊倒。同格是最终停在一起，不是路过。" },
+      "options": [{ "label": { "en": "Back to turn", "zh": "返回回合" }, "next": "turn" }, { "label": { "en": "End this race", "zh": "结束本场" }, "next": "finish" }]
+    },
+    "finish": {
+      "title": { "en": "Second Place Ends the Race", "zh": "第二名冲线即结束" },
+      "content": { "en": "As soon as the second racer crosses the finish, end the race immediately. First takes the top gold chip and second takes the top silver chip. Remove all raced cards and tokens. Reveal new racers, then flip the board: **Mild, Wild, Mild, Wild** is the standard four-race schedule.", "zh": "第二名冲过终点时，比赛立即结束。第一名拿最上方金色筹码，第二名拿最上方银色筹码。移出已参赛的牌和标记，翻开新运动员，并翻转赛道；标准四场顺序为**温和、狂野、温和、狂野**。" },
+      "options": [{ "label": { "en": "Next race", "zh": "下一场" }, "next": "choose" }, { "label": { "en": "After fourth race", "zh": "第四场后" }, "next": "score" }]
+    },
+    "score": {
+      "title": { "en": "Final Scoring", "zh": "最终计分" },
+      "content": { "en": "After the fourth race, total every gold, silver, and bronze point chip. Highest total wins. Ties stay tied. If a rules interaction makes an infinite loop, perform it once in order and stop; if no racer can finish, the race ends without its remaining points.", "zh": "第四场结束后，将所有金、银、铜分数筹码相加，最高分获胜；平手仍是平手。若规则互动形成无限循环，按顺序执行一次后停止；若无人能冲线，该场没有剩余名次分数。" },
+      "options": [{ "label": { "en": "Start over", "zh": "重新查看准备" }, "next": "setup" }]
+    }
+  }
+}

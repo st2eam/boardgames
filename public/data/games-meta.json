@@ -1286,5 +1286,24 @@
     "variantType": "expansion",
     "requiresBase": true,
     "slug": "ark-nova-marine-worlds"
+  },
+  {
+    "name": {
+      "en": "Magical Athlete",
+      "zh": "魔法运动员"
+    },
+    "players": "2-6",
+    "duration": "30 min",
+    "difficulty": "easy",
+    "tags": [
+      "party",
+      "racing",
+      "dice",
+      "drafting",
+      "chaos"
+    ],
+    "category": "party",
+    "bggRank": 327,
+    "slug": "magical-athlete"
   }
 ]

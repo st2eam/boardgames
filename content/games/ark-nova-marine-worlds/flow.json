@@ -1,0 +1,91 @@
+{
+  "startNode": "mix-in",
+  "nodes": {
+    "mix-in": {
+      "title": { "en": "Mix Marine Worlds into Ark Nova", "zh": "将海洋世界混入方舟动物园" },
+      "content": {
+        "en": "**Ark Nova base game required.** Set up the base game normally, then shuffle new zoo cards, end-game cards, and base conservation projects into their matching decks. Add the aquarium enclosures, university, and eligible bonus tiles to the corresponding supplies.",
+        "zh": "**必须拥有《方舟动物园》本体。** 正常准备本体，再把新动物园卡、终局卡与基础保育项目分别洗入对应牌堆；将水族馆兽栏、新大学与可用奖励板块加入相应供应区。"
+      },
+      "options": [
+        { "label": { "en": "Alternative action cards", "zh": "替代行动卡" }, "next": "action-cards" },
+        { "label": { "en": "Aquariums", "zh": "水族馆" }, "next": "aquariums" },
+        { "label": { "en": "What stays unchanged", "zh": "不变的本体规则" }, "next": "base-loop" }
+      ]
+    },
+    "action-cards": {
+      "title": { "en": "Choose Action-Card Sets Before Play", "zh": "开局前选择行动卡套装" },
+      "content": {
+        "en": "Marine Worlds provides four alternatives for each base action. Decide before setup whether to use them. If you do, each player takes one complete, matching personal set; an alternative card replaces that player's corresponding base action card. The 1–5 strength cycle is unchanged.",
+        "zh": "海洋世界为每种本体行动提供 4 个替代版本。准备前先决定是否启用；若启用，每人拿一套完整、相配的个人卡组，替代卡取代该玩家对应的本体行动卡。强度 1–5 的循环完全不变。"
+      },
+      "options": [
+        { "label": { "en": "Use an action", "zh": "执行行动" }, "next": "base-loop" },
+        { "label": { "en": "Back to mix-in", "zh": "返回混入步骤" }, "next": "mix-in" }
+      ],
+      "illustration": {
+        "src": "/images/rules/ark-nova-marine-worlds/alternative-actions.svg",
+        "alt": { "en": "An alternative action-card set changes effects but keeps the same strength cycle", "zh": "替代行动卡改变效果，但保持相同的强度循环" }
+      }
+    },
+    "base-loop": {
+      "title": { "en": "Use the Normal Ark Nova Turn", "zh": "使用本体的正常回合" },
+      "content": {
+        "en": "**Choose 1 action card → resolve it → shift it to strength 1.** Marine Worlds does not create another action or a new phase. Use the base rules for Cards, Build, Animals, Association, Sponsors, upgrades, breaks, and game end; the new components give extra options inside those systems.",
+        "zh": "**选择 1 张行动卡 → 结算 → 放回强度 1。** 海洋世界不会加入新行动或新阶段。抽卡、建造、动物、协会、赞助商、升级、休息与结束均照本体规则；新组件只是在这些系统中提供更多选择。"
+      },
+      "options": [
+        { "label": { "en": "Play a marine animal", "zh": "安置海洋动物" }, "next": "aquariums" },
+        { "label": { "en": "Resolve a reef effect", "zh": "结算礁石效果" }, "next": "reef" },
+        { "label": { "en": "Take the new university", "zh": "获得新大学" }, "next": "university" }
+      ]
+    },
+    "aquariums": {
+      "title": { "en": "Aquariums and Marine Animals", "zh": "水族馆与海洋动物" },
+      "content": {
+        "en": "Use **Animals** normally. A marine animal still needs an eligible empty enclosure, payment, and every printed prerequisite. If the card requires an aquarium, it must go into an aquarium special enclosure. An aquarium is not a universal substitute; follow the card for size, tags, adjacency, reputation, and partner-zoo requirements.",
+        "zh": "照常使用**动物**行动。海洋动物仍须有合格的空兽栏、支付费用并满足全部印刷前提。若卡面要求水族馆，必须放进水族馆特殊兽栏；水族馆不是通用替代品，大小、标签、相邻、声望与合作动物园要求均按卡面。"
+      },
+      "options": [
+        { "label": { "en": "Reef effects", "zh": "礁石效果" }, "next": "reef" },
+        { "label": { "en": "Back to the turn", "zh": "返回回合" }, "next": "base-loop" }
+      ],
+      "illustration": {
+        "src": "/images/rules/ark-nova-marine-worlds/aquarium-reef.svg",
+        "alt": { "en": "A marine animal enters its matching aquarium and may connect a reef effect", "zh": "海洋动物进入匹配的水族馆，并可能连接礁石效果" }
+      }
+    },
+    "reef": {
+      "title": { "en": "Reef Effects", "zh": "礁石效果" },
+      "content": {
+        "en": "When a card's reef condition is met, resolve that card's reef effect as written. These effects reward connections among relevant cards or animals. Finish a triggered effect before continuing; if effects compete, use their timing text. Card text and the glossary override a general overview.",
+        "zh": "满足某张卡的礁石条件时，按其卡面文字结算礁石效果。这类效果奖励相关卡牌或动物之间的连接。一个已触发的效果要先完整结算；若多个效果竞争时机，遵循各自时机文字。卡面与术语表优先于概要。"
+      },
+      "options": [
+        { "label": { "en": "Aquarium requirements", "zh": "水族馆要求" }, "next": "aquariums" },
+        { "label": { "en": "Continue your turn", "zh": "继续回合" }, "next": "base-loop" }
+      ]
+    },
+    "university": {
+      "title": { "en": "The New University", "zh": "新大学" },
+      "content": {
+        "en": "Take it through the normal **Association** action. Choose a permitted animal class, gain that class icon, and take the indicated animal card from the deck. Apply the university tile's exact printed restrictions, reward, and timing.",
+        "zh": "通过普通**协会**行动获得。选择一个允许的动物类别，获得该类别图标，并从牌堆拿取指定的该类动物卡。限制、奖励与时机都严格遵照大学板块的印刷文字。"
+      },
+      "options": [
+        { "label": { "en": "Play an animal", "zh": "安置动物" }, "next": "aquariums" },
+        { "label": { "en": "Back to the turn", "zh": "返回回合" }, "next": "base-loop" }
+      ]
+    },
+    "end": {
+      "title": { "en": "End and Score as in the Base Game", "zh": "按本体结束并计分" },
+      "content": {
+        "en": "End when any player's Appeal and Conservation markers meet or cross. Finish that turn, give all other players one final turn, then score marker distance plus every dealt end-game card, including Marine Worlds cards. The expansion does not change this procedure.",
+        "zh": "任意玩家的吸引力与保育标记相遇或交错时结束。完成该回合，其余玩家各进行最后一回合，然后计算两标记间距和所有发出的终局卡（包括海洋世界终局卡）。扩展不改变这一流程。"
+      },
+      "options": [
+        { "label": { "en": "Back to mix-in", "zh": "返回混入步骤" }, "next": "mix-in" }
+      ]
+    }
+  }
+}

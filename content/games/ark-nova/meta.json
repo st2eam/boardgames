@@ -1,0 +1,21 @@
+{
+  "name": {
+    "en": "Ark Nova",
+    "zh": "方舟动物园"
+  },
+  "players": "1-4",
+  "duration": "90-150 min",
+  "difficulty": "hard",
+  "tags": [
+    "strategy",
+    "engine-building",
+    "animals",
+    "zoo",
+    "conservation"
+  ],
+  "category": "board",
+  "family": "ark-nova",
+  "familyOrder": 0,
+  "variantType": "base",
+  "bggRank": 2
+}

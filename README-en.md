@@ -2,12 +2,12 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — **64** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — **66** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **64 game rules**: web-verified, complete bilingual rules (EN/ZH)
-- **64 interactive decision trees**: step-by-step flow with sidebar outline navigation
+- **66 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **66 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **4 multi-player score trackers**: CABO, Sea Salt & Paper, 6 nimmt!, Just Wild — running totals, localStorage
 - **5 trainers**: Mahjong/Riichi tenpai, Blackjack basic strategy, Texas Hold'em GTO preflop, Go tsumego
 - **8 BBGE online playables**: Love Letter, Texas Hold'em, 6 nimmt!, Go, CABO, UNO, TRIO, Rummikub. Peer invitations use revisioned snapshots, action acknowledgements, and same-session refresh recovery — see [`docs/bbge-networking.md`](docs/bbge-networking.md).
@@ -35,7 +35,7 @@ npm run dev
 npm run build
 ```
 
-> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `64` / `64` flow / `4` score / `5` trainer / `1` calculator / `8` BBGE play). Run `node scripts/print-project-stats.mjs` to verify. Sync game behavior in [`docs/games/<slug>.md`](docs/games/) and invitation behavior in [`docs/bbge-networking.md`](docs/bbge-networking.md).
+> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `66` / `66` flow / `4` score / `5` trainer / `1` calculator / `8` BBGE play). Run `node scripts/print-project-stats.mjs` to verify. Sync game behavior in [`docs/games/<slug>.md`](docs/games/) and invitation behavior in [`docs/bbge-networking.md`](docs/bbge-networking.md).
 
 ---
 

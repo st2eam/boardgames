@@ -1,0 +1,22 @@
+{
+  "name": {
+    "en": "Ark Nova: Marine Worlds",
+    "zh": "方舟动物园：海洋世界"
+  },
+  "players": "1-4",
+  "duration": "90-150 min",
+  "difficulty": "hard",
+  "tags": [
+    "strategy",
+    "engine-building",
+    "animals",
+    "zoo",
+    "marine",
+    "expansion"
+  ],
+  "category": "board",
+  "family": "ark-nova",
+  "familyOrder": 1,
+  "variantType": "expansion",
+  "requiresBase": true
+}

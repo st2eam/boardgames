@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="title desc">
+  <title id="title">Marine Worlds aquarium and reef effects</title><desc id="desc">A marine animal uses an aquarium and can extend a reef-effect connection.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#C4952A"/></marker></defs>
+  <rect width="720" height="260" rx="18" fill="#FAFAF5"/>
+  <text x="360" y="34" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#5D4037">Marine Worlds: aquarium → reef connection</text>
+  <g font-family="Arial,sans-serif" text-anchor="middle"><rect x="60" y="73" width="170" height="117" rx="16" fill="#D9F1F4" stroke="#5D4037" stroke-width="2"/><path d="M75 145 Q105 126 135 145 T195 145" fill="none" stroke="#6BB8C7" stroke-width="3"/><text x="145" y="112" font-size="17" font-weight="700" fill="#5D4037">Aquarium</text><text x="145" y="166" font-size="26">🐠</text>
+  <path d="M248 132 L332 132" stroke="#C4952A" stroke-width="4" marker-end="url(#arrow)"/><rect x="350" y="73" width="142" height="117" rx="16" fill="#fff" stroke="#5D4037" stroke-width="2"/><text x="421" y="108" font-size="16" font-weight="700" fill="#5D4037">Card condition</text><text x="421" y="141" font-size="14" fill="#8D6E63">resolve its text</text><text x="421" y="165" font-size="14" fill="#8D6E63">and prerequisites</text>
+  <path d="M510 132 L577 132" stroke="#C4952A" stroke-width="4" marker-end="url(#arrow)"/><g fill="#B9D690" stroke="#5D4037" stroke-width="1.5"><circle cx="610" cy="132" r="20"/><circle cx="644" cy="111" r="20"/><circle cx="661" cy="151" r="20"/></g><text x="636" y="201" font-family="Arial,sans-serif" font-size="14" fill="#5D4037">reef effect</text></g>
+  <text x="360" y="232" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#5D4037">Aquariums are only for eligible cards; resolve each reef effect at its printed timing.</text>
+</svg>

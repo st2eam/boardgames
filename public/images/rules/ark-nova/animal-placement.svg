@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="title desc">
+  <title id="title">Ark Nova animal placement</title><desc id="desc">A player builds a matching empty enclosure before playing an animal.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#C4952A"/></marker></defs>
+  <rect width="720" height="260" rx="18" fill="#FAFAF5"/>
+  <text x="360" y="34" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#5D4037">Animal placement</text>
+  <g font-family="Arial,sans-serif" text-anchor="middle"><rect x="58" y="70" width="170" height="118" rx="14" fill="#fff" stroke="#5D4037" stroke-width="2"/><text x="143" y="101" font-size="17" font-weight="700" fill="#5D4037">1. Build</text><rect x="89" y="118" width="108" height="45" rx="7" fill="#DCE8C5" stroke="#5D4037" stroke-width="2"/><text x="143" y="147" font-size="14" fill="#5D4037">empty enclosure</text>
+  <path d="M247 130 L332 130" stroke="#C4952A" stroke-width="4" marker-end="url(#arrow)"/><rect x="349" y="70" width="170" height="118" rx="14" fill="#fff" stroke="#5D4037" stroke-width="2"/><text x="434" y="101" font-size="17" font-weight="700" fill="#5D4037">2. Check</text><text x="434" y="130" font-size="14" fill="#8D6E63">cost • size • icons</text><text x="434" y="154" font-size="14" fill="#8D6E63">reputation • partners</text>
+  <path d="M538 130 L618 130" stroke="#C4952A" stroke-width="4" marker-end="url(#arrow)"/><circle cx="657" cy="130" r="46" fill="#fff" stroke="#5D4037" stroke-width="2"/><text x="657" y="124" font-size="26">🐘</text><text x="657" y="161" font-size="13" fill="#5D4037">play animal</text></g>
+  <text x="360" y="232" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#5D4037">The card must meet every printed requirement and occupy an eligible empty enclosure.</text>
+</svg>

@@ -1226,7 +1226,7 @@
   {
     "name": {
       "en": "Durian",
-      "zh": "榴莲忘返"
+      "zh": "榴莲忘贩"
     },
     "players": "2-7",
     "duration": "20 min",
@@ -1324,5 +1324,23 @@
     "category": "party",
     "bggRank": 767,
     "slug": "a-fake-artist-goes-to-new-york"
+  },
+  {
+    "name": {
+      "en": "Kobayakawa",
+      "zh": "小早川"
+    },
+    "players": "3-6",
+    "duration": "15-20 min",
+    "difficulty": "easy",
+    "tags": [
+      "card",
+      "bluffing",
+      "betting",
+      "hand-management"
+    ],
+    "category": "card",
+    "bggRank": 3772,
+    "slug": "kobayakawa"
   }
 ]

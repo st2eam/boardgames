@@ -174,6 +174,7 @@ Edge cases, variants, clarifications.
 - **Write for play, not for a rulebook index:** start each turn section with a short action loop such as **“Draw 1 → play 1”** / **“摸 1 张 → 打 1 张”**. In Chinese, prefer concrete table language (`摸牌`、`打牌`、`弃牌`、`收走`、`你面前的牌`) and introduce formal or game-specific terms in parentheses on first use. See [`docs/rule-writing-style.md`](../../../docs/rule-writing-style.md).
 - **Start the body naturally:** immediately after Overview / 概览, add **Game Objective / 游戏目标**. Say who the player is in the setting and how they win in one or two plain-language sentences. Do not add a separate page-level callout or rely on slogans such as “先记一句话”.
 - **Diagrams:** follow `.cursor/skills/rule-svg-diagrams/SKILL.md`. 请在关键的节点上尽量加入svg图片 — prefer **situation sketches** of the table (cards, tiles, dice); add a **flowchart** when the sequence or branch is the hard part. Files go in `public/images/rules/{slug}/`. Write SVG CJK via Python (the Write tool corrupts it).
+- **Official rulebook illustrations:** when the user supplies or explicitly authorizes official source material, selected cropped publisher images may also be placed in `public/images/rules/{slug}/`. Caption them clearly; they supplement, rather than replace, the required self-made SVGs.
 
 ### Step 5: Register the slug
 

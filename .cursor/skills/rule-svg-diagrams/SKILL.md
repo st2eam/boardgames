@@ -67,7 +67,17 @@ Both locales use the **same path**. Alt text is the caption.
 - Flowcharts: same palette, short bilingual labels, only as many boxes as the reader must keep in order.
 - Title optional; if present: `English / 中文` in Georgia.
 - CJK font stack: `'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif` (SVG is an `<img>`, page fonts do not apply).
-- No publisher art, no photos, no 8px text.
+- No 8px text. Keep self-made diagrams legible and focused on the rule being taught.
+
+## Official rulebook images
+
+Publisher artwork and screenshots from an **official rulebook supplied or explicitly authorized by the user** may be used in game rules. Use them selectively when they make setup, component identification, or a dense official example clearer than a recreated diagram.
+
+- Put extracted images in `public/images/rules/{slug}/` with descriptive kebab-case names.
+- Prefer a small crop of the relevant illustration or table over a full rulebook page.
+- Add a clear caption / alt text that identifies what the reader should learn from the image.
+- Keep the key SVG requirement: each game still needs 2–4 self-made SVG rule diagrams, used in both locale documents and attached once each to the flow.
+- Do not use publisher images when the user has not supplied or authorized the source material.
 
 ## Write UTF-8 via Python (required)
 

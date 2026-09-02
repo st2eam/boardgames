@@ -24,6 +24,8 @@ Lead your assigned class to prosperity and political influence over five rounds.
 4. Prepare the visible company market and policy / event decks. Give the first-player marker to the player specified by the setup.
 5. Each player reviews their **class objective and action cards** before beginning. Class-specific rules and card text take priority over this overview.
 
+![Official setup reference: main board, markets, and class components](/images/rules/hegemony/official-setup.jpg)
+
 ## How to Play
 
 ### Round loop: take actions → resolve production → run elections when scheduled → refresh
@@ -31,6 +33,8 @@ Lead your assigned class to prosperity and political influence over five rounds.
 The game lasts **five rounds**. In each action phase, players take turns in order, normally playing a card from hand to take its action or using one of the general actions available to their class. Continue until every player has passed; a player who passes normally takes no further actions that phase.
 
 ![Each class uses its own action cards, but all actions feed one shared economy](/images/rules/hegemony/shared-economy.svg)
+
+![Official reference for the five phases of a round](/images/rules/hegemony/official-round-structure.jpg)
 
 ### The four classes
 
@@ -43,15 +47,29 @@ The game lasts **five rounds**. In each action phase, players take turns in orde
 
 Your cards state the precise costs, limits, and timing of your class’s actions. A strong move often needs another class to cooperate indirectly: companies need workers and buyers; households need jobs and income; the State needs taxes to fund services.
 
+![Official overview of the four player boards](/images/rules/hegemony/official-player-boards.jpg)
+
+![Official Working Class board and action reference](/images/rules/hegemony/official-working-class.jpg)
+
+![Official Middle Class board and action reference](/images/rules/hegemony/official-middle-class.jpg)
+
+![Official Capitalist Class board and action reference](/images/rules/hegemony/official-capitalist-class.jpg)
+
+![Official State board and action reference](/images/rules/hegemony/official-state.jpg)
+
 ### Companies, work, and consumption
 
 Companies enter the economy through the relevant class actions. They need appropriate workers before they can produce. During production, eligible companies pay wages, make goods or services available, and can generate income for their owner; households spend income on consumption as permitted. Follow the order and exceptions on the board, cards, and class aids—many effects depend on whether a worker is employed, a company is staffed, or a good is available.
+
+![Official main-board reference for shared economy, public services, and the State Treasury](/images/rules/hegemony/official-game-board.jpg)
 
 ### Policies and influence
 
 Policies shape the shared rules: taxation, labour arrangements, welfare, trade, and other areas can change the incentives of every class. Players gain and spend **influence** to propose, support, or oppose policy changes. Policy cards and the current policy position determine what is legal and how much an action costs or pays.
 
 ![A policy proposal becomes law only after the parliamentary vote resolves](/images/rules/hegemony/policy-vote.svg)
+
+![Official politics-table reference for elections and policy movement](/images/rules/hegemony/official-politics-table.jpg)
 
 ### Elections
 
@@ -71,3 +89,5 @@ After the fifth round’s final procedures, resolve end-game scoring using the m
 - **Public information matters.** Track policy positions, market availability, employment, wages, taxes, and elections on the shared board.
 - **Card text overrides summaries.** When a card, policy, or class rulebook conflicts with this guide, follow the official text.
 - For first games, use the recommended setup and introductory guidance in the official rulebook; it establishes the economic links the game expects.
+
+![Official rules FAQ and clarification reference](/images/rules/hegemony/official-rules-faq.jpg)

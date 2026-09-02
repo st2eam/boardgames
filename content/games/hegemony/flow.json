@@ -4,6 +4,10 @@
     "setup": {
       "title": { "en": "Set Up the Nation", "zh": "建立国家" },
       "content": { "en": "Choose the active classes for the player count, prepare the main board and markets, then complete every class's printed setup. Each player should read their own player aid before the first action phase.", "zh": "按人数选择使用的阶级，准备主板和市场，再完成每个阶级印刷的设置。进入第一个行动阶段前，每位玩家都应阅读自己的玩家辅助卡。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/official-setup.jpg",
+        "alt": { "en": "Official setup reference for the main board, markets, and class components", "zh": "官方设置参考：主板、市场与各阶级组件" }
+      },
       "options": [
         { "label": { "en": "Round structure", "zh": "轮次结构" }, "next": "round" },
         { "label": { "en": "Choose a class", "zh": "了解阶级" }, "next": "classes" }
@@ -12,6 +16,10 @@
     "round": {
       "title": { "en": "Round Structure", "zh": "轮次结构" },
       "content": { "en": "Play **five rounds**. Round 1 skips preparation. Every later round is: preparation → action phase → production → elections (only if Bills exist) → scoring. Action order is Working, Middle, Capitalist, State; production order reverses it.", "zh": "共进行 **5 轮**，第 1 轮跳过准备。之后每轮依序：准备 → 行动 → 生产 → 选举（有待决法案才进行）→ 计分。行动顺序为工人、中产、资本家、国家；生产顺序反转。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/official-round-structure.jpg",
+        "alt": { "en": "Official reference for the five phases of a round", "zh": "官方轮次阶段参考图" }
+      },
       "options": [
         { "label": { "en": "Take an action", "zh": "进行行动" }, "next": "actions" },
         { "label": { "en": "Production and round end", "zh": "生产与轮末" }, "next": "production" }
@@ -20,6 +28,10 @@
     "classes": {
       "title": { "en": "Four Asymmetric Classes", "zh": "四个非对称阶级" },
       "content": { "en": "**Working** manages workers and unions; **Middle** mixes household and small business; **Capitalist** runs companies; **State** manages public services and public finance. Use only actions available to your class.", "zh": "**工人阶级**管理工人与工会；**中产阶级**兼顾家庭和小企业；**资本家阶级**经营公司；**国家**负责公共服务与财政。只能使用本阶级可用的行动。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/official-player-boards.jpg",
+        "alt": { "en": "Official overview of the four player boards", "zh": "官方四个阶级玩家板总览" }
+      },
       "options": [
         { "label": { "en": "Working Class", "zh": "工人阶级" }, "next": "working-class" },
         { "label": { "en": "Middle Class", "zh": "中产阶级" }, "next": "middle-class" },
@@ -30,6 +42,10 @@
     "actions": {
       "title": { "en": "Action Phase", "zh": "行动阶段" },
       "content": { "en": "Each player takes **5 turns**, retaining 2 cards. On a turn, take at most one Free Action before or after your Main Action. For the Main Action, play a card whose policy requirement is met, or discard a card to take one of your class's Basic Actions. Card legitimacy icons apply only in 4-player games when the card effect is used.", "zh": "每人进行 **5 个回合**，留下 2 张牌。每回合可在主行动前或后做至多 1 次免费行动。主行动要么打出一张满足政策要求的牌，要么弃牌使用本阶级的基础行动。卡牌合法性图标只在 4 人局且打出效果时生效。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/official-game-board.jpg",
+        "alt": { "en": "Official game-board reference used during actions and shared-economy decisions", "zh": "官方主板参考：行动会影响同一套共享区域" }
+      },
       "options": [
         { "label": { "en": "Class actions", "zh": "各阶级行动" }, "next": "classes" },
         { "label": { "en": "Propose a Bill", "zh": "提出法案" }, "next": "policies" },
@@ -73,6 +89,10 @@
     "election": {
       "title": { "en": "Election", "zh": "选举" },
       "content": { "en": "If at least one Bill exists, add cubes: Working = half Population, Capitalist = half operational companies, Middle = the higher of those two measures (all round up). For each Bill, declare for/against, draw **5 cubes**, then secretly spend Influence. Ties pass. A passing proposer gains 3 VP; other supporters who contributed a cube or Influence gain 1 VP.", "zh": "只要有待决法案就选举：工人放人口一半方块，资本家放运营公司一半，中产放两者较高值（均向上取整）。每项法案先声明赞成 / 反对，抽 **5 方块**，再暗中花影响力；平票通过。提案者得 3 VP；其他实际贡献方块或影响力的通过方支持者各得 1 VP。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/official-politics-table.jpg",
+        "alt": { "en": "Official politics-table reference for elections and policy movement", "zh": "官方政治表参考：选举与政策移动" }
+      },
       "options": [
         { "label": { "en": "Class scoring", "zh": "阶级计分" }, "next": "classes" },
         { "label": { "en": "Final scoring", "zh": "最终计分" }, "next": "endgame" },
@@ -90,6 +110,10 @@
     "working-class": {
       "title": { "en": "Working Class", "zh": "工人阶级" },
       "content": { "en": "Assign up to 3 workers, but every regular company must be completely staffed or empty. Skilled slots need the matching skill. A Trade Union needs 4 other workers in that industry; it gives 1 Influence in production and 2 VP in scoring. Buy needs from up to 2 sources, strike low-wage companies, or demonstrate when unemployment is high. Spend Health, Education, or Luxury equal to Population to raise Prosperity.", "zh": "分配至多 3 名工人，但普通公司必须全满或全空；技能工位需对应技能。成立工会前，该行业必须另有 4 名工人；工会生产时给 1 影响力、计分给 2 VP。可向至多两个来源购买需求品，对低工资公司罢工，或在高失业时示威。花等于人口的医疗、教育或奢侈品来提高繁荣。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/official-working-class.jpg",
+        "alt": { "en": "Official Working Class board and action reference", "zh": "官方工人阶级玩家板与行动参考" }
+      },
       "options": [
         { "label": { "en": "Production", "zh": "生产结算" }, "next": "production" },
         { "label": { "en": "Middle Class", "zh": "中产阶级" }, "next": "middle-class" }
@@ -98,6 +122,10 @@
     "middle-class": {
       "title": { "en": "Middle Class", "zh": "中产阶级" },
       "content": { "en": "The Middle Class both employs its own workers and consumes as a household. It prepares new workers and a 3-card company market, can build or sell small companies, trade, buy needs, and take an Extra Shift: produce one operational company now, pay its wage, and commit its workers. It pays Income Tax and Employment Tax, while its prosperity actions score like Working Class actions.", "zh": "中产既雇佣自己的工人，也像家庭一样消费。准备时补工人与 3 张公司市场；可建 / 卖小公司、交易、购买需求品，并可**加班**：让一间运营公司立刻生产、付工资且承诺其中工人。它缴所得税和就业税，繁荣行动与工人阶级相同。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/official-middle-class.jpg",
+        "alt": { "en": "Official Middle Class board and action reference", "zh": "官方中产阶级玩家板与行动参考" }
+      },
       "options": [
         { "label": { "en": "Capitalist Class", "zh": "资本家阶级" }, "next": "capitalist-class" },
         { "label": { "en": "State", "zh": "国家" }, "next": "state-class" }
@@ -106,6 +134,10 @@
     "capitalist-class": {
       "title": { "en": "Capitalist Class", "zh": "资本家阶级" },
       "content": { "en": "Build up to 12 companies, choosing a legal wage and optionally immediately filling every slot from unemployment. Revenue is untaxed current money; Capital is previously taxed money. Sell to the Foreign Market using each Export-card transaction once per action, make Business Deals, lobby with 30 Capital for 3 Influence, and adjust prices, wages, bonuses, or storage as Free Actions. Pay Employment Tax, then Corporate Tax from remaining Revenue.", "zh": "可建至多 12 家公司，选择合法工资，并可立刻从失业区填满全部工位。**收入**是本轮未税金钱，**资本**是已税金钱。每次出口行动中，每种出口卡交易只能做一次；还可做商业交易、花 30 资本换 3 影响力，并以免费行动调价格、工资、奖金或仓储。先缴就业税，再按剩余收入缴企业税。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/official-capitalist-class.jpg",
+        "alt": { "en": "Official Capitalist Class board and action reference", "zh": "官方资本家阶级玩家板与行动参考" }
+      },
       "options": [
         { "label": { "en": "State", "zh": "国家" }, "next": "state-class" },
         { "label": { "en": "Loans and IMF", "zh": "贷款与 IMF" }, "next": "loans-imf" }
@@ -114,6 +146,10 @@
     "state-class": {
       "title": { "en": "State", "zh": "国家" },
       "content": { "en": "The State produces public Health, Education, and Media Influence, receives all taxes in the Treasury, and manages three Legitimacy tracks. Reveal 2 Events and one public Agenda in preparation. Address Events, provide benefits, campaign by converting up to 3 Media Influence to Personal Influence, or take Extra Tax at a legitimacy cost. At scoring, apply unresolved Event penalties, score the two lowest Legitimacy values, halve all tracks upward, then score matching Agenda policies.", "zh": "国家生产公共医疗、教育和媒体影响力，税收进入国库，并管理三条合法性。准备时翻 2 张事件和 1 张公开议程。可处理事件、提供福利、把至多 3 媒体影响力转为个人影响力竞选，或以损失合法性为代价额外征税。计分时先处理未解决事件，计算两条最低合法性之和，所有合法性向上取半，再结算相符的议程政策。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/official-state.jpg",
+        "alt": { "en": "Official State board and action reference", "zh": "官方国家玩家板与行动参考" }
+      },
       "options": [
         { "label": { "en": "Election", "zh": "选举" }, "next": "election" },
         { "label": { "en": "Working Class", "zh": "工人阶级" }, "next": "working-class" }
@@ -130,6 +166,10 @@
     "faq-reference": {
       "title": { "en": "Rules Reference and FAQ", "zh": "规则参考与 FAQ" },
       "content": { "en": "Key rulings: a company is fully staffed or empty; committed workers cannot move, have wages lowered, or have their company sold until production. A strike on a company that is no longer operational simply clears. Mandatory costs can force Loans; optional actions cannot. For complete card wording, component diagrams, examples, and the official FAQ, consult the full official rulebook linked from the rules page.", "zh": "关键裁定：公司必须全满或全空；已承诺工人不能移动、降薪或让所属公司出售，直到生产后立起。已不运营公司的罢工只会移除标记。强制费用可迫使贷款；可选行动不能为此借钱。完整卡牌原文、组件图、例子与官方 FAQ 请查看规则页链接的完整官方规则书。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/official-rules-faq.jpg",
+        "alt": { "en": "Official rules FAQ and clarification reference", "zh": "官方规则 FAQ 与裁定参考页" }
+      },
       "options": [
         { "label": { "en": "Loans and IMF", "zh": "贷款与 IMF" }, "next": "loans-imf" },
         { "label": { "en": "Start over", "zh": "回到设置" }, "next": "setup" }

@@ -127,10 +127,19 @@
         { "label": { "en": "End game", "zh": "游戏结束" }, "next": "endgame" }
       ]
     },
+    "faq-reference": {
+      "title": { "en": "Rules Reference and FAQ", "zh": "规则参考与 FAQ" },
+      "content": { "en": "Key rulings: a company is fully staffed or empty; committed workers cannot move, have wages lowered, or have their company sold until production. A strike on a company that is no longer operational simply clears. Mandatory costs can force Loans; optional actions cannot. For complete card wording, component diagrams, examples, and the official FAQ, consult the full official rulebook linked from the rules page.", "zh": "关键裁定：公司必须全满或全空；已承诺工人不能移动、降薪或让所属公司出售，直到生产后立起。已不运营公司的罢工只会移除标记。强制费用可迫使贷款；可选行动不能为此借钱。完整卡牌原文、组件图、例子与官方 FAQ 请查看规则页链接的完整官方规则书。" },
+      "options": [
+        { "label": { "en": "Loans and IMF", "zh": "贷款与 IMF" }, "next": "loans-imf" },
+        { "label": { "en": "Start over", "zh": "回到设置" }, "next": "setup" }
+      ]
+    },
     "endgame": {
       "title": { "en": "End Game and Victory", "zh": "游戏结束与胜利" },
       "content": { "en": "After round 5, Capitalist loses 5 VP per Loan. Other players may pay 55 per Loan; each unpaid 5 costs 1 VP. Add class end-game scoring. Ties: count policies 1–5 in your favored column (Working A, Middle B, Capitalist C, State Agenda); then State wins if tied, otherwise compare Voting cubes, otherwise share victory.", "zh": "第 5 轮后，资本家每笔贷款 -5 VP；其他玩家每笔可花 55 还款，每欠 5 扣 1 VP。结算阶级终局分。平手时比较政策 1–5 中本阶级偏好栏位数（工人 A、中产 B、资本家 C、国家看议程）；国家仍平手则国家胜，否则比投票方块，仍同则共享胜利。" },
       "options": [
+        { "label": { "en": "Rules FAQ", "zh": "规则 FAQ" }, "next": "faq-reference" },
         { "label": { "en": "Start over", "zh": "重新查看设置" }, "next": "setup" }
       ]
     }

@@ -11,7 +11,7 @@
     },
     "round": {
       "title": { "en": "Round Structure", "zh": "轮次结构" },
-      "content": { "en": "Play **five rounds**: players act until all pass, resolve the economy / production procedure, hold an election when the track calls for it, then refresh for the next round.", "zh": "共进行 **5 轮**：玩家行动直到全员跳过，结算经济 / 生产流程；选举轨道要求时举行选举，随后整备进入下一轮。" },
+      "content": { "en": "Play **five rounds**. Round 1 skips preparation. Every later round is: preparation → action phase → production → elections (only if Bills exist) → scoring. Action order is Working, Middle, Capitalist, State; production order reverses it.", "zh": "共进行 **5 轮**，第 1 轮跳过准备。之后每轮依序：准备 → 行动 → 生产 → 选举（有待决法案才进行）→ 计分。行动顺序为工人、中产、资本家、国家；生产顺序反转。" },
       "options": [
         { "label": { "en": "Take an action", "zh": "进行行动" }, "next": "actions" },
         { "label": { "en": "Production and round end", "zh": "生产与轮末" }, "next": "production" }
@@ -21,16 +21,19 @@
       "title": { "en": "Four Asymmetric Classes", "zh": "四个非对称阶级" },
       "content": { "en": "**Working** manages workers and unions; **Middle** mixes household and small business; **Capitalist** runs companies; **State** manages public services and public finance. Use only actions available to your class.", "zh": "**工人阶级**管理工人与工会；**中产阶级**兼顾家庭和小企业；**资本家阶级**经营公司；**国家**负责公共服务与财政。只能使用本阶级可用的行动。" },
       "options": [
-        { "label": { "en": "Shared economy", "zh": "共享经济" }, "next": "economy" },
-        { "label": { "en": "Take an action", "zh": "进行行动" }, "next": "actions" }
+        { "label": { "en": "Working Class", "zh": "工人阶级" }, "next": "working-class" },
+        { "label": { "en": "Middle Class", "zh": "中产阶级" }, "next": "middle-class" },
+        { "label": { "en": "Capitalist Class", "zh": "资本家阶级" }, "next": "capitalist-class" },
+        { "label": { "en": "State", "zh": "国家" }, "next": "state-class" }
       ]
     },
     "actions": {
       "title": { "en": "Action Phase", "zh": "行动阶段" },
-      "content": { "en": "On your turn, usually play one action card or use a general class action. Pay its costs, satisfy its conditions, and resolve it in order. When you pass, you normally take no more actions this phase.", "zh": "轮到你时，通常打出一张行动牌，或使用一个通用阶级行动。支付费用、满足条件，并按顺序结算。选择跳过后，通常不能在本阶段再行动。" },
+      "content": { "en": "Each player takes **5 turns**, retaining 2 cards. On a turn, take at most one Free Action before or after your Main Action. For the Main Action, play a card whose policy requirement is met, or discard a card to take one of your class's Basic Actions. Card legitimacy icons apply only in 4-player games when the card effect is used.", "zh": "每人进行 **5 个回合**，留下 2 张牌。每回合可在主行动前或后做至多 1 次免费行动。主行动要么打出一张满足政策要求的牌，要么弃牌使用本阶级的基础行动。卡牌合法性图标只在 4 人局且打出效果时生效。" },
       "options": [
-        { "label": { "en": "Companies, work, and consumption", "zh": "公司、工作与消费" }, "next": "economy" },
-        { "label": { "en": "Policies and influence", "zh": "政策与影响力" }, "next": "policies" }
+        { "label": { "en": "Class actions", "zh": "各阶级行动" }, "next": "classes" },
+        { "label": { "en": "Propose a Bill", "zh": "提出法案" }, "next": "policies" },
+        { "label": { "en": "Production next", "zh": "进入生产" }, "next": "production" }
       ]
     },
     "economy": {
@@ -47,35 +50,86 @@
     },
     "policies": {
       "title": { "en": "Policies and Parliament", "zh": "政策与议会" },
-      "content": { "en": "Spend **influence** to affect proposals and votes. Current policy positions alter shared rules, including costs, payments, and what actions are available. Resolve the policy card exactly as written.", "zh": "花费**影响力**来影响提案和表决。当前政策位置会改变共用规则，包括费用、收益和行动可用性。严格按政策卡文字结算。" },
+      "content": { "en": "Place one of your 3 Bill markers in an **adjacent** section of a policy with no other Bill. Pay 1 Influence immediately after proposing to resolve that policy now; otherwise it waits for Elections. Policies govern public-sector size, minimum wages, taxation, welfare prices, trade tariffs, and immigration.", "zh": "从自己的 3 个法案标记中取 1 个，放到一项尚无法案、且与现位置**相邻**的栏位。提出后可花 1 影响力立即表决；否则留到选举阶段。政策决定公共部门规模、最低工资、税、福利价格、关税与移民。" },
       "illustration": {
         "src": "/images/rules/hegemony/policy-vote.svg",
         "alt": { "en": "A proposal passes through Parliament to become a policy", "zh": "提案经议会表决后成为政策" }
       },
       "options": [
         { "label": { "en": "Election", "zh": "选举" }, "next": "election" },
+        { "label": { "en": "Policy effects", "zh": "七项政策" }, "next": "policy-effects" },
         { "label": { "en": "Return to actions", "zh": "回到行动" }, "next": "actions" }
       ]
     },
     "production": {
       "title": { "en": "Production and Refresh", "zh": "生产与整备" },
-      "content": { "en": "Once all players pass, follow the printed economy order: production, wages, consumption, taxes, public payments, debt, and triggered effects. Then refresh cards, supplies, and markers as instructed and advance the round.", "zh": "全员跳过后，按印刷的经济顺序处理：生产、工资、消费、税收、公共支出、公债与触发效果。再依指示补充卡牌和供应、重置标记，并推进轮次。" },
+      "content": { "en": "Resolve in reverse player order: **produce and pay each company's listed wage** (once per company), then Working and Middle cover Food equal to Population, check IMF intervention, then pay taxes to the State Treasury. A regular company needs every worker slot filled; after production, committed workers stand up.", "zh": "按反向玩家顺序结算：**公司生产并付卡上列出的整家公司工资**，随后工人 / 中产各满足等于人口的食物，检查 IMF，最后向国库缴税。普通公司必须填满全部工位；生产后已承诺工人立起。" },
       "options": [
-        { "label": { "en": "Election timing", "zh": "选举时机" }, "next": "election" },
+        { "label": { "en": "Loans and IMF", "zh": "贷款与 IMF" }, "next": "loans-imf" },
+        { "label": { "en": "Election", "zh": "选举" }, "next": "election" },
         { "label": { "en": "Next round", "zh": "下一轮" }, "next": "round" }
       ]
     },
     "election": {
       "title": { "en": "Election", "zh": "选举" },
-      "content": { "en": "When the election track calls for it, pause to resolve campaigning, votes, representation, and the resulting political effects in the official order. Economic and political choices made earlier can matter here.", "zh": "选举轨道要求时，暂停并按官方顺序结算竞选、投票、代表权及其政治效果。之前做出的经济与政治选择都可能在此产生影响。" },
+      "content": { "en": "If at least one Bill exists, add cubes: Working = half Population, Capitalist = half operational companies, Middle = the higher of those two measures (all round up). For each Bill, declare for/against, draw **5 cubes**, then secretly spend Influence. Ties pass. A passing proposer gains 3 VP; other supporters who contributed a cube or Influence gain 1 VP.", "zh": "只要有待决法案就选举：工人放人口一半方块，资本家放运营公司一半，中产放两者较高值（均向上取整）。每项法案先声明赞成 / 反对，抽 **5 方块**，再暗中花影响力；平票通过。提案者得 3 VP；其他实际贡献方块或影响力的通过方支持者各得 1 VP。" },
       "options": [
+        { "label": { "en": "Class scoring", "zh": "阶级计分" }, "next": "classes" },
         { "label": { "en": "Final scoring", "zh": "最终计分" }, "next": "endgame" },
         { "label": { "en": "Round refresh", "zh": "轮末整备" }, "next": "production" }
       ]
     },
+    "policy-effects": {
+      "title": { "en": "Seven Policies", "zh": "七项政策" },
+      "content": { "en": "**Fiscal** sets public companies and the State loan limit. **Labor Market** sets the minimum wage. **Taxation** sets the tax multiplier. **Health** and **Education** set public-service prices and welfare modifiers. **Foreign Trade** sets tariffs and Business Deals. **Immigration** adds 0, 1, or 2 extra workers per class in preparation.", "zh": "**财政**决定公共公司数和国家贷款上限；**劳动市场**定最低工资；**税收**定税收倍率；**医疗**、**教育**定公共服务价格与福利修正；**对外贸易**定关税和商业交易；**移民**在准备阶段让每阶级增加 0、1 或 2 名额外工人。" },
+      "options": [
+        { "label": { "en": "Propose a Bill", "zh": "提出法案" }, "next": "policies" },
+        { "label": { "en": "Election", "zh": "选举" }, "next": "election" }
+      ]
+    },
+    "working-class": {
+      "title": { "en": "Working Class", "zh": "工人阶级" },
+      "content": { "en": "Assign up to 3 workers, but every regular company must be completely staffed or empty. Skilled slots need the matching skill. A Trade Union needs 4 other workers in that industry; it gives 1 Influence in production and 2 VP in scoring. Buy needs from up to 2 sources, strike low-wage companies, or demonstrate when unemployment is high. Spend Health, Education, or Luxury equal to Population to raise Prosperity.", "zh": "分配至多 3 名工人，但普通公司必须全满或全空；技能工位需对应技能。成立工会前，该行业必须另有 4 名工人；工会生产时给 1 影响力、计分给 2 VP。可向至多两个来源购买需求品，对低工资公司罢工，或在高失业时示威。花等于人口的医疗、教育或奢侈品来提高繁荣。" },
+      "options": [
+        { "label": { "en": "Production", "zh": "生产结算" }, "next": "production" },
+        { "label": { "en": "Middle Class", "zh": "中产阶级" }, "next": "middle-class" }
+      ]
+    },
+    "middle-class": {
+      "title": { "en": "Middle Class", "zh": "中产阶级" },
+      "content": { "en": "The Middle Class both employs its own workers and consumes as a household. It prepares new workers and a 3-card company market, can build or sell small companies, trade, buy needs, and take an Extra Shift: produce one operational company now, pay its wage, and commit its workers. It pays Income Tax and Employment Tax, while its prosperity actions score like Working Class actions.", "zh": "中产既雇佣自己的工人，也像家庭一样消费。准备时补工人与 3 张公司市场；可建 / 卖小公司、交易、购买需求品，并可**加班**：让一间运营公司立刻生产、付工资且承诺其中工人。它缴所得税和就业税，繁荣行动与工人阶级相同。" },
+      "options": [
+        { "label": { "en": "Capitalist Class", "zh": "资本家阶级" }, "next": "capitalist-class" },
+        { "label": { "en": "State", "zh": "国家" }, "next": "state-class" }
+      ]
+    },
+    "capitalist-class": {
+      "title": { "en": "Capitalist Class", "zh": "资本家阶级" },
+      "content": { "en": "Build up to 12 companies, choosing a legal wage and optionally immediately filling every slot from unemployment. Revenue is untaxed current money; Capital is previously taxed money. Sell to the Foreign Market using each Export-card transaction once per action, make Business Deals, lobby with 30 Capital for 3 Influence, and adjust prices, wages, bonuses, or storage as Free Actions. Pay Employment Tax, then Corporate Tax from remaining Revenue.", "zh": "可建至多 12 家公司，选择合法工资，并可立刻从失业区填满全部工位。**收入**是本轮未税金钱，**资本**是已税金钱。每次出口行动中，每种出口卡交易只能做一次；还可做商业交易、花 30 资本换 3 影响力，并以免费行动调价格、工资、奖金或仓储。先缴就业税，再按剩余收入缴企业税。" },
+      "options": [
+        { "label": { "en": "State", "zh": "国家" }, "next": "state-class" },
+        { "label": { "en": "Loans and IMF", "zh": "贷款与 IMF" }, "next": "loans-imf" }
+      ]
+    },
+    "state-class": {
+      "title": { "en": "State", "zh": "国家" },
+      "content": { "en": "The State produces public Health, Education, and Media Influence, receives all taxes in the Treasury, and manages three Legitimacy tracks. Reveal 2 Events and one public Agenda in preparation. Address Events, provide benefits, campaign by converting up to 3 Media Influence to Personal Influence, or take Extra Tax at a legitimacy cost. At scoring, apply unresolved Event penalties, score the two lowest Legitimacy values, halve all tracks upward, then score matching Agenda policies.", "zh": "国家生产公共医疗、教育和媒体影响力，税收进入国库，并管理三条合法性。准备时翻 2 张事件和 1 张公开议程。可处理事件、提供福利、把至多 3 媒体影响力转为个人影响力竞选，或以损失合法性为代价额外征税。计分时先处理未解决事件，计算两条最低合法性之和，所有合法性向上取半，再结算相符的议程政策。" },
+      "options": [
+        { "label": { "en": "Election", "zh": "选举" }, "next": "election" },
+        { "label": { "en": "Working Class", "zh": "工人阶级" }, "next": "working-class" }
+      ]
+    },
+    "loans-imf": {
+      "title": { "en": "Loans and IMF", "zh": "贷款与 IMF" },
+      "content": { "en": "Take a Loan only when a **mandatory** payment cannot be made; gain 50 and pay 5 interest each preparation. A Free Action repays one for 50. If the State exceeds its Fiscal Policy loan limit and cannot repay 55 per loan in production, IMF intervenes: discard all pending Bills, shift policies, repay as much as possible, and halve all Legitimacy scores upward.", "zh": "只有无法支付**强制**费用时才能贷款：获得 50，每次准备每笔付 5 利息；免费行动花 50 还一笔。国家在生产阶段超过财政政策贷款上限且无法每笔花 55 清偿时，IMF 介入：丢弃所有待决法案、移动政策、尽量偿债，并将三条合法性向上取半。" },
+      "options": [
+        { "label": { "en": "Production", "zh": "生产结算" }, "next": "production" },
+        { "label": { "en": "End game", "zh": "游戏结束" }, "next": "endgame" }
+      ]
+    },
     "endgame": {
       "title": { "en": "End Game and Victory", "zh": "游戏结束与胜利" },
-      "content": { "en": "After round five's final procedure, add every VP source for your class, including its applicable objectives and end-game effects. Highest VP wins; use the official tie-breaker if needed.", "zh": "第 5 轮最终流程结束后，计算本阶级所有胜利分来源，包括适用的目标与终局效果。最高分获胜；平手时使用官方决胜规则。" },
+      "content": { "en": "After round 5, Capitalist loses 5 VP per Loan. Other players may pay 55 per Loan; each unpaid 5 costs 1 VP. Add class end-game scoring. Ties: count policies 1–5 in your favored column (Working A, Middle B, Capitalist C, State Agenda); then State wins if tied, otherwise compare Voting cubes, otherwise share victory.", "zh": "第 5 轮后，资本家每笔贷款 -5 VP；其他玩家每笔可花 55 还款，每欠 5 扣 1 VP。结算阶级终局分。平手时比较政策 1–5 中本阶级偏好栏位数（工人 A、中产 B、资本家 C、国家看议程）；国家仍平手则国家胜，否则比投票方块，仍同则共享胜利。" },
       "options": [
         { "label": { "en": "Start over", "zh": "重新查看设置" }, "next": "setup" }
       ]

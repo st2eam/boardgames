@@ -2,12 +2,12 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — **69** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — **70** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **69 game rules**: web-verified, complete bilingual rules (EN/ZH)
-- **69 interactive decision trees**: step-by-step flow with sidebar outline navigation
+- **70 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **70 interactive decision trees**: step-by-step flow with sidebar outline navigation
 - **4 multi-player score trackers**: CABO, Sea Salt & Paper, 6 nimmt!, Just Wild — running totals, localStorage
 - **5 trainers**: Mahjong/Riichi tenpai, Blackjack basic strategy, Texas Hold'em GTO preflop, Go tsumego
 - **8 BBGE online playables**: Love Letter, Texas Hold'em, 6 nimmt!, Go, CABO, UNO, TRIO, Rummikub. Peer invitations use revisioned snapshots, action acknowledgements, and same-session refresh recovery — see [`docs/bbge-networking.md`](docs/bbge-networking.md).

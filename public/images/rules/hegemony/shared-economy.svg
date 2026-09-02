@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title desc">
+  <title id="title">Shared economy / 共享经济</title><desc id="desc">Four class roles feed workers, companies, taxes and public services through a shared economy.</desc>
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="360" y="31" text-anchor="middle" fill="#5D4037" font-family="Georgia, 'PingFang SC', sans-serif" font-size="20">Shared economy / 共享经济</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" text-anchor="middle">
+    <g fill="#fff" stroke="#8D6E63" stroke-width="2"><rect x="38" y="74" width="138" height="76" rx="12"/><rect x="202" y="74" width="138" height="76" rx="12"/><rect x="380" y="74" width="138" height="76" rx="12"/><rect x="544" y="74" width="138" height="76" rx="12"/></g>
+    <g fill="#5D4037" font-size="15"><text x="107" y="105">Working</text><text x="107" y="127">工人阶级</text><text x="271" y="105">Middle</text><text x="271" y="127">中产阶级</text><text x="449" y="105">Capitalist</text><text x="449" y="127">资本家阶级</text><text x="613" y="105">State</text><text x="613" y="127">国家</text></g>
+    <path d="M107 165 C180 214 262 214 345 186 M271 165 C300 204 333 204 360 186 M449 165 C430 204 398 204 375 186 M613 165 C520 220 453 220 375 186" fill="none" stroke="#C4952A" stroke-width="4"/>
+    <path d="M360 178 l-10 15 h20z" fill="#C4952A"/>
+    <rect x="248" y="202" width="224" height="53" rx="26" fill="#5D4037"/>
+    <text x="360" y="225" fill="#fff" font-size="16">Jobs · goods · taxes</text><text x="360" y="245" fill="#F7E7BE" font-size="13">工作 · 商品 · 税收</text>
+  </g>
+</svg>

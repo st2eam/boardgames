@@ -1,0 +1,84 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Set Up the Nation", "zh": "建立国家" },
+      "content": { "en": "Choose the active classes for the player count, prepare the main board and markets, then complete every class's printed setup. Each player should read their own player aid before the first action phase.", "zh": "按人数选择使用的阶级，准备主板和市场，再完成每个阶级印刷的设置。进入第一个行动阶段前，每位玩家都应阅读自己的玩家辅助卡。" },
+      "options": [
+        { "label": { "en": "Round structure", "zh": "轮次结构" }, "next": "round" },
+        { "label": { "en": "Choose a class", "zh": "了解阶级" }, "next": "classes" }
+      ]
+    },
+    "round": {
+      "title": { "en": "Round Structure", "zh": "轮次结构" },
+      "content": { "en": "Play **five rounds**: players act until all pass, resolve the economy / production procedure, hold an election when the track calls for it, then refresh for the next round.", "zh": "共进行 **5 轮**：玩家行动直到全员跳过，结算经济 / 生产流程；选举轨道要求时举行选举，随后整备进入下一轮。" },
+      "options": [
+        { "label": { "en": "Take an action", "zh": "进行行动" }, "next": "actions" },
+        { "label": { "en": "Production and round end", "zh": "生产与轮末" }, "next": "production" }
+      ]
+    },
+    "classes": {
+      "title": { "en": "Four Asymmetric Classes", "zh": "四个非对称阶级" },
+      "content": { "en": "**Working** manages workers and unions; **Middle** mixes household and small business; **Capitalist** runs companies; **State** manages public services and public finance. Use only actions available to your class.", "zh": "**工人阶级**管理工人与工会；**中产阶级**兼顾家庭和小企业；**资本家阶级**经营公司；**国家**负责公共服务与财政。只能使用本阶级可用的行动。" },
+      "options": [
+        { "label": { "en": "Shared economy", "zh": "共享经济" }, "next": "economy" },
+        { "label": { "en": "Take an action", "zh": "进行行动" }, "next": "actions" }
+      ]
+    },
+    "actions": {
+      "title": { "en": "Action Phase", "zh": "行动阶段" },
+      "content": { "en": "On your turn, usually play one action card or use a general class action. Pay its costs, satisfy its conditions, and resolve it in order. When you pass, you normally take no more actions this phase.", "zh": "轮到你时，通常打出一张行动牌，或使用一个通用阶级行动。支付费用、满足条件，并按顺序结算。选择跳过后，通常不能在本阶段再行动。" },
+      "options": [
+        { "label": { "en": "Companies, work, and consumption", "zh": "公司、工作与消费" }, "next": "economy" },
+        { "label": { "en": "Policies and influence", "zh": "政策与影响力" }, "next": "policies" }
+      ]
+    },
+    "economy": {
+      "title": { "en": "Shared Economy", "zh": "共享经济" },
+      "content": { "en": "Companies need workers to produce; households need jobs and income to consume; taxes finance State services. Check the board, class aids, and card text for the exact availability and timing rules.", "zh": "公司需要工人才能生产；家庭需要工作与收入才能消费；税收为国家的公共服务提供资金。具体的供应条件与时机以主板、阶级辅助卡和卡牌文字为准。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/shared-economy.svg",
+        "alt": { "en": "The four classes feed one shared economy", "zh": "四个阶级共同构成一套经济体系" }
+      },
+      "options": [
+        { "label": { "en": "Production procedure", "zh": "生产流程" }, "next": "production" },
+        { "label": { "en": "Policies", "zh": "政策" }, "next": "policies" }
+      ]
+    },
+    "policies": {
+      "title": { "en": "Policies and Parliament", "zh": "政策与议会" },
+      "content": { "en": "Spend **influence** to affect proposals and votes. Current policy positions alter shared rules, including costs, payments, and what actions are available. Resolve the policy card exactly as written.", "zh": "花费**影响力**来影响提案和表决。当前政策位置会改变共用规则，包括费用、收益和行动可用性。严格按政策卡文字结算。" },
+      "illustration": {
+        "src": "/images/rules/hegemony/policy-vote.svg",
+        "alt": { "en": "A proposal passes through Parliament to become a policy", "zh": "提案经议会表决后成为政策" }
+      },
+      "options": [
+        { "label": { "en": "Election", "zh": "选举" }, "next": "election" },
+        { "label": { "en": "Return to actions", "zh": "回到行动" }, "next": "actions" }
+      ]
+    },
+    "production": {
+      "title": { "en": "Production and Refresh", "zh": "生产与整备" },
+      "content": { "en": "Once all players pass, follow the printed economy order: production, wages, consumption, taxes, public payments, debt, and triggered effects. Then refresh cards, supplies, and markers as instructed and advance the round.", "zh": "全员跳过后，按印刷的经济顺序处理：生产、工资、消费、税收、公共支出、公债与触发效果。再依指示补充卡牌和供应、重置标记，并推进轮次。" },
+      "options": [
+        { "label": { "en": "Election timing", "zh": "选举时机" }, "next": "election" },
+        { "label": { "en": "Next round", "zh": "下一轮" }, "next": "round" }
+      ]
+    },
+    "election": {
+      "title": { "en": "Election", "zh": "选举" },
+      "content": { "en": "When the election track calls for it, pause to resolve campaigning, votes, representation, and the resulting political effects in the official order. Economic and political choices made earlier can matter here.", "zh": "选举轨道要求时，暂停并按官方顺序结算竞选、投票、代表权及其政治效果。之前做出的经济与政治选择都可能在此产生影响。" },
+      "options": [
+        { "label": { "en": "Final scoring", "zh": "最终计分" }, "next": "endgame" },
+        { "label": { "en": "Round refresh", "zh": "轮末整备" }, "next": "production" }
+      ]
+    },
+    "endgame": {
+      "title": { "en": "End Game and Victory", "zh": "游戏结束与胜利" },
+      "content": { "en": "After round five's final procedure, add every VP source for your class, including its applicable objectives and end-game effects. Highest VP wins; use the official tie-breaker if needed.", "zh": "第 5 轮最终流程结束后，计算本阶级所有胜利分来源，包括适用的目标与终局效果。最高分获胜；平手时使用官方决胜规则。" },
+      "options": [
+        { "label": { "en": "Start over", "zh": "重新查看设置" }, "next": "setup" }
+      ]
+    }
+  }
+}

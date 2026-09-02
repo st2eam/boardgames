@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title desc">
+  <title id="title">Policy vote / 政策表决</title><desc id="desc">A proposal card moves through Parliament to a new policy position after a vote.</desc>
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="360" y="31" text-anchor="middle" fill="#5D4037" font-family="Georgia, 'PingFang SC', sans-serif" font-size="20">Policy vote / 政策表决</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" text-anchor="middle">
+    <rect x="38" y="90" width="152" height="94" rx="12" fill="#fff" stroke="#8D6E63" stroke-width="2"/>
+    <text x="114" y="123" fill="#5D4037" font-size="16">Proposal</text><text x="114" y="148" fill="#8D6E63" font-size="14">提案</text><text x="114" y="169" fill="#8D6E63" font-size="12">spend influence / 花影响力</text>
+    <path d="M205 137 H293" stroke="#C4952A" stroke-width="5"/><path d="M293 137 l-15 -10 v20z" fill="#C4952A"/>
+    <rect x="305" y="76" width="160" height="122" rx="60" fill="#5D4037"/>
+    <text x="385" y="124" fill="#fff" font-size="18">Parliament</text><text x="385" y="149" fill="#F7E7BE" font-size="15">议会投票</text><circle cx="351" cy="169" r="8" fill="#C4952A"/><circle cx="385" cy="169" r="8" fill="#C4952A"/><circle cx="419" cy="169" r="8" fill="#C4952A"/>
+    <path d="M478 137 H566" stroke="#C4952A" stroke-width="5"/><path d="M566 137 l-15 -10 v20z" fill="#C4952A"/>
+    <rect x="578" y="90" width="104" height="94" rx="12" fill="#fff" stroke="#8D6E63" stroke-width="2"/>
+    <text x="630" y="123" fill="#5D4037" font-size="16">Policy</text><text x="630" y="148" fill="#8D6E63" font-size="14">新政策</text><text x="630" y="169" fill="#8D6E63" font-size="12">shared rules change</text>
+  </g>
+</svg>

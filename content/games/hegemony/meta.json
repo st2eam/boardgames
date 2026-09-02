@@ -1,0 +1,12 @@
+{
+  "name": {
+    "en": "Hegemony: Lead Your Class to Victory",
+    "zh": "领国者：带领你的阶级走向胜利"
+  },
+  "players": "2-4",
+  "duration": "90-180 min",
+  "difficulty": "hard",
+  "tags": ["strategy", "economic", "political", "asymmetric", "card", "board"],
+  "category": "board",
+  "bggRank": 41
+}

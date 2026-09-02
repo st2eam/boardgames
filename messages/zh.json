@@ -44,7 +44,14 @@
     "openTsumegoTrainer": "训练",
     "scoreCalculator": "番符计算器",
     "openCalculator": "番符计算器",
-    "toc": "目录"
+    "toc": "目录",
+    "viewImage": "查看大图",
+    "imagePreview": "图片预览",
+    "closeImage": "关闭图片预览",
+    "zoomInImage": "放大",
+    "zoomOutImage": "缩小",
+    "resetImageZoom": "重置缩放",
+    "imageUnavailable": "图片暂时无法加载。"
   },
   "chat": {
     "title": "规则助手",

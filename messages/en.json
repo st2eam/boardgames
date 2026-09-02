@@ -44,7 +44,14 @@
     "openTsumegoTrainer": "Trainer",
     "scoreCalculator": "Score Calculator",
     "openCalculator": "Score Calculator",
-    "toc": "Contents"
+    "toc": "Contents",
+    "viewImage": "View larger image",
+    "imagePreview": "Image preview",
+    "closeImage": "Close image preview",
+    "zoomInImage": "Zoom in",
+    "zoomOutImage": "Zoom out",
+    "resetImageZoom": "Reset zoom",
+    "imageUnavailable": "This image could not be loaded."
   },
   "chat": {
     "title": "Rules Assistant",

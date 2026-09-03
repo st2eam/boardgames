@@ -1,4 +1,6 @@
-# Hegemony: Lead Your Class to Victory Rules
+# Hegemony: Lead Your Class to Victory
+
+> **Table chant:** pick a class → play **five rounds** → each round is Preparation → Actions → Production → Elections → Scoring. After round 5, resolve loans and end-game scoring. **Most VP wins.**
 
 ## Overview
 
@@ -7,6 +9,23 @@ In **Hegemony: Lead Your Class to Victory**, 2–4 players run the Working Class
 ## Game Objective
 
 Lead your assigned class to prosperity and political influence over five rounds. Gain **victory points** from the opportunities and goals available to your class; after final scoring, the player with the most VP wins.
+
+---
+
+## The four classes
+
+![Each class chases a different source of victory points](/images/rules/hegemony/class-roles.svg)
+
+| Class | What it primarily manages |
+|---|---|
+| **Working Class** | Workers, employment, unions, consumption, and social reforms |
+| **Middle Class** | Its household and smaller businesses; it both employs and works |
+| **Capitalist Class** | Companies, investment, production, wages, sales, and profits |
+| **State** | Public services, taxation, subsidies, public debt, and political balance |
+
+Your cards state the precise costs, limits, and timing of your class’s actions. A strong move often needs another class to cooperate indirectly: companies need workers and buyers; households need jobs and income; the State needs taxes to fund services.
+
+![Official overview of the four player boards](/images/rules/hegemony/official-player-boards.jpg)
 
 ## Components
 
@@ -26,28 +45,27 @@ Lead your assigned class to prosperity and political influence over five rounds.
 
 ![Official setup reference: main board, markets, and class components](/images/rules/hegemony/official-setup.jpg)
 
+---
+
 ## How to Play
 
-### Round loop: take actions → resolve production → run elections when scheduled → refresh
+> **Round 1 skips Preparation.** Later rounds: Preparation → Action phase → Production → Elections (only if Bills exist) → Scoring.
 
-The game lasts **five rounds**. In each action phase, players take turns in order, normally playing a card from hand to take its action or using one of the general actions available to their class. Continue until every player has passed; a player who passes normally takes no further actions that phase.
+The game lasts **five rounds**. Action order is Working → Middle → Capitalist → State; production order reverses it.
 
 ![Each class uses its own action cards, but all actions feed one shared economy](/images/rules/hegemony/shared-economy.svg)
 
 ![Official reference for the five phases of a round](/images/rules/hegemony/official-round-structure.jpg)
 
-### The four classes
+### Your turn
 
-| Class | What it primarily manages |
-|---|---|
-| **Working Class** | Workers, employment, unions, consumption, and social reforms |
-| **Middle Class** | Its household and smaller businesses; it both employs and works |
-| **Capitalist Class** | Companies, investment, production, wages, sales, and profits |
-| **State** | Public services, taxation, subsidies, public debt, and political balance |
+> **Free action (optional) → play 1 card, or discard 1 card for a Basic Action → free action (optional)**
+>
+> At most **one** Free Action per turn, before or after the Main Action.
 
-Your cards state the precise costs, limits, and timing of your class’s actions. A strong move often needs another class to cooperate indirectly: companies need workers and buyers; households need jobs and income; the State needs taxes to fund services.
+![Optional free action, then play a card or discard for a basic action](/images/rules/hegemony/turn-action.svg)
 
-![Official overview of the four player boards](/images/rules/hegemony/official-player-boards.jpg)
+Continue until every player has taken their printed number of personal turns. A player who cannot or will not take a Main Action still uses a card as instructed by their class aid.
 
 ![Official Working Class board and action reference](/images/rules/hegemony/official-working-class.jpg)
 

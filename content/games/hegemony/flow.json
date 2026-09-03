@@ -29,8 +29,8 @@
       "title": { "en": "Four Asymmetric Classes", "zh": "四个非对称阶级" },
       "content": { "en": "**Working** manages workers and unions; **Middle** mixes household and small business; **Capitalist** runs companies; **State** manages public services and public finance. Use only actions available to your class.", "zh": "工人管工人与工会；中产一边过日子、一边经营小公司；资本家经营公司；国家管公共服务和财政。你只能做自己阶级玩家板和卡牌上有的行动。" },
       "illustration": {
-        "src": "/images/rules/hegemony/official-player-boards.jpg",
-        "alt": { "en": "Official overview of the four player boards", "zh": "官方四个阶级玩家板总览" }
+        "src": "/images/rules/hegemony/class-roles.svg",
+        "alt": { "en": "The four classes chase different victory-point sources", "zh": "四个阶级各自追逐不同的胜利分来源" }
       },
       "options": [
         { "label": { "en": "Working Class", "zh": "工人阶级" }, "next": "working-class" },
@@ -43,8 +43,8 @@
       "title": { "en": "Action Phase", "zh": "行动阶段" },
       "content": { "en": "Each player takes **5 turns**, retaining 2 cards. On a turn, take at most one Free Action before or after your Main Action. For the Main Action, play a card whose policy requirement is met, or discard a card to take one of your class's Basic Actions. Card legitimacy icons apply only in 4-player games when the card effect is used.", "zh": "每人有 **5 个回合**。轮到你：可选做 1 次免费行动 → 打 1 张满足政策条件的牌，或弃 1 张来做基础行动 → 还可在前后择一做免费行动。每回合最多 1 次免费行动，最后手里留 2 张牌。" },
       "illustration": {
-        "src": "/images/rules/hegemony/official-game-board.jpg",
-        "alt": { "en": "Official game-board reference used during actions and shared-economy decisions", "zh": "官方主板参考：行动会影响同一套共享区域" }
+        "src": "/images/rules/hegemony/turn-action.svg",
+        "alt": { "en": "Optional free action, then play a card or discard for a basic action", "zh": "可选免费行动，再打牌或弃牌做基础行动" }
       },
       "options": [
         { "label": { "en": "Class actions", "zh": "各阶级行动" }, "next": "classes" },

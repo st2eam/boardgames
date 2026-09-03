@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="title desc">
+  <title id="title">Four classes / 四个阶级</title>
+  <desc id="desc">Working, Middle, Capitalist and State each chase a different source of victory points.</desc>
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="360" y="30" text-anchor="middle" fill="#5D4037" font-family="Georgia, 'PingFang SC', sans-serif" font-size="20">Four classes / 四个阶级</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" text-anchor="middle">
+    <rect x="18" y="52" width="162" height="196" rx="14" fill="#fff" stroke="#C4952A" stroke-width="2.5"/>
+    <rect x="192" y="52" width="162" height="196" rx="14" fill="#fff" stroke="#8D6E63" stroke-width="2"/>
+    <rect x="366" y="52" width="162" height="196" rx="14" fill="#fff" stroke="#8D6E63" stroke-width="2"/>
+    <rect x="540" y="52" width="162" height="196" rx="14" fill="#fff" stroke="#8D6E63" stroke-width="2"/>
+    <g fill="#5D4037" font-size="16" font-weight="700">
+      <text x="99" y="82">Working</text>
+      <text x="273" y="82">Middle</text>
+      <text x="447" y="82">Capitalist</text>
+      <text x="621" y="82">State</text>
+    </g>
+    <g fill="#8D6E63" font-size="14">
+      <text x="99" y="104">工人阶级</text>
+      <text x="273" y="104">中产阶级</text>
+      <text x="447" y="104">资本家阶级</text>
+      <text x="621" y="104">国家</text>
+    </g>
+    <g fill="#5D4037" font-size="13">
+      <text x="99" y="138">就业 · 工会</text>
+      <text x="99" y="160">繁荣消费</text>
+      <text x="99" y="192" fill="#C4952A">偏好政策 A</text>
+      <text x="273" y="138">家庭 + 小企业</text>
+      <text x="273" y="160">就业与加班</text>
+      <text x="273" y="192" fill="#C4952A">偏好政策 B</text>
+      <text x="447" y="138">公司 · 出口</text>
+      <text x="447" y="160">收入变资本</text>
+      <text x="447" y="192" fill="#C4952A">偏好政策 C</text>
+      <text x="621" y="138">公共服务</text>
+      <text x="621" y="160">合法性 · 国库</text>
+      <text x="621" y="192" fill="#C4952A">匹配政治议程</text>
+    </g>
+    <g fill="#8D6E63" font-size="12">
+      <text x="99" y="224">2 VP / 工会</text>
+      <text x="273" y="224">繁荣即时得分</text>
+      <text x="447" y="224">财富格 + 右移</text>
+      <text x="621" y="224">两条最低合法性</text>
+    </g>
+  </g>
+</svg>

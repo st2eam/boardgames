@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="title desc">
+  <title id="title">Your turn / 你的回合</title>
+  <desc id="desc">Optional free action, then play a card or discard for a basic action, then optional free action.</desc>
+  <rect width="720" height="260" fill="#FAFAF5"/>
+  <text x="360" y="30" text-anchor="middle" fill="#5D4037" font-family="Georgia, 'PingFang SC', sans-serif" font-size="20">Your turn / 你的回合</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" text-anchor="middle">
+    <rect x="24" y="58" width="150" height="86" rx="12" fill="#fff" stroke="#8D6E63" stroke-width="2"/>
+    <text x="99" y="92" fill="#5D4037" font-size="15">Free action</text>
+    <text x="99" y="116" fill="#8D6E63" font-size="14">免费行动 · 可选</text>
+    <path d="M174 101 H236" stroke="#C4952A" stroke-width="4"/>
+    <path d="M236 101 l-12 -8 v16z" fill="#C4952A"/>
+    <rect x="244" y="50" width="232" height="102" rx="12" fill="#fff" stroke="#C4952A" stroke-width="2.5"/>
+    <text x="360" y="82" fill="#5D4037" font-size="16" font-weight="700">Main action</text>
+    <text x="360" y="106" fill="#5D4037" font-size="14">打 1 张牌</text>
+    <text x="360" y="128" fill="#8D6E63" font-size="13">或弃 1 张做基础行动</text>
+    <path d="M476 101 H538" stroke="#C4952A" stroke-width="4"/>
+    <path d="M538 101 l-12 -8 v16z" fill="#C4952A"/>
+    <rect x="546" y="58" width="150" height="86" rx="12" fill="#fff" stroke="#8D6E63" stroke-width="2"/>
+    <text x="621" y="92" fill="#5D4037" font-size="15">Free action</text>
+    <text x="621" y="116" fill="#8D6E63" font-size="14">免费行动 · 可选</text>
+    <rect x="160" y="178" width="400" height="54" rx="27" fill="#5D4037"/>
+    <text x="360" y="201" fill="#fff" font-size="15">At most 1 free action per turn</text>
+    <text x="360" y="221" fill="#F7E7BE" font-size="13">每回合最多 1 次免费行动 · 放前或放后</text>
+  </g>
+</svg>

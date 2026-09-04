@@ -1,0 +1,12 @@
+{
+  "name": {
+    "en": "Eternal Decks",
+    "zh": "永恒牌"
+  },
+  "players": "1-4",
+  "duration": "30-40 min",
+  "difficulty": "medium",
+  "tags": ["card", "cooperative", "puzzle", "deck-building", "hand-management", "mythology"],
+  "category": "card",
+  "bggRank": 541
+}

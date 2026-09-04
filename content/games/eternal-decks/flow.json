@@ -1,0 +1,106 @@
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Stage A Setup", "zh": "A 阶段准备" },
+      "content": {
+        "en": "For a first game, use **Beginner Mode**: MOUNTAIN top, CAVE middle, CAMP bottom. Set up the A Eternals as the Stage diagram shows. Each player shuffles their five Starting Cards, draws **3**, and takes two Communication Discs.\n\n**Stage A win:** gain 4 Stars. **Lose:** someone cannot take any action, or the River must give a Rare Card but has none.",
+        "zh": "第一次建议用**入门模式**：顶行山脉、中行洞穴、底行营地；永恒者按 A 阶段图示摆放。每人洗自己的 5 张起始牌，摸 **3** 张，再拿两枚交流圆片。\n\n**A 阶段胜利：**取得 4 颗星。**失败：**有人无法执行行动，或河流需要发稀有牌却已没有。"
+      },
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Stage A Stars", "zh": "A 阶段星星" }, "next": "stars" }
+      ]
+    },
+    "turn": {
+      "title": { "en": "Your Turn", "zh": "你的回合" },
+      "content": {
+        "en": "Choose **one** action: play a card, generate a Jewel, or spend 1 Heart to give a facedown card to a teammate. Then refill from your Player Deck until you have **3 cards**; do not discard down. The next player goes clockwise.\n\nIf you cannot take any one of those actions, everyone loses.",
+        "zh": "三选一：打出一张牌、生成宝石，或花 1 枚爱心把一张牌背面交给队友。然后从自己的牌库补到 **3 张手牌**；不会弃到 3 张。顺时针轮到下一位。\n\n若你三种行动都无法执行，全队失败。"
+      },
+      "options": [
+        { "label": { "en": "Play to the Field", "zh": "往场地接牌" }, "next": "field" },
+        { "label": { "en": "Generate a Jewel", "zh": "生成宝石" }, "next": "jewel" },
+        { "label": { "en": "Talking & Discs", "zh": "交流与圆片" }, "next": "communication" }
+      ]
+    },
+    "field": {
+      "title": { "en": "Play to the Field", "zh": "往场地接牌" },
+      "content": {
+        "en": "Place one card in a row's **leftmost empty space**. It cannot touch the same color or number. MOUNTAIN ascends; CAVE descends; CAMP has no extra rule.\n\nTwo-color cards choose an orientation. Rare Cards ignore placement restrictions unless an active Curse forbids them in the Field.",
+        "zh": "把 1 张牌放到一行**最左边的空位**。不能紧挨同颜色或同数字。山脉递增；洞穴递减；营地没有额外规则。\n\n双色牌打出时决定朝向。稀有牌通常无视放置限制，除非当前诅咒禁止它进场地。"
+      },
+      "options": [
+        { "label": { "en": "Revive an Eternal", "zh": "唤醒永恒者" }, "next": "revive" },
+        { "label": { "en": "Play to the River", "zh": "放进河流" }, "next": "river" }
+      ],
+      "illustration": {
+        "src": "/images/rules/eternal-decks/field-placement.svg",
+        "alt": { "en": "Mountain ascends, Cave descends, Camp uses only common restrictions", "zh": "山脉递增、洞穴递减、营地只用共同限制" }
+      }
+    },
+    "revive": {
+      "title": { "en": "Revive an Eternal", "zh": "唤醒永恒者" },
+      "content": {
+        "en": "Fill the final space of a row to revive its Eternal. **Only you** take that Eternal's eight-card deck and put it at the bottom of your Player Deck. The Eternal enters the Revival Area and its Curse becomes active.\n\nGive that Eternal a Jewel later to cover the Curse. A cleared row starts another lap; after its fourth lap it closes.",
+        "zh": "填满一行最后一个空位便唤醒行末永恒者。**只有完成这一手的玩家**拿其 8 张牌库，接到自己牌库底部。永恒者进入复苏区，诅咒立即生效。\n\n之后交给它宝石可盖住诅咒。一行清空后开新一圈；第 4 圈完成后该行关闭。"
+      },
+      "options": [
+        { "label": { "en": "Remove a Curse", "zh": "解除诅咒" }, "next": "jewel" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ],
+      "illustration": {
+        "src": "/images/rules/eternal-decks/revive-eternal.svg",
+        "alt": { "en": "A final Field card revives an Eternal and adds its deck", "zh": "最后一张场地牌唤醒永恒者并获得其牌库" }
+      }
+    },
+    "river": {
+      "title": { "en": "River & Ability Cards", "zh": "河流与能力牌" },
+      "content": {
+        "en": "The River ignores Field rules and number/color Curses. On the **5th or later** River card, the active player takes a River Rare Card, then all River cards go to the discard. No Rare Card left means an immediate loss.\n\nResolve an Ability Card when you play it to the discard, or put it into the River without resolving it.",
+        "zh": "河流不受场地规则与数字／颜色诅咒限制。河流进入**第 5 张或更多**牌时，当前玩家拿一张河流稀有牌，然后河流全部弃掉。没有稀有牌便立即失败。\n\n能力牌直接打到弃牌区时结算；也可不结算、直接把它放进河流。"
+      },
+      "options": [
+        { "label": { "en": "Generate a Jewel", "zh": "生成宝石" }, "next": "jewel" },
+        { "label": { "en": "Play to the Field", "zh": "往场地接牌" }, "next": "field" }
+      ]
+    },
+    "jewel": {
+      "title": { "en": "Generate a Jewel", "zh": "生成宝石" },
+      "content": {
+        "en": "Use one unused recipe, put its cards in the River, and give the matching Jewel to any revived Eternal without a Jewel. Each recipe is once per game.\n\nRecipes: any 2 / any 3; 3 same color / 3 different colors; one 1 or 9; 2 or 3 same numbers; or one each of **1 / 5 / 9**. The 1/5/9 recipe also gains a Star. Rare Cards can stand for any color or number.",
+        "zh": "选一种尚未用过的配方，把所用牌放进河流，再把对应宝石给任意一位还没有宝石的复苏永恒者。每种配方整局一次。\n\n配方：任意 2／3 张；3 张同色／异色；单张 1 或 9；2／3 张同数字；或各一张 **1／5／9**。1／5／9 还会拿一颗星。稀有牌可视为任意颜色或数字。"
+      },
+      "options": [
+        { "label": { "en": "Stage A Stars", "zh": "A 阶段星星" }, "next": "stars" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    },
+    "communication": {
+      "title": { "en": "Talking & Communication Discs", "zh": "交流与圆片" },
+      "content": {
+        "en": "Do not state a Number Card's **number**, **color**, or whether it is two-color. You may discuss public information, Curses, Rare and Ability Cards, routes, and deck pressure.\n\nAt any time, place or move either Communication Disc on a space where you think you can play. They are hints, not commitments.",
+        "zh": "不能说出手中数字牌的**数字**、**颜色**或是否双色。可以讨论公开信息、诅咒、稀有牌／能力牌、计划路线和牌库压力。\n\n任意时刻都可把任一交流圆片放到或移动到你认为能接牌的位置；它是提示，不是承诺。"
+      },
+      "options": [
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" },
+        { "label": { "en": "Stage A Stars", "zh": "A 阶段星星" }, "next": "stars" }
+      ],
+      "illustration": {
+        "src": "/images/rules/eternal-decks/communication-discs.svg",
+        "alt": { "en": "Discs signal intended spaces without showing a hand", "zh": "圆片提示意图，不展示手牌" }
+      }
+    },
+    "stars": {
+      "title": { "en": "Stage A Stars & End", "zh": "A 阶段星星与结束" },
+      "content": {
+        "en": "Gain any **4 of 6 Stars**: Jewel the 1st–3rd revived Eternals; Jewel the 4th–6th; revive all 9; make the 1/5/9 Jewel; complete the bottom row's fourth lap; or play all three A Eternal Ability Cards.\n\nIf the fourth Star and a loss happen on the same turn, **you win**. Stages B–F keep this core turn system but use their own objectives, usually four Keys.",
+        "zh": "6 种来源中取得任意 **4 颗星**：给第 1–3 位复苏永恒者宝石；给第 4–6 位；唤醒全部 9 位；完成 1／5／9 宝石；完成底行第 4 圈；或打出全部 3 张 A 阶段永恒者能力牌。\n\n若第 4 颗星与失败同回合发生，**你们获胜**。B–F 阶段沿用核心回合系统，但各自有目标，通常是 4 把钥匙。"
+      },
+      "options": [
+        { "label": { "en": "Setup Again", "zh": "重新准备" }, "next": "setup" },
+        { "label": { "en": "Your Turn", "zh": "你的回合" }, "next": "turn" }
+      ]
+    }
+  }
+}

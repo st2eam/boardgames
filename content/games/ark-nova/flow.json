@@ -4,8 +4,8 @@
     "setup": {
       "title": { "en": "Set Up the First Game", "zh": "准备第一局" },
       "content": {
-        "en": "Use **map A**; put its printed size-3 enclosure empty-side up. Put **Animals** at strength 1 and randomize the other four level-I action cards into 2-5. Every player takes 25 money, 1 active worker, 3 inactive workers, 7 map-edge markers, 2 secret end-game cards, and keeps 4 of 8 zoo cards. Set up the break marker, 6-card display, association supply, projects, and bonus tiles as shown for the player count.\n\n![Official V2.0 setup reference](/images/rules/ark-nova/official-setup.jpg)",
-        "zh": "使用 **A 地图**，将其印刷的 3 格兽栏以空面朝上放好。**动物**置于强度 1，其余 4 张 I 级行动卡随机置于 2–5。每人拿 25 金钱、1 名可用工作者、3 名未启用工作者、地图左侧 7 枚圆片、2 张秘密终局卡，并从 8 张动物园卡中留 4 张。按人数准备休息标记、6 张公开牌、协会供应、项目和奖励板块。\n\n![官方 V2.0 准备参考](/images/rules/ark-nova/official-setup.jpg)"
+        "en": "Use **map A**; put its printed size-3 enclosure empty-side up. Put **Animals** at strength 1 and randomize the other four level-I action cards into 2-5. Every player takes 25 money, 1 active worker, 3 inactive workers, 7 map-edge markers, 2 secret end-game cards, and keeps 4 of 8 zoo cards. Set up the break marker, 6-card display, association supply, projects, and bonus tiles as shown for the player count.\n\n![Setup teaching illustration](/images/rules/ark-nova/generated-setup.png)",
+        "zh": "使用 **A 地图**，将其印刷的 3 格兽栏以空面朝上放好。**动物**置于强度 1，其余 4 张 I 级行动卡随机置于 2–5。每人拿 25 金钱、1 名可用工作者、3 名未启用工作者、地图左侧 7 枚圆片、2 张秘密终局卡，并从 8 张动物园卡中留 4 张。按人数准备休息标记、6 张公开牌、协会供应、项目和奖励板块。\n\n![开局教学图](/images/rules/ark-nova/generated-setup.png)"
       },
       "options": [
         { "label": { "en": "How does a turn work?", "zh": "回合怎样进行？" }, "next": "turn" },
@@ -33,8 +33,8 @@
     "cards": {
       "title": { "en": "Cards: Move Break 2, Then Take Cards", "zh": "抽卡：休息 +2，再拿牌" },
       "content": {
-        "en": "First move the break marker **2** spaces, with no money. Level I either draws by its table or, at the required strength, **snaps** one card from anywhere in the display; snapping replaces drawing. Level II may mix deck draws with cards in Reputation range (your register and lower registers). Refill the display only after your entire turn: slide first, then refill. Only level-II Cards permits Reputation 10+.\n\n![Official V2.0 display reference](/images/rules/ark-nova/official-cards-display.jpg)",
-        "zh": "先将休息标记前移 **2 格**，不获得金钱。I 级按表格抽牌，或在所需强度下从公开列任意位置**抢** 1 张；抢牌替代抽牌。II 级可把牌库抽牌与声望范围（所在档案格及更低编号格）内的牌混合拿取。整回合结束后才补公开列：先下滑，再补满。只有 II 级抽卡能把声望升到 10 以上。\n\n![官方 V2.0 公开列参考](/images/rules/ark-nova/official-cards-display.jpg)"
+        "en": "First move the break marker **2** spaces, with no money. Level I either draws by its table or, at the required strength, **snaps** one card from anywhere in the display; snapping replaces drawing. Level II may mix deck draws with cards in Reputation range (your register and lower registers). Refill the display only after your entire turn: slide first, then refill. Only level-II Cards permits Reputation 10+.\n\n![Cards teaching illustration](/images/rules/ark-nova/generated-cards-display.png)",
+        "zh": "先将休息标记前移 **2 格**，不获得金钱。I 级按表格抽牌，或在所需强度下从公开列任意位置**抢** 1 张；抢牌替代抽牌。II 级可把牌库抽牌与声望范围（所在档案格及更低编号格）内的牌混合拿取。整回合结束后才补公开列：先下滑，再补满。只有 II 级抽卡能把声望升到 10 以上。\n\n![公开列教学图](/images/rules/ark-nova/generated-cards-display.png)"
       },
       "options": [
         { "label": { "en": "Reputation and range", "zh": "声望与范围" }, "next": "reputation" },
@@ -44,8 +44,8 @@
     "build": {
       "title": { "en": "Build: Pay, Connect, Claim", "zh": "建造：付款、相连、领奖励" },
       "content": {
-        "en": "Pay **2 money per space** before each building. It must cover empty build spaces, stay on the map, and share an edge with an existing building; only your first building may touch a map edge instead. Rock and water never build. Keep at least two spaces between kiosks and take covered bonuses immediately. Level I builds one eligible building up to its strength. Level II builds different buildings with total size up to strength, unlocks restricted spaces, and adds the reptile house and large bird aviary.\n\n![Official V2.0 building examples](/images/rules/ark-nova/official-build-examples.jpg)",
-        "zh": "每个建筑放置前支付**每格 2 金钱**。建筑要覆盖空建造格、不越界，并与已有建筑共边；只有首个建筑可改为接触地图边缘。岩石和水域不能建。两座售票亭之间至少隔 2 格；覆盖奖励立即获得。I 级建造 1 个大小不超过强度的合格建筑；II 级可建多个不同建筑、总大小不超过强度，并解锁受限格、爬虫馆和大型鸟舍。\n\n![官方 V2.0 建造例子](/images/rules/ark-nova/official-build-examples.jpg)"
+        "en": "Pay **2 money per space** before each building. It must cover empty build spaces, stay on the map, and share an edge with an existing building; only your first building may touch a map edge instead. Rock and water never build. Keep at least two spaces between kiosks and take covered bonuses immediately. Level I builds one eligible building up to its strength. Level II builds different buildings with total size up to strength, unlocks restricted spaces, and adds the reptile house and large bird aviary.\n\n![Building teaching illustration](/images/rules/ark-nova/generated-build-example.png)",
+        "zh": "每个建筑放置前支付**每格 2 金钱**。建筑要覆盖空建造格、不越界，并与已有建筑共边；只有首个建筑可改为接触地图边缘。岩石和水域不能建。两座售票亭之间至少隔 2 格；覆盖奖励立即获得。I 级建造 1 个大小不超过强度的合格建筑；II 级可建多个不同建筑、总大小不超过强度，并解锁受限格、爬虫馆和大型鸟舍。\n\n![建造教学图](/images/rules/ark-nova/generated-build-example.png)"
       },
       "options": [
         { "label": { "en": "Play an animal", "zh": "安置动物" }, "next": "animals" },
@@ -118,8 +118,8 @@
     "end": {
       "title": { "en": "End Game and Score", "zh": "游戏结束与计分" },
       "content": {
-        "en": "Game end triggers when Appeal and Conservation occupy the same score band or cross. At turn end, every **other** player gets one final turn; during a break, **everyone** gets one. Resolve end-game cards and played end-game effects. Score **Appeal + the small white value beside your Conservation space**. At 10 Conservation, everyone keeps one of two end-game cards; otherwise choose before scoring. Ties: more supported projects, then share victory.\n\n![Official V2.0 end-game reference](/images/rules/ark-nova/official-end-scoring.jpg)",
-        "zh": "吸引力与保育进入同一计分区或交错，即触发终局。回合结束触发时，除触发者外每人各 1 个最后回合；休息中触发时，**所有人**各 1 个。结算终局卡与已打出卡的终局效果。最终分 = **吸引力 + 保育格旁的小白数字**。任一人到 10 保育时，所有人从 2 张终局卡中留 1 张；否则计分前再选。平手看支持项目数量，仍平手共同获胜。\n\n![官方 V2.0 终局参考](/images/rules/ark-nova/official-end-scoring.jpg)"
+        "en": "Game end triggers when Appeal and Conservation occupy the same score band or cross. At turn end, every **other** player gets one final turn; during a break, **everyone** gets one. Resolve end-game cards and played end-game effects. Score **Appeal + the small white value beside your Conservation space**. At 10 Conservation, everyone keeps one of two end-game cards; otherwise choose before scoring. Ties: more supported projects, then share victory.\n\n![End-game teaching illustration](/images/rules/ark-nova/generated-end-scoring.png)",
+        "zh": "吸引力与保育进入同一计分区或交错，即触发终局。回合结束触发时，除触发者外每人各 1 个最后回合；休息中触发时，**所有人**各 1 个。结算终局卡与已打出卡的终局效果。最终分 = **吸引力 + 保育格旁的小白数字**。任一人到 10 保育时，所有人从 2 张终局卡中留 1 张；否则计分前再选。平手看支持项目数量，仍平手共同获胜。\n\n![终局教学图](/images/rules/ark-nova/generated-end-scoring.png)"
       },
       "options": [
         { "label": { "en": "Solo rules", "zh": "单人规则" }, "next": "solo" },

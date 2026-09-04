@@ -3,30 +3,15 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useState, useRef } from "react";
 import {
-  PieChart,
-  Pie,
-  Cell,
   BarChart,
   Bar,
-  AreaChart,
-  Area,
   XAxis,
   YAxis,
   CartesianGrid,
+  ReferenceLine,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
-const COLORS = [
-  "#C4952A",
-  "#5D4037",
-  "#A1887F",
-  "#8B6914",
-  "#D4A843",
-  "#795548",
-  "#BCAAA4",
-  "#6D4C41",
-];
 
 interface CategoryItem {
   name: string;
@@ -98,43 +83,26 @@ function AnimatedNumber({ value, prefix = "", suffix = "" }: { value: number; pr
   return <span ref={ref} className="tabular-nums">{prefix}{display.toLocaleString()}{suffix}</span>;
 }
 
-function CustomPieTooltip({ active, payload }: { active?: boolean; payload?: Array<{ value: number; payload: CategoryItem & { displayName: string; percent: number } }> }) {
-  if (!active || !payload?.length) return null;
-  const d = payload[0];
-  return (
-    <div className="rounded-xl border border-border/60 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-sm">
-      <p className="text-sm font-semibold text-primary">{d.payload.displayName}</p>
-      <p className="mt-0.5 text-lg font-bold tabular-nums text-accent">¥{d.value.toLocaleString()}</p>
-      <p className="text-xs text-primary/50">{d.payload.count} games · {(d.payload.percent * 100).toFixed(1)}%</p>
-    </div>
-  );
+interface MonthlySpending {
+  month: string;
+  added: number;
+  count: number;
+  names: string[];
 }
 
-function CustomBarTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ value: number; payload: CategoryItem }>; label?: string }) {
-  if (!active || !payload?.length) return null;
-  const d = payload[0];
-  return (
-    <div className="rounded-xl border border-border/60 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-sm">
-      <p className="text-sm font-semibold text-primary">{label}</p>
-      <p className="mt-0.5 text-lg font-bold tabular-nums text-accent">¥{d.value.toLocaleString()}</p>
-      <p className="text-xs text-primary/50">{d.payload.count} games</p>
-    </div>
-  );
-}
-
-function TrendTooltip({ active, payload, locale }: { active?: boolean; payload?: Array<{ payload: SpendingPoint }>; locale: string }) {
+function MonthlyTooltip({ active, payload, locale }: { active?: boolean; payload?: Array<{ payload: MonthlySpending }>; locale: string }) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
     <div className="rounded-xl border border-border/60 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-sm">
-      <p className="text-sm font-semibold text-primary">{d.date}</p>
+      <p className="text-sm font-semibold text-primary">{d.month}</p>
       <p className="mt-1 text-lg font-bold tabular-nums text-accent">
-        {locale === "zh" ? "累计 " : "Cumulative "}¥{d.cumulative.toLocaleString()}
+        ¥{d.added.toLocaleString()}
       </p>
       <p className="text-xs text-primary/50">
         {locale === "zh"
-          ? `当日 +¥${d.added.toLocaleString()} · 累计 ${d.count} 款`
-          : `+¥${d.added.toLocaleString()} that day · ${d.count} games`}
+          ? `当月购入 ${d.count} 款`
+          : `${d.count} ${d.count === 1 ? "game" : "games"} acquired`}
       </p>
       {d.names.length > 0 && (
         <p className="mt-1 max-w-[220px] text-xs text-primary/60">{d.names.join("、")}</p>
@@ -143,12 +111,12 @@ function TrendTooltip({ active, payload, locale }: { active?: boolean; payload?:
   );
 }
 
-function StaggerChild({ index, children }: { index: number; children: React.ReactNode }) {
+function StaggerChild({ index, children, className = "" }: { index: number; children: React.ReactNode; className?: string }) {
   const { ref, inView } = useInView(0.1);
   return (
     <div
       ref={ref}
-      className="transition-all duration-700 ease-out"
+      className={`transition-all duration-700 ease-out ${className}`}
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(24px)",
@@ -171,12 +139,6 @@ export function CostDashboard({
 }: Props) {
   const t = useTranslations("costs");
 
-  const pieData = categoryData.map((c) => ({
-    ...c,
-    displayName: c.name,
-    percent: totalSpent > 0 ? c.total / totalSpent : 0,
-  }));
-
   const CATEGORY_LABELS: Record<string, Record<string, string>> = {
     card: { en: "Card", zh: "卡牌" },
     board: { en: "Board", zh: "桌游" },
@@ -186,6 +148,50 @@ export function CostDashboard({
 
   const catLabel = (key: string) =>
     CATEGORY_LABELS[key]?.[locale] ?? key;
+
+  const paidGames = gameList.filter(
+    (game): game is GameItem & { price: number } => game.price !== null && game.price > 0
+  );
+  const maxCategoryTotal = Math.max(...categoryData.map((category) => category.total), 1);
+  const topGames = paidGames.slice(0, 6);
+  const maxGamePrice = topGames[0]?.price ?? 1;
+  const priceBands = [
+    {
+      label: locale === "zh" ? "¥50 以下" : "Under ¥50",
+      games: paidGames.filter((game) => game.price < 50),
+    },
+    {
+      label: "¥50–99",
+      games: paidGames.filter((game) => game.price >= 50 && game.price < 100),
+    },
+    {
+      label: "¥100–199",
+      games: paidGames.filter((game) => game.price >= 100 && game.price < 200),
+    },
+    {
+      label: locale === "zh" ? "¥200 及以上" : "¥200 and over",
+      games: paidGames.filter((game) => game.price >= 200),
+    },
+  ].map((band) => ({
+    ...band,
+    count: band.games.length,
+    total: band.games.reduce((sum, game) => sum + game.price, 0),
+  }));
+  const maxBandCount = Math.max(...priceBands.map((band) => band.count), 1);
+
+  const monthlyMap = new Map<string, MonthlySpending>();
+  for (const point of spendingTimeline) {
+    const month = point.date.slice(0, 7);
+    const current = monthlyMap.get(month) ?? { month, added: 0, count: 0, names: [] };
+    current.added += point.added;
+    current.count += point.names.length;
+    current.names.push(...point.names);
+    monthlyMap.set(month, current);
+  }
+  const monthlySpending = Array.from(monthlyMap.values());
+  const averageActiveMonth = monthlySpending.length > 0
+    ? Math.round(monthlySpending.reduce((sum, month) => sum + month.added, 0) / monthlySpending.length)
+    : 0;
 
   return (
     <div className="space-y-10">
@@ -268,196 +274,169 @@ export function CostDashboard({
         ))}
       </div>
 
-      {/* Charts */}
       {categoryData.length > 0 && (
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {/* Pie Chart — Donut with center label */}
-          <StaggerChild index={4}>
-            <div className="rounded-2xl border border-border bg-white p-6 transition-shadow duration-300 hover:shadow-card-hover">
-              <h2 className="mb-1 font-heading text-lg font-semibold text-primary">
-                {t("spendingByCategory")}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
+          <StaggerChild index={4} className="lg:col-span-3">
+            <section className="h-full rounded-2xl border border-border bg-white p-6 transition-shadow duration-300 hover:shadow-card-hover">
+              <h2 className="font-heading text-lg font-semibold text-primary">
+                {locale === "zh" ? "钱花在哪" : "Where the money went"}
               </h2>
-              <p className="mb-4 text-xs text-primary/40">
-                {locale === "zh" ? "各分类花费占比" : "Proportion of spending per category"}
+              <p className="mt-1 text-xs text-primary/40">
+                {locale === "zh" ? "分类金额、占比与平均单价放在一起比较" : "Compare spend, share, and average price together"}
               </p>
-              <ResponsiveContainer width="100%" height={320}>
-                <PieChart>
-                  <Pie
-                    data={pieData}
-                    cx="50%"
-                    cy="45%"
-                    innerRadius={70}
-                    outerRadius={120}
-                    dataKey="total"
-                    nameKey="displayName"
-                    animationBegin={0}
-                    animationDuration={1000}
-                    animationEasing="ease-out"
-                    paddingAngle={3}
-                    stroke="none"
-                    label={({ displayName, percent }: { displayName?: string; percent?: number }) =>
-                      `${catLabel(displayName ?? "")} ${((percent ?? 0) * 100).toFixed(0)}%`
-                    }
-                    labelLine={{ stroke: "#BCAAA4", strokeWidth: 1 }}
-                  >
-                    {pieData.map((_, i) => (
-                      <Cell
-                        key={i}
-                        fill={COLORS[i % COLORS.length]}
-                        className="transition-opacity duration-200 hover:opacity-80"
-                      />
-                    ))}
-                  </Pie>
-                  <Tooltip content={<CustomPieTooltip />} />
-                  <text
-                    x="50%"
-                    y="42%"
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    className="fill-primary text-2xl font-bold"
-                    style={{ fontSize: 24, fontWeight: 700 }}
-                  >
-                    ¥{totalSpent.toLocaleString()}
-                  </text>
-                  <text
-                    x="50%"
-                    y="52%"
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    className="fill-primary/40 text-xs"
-                    style={{ fontSize: 12 }}
-                  >
-                    {t("totalSpent")}
-                  </text>
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
+              <div className="mt-7 space-y-7">
+                {categoryData.map((category, index) => {
+                  const share = totalSpent > 0 ? category.total / totalSpent : 0;
+                  const average = category.count > 0 ? Math.round(category.total / category.count) : 0;
+                  return (
+                    <div key={category.name}>
+                      <div className="flex items-end justify-between gap-4">
+                        <div>
+                          <p className="font-heading text-base font-semibold text-primary">{catLabel(category.name)}</p>
+                          <p className="mt-0.5 text-xs text-primary/45">
+                            {category.count} {locale === "zh" ? "款" : "games"} · {locale === "zh" ? "均价" : "avg."} ¥{average.toLocaleString()}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-heading text-xl font-bold tabular-nums text-primary">¥{category.total.toLocaleString()}</p>
+                          <p className="text-xs font-semibold tabular-nums text-accent-dark">{(share * 100).toFixed(1)}%</p>
+                        </div>
+                      </div>
+                      <div className="mt-3 h-3 overflow-hidden rounded-full bg-primary-light" aria-hidden="true">
+                        <div
+                          className={index === 0 ? "h-full rounded-full bg-accent" : "h-full rounded-full bg-primary/65"}
+                          style={{ width: `${Math.max((category.total / maxCategoryTotal) * 100, 2)}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
           </StaggerChild>
 
-          {/* Bar Chart */}
-          <StaggerChild index={5}>
-            <div className="rounded-2xl border border-border bg-white p-6 transition-shadow duration-300 hover:shadow-card-hover">
-              <h2 className="mb-1 font-heading text-lg font-semibold text-primary">
-                {t("categoryComparison")}
+          <StaggerChild index={5} className="lg:col-span-2">
+            <section className="h-full rounded-2xl border border-border bg-primary-light/45 p-6">
+              <h2 className="font-heading text-lg font-semibold text-primary">
+                {locale === "zh" ? "单价分布" : "Price distribution"}
               </h2>
-              <p className="mb-4 text-xs text-primary/40">
-                {locale === "zh" ? "各分类花费金额对比" : "Absolute spending by category"}
+              <p className="mt-1 text-xs text-primary/40">
+                {locale === "zh" ? "看看收藏集中在哪个价格带" : "See where most purchases are concentrated"}
               </p>
-              <ResponsiveContainer width="100%" height={320}>
-                <BarChart
-                  data={categoryData.map((c) => ({ ...c, label: catLabel(c.name) }))}
-                  margin={{ top: 10, right: 10, bottom: 5, left: 10 }}
-                >
-                  <defs>
-                    {COLORS.map((color, i) => (
-                      <linearGradient key={i} id={`barGrad${i}`} x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor={color} stopOpacity={0.9} />
-                        <stop offset="100%" stopColor={color} stopOpacity={0.6} />
-                      </linearGradient>
-                    ))}
-                  </defs>
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="#D7CCC8"
-                    strokeOpacity={0.3}
-                    vertical={false}
-                  />
-                  <XAxis
-                    dataKey="label"
-                    tick={{ fill: "#5D4037", fontSize: 12, fontWeight: 500 }}
-                    axisLine={false}
-                    tickLine={false}
-                    dy={8}
-                  />
-                  <YAxis
-                    tick={{ fill: "#A1887F", fontSize: 11 }}
-                    axisLine={false}
-                    tickLine={false}
-                    tickFormatter={(v: number) => `¥${v}`}
-                    dx={-4}
-                  />
-                  <Tooltip content={<CustomBarTooltip />} cursor={{ fill: "rgba(196, 149, 42, 0.06)", radius: 8 }} />
-                  <Bar
-                    dataKey="total"
-                    radius={[8, 8, 0, 0]}
-                    animationBegin={300}
-                    animationDuration={1000}
-                    animationEasing="ease-out"
-                    maxBarSize={56}
-                  >
-                    {categoryData.map((_, i) => (
-                      <Cell key={i} fill={`url(#barGrad${i % COLORS.length})`} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
+              <div className="mt-6 space-y-5">
+                {priceBands.map((band) => (
+                  <div key={band.label}>
+                    <div className="flex items-center justify-between gap-3 text-sm">
+                      <span className="font-medium text-primary/70">{band.label}</span>
+                      <span className="font-semibold tabular-nums text-primary">
+                        {band.count} {locale === "zh" ? "款" : band.count === 1 ? "game" : "games"}
+                      </span>
+                    </div>
+                    <div className="mt-2 flex items-center gap-3">
+                      <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-white">
+                        <div
+                          className="h-full rounded-full bg-accent transition-[width] duration-700"
+                          style={{ width: `${Math.max((band.count / maxBandCount) * 100, band.count > 0 ? 3 : 0)}%` }}
+                        />
+                      </div>
+                      <span className="w-16 text-right text-xs tabular-nums text-primary/45">¥{band.total.toLocaleString()}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </StaggerChild>
         </div>
       )}
 
-      {/* Cumulative Spending Timeline (date on X axis) */}
-      {spendingTimeline.length > 0 && (
-        <StaggerChild index={5}>
-          <div className="rounded-2xl border border-border bg-white p-6 transition-shadow duration-300 hover:shadow-card-hover">
-            <h2 className="mb-1 font-heading text-lg font-semibold text-primary">
-              {locale === "zh" ? "累计花费趋势" : "Cumulative Spending"}
+      {monthlySpending.length > 0 && (
+        <StaggerChild index={6}>
+          <section className="rounded-2xl border border-border bg-white p-6 transition-shadow duration-300 hover:shadow-card-hover">
+            <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
+              <div>
+                <h2 className="font-heading text-lg font-semibold text-primary">
+                  {locale === "zh" ? "每月买了多少" : "Monthly spending"}
+                </h2>
+                <p className="mt-1 text-xs text-primary/40">
+                  {locale === "zh"
+                    ? `${monthlySpending.length} 个有购入记录的月份 · 柱高代表当月花费`
+                    : `${monthlySpending.length} active months · bar height shows monthly spend`}
+                </p>
+              </div>
+              <p className="text-xs text-primary/45">
+                {locale === "zh" ? "活跃月均" : "Average active month"}{" "}
+                <span className="font-semibold tabular-nums text-primary">¥{averageActiveMonth.toLocaleString()}</span>
+              </p>
+            </div>
+            <div className="mt-5" role="img" aria-label={locale === "zh" ? "按月花费柱状图" : "Monthly spending bar chart"}>
+              <ResponsiveContainer width="100%" height={320}>
+                <BarChart data={monthlySpending} margin={{ top: 16, right: 8, bottom: 4, left: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" strokeOpacity={0.45} vertical={false} />
+                  <XAxis
+                    dataKey="month"
+                    tick={{ fill: "var(--color-primary)", fontSize: 11, fontWeight: 500, opacity: 0.6 }}
+                    axisLine={false}
+                    tickLine={false}
+                    dy={8}
+                    tickFormatter={(month: string) => month.slice(2).replace("-", "/")}
+                    minTickGap={18}
+                  />
+                  <YAxis
+                    tick={{ fill: "var(--color-primary)", fontSize: 11, opacity: 0.45 }}
+                    axisLine={false}
+                    tickLine={false}
+                    tickFormatter={(value: number) => `¥${value}`}
+                    width={54}
+                  />
+                  <ReferenceLine
+                    y={averageActiveMonth}
+                    stroke="var(--color-primary)"
+                    strokeOpacity={0.35}
+                    strokeDasharray="5 5"
+                  />
+                  <Tooltip content={<MonthlyTooltip locale={locale} />} cursor={{ fill: "var(--color-accent-light)" }} />
+                  <Bar
+                    dataKey="added"
+                    fill="var(--color-accent)"
+                    radius={[6, 6, 2, 2]}
+                    maxBarSize={38}
+                    animationDuration={900}
+                    animationEasing="ease-out"
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </section>
+        </StaggerChild>
+      )}
+
+      {topGames.length > 0 && (
+        <StaggerChild index={7}>
+          <section className="rounded-2xl border border-border bg-white p-6 transition-shadow duration-300 hover:shadow-card-hover">
+            <h2 className="font-heading text-lg font-semibold text-primary">
+              {locale === "zh" ? "最贵的几款" : "Most expensive games"}
             </h2>
-            <p className="mb-4 text-xs text-primary/40">
-              {locale === "zh"
-                ? `按购入日期累计 · ${spendingTimeline.length} 个购入日`
-                : `Cumulative by acquisition date · ${spendingTimeline.length} purchase days`}
+            <p className="mt-1 text-xs text-primary/40">
+              {locale === "zh" ? "快速找到拉高收藏成本的单品" : "The purchases contributing most to collection cost"}
             </p>
-            <ResponsiveContainer width="100%" height={340}>
-              <AreaChart
-                data={spendingTimeline}
-                margin={{ top: 10, right: 16, bottom: 5, left: 0 }}
-              >
-                <defs>
-                  <linearGradient id="cumGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#C4952A" stopOpacity={0.35} />
-                    <stop offset="100%" stopColor="#C4952A" stopOpacity={0.02} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke="#D7CCC8"
-                  strokeOpacity={0.3}
-                  vertical={false}
-                />
-                <XAxis
-                  dataKey="date"
-                  tick={{ fill: "#5D4037", fontSize: 11, fontWeight: 500 }}
-                  axisLine={false}
-                  tickLine={false}
-                  dy={8}
-                  tickFormatter={(d: string) => d.slice(2, 7)}
-                />
-                <YAxis
-                  tick={{ fill: "#A1887F", fontSize: 11 }}
-                  axisLine={false}
-                  tickLine={false}
-                  tickFormatter={(v: number) => `¥${v}`}
-                  width={56}
-                />
-                <Tooltip
-                  content={<TrendTooltip locale={locale} />}
-                  cursor={{ stroke: "#C4952A", strokeWidth: 1, strokeDasharray: "4 4" }}
-                />
-                <Area
-                  type="monotone"
-                  dataKey="cumulative"
-                  stroke="#C4952A"
-                  strokeWidth={2.5}
-                  fill="url(#cumGrad)"
-                  dot={{ r: 2.5, fill: "#C4952A", strokeWidth: 0 }}
-                  activeDot={{ r: 5, fill: "#C4952A", stroke: "#fff", strokeWidth: 2 }}
-                  animationDuration={1100}
-                  animationEasing="ease-out"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
+            <ol className="mt-6 grid gap-x-10 gap-y-5 md:grid-cols-2">
+              {topGames.map((game, index) => (
+                <li key={`${game.name}-${index}`} className="grid grid-cols-[1.5rem_minmax(0,1fr)] items-center gap-x-3">
+                  <span className="row-span-3 self-start pt-0.5 font-heading text-sm font-semibold tabular-nums text-primary/30">{index + 1}</span>
+                  <div className="flex min-w-0 items-baseline justify-between gap-3">
+                    <span className="truncate text-sm font-semibold text-primary">{game.name}</span>
+                    <span className="shrink-0 font-heading text-sm font-bold tabular-nums text-primary">¥{game.price.toLocaleString()}</span>
+                  </div>
+                  <p className="mt-0.5 text-xs text-primary/40">
+                    {catLabel(game.category)}{game.acquiredDate ? ` · ${game.acquiredDate}` : ""}
+                  </p>
+                  <div className="col-start-2 mt-2 h-2 overflow-hidden rounded-full bg-primary-light" aria-hidden="true">
+                    <div className="h-full rounded-full bg-primary/65" style={{ width: `${(game.price / maxGamePrice) * 100}%` }} />
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
         </StaggerChild>
       )}
 

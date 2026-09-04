@@ -40,6 +40,15 @@ export default async function CostsPage({ params }: Props) {
     .filter((m) => m.price != null)
     .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
 
+  // Games without a recorded price are still listed and rendered as "未收录" badges.
+  const gamesWithoutPrice = allMetas
+    .filter((m) => m.price == null)
+    .sort((a, b) =>
+      (a.name[locale as "en" | "zh"] ?? a.name.en).localeCompare(
+        b.name[locale as "en" | "zh"] ?? b.name.en
+      )
+    );
+
   const totalSpent = gamesWithPrice.reduce((sum, g) => sum + (g.price ?? 0), 0);
   const gameCount = gamesWithPrice.filter((g) => (g.price ?? 0) > 0).length;
   const avgPrice = gameCount > 0 ? Math.round(totalSpent / gameCount) : 0;
@@ -58,11 +67,22 @@ export default async function CostsPage({ params }: Props) {
     .map(([name, data]) => ({ name, ...data }))
     .sort((a, b) => b.total - a.total);
 
-  const gameList = gamesWithPrice.map((g) => ({
-    name: g.name[locale as "en" | "zh"] ?? g.name.en,
-    category: g.category,
-    price: g.price ?? 0,
-  }));
+  const displayName = (g: GameMeta) =>
+    g.name[locale as "en" | "zh"] ?? g.name.en;
+
+  // Priced games first (high to low), unpriced games appended afterwards.
+  const gameList = [
+    ...gamesWithPrice.map((g) => ({
+      name: displayName(g),
+      category: g.category,
+      price: g.price ?? 0,
+    })),
+    ...gamesWithoutPrice.map((g) => ({
+      name: displayName(g),
+      category: g.category,
+      price: null,
+    })),
+  ];
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">

@@ -35,7 +35,7 @@ interface CategoryItem {
 interface GameItem {
   name: string;
   category: string;
-  price: number;
+  price: number | null;
 }
 
 interface Props {
@@ -371,8 +371,8 @@ export function CostDashboard({
             </h2>
             <p className="mt-0.5 text-xs text-primary/40">
               {locale === "zh"
-                ? `共 ${gameList.length} 款游戏，按价格从高到低排列`
-                : `${gameList.length} games, sorted by price descending`}
+                ? `共 ${gameList.length} 款游戏，已收录价格按从高到低排列，未收录排在末尾`
+                : `${gameList.length} games · priced high to low, unlisted last`}
             </p>
           </div>
           {gameList.length === 0 ? (
@@ -415,7 +415,14 @@ export function CostDashboard({
                         </span>
                       </td>
                       <td className="px-6 py-3.5 text-right tabular-nums">
-                        {game.price === 0 ? (
+                        {game.price == null ? (
+                          <span
+                            className="inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium"
+                            style={{ backgroundColor: "#FFF3CD", color: "#856404" }}
+                          >
+                            {locale === "zh" ? "未收录" : "Unlisted"}
+                          </span>
+                        ) : game.price === 0 ? (
                           <span className="rounded-md bg-success/10 px-2 py-0.5 text-xs font-medium text-success">
                             {t("free")}
                           </span>

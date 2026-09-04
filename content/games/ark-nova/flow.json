@@ -2,32 +2,21 @@
   "startNode": "setup",
   "nodes": {
     "setup": {
-      "title": { "en": "Set Up Your Zoo", "zh": "准备动物园" },
+      "title": { "en": "Set Up the First Game", "zh": "准备第一局" },
       "content": {
-        "en": "Set up the main board, association board, break track, projects, partner zoos, universities, and card row. Each player gets a zoo board, 5 level-I action cards, money, 1 active worker, 2 end-game cards, and keeps 4 of 8 drawn zoo cards. **Animals** begins at strength 1; distribute the other action cards among strengths 2–5.",
-        "zh": "准备主板、协会板、休息轨道、项目、合作动物园、大学与公开牌列。每人拿动物园板、5 张 I 级行动卡、金钱、1 名可用工作者、2 张终局卡，并从 8 张动物园卡中保留 4 张。**动物**从强度 1 开始，其余行动卡随机放到强度 2–5。"
+        "en": "Use **map A**; put its printed size-3 enclosure empty-side up. Put **Animals** at strength 1 and randomize the other four level-I action cards into 2-5. Every player takes 25 money, 1 active worker, 3 inactive workers, 7 map-edge markers, 2 secret end-game cards, and keeps 4 of 8 zoo cards. Set up the break marker, 6-card display, association supply, projects, and bonus tiles as shown for the player count.",
+        "zh": "使用 **A 地图**，将其印刷的 3 格兽栏以空面朝上放好。**动物**置于强度 1，其余 4 张 I 级行动卡随机置于 2–5。每人拿 25 金钱、1 名可用工作者、3 名未启用工作者、地图左侧 7 枚圆片、2 张秘密终局卡，并从 8 张动物园卡中留 4 张。按人数准备休息标记、6 张公开牌、协会供应、项目和奖励板块。"
       },
       "options": [
-        { "label": { "en": "Turn and action strength", "zh": "回合与行动强度" }, "next": "turn" },
-        { "label": { "en": "First-game map", "zh": "首局地图" }, "next": "map" }
-      ]
-    },
-    "map": {
-      "title": { "en": "Choose a Zoo Map", "zh": "选择动物园地图" },
-      "content": {
-        "en": "For a first game, use **map A** and its printed size-3 starting enclosure. Map O is a shared next-step map. Advanced maps have different abilities: draw or draft them as directed and choose one. Rocks and water are never normal building spaces.",
-        "zh": "首局推荐使用**地图 A**及其印刷的 3 格起始兽栏。地图 O 适合下一局；高级地图各有能力，可按规则抽取或选取。岩石和水域都不是普通建造格。"
-      },
-      "options": [
-        { "label": { "en": "Start playing", "zh": "开始游戏" }, "next": "turn" },
-        { "label": { "en": "Back to setup", "zh": "返回准备" }, "next": "setup" }
+        { "label": { "en": "How does a turn work?", "zh": "回合怎样进行？" }, "next": "turn" },
+        { "label": { "en": "Map and building rules", "zh": "地图与建造规则" }, "next": "build" }
       ]
     },
     "turn": {
-      "title": { "en": "Your Turn: Pick 1 Card", "zh": "你的回合：选 1 张行动卡" },
+      "title": { "en": "Your Turn: Choose One Action", "zh": "你的回合：选择一项行动" },
       "content": {
-        "en": "**Choose 1 action card → resolve it at its strength → slide it to strength 1.** The further right a card is, the stronger it is (1–5). Before resolving, each X-token increases that action's strength by 1. Then shift cards left of it right by one space and return the used card to space 1. You must make a meaningful legal action.",
-        "zh": "**选择 1 张行动卡 → 按强度结算 → 放回强度 1。** 卡越靠右，强度越高（1–5）。行动开始前，每花 1 个 X 标记可使这次行动强度 +1。之后把其左侧的卡都右移一格，已用卡回到强度 1；不能执行没有实际效果的行动。"
+        "en": "**Choose 1 action card -> set its strength -> resolve it -> move it to 1.** Its position is strength 1-5. Before resolving, spend any number of X-tokens for +1 strength each. Shift every card left of the used card right, then put the used card at 1. Resolve an **after your action** effect only after that shift. If no other action is useful, take 1 X-token instead (only while below 5), then shift normally.",
+        "zh": "**选 1 张行动卡 -> 确定强度 -> 结算 -> 放回 1。** 卡位决定 1–5 强度；行动开始前可花任意 X 标记，每枚 +1 强度。将所选卡左边的卡都右移，再把它放到 1。“行动后”效果要等移动完行动卡才执行。若没有其他可做或想做的行动，可改拿 1 枚 X 标记（未满 5 枚时），仍要照常移动行动卡。"
       },
       "options": [
         { "label": { "en": "Cards", "zh": "抽卡" }, "next": "cards" },
@@ -42,87 +31,110 @@
       }
     },
     "cards": {
-      "title": { "en": "Cards Action", "zh": "抽卡行动" },
+      "title": { "en": "Cards: Move Break 2, Then Take Cards", "zh": "抽卡：休息 +2，再拿牌" },
       "content": {
-        "en": "Take zoo cards from the deck and/or public row. Strength determines how many you take and how far right you can reach. A public card costs the reputation shown for its slot; refill empty display spaces immediately. The upgraded card adds its printed benefit.",
-        "zh": "从牌堆和/或公开展示列拿动物园卡。强度决定拿几张和可拿到展示列多靠右的位置；公开牌按所在格的声望要求取得，空位立刻补满。升级版额外提供卡面所写的能力。"
+        "en": "First move the break marker **2** spaces, with no money. Level I either draws by its table or, at the required strength, **snaps** one card from anywhere in the display; snapping replaces drawing. Level II may mix deck draws with cards in Reputation range (your register and lower registers). Refill the display only after your entire turn: slide first, then refill. Only level-II Cards permits Reputation 10+.",
+        "zh": "先将休息标记前移 **2 格**，不获得金钱。I 级按表格抽牌，或在所需强度下从公开列任意位置**抢** 1 张；抢牌替代抽牌。II 级可把牌库抽牌与声望范围（所在档案格及更低编号格）内的牌混合拿取。整回合结束后才补公开列：先下滑，再补满。只有 II 级抽卡能把声望升到 10 以上。"
       },
       "options": [
-        { "label": { "en": "Play an animal", "zh": "安置动物" }, "next": "animals" },
-        { "label": { "en": "Back to turn", "zh": "返回回合" }, "next": "turn" }
+        { "label": { "en": "Reputation and range", "zh": "声望与范围" }, "next": "reputation" },
+        { "label": { "en": "Back to actions", "zh": "返回行动" }, "next": "turn" }
       ]
     },
     "build": {
-      "title": { "en": "Build Action", "zh": "建造行动" },
+      "title": { "en": "Build: Pay, Connect, Claim", "zh": "建造：付款、相连、领奖励" },
       "content": {
-        "en": "Pay to place standard or special enclosures, kiosks, or pavilions on empty buildable spaces. Claim a placement bonus immediately. Some spaces need the upgraded Build card. At strength 5, build two eligible buildings. Build an enclosure before trying to house an animal.",
-        "zh": "支付费用，在可建造的空地放置普通/特殊兽栏、售票亭或凉亭，并立即取得格子奖励。某些格子必须先升级建造行动；强度 5 可建两座合格建筑。要安置动物，先准备空兽栏。"
+        "en": "Pay **2 money per space** before each building. It must cover empty build spaces, stay on the map, and share an edge with an existing building; only your first building may touch a map edge instead. Rock and water never build. Keep at least two spaces between kiosks and take covered bonuses immediately. Level I builds one eligible building up to its strength. Level II builds different buildings with total size up to strength, unlocks restricted spaces, and adds the reptile house and large bird aviary.",
+        "zh": "每个建筑放置前支付**每格 2 金钱**。建筑要覆盖空建造格、不越界，并与已有建筑共边；只有首个建筑可改为接触地图边缘。岩石和水域不能建。两座售票亭之间至少隔 2 格；覆盖奖励立即获得。I 级建造 1 个大小不超过强度的合格建筑；II 级可建多个不同建筑、总大小不超过强度，并解锁受限格、爬虫馆和大型鸟舍。"
       },
       "options": [
-        { "label": { "en": "Animal requirements", "zh": "动物条件" }, "next": "animals" },
-        { "label": { "en": "Back to turn", "zh": "返回回合" }, "next": "turn" }
+        { "label": { "en": "Play an animal", "zh": "安置动物" }, "next": "animals" },
+        { "label": { "en": "Back to actions", "zh": "返回行动" }, "next": "turn" }
       ],
       "illustration": {
         "src": "/images/rules/ark-nova/animal-placement.svg",
-        "alt": { "en": "A matching empty enclosure is required before an animal", "zh": "安置动物前，必须有匹配的空兽栏" }
+        "alt": { "en": "A matching empty enclosure is required before an animal", "zh": "安置动物前必须有匹配的空兽栏" }
       }
     },
     "animals": {
-      "title": { "en": "Animals Action", "zh": "动物行动" },
+      "title": { "en": "Animals: Requirements to Effects", "zh": "动物：条件到效果" },
       "content": {
-        "en": "Play an animal from hand into an eligible empty enclosure. Pay money and meet every printed requirement: enclosure, size, continent or partner zoo, reputation, icons, and card conditions. Resolve its immediate effect; its icons and ongoing ability stay in your zoo. Level-II Animals can permit a second animal at high strength.",
-        "zh": "从手牌把动物放入合格的空兽栏。支付金钱，并满足卡面全部条件：兽栏、大小、大陆或合作动物园、声望、图标和其他条件。结算即时效果；其图标和持续能力留在动物园中。II 级动物行动在高强度时可允许第二只动物。"
+        "en": "For each animal allowed by the table: meet every prerequisite, pay its cost, and occupy a legal empty enclosure. A matching partner zoo cuts **3 money per continent icon** on that animal. Standard enclosures hold one animal; petting animals require the petting zoo, while reptiles and some birds can use their special enclosure. Gain Appeal and resolve immediate effects one animal at a time. **After** effects wait until every animal and the action-card shift are complete.",
+        "zh": "对表格允许的每只动物依次做：满足全部前提、付费用、占用合法的空兽栏。对应大陆的合作动物园会让该动物卡上的每个大陆图标减 **3 金钱**。普通兽栏只容纳 1 只；亲子动物须进亲子动物园，爬虫和部分鸟类可进特殊兽栏。每只动物依次获得吸引力、结算即时效果；“行动后”效果等所有动物和行动卡移动完成再做。"
       },
       "options": [
-        { "label": { "en": "Get cards", "zh": "获得卡牌" }, "next": "cards" },
-        { "label": { "en": "Support conservation", "zh": "支持保育" }, "next": "association" }
+        { "label": { "en": "Association projects", "zh": "协会与项目" }, "next": "association" },
+        { "label": { "en": "When is a break?", "zh": "何时休息？" }, "next": "break" }
       ]
     },
     "association": {
-      "title": { "en": "Association Action", "zh": "协会行动" },
+      "title": { "en": "Association: Workers and Conservation", "zh": "协会：工作者与保育" },
       "content": {
-        "en": "Place one active worker on an unoccupied association-board space. Depending on strength, raise reputation, take a university, partner with a zoo, support a conservation project, or donate. Project support needs its printed icons and advances Conservation; remove the next bonus marker on your player board and claim the revealed reward.",
-        "zh": "将 1 名可用工作者放到协会板上未被占用的位置。按强度可提高声望、获得大学、建立合作动物园、支持保育项目或捐款。支持项目须满足印刷图标并推进保育轨道；从玩家板移走下一个奖励标记，拿取露出的奖励。"
+        "en": "Assign active workers to work whose required strengths total no more than your action. Before the upgrade, do exactly one work; after it, do several **different** works. Your own worker on a repeated work makes it cost two workers; other players never block you. Take Reputation, a partner zoo, a university, or support a project. For a project, put a left-edge map marker on one requirement you meet and take its reward. After upgrading, one donation is allowed if you performed at least one work.",
+        "zh": "派可用工作者做印刷强度总和不超过本次行动的工作。协会未升级时只做 1 项；升级后可做多项**不同**工作。同一项工作已有你自己的工作者时，再做要 2 名工作者；其他玩家不会阻挡你。可提升声望、拿合作动物园、拿大学或支持项目。支持项目时，把地图左侧 1 枚圆片放在一个你满足的条件上，获得该奖励。协会升级后，若至少做了 1 项工作，可额外捐款 1 次。"
       },
       "options": [
-        { "label": { "en": "Break and recover workers", "zh": "休息并取回工作者" }, "next": "break" },
-        { "label": { "en": "Back to turn", "zh": "返回回合" }, "next": "turn" }
+        { "label": { "en": "Project bonuses and upgrades", "zh": "项目奖励与升级" }, "next": "reputation" },
+        { "label": { "en": "Back to actions", "zh": "返回行动" }, "next": "turn" }
       ],
       "illustration": {
         "src": "/images/rules/ark-nova/conservation-project.svg",
-        "alt": { "en": "A worker and required icons support a conservation project", "zh": "工作者和所需图标可支持保育项目" }
+        "alt": { "en": "A worker supports a conservation-project requirement", "zh": "工作者支持一个保育项目条件" }
       }
     },
     "sponsors": {
-      "title": { "en": "Sponsors Action", "zh": "赞助商行动" },
+      "title": { "en": "Sponsors: Play Cards or Take Money", "zh": "赞助商：打牌或拿钱" },
       "content": {
-        "en": "Play a sponsor by paying its cost and resolving its effect, or at high strength take money instead. Upgrading this action improves sponsor play. Sponsors can be specialists, special buildings, ongoing engines, or conditional bonuses.",
-        "zh": "支付费用打出赞助商并结算效果；高强度时也可改为拿钱。升级会强化打出赞助商。赞助商可能是专家、特殊建筑、持续引擎或条件奖励。"
+        "en": "Level I plays exactly one sponsor from hand when strength meets its level and conditions, **or** moves the break marker by strength and takes that much money. Level II plays sponsors one at a time with total levels at most **strength + 1**, and may play in-range display sponsors for their register number in extra money. The money alternative becomes twice the strength. Refill the display after the full turn.",
+        "zh": "I 级在强度达到卡牌等级、并满足条件时，从手牌打出恰好 1 张赞助商，**或**将休息标记前移等同强度的格数并拿等额金钱。II 级可依次打多张赞助商，等级总和不超过**强度 + 1**，也可从声望范围公开列打出并额外支付该格编号的金钱。拿钱时改为强度的两倍；整回合结束后补公开列。"
       },
       "options": [
-        { "label": { "en": "Back to turn", "zh": "返回回合" }, "next": "turn" },
-        { "label": { "en": "End-game scoring", "zh": "终局计分" }, "next": "end" }
+        { "label": { "en": "Resolve a break", "zh": "结算休息" }, "next": "break" },
+        { "label": { "en": "Back to actions", "zh": "返回行动" }, "next": "turn" }
+      ]
+    },
+    "reputation": {
+      "title": { "en": "Reputation, Icons, and Upgrades", "zh": "声望、图标与升级" },
+      "content": {
+        "en": "Reputation sets your display range; take any track reward immediately. At 15, each further Reputation becomes 1 Appeal. The usual upgrade opportunities are the Conservation track, Reputation track, second partner zoo, and second university. Project requirements count top-of-card icons on your played animals/sponsors plus partner zoos and universities; card prerequisites do **not** count as owned icons. Every supported project removes one map-edge marker and activates that bonus.",
+        "zh": "声望决定公开列范围，进入轨道奖励格时立即获得。声望到 15 后，每个无法再推进的声望改为 1 吸引力。常见升级机会来自保育轨道、声望轨道、第 2 个合作动物园和第 2 所大学。项目条件计算已打出动物 / 赞助商卡顶端图标、合作动物园与大学；卡牌左侧前提**不**算拥有图标。每支持一次项目都移走地图左侧 1 枚圆片并激活该奖励。"
+      },
+      "options": [
+        { "label": { "en": "Resolve a break", "zh": "结算休息" }, "next": "break" },
+        { "label": { "en": "End and score", "zh": "结束与计分" }, "next": "end" }
       ]
     },
     "break": {
-      "title": { "en": "When a Break Is Triggered", "zh": "触发休息时" },
+      "title": { "en": "Break: Six Steps in Order", "zh": "休息：按顺序做六步" },
       "content": {
-        "en": "When the break marker reaches its final space, finish the current turn. Then discard to hand limit, resolve income and break effects in player order, return association workers, and reset the break marker for the player count. The player who reached the final space gains 1 X-token; excess movement is lost.",
-        "zh": "休息标记到终点后，先完成当前回合。然后弃到手牌上限，按顺序结算收入与休息效果，取回协会工作者，并按人数重置休息标记。推动到终点者获得 1 个 X 标记，多余移动作废。"
+        "en": "When the marker reaches the end, finish the turn, take 1 X-token, and lose excess movement. Then: **1** discard to 3 cards (or 5 with the university); **2** return poison/constrict markers from action cards; **3** return workers and refill association supply; **4** discard registers 1 and 2, slide and refill display; **5** take Appeal income, kiosk income, then purple break income; **6** reset the marker. The player clockwise after the triggerer acts next.",
+        "zh": "标记到终点后，完成当前回合，拿 1 枚 X 标记，多余移动作废。然后依次：**1** 弃到 3 张（有对应大学则 5 张）；**2** 归还行动卡上的毒 / 缠绕标记；**3** 工作者回来并补协会供应；**4** 弃档案格 1、2，牌下滑后补满；**5** 拿吸引力收入、售票亭收入、紫色休息收入；**6** 重置休息标记。触发者顺时针下一位开始行动。"
       },
       "options": [
-        { "label": { "en": "Continue turns", "zh": "继续回合" }, "next": "turn" },
-        { "label": { "en": "End-game trigger", "zh": "游戏结束触发" }, "next": "end" }
+        { "label": { "en": "Continue the turn loop", "zh": "继续回合循环" }, "next": "turn" },
+        { "label": { "en": "Has game end triggered?", "zh": "是否触发终局？" }, "next": "end" }
       ]
     },
     "end": {
       "title": { "en": "End Game and Score", "zh": "游戏结束与计分" },
       "content": {
-        "en": "The game ends when any player's Appeal and Conservation markers meet or cross. Finish that turn, then every other player gets one final turn. Score the distance between your two markers, then add both secret end-game cards. Highest score wins; use the official tie-break if needed.",
-        "zh": "任意玩家的吸引力与保育标记相遇或交错时，游戏结束。完成该回合后，其他每位玩家各进行一次最后回合。计算两枚标记之间的间距，再加两张秘密终局卡；总分最高者获胜，平手按官方规则处理。"
+        "en": "Game end triggers when Appeal and Conservation occupy the same score band or cross. At turn end, every **other** player gets one final turn; during a break, **everyone** gets one. Resolve end-game cards and played end-game effects. Score **Appeal + the small white value beside your Conservation space**. At 10 Conservation, everyone keeps one of two end-game cards; otherwise choose before scoring. Ties: more supported projects, then share victory.",
+        "zh": "吸引力与保育进入同一计分区或交错，即触发终局。回合结束触发时，除触发者外每人各 1 个最后回合；休息中触发时，**所有人**各 1 个。结算终局卡与已打出卡的终局效果。最终分 = **吸引力 + 保育格旁的小白数字**。任一人到 10 保育时，所有人从 2 张终局卡中留 1 张；否则计分前再选。平手看支持项目数量，仍平手共同获胜。"
       },
       "options": [
-        { "label": { "en": "Start over", "zh": "重新查看准备" }, "next": "setup" }
+        { "label": { "en": "Solo rules", "zh": "单人规则" }, "next": "solo" },
+        { "label": { "en": "Start a new game", "zh": "重新查看准备" }, "next": "setup" }
+      ]
+    },
+    "solo": {
+      "title": { "en": "Solo: Six Rounds", "zh": "单人：六轮挑战" },
+      "content": {
+        "en": "Use solo tiles instead of the break marker. Start at 20 Appeal (10 or 0 for harder games), move one solo marker after every turn, and take a break when the final left-column marker moves. After six rounds, score normally: **100+** wins. Use blue solo effects instead of interactive animal effects where printed.",
+        "zh": "用单人板块代替休息标记。以 20 吸引力开始（更难可用 10 或 0）；每回合后移动 1 枚单人圆片，左列最后一枚移走时休息。共六轮后正常计分，**100 分以上**获胜。卡牌印有蓝色单人效果时，用它替代互动动物效果。"
+      },
+      "options": [
+        { "label": { "en": "Review setup", "zh": "查看准备" }, "next": "setup" },
+        { "label": { "en": "Review scoring", "zh": "查看计分" }, "next": "end" }
       ]
     }
   }

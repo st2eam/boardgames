@@ -16,5 +16,7 @@
   "family": "love-letter",
   "familyOrder": 1,
   "variantType": "variant",
-  "requiresBase": false
+  "requiresBase": false,
+  "price": 50,
+  "acquiredDate": "2026-07-25"
 }

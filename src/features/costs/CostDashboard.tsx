@@ -8,6 +8,8 @@ import {
   Cell,
   BarChart,
   Bar,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -36,6 +38,15 @@ interface GameItem {
   name: string;
   category: string;
   price: number | null;
+  acquiredDate: string | null;
+}
+
+interface SpendingPoint {
+  date: string;
+  added: number;
+  cumulative: number;
+  count: number;
+  names: string[];
 }
 
 interface Props {
@@ -45,6 +56,7 @@ interface Props {
   avgPrice: number;
   categoryData: CategoryItem[];
   gameList: GameItem[];
+  spendingTimeline: SpendingPoint[];
 }
 
 function useInView(threshold = 0.15) {
@@ -110,6 +122,27 @@ function CustomBarTooltip({ active, payload, label }: { active?: boolean; payloa
   );
 }
 
+function TrendTooltip({ active, payload, locale }: { active?: boolean; payload?: Array<{ payload: SpendingPoint }>; locale: string }) {
+  if (!active || !payload?.length) return null;
+  const d = payload[0].payload;
+  return (
+    <div className="rounded-xl border border-border/60 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-sm">
+      <p className="text-sm font-semibold text-primary">{d.date}</p>
+      <p className="mt-1 text-lg font-bold tabular-nums text-accent">
+        {locale === "zh" ? "累计 " : "Cumulative "}¥{d.cumulative.toLocaleString()}
+      </p>
+      <p className="text-xs text-primary/50">
+        {locale === "zh"
+          ? `当日 +¥${d.added.toLocaleString()} · 累计 ${d.count} 款`
+          : `+¥${d.added.toLocaleString()} that day · ${d.count} games`}
+      </p>
+      {d.names.length > 0 && (
+        <p className="mt-1 max-w-[220px] text-xs text-primary/60">{d.names.join("、")}</p>
+      )}
+    </div>
+  );
+}
+
 function StaggerChild({ index, children }: { index: number; children: React.ReactNode }) {
   const { ref, inView } = useInView(0.1);
   return (
@@ -134,6 +167,7 @@ export function CostDashboard({
   avgPrice,
   categoryData,
   gameList,
+  spendingTimeline,
 }: Props) {
   const t = useTranslations("costs");
 
@@ -362,6 +396,71 @@ export function CostDashboard({
         </div>
       )}
 
+      {/* Cumulative Spending Timeline (date on X axis) */}
+      {spendingTimeline.length > 0 && (
+        <StaggerChild index={5}>
+          <div className="rounded-2xl border border-border bg-white p-6 transition-shadow duration-300 hover:shadow-card-hover">
+            <h2 className="mb-1 font-heading text-lg font-semibold text-primary">
+              {locale === "zh" ? "累计花费趋势" : "Cumulative Spending"}
+            </h2>
+            <p className="mb-4 text-xs text-primary/40">
+              {locale === "zh"
+                ? `按购入日期累计 · ${spendingTimeline.length} 个购入日`
+                : `Cumulative by acquisition date · ${spendingTimeline.length} purchase days`}
+            </p>
+            <ResponsiveContainer width="100%" height={340}>
+              <AreaChart
+                data={spendingTimeline}
+                margin={{ top: 10, right: 16, bottom: 5, left: 0 }}
+              >
+                <defs>
+                  <linearGradient id="cumGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#C4952A" stopOpacity={0.35} />
+                    <stop offset="100%" stopColor="#C4952A" stopOpacity={0.02} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#D7CCC8"
+                  strokeOpacity={0.3}
+                  vertical={false}
+                />
+                <XAxis
+                  dataKey="date"
+                  tick={{ fill: "#5D4037", fontSize: 11, fontWeight: 500 }}
+                  axisLine={false}
+                  tickLine={false}
+                  dy={8}
+                  tickFormatter={(d: string) => d.slice(2, 7)}
+                />
+                <YAxis
+                  tick={{ fill: "#A1887F", fontSize: 11 }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(v: number) => `¥${v}`}
+                  width={56}
+                />
+                <Tooltip
+                  content={<TrendTooltip locale={locale} />}
+                  cursor={{ stroke: "#C4952A", strokeWidth: 1, strokeDasharray: "4 4" }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="cumulative"
+                  stroke="#C4952A"
+                  strokeWidth={2.5}
+                  fill="url(#cumGrad)"
+                  dot={{ r: 2.5, fill: "#C4952A", strokeWidth: 0 }}
+                  activeDot={{ r: 5, fill: "#C4952A", stroke: "#fff", strokeWidth: 2 }}
+                  animationDuration={1100}
+                  animationEasing="ease-out"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </StaggerChild>
+      )}
+
       {/* Detailed List */}
       <StaggerChild index={6}>
         <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-card">
@@ -392,6 +491,7 @@ export function CostDashboard({
                     <th className="px-6 py-3">#</th>
                     <th className="px-6 py-3">{t("game")}</th>
                     <th className="px-6 py-3">{t("category")}</th>
+                    <th className="px-6 py-3">{locale === "zh" ? "购入日期" : "Date"}</th>
                     <th className="px-6 py-3 text-right">{t("price")}</th>
                   </tr>
                 </thead>
@@ -413,6 +513,11 @@ export function CostDashboard({
                         <span className="inline-flex items-center rounded-md bg-primary-light/60 px-2 py-0.5 text-xs font-medium text-primary/70">
                           {catLabel(game.category)}
                         </span>
+                      </td>
+                      <td className="px-6 py-3.5 tabular-nums text-xs text-primary/50">
+                        {game.acquiredDate ?? (
+                          <span className="text-primary/25">—</span>
+                        )}
                       </td>
                       <td className="px-6 py-3.5 text-right tabular-nums">
                         {game.price == null ? (

@@ -70,17 +70,49 @@ export default async function CostsPage({ params }: Props) {
   const displayName = (g: GameMeta) =>
     g.name[locale as "en" | "zh"] ?? g.name.en;
 
+  // Cumulative spending timeline: priced games that have an acquisition date.
+  const datedGames = gamesWithPrice
+    .filter((g) => g.acquiredDate && (g.price ?? 0) > 0)
+    .slice()
+    .sort((a, b) => (a.acquiredDate ?? "").localeCompare(b.acquiredDate ?? ""));
+
+  const dateGroups = new Map<string, GameMeta[]>();
+  for (const g of datedGames) {
+    const d = g.acquiredDate as string;
+    const bucket = dateGroups.get(d) ?? [];
+    bucket.push(g);
+    dateGroups.set(d, bucket);
+  }
+
+  const round2 = (n: number) => Math.round(n * 100) / 100;
+  let running = 0;
+  let runningCount = 0;
+  const spendingTimeline = Array.from(dateGroups.entries()).map(([date, games]) => {
+    const added = games.reduce((sum, g) => sum + (g.price ?? 0), 0);
+    running = round2(running + added);
+    runningCount += games.length;
+    return {
+      date,
+      added: round2(added),
+      cumulative: running,
+      count: runningCount,
+      names: games.map(displayName),
+    };
+  });
+
   // Priced games first (high to low), unpriced games appended afterwards.
   const gameList = [
     ...gamesWithPrice.map((g) => ({
       name: displayName(g),
       category: g.category,
       price: g.price ?? 0,
+      acquiredDate: g.acquiredDate ?? null,
     })),
     ...gamesWithoutPrice.map((g) => ({
       name: displayName(g),
       category: g.category,
       price: null,
+      acquiredDate: g.acquiredDate ?? null,
     })),
   ];
 
@@ -93,6 +125,7 @@ export default async function CostsPage({ params }: Props) {
         avgPrice={avgPrice}
         categoryData={categoryData}
         gameList={gameList}
+        spendingTimeline={spendingTimeline}
       />
     </div>
   );

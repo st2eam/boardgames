@@ -13,6 +13,7 @@
     ],
     "category": "card",
     "price": 354,
+    "acquiredDate": "2025-05-16",
     "bggRank": 1414,
     "slug": "texas-hold-em"
   },
@@ -31,7 +32,8 @@
     ],
     "category": "card",
     "bggRank": 365,
-    "price": 0,
+    "price": 92.51,
+    "acquiredDate": "2026-08-19",
     "slug": "the-gang"
   },
   {
@@ -48,6 +50,7 @@
     ],
     "category": "card",
     "price": 36,
+    "acquiredDate": "2026-05-17",
     "slug": "the-21st-constellation"
   },
   {
@@ -64,6 +67,7 @@
     ],
     "category": "card",
     "price": 46,
+    "acquiredDate": "2026-05-26",
     "bggRank": 13805,
     "slug": "gotown"
   },
@@ -81,6 +85,7 @@
     ],
     "category": "card",
     "price": 46,
+    "acquiredDate": "2026-05-26",
     "bggRank": 14847,
     "slug": "just-wild"
   },
@@ -101,6 +106,7 @@
     "category": "board",
     "bggRank": 944,
     "price": 181,
+    "acquiredDate": "2026-08-05",
     "slug": "las-vegas-royale"
   },
   {
@@ -120,6 +126,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 40,
+    "acquiredDate": "2025-06-09",
     "bggRank": 5165,
     "slug": "drecksau"
   },
@@ -141,6 +148,7 @@
     "variantType": "expansion",
     "requiresBase": true,
     "price": 37,
+    "acquiredDate": "2026-05-28",
     "slug": "drecksau-sauschon"
   },
   {
@@ -157,6 +165,7 @@
     ],
     "category": "board",
     "price": 49,
+    "acquiredDate": "2026-06-13",
     "slug": "arena-magnate-haw"
   },
   {
@@ -197,6 +206,7 @@
     "variantType": "variant",
     "requiresBase": false,
     "price": 209,
+    "acquiredDate": "2026-06-13",
     "slug": "catan-china-map"
   },
   {
@@ -216,6 +226,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 83,
+    "acquiredDate": "2026-06-13",
     "bggRank": 253,
     "slug": "sea-salt-paper"
   },
@@ -258,6 +269,8 @@
     "familyOrder": 0,
     "variantType": "base",
     "bggRank": 14,
+    "price": 188,
+    "acquiredDate": "2026-09-04",
     "slug": "seti"
   },
   {
@@ -279,6 +292,8 @@
     "familyOrder": 1,
     "variantType": "expansion",
     "requiresBase": true,
+    "price": 68,
+    "acquiredDate": "2026-09-04",
     "slug": "seti-space-agencies"
   },
   {
@@ -298,6 +313,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 84,
+    "acquiredDate": "2026-06-15",
     "bggRank": 9337,
     "slug": "legends-of-the-three-kingdoms"
   },
@@ -319,6 +335,7 @@
     "variantType": "expansion",
     "requiresBase": true,
     "price": 64,
+    "acquiredDate": "2026-06-15",
     "slug": "legends-of-the-three-kingdoms-disloyal-minister"
   },
   {
@@ -334,6 +351,7 @@
     ],
     "category": "card",
     "price": 59,
+    "acquiredDate": "2026-06-11",
     "bggRank": 221,
     "slug": "modern-art"
   },
@@ -354,6 +372,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 23,
+    "acquiredDate": "2026-07-10",
     "bggRank": 30779,
     "slug": "uno"
   },
@@ -374,6 +393,7 @@
     "familyOrder": 1,
     "variantType": "variant",
     "price": 24,
+    "acquiredDate": "2026-06-11",
     "slug": "uno-flip"
   },
   {
@@ -393,6 +413,7 @@
     "familyOrder": 2,
     "variantType": "variant",
     "price": 38,
+    "acquiredDate": "2026-06-11",
     "slug": "uno-show-em-no-mercy"
   },
   {
@@ -412,6 +433,7 @@
     "familyOrder": 3,
     "variantType": "variant",
     "price": 29,
+    "acquiredDate": "2026-06-23",
     "slug": "uno-dos"
   },
   {
@@ -432,6 +454,7 @@
     "variantType": "base",
     "requiresBase": false,
     "price": 28,
+    "acquiredDate": "2026-06-11",
     "bggRank": 240,
     "slug": "carcassonne"
   },
@@ -469,6 +492,7 @@
     ],
     "category": "card",
     "price": 38,
+    "acquiredDate": "2026-06-11",
     "bggRank": 5498,
     "slug": "the-message-attack-by-stratagem"
   },
@@ -487,6 +511,7 @@
     ],
     "category": "card",
     "price": 24,
+    "acquiredDate": "2026-06-11",
     "bggRank": 1832,
     "slug": "cabo"
   },
@@ -506,6 +531,7 @@
     "category": "card",
     "bggRank": 572,
     "price": 137,
+    "acquiredDate": "2026-08-05",
     "slug": "citadels"
   },
   {
@@ -525,6 +551,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 14,
+    "acquiredDate": "2026-06-11",
     "bggRank": 3998,
     "slug": "exploding-kittens"
   },
@@ -546,6 +573,7 @@
     "variantType": "variant",
     "requiresBase": false,
     "price": 14,
+    "acquiredDate": "2026-06-11",
     "slug": "exploding-kittens-nsfw-edition"
   },
   {
@@ -565,6 +593,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 8.4,
+    "acquiredDate": "2026-07-26",
     "bggRank": 244,
     "slug": "splendor"
   },
@@ -586,6 +615,7 @@
     "variantType": "expansion",
     "requiresBase": true,
     "price": 12.6,
+    "acquiredDate": "2026-07-26",
     "slug": "splendor-cities"
   },
   {
@@ -606,6 +636,7 @@
     "variantType": "variant",
     "requiresBase": false,
     "price": 261,
+    "acquiredDate": "2025-06-09",
     "bggRank": 1285,
     "slug": "splendor-pokemon"
   },
@@ -625,7 +656,6 @@
     "family": "mahjong",
     "familyOrder": 1,
     "variantType": "base",
-    "price": 0,
     "bggRank": 1012,
     "slug": "mahjong"
   },
@@ -646,7 +676,6 @@
     "familyOrder": 2,
     "variantType": "variant",
     "requiresBase": false,
-    "price": 0,
     "bggRank": 2492,
     "slug": "riichi-mahjong"
   },
@@ -663,7 +692,6 @@
       "push-your-luck"
     ],
     "category": "card",
-    "price": 0,
     "bggRank": 30881,
     "slug": "blackjack"
   },
@@ -683,6 +711,7 @@
     ],
     "category": "card",
     "price": 35,
+    "acquiredDate": "2026-07-02",
     "bggRank": 490,
     "slug": "trio"
   },
@@ -699,7 +728,6 @@
       "set-collection"
     ],
     "category": "board",
-    "price": 0,
     "bggRank": 1758,
     "slug": "rummikub"
   },
@@ -718,6 +746,7 @@
     ],
     "category": "board",
     "price": 186,
+    "acquiredDate": "2026-07-03",
     "bggRank": 90,
     "slug": "bomb-busters"
   },
@@ -738,6 +767,8 @@
     ],
     "category": "board",
     "bggRank": 1,
+    "price": 138,
+    "acquiredDate": "2026-08-08",
     "slug": "brass-birmingham"
   },
   {
@@ -755,6 +786,7 @@
     ],
     "category": "board",
     "price": 169,
+    "acquiredDate": "2026-07-03",
     "bggRank": 895,
     "slug": "spots"
   },
@@ -773,6 +805,7 @@
     ],
     "category": "board",
     "price": 226,
+    "acquiredDate": "2026-07-08",
     "bggRank": 54,
     "slug": "harmonies"
   },
@@ -794,6 +827,7 @@
     "variantType": "expansion",
     "requiresBase": true,
     "price": 94,
+    "acquiredDate": "2026-07-07",
     "slug": "legends-of-the-three-kingdoms-wind-and-cloud"
   },
   {
@@ -810,8 +844,9 @@
       "classic"
     ],
     "category": "board",
-    "price": 0,
     "bggRank": 237,
+    "price": 22.2,
+    "acquiredDate": "2026-08-08",
     "slug": "go"
   },
   {
@@ -833,6 +868,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 27.36,
+    "acquiredDate": "2026-06-29",
     "bggRank": 38,
     "slug": "wingspan"
   },
@@ -857,6 +893,7 @@
     "variantType": "expansion",
     "requiresBase": true,
     "price": 18.81,
+    "acquiredDate": "2026-06-29",
     "bggRank": 88,
     "slug": "wingspan-asia"
   },
@@ -880,6 +917,7 @@
     "variantType": "expansion",
     "requiresBase": true,
     "price": 34.96,
+    "acquiredDate": "2026-06-29",
     "slug": "wingspan-europe"
   },
   {
@@ -903,6 +941,7 @@
     "variantType": "expansion",
     "requiresBase": true,
     "price": 34.96,
+    "acquiredDate": "2026-06-29",
     "slug": "wingspan-oceania"
   },
   {
@@ -924,6 +963,7 @@
     "familyOrder": 0,
     "variantType": "base",
     "price": 28,
+    "acquiredDate": "2026-07-14",
     "bggRank": 369,
     "slug": "love-letter"
   },
@@ -946,6 +986,8 @@
     "familyOrder": 1,
     "variantType": "variant",
     "requiresBase": false,
+    "price": 50,
+    "acquiredDate": "2026-07-25",
     "slug": "love-letter-premium"
   },
   {
@@ -964,6 +1006,7 @@
     ],
     "category": "board",
     "price": 29,
+    "acquiredDate": "2026-07-14",
     "bggRank": 5422,
     "slug": "tic-tac-trek"
   },
@@ -983,6 +1026,7 @@
     ],
     "category": "card",
     "price": 54,
+    "acquiredDate": "2026-07-18",
     "bggRank": 3346,
     "slug": "art-robbery"
   },
@@ -1001,6 +1045,7 @@
     ],
     "category": "card",
     "price": 54,
+    "acquiredDate": "2026-07-18",
     "bggRank": 1869,
     "slug": "odin"
   },
@@ -1020,6 +1065,7 @@
     ],
     "category": "card",
     "price": 76,
+    "acquiredDate": "2026-07-18",
     "bggRank": 7963,
     "slug": "halli-galli"
   },
@@ -1041,6 +1087,7 @@
     "category": "board",
     "bggRank": 1179,
     "price": 72,
+    "acquiredDate": "2026-07-24",
     "slug": "manila"
   },
   {
@@ -1063,6 +1110,7 @@
     "variantType": "base",
     "requiresBase": false,
     "price": 162,
+    "acquiredDate": "2026-07-27",
     "bggRank": 19,
     "slug": "duel-for-middle-earth"
   },
@@ -1086,6 +1134,8 @@
     "familyOrder": 1,
     "variantType": "expansion",
     "requiresBase": true,
+    "price": 15,
+    "acquiredDate": "2026-08-24",
     "slug": "duel-for-middle-earth-allies"
   },
   {
@@ -1104,6 +1154,7 @@
     ],
     "category": "card",
     "price": 106,
+    "acquiredDate": "2026-07-27",
     "bggRank": 676,
     "slug": "6-nimmt-30th-anniversary"
   },
@@ -1124,6 +1175,7 @@
     "category": "board",
     "bggRank": 196,
     "price": 188,
+    "acquiredDate": "2026-08-08",
     "slug": "7-wonders"
   },
   {
@@ -1142,6 +1194,7 @@
     ],
     "category": "card",
     "price": 10,
+    "acquiredDate": "2026-07-31",
     "bggRank": 1073,
     "slug": "palm-island"
   },
@@ -1161,6 +1214,7 @@
     ],
     "category": "card",
     "price": 136,
+    "acquiredDate": "2026-08-19",
     "bggRank": 7173,
     "slug": "petiquette"
   },
@@ -1180,7 +1234,6 @@
       "word-game"
     ],
     "category": "card",
-    "price": 0,
     "bggRank": 117,
     "slug": "decrypto"
   },
@@ -1200,6 +1253,7 @@
     ],
     "category": "card",
     "price": 15,
+    "acquiredDate": "2026-08-24",
     "bggRank": 110,
     "slug": "scout"
   },
@@ -1220,6 +1274,7 @@
     ],
     "category": "card",
     "price": 26,
+    "acquiredDate": "2026-08-24",
     "bggRank": 888,
     "slug": "startups"
   },

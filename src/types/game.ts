@@ -11,6 +11,8 @@ export interface GameMeta {
   variantType?: "base" | "expansion" | "variant";
   requiresBase?: boolean;
   price?: number;
+  /** ISO acquisition date (YYYY-MM-DD), used by the costs timeline. */
+  acquiredDate?: string;
   bggRank?: number;
 }
 
@@ -121,5 +123,6 @@ export interface GameSummary {
   variantType?: "base" | "expansion" | "variant";
   requiresBase?: boolean;
   price?: number;
+  acquiredDate?: string;
   bggRank?: number;
 }

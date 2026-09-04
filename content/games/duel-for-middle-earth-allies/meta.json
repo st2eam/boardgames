@@ -11,5 +11,7 @@
   "family": "duel-for-middle-earth",
   "familyOrder": 1,
   "variantType": "expansion",
-  "requiresBase": true
+  "requiresBase": true,
+  "price": 15,
+  "acquiredDate": "2026-08-24"
 }

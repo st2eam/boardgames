@@ -18,6 +18,8 @@ Build a zoo whose **Appeal** and **Conservation** achievements meet on the share
 4. Each player takes a colour, sets Appeal, Conservation, and Reputation to their starts, puts seven markers on the left edge of the map, takes one active worker, 25 money, and three inactive workers. Players after the start player begin with 1 / 2 / 3 Appeal in turn order.
 5. Each player secretly takes two end-game cards, draws eight zoo cards, keeps four, and discards four. Reveal the display only after everyone has chosen; choose the first player randomly.
 
+![Official V2.0 setup reference: break track, card display, bonus spaces, and map A](/images/rules/ark-nova/official-setup.jpg)
+
 ## How to Play
 
 ### Turn loop: choose 1 card -> resolve it -> return it to strength 1
@@ -32,6 +34,8 @@ First move the break marker **2 spaces**; this never pays money. With level I, d
 
 With level II, the table also permits cards from your **Reputation range**: your register and every lower-numbered register, mixed with deck draws. Refill only after the whole turn: slide cards down without changing order, then refill. Only upgraded Cards can raise Reputation to 10 or more.
 
+![Official V2.0 reference: Reputation range and how the display slides before refilling](/images/rules/ark-nova/official-cards-display.jpg)
+
 ### Build: pay -> place connected buildings -> claim bonuses
 
 Pay **2 money per covered space** before placing each building. Level I builds one kiosk, pavilion, standard enclosure, or petting zoo no larger than the action strength. A pavilion immediately gives 1 Appeal; kiosks earn money during breaks.
@@ -39,6 +43,8 @@ Pay **2 money per covered space** before placing each building. Level I builds o
 Buildings cover empty build spaces, stay within the map, and share an edge with an existing building; only your first building may instead touch any map edge. Never build on rock or water; keep at least two spaces between kiosks. Take covered placement bonuses immediately.
 
 Level II may build different buildings whose **total size** is at most the action strength, unlocks restricted spaces, and adds the reptile house and large bird aviary. A zoo may have one of each special enclosure. Building either new size-5 enclosure may immediately move eligible animals into it once. Filling every build space other than rock and water gives 7 Appeal.
+
+![Official V2.0 examples: legal kiosk spaces and immediately using a placement bonus](/images/rules/ark-nova/official-build-examples.jpg)
 
 ![Build an empty enclosure before housing an animal](/images/rules/ark-nova/animal-placement.svg)
 
@@ -90,6 +96,8 @@ At the end of a turn or during a break, game end triggers when a player's Appeal
 Resolve end-game cards and all played end-game effects. Each end-game card can award at most 4 Conservation. When any player first reaches 10 Conservation, everyone keeps one of their two end-game cards and returns the other; if nobody reaches 10, do this before scoring.
 
 Final score is **Appeal + the small white number beside your Conservation space**. Ties go to the player who supported more conservation projects, then are shared.
+
+![Official V2.0 end-game reference: score-band trigger, end-game cards, and final-score example](/images/rules/ark-nova/official-end-scoring.jpg)
 
 ## Solo Game
 

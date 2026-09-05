@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1600" role="img" aria-labelledby="title desc">
+  <title id="title">工业革命：伯明翰一图读懂玩法</title>
+  <desc id="desc">从准备、每轮行动、产业与资源、两个时代计分依序说明的中文桌游规则信息图。</desc>
+  <defs>
+    <style>
+      .title { font: 700 42px 'Noto Sans SC','Microsoft YaHei',sans-serif; fill:#3E2723; }
+      .h { font: 700 24px 'Noto Sans SC','Microsoft YaHei',sans-serif; fill:#3E2723; }
+      .sub { font: 600 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; fill:#5D4037; }
+      .body { font: 16px 'Noto Sans SC','Microsoft YaHei',sans-serif; fill:#5D4037; }
+      .small { font: 14px 'Noto Sans SC','Microsoft YaHei',sans-serif; fill:#6D5B55; }
+      .on-dark { font: 14px 'Noto Sans SC','Microsoft YaHei',sans-serif; fill:#F5EEE8; }
+      .badge { font: 700 17px 'Noto Sans SC','Microsoft YaHei',sans-serif; fill:#fff; }
+      .num { font: 700 22px Georgia,serif; fill:#fff; }
+    </style>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#3e2723" flood-opacity=".12"/></filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#C4952A"/></marker>
+  </defs>
+  <rect width="900" height="1600" fill="#FAFAF5"/>
+  <rect x="22" y="22" width="856" height="1556" rx="24" fill="#FFFDF8" stroke="#D7CCC8" stroke-width="3"/>
+  <path d="M55 95H845M55 1510H845" stroke="#C4952A" stroke-width="3" opacity=".6"/>
+  <text x="450" y="72" text-anchor="middle" class="title">工业革命：伯明翰｜一图读懂怎么玩</text>
+  <text x="450" y="120" text-anchor="middle" class="sub">你的目标：在两个时代建立产业与交通网，铁路时代结束时分数最高获胜</text>
+
+  <!-- 1 setup -->
+  <g filter="url(#shadow)">
+    <rect x="55" y="155" width="790" height="205" rx="18" fill="#fff" stroke="#D7CCC8" stroke-width="2"/>
+    <circle cx="95" cy="195" r="25" fill="#5D4037"/><text x="95" y="203" text-anchor="middle" class="num">1</text>
+    <text x="135" y="203" class="h">准备好后，游戏从运河时代开始</text>
+    <rect x="86" y="230" width="175" height="88" rx="12" fill="#EFEBE9"/>
+    <text x="173" y="259" text-anchor="middle" class="sub">每位玩家</text>
+    <text x="173" y="285" text-anchor="middle" class="body">£17 · 8 张手牌</text>
+    <text x="173" y="308" text-anchor="middle" class="body">收入 10 · 分数 0</text>
+    <rect x="285" y="230" width="230" height="88" rx="12" fill="#FFF8E1"/>
+    <text x="400" y="259" text-anchor="middle" class="sub">按人数调整地图</text>
+    <text x="400" y="285" text-anchor="middle" class="small">移走人数图标高于实际人数的</text>
+    <text x="400" y="308" text-anchor="middle" class="small">地点卡与商人板块</text>
+    <rect x="539" y="230" width="265" height="88" rx="12" fill="#EFEBE9"/>
+    <text x="671" y="259" text-anchor="middle" class="sub">市场与回合顺序</text>
+    <text x="671" y="285" text-anchor="middle" class="small">煤市留 1 个 £1 空格；铁市留 2 个</text>
+    <text x="671" y="308" text-anchor="middle" class="small">随机决定第一轮顺序</text>
+  </g>
+  <path d="M450 367v35" stroke="#C4952A" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <!-- 2 turn -->
+  <g filter="url(#shadow)">
+    <rect x="55" y="415" width="790" height="275" rx="18" fill="#fff" stroke="#D7CCC8" stroke-width="2"/>
+    <circle cx="95" cy="455" r="25" fill="#5D4037"/><text x="95" y="463" text-anchor="middle" class="num">2</text>
+    <text x="135" y="463" class="h">每一轮：每人依次做 2 次行动</text>
+    <text x="135" y="490" class="small">例外：运河时代的第一轮，每人只做 1 次行动。</text>
+    <path d="M175 558H370M530 558H725" stroke="#C4952A" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="84" y="525" width="122" height="70" rx="12" fill="#EFEBE9"/>
+    <text x="145" y="554" text-anchor="middle" class="sub">弃 1 张牌</text><text x="145" y="579" text-anchor="middle" class="small">每次行动都要</text>
+    <rect x="250" y="525" width="122" height="70" rx="12" fill="#FFF8E1"/>
+    <text x="311" y="554" text-anchor="middle" class="sub">做 1 个行动</text><text x="311" y="579" text-anchor="middle" class="small">可重复同一行动</text>
+    <rect x="485" y="525" width="122" height="70" rx="12" fill="#FFF8E1"/>
+    <text x="546" y="554" text-anchor="middle" class="sub">再做一次</text><text x="546" y="579" text-anchor="middle" class="small">同样弃 1 张牌</text>
+    <rect x="650" y="525" width="122" height="70" rx="12" fill="#EFEBE9"/>
+    <text x="711" y="554" text-anchor="middle" class="sub">补回手牌</text><text x="711" y="579" text-anchor="middle" class="small">尽量补到 8 张</text>
+    <rect x="84" y="620" width="720" height="45" rx="10" fill="#3E2723"/>
+    <text x="444" y="649" text-anchor="middle" class="badge">花的钱先放人物板块上 → 本轮结束时，花钱最少的人下一轮先手 → 收入结算</text>
+  </g>
+  <path d="M450 697v35" stroke="#C4952A" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <!-- 3 six actions -->
+  <g filter="url(#shadow)">
+    <rect x="55" y="745" width="790" height="255" rx="18" fill="#fff" stroke="#D7CCC8" stroke-width="2"/>
+    <circle cx="95" cy="785" r="25" fill="#5D4037"/><text x="95" y="793" text-anchor="middle" class="num">3</text>
+    <text x="135" y="793" class="h">选 1 个行动：把产业变成分数与收入</text>
+    <text x="135" y="819" class="small">只有“建造”必须弃匹配的地点卡或产业卡；其余行动可弃任意牌。</text>
+    <g>
+      <rect x="85" y="845" width="215" height="55" rx="10" fill="#FFF8E1"/><text x="105" y="879" class="sub">建造</text><text x="168" y="879" class="small">放产业，付钱与资源</text>
+      <rect x="342" y="845" width="215" height="55" rx="10" fill="#EFEBE9"/><text x="362" y="879" class="sub">连接</text><text x="425" y="879" class="small">铺运河或铁路</text>
+      <rect x="599" y="845" width="215" height="55" rx="10" fill="#FFF8E1"/><text x="619" y="879" class="sub">研发</text><text x="682" y="879" class="small">移走低级产业</text>
+      <rect x="85" y="920" width="215" height="55" rx="10" fill="#EFEBE9"/><text x="105" y="954" class="sub">出售</text><text x="168" y="954" class="small">付啤酒，翻面得收入</text>
+      <rect x="342" y="920" width="215" height="55" rx="10" fill="#FFF8E1"/><text x="362" y="954" class="sub">贷款</text><text x="425" y="954" class="small">拿 £30，收入退 3 级</text>
+      <rect x="599" y="920" width="215" height="55" rx="10" fill="#EFEBE9"/><text x="619" y="954" class="sub">勘察</text><text x="682" y="954" class="small">弃 3 张，取两张万能牌</text>
+    </g>
+  </g>
+  <path d="M450 1007v35" stroke="#C4952A" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <!-- 4 build -->
+  <g filter="url(#shadow)">
+    <rect x="55" y="1055" width="790" height="265" rx="18" fill="#fff" stroke="#D7CCC8" stroke-width="2"/>
+    <circle cx="95" cy="1095" r="25" fill="#5D4037"/><text x="95" y="1103" text-anchor="middle" class="num">4</text>
+    <text x="135" y="1103" class="h">建造、资源、出售：这就是引擎</text>
+    <rect x="85" y="1130" width="220" height="145" rx="12" fill="#EFEBE9"/>
+    <text x="195" y="1159" text-anchor="middle" class="sub">A. 建产业</text>
+    <text x="195" y="1187" text-anchor="middle" class="small">从个人板拿当前最低级板块</text>
+    <text x="195" y="1211" text-anchor="middle" class="small">付格子上的钱与煤/铁</text>
+    <text x="195" y="1235" text-anchor="middle" class="small">地点卡：可跳出网络</text>
+    <text x="195" y="1259" text-anchor="middle" class="small">产业卡：必须在你的网络</text>
+    <path d="M317 1200h73" stroke="#C4952A" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="403" y="1130" width="220" height="145" rx="12" fill="#FFF8E1"/>
+    <text x="513" y="1159" text-anchor="middle" class="sub">B. 资源怎么拿</text>
+    <text x="513" y="1187" text-anchor="middle" class="small">煤：必须沿连接找最近煤矿</text>
+    <text x="513" y="1211" text-anchor="middle" class="small">铁：任意铁厂，不必连通</text>
+    <text x="513" y="1235" text-anchor="middle" class="small">自己的啤酒：不用连通</text>
+    <text x="513" y="1259" text-anchor="middle" class="small">对手啤酒：必须连通</text>
+    <path d="M635 1200h73" stroke="#C4952A" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="721" y="1130" width="83" height="145" rx="12" fill="#EFEBE9"/>
+    <text x="762" y="1159" text-anchor="middle" class="sub">C.</text>
+    <text x="762" y="1190" text-anchor="middle" class="small">出售</text>
+    <text x="762" y="1214" text-anchor="middle" class="small">付酒</text>
+    <text x="762" y="1238" text-anchor="middle" class="small">翻面</text>
+    <text x="762" y="1262" text-anchor="middle" class="small">得收入</text>
+  </g>
+  <path d="M450 1327v35" stroke="#C4952A" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <!-- 5 eras -->
+  <g filter="url(#shadow)">
+    <rect x="55" y="1375" width="790" height="135" rx="18" fill="#3E2723" stroke="#5D4037" stroke-width="2"/>
+    <circle cx="95" cy="1415" r="25" fill="#C4952A"/><text x="95" y="1423" text-anchor="middle" class="num">5</text>
+    <text x="135" y="1423" class="badge">两个时代结束时都要计分：你的连接 + 已翻面的产业</text>
+    <text x="135" y="1454" class="on-dark">运河时代结束：计分，移走地图上的 1 级产业，再重新发牌进入铁路时代。</text>
+    <text x="135" y="1480" class="on-dark">铁路时代结束：再计一次分；平手依次比较收入与剩余现金。</text>
+  </g>
+  <text x="450" y="1550" text-anchor="middle" class="small">接下来点选下方路径：按顺序学，或直接跳到你现在最困惑的动作。</text>
+</svg>

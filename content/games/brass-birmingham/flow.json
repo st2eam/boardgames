@@ -1,6 +1,53 @@
 {
-  "startNode": "setup",
+  "startNode": "quickstart",
   "nodes": {
+    "quickstart": {
+      "title": {
+        "en": "One-Page Game Guide",
+        "zh": "一图读懂怎么玩"
+      },
+      "content": {
+        "en": "Start here. This visual is the whole game in one loop: set up, take two actions, build an economic engine, score at the end of each era, then do it again in Rail.\n\nUse the paths below to turn each box into its exact rule. You can always jump to a topic from the outline.",
+        "zh": "先看这张总览：**准备 → 每轮两次行动 → 建产业、连网络、卖货翻面 → 时代结算**。铁路时代结束后，分数最高者获胜。\n\n看懂全局后，点下面的路径把每一格展开成具体规则；左侧目录也可以随时跳转。"
+      },
+      "options": [
+        {
+          "label": {
+            "en": "Set up and start from the beginning",
+            "zh": "按顺序：从游戏准备开始"
+          },
+          "next": "setup"
+        },
+        {
+          "label": {
+            "en": "Learn a turn and all six actions",
+            "zh": "先学：你的回合与六种行动"
+          },
+          "next": "turn"
+        },
+        {
+          "label": {
+            "en": "Understand the economic engine",
+            "zh": "先学：建造、资源与出售"
+          },
+          "next": "build"
+        },
+        {
+          "label": {
+            "en": "Jump to scoring and the era change",
+            "zh": "直接看：时代结算与胜负"
+          },
+          "next": "scoring"
+        }
+      ],
+      "illustration": {
+        "src": "/images/rules/brass-birmingham/quickstart-guide.svg",
+        "alt": {
+          "en": "A visual overview of setup, two actions per turn, the six actions, resources, selling, and era scoring.",
+          "zh": "从准备、每轮两次行动、六种行动、资源与出售，到两个时代结算的玩法总览。"
+        }
+      }
+    },
     "setup": {
       "title": {
         "en": "Setup",

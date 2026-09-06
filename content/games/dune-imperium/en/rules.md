@@ -1,6 +1,6 @@
 # Dune: Imperium Rules
 
-![At-a-glance Chinese round flow: Agents, Reveal, Combat, round end, and the 10-VP endgame](/images/rules/dune-imperium/round-at-a-glance.svg)
+![At-a-glance Chinese round flow: Agents, Reveal, Combat, round end, and the 10-VP endgame](/images/rules/dune-imperium/round-at-a-glance.png)
 
 ## Overview
 

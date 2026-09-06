@@ -1,6 +1,6 @@
 # 沙丘：帝国规则
 
-![一图看懂：特工、揭示、冲突、轮末与 10 分终局](/images/rules/dune-imperium/round-at-a-glance.svg)
+![一图看懂：特工、揭示、冲突、轮末与 10 分终局](/images/rules/dune-imperium/round-at-a-glance.png)
 
 ## 概览
 

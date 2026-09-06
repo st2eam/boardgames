@@ -1,0 +1,13 @@
+{
+  "name": { "en": "Dune: Imperium – Uprising", "zh": "沙丘：帝国：起义" },
+  "players": "1-6",
+  "duration": "60-120 min",
+  "difficulty": "hard",
+  "tags": ["strategy", "deck-building", "worker-placement", "conflict", "science-fiction"],
+  "category": "board",
+  "family": "dune-imperium",
+  "familyOrder": 1,
+  "variantType": "variant",
+  "requiresBase": false,
+  "bggRank": 5
+}

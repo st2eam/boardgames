@@ -2,7 +2,7 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — **71** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — **73** games (including expansions/variants), interactive decision trees, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 

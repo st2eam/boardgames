@@ -1,0 +1,12 @@
+{
+  "name": { "en": "Dune: Imperium", "zh": "沙丘：帝国" },
+  "players": "1-4",
+  "duration": "60-120 min",
+  "difficulty": "hard",
+  "tags": ["strategy", "deck-building", "worker-placement", "conflict", "science-fiction"],
+  "category": "board",
+  "family": "dune-imperium",
+  "familyOrder": 0,
+  "variantType": "base",
+  "bggRank": 6
+}

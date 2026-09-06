@@ -1,5 +1,7 @@
 # Dune: Imperium Rules
 
+![At-a-glance Chinese round flow: Agents, Reveal, Combat, round end, and the 10-VP endgame](/images/rules/dune-imperium/round-at-a-glance.svg)
+
 ## Overview
 
 *Dune: Imperium* combines **deck-building** with **worker placement**. Cards in your hand decide which board spaces your Agents may visit; the cards left over then fuel your Reveal turn. The game is for 1–4 players; this guide covers the competitive 3–4 player game.

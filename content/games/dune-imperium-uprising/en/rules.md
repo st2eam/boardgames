@@ -1,5 +1,7 @@
 # Dune: Imperium – Uprising Rules
 
+![At-a-glance Chinese round flow: Agents, Reveal, Combat, round end, and the 10-VP endgame](/images/rules/dune-imperium-uprising/round-at-a-glance.svg)
+
 ## Overview
 
 *Dune: Imperium – Uprising* is a standalone deck-building and worker-placement game. It shares the core Agent / Reveal structure of *Dune: Imperium* but adds **Spies**, **Contracts**, and **Sandworms**. This guide covers the standard competitive 1–4 player game; six-player team rules use the separate supplement.

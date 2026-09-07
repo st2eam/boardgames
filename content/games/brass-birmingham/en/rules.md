@@ -8,7 +8,7 @@ Develop, build, and network your industries to exploit low or high demand. The g
 
 Each round, take turns in turn-order-track order. You get **two actions** (the first Canal round: **one action**). You may take the same action twice.
 
-![Chinese visual quickstart: setup, the action loop, industry development, and era scoring](/images/rules/brass-birmingham/quickstart-guide.svg)
+![Chinese detailed one-page guide: eras, turn loop, six actions, resources, flipping, income, and era scoring](/images/rules/brass-birmingham/quickstart-guide.png)
 
 | # | Action | Needs a matching card? |
 |---|--------|------------------------|

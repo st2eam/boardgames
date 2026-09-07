@@ -41,10 +41,10 @@
         }
       ],
       "illustration": {
-        "src": "/images/rules/brass-birmingham/quickstart-guide.svg",
+        "src": "/images/rules/brass-birmingham/quickstart-guide.png",
         "alt": {
-          "en": "A visual overview of setup, two actions per turn, the six actions, resources, selling, and era scoring.",
-          "zh": "从准备、每轮两次行动、六种行动、资源与出售，到两个时代结算的玩法总览。"
+          "en": "A detailed one-page guide to setup, turn order, the six actions, resources, selling, and era scoring.",
+          "zh": "覆盖准备、回合顺序、六种行动、资源、出售与时代结算的详细一图流。"
         }
       }
     },

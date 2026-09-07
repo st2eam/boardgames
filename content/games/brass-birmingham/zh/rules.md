@@ -8,7 +8,7 @@
 
 每轮按回合顺序轨道行动。每人 **2 次行动**（运河时代第 1 轮只有 **1 次**）。可以重复同一行动。
 
-![一图读懂：准备、行动循环、产业发展与时代计分](/images/rules/brass-birmingham/quickstart-guide.svg)
+![工业革命：伯明翰详细一图流：两时代、回合循环、六种行动、资源、翻面收入与时代计分](/images/rules/brass-birmingham/quickstart-guide.png)
 
 | # | 行动 | 是否需要匹配的牌 |
 |---|------|------------------|

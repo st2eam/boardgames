@@ -1,0 +1,4 @@
+interface:
+  display_name: "桌游一图流攻略"
+  short_description: "将桌游规则整理成清晰、适合手机阅读与群聊转发的一图流攻略"
+  default_prompt: "Use $boardgame-one-page-guide to turn the supplied rules into a mobile-readable one-page board-game guide."

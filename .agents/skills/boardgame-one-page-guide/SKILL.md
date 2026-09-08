@@ -51,6 +51,14 @@ Prefer short numbered instructions, condition branches, icons, and cards over pr
 - Use Imagegen to render the finished image directly. Supply short, exact display copy and require crisp, high-contrast type; do not create a separate background or post-generation text layer.
 - Do not use pseudo-text, tiny body copy, warped lettering, low-resolution exports, or decoration that competes with instructions.
 
+### Match the host product’s design system
+
+When the guide will live inside an existing site or product, inspect its theme tokens before writing the Imagegen prompt. Carry its surface, primary, accent, border, radius, typography, and shadow language into the finished image; the infographic should feel native to its destination rather than like a separate poster campaign.
+
+For this repository’s default visual system, use the warm tabletop palette from `src/app/globals.css`: deep wood brown `#5D4037` / `#3E2723`, warm-white surface `#FAFAF5`, pale terracotta `#EFEBE9`, border `#D7CCC8`, and amber emphasis `#C4952A` / `#FFF8E1`. Prefer rounded cards (about 16 px), thin muted borders, generous whitespace, and soft low-contrast shadows. Use friendly rounded display type for headings and clear humanist sans-serif type for body copy.
+
+For this style, ask Imagegen for a warm tabletop backdrop only as a restrained texture. Use clean flat icons and a modular card grid; keep the top title, one-line premise, and core flow as the strongest visual hierarchy. Avoid cinematic key art, dark full-bleed backgrounds, metallic frames, dense ornamental patterns, or photorealistic scenes that reduce scanability. Use semantic accent colors sparingly to distinguish phases, player roles, warnings, and positive outcomes while preserving the host palette as the dominant visual language.
+
 ## Final verification
 
 Before delivering, inspect the rendered output at mobile scale and confirm:

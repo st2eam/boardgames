@@ -1,1 +1,64 @@
-{"startNode":"setup","nodes":{"setup":{"title":{"en":"Set Up a Round","zh":"准备一轮"},"content":{"en":"Choose a Question Master. They announce a category, write one shared title on all but one card, write X on the last, shuffle, and deal to artists. The X holder is the fake.","zh":"选出题者；他宣布类别，在除一张外的所有卡上写同一题目，最后一张写 X，洗混暗发给艺术家。拿 X 者是伪艺术家。"},"options":[{"label":{"en":"Draw twice around","zh":"绘画两圈"},"next":"draw"}]},"draw":{"title":{"en":"Draw One Line","zh":"画一笔"},"content":{"en":"Each artist adds one continuous line, then passes clockwise. Complete two circuits. Give a clue, but do not make the title obvious to the fake.","zh":"每位艺术家画一条连续线后顺时针传递，共两圈。给真艺术家提示，但别让伪艺术家轻易猜题。"},"options":[{"label":{"en":"Vote","zh":"投票"},"next":"vote"}],"illustration":{"src":"/images/rules/a-fake-artist-goes-to-new-york/drawing-round.svg","alt":{"en":"Each artist adds one line to the shared drawing","zh":"每位艺术家给共同画作添一笔"}}},"vote":{"title":{"en":"Point Together","zh":"同时指认"},"content":{"en":"QM counts down. Everyone points at a suspect. If the fake has the most votes, they reveal and get one exact-title guess.","zh":"QM 倒数后，所有人同时指认。伪艺术家最高票时亮明身份，并有一次准确猜题机会。"},"options":[{"label":{"en":"Score the round","zh":"本轮计分"},"next":"score"}],"illustration":{"src":"/images/rules/a-fake-artist-goes-to-new-york/vote-and-score.svg","alt":{"en":"Vote outcome determines whether the fake gets a title guess","zh":"投票结果决定伪艺术家是否猜题"}}},"score":{"title":{"en":"Score and Rotate QM","zh":"计分并轮换 QM"},"content":{"en":"Escaped fake, or caught fake who guesses right: fake + QM get 2 each. Caught fake who guesses wrong: every real artist gets 1. Pass QM left; first to 5 wins.","zh":"伪艺术家逃脱，或被抓但猜对：伪艺术家和 QM 各得 2 分。被抓且猜错：每位真艺术家各得 1 分。QM 向左轮换，先到 5 分获胜。"},"options":[{"label":{"en":"Next round","zh":"下一轮"},"next":"setup"}]}}}
+{
+  "startNode": "setup",
+  "nodes": {
+    "setup": {
+      "title": { "en": "Set Up the Secret", "zh": "准备秘密题目" },
+      "content": {
+        "en": "Choose a Question Master (QM). QM announces a category, deals the same secret title to every artist except one X card, and chooses the first artist. QM does not draw; the X holder is the Fake Artist.",
+        "zh": "选 1 人做出题者（QM）。QM 公开类别，将同一个秘密题目发给除 1 人外的所有艺术家，并指定首位画家。QM 不画画；拿到 X 卡的人是伪艺术家。"
+      },
+      "options": [{ "label": { "en": "Start the first circuit", "zh": "开始第一圈" }, "next": "first-mark" }]
+    },
+    "first-mark": {
+      "title": { "en": "Draw One Continuous Mark", "zh": "画一条连续线" },
+      "content": {
+        "en": "Take turns clockwise. On your turn, add one continuous line, then pass the paper. Real Artists should leave a recognisable clue without giving the title away. Never show a card or say the title.",
+        "zh": "按顺时针轮流。你的回合只能画一条连续线，然后传纸。真艺术家要留下可辨认的线索，但不能泄露题目；不可展示卡片或直接说出题目。"
+      },
+      "options": [{ "label": { "en": "Everyone drew once", "zh": "每人已画一笔" }, "next": "second-mark" }],
+      "illustration": {
+        "src": "/images/rules/a-fake-artist-goes-to-new-york/drawing-round.svg",
+        "alt": { "en": "Artists add one continuous mark each to a shared drawing", "zh": "艺术家依次给共同画作添一条连续线" }
+      }
+    },
+    "second-mark": {
+      "title": { "en": "Go Around Once More", "zh": "再绕一圈" },
+      "content": {
+        "en": "Repeat the same clockwise order. Each artist now adds their second and final continuous mark. When the paper returns to the last artist, every artist has drawn exactly two marks.",
+        "zh": "按同一顺时针顺序再进行一圈。每位艺术家画自己的第二、也是最后一条连续线。最后一人完成后，每位艺术家都恰好画过两笔。"
+      },
+      "options": [{ "label": { "en": "Vote together", "zh": "开始同时投票" }, "next": "vote" }]
+    },
+    "vote": {
+      "title": { "en": "3, 2, 1, Point!", "zh": "3、2、1、指！" },
+      "content": {
+        "en": "After a brief look at the drawing, QM counts down and every artist—including the fake—points at one suspect. The fake is caught only if they are the sole highest-voted player. A tie means the fake escapes.",
+        "zh": "观察画面后，QM 倒数，所有艺术家（包括伪艺术家）同时指向 1 名嫌疑人。只有伪艺术家成为唯一最高票才算被抓；平票则伪艺术家逃脱。"
+      },
+      "options": [
+        { "label": { "en": "Fake escaped or vote tied", "zh": "伪艺术家逃脱或平票" }, "next": "fake-wins" },
+        { "label": { "en": "Fake is sole highest-voted", "zh": "伪艺术家唯一最高票" }, "next": "guess" }
+      ],
+      "illustration": {
+        "src": "/images/rules/a-fake-artist-goes-to-new-york/vote-and-score.svg",
+        "alt": { "en": "The vote determines whether the Fake Artist must guess the title", "zh": "投票结果决定伪艺术家是否必须猜题" }
+      }
+    },
+    "fake-wins": {
+      "title": { "en": "Fake Artist Escapes", "zh": "伪艺术家逃脱" },
+      "content": {
+        "en": "The Fake Artist and QM score 2 points each. The fake may share a title guess while revealing the answer, but gains no extra points. Rotate QM left and begin a new round.",
+        "zh": "伪艺术家与 QM 各得 2 分。揭晓答案时，伪艺术家可以说出自己的猜测，但不会额外得分。QM 向左轮换，开始新一轮。"
+      },
+      "options": [{ "label": { "en": "Set up the next round", "zh": "准备下一轮" }, "next": "setup" }]
+    },
+    "guess": {
+      "title": { "en": "One Exact-Title Guess", "zh": "只猜一次准确题目" },
+      "content": {
+        "en": "Reveal the X card. The Fake Artist gets exactly one guess at the title: a correct guess gives the Fake Artist and QM 2 points each; a wrong guess gives every Real Artist 1 point. Rotate QM left for the next round.",
+        "zh": "翻开 X 卡。伪艺术家只能猜 1 次题目：猜对时伪艺术家与 QM 各得 2 分；猜错时每位真艺术家各得 1 分。QM 向左轮换，进入下一轮。"
+      },
+      "options": [{ "label": { "en": "Set up the next round", "zh": "准备下一轮" }, "next": "setup" }]
+    }
+  }
+}

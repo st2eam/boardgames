@@ -5,7 +5,7 @@ import type { FlowData } from "@/types/game";
 import { MarkdownRenderer } from "@/features/rules/MarkdownRenderer";
 import { RuleIllustration } from "@/features/rules/RuleIllustration";
 import { useTranslations } from "next-intl";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
 const SeaSaltCardReference = lazy(() =>
   import("./sea-salt/SeaSaltCardReference").then((m) => ({
@@ -51,10 +51,10 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
   const t = useTranslations("flow");
   const [currentNodeId, setCurrentNodeId] = useState(flowData.startNode);
   const [history, setHistory] = useState<string[]>([]);
-  const [outlineOpen, setOutlineOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const outlinePanelRef = useRef<HTMLDivElement>(null);
   const activeOutlineRef = useRef<HTMLButtonElement>(null);
+  const reducedMotion = useReducedMotion();
 
   const nodeIds = Object.keys(flowData.nodes);
   const node = flowData.nodes[currentNodeId];
@@ -64,7 +64,6 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
       if (nodeId === currentNodeId) return;
       setHistory((prev) => [...prev, currentNodeId]);
       setCurrentNodeId(nodeId);
-      setOutlineOpen(false);
     },
     [currentNodeId]
   );
@@ -79,11 +78,10 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
   const startOver = useCallback(() => {
     setCurrentNodeId(flowData.startNode);
     setHistory([]);
-    setOutlineOpen(false);
   }, [flowData.startNode]);
 
   useEffect(() => {
-    contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    contentRef.current?.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
 
     const panel = outlinePanelRef.current;
     const item = activeOutlineRef.current;
@@ -92,14 +90,14 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
     const itemRect = item.getBoundingClientRect();
     const pad = 8;
     if (itemRect.top < panelRect.top + pad) {
-      panel.scrollBy({ top: itemRect.top - panelRect.top - pad, behavior: "smooth" });
+      panel.scrollBy({ top: itemRect.top - panelRect.top - pad, behavior: reducedMotion ? "auto" : "smooth" });
     } else if (itemRect.bottom > panelRect.bottom - pad) {
       panel.scrollBy({
         top: itemRect.bottom - panelRect.bottom + pad,
-        behavior: "smooth",
+        behavior: reducedMotion ? "auto" : "smooth",
       });
     }
-  }, [currentNodeId]);
+  }, [currentNodeId, reducedMotion]);
 
   if (!node) {
     return (
@@ -115,67 +113,28 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
   const currentIndex = nodeIds.indexOf(currentNodeId);
 
   return (
-    <div className="flex flex-col gap-4 lg:flex-row lg:gap-6">
-      {/* Sidebar — outline of all nodes */}
-      <aside className="shrink-0 lg:w-56">
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setOutlineOpen(!outlineOpen)}
-          className="flex w-full cursor-pointer items-center justify-between rounded-xl border border-border bg-white px-4 py-3 text-sm font-medium text-stone-700 shadow-sm lg:hidden"
-        >
-          <span className="flex items-center gap-2">
-            <svg
-              className="h-4 w-4 text-stone-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
-            {t("outline")}
-          </span>
-          <svg
-            className={`h-4 w-4 text-stone-400 transition-transform ${outlineOpen ? "rotate-180" : ""}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m19.5 8.25-7.5 7.5-7.5-7.5"
-            />
-          </svg>
-        </button>
-
-        {/* Node list */}
-        <nav
-          className={`mt-2 lg:mt-0 ${outlineOpen ? "block" : "hidden"} lg:block`}
-        >
+    <div className="flex flex-col gap-4 lg:flex-row lg:gap-5">
+      <aside className="shrink-0 lg:w-60">
+        <nav aria-label={t("outline")}>
           <div
             ref={outlinePanelRef}
-            className="max-h-[min(70vh,calc(100vh-8rem))] overflow-y-auto rounded-xl border border-border bg-white p-2 shadow-sm lg:sticky lg:top-24"
+            className="flex max-h-[min(70vh,calc(100vh-8rem))] gap-1 overflow-x-auto rounded-2xl border border-border bg-white p-2 shadow-card lg:sticky lg:top-24 lg:block lg:overflow-y-auto lg:overflow-x-hidden"
           >
-            <p className="mb-1 px-2 pt-1 text-[10px] font-bold uppercase tracking-widest text-stone-400">
+            <p className="sr-only lg:not-sr-only lg:mb-2 lg:px-2 lg:pt-1 lg:text-[10px] lg:font-bold lg:uppercase lg:tracking-widest lg:text-stone-400">
               {t("outline")}
             </p>
-            <ul className="space-y-0.5">
+            <ul className="flex min-w-max gap-1 lg:min-w-0 lg:flex-col lg:gap-0.5">
               {nodeIds.map((id, i) => {
                 const isCurrent = id === currentNodeId;
                 const visited = history.includes(id);
                 const nodeTitle = getNodeTitle(flowData, id, locale);
                 return (
-                  <li key={id}>
+                  <li key={id} className="lg:w-full">
                     <button
                       ref={isCurrent ? activeOutlineRef : undefined}
                       onClick={() => navigateTo(id)}
-                      className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-left text-[13px] transition-colors focus:outline-none focus:ring-2 focus:ring-accent/40 ${
+                      aria-current={isCurrent ? "step" : undefined}
+                      className={`flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-xl px-3 py-2 text-left text-[13px] transition-colors focus:outline-none focus:ring-2 focus:ring-accent/40 ${
                         isCurrent
                           ? "bg-amber-50 font-semibold text-primary"
                           : visited
@@ -184,17 +143,17 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
                       }`}
                     >
                       <span
-                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
+                        className={`font-mono flex h-5 w-5 shrink-0 items-center justify-center text-[10px] font-bold ${
                           isCurrent
-                            ? "bg-primary text-white"
+                            ? "text-accent"
                             : visited
-                              ? "bg-stone-200 text-stone-500"
-                              : "bg-stone-100 text-stone-400"
+                              ? "text-success"
+                              : "text-stone-400"
                         }`}
                       >
-                        {i + 1}
+                        {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="truncate">{nodeTitle}</span>
+                      <span className="max-w-32 truncate lg:max-w-none">{nodeTitle}</span>
                     </button>
                   </li>
                 );
@@ -206,103 +165,35 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
 
       {/* Main content */}
       <div className="min-w-0 flex-1" ref={contentRef}>
-        <div className="rounded-xl border border-border bg-white shadow-sm">
-          {/* Header with step indicator + back nav */}
-          <div className="flex items-center justify-between border-b border-border px-5 py-3 sm:px-6">
-            <div className="flex items-center gap-2">
-              {history.length > 0 && (
-                <button
-                  onClick={goBack}
-                  className="flex cursor-pointer items-center justify-center rounded-lg p-1.5 text-stone-400 hover:bg-stone-100 hover:text-stone-600 transition-colors focus:outline-none focus:ring-2 focus:ring-accent/40"
-                  aria-label={t("back")}
-                >
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-              )}
-              <nav
-                className="flex items-center gap-1 text-xs text-stone-400"
-                aria-label="Breadcrumb"
-              >
-                <button
-                  onClick={startOver}
-                  className="cursor-pointer rounded px-1 py-0.5 hover:text-primary hover:bg-amber-50 transition-colors focus:outline-none"
-                >
-                  {getNodeTitle(flowData, flowData.startNode, locale)}
-                </button>
-                {history.length > 0 && (
-                  <>
-                    {history.length > 2 && (
-                      <>
-                        <ChevronIcon className="h-2.5 w-2.5 text-stone-300" />
-                        <span className="text-stone-300">...</span>
-                      </>
-                    )}
-                    {history.length <= 2 &&
-                      history.slice(1).map((hId, i) => (
-                        <span key={hId} className="flex items-center gap-1">
-                          <ChevronIcon className="h-2.5 w-2.5 text-stone-300" />
-                          <button
-                            onClick={() => {
-                              setCurrentNodeId(hId);
-                              setHistory((prev) => prev.slice(0, i + 1));
-                            }}
-                            className="cursor-pointer rounded px-1 py-0.5 hover:text-accent transition-colors truncate max-w-[100px] focus:outline-none"
-                          >
-                            {getNodeTitle(flowData, hId, locale)}
-                          </button>
-                        </span>
-                      ))}
-                    {history.length > 2 && (
-                      <span className="flex items-center gap-1">
-                        <ChevronIcon className="h-2.5 w-2.5 text-stone-300" />
-                        <button
-                          onClick={goBack}
-                          className="cursor-pointer rounded px-1 py-0.5 hover:text-accent transition-colors truncate max-w-[100px] focus:outline-none"
-                        >
-                          {getNodeTitle(
-                            flowData,
-                            history[history.length - 1],
-                            locale
-                          )}
-                        </button>
-                      </span>
-                    )}
-                    <ChevronIcon className="h-2.5 w-2.5 text-stone-300" />
-                    <span className="font-medium text-stone-700 truncate max-w-[120px]">
-                      {title}
-                    </span>
-                  </>
-                )}
-              </nav>
+        <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-card">
+          <div className="border-b border-border px-5 py-4 sm:px-6">
+            <div className="flex items-center gap-3">
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-stone-100">
+                <div
+                  className="h-full rounded-full bg-accent transition-[width] duration-200 motion-reduce:transition-none"
+                  style={{ width: `${((currentIndex + 1) / nodeIds.length) * 100}%` }}
+                />
+              </div>
+              <span className="font-mono shrink-0 text-[11px] text-stone-400">
+                {currentIndex + 1} / {nodeIds.length}
+              </span>
             </div>
-            <span className="shrink-0 rounded-full bg-stone-100 px-2 py-0.5 text-[10px] font-bold text-stone-400">
-              {currentIndex + 1} / {nodeIds.length}
-            </span>
           </div>
 
           <AnimatePresence mode="wait">
             <motion.div
               key={currentNodeId}
-              initial={{ opacity: 0, y: 10 }}
+              initial={reducedMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+              exit={reducedMotion ? undefined : { opacity: 0, y: -8 }}
+              transition={{ duration: reducedMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
               {/* Title */}
-              <div className="px-5 pt-5 sm:px-6">
-                <h2 className="text-xl font-bold text-stone-900 sm:text-2xl">
+              <div className="px-5 pt-6 sm:px-6">
+                <p className="font-mono mb-2 text-[11px] font-medium tracking-[0.12em] text-accent">
+                  {String(currentIndex + 1).padStart(2, "0")}
+                </p>
+                <h2 className="font-heading text-2xl font-bold tracking-tight text-primary-dark sm:text-3xl">
                   {title}
                 </h2>
               </div>
@@ -316,7 +207,7 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
                     className="mt-0"
                   />
                 ) : null}
-                <div className="rounded-xl border border-border bg-stone-50/50 p-4 sm:p-5">
+                <div className="rounded-xl border border-border bg-surface p-4 sm:p-5">
                   <MarkdownRenderer content={node.content[locale as "en" | "zh"] ?? node.content.en} />
                 </div>
                 {slug?.startsWith("sea-salt-paper") && currentNodeId === "card-types" && (
@@ -330,7 +221,7 @@ export function DecisionTree({ flowData, locale, slug }: Props) {
 
               {/* Navigation options */}
               {node.options.length > 0 && (
-                <div className="border-t border-border px-5 py-4 sm:px-6">
+                <div className="border-t border-border bg-stone-50/60 px-5 py-4 sm:px-6">
                   <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-stone-400">
                     {t("chooseNext")}
                   </p>

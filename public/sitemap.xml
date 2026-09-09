@@ -426,36 +426,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/eternal-decks/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/eternal-decks/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/dune-imperium/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/dune-imperium/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/dune-imperium-uprising/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/dune-imperium-uprising/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -879,35 +849,5 @@
     <loc>https://st2eam.github.io/boardgames/zh/games/dune-imperium-uprising/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/eternal-decks/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/eternal-decks/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/dune-imperium/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/dune-imperium/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/dune-imperium-uprising/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/dune-imperium-uprising/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
 </urlset>

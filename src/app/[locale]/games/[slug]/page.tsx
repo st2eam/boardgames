@@ -5,6 +5,7 @@ import { MarkdownRenderer } from "@/features/rules/MarkdownRenderer";
 import { RulesToc } from "@/features/rules/RulesToc";
 import { RelatedGames } from "@/features/rules/RelatedGames";
 import { TrackRecentVisit } from "@/features/rules/TrackRecentVisit";
+import { DecisionTree } from "@/features/flow/DecisionTree";
 import { ChatToggle } from "@/features/chat/ChatToggle";
 import { goTutorSuggestedPrompts } from "@/lib/go/boardContext";
 import { notFound } from "next/navigation";
@@ -100,7 +101,6 @@ export default async function GamePage({ params }: Props) {
             meta={game.meta}
             hasPlay={GameRepository.hasPlayConfig(slug)}
             playConfig={playConfig}
-            hasFlow={game.flow !== null}
             hasScore={GameRepository.hasScoreConfig(slug)}
             hasTrainer={GameRepository.hasTrainerConfig(slug)}
             hasCalculator={GameRepository.hasCalculatorConfig(slug)}
@@ -108,6 +108,28 @@ export default async function GamePage({ params }: Props) {
             rules={game.rules}
           />
         </div>
+
+        {game.flow && (
+          <section
+            className="mb-10"
+            aria-labelledby="interactive-rules-heading"
+          >
+            <div className="mb-4 max-w-3xl">
+              <h2
+                id="interactive-rules-heading"
+                className="font-heading text-2xl font-bold tracking-tight text-primary-dark sm:text-3xl"
+              >
+                {locale === "zh" ? "交互式规则教学" : "Interactive rules tutorial"}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-stone-600 sm:text-base">
+                {locale === "zh"
+                  ? "按照当前局面选择步骤，边玩边查看对应规则；完整规则保留在下方。"
+                  : "Choose the step that matches the table, then follow the relevant rule. The complete rules remain below."}
+              </p>
+            </div>
+            <DecisionTree flowData={game.flow} locale={locale} slug={slug} />
+          </section>
+        )}
 
         {/* columns stretch so sticky TOC has a tall containing block */}
         <div className="lg:grid lg:grid-cols-[minmax(0,48rem)_14rem] lg:justify-center lg:gap-10">

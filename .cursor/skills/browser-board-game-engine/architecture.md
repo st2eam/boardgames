@@ -339,7 +339,8 @@ entry is embedded in The Game Shelf** — see §9.
 
 BBGE does **not** ship a separate app shell homepage for v1. Players start a
 match from the existing rules site game page, in the same interactive button
-group as Flow / Score / Trainer / Calculator.
+group as Score / Trainer / Calculator. Rule teaching is embedded directly in
+the game page and has no separate Flow button or route.
 
 ### 9.1 Surface: `GameHeader` action row
 
@@ -351,26 +352,24 @@ feature actions when `hasPlay` is true:
 | Order | Flag | Route | i18n (zh examples) |
 |------:|------|-------|-------------------|
 | 1 | **`hasPlay`** | **`/[locale]/games/[slug]/play/`** | **开始游戏 / Play** |
-| 2 | `hasFlow` | `/[locale]/games/[slug]/flow/` | 交互式流程 |
-| 3 | `hasScore` | `/[locale]/games/[slug]/score/` | 计分器 |
-| 4 | `hasTrainer` | `/[locale]/games/[slug]/trainer/` | 训练器… |
-| 5 | `hasCalculator` | `/[locale]/games/[slug]/calculator/` | 番符计算器 |
+| 2 | `hasScore` | `/[locale]/games/[slug]/score/` | 计分器 |
+| 3 | `hasTrainer` | `/[locale]/games/[slug]/trainer/` | 训练器… |
+| 4 | `hasCalculator` | `/[locale]/games/[slug]/calculator/` | 番符计算器 |
 | last | — | — | Export (unchanged) |
 
 ```
 Game page header actions:
 
-[ 开始游戏 ] [ 交互式流程 ] [ 计分器 ] [ 训练器? ] [ 计算器? ] [ Export ]
-    play ★        flow          score      trainer    calculator
+[ 开始游戏 ] [ 计分器 ] [ 训练器? ] [ 计算器? ] [ Export ]
+    play ★       score      trainer    calculator
 ```
 
 - Only render the Play button when the game has a BBGE plugin binding (`hasPlay`).
-- When implementing `GameHeader`, render the Play `Link` **before** Flow/Score/…
+- When implementing `GameHeader`, render the Play `Link` **before** Score/Trainer/…
   — do not append it after Calculator.
 - Style: primary/accent CTA for Play (strongest in the row); peers keep existing
   bordered styles. Apply UI companion skills when polishing.
-- Optional later: homepage `GameCard` functional chip (same pattern as
-  `viewFlow` / `scoreTracker`).
+- Optional later: homepage `GameCard` functional chip for Play or Score.
 
 ### 9.2 Content gate (same pattern as score / trainer)
 

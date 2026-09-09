@@ -61,8 +61,7 @@ Stack ADRs: [no Vite SPA](decisions/ADR-001-next-static-export.md), [no Ant Desi
 
 | Feature | Content | Page | UI / dispatch | Domain |
 |---------|---------|------|---------------|--------|
-| Rules | `en\|zh/rules.md` | `games/[slug]/page.tsx` | `features/rules` | — |
-| Flow | root `flow.json` (`startNode`) | `…/flow/page.tsx` | [`DecisionTree`](../src/features/flow/DecisionTree.tsx) | — |
+| Rules + interactive teaching | `en\|zh/rules.md` + root `flow.json` (`startNode`) | `games/[slug]/page.tsx` | `features/rules` + [`DecisionTree`](../src/features/flow/DecisionTree.tsx) | — |
 | Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/features/score/registry.tsx) ([gate](score-system.md)) | `src/lib/score/` |
 | Trainer | `trainer.json` | `…/trainer/page.tsx` | [`trainer/registry.tsx`](../src/features/trainer/registry.tsx) | `src/lib/<game>/` |
 | Calculator | `calculator.json` | `…/calculator/page.tsx` | `features/calculator` | `src/lib/mahjong/` |
@@ -132,6 +131,7 @@ If the gate passes:
 | [`docs/games/`](games/) | BBGE play designs |
 | [`.cursor/skills/page-development`](../.cursor/skills/page-development/SKILL.md) | New App Router page |
 | [`.cursor/skills/component-development`](../.cursor/skills/component-development/SKILL.md) | UI + tokens |
+| [`.cursor/skills/hybrid-interactive-rules`](../.cursor/skills/hybrid-interactive-rules/SKILL.md) | Unified rule page + inline interactive teaching |
 | [`.cursor/skills/testing`](../.cursor/skills/testing/SKILL.md) | lint / build / bbge tests |
 | `.cursor/skills/add-game/SKILL.md` | New game / expansion |
 | `.claude/skills/add-score-tracker` | Score tracker skip vs add |

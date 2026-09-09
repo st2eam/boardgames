@@ -64,9 +64,6 @@ function main() {
         })
       );
 
-      if (hasFile(slug, "flow.json")) {
-        urls.push(urlEntry(abs(`/${locale}/games/${slug}/flow/`)));
-      }
       if (hasFile(slug, "score.json")) {
         urls.push(urlEntry(abs(`/${locale}/games/${slug}/score/`), { priority: "0.5" }));
       }

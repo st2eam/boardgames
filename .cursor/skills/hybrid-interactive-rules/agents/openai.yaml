@@ -1,0 +1,4 @@
+interface:
+  display_name: "融合式交互规则"
+  short_description: "把完整规则与桌上交互流程融合为同一页面"
+  default_prompt: "Use $hybrid-interactive-rules to turn this game's complete rules and flow into one cohesive interactive rules page."

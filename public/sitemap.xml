@@ -16,11 +16,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/texas-hold-em/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/texas-hold-em/trainer/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -31,19 +26,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/the-gang/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/the-21st-constellation/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/the-21st-constellation/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/gotown/</loc>
@@ -51,19 +36,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/gotown/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/just-wild/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/just-wild/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/just-wild/score/</loc>
@@ -76,19 +51,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/las-vegas-royale/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/drecksau/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/drecksau/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/drecksau-sauschon/</loc>
@@ -96,19 +61,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/drecksau-sauschon/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/arena-magnate-haw/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/arena-magnate-haw/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/catan/</loc>
@@ -116,29 +71,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/catan/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/catan-china-map/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/catan-china-map/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/sea-salt-paper/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/sea-salt-paper/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/sea-salt-paper/score/</loc>
@@ -151,19 +91,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/sea-salt-paper-extra-salt/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/seti/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/seti/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/seti-space-agencies/</loc>
@@ -171,19 +101,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/seti-space-agencies/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/legends-of-the-three-kingdoms/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/legends-of-the-three-kingdoms/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/legends-of-the-three-kingdoms-disloyal-minister/</loc>
@@ -191,19 +111,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/legends-of-the-three-kingdoms-disloyal-minister/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/modern-art/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/modern-art/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/uno/</loc>
@@ -211,19 +121,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/uno/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/uno-flip/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/uno-flip/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/uno-show-em-no-mercy/</loc>
@@ -231,19 +131,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/uno-show-em-no-mercy/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/uno-dos/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/uno-dos/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/carcassonne/</loc>
@@ -251,19 +141,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/carcassonne/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/carcassonne-the-river/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/carcassonne-the-river/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/the-message-attack-by-stratagem/</loc>
@@ -271,19 +151,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/the-message-attack-by-stratagem/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/cabo/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/cabo/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/cabo/score/</loc>
@@ -296,19 +166,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/citadels/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/exploding-kittens/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/exploding-kittens/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/exploding-kittens-nsfw-edition/</loc>
@@ -316,19 +176,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/exploding-kittens-nsfw-edition/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/splendor/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/splendor/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/splendor-cities/</loc>
@@ -336,29 +186,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/splendor-cities/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/splendor-pokemon/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/splendor-pokemon/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/mahjong/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/mahjong/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/mahjong/trainer/</loc>
@@ -369,11 +204,6 @@
     <loc>https://st2eam.github.io/boardgames/en/games/riichi-mahjong/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/riichi-mahjong/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/riichi-mahjong/trainer/</loc>
@@ -391,11 +221,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/blackjack/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/blackjack/trainer/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -406,19 +231,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/trio/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/rummikub/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/rummikub/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/bomb-busters/</loc>
@@ -426,19 +241,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/bomb-busters/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/brass-birmingham/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/brass-birmingham/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/spots/</loc>
@@ -446,19 +251,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/spots/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/harmonies/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/harmonies/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/legends-of-the-three-kingdoms-wind-and-cloud/</loc>
@@ -466,19 +261,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/legends-of-the-three-kingdoms-wind-and-cloud/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/go/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/go/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/go/trainer/</loc>
@@ -491,19 +276,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/wingspan/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/wingspan-asia/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/wingspan-asia/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/wingspan-europe/</loc>
@@ -511,19 +286,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/wingspan-europe/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/wingspan-oceania/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/wingspan-oceania/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/love-letter/</loc>
@@ -531,19 +296,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/love-letter/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/love-letter-premium/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/love-letter-premium/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/tic-tac-trek/</loc>
@@ -551,19 +306,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/tic-tac-trek/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/art-robbery/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/art-robbery/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/odin/</loc>
@@ -571,19 +316,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/odin/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/halli-galli/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/halli-galli/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/manila/</loc>
@@ -591,19 +326,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/manila/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/duel-for-middle-earth/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/duel-for-middle-earth/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/duel-for-middle-earth-allies/</loc>
@@ -611,19 +336,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/duel-for-middle-earth-allies/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/6-nimmt-30th-anniversary/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/6-nimmt-30th-anniversary/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/6-nimmt-30th-anniversary/score/</loc>
@@ -636,19 +351,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/7-wonders/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/palm-island/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/palm-island/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/petiquette/</loc>
@@ -656,19 +361,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/petiquette/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/decrypto/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/decrypto/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/scout/</loc>
@@ -676,19 +371,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/scout/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/startups/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/startups/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/durian/</loc>
@@ -696,19 +381,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/durian/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/ark-nova/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/ark-nova/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/ark-nova-marine-worlds/</loc>
@@ -716,19 +391,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/ark-nova-marine-worlds/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/magical-athlete/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/magical-athlete/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/a-fake-artist-goes-to-new-york/</loc>
@@ -736,19 +401,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/a-fake-artist-goes-to-new-york/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/kobayakawa/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/kobayakawa/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/hegemony/</loc>
@@ -756,9 +411,19 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/en/games/hegemony/flow/</loc>
+    <loc>https://st2eam.github.io/boardgames/en/games/eternal-decks/</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/dune-imperium/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/dune-imperium-uprising/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/en/games/eternal-decks/</loc>
@@ -806,11 +471,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/texas-hold-em/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/texas-hold-em/trainer/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -821,19 +481,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/the-gang/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/the-21st-constellation/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/the-21st-constellation/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/gotown/</loc>
@@ -841,19 +491,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/gotown/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/just-wild/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/just-wild/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/just-wild/score/</loc>
@@ -866,19 +506,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/las-vegas-royale/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/drecksau/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/drecksau/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/drecksau-sauschon/</loc>
@@ -886,19 +516,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/drecksau-sauschon/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/arena-magnate-haw/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/arena-magnate-haw/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/catan/</loc>
@@ -906,29 +526,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/catan/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/catan-china-map/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/catan-china-map/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/sea-salt-paper/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/sea-salt-paper/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/sea-salt-paper/score/</loc>
@@ -941,19 +546,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/sea-salt-paper-extra-salt/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/seti/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/seti/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/seti-space-agencies/</loc>
@@ -961,19 +556,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/seti-space-agencies/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/legends-of-the-three-kingdoms/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/legends-of-the-three-kingdoms/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/legends-of-the-three-kingdoms-disloyal-minister/</loc>
@@ -981,19 +566,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/legends-of-the-three-kingdoms-disloyal-minister/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/modern-art/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/modern-art/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/uno/</loc>
@@ -1001,19 +576,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/uno/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/uno-flip/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/uno-flip/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/uno-show-em-no-mercy/</loc>
@@ -1021,19 +586,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/uno-show-em-no-mercy/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/uno-dos/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/uno-dos/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/carcassonne/</loc>
@@ -1041,19 +596,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/carcassonne/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/carcassonne-the-river/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/carcassonne-the-river/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/the-message-attack-by-stratagem/</loc>
@@ -1061,19 +606,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/the-message-attack-by-stratagem/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/cabo/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/cabo/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/cabo/score/</loc>
@@ -1086,19 +621,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/citadels/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/exploding-kittens/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/exploding-kittens/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/exploding-kittens-nsfw-edition/</loc>
@@ -1106,19 +631,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/exploding-kittens-nsfw-edition/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/splendor/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/splendor/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/splendor-cities/</loc>
@@ -1126,29 +641,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/splendor-cities/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/splendor-pokemon/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/splendor-pokemon/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/mahjong/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/mahjong/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/mahjong/trainer/</loc>
@@ -1159,11 +659,6 @@
     <loc>https://st2eam.github.io/boardgames/zh/games/riichi-mahjong/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/riichi-mahjong/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/riichi-mahjong/trainer/</loc>
@@ -1181,11 +676,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/blackjack/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/blackjack/trainer/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -1196,19 +686,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/trio/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/rummikub/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/rummikub/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/bomb-busters/</loc>
@@ -1216,19 +696,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/bomb-busters/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/brass-birmingham/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/brass-birmingham/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/spots/</loc>
@@ -1236,19 +706,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/spots/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/harmonies/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/harmonies/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/legends-of-the-three-kingdoms-wind-and-cloud/</loc>
@@ -1256,19 +716,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/legends-of-the-three-kingdoms-wind-and-cloud/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/go/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/go/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/go/trainer/</loc>
@@ -1281,19 +731,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/wingspan/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/wingspan-asia/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/wingspan-asia/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/wingspan-europe/</loc>
@@ -1301,19 +741,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/wingspan-europe/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/wingspan-oceania/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/wingspan-oceania/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/love-letter/</loc>
@@ -1321,19 +751,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/love-letter/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/love-letter-premium/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/love-letter-premium/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/tic-tac-trek/</loc>
@@ -1341,19 +761,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/tic-tac-trek/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/art-robbery/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/art-robbery/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/odin/</loc>
@@ -1361,19 +771,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/odin/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/halli-galli/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/halli-galli/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/manila/</loc>
@@ -1381,19 +781,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/manila/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/duel-for-middle-earth/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/duel-for-middle-earth/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/duel-for-middle-earth-allies/</loc>
@@ -1401,19 +791,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/duel-for-middle-earth-allies/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/6-nimmt-30th-anniversary/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/6-nimmt-30th-anniversary/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/6-nimmt-30th-anniversary/score/</loc>
@@ -1426,19 +806,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/7-wonders/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/palm-island/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/palm-island/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/petiquette/</loc>
@@ -1446,19 +816,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/petiquette/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/decrypto/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/decrypto/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/scout/</loc>
@@ -1466,19 +826,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/scout/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/startups/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/startups/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/durian/</loc>
@@ -1486,19 +836,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/durian/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/ark-nova/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/ark-nova/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/ark-nova-marine-worlds/</loc>
@@ -1506,19 +846,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/ark-nova-marine-worlds/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/magical-athlete/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/magical-athlete/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/a-fake-artist-goes-to-new-york/</loc>
@@ -1526,19 +856,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/a-fake-artist-goes-to-new-york/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/kobayakawa/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/kobayakawa/flow/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/hegemony/</loc>
@@ -1546,9 +866,19 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://st2eam.github.io/boardgames/zh/games/hegemony/flow/</loc>
+    <loc>https://st2eam.github.io/boardgames/zh/games/eternal-decks/</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/dune-imperium/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/dune-imperium-uprising/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/eternal-decks/</loc>

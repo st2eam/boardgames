@@ -112,11 +112,6 @@ export function GameFamilyCard({ games, sortMode }: Props) {
                   {t("playNow")}
                 </span>
               )}
-              {base.hasFlow && (
-                <span className="rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
-                  {t("viewFlow")}
-                </span>
-              )}
               {base.hasScore && (
                 <span className="rounded-md bg-accent-light px-1.5 py-0.5 text-[10px] font-medium text-accent-dark">
                   {t("scoreTracker")}

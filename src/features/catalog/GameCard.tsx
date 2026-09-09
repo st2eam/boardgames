@@ -19,7 +19,6 @@ function useTags(game: GameSummary, t: ReturnType<typeof useTranslations<"game">
   const descriptive = game.tags.filter((tag) => tag !== playNow);
   const functional: string[] = [];
   if (game.hasPlay) functional.push(playNow);
-  if (game.hasFlow) functional.push(t("viewFlow"));
   if (game.hasScore) functional.push(t("scoreTracker"));
   if (game.hasTrainer) {
     const label = game.trainerType === "blackjack-basic-strategy"

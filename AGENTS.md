@@ -12,6 +12,7 @@ Read **[`docs/architecture.md`](docs/architecture.md)** before changing structur
 |------|------|
 | Add/edit a route | [`.cursor/skills/page-development`](.cursor/skills/page-development/SKILL.md) |
 | UI / layout / tokens | [`.cursor/skills/component-development`](.cursor/skills/component-development/SKILL.md) |
+| Merge rules + interactive flow | [`.cursor/skills/hybrid-interactive-rules`](.cursor/skills/hybrid-interactive-rules/SKILL.md) |
 | New game content | [`.cursor/skills/add-game`](.cursor/skills/add-game/SKILL.md) |
 | Score tracker | [`.claude/skills/add-score-tracker`](.claude/skills/add-score-tracker/SKILL.md) — default skip |
 | Trainer | [`.claude/skills/add-trainer`](.claude/skills/add-trainer/SKILL.md) |

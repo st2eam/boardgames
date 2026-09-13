@@ -17,7 +17,7 @@ export interface RuleSection {
  */
 export function parseRuleSections(markdown: string): RuleSection[] {
   const sections: RuleSection[] = [];
-  const lines = markdown.split("\n");
+  const lines = markdown.split(/\r?\n/);
 
   let current: { heading: string; level: 2 | 3; mdLines: string[] } | null = null;
 

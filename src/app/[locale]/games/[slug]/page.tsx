@@ -7,6 +7,7 @@ import { RelatedGames } from "@/features/rules/RelatedGames";
 import { TrackRecentVisit } from "@/features/rules/TrackRecentVisit";
 import { DecisionTree } from "@/features/flow/DecisionTree";
 import { FakeArtistFlow } from "@/features/flow/a-fake-artist/FakeArtistFlow";
+import { HegemonyRulesFlow } from "@/features/flow/hegemony/HegemonyRulesFlow";
 import { ChatToggle } from "@/features/chat/ChatToggle";
 import { goTutorSuggestedPrompts } from "@/lib/go/boardContext";
 import { notFound } from "next/navigation";
@@ -124,6 +125,23 @@ export default async function GamePage({ params }: Props) {
             <div className="hidden lg:block">
               <RulesToc content={game.rules} variant="desktop" />
             </div>
+          </div>
+        ) : slug === "hegemony" ? (
+          <div className="min-w-0">
+            {game.flow ? (
+              <HegemonyRulesFlow
+                locale={locale}
+                rulesMd={game.rules}
+                flowData={game.flow}
+              />
+            ) : (
+              <div className="rounded-xl border border-border bg-white p-6 sm:p-8">
+                <MarkdownRenderer content={game.rules} />
+              </div>
+            )}
+            {familyGames.length > 1 && (
+              <RelatedGames current={game.meta} related={familyGames} />
+            )}
           </div>
         ) : (
           <>

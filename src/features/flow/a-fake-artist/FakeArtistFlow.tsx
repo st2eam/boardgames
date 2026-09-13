@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MarkdownRenderer } from "@/features/rules/MarkdownRenderer";
 import { useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
-import { parseRuleSections, type RuleSection } from "./splitRules";
+import { parseRuleSections, type RuleSection } from "@/features/flow/ruleSections";
 
 interface Props {
   locale: string;

@@ -20,7 +20,7 @@ function slugify(text: string): string {
 export function extractToc(markdown: string): TocItem[] {
   const items: TocItem[] = [];
   const seen = new Map<string, number>();
-  const lines = markdown.split("\n");
+  const lines = markdown.split(/\r?\n/);
 
   for (const line of lines) {
     const match = /^(#{2,3})\s+(.+)$/.exec(line);

@@ -52,11 +52,12 @@ function parseUi(value) {
 
 function stripStructuralMarkers(markdown) {
   return markdown
-    .replace(/^\s*<!--\s*rule-section:\s*[a-z0-9][a-z0-9-]*\s*-->\s*(?:\r?\n|$)/gim, "")
-    .replace(/^\s*<!--\s*rule-item:\s*[a-z0-9][a-z0-9-]*\s*-->\s*(?:\r?\n|$)/gim, "")
-    .replace(/^\s*<!--\s*rule-ui:\s*[a-z-]+(?:\s+[^>]*)?-->\s*(?:\r?\n|$)/gim, "")
-    .replace(/^\s*<!--\s*rule-choices\s*-->\s*(?:\r?\n|$)/gim, "")
-    .replace(/^\s*<!--\s*rule-details\s*-->\s*(?:\r?\n|$)/gim, "");
+    .replace(/^[ \t]*(?:<!--\s*rule-section:\s*[a-z0-9][a-z0-9-]*\s*-->)[ \t]*(?:\r?\n|$)/gim, "")
+    .replace(/^([ \t]*(?:[-+*]|\d+[.)])[ \t]+)<!--\s*rule-item:\s*[a-z0-9][a-z0-9-]*\s*-->[ \t]*(?=\r?\n|$)/gim, "$1")
+    .replace(/^[ \t]*<!--\s*rule-item:\s*[a-z0-9][a-z0-9-]*\s*-->[ \t]*(?:\r?\n|$)/gim, "")
+    .replace(/^[ \t]*(?:<!--\s*rule-ui:\s*[a-z-]+(?:\s+[^\r\n>]*)?-->)[ \t]*(?:\r?\n|$)/gim, "")
+    .replace(/^[ \t]*(?:<!--\s*rule-choices\s*-->)[ \t]*(?:\r?\n|$)/gim, "")
+    .replace(/^[ \t]*(?:<!--\s*rule-details\s*-->)[ \t]*(?:\r?\n|$)/gim, "");
 }
 
 function parseSidebar(list, source, context) {
@@ -95,14 +96,23 @@ function parseBody(raw, context) {
   let sidebar = null;
   let choices = null;
   let details = 0;
+  const sidebarListIndex = (start) => {
+    let index = start + 1;
+    while (index < tree.children.length && tree.children[index].type === "paragraph") index += 1;
+    return tree.children[index]?.type === "list" ? index : null;
+  };
   for (let index = 0; index < tree.children.length; index += 1) {
     const current = tree.children[index];
     const value = directive(current);
     if (detailsRe.test(value ?? "")) details += 1;
-    const next = tree.children[index + 1];
-    if (!value || !next || next.type !== "list") continue;
+    if (!value) continue;
     const ui = parseUi(value);
     const isChoices = choicesRe.test(value);
+    if (!ui && !isChoices) continue;
+    if (ui && ui.type !== "sidebar") continue;
+    const listIndex = ui?.type === "sidebar" ? sidebarListIndex(index) : index + 1;
+    const next = listIndex === null ? undefined : tree.children[listIndex];
+    assert(next?.type === "list", `${context}: ${ui?.type ?? "rule-choices"} directive must be followed by a supported list`);
     assert(ui || isChoices, `${context}: unsupported HTML directive in rule body`);
     if (ui?.type === "sidebar") {
       assert(!sidebar, `${context}: only one sidebar is allowed per section`);
@@ -113,8 +123,9 @@ function parseBody(raw, context) {
     } else {
       throw new Error(`${context}: ${ui?.type ?? "rule-choices"} must be followed by its supported list`);
     }
-    ranges.push({ start: offset(current, "start"), end: offset(next, "end") });
-    index += 1;
+    ranges.push({ start: offset(current, "start"), end: offset(current, "end") });
+    ranges.push({ start: offset(next, "start"), end: offset(next, "end") });
+    index = listIndex;
   }
   assert(details <= 1, `${context}: rule-details may appear at most once`);
   let content = raw;

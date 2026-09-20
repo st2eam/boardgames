@@ -117,13 +117,24 @@ function parseBody(raw: string): { contentMd: string; sidebar?: RuleSidebar; cho
   let choices: RuleChoice[] | undefined;
   const ranges: Array<{ start: number; end: number }> = [];
 
+  const sidebarListIndex = (start: number): number | null => {
+    let index = start + 1;
+    while (index < root.children.length && root.children[index].type === "paragraph") index += 1;
+    return root.children[index]?.type === "list" ? index : null;
+  };
+
   for (let index = 0; index < root.children.length - 1; index += 1) {
     const directive = htmlDirective(root.children[index]);
-    const next = root.children[index + 1];
-    if (!directive || !next || next.type !== "list") continue;
+    if (!directive) continue;
     const ui = parseUi(directive);
     const isChoices = RULE_CHOICES_RE.test(directive);
     if (!ui && !isChoices) continue;
+    if (ui && ui.type !== "sidebar") continue;
+    const listIndex = ui?.type === "sidebar" ? sidebarListIndex(index) : index + 1;
+    const next = listIndex === null ? undefined : root.children[listIndex];
+    if (!next || next.type !== "list") {
+      throw new Error(`${ui?.type ?? "rule-choices"} directive must be followed by a supported list`);
+    }
     if (ui?.type === "sidebar") {
       if (sidebar) throw new Error("A section may contain only one sidebar");
       sidebar = parseSidebar(next as List, raw);
@@ -133,8 +144,9 @@ function parseBody(raw: string): { contentMd: string; sidebar?: RuleSidebar; cho
     } else if (ui) {
       throw new Error(`Unknown body rule-ui directive: ${ui.type}`);
     }
-    ranges.push({ start: offset(root.children[index], "start"), end: offset(next, "end") });
-    index += 1;
+    ranges.push({ start: offset(root.children[index], "start"), end: offset(root.children[index], "end") });
+    ranges.push({ start: offset(next, "start"), end: offset(next, "end") });
+    index = listIndex!;
   }
 
   let content = raw;

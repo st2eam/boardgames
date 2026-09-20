@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { parseRuleDocument } from "./ruleDocument";
+import { stripRuleDocumentMarkers } from "./ruleMarkers";
 
 const validDocument = `# Example Rules
 
@@ -99,6 +100,33 @@ describe("parseRuleDocument", () => {
 Text.
 `);
     expect(document.sections[0].children[0].sidebar?.items).toHaveLength(2);
+  });
+
+  it("allows sidebar introduction text between the directive and list", () => {
+    const markdown = `# Rules
+
+<!-- rule-section: quick-reference -->
+## Quick reference
+
+<!-- rule-ui: sidebar -->
+
+Jump to a related topic.
+
+- <!-- rule-item: setup -->
+  **Setup**
+
+  Prepare the table.
+
+- <!-- rule-item: turn -->
+  **Turn**
+
+  Take your turn.
+`;
+    const document = parseRuleDocument(markdown);
+    expect(document.sections[0].contentMd).toContain("Jump to a related topic.");
+    expect(document.sections[0].contentMd).not.toContain("rule-ui");
+    expect(document.sections[0].sidebar?.items.map((item) => item.id)).toEqual(["setup", "turn"]);
+    expect(stripRuleDocumentMarkers(markdown)).not.toContain("rule-item");
   });
 
   it.each([

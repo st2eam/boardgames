@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState, type KeyboardEvent } from "react";
+import { useCallback, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import type {
   FlowData,
   ParsedRuleSection,
@@ -20,7 +20,11 @@ interface Props {
 }
 
 type Lang = "en" | "zh";
-type GuideCardModule = RulesGuideCollectionModule & { type: "categories" | "ranking" | "faq" };
+type TabbedModule =
+  | (Omit<RulesGuideCollectionModule, "type"> & {
+      type: "steps" | "categories" | "ranking" | "faq";
+    })
+  | Extract<RulesGuideModule, { type: "reference" | "prose" }>;
 
 const labels = {
   en: {
@@ -140,79 +144,82 @@ function ModuleTitle({
   );
 }
 
-function CollectionItem({
-  section,
-  lang,
-  open,
-  onClick,
-  index,
-  compact = false,
-}: {
-  section: ParsedRuleSection;
-  lang: Lang;
-  open: boolean;
-  onClick: () => void;
-  index: number;
-  compact?: boolean;
-}) {
-  return (
-    <article
-      id={`guide-item-${section.id}`}
-      className={`rounded-2xl border bg-white transition-colors ${open ? "border-accent/70 ring-1 ring-accent/20" : "border-border"}`}
-    >
-      <button
-        type="button"
-        aria-expanded={open}
-        aria-controls={`guide-detail-${section.id}`}
-        onClick={onClick}
-        className="flex min-h-14 w-full cursor-pointer items-center gap-3 px-4 py-3 text-left focus:outline-none focus:ring-2 focus:ring-accent/40 sm:px-5"
-      >
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary font-mono text-xs font-bold text-white">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block font-heading text-base font-bold text-primary-dark sm:text-lg">{section.heading}</span>
-          {compact && section.summaryMd ? (
-            <span className="mt-0.5 block text-sm text-stone-600">{section.summaryMd.replace(/[#*_`]/g, "").split("\n")[0]}</span>
-          ) : null}
-        </span>
-        <span aria-hidden="true" className={`text-xl text-accent transition-transform motion-reduce:transition-none ${open ? "rotate-45" : ""}`}>
-          +
-        </span>
-      </button>
-      <div
-        id={`guide-detail-${section.id}`}
-        aria-hidden={!open}
-        className={`${open ? "block" : "hidden"} border-t border-border px-4 py-4 sm:px-5 print:block`}
-      >
-        <SectionBody section={section} lang={lang} />
-      </div>
-    </article>
-  );
-}
+function TabbedSectionModule({ module, sections, lang }: { module: TabbedModule; sections: Map<string, ParsedRuleSection>; lang: Lang }) {
+  const t = labels[lang];
+  const itemIds = "sectionIds" in module ? module.sectionIds : module.itemSectionIds;
+  const items = itemIds.map((id) => sections.get(id)).filter((section): section is ParsedRuleSection => Boolean(section));
+  const defaultItemId = "defaultItemId" in module ? module.defaultItemId : undefined;
+  const [activeId, setActiveId] = useState(() => findHashItem(module.id, itemIds, defaultItemId ?? items[0]?.id ?? null));
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const activeIndex = Math.max(0, items.findIndex((item) => item.id === activeId));
+  const active = items[activeIndex];
+  const intro = "introSectionId" in module && module.introSectionId ? sections.get(module.introSectionId) : undefined;
+  const collapsible = module.type !== "reference" && module.type !== "prose";
+  const select = useCallback((id: string, focus = false) => {
+    setActiveId(id);
+    updateHash(`guide-${module.id}--${id}`);
+    if (focus) {
+      window.requestAnimationFrame(() => tabRefs.current[id]?.focus());
+    }
+  }, [module.id]);
+  const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    let nextIndex = activeIndex;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") nextIndex = Math.min(items.length - 1, activeIndex + 1);
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") nextIndex = Math.max(0, activeIndex - 1);
+    if (event.key === "Home") nextIndex = 0;
+    if (event.key === "End") nextIndex = items.length - 1;
+    if (nextIndex !== activeIndex) {
+      event.preventDefault();
+      select(items[nextIndex].id, true);
+    }
+  };
 
-function StepsModule({ module, sections, lang }: { module: RulesGuideCollectionModule; sections: Map<string, ParsedRuleSection>; lang: Lang }) {
-  const items = module.itemSectionIds.map((id) => sections.get(id)).filter((section): section is ParsedRuleSection => Boolean(section));
-  const [openId, setOpenId] = useState(() => findHashItem(module.id, module.itemSectionIds, module.defaultItemId ?? items[0]?.id ?? null));
-  const intro = module.introSectionId ? sections.get(module.introSectionId) : undefined;
+  if (!active) return null;
   return (
     <section id={`guide-${module.id}`} aria-labelledby={`guide-heading-${module.id}`} className="scroll-mt-24">
       <ModuleTitle module={module} intro={intro} lang={lang} />
-      <div className="grid gap-2">
-        {items.map((section, index) => (
-          <CollectionItem
-            key={section.id}
-            section={section}
-            lang={lang}
-            index={index}
-            open={openId === section.id}
-            onClick={() => {
-              const next = openId === section.id ? null : section.id;
-              setOpenId(next);
-              if (next) updateHash(`guide-${module.id}--${next}`);
-            }}
-            compact
-          />
+      <div role="tablist" aria-label={intro?.heading ?? t.reference} className="flex gap-1.5 overflow-x-auto rounded-2xl border border-border bg-white p-2 print:hidden">
+        {items.map((item, index) => (
+          <button
+            key={item.id}
+            type="button"
+            role="tab"
+            id={`guide-item-${item.id}`}
+            aria-selected={item.id === active.id}
+            aria-controls={`guide-panel-${item.id}`}
+            tabIndex={item.id === active.id ? 0 : -1}
+            ref={(element) => { tabRefs.current[item.id] = element; }}
+            onClick={() => select(item.id)}
+            onKeyDown={onKeyDown}
+            className={`flex min-h-11 shrink-0 max-w-[18rem] cursor-pointer items-center gap-2 rounded-xl px-3 py-2 text-left text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-accent/40 ${item.id === active.id ? "bg-amber-50 font-semibold text-primary" : "text-stone-600 hover:bg-stone-50"}`}
+          >
+            <span className="font-mono text-[10px] font-bold text-accent">{String(index + 1).padStart(2, "0")}</span>
+            <span className="truncate">{item.heading}</span>
+          </button>
+        ))}
+      </div>
+      <div id={`guide-panel-${active.id}`} role="tabpanel" aria-labelledby={`guide-item-${active.id}`} tabIndex={-1} className="mt-4 rounded-2xl border border-border bg-white p-5 shadow-card sm:p-7 print:hidden">
+        <div className="mb-4 flex items-center justify-between gap-3 border-b border-border pb-4">
+          <div>
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-widest text-accent">{activeIndex + 1} / {items.length}</p>
+            <h3 id={`rule-section-${active.id}`} className="font-heading text-xl font-bold text-primary-dark sm:text-2xl">{active.heading}</h3>
+          </div>
+          <span className="sr-only" aria-live="polite">{active.heading}</span>
+        </div>
+        <SectionBody section={active} lang={lang} collapsible={collapsible} />
+        {module.type === "steps" ? (
+          <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
+            <button type="button" disabled={activeIndex === 0} onClick={() => select(items[activeIndex - 1].id)} className="min-h-11 rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent/40">{t.previous}</button>
+            <button type="button" disabled={activeIndex === items.length - 1} onClick={() => select(items[activeIndex + 1].id)} className="min-h-11 rounded-lg px-3 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent/5 disabled:cursor-not-allowed disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent/40">{t.next}</button>
+          </div>
+        ) : null}
+      </div>
+      <div className="hidden space-y-6 print:block">
+        {items.map((item) => (
+          <article key={item.id} className="break-inside-avoid rounded-2xl border border-border bg-white p-5 sm:p-7">
+            <h3 className="font-heading text-xl font-bold text-primary-dark sm:text-2xl">{item.heading}</h3>
+            <div className="mt-3"><SectionBody section={item} lang={lang} collapsible={false} /></div>
+          </article>
         ))}
       </div>
     </section>
@@ -295,44 +302,6 @@ function PhaseModule({ module, sections, lang }: { module: RulesGuideCollectionM
   );
 }
 
-function CollectionModule({ module, sections, lang }: { module: GuideCardModule; sections: Map<string, ParsedRuleSection>; lang: Lang }) {
-  const items = module.itemSectionIds.map((id) => sections.get(id)).filter((section): section is ParsedRuleSection => Boolean(section));
-  const intro = module.introSectionId ? sections.get(module.introSectionId) : undefined;
-  const [openIds, setOpenIds] = useState<string[]>(() => {
-    const initial = findHashItem(module.id, module.itemSectionIds, module.defaultItemId ?? null);
-    return initial ? [initial] : [];
-  });
-  const allowMultiple = module.type === "faq";
-  return (
-    <section id={`guide-${module.id}`} aria-labelledby={`guide-heading-${module.id}`} className="scroll-mt-24">
-      <ModuleTitle module={module} intro={intro} lang={lang} />
-      <div className={module.type === "categories" ? "grid gap-3 sm:grid-cols-2" : "grid gap-2"}>
-        {items.map((section, index) => (
-          <CollectionItem
-            key={section.id}
-            section={section}
-            lang={lang}
-            index={index}
-            open={openIds.includes(section.id)}
-            onClick={() => {
-              const isOpen = openIds.includes(section.id);
-              const next = isOpen ? null : section.id;
-              setOpenIds((current) => {
-                if (allowMultiple) {
-                  return isOpen ? current.filter((id) => id !== section.id) : [...current, section.id];
-                }
-                return next ? [next] : [];
-              });
-              if (next) updateHash(`guide-${module.id}--${next}`);
-            }}
-            compact
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function FactsModule({ module, sections, lang }: { module: Extract<RulesGuideModule, { type: "facts" }>; sections: Map<string, ParsedRuleSection>; lang: Lang }) {
   return (
     <section id={`guide-${module.id}`} aria-labelledby={`guide-heading-${module.id}`} className="scroll-mt-24">
@@ -342,21 +311,6 @@ function FactsModule({ module, sections, lang }: { module: Extract<RulesGuideMod
           const section = sections.get(id);
           if (!section) return null;
           return <article key={id} className="rounded-2xl border border-border bg-white p-5 shadow-card sm:p-6"><SectionHeader section={section} /><div className="mt-3"><SectionBody section={section} lang={lang} collapsible={false} /></div></article>;
-        })}
-      </div>
-    </section>
-  );
-}
-
-function ContentModule({ module, sections, lang }: { module: Extract<RulesGuideModule, { type: "reference" | "prose" }>; sections: Map<string, ParsedRuleSection>; lang: Lang }) {
-  return (
-    <section id={`guide-${module.id}`} aria-labelledby={`guide-heading-${module.id}`} className="scroll-mt-24">
-      <ModuleTitle module={module} lang={lang} />
-      <div className="grid gap-4">
-        {module.sectionIds.map((id) => {
-          const section = sections.get(id);
-          if (!section) return null;
-          return <article key={id} className="rounded-2xl border border-border bg-white p-5 shadow-card sm:p-7"><SectionHeader section={section} /><div className="mt-3"><SectionBody section={section} lang={lang} collapsible={module.type !== "reference"} /></div></article>;
         })}
       </div>
     </section>
@@ -424,11 +378,9 @@ function JumpNav({ modules, sections, lang }: { modules: RulesGuideModule[]; sec
 
 function renderModule(module: RulesGuideModule, sections: Map<string, ParsedRuleSection>, flow: FlowData | null, lang: Lang) {
   if (module.type === "facts") return <FactsModule key={module.id} module={module} sections={sections} lang={lang} />;
-  if (module.type === "reference" || module.type === "prose") return <ContentModule key={module.id} module={module} sections={sections} lang={lang} />;
   if (module.type === "decision") return <DecisionModule key={module.id} module={module} sections={sections} flow={flow} lang={lang} />;
-  if (module.type === "steps") return <StepsModule key={module.id} module={module} sections={sections} lang={lang} />;
   if (module.type === "phases") return <PhaseModule key={module.id} module={module} sections={sections} lang={lang} />;
-  return <CollectionModule key={module.id} module={module as GuideCardModule} sections={sections} lang={lang} />;
+  return <TabbedSectionModule key={module.id} module={module as TabbedModule} sections={sections} lang={lang} />;
 }
 
 export function RulesGuideExperience({ locale, rulesMd, sections: sectionList, guide, flow }: Props) {

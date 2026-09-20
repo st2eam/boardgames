@@ -240,6 +240,12 @@ export function parseRuleDocument(markdown: string): RuleDocument {
     if (ids.has(record.meta.id)) throw new Error(`Duplicate rule-section id: ${record.meta.id}`);
     ids.add(record.meta.id);
   }
+  const quickReferenceIds = records
+    .map((record) => record.meta.id)
+    .filter((id) => /^topic-guide(?:-\d+)?$/i.test(id));
+  if (quickReferenceIds.length > 1 || quickReferenceIds.some((id) => id !== "topic-guide")) {
+    throw new Error("A rule document may contain only one quick-reference section with id topic-guide");
+  }
   for (let index = 1; index < records.length; index += 1) {
     if (records[index].level > records[index - 1].level + 1) {
       throw new Error(`Heading level jumps from H${records[index - 1].level} to H${records[index].level}`);

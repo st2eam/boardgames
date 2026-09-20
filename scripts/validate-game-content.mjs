@@ -16,6 +16,7 @@ const itemRe = /^<!--\s*rule-item:\s*([a-z0-9][a-z0-9-]*)\s*-->$/i;
 const uiRe = /^<!--\s*rule-ui:\s*([a-z-]+)([^>]*)-->$/i;
 const choicesRe = /^<!--\s*rule-choices\s*-->$/i;
 const detailsRe = /^<!--\s*rule-details\s*-->/i;
+const quickReferenceRe = /^<!--\s*rule-section:\s*(topic-guide(?:-\d+)?)\s*-->$/gim;
 const imageRe = /!\[[^\]]*\]\((\/images\/rules\/[^)]+\.(?:svg|png|jpe?g|webp))\)/g;
 
 function assert(condition, message) {
@@ -256,6 +257,11 @@ function validateImages(slug) {
   assert(JSON.stringify(images.en) === JSON.stringify(images.zh), `${slug}: English and Chinese rule image order differs`);
 }
 
+function validateQuickReference(markdown, context) {
+  const ids = [...markdown.matchAll(quickReferenceRe)].map((match) => match[1].toLowerCase());
+  assert(ids.length <= 1 && (ids.length === 0 || ids[0] === "topic-guide"), `${context}: a game may contain only one quick-reference section with id topic-guide`);
+}
+
 export function validateGameContent() {
   const slugs = readJson(path.join(contentRoot, "index.json"));
   let documents = 0;
@@ -264,7 +270,9 @@ export function validateGameContent() {
     for (const locale of locales) {
       const file = path.join(contentRoot, slug, locale, "rules.md");
       assert(fs.existsSync(file), `${slug}: missing ${locale}/rules.md`);
-      parsed[locale] = parseDocument(fs.readFileSync(file, "utf8"), `${slug}/${locale}`);
+      const markdown = fs.readFileSync(file, "utf8");
+      validateQuickReference(markdown, `${slug}/${locale}`);
+      parsed[locale] = parseDocument(markdown, `${slug}/${locale}`);
       documents += 1;
     }
     assert(JSON.stringify(parsed.en.ids) === JSON.stringify(parsed.zh.ids), `${slug}: English and Chinese section IDs/order differ`);

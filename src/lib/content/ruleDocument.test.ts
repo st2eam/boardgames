@@ -131,6 +131,7 @@ Jump to a related topic.
 
   it.each([
     ["rejects duplicate IDs", `# Rules\n<!-- rule-section: a -->\n## A\n<!-- rule-section: a -->\n## B`],
+    ["rejects duplicate quick-reference sections", `# Rules\n<!-- rule-section: topic-guide -->\n## Quick reference\n<!-- rule-section: topic-guide-2 -->\n## Quick reference`],
     ["rejects heading jumps", `# Rules\n<!-- rule-section: a -->\n## A\n<!-- rule-section: b -->\n#### B`],
     ["rejects a one-item tab", `# Rules\n<!-- rule-ui: tabs -->\n<!-- rule-section: a -->\n## A\n<!-- rule-section: b -->\n### B`],
     ["rejects a missing decision target", `# Rules\n<!-- rule-ui: decision start=a -->\n<!-- rule-section: root -->\n## Root\n<!-- rule-section: a -->\n### A\n<!-- rule-choices -->\n- [Missing](#missing)`],

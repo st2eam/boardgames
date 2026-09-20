@@ -58,6 +58,10 @@ show position and previous/next controls; unordered lists are freely selectable
 categories. Item content may contain Markdown, images, tables, and nested lists.
 Unmarked lists are never converted.
 
+Each rule book may contain at most one quick-reference section. Use the stable
+section ID `topic-guide`; do not duplicate it as `topic-guide-2`,
+`topic-guide-3`, or another same-title section.
+
 ## Decisions
 
 ```md

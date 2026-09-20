@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Choose together / 同时决定</text>
+  <g font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif">
+    <text x="110" y="68" text-anchor="middle" font-size="13" fill="#8D6E63">玩家 A</text>
+    <rect x="72" y="82" width="76" height="92" rx="10" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="110" y="120" text-anchor="middle" font-size="14" fill="#5D4037" font-weight="700">继续</text><text x="110" y="146" text-anchor="middle" font-size="12" fill="#8D6E63">Continue</text>
+    <text x="360" y="68" text-anchor="middle" font-size="13" fill="#8D6E63">玩家 B</text>
+    <rect x="322" y="82" width="76" height="92" rx="10" fill="#fff" stroke="#C4952A" stroke-width="3"/>
+    <text x="360" y="120" text-anchor="middle" font-size="14" fill="#5D4037" font-weight="700">返回</text><text x="360" y="146" text-anchor="middle" font-size="12" fill="#8D6E63">Return</text>
+    <text x="610" y="68" text-anchor="middle" font-size="13" fill="#8D6E63">玩家 C</text>
+    <rect x="572" y="82" width="76" height="92" rx="10" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="610" y="120" text-anchor="middle" font-size="14" fill="#5D4037" font-weight="700">继续</text><text x="610" y="146" text-anchor="middle" font-size="12" fill="#8D6E63">Continue</text>
+  </g>
+  <path d="M110 186 V214 M360 186 V214 M610 186 V214" stroke="#C4952A" stroke-width="2"/>
+  <path d="M110 214 H610" stroke="#C4952A" stroke-width="2"/>
+  <path d="M360 214 V232" stroke="#C4952A" stroke-width="2"/>
+  <text x="360" y="254" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">所有仍在洞穴的玩家同时亮牌，再结算返回者</text>
+</svg>

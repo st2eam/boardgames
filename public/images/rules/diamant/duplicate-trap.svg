@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">A second identical trap ends the expedition / 同类陷阱第二次出现，远征结束</text>
+  <g>
+    <rect x="80" y="78" width="120" height="105" rx="12" fill="#fff" stroke="#5D4037" stroke-width="1.5"/>
+    <text x="140" y="118" text-anchor="middle" font-size="28" fill="#5D4037">☠</text><text x="140" y="153" text-anchor="middle" font-family="'PingFang SC', sans-serif" font-size="13" fill="#5D4037">第一次：继续</text>
+    <path d="M215 130 H305" stroke="#C4952A" stroke-width="3"/><path d="M293 118 L308 130 L293 142" fill="none" stroke="#C4952A" stroke-width="3"/>
+    <rect x="320" y="78" width="120" height="105" rx="12" fill="#fff" stroke="#C62828" stroke-width="3"/>
+    <text x="380" y="118" text-anchor="middle" font-size="28" fill="#C62828">☠</text><text x="380" y="153" text-anchor="middle" font-family="'PingFang SC', sans-serif" font-size="13" fill="#C62828" font-weight="700">第二次：同类</text>
+    <path d="M455 130 H545" stroke="#C62828" stroke-width="3"/><path d="M533 118 L548 130 L533 142" fill="none" stroke="#C62828" stroke-width="3"/>
+    <rect x="560" y="78" width="90" height="105" rx="12" fill="#FBE9E7" stroke="#C62828" stroke-width="2"/>
+    <text x="605" y="115" text-anchor="middle" font-family="'PingFang SC', sans-serif" font-size="14" fill="#C62828" font-weight="700">全员逃回</text><text x="605" y="142" text-anchor="middle" font-family="'PingFang SC', sans-serif" font-size="12" fill="#8D6E63">未存宝藏归零</text>
+  </g>
+  <text x="360" y="238" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">同一回合出现第二张相同陷阱：仍在洞穴者失去本回合未存入宝箱的宝石</text>
+  <text x="360" y="258" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Everyone still exploring loses the round’s unbanked Gems</text>
+</svg>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img">
+  <rect width="720" height="280" fill="#FAFAF5"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5D4037" font-weight="700">Treasure 9 / 宝藏 9</text>
+  <rect x="42" y="64" width="116" height="132" rx="12" fill="#fff" stroke="#C4952A" stroke-width="3"/>
+  <text x="100" y="98" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#C4952A" font-weight="700">9</text>
+  <text x="100" y="128" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">红宝石 Rubies</text>
+  <text x="100" y="153" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">5 人在洞穴</text>
+  <path d="M176 130 H254" stroke="#C4952A" stroke-width="3"/>
+  <path d="M242 118 L257 130 L242 142" fill="none" stroke="#C4952A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#C62828" stroke="#5D4037" stroke-width="1"><circle cx="292" cy="101" r="13"/><circle cx="326" cy="101" r="13"/><circle cx="360" cy="101" r="13"/><circle cx="394" cy="101" r="13"/><circle cx="428" cy="101" r="13"/></g>
+  <text x="360" y="137" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">每人 1 枚</text>
+  <path d="M451 130 H500" stroke="#C4952A" stroke-width="3"/>
+  <path d="M488 118 L503 130 L488 142" fill="none" stroke="#C4952A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#C62828" stroke="#5D4037" stroke-width="1"><circle cx="548" cy="101" r="13"/><circle cx="582" cy="101" r="13"/><circle cx="616" cy="101" r="13"/><circle cx="650" cy="101" r="13"/></g>
+  <text x="598" y="137" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">4 枚留在牌上</text>
+  <text x="360" y="238" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5D4037">宝藏平均分给仍在洞穴的玩家，余数留在宝藏牌上</text>
+  <text x="360" y="258" text-anchor="middle" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12" fill="#8D6E63">Divide equally among explorers; leave the remainder on the Treasure card</text>
+</svg>

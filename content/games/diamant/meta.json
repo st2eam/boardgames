@@ -1,0 +1,12 @@
+{
+  "name": {
+    "en": "Diamant",
+    "zh": "印加宝藏"
+  },
+  "players": "3-8",
+  "duration": "30 min",
+  "difficulty": "easy",
+  "tags": ["board", "family", "push-your-luck", "bluffing", "treasure"],
+  "category": "board",
+  "bggRank": 903
+}

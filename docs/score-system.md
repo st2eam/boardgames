@@ -83,4 +83,4 @@ The dedicated component may ignore most JSON fields and hardcode targets (Sea Sa
 5. Ship `content/games/<slug>/score.json` with that `type`
 6. `npm run build` — `/[locale]/games/[slug]/score/` is generated only when the file exists
 
-Checklist and decision questions: [`.claude/skills/add-score-tracker`](../.claude/skills/add-score-tracker/SKILL.md).
+Checklist and decision questions: [`.agents/skills/add-score-tracker`](../.agents/skills/add-score-tracker/SKILL.md).

@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Code Modification (The Game Shelf)
 
-Grounded in how this repo actually works. Before extending features or moving code across layers, read `docs/architecture.md` and `docs/development-guide.md`. For adding a game end-to-end, use `.cursor/skills/add-game/SKILL.md`. For score trackers, use `.claude/skills/add-score-tracker` + `docs/score-system.md` (multi-player running totals only; no end-game calculators). For new trainer types, use `.claude/skills/add-trainer` + `docs/trainer-system.md`. After verify, follow `verify-then-push.mdc`.
+Grounded in how this repo actually works. Before extending features or moving code across layers, read `docs/architecture.md` and `docs/development-guide.md`. For adding a game end-to-end, use `.agents/skills/add-game/SKILL.md`. For score trackers, use `.agents/skills/add-score-tracker` + `docs/score-system.md` (multi-player running totals only; no end-game calculators). For new trainer types, use `.agents/skills/add-trainer` + `docs/trainer-system.md`. After verify, follow `verify-then-push.mdc`.
 
 ## Layers (do not blur)
 

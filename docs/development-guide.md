@@ -4,7 +4,7 @@ Read [`architecture.md`](architecture.md) and the matching skill before coding. 
 
 ## Add a game (content)
 
-Use [`.cursor/skills/add-game/SKILL.md`](../.cursor/skills/add-game/SKILL.md). Source of truth is `content/games/<slug>/`, not `public/data/`.
+Use [`.agents/skills/add-game/SKILL.md`](../.agents/skills/add-game/SKILL.md). Source of truth is `content/games/<slug>/`, not `public/data/`.
 
 Each game uses one `en/rules.md` and one `zh/rules.md`; keep prose and
 interactive structure in those files. Add explicit `rule-section`, `rule-ui`,
@@ -13,7 +13,7 @@ See [`rules-guide-system.md`](rules-guide-system.md) for the protocol.
 
 ## Add a page (route)
 
-Use [`.cursor/skills/page-development/SKILL.md`](../.cursor/skills/page-development/SKILL.md).
+Use [`.agents/skills/page-development/SKILL.md`](../.agents/skills/page-development/SKILL.md).
 
 - Keep `src/app/[locale]/**/page.tsx` as a Server Component.
 - Load via `GameRepository` / `GameFactory`.
@@ -22,13 +22,13 @@ Use [`.cursor/skills/page-development/SKILL.md`](../.cursor/skills/page-developm
 
 ## Add UI
 
-Use [`.cursor/skills/component-development/SKILL.md`](../.cursor/skills/component-development/SKILL.md). Tokens from `src/app/globals.css`. `"use client"` on interactive pieces under `src/features/` or `src/shared/`, not on whole game pages.
+Use [`.agents/skills/component-development/SKILL.md`](../.agents/skills/component-development/SKILL.md). Tokens from `src/app/globals.css`. `"use client"` on interactive pieces under `src/features/` or `src/shared/`, not on whole game pages.
 
 ## Score / trainer / play
 
-- Score: [`.claude/skills/add-score-tracker`](../.claude/skills/add-score-tracker/SKILL.md) — **default skip**.
-- Trainer: [`.claude/skills/add-trainer`](../.claude/skills/add-trainer/SKILL.md) + [`trainer-system.md`](trainer-system.md).
-- Play: [`.cursor/skills/browser-board-game-engine`](../.cursor/skills/browser-board-game-engine/SKILL.md). Leave `bbge/` as its own tree.
+- Score: [`.agents/skills/add-score-tracker`](../.agents/skills/add-score-tracker/SKILL.md) — **default skip**.
+- Trainer: [`.agents/skills/add-trainer`](../.agents/skills/add-trainer/SKILL.md) + [`trainer-system.md`](trainer-system.md).
+- Play: [`.agents/skills/browser-board-game-engine`](../.agents/skills/browser-board-game-engine/SKILL.md). Leave `bbge/` as its own tree.
 
 ## Forbidden
 
@@ -42,4 +42,4 @@ Use [`.cursor/skills/component-development/SKILL.md`](../.cursor/skills/componen
 
 ## Verify
 
-[`.cursor/skills/testing/SKILL.md`](../.cursor/skills/testing/SKILL.md): `npm run lint`, `npm run build`; `npm run test:bbge` if play/engine changed. Then commit + push per `.cursor/rules/verify-then-push.mdc`.
+[`.agents/skills/testing/SKILL.md`](../.agents/skills/testing/SKILL.md): `npm run lint`, `npm run build`; `npm run test:bbge` if play/engine changed. Then commit + push per `.cursor/rules/verify-then-push.mdc`.

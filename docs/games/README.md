@@ -16,9 +16,9 @@ docs/games/<slug>.md
 | [uno.md](uno.md) | UNO — classic / Flip / No Mercy | Shipped — shared plugin + editions + AI + battleLog |
 | [trio.md](trio.md) | TRIO — simple / spicy | Shipped — memory flips + card art + AI + battleLog |
 
-Platform skill: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/SKILL.md).  
+Platform skill: [`.agents/skills/browser-board-game-engine/`](../../.agents/skills/browser-board-game-engine/SKILL.md).  
 Shelf feature map: [`docs/architecture.md`](../architecture.md).  
-Add-game skill (content + play checklist): [`.cursor/skills/add-game/SKILL.md`](../../.cursor/skills/add-game/SKILL.md).
+Add-game skill (content + play checklist): [`.agents/skills/add-game/SKILL.md`](../../.agents/skills/add-game/SKILL.md).
 
 Keep these docs aligned with the running Play UI and plugin Actions when behavior changes.
 

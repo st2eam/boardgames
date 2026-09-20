@@ -258,7 +258,7 @@ Platform: Host authority, deterministic Actions, plugins never talk to the netwo
 
 ### Score Tracker
 
-Page `/[locale]/games/[slug]/score/` is generated only when `score.json` exists. **Default is skip.** Only multi-player running totals (or fiddly per-round combos). No end-game category forms. Gate: [`docs/score-system.md`](docs/score-system.md) and [`.claude/skills/add-score-tracker`](.claude/skills/add-score-tracker/SKILL.md).
+Page `/[locale]/games/[slug]/score/` is generated only when `score.json` exists. **Default is skip.** Only multi-player running totals (or fiddly per-round combos). No end-game category forms. Gate: [`docs/score-system.md`](docs/score-system.md) and [`.agents/skills/add-score-tracker`](.agents/skills/add-score-tracker/SKILL.md).
 
 | Type | Component | Game |
 |------|-----------|------|
@@ -346,7 +346,7 @@ Page `/[locale]/games/[slug]/score/` is generated only when `score.json` exists.
 
 ## Adding a New Game
 
-See [`.cursor/skills/add-game/SKILL.md`](.cursor/skills/add-game/SKILL.md) for the complete guide covering standalone games, DLCs, expansions, and variants.
+See [`.agents/skills/add-game/SKILL.md`](.agents/skills/add-game/SKILL.md) for the complete guide covering standalone games, DLCs, expansions, and variants.
 
 Quick steps:
 

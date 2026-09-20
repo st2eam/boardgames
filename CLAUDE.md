@@ -126,7 +126,7 @@ Cover images live in `public/images/games/<slug>.<ext>` (webp, png, jpg, jpeg).
 
 ### Score Tracker System
 
-Canonical: [`docs/score-system.md`](docs/score-system.md) + [`.claude/skills/add-score-tracker`](.claude/skills/add-score-tracker/SKILL.md).
+Canonical: [`docs/score-system.md`](docs/score-system.md) + [`.agents/skills/add-score-tracker`](.agents/skills/add-score-tracker/SKILL.md).
 
 Only **multi-player, multi-round running totals** (or fiddly per-round combo scoring) get a `score.json`. Do not add end-game category calculators. Default is skip.
 

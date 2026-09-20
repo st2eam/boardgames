@@ -23,4 +23,4 @@ That template’s own UI rule still applies: if a UI skill defaults to shadcn/An
 
 - New UI uses existing tokens only; no new palette unless the user asks.
 - Visual skills (`design-taste-frontend`, etc.) are references, not a license to restyle the stack.
-- Component skill: [`.cursor/skills/component-development`](../../.cursor/skills/component-development/SKILL.md).
+- Component skill: [`.agents/skills/component-development`](../../.agents/skills/component-development/SKILL.md).

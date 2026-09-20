@@ -37,9 +37,9 @@ and follow UI skills (do not invent a parallel design system):
 
 | Skill | When |
 |-------|------|
-| `.claude/skills/ui-ux-pro-max/SKILL.md` | Plan/build/review UI: palette, type, layout, components |
-| `.claude/skills/design-taste-frontend/SKILL.md` | Anti-slop landing/lobby polish |
-| `.claude/skills/frontend-design/SKILL.md` or user `frontend-design` | Distinctive production UI |
+| `.agents/skills/ui-ux-pro-max/SKILL.md` | Plan/build/review UI: palette, type, layout, components |
+| `.agents/skills/design-taste-frontend/SKILL.md` | Anti-slop landing/lobby polish |
+| `.agents/skills/frontend-design/SKILL.md` or user `frontend-design` | Distinctive production UI |
 | Project tokens | Prefer existing Game Shelf tokens (`primary` / `accent` / `surface`) when embedding in this repo |
 
 **Rule:** Engine UI stays reusable and theme-driven (CSS variables). Plugins

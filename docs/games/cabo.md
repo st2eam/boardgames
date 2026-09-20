@@ -1,7 +1,7 @@
 # CABO — BBGE Play Design
 
 Per-game design for the Browser Board Game Engine playable slice.  
-Platform: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/).  
+Platform: [`.agents/skills/browser-board-game-engine/`](../../.agents/skills/browser-board-game-engine/).  
 Shelf: [`docs/architecture.md`](../architecture.md).
 
 | | |

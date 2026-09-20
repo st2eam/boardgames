@@ -1,7 +1,7 @@
 # Love Letter — BBGE Play Design
 
 Per-game design for the Browser Board Game Engine playable slice.  
-Platform contracts: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/).  
+Platform contracts: [`.agents/skills/browser-board-game-engine/`](../../.agents/skills/browser-board-game-engine/).  
 Shelf architecture: [`docs/architecture.md`](../architecture.md).
 
 | | |

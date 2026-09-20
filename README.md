@@ -67,7 +67,7 @@ npm run build   # 静态导出到 out/
 | [`docs/architecture.md`](docs/architecture.md) | 分层、双平面、红线 |
 | [`docs/development-guide.md`](docs/development-guide.md) | 改动方式 |
 | [`AGENTS.md`](AGENTS.md) | Agent 入口 / skill 路由 |
-| [`.cursor/skills/add-game`](.cursor/skills/add-game/SKILL.md) | 新增游戏 |
+| [`.agents/skills/add-game`](.agents/skills/add-game/SKILL.md) | 新增游戏 |
 | [`docs/score-system.md`](docs/score-system.md) | 记分器准入（默认跳过） |
 | [`docs/games/`](docs/games/) | BBGE 对局设计 |
 | [`docs/decisions/`](docs/decisions/) | ADR |

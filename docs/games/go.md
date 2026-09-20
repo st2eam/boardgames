@@ -9,7 +9,7 @@
 | **Play UI** | Board-first (`GoTable` + fluid SVG `GoBoard`); thin toolbar |
 | **Teacher** | Toggle drawer `GoTutorPanel` (collapsed by default); live `boardAscii` |
 
-Platform: [`.cursor/skills/browser-board-game-engine/`](../../.cursor/skills/browser-board-game-engine/).
+Platform: [`.agents/skills/browser-board-game-engine/`](../../.agents/skills/browser-board-game-engine/).
 
 ---
 

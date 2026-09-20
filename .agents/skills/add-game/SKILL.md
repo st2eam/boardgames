@@ -179,7 +179,7 @@ Edge cases, variants, clarifications.
 - Keep language natural — the rules are for human reading, not training data
 - **Write for play, not for a rulebook index:** start each turn section with a short action loop such as **“Draw 1 → play 1”** / **“摸 1 张 → 打 1 张”**. In Chinese, prefer concrete table language (`摸牌`、`打牌`、`弃牌`、`收走`、`你面前的牌`) and introduce formal or game-specific terms in parentheses on first use. See [`docs/rule-writing-style.md`](../../../docs/rule-writing-style.md).
 - **Start the body naturally:** immediately after Overview / 概览, add **Game Objective / 游戏目标**. Say who the player is in the setting and how they win in one or two plain-language sentences. Do not add a separate page-level callout or rely on slogans such as “先记一句话”.
-- **Diagrams:** follow `.cursor/skills/rule-svg-diagrams/SKILL.md`. 请在关键的节点上尽量加入svg图片 — prefer **situation sketches** of the table (cards, tiles, dice); add a **flowchart** when the sequence or branch is the hard part. Files go in `public/images/rules/{slug}/`. Write SVG CJK via Python (the Write tool corrupts it).
+- **Diagrams:** follow `.agents/skills/rule-svg-diagrams/SKILL.md`. 请在关键的节点上尽量加入svg图片 — prefer **situation sketches** of the table (cards, tiles, dice); add a **flowchart** when the sequence or branch is the hard part. Files go in `public/images/rules/{slug}/`. Write SVG CJK via Python (the Write tool corrupts it).
 - **Official rulebook illustrations:** when the user supplies or explicitly authorizes official source material, selected cropped publisher images may also be placed in `public/images/rules/{slug}/`. Caption them clearly; they supplement, rather than replace, the required self-made SVGs.
 
 ### Step 5: Register the slug
@@ -272,7 +272,7 @@ After both locale rules and `flow.json` are drafted, apply [`hybrid-interactive-
 
 ### Step 6b: Evaluate and create score.json (if applicable)
 
-Follow **[add-score-tracker](../../../.claude/skills/add-score-tracker/SKILL.md)** + [`docs/score-system.md`](../../../docs/score-system.md). **Default is skip.**
+Follow **[add-score-tracker](../../../.agents/skills/add-score-tracker/SKILL.md)** + [`docs/score-system.md`](../../../docs/score-system.md). **Default is skip.**
 
 **Create `score.json` only if** the table needs a shared running total:
 
@@ -363,7 +363,7 @@ Effects when present:
 #### Required companion work (not content-only)
 
 `play.json` alone is not enough. Follow
-[`.cursor/skills/browser-board-game-engine/SKILL.md`](../browser-board-game-engine/SKILL.md)
+[`.agents/skills/browser-board-game-engine/SKILL.md`](../browser-board-game-engine/SKILL.md)
 and write / update **`docs/games/{slug}.md`** (per-game play design).
 
 Minimum implementation checklist for a new playable slug:
@@ -468,7 +468,7 @@ Do NOT skip the reminder for cover / rank / price gaps.
 
 Do not duplicate the gate here. Use:
 
-- [`.claude/skills/add-score-tracker/SKILL.md`](../../../.claude/skills/add-score-tracker/SKILL.md) — decide skip vs add, then wire or create a type
+- [`.agents/skills/add-score-tracker/SKILL.md`](../../../.agents/skills/add-score-tracker/SKILL.md) — decide skip vs add, then wire or create a type
 - [`docs/score-system.md`](../../../docs/score-system.md) — architecture, current types, JSON shape
 
 ---
@@ -610,7 +610,7 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 
 ### SVG diagrams: Write tool corrupts Chinese
 
-Rule diagrams live in `public/images/rules/{slug}/`. Do **not** use the editor Write tool for SVG that contains CJK — write UTF-8 via Python and read the file back. Full spec: `.cursor/skills/rule-svg-diagrams/SKILL.md`.
+Rule diagrams live in `public/images/rules/{slug}/`. Do **not** use the editor Write tool for SVG that contains CJK — write UTF-8 via Python and read the file back. Full spec: `.agents/skills/rule-svg-diagrams/SKILL.md`.
 
 ### flow.json: Use `startNode` NOT `start`
 

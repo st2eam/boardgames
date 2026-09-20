@@ -74,7 +74,7 @@ Pattern for gated features: config exists in content → `generateStaticParams` 
 
 ### Adding a BBGE playable game
 
-Follow **[add-game Step 6d](../.cursor/skills/add-game/SKILL.md)** + **[BBGE skill](../.cursor/skills/browser-board-game-engine/SKILL.md)**:
+Follow **[add-game Step 6d](../.agents/skills/add-game/SKILL.md)** + **[BBGE skill](../.agents/skills/browser-board-game-engine/SKILL.md)**:
 
 1. Design `docs/games/<slug>.md`
 2. Plugin + `PluginPlayModule` under `bbge/plugins/<pluginId>/`
@@ -89,11 +89,11 @@ Follow **[add-game Step 6d](../.cursor/skills/add-game/SKILL.md)** + **[BBGE ski
 1. Domain logic under `src/lib/<game>/`
 2. UI under `src/features/trainer/`
 3. Register in `src/features/trainer/registry.tsx`
-4. Ship `trainer.json` — see [trainer-system.md](trainer-system.md) and `.claude/skills/add-trainer`
+4. Ship `trainer.json` — see [trainer-system.md](trainer-system.md) and `.agents/skills/add-trainer`
 
 ### Adding a dedicated score tracker
 
-Follow **[add-score-tracker](../.claude/skills/add-score-tracker/SKILL.md)** + **[score-system.md](score-system.md)**. **Default is skip.**
+Follow **[add-score-tracker](../.agents/skills/add-score-tracker/SKILL.md)** + **[score-system.md](score-system.md)**. **Default is skip.**
 
 If the gate passes:
 
@@ -129,11 +129,11 @@ If the gate passes:
 | [`docs/score-system.md`](score-system.md) | Score tracker gate |
 | [`docs/trainer-system.md`](trainer-system.md) | Trainer anatomy |
 | [`docs/games/`](games/) | BBGE play designs |
-| [`.cursor/skills/page-development`](../.cursor/skills/page-development/SKILL.md) | New App Router page |
-| [`.cursor/skills/component-development`](../.cursor/skills/component-development/SKILL.md) | UI + tokens |
-| [`.cursor/skills/hybrid-interactive-rules`](../.cursor/skills/hybrid-interactive-rules/SKILL.md) | Unified rule page + inline interactive teaching |
-| [`.cursor/skills/testing`](../.cursor/skills/testing/SKILL.md) | lint / build / bbge tests |
-| `.cursor/skills/add-game/SKILL.md` | New game / expansion |
-| `.claude/skills/add-score-tracker` | Score tracker skip vs add |
-| `.claude/skills/add-trainer` | New trainer type |
-| `.cursor/skills/browser-board-game-engine` | Playable engine |
+| [`.agents/skills/page-development`](../.agents/skills/page-development/SKILL.md) | New App Router page |
+| [`.agents/skills/component-development`](../.agents/skills/component-development/SKILL.md) | UI + tokens |
+| [`.agents/skills/hybrid-interactive-rules`](../.agents/skills/hybrid-interactive-rules/SKILL.md) | Unified rule page + inline interactive teaching |
+| [`.agents/skills/testing`](../.agents/skills/testing/SKILL.md) | lint / build / bbge tests |
+| `.agents/skills/add-game/SKILL.md` | New game / expansion |
+| `.agents/skills/add-score-tracker` | Score tracker skip vs add |
+| `.agents/skills/add-trainer` | New trainer type |
+| `.agents/skills/browser-board-game-engine` | Playable engine |

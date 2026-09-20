@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "node scripts/generate-game-data.mjs",
-    "build": "next build",
-    "postbuild": "node scripts/generate-sw-precache.mjs && node scripts/generate-seo.mjs",
-    "start": "next start",
+      "build": "next build",
+      "postbuild": "node scripts/generate-sw-precache.mjs && node scripts/generate-seo.mjs",
+      "preview:static": "node scripts/preview-static.mjs",
+      "start": "next start",
     "lint": "eslint",
     "test:rules": "vitest run --config vitest.rules.config.ts",
     "test:bbge": "vitest run --config bbge/vitest.config.ts",

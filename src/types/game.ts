@@ -64,7 +64,15 @@ export interface RulesGuideCollectionModule {
 export interface RulesGuideContentModule {
   id: string;
   type: "reference" | "prose";
+  sectionIds?: string[];
+  groups?: RulesGuideContentGroup[];
+}
+
+export interface RulesGuideContentGroup {
+  id: string;
+  label: Record<"en" | "zh", string>;
   sectionIds: string[];
+  defaultItemId?: string;
 }
 
 export interface RulesGuideDecisionModule {

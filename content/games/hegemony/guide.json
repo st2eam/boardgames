@@ -47,22 +47,27 @@
     {
       "id": "table-reference",
       "type": "reference",
-      "sectionIds": [
-        "companies-workers",
-        "food-imf-taxes",
-        "how-to-vote",
-        "seven-policies",
-        "loans-imf",
-        "scoring",
-        "mistakes",
-        "components-quick",
-        "number-tables",
-        "income-tax",
-        "corporate-tax",
-        "official-rulings",
-        "companies-workers-strikes",
-        "loans-storage-imf",
-        "action-cards-events"
+      "groups": [
+        {
+          "id": "components-actions",
+          "label": { "en": "Components & actions", "zh": "组件与行动" },
+          "sectionIds": ["components-quick", "action-cards-events"]
+        },
+        {
+          "id": "economy-loans",
+          "label": { "en": "Economy & loans", "zh": "经济与贷款" },
+          "sectionIds": ["companies-workers", "companies-workers-strikes", "food-imf-taxes", "loans-imf", "loans-storage-imf"]
+        },
+        {
+          "id": "policies-scoring",
+          "label": { "en": "Policies & scoring", "zh": "政策与计分" },
+          "sectionIds": ["how-to-vote", "seven-policies", "scoring", "mistakes"]
+        },
+        {
+          "id": "tables-rulings",
+          "label": { "en": "Tables & rulings", "zh": "表格与裁定" },
+          "sectionIds": ["number-tables", "income-tax", "corporate-tax", "official-rulings"]
+        }
       ]
     }
   ]

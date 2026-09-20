@@ -23,6 +23,17 @@ const difficultyColors: Record<string, string> = {
   hard: "bg-red-100 text-red-800",
 };
 
+const tagLabels: Record<string, Record<"en" | "zh", string>> = {
+  trading: { en: "Trading", zh: "交易" },
+  "engine-building": { en: "Engine building", zh: "引擎构筑" },
+  strategy: { en: "Strategy", zh: "策略" },
+  economic: { en: "Economic", zh: "经济" },
+  political: { en: "Political", zh: "政治" },
+  asymmetric: { en: "Asymmetric", zh: "非对称" },
+  card: { en: "Cards", zh: "卡牌" },
+  board: { en: "Board", zh: "版图" },
+};
+
 export function GameHeader({ meta, hasPlay, playConfig, hasScore, hasTrainer, hasCalculator, trainerType, rules }: Props) {
   const locale = useLocale();
   const t = useTranslations("game");
@@ -121,7 +132,7 @@ export function GameHeader({ meta, hasPlay, playConfig, hasScore, hasTrainer, ha
               key={tag}
               className="rounded-full bg-stone-100 px-2 py-0.5 text-xs font-medium text-stone-600"
             >
-              {tag}
+              {tagLabels[tag]?.[locale as "en" | "zh"] ?? tag}
             </span>
           ))}
         </div>

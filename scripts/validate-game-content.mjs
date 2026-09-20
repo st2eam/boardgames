@@ -100,9 +100,29 @@ function validateGuide(slug, guide, sectionByLocale, flow) {
 
   for (const guideModule of guide.modules) {
     assert(validTypes.has(guideModule.type), `${slug}: unknown guide module type ${guideModule.type}`);
-    if (guideModule.type === "facts" || guideModule.type === "reference" || guideModule.type === "prose") {
+    if (guideModule.type === "facts") {
       assert(Array.isArray(guideModule.sectionIds) && guideModule.sectionIds.length > 0, `${slug}/${guideModule.id}: sectionIds required`);
       referenced.push(...guideModule.sectionIds);
+    } else if (guideModule.type === "reference" || guideModule.type === "prose") {
+      const hasGroups = Array.isArray(guideModule.groups);
+      assert(hasGroups || Array.isArray(guideModule.sectionIds), `${slug}/${guideModule.id}: sectionIds or groups required`);
+      assert(!(hasGroups && guideModule.sectionIds), `${slug}/${guideModule.id}: use sectionIds or groups, not both`);
+      if (hasGroups) {
+        assert(guideModule.groups.length > 0, `${slug}/${guideModule.id}: groups must not be empty`);
+        const groupIds = guideModule.groups.map((group) => group.id);
+        assert(groupIds.every((id) => typeof id === "string" && GUIDE_ID_RE.test(id)) && new Set(groupIds).size === groupIds.length, `${slug}/${guideModule.id}: group ids must be unique valid ids`);
+        for (const group of guideModule.groups) {
+          assert(group.label?.en && group.label?.zh, `${slug}/${guideModule.id}/${group.id}: group label must be bilingual`);
+          assert(Array.isArray(group.sectionIds) && group.sectionIds.length > 0, `${slug}/${guideModule.id}/${group.id}: sectionIds required`);
+          if (group.defaultItemId) {
+            assert(group.sectionIds.includes(group.defaultItemId), `${slug}/${guideModule.id}/${group.id}: invalid defaultItemId`);
+          }
+          referenced.push(...group.sectionIds);
+        }
+      } else {
+        assert(guideModule.sectionIds.length > 0, `${slug}/${guideModule.id}: sectionIds required`);
+        referenced.push(...guideModule.sectionIds);
+      }
     } else if (guideModule.type === "decision") {
       hasDecision = true;
       if (guideModule.introSectionId) referenced.push(guideModule.introSectionId);

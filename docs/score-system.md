@@ -22,9 +22,9 @@ There is **no** generic calculator and **no** scoring engine registry. Each trac
 - Totals accumulate until a **target** or **elimination line**
 - **or** a single round’s scoring is too fiddly for paper (Sea Salt Paper combos)
 
-**Do not add** (write the scoring in `rules.md` / `flow.json` instead):
+**Do not add** (write the scoring in `rules.md` instead):
 
-- End-game category totaling (Catan, 7 Wonders, Carcassonne, Citadels, SETI, Brass, Palm Island)
+- End-game category totaling (Catan, 7 Wonders, Carcassonne, Citadels, SETI, Brass, Palm Island); write those rules in `rules.md`.
 - A trivial per-round number (leftover cards, match counts — Odin, Petiquette)
 - Win/lose only, first-to-finish, or co-op pass/fail
 

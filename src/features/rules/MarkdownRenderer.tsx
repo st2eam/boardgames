@@ -15,7 +15,7 @@ export function MarkdownRenderer({ content }: Props) {
   const headingLines = content
     .split("\n")
     .map((line, index) => ({ line, number: index + 1 }))
-    .filter(({ line }) => /^(#{2,3})\s+/.test(line));
+    .filter(({ line }) => /^(#{2,4})\s+/.test(line));
   const headingIdsByLine = new Map(
     headingLines.map(({ number }, index) => [
       number,
@@ -57,6 +57,17 @@ export function MarkdownRenderer({ content }: Props) {
             >
               {children}
             </h3>
+          );
+        },
+        h4: ({ children, node }) => {
+          const id = headingId(node);
+          return (
+            <h4
+              id={id}
+              className="mb-2 mt-4 scroll-mt-24 text-lg font-semibold text-stone-800"
+            >
+              {children}
+            </h4>
           );
         },
         p: ({ children }) => (

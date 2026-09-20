@@ -6,10 +6,10 @@ Read [`architecture.md`](architecture.md) and the matching skill before coding. 
 
 Use [`.cursor/skills/add-game/SKILL.md`](../.cursor/skills/add-game/SKILL.md). Source of truth is `content/games/<slug>/`, not `public/data/`.
 
-For a migrated unified rules page, add an optional `guide.json` presentation map
-and matching `rule-section` markers to both locale `rules.md` files. Keep all
-rule prose in Markdown; use `flow.json` only for genuine branching decisions.
-See [`rules-guide-system.md`](rules-guide-system.md) for the module contract.
+Each game uses one `en/rules.md` and one `zh/rules.md`; keep prose and
+interactive structure in those files. Add explicit `rule-section`, `rule-ui`,
+`rule-item`, and `rule-choices` comments only when the intended UI is clear.
+See [`rules-guide-system.md`](rules-guide-system.md) for the protocol.
 
 ## Add a page (route)
 

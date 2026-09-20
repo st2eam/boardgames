@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return buildPageMetadata({
     locale,
     title: "The Game Shelf",
-    description: `Curated board game rules — ${count} games with bilingual rules, decision trees, score trackers, and trainers.`,
+    description: `Curated board game rules — ${count} games with bilingual rules, interactive guides, score trackers, and trainers.`,
     path: "/",
   });
 }

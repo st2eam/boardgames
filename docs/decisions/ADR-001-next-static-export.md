@@ -5,7 +5,7 @@
 
 ## Context
 
-The Game Shelf is a bilingual rules site (≈59 games), deployed to GitHub Pages under `basePath: /boardgames`. Pages need SEO, per-game metadata, and a large SSG surface (rules, flow, score, trainer, calculator, play).
+The Game Shelf is a bilingual rules site, deployed to GitHub Pages under `basePath: /boardgames`. Pages need SEO, per-game metadata, and a large SSG surface (rules, interactive rule sections, score, trainer, calculator, play).
 
 An AI-native frontend template suggested choosing Vite + React SPA **or** Next.js App Router. SPA would require a separate prerender/SEO/i18n story.
 

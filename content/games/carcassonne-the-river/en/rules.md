@@ -1,20 +1,20 @@
 # Carcassonne: The River Expansion Rules
-
+<!-- rule-section: overview -->
 ## Overview
 
 "The River" is the first mini-expansion for Carcassonne, consisting of 12 river tiles. These tiles replace the standard starting tile, creating a winding river at the start of the game that provides a more varied and spread-out initial landscape.
-
+<!-- rule-section: game-objective -->
 ## Game Objective
 
 In Carcassonne: The River, you lay the river that opens the landscape. Your goal is to create the river start correctly, then use the base game’s scoring to beat the other players.
-
+<!-- rule-section: components -->
 ## Components
 
 - **12 river tiles** (dark backs)
   - 1 source tile (river start)
   - 1 lake tile (river end)
   - 10 middle river tiles
-
+<!-- rule-section: setup -->
 ## Setup
 
 ![Remove the start tile; place the source, shuffle the river, lake on the bottom](/images/rules/carcassonne-the-river/river-setup.svg)
@@ -24,31 +24,32 @@ In Carcassonne: The River, you lay the river that opens the landscape. Your goal
 3. Shuffle the remaining 10 river tiles and stack them face down.
 4. Place the **lake** tile at the bottom of the river stack.
 5. Place the **source** tile face up in the center of the table as the starting tile.
-
+<!-- rule-section: how-to-play -->
 ## How to Play
-
+<!-- rule-ui: tabs -->
+<!-- rule-section: river-phase -->
 ### River Phase
 
 At the start of the game, players draw from the **river tile stack** (not the normal land tiles), taking turns placing tiles until all river tiles have been placed.
-
+<!-- rule-section: placement-rules -->
 #### Placement Rules
 
 - River tiles must be placed to continue the river, extending it further.
 - Terrain matching follows the same rules as the base game (roads connect to roads, city walls to city walls, fields to fields).
 - **No U-turns**: A river tile showing a bend cannot be placed in the same direction as the previously placed bending tile, preventing the river from looping back on itself.
 - **No meeples on the river**: The river itself is not a claimable feature. However, you may place meeples on other features on river tiles (cities, roads, fields) following normal rules.
-
+<!-- rule-section: completing-the-river -->
 #### Completing the River
 
 Once the lake tile is placed, the river phase ends. The game then continues with the normal land tiles, following standard Carcassonne rules.
-
+<!-- rule-section: scoring -->
 ## Scoring
 
 The River expansion does not introduce any new scoring rules. All scoring follows the base game:
 
 - Fields on opposite sides of the river are treated as separate areas (the river divides fields).
 - Cities, roads, and monasteries on river tiles score normally.
-
+<!-- rule-section: differences-from-base-game -->
 ## Differences from Base Game
 
 ![Place all 12 river tiles first; no U-turns; the river also splits fields](/images/rules/carcassonne-the-river/differences.svg)
@@ -59,9 +60,145 @@ The River expansion does not introduce any new scoring rules. All scoring follow
 | Opening phase | Draw from normal tiles immediately | Place all 12 river tiles first |
 | Field division | Divided by cities and roads | River also divides fields |
 | Other rules | — | Identical |
-
+<!-- rule-section: tips -->
 ## Tips
 
 - The river creates natural field boundaries, making farmer scoring more interesting and varied.
 - Keep the river tiles in a separate bag for easy setup.
 - The River expansion can be freely combined with other Carcassonne expansions.
+<!-- rule-section: topic-guide -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Prepare the river stack**
+
+  Remove the normal start tile. Put the source in the middle, shuffle the ten middle river tiles, and place the lake at the bottom of that stack.
+
+  ![Remove the start tile; place the source, shuffle the river, lake on the bottom](/images/rules/carcassonne-the-river/river-setup.svg)
+
+  Related topics: 
+  - [Place river tiles](#flow-river)
+  - [What changes?](#flow-differences)
+
+- <!-- rule-item: flow-river -->
+  **Finish the river before land tiles**
+
+  Players draw only river tiles until the lake is placed. Continue the river, match all other terrain normally, never make a U-turn with two consecutive bend tiles, and do not place meeples on the river itself.
+
+  ![Place all 12 river tiles first; no U-turns; the river also splits fields](/images/rules/carcassonne-the-river/differences.svg)
+
+  Related topics: 
+  - [After the lake](#flow-differences)
+  - [Back to setup](#flow-setup)
+
+- <!-- rule-item: flow-differences -->
+  **Return to normal Carcassonne**
+
+  After all twelve river tiles are placed, draw normal land tiles and continue normally. The river divides fields, but it adds no new scoring rules.
+
+  Related topics: 
+  - [Set up another river](#flow-setup)
+<!-- rule-section: topic-guide-2 -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Prepare the river stack**
+
+  Remove the normal start tile. Put the source in the middle, shuffle the ten middle river tiles, and place the lake at the bottom of that stack.
+
+  ![Remove the start tile; place the source, shuffle the river, lake on the bottom](/images/rules/carcassonne-the-river/river-setup.svg)
+
+  Related topics: 
+  - [Place river tiles](#flow-river)
+  - [What changes?](#flow-differences)
+
+- <!-- rule-item: flow-river -->
+  **Finish the river before land tiles**
+
+  Players draw only river tiles until the lake is placed. Continue the river, match all other terrain normally, never make a U-turn with two consecutive bend tiles, and do not place meeples on the river itself.
+
+  ![Place all 12 river tiles first; no U-turns; the river also splits fields](/images/rules/carcassonne-the-river/differences.svg)
+
+  Related topics: 
+  - [After the lake](#flow-differences)
+  - [Back to setup](#flow-setup)
+
+- <!-- rule-item: flow-differences -->
+  **Return to normal Carcassonne**
+
+  After all twelve river tiles are placed, draw normal land tiles and continue normally. The river divides fields, but it adds no new scoring rules.
+
+  Related topics: 
+  - [Set up another river](#flow-setup)
+<!-- rule-section: topic-guide-3 -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Prepare the river stack**
+
+  Remove the normal start tile. Put the source in the middle, shuffle the ten middle river tiles, and place the lake at the bottom of that stack.
+
+  ![Remove the start tile; place the source, shuffle the river, lake on the bottom](/images/rules/carcassonne-the-river/river-setup.svg)
+
+  Related topics: 
+  - [Place river tiles](#flow-river)
+  - [What changes?](#flow-differences)
+
+- <!-- rule-item: flow-river -->
+  **Finish the river before land tiles**
+
+  Players draw only river tiles until the lake is placed. Continue the river, match all other terrain normally, never make a U-turn with two consecutive bend tiles, and do not place meeples on the river itself.
+
+  ![Place all 12 river tiles first; no U-turns; the river also splits fields](/images/rules/carcassonne-the-river/differences.svg)
+
+  Related topics: 
+  - [After the lake](#flow-differences)
+  - [Back to setup](#flow-setup)
+
+- <!-- rule-item: flow-differences -->
+  **Return to normal Carcassonne**
+
+  After all twelve river tiles are placed, draw normal land tiles and continue normally. The river divides fields, but it adds no new scoring rules.
+
+  Related topics: 
+  - [Set up another river](#flow-setup)
+
+<!-- rule-section: topic-guide-4 -->
+## Quick reference
+<!-- rule-ui: sidebar -->
+
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Prepare the river stack**
+
+  Remove the normal start tile. Put the source in the middle, shuffle the ten middle river tiles, and place the lake at the bottom of that stack.
+
+  ![Remove the start tile; place the source, shuffle the river, lake on the bottom](/images/rules/carcassonne-the-river/river-setup.svg)
+
+  Related topics: 
+  - [Place river tiles](#flow-river)
+  - [What changes?](#flow-differences)
+
+- <!-- rule-item: flow-river -->
+  **Finish the river before land tiles**
+
+  Players draw only river tiles until the lake is placed. Continue the river, match all other terrain normally, never make a U-turn with two consecutive bend tiles, and do not place meeples on the river itself.
+
+  ![Place all 12 river tiles first; no U-turns; the river also splits fields](/images/rules/carcassonne-the-river/differences.svg)
+
+  Related topics: 
+  - [After the lake](#flow-differences)
+  - [Back to setup](#flow-setup)
+
+- <!-- rule-item: flow-differences -->
+  **Return to normal Carcassonne**
+
+  After all twelve river tiles are placed, draw normal land tiles and continue normally. The river divides fields, but it adds no new scoring rules.
+
+  Related topics: 
+  - [Set up another river](#flow-setup)
+

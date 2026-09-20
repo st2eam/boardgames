@@ -12,7 +12,7 @@ interface Props {
   className?: string;
 }
 
-/** Shared, base-path-safe rule image used by rule markdown and interactive flows. */
+/** Shared, base-path-safe rule image used by rule Markdown and interactive sections. */
 export function RuleIllustration({ src, alt, className = "" }: Props) {
   const t = useTranslations("game");
   const [isOpen, setIsOpen] = useState(false);

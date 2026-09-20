@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: `%s - ${SITE_NAME}`,
   },
   description:
-    "Bilingual board game rules reference — decision trees, score trackers, trainers, and AI Q&A.",
+    "Bilingual board game rules reference — interactive rules, score trackers, trainers, and AI Q&A.",
   applicationName: SITE_NAME,
   manifest: "/boardgames/manifest.json",
   appleWebApp: {
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: SITE_NAME,
     description:
-      "Bilingual board game rules reference — decision trees, score trackers, trainers, and AI Q&A.",
+      "Bilingual board game rules reference — interactive rules, score trackers, trainers, and AI Q&A.",
     url: SITE_URL,
     images: [{ url: getDefaultOgImage(), width: 512, height: 512, alt: SITE_NAME }],
   },
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_NAME,
     description:
-      "Bilingual board game rules reference — decision trees, score trackers, trainers, and AI Q&A.",
+      "Bilingual board game rules reference — interactive rules, score trackers, trainers, and AI Q&A.",
     images: [getDefaultOgImage()],
   },
   other: {

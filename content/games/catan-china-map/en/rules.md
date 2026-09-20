@@ -1,13 +1,13 @@
 # Catan: China Map Rules
-
+<!-- rule-section: overview -->
 ## Overview
 
 Catan: China Map is a geographic scenario variant of Catan, using a fixed map of China instead of random hex tiles. It is a standalone product (bundled with the base game components). The core Catan rules apply, with the following additions and changes specific to the China Map.
-
+<!-- rule-section: game-objective -->
 ## Game Objective
 
 In Catan: China Map, you are a settler expanding across a fixed map of China. Your goal is to use its special routes and still be the first to reach 10 victory points.
-
+<!-- rule-section: what-s-different-from-base-catan -->
 ## What's Different from Base Catan
 
 ![Fixed China map, marked building sites, and red trade routes instead of harbors](/images/rules/catan-china-map/differences.svg)
@@ -21,23 +21,24 @@ In Catan: China Map, you are a settler expanding across a fixed map of China. Yo
 | **Special feature 2** | — | Monuments (landmarks) |
 | **Players** | 3-4 | 3-4 |
 | **Duration** | 60-120 min | 100-150 min |
-
+<!-- rule-section: setup -->
 ## Setup
 
 Use the fixed China Map board. Place number tokens on the designated hexes as shown in the rulebook. Place the 7 monument models at their marked locations.
-
+<!-- rule-ui: tabs -->
+<!-- rule-section: rule-changes -->
 ## Rule Changes
 
 ![Great Wall and monuments add VP; still first to 10, fewest wall sections lose 1](/images/rules/catan-china-map/cities-wall.svg)
-
+<!-- rule-section: 1-fixed-building-positions -->
 ### 1. Fixed Building Positions
 
 Settlements and cities may **only** be built at positions specifically marked on the map (similar to the Germany geography edition). Some adjacent positions are allowed — check the map markings carefully.
-
+<!-- rule-section: 2-trade-routes-replace-harbors -->
 ### 2. Trade Routes (Replace Harbors)
 
 Traditional harbors do not exist in this scenario. Instead, the map features **red paths** (trade routes). When you build a road on a red path, you gain the trade benefit marked at that route (typically 2:1 or 3:1 exchange rates), functioning the same as a harbor in the base game.
-
+<!-- rule-section: 3-the-great-wall -->
 ### 3. The Great Wall
 
 Players can spend resources to contribute to building the Great Wall:
@@ -45,7 +46,7 @@ Players can spend resources to contribute to building the Great Wall:
 - **Cost:** Spend the required resources (as shown on the wall card) to build a wall section.
 - **Reward:** Receive a **Builder card** (建筑师卡), which provides benefits.
 - **Penalty:** At the end of the game, the player who has built the **fewest** wall sections receives the **Emperor's Wrath** token — a penalty of **-1 victory point**.
-
+<!-- rule-section: 4-monuments-landmarks -->
 ### 4. Monuments (Landmarks)
 
 The map features **7 Chinese landmarks** (e.g., Temple of Heaven, Mogao Caves, Leshan Giant Buddha, Oriental Pearl Tower, etc.):
@@ -53,7 +54,7 @@ The map features **7 Chinese landmarks** (e.g., Temple of Heaven, Mogao Caves, L
 - When a player connects their road network to a monument location **first**, they claim the monument model.
 - Each claimed monument is worth **1 victory point**.
 - Once claimed, a monument cannot be taken by another player.
-
+<!-- rule-section: victory-condition -->
 ## Victory Condition
 
 Same as base Catan: first player to reach **10 victory points** wins. Victory points come from:
@@ -65,7 +66,7 @@ Same as base Catan: first player to reach **10 victory points** wins. Victory po
 - Monuments (1 VP each)
 - Builder cards (if applicable)
 - Emperor's Wrath (-1 VP for fewest wall sections)
-
+<!-- rule-section: all-other-rules -->
 ## All Other Rules
 
 All standard Catan rules remain in effect:
@@ -75,3 +76,175 @@ All standard Catan rules remain in effect:
 - Development cards
 - Building costs (roads, settlements, cities)
 - Longest Road and Largest Army
+<!-- rule-section: topic-guide -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Set up the China map**
+
+  Use the fixed China board, place the designated number tokens, and put each monument model on its marked location. Standard Catan setup otherwise applies.
+
+  Related topics: 
+  - [What changed?](#flow-map)
+  - [Special scoring](#flow-landmarks)
+
+- <!-- rule-item: flow-map -->
+  **Build only where the map allows**
+
+  The map fixes terrain and building positions. Red trade routes replace coastal harbors: building a road on one grants the printed exchange rate.
+
+  ![Fixed China map, marked building sites, and red trade routes instead of harbors](/images/rules/catan-china-map/differences.svg)
+
+  Related topics: 
+  - [Great Wall and monuments](#flow-landmarks)
+  - [Victory](#flow-victory)
+
+- <!-- rule-item: flow-landmarks -->
+  **Race for wall sections and monuments**
+
+  Pay the wall cost to build a section and gain its Builder-card reward. Be first to connect a road to a monument to claim its one victory point; fewest wall sections costs one point at game end.
+
+  ![Great Wall and monuments add VP; still first to 10, fewest wall sections lose 1](/images/rules/catan-china-map/cities-wall.svg)
+
+  Related topics: 
+  - [Victory](#flow-victory)
+  - [Back to map](#flow-map)
+
+- <!-- rule-item: flow-victory -->
+  **Reach 10 victory points**
+
+  The first player to reach 10 victory points on their turn wins. Base-game points still count, together with monuments, Builder-card rewards where applicable, and the Emperor's Wrath penalty.
+
+  Related topics: 
+  - [Set up again](#flow-setup)
+<!-- rule-section: topic-guide-2 -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Set up the China map**
+
+  Use the fixed China board, place the designated number tokens, and put each monument model on its marked location. Standard Catan setup otherwise applies.
+
+  Related topics: 
+  - [What changed?](#flow-map)
+  - [Special scoring](#flow-landmarks)
+
+- <!-- rule-item: flow-map -->
+  **Build only where the map allows**
+
+  The map fixes terrain and building positions. Red trade routes replace coastal harbors: building a road on one grants the printed exchange rate.
+
+  ![Fixed China map, marked building sites, and red trade routes instead of harbors](/images/rules/catan-china-map/differences.svg)
+
+  Related topics: 
+  - [Great Wall and monuments](#flow-landmarks)
+  - [Victory](#flow-victory)
+
+- <!-- rule-item: flow-landmarks -->
+  **Race for wall sections and monuments**
+
+  Pay the wall cost to build a section and gain its Builder-card reward. Be first to connect a road to a monument to claim its one victory point; fewest wall sections costs one point at game end.
+
+  ![Great Wall and monuments add VP; still first to 10, fewest wall sections lose 1](/images/rules/catan-china-map/cities-wall.svg)
+
+  Related topics: 
+  - [Victory](#flow-victory)
+  - [Back to map](#flow-map)
+
+- <!-- rule-item: flow-victory -->
+  **Reach 10 victory points**
+
+  The first player to reach 10 victory points on their turn wins. Base-game points still count, together with monuments, Builder-card rewards where applicable, and the Emperor's Wrath penalty.
+
+  Related topics: 
+  - [Set up again](#flow-setup)
+<!-- rule-section: topic-guide-3 -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Set up the China map**
+
+  Use the fixed China board, place the designated number tokens, and put each monument model on its marked location. Standard Catan setup otherwise applies.
+
+  Related topics: 
+  - [What changed?](#flow-map)
+  - [Special scoring](#flow-landmarks)
+
+- <!-- rule-item: flow-map -->
+  **Build only where the map allows**
+
+  The map fixes terrain and building positions. Red trade routes replace coastal harbors: building a road on one grants the printed exchange rate.
+
+  ![Fixed China map, marked building sites, and red trade routes instead of harbors](/images/rules/catan-china-map/differences.svg)
+
+  Related topics: 
+  - [Great Wall and monuments](#flow-landmarks)
+  - [Victory](#flow-victory)
+
+- <!-- rule-item: flow-landmarks -->
+  **Race for wall sections and monuments**
+
+  Pay the wall cost to build a section and gain its Builder-card reward. Be first to connect a road to a monument to claim its one victory point; fewest wall sections costs one point at game end.
+
+  ![Great Wall and monuments add VP; still first to 10, fewest wall sections lose 1](/images/rules/catan-china-map/cities-wall.svg)
+
+  Related topics: 
+  - [Victory](#flow-victory)
+  - [Back to map](#flow-map)
+
+- <!-- rule-item: flow-victory -->
+  **Reach 10 victory points**
+
+  The first player to reach 10 victory points on their turn wins. Base-game points still count, together with monuments, Builder-card rewards where applicable, and the Emperor's Wrath penalty.
+
+  Related topics: 
+  - [Set up again](#flow-setup)
+
+<!-- rule-section: topic-guide-4 -->
+## Quick reference
+<!-- rule-ui: sidebar -->
+
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Set up the China map**
+
+  Use the fixed China board, place the designated number tokens, and put each monument model on its marked location. Standard Catan setup otherwise applies.
+
+  Related topics: 
+  - [What changed?](#flow-map)
+  - [Special scoring](#flow-landmarks)
+
+- <!-- rule-item: flow-map -->
+  **Build only where the map allows**
+
+  The map fixes terrain and building positions. Red trade routes replace coastal harbors: building a road on one grants the printed exchange rate.
+
+  ![Fixed China map, marked building sites, and red trade routes instead of harbors](/images/rules/catan-china-map/differences.svg)
+
+  Related topics: 
+  - [Great Wall and monuments](#flow-landmarks)
+  - [Victory](#flow-victory)
+
+- <!-- rule-item: flow-landmarks -->
+  **Race for wall sections and monuments**
+
+  Pay the wall cost to build a section and gain its Builder-card reward. Be first to connect a road to a monument to claim its one victory point; fewest wall sections costs one point at game end.
+
+  ![Great Wall and monuments add VP; still first to 10, fewest wall sections lose 1](/images/rules/catan-china-map/cities-wall.svg)
+
+  Related topics: 
+  - [Victory](#flow-victory)
+  - [Back to map](#flow-map)
+
+- <!-- rule-item: flow-victory -->
+  **Reach 10 victory points**
+
+  The first player to reach 10 victory points on their turn wins. Base-game points still count, together with monuments, Builder-card rewards where applicable, and the Emperor's Wrath penalty.
+
+  Related topics: 
+  - [Set up again](#flow-setup)
+

@@ -40,10 +40,10 @@ Rules:
 
 | Path | Role |
 |------|------|
-| `content/games/` | Source of truth: `index.json`, per-game `meta.json`, `en\|zh/rules.md`, optional `flow.json` / `score.json` / `trainer.json` / `calculator.json` / `play.json` |
+| `content/games/` | Source of truth: `index.json`, per-game `meta.json`, bilingual `rules.md` (including interaction directives), optional `score.json` / `trainer.json` / `calculator.json` / `play.json` |
 | `docs/games/<slug>.md` | Per-game **playable (BBGE)** design specs |
 | `src/app/[locale]/` | **Server Components** — load data, SEO, hand props to feature UI |
-| `src/features/` | Feature UI (`catalog`, `rules`, `flow`, `score`, `trainer`, `calculator`, `play`, `chat`, `costs`) |
+| `src/features/` | Feature UI (`catalog`, `rules`, `score`, `trainer`, `calculator`, `play`, `chat`, `costs`) |
 | `src/shared/layout/` | Header, Footer, BackToTop |
 | `src/lib/content/` | FS loaders (`GameRepository`, `GameFactory`, `markdown`) — only content warehouse |
 | `src/lib/<domain>/` | Pure(ish) game logic: `mahjong`, `blackjack`, `texas-holdem`, `go`, `score`, `ai` |
@@ -61,7 +61,7 @@ Stack ADRs: [no Vite SPA](decisions/ADR-001-next-static-export.md), [no Ant Desi
 
 | Feature | Content | Page | UI / dispatch | Domain |
 |---------|---------|------|---------------|--------|
-| Rules + interactive teaching | `en\|zh/rules.md` + optional `guide.json` / `flow.json` (`startNode`) | `games/[slug]/page.tsx` | `features/rules` + [`RulesGuideExperience`](../src/features/rules/RulesGuideExperience.tsx) / [`DecisionTree`](../src/features/flow/DecisionTree.tsx) | — |
+| Rules + interactive teaching | `en\|zh/rules.md` → AST `RuleDocument` | `games/[slug]/page.tsx` | `features/rules/RuleDocumentExperience.tsx` | — |
 | Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/features/score/registry.tsx) ([gate](score-system.md)) | `src/lib/score/` |
 | Trainer | `trainer.json` | `…/trainer/page.tsx` | [`trainer/registry.tsx`](../src/features/trainer/registry.tsx) | `src/lib/<game>/` |
 | Calculator | `calculator.json` | `…/calculator/page.tsx` | `features/calculator` | `src/lib/mahjong/` |

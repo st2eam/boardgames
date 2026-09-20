@@ -13,7 +13,7 @@ const index = JSON.parse(
   fs.readFileSync(path.join(gamesDir, "index.json"), "utf8")
 );
 
-let flow = 0;
+let interactive = 0;
 let score = 0;
 let trainer = 0;
 let calc = 0;
@@ -24,11 +24,12 @@ const familyRows = [];
 for (const slug of index) {
   const dir = path.join(gamesDir, slug);
   const meta = JSON.parse(fs.readFileSync(path.join(dir, "meta.json"), "utf8"));
-  const hasFlow = fs.existsSync(path.join(dir, "flow.json"));
+  const rules = fs.readFileSync(path.join(dir, "en", "rules.md"), "utf8");
+  const hasInteractiveRules = /<!--\s*rule-ui:/.test(rules);
   const hasScore = fs.existsSync(path.join(dir, "score.json"));
   const hasTrainer = fs.existsSync(path.join(dir, "trainer.json"));
   const hasCalc = fs.existsSync(path.join(dir, "calculator.json"));
-  if (hasFlow) flow++;
+  if (hasInteractiveRules) interactive++;
   if (hasScore) score++;
   if (hasTrainer) trainer++;
   if (hasCalc) calc++;
@@ -40,7 +41,7 @@ for (const slug of index) {
     family: meta.family ?? null,
     familyOrder: meta.familyOrder ?? 0,
     variantType: meta.variantType ?? null,
-    hasFlow,
+    hasInteractiveRules,
     hasScore,
     hasTrainer,
     hasCalc,
@@ -68,7 +69,7 @@ console.log(
   JSON.stringify(
     {
       games: index.length,
-      flow,
+      interactive,
       score,
       trainer,
       calculator: calc,
@@ -93,13 +94,13 @@ for (const r of solo) {
     .filter(Boolean)
     .join(",") || "—";
   console.log(
-    `- ${r.zh} / ${r.en}  flow=${r.hasFlow ? "✅" : "—"}  ${extras}`
+    `- ${r.zh} / ${r.en}  interactive=${r.hasInteractiveRules ? "✅" : "—"}  ${extras}`
   );
 }
 
 console.log("\n## Families");
 for (const r of familyRows) {
   console.log(
-    `- [${r.family}] ${r.zh} (${r.variantType ?? "?"})  flow=${r.hasFlow ? "✅" : "—"} score=${r.hasScore ? "✅" : "—"} trainer=${r.hasTrainer ? "✅" : "—"}`
+    `- [${r.family}] ${r.zh} (${r.variantType ?? "?"})  interactive=${r.hasInteractiveRules ? "✅" : "—"} score=${r.hasScore ? "✅" : "—"} trainer=${r.hasTrainer ? "✅" : "—"}`
   );
 }

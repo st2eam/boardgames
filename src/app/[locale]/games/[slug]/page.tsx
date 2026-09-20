@@ -1,20 +1,15 @@
 import { GameFactory } from "@/lib/content/GameFactory";
 import { GameRepository } from "@/lib/content/GameRepository";
 import { GameHeader } from "@/features/rules/GameHeader";
-import { MarkdownRenderer } from "@/features/rules/MarkdownRenderer";
-import { RulesToc } from "@/features/rules/RulesToc";
-import { RulesGuideExperience } from "@/features/rules/RulesGuideExperience";
+import { RuleDocumentExperience } from "@/features/rules/RuleDocumentExperience";
 import { RelatedGames } from "@/features/rules/RelatedGames";
 import { TrackRecentVisit } from "@/features/rules/TrackRecentVisit";
-import { DecisionTree } from "@/features/flow/DecisionTree";
-import { FakeArtistFlow } from "@/features/flow/a-fake-artist/FakeArtistFlow";
 import { ChatToggle } from "@/features/chat/ChatToggle";
 import { goTutorSuggestedPrompts } from "@/lib/go/boardContext";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { buildPageMetadata, getCoverImageUrl, absoluteUrl } from "@/lib/seo";
 import type { Metadata } from "next";
-import { parseRuleGuideSections } from "@/lib/content/ruleGuide";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -112,77 +107,12 @@ export default async function GamePage({ params }: Props) {
           />
         </div>
 
-        {game.guide ? (
-          <div className="min-w-0">
-            <RulesGuideExperience
-              locale={locale}
-              rulesMd={game.rules}
-              sections={parseRuleGuideSections(game.rules)}
-              guide={game.guide}
-              flow={game.flow}
-            />
-            {familyGames.length > 1 && (
-              <RelatedGames current={game.meta} related={familyGames} />
-            )}
-          </div>
-        ) : slug === "a-fake-artist-goes-to-new-york" ? (
-          <div className="lg:grid lg:grid-cols-[minmax(0,48rem)_14rem] lg:justify-center lg:gap-10">
-            <div className="min-w-0">
-              <div className="lg:hidden">
-                <RulesToc content={game.rules} variant="mobile" />
-              </div>
-              <FakeArtistFlow locale={locale} rulesMd={game.rules} />
-              {familyGames.length > 1 && (
-                <RelatedGames current={game.meta} related={familyGames} />
-              )}
-            </div>
-            <div className="hidden lg:block">
-              <RulesToc content={game.rules} variant="desktop" />
-            </div>
-          </div>
-        ) : (
-          <>
-            {game.flow && (
-              <section
-                className="mb-10"
-                aria-labelledby="interactive-rules-heading"
-              >
-                <div className="mb-4 max-w-3xl">
-                  <h2
-                    id="interactive-rules-heading"
-                    className="font-heading text-2xl font-bold tracking-tight text-primary-dark sm:text-3xl"
-                  >
-                    {locale === "zh" ? "交互式规则教学" : "Interactive rules tutorial"}
-                  </h2>
-                  <p className="mt-2 text-sm leading-relaxed text-stone-600 sm:text-base">
-                    {locale === "zh"
-                      ? "按照当前局面选择步骤，边玩边查看对应规则；完整规则保留在下方。"
-                      : "Choose the step that matches the table, then follow the relevant rule. The complete rules remain below."}
-                  </p>
-                </div>
-                <DecisionTree flowData={game.flow} locale={locale} slug={slug} />
-              </section>
-            )}
-
-            {/* columns stretch so sticky TOC has a tall containing block */}
-            <div className="lg:grid lg:grid-cols-[minmax(0,48rem)_14rem] lg:justify-center lg:gap-10">
-              <div className="min-w-0">
-                <div className="lg:hidden">
-                  <RulesToc content={game.rules} variant="mobile" />
-                </div>
-                <div className="rounded-xl border border-border bg-white p-6 sm:p-8">
-                  <MarkdownRenderer content={game.rules} />
-                </div>
-                {familyGames.length > 1 && (
-                  <RelatedGames current={game.meta} related={familyGames} />
-                )}
-              </div>
-              <div className="hidden lg:block">
-                <RulesToc content={game.rules} variant="desktop" />
-              </div>
-            </div>
-          </>
-        )}
+        <div className="min-w-0">
+          <RuleDocumentExperience locale={locale} rulesMd={game.rules} document={game.ruleDocument} />
+          {familyGames.length > 1 && (
+            <RelatedGames current={game.meta} related={familyGames} />
+          )}
+        </div>
       </div>
       <ChatToggle
         scope={{

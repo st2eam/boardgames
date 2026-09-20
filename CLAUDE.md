@@ -33,14 +33,13 @@ content/games/
     meta.json             # GameMeta (name, players, duration, difficulty, tags, category, family info)
     en/rules.md           # English rules (markdown)
     zh/rules.md           # Chinese rules (markdown)
-    flow.json             # Optional interactive decision tree (bilingual FlowData at game root)
     score.json / trainer.json / calculator.json  # Optional feature configs
 ```
 
 - `scripts/generate-game-data.mjs` runs at build time (`prebuild`) to write `public/data/games-meta.json`, per-game `rules/*.json`, and `cover-manifest.json`
 - `GameRepository` reads from `content/games/` at build time via `fs` (Node filesystem)
 - `GameFactory.createGame(slug, locale)` assembles the full `Game` object
-- `GameFactory.createGameSummary(slug)` creates lightweight summary (no rules content, just meta + hasFlow + family info)
+- `GameFactory.createGameSummary(slug)` creates lightweight summary (no rules content, just meta + feature flags + family info)
 
 ### Design System
 
@@ -67,17 +66,13 @@ Games can belong to a family (e.g., UNO, Exploding Kittens, Sanguosha, Dirty Pig
 - No filter active → family games render as a single `GameFamilyCard` (stacked look with +N badge). Single-game families render as regular `GameCard`.
 - Series tag selected → families flatten: each game renders individually, family members side-by-side
 
-### Decision Tree (Interactive Flow)
+### Markdown rules and interaction protocol
 
-29 games have `flow.json` decision trees. Each flow defines:
-- `startNode` — entry point key
-- `nodes` — record of `{ title: {en, zh}, content: markdown, options: [{label: {en, zh}, next: nodeId}] }`
-
-`DecisionTree` component:
-- Left sidebar outline showing all nodes with current-node highlight (mobile: slide-out)
-- Breadcrumb trail using chevron separators
-- Markdown content area with related-topic option buttons at bottom
-- Back / Start Over navigation buttons
+Every game locale has one `rules.md`. It contains the complete rule text plus
+explicit `rule-section`, `rule-ui`, `rule-item`, and `rule-choices` comments.
+The build parses it into `RuleDocument`; `RuleDocumentExperience` renders tabs,
+ordered/topic sidebars, and genuine decision helpers. See
+[`docs/rules-guide-system.md`](docs/rules-guide-system.md).
 
 ### Export Feature
 
@@ -146,9 +141,7 @@ Only **multi-player, multi-round running totals** (or fiddly per-round combo sco
 
 Core types in `src/types/game.ts`:
 - `GameMeta` — slug, name (bilingual), players, duration, difficulty, tags, category, family*, variantType*, requiresBase*, price
-- `Game` — meta + rules (markdown string) + flow (FlowData | null)
-- `GameSummary` — lightweight: meta + hasFlow + hasScore + hasTrainer + family* (no rules content)
-- `FlowData` — startNode + nodes record
-- `FlowNode` — title (bilingual), content (bilingual markdown), options array
-- `FlowOption` — label (bilingual), next (node key)
+- `Game` — meta + raw rules Markdown + parsed `ruleDocument`
+- `GameSummary` — lightweight: meta + score/trainer/calculator/play flags + family* (no rules content)
+- `RuleDocument` — serializable AST-derived sections, tabs, sidebars, and decisions
 - `ScoreConfig` — type, engine, direction, players, multiRound, target/targetByPlayers

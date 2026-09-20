@@ -4,13 +4,13 @@
 
 静态导出的中英双语桌游规则站：[st2eam.github.io/boardgames](https://st2eam.github.io/boardgames/)。无 CMS、无 API routes、无运行时 Node；内容以文件为源，构建时生成静态页，部署在 GitHub Pages（`basePath: /boardgames`）。
 
-规模（`content/games/`，可用 `node scripts/print-project-stats.mjs` 核对）：**74** 款游戏（含扩展/变体）、**74** 决策树、**4** 记分器、**5** 训练器、**1** 番符计算器、**8** 款 BBGE 对局。
+规模（`content/games/`，可用 `node scripts/print-project-stats.mjs` 核对）：**74** 款游戏（含扩展/变体）、单 Markdown 交互规则、**4** 记分器、**5** 训练器、**1** 番符计算器、**8** 款 BBGE 对局。
 
 ## Features
 
-- **File-based content.** 每款游戏一个目录：`meta.json`、`en|zh/rules.md`，以及可选的 `flow.json` / `score.json` / `trainer.json` / `calculator.json` / `play.json`。`generateStaticParams` 按配置文件是否存在挂路由。
+- **File-based content.** 每款游戏一个目录：`meta.json`、`en|zh/rules.md`，以及可选的 `score.json` / `trainer.json` / `calculator.json` / `play.json`。规则 Markdown 同时保存完整正文和 TAB、侧边栏、分支决策结构。
 - **双平面数据。** SSG 经 `GameRepository` / `GameFactory` 读 `content/`；客户端（对话、封面）只 fetch 构建产物 `public/data/`。后者不可手改。
-- **决策树。** 双语 `flow.json`（`startNode` + nodes），`DecisionTree` 按节点跳转，带大纲与回溯。
+- **交互规则。** 每份 Markdown 用显式 `rule-section`、`rule-ui`、`rule-item`、`rule-choices` 注释声明 TAB、主题侧边栏和真正的分支决策；默认进入交互指南，也可切换完整规则。
 - **记分器准入。** 仅多人跨回合累计（CABO、海盐折纸、6 nimmt!、Just Wild）。终局分类加总不做；默认不写 `score.json`。见 [`docs/score-system.md`](docs/score-system.md)。
 - **训练 / 计算。** 麻将听牌、21 点基本策略、德州翻前、围棋死活；日麻番符计算器。领域逻辑在 `src/lib/<domain>/`，UI 经 registry 挂载。
 - **BBGE 对局。** Host 权威状态机 + PeerJS；情书、德州、6 nimmt!、围棋、CABO、UNO、TRIO、拉密。邀请联机使用 revision 快照、动作确认与刷新恢复；设计稿在 [`docs/games/`](docs/games/)，联机规范在 [`docs/bbge-networking.md`](docs/bbge-networking.md)，运行时在 `bbge/`。

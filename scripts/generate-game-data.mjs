@@ -23,9 +23,12 @@ function loadMd(filePath) {
 }
 
 function stripGuideMarkers(markdown) {
-  if (!/rule-section:|rule-details/.test(markdown)) return markdown;
+  if (!/rule-section:|rule-details|rule-ui:|rule-item:|rule-choices/.test(markdown)) return markdown;
   return markdown
     .replace(/^\s*<!--\s*rule-section:\s*[a-z0-9][a-z0-9-]*\s*-->\s*(?:\r?\n|$)/gim, "")
+    .replace(/^\s*<!--\s*rule-item:\s*[a-z0-9][a-z0-9-]*\s*-->\s*(?:\r?\n|$)/gim, "")
+    .replace(/^\s*<!--\s*rule-ui:\s*[a-z-]+(?:\s+[^>]*)?-->\s*(?:\r?\n|$)/gim, "")
+    .replace(/^\s*<!--\s*rule-choices\s*-->\s*(?:\r?\n|$)/gim, "")
     .replace(/^\s*<!--\s*rule-details\s*-->\s*(?:\r?\n|$)/gim, "");
 }
 

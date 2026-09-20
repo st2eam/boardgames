@@ -1,11 +1,9 @@
 import type {
   GameMeta,
-  FlowData,
   ScoreConfig,
   TrainerConfig,
   CalculatorConfig,
   PlayConfig,
-  RulesGuideConfig,
 } from "@/types/game";
 import { loadJson, loadMarkdown, fileExists } from "./markdown";
 
@@ -28,16 +26,6 @@ export class GameRepository {
     return loadMarkdown(slug, locale, "rules.md");
   }
 
-  static async getFlowData(
-    slug: string,
-    locale: string
-  ): Promise<FlowData | null> {
-    if (!fileExists(slug, "flow.json")) {
-      return null;
-    }
-    return loadJson<FlowData>(slug, "flow.json");
-  }
-
   static async getScoreConfig(slug: string): Promise<ScoreConfig | null> {
     if (!fileExists(slug, "score.json")) {
       return null;
@@ -58,19 +46,6 @@ export class GameRepository {
 
   static hasTrainerConfig(slug: string): boolean {
     return fileExists(slug, "trainer.json");
-  }
-
-  static hasFlowData(slug: string): boolean {
-    return fileExists(slug, "flow.json");
-  }
-
-  static async getGuideConfig(slug: string): Promise<RulesGuideConfig | null> {
-    if (!fileExists(slug, "guide.json")) return null;
-    return loadJson<RulesGuideConfig>(slug, "guide.json");
-  }
-
-  static hasGuideConfig(slug: string): boolean {
-    return fileExists(slug, "guide.json");
   }
 
   static async getCalculatorConfig(slug: string): Promise<CalculatorConfig | null> {

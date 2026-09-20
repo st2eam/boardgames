@@ -1,15 +1,15 @@
 # Love Letter: Premium Edition Rules
-
+<!-- rule-section: overview -->
 ## Overview
 
 Love Letter Premium Edition is a complete edition for **2–8** suitors. With **2–4 players**, play the classic **16-card** game (Princess = **8**). With **5–8 players**, add **16 more cards** (32 total) for new intrigue, tokens mid-round, and shared number values.
 
 > This is a **standalone** edition — you do not need the 2025 Full Game box. Rules below follow the AEG / Z-Man Premium rulebook.
-
+<!-- rule-section: game-objective -->
 ## Game Objective
 
 In Love Letter Premium, you are a suitor competing in a larger royal court. Your goal is to win rounds by being the last player left or by holding the highest-ranked surviving card, then collect enough favor to win the game.
-
+<!-- rule-section: components -->
 ## Components
 
 - **32 game cards** (16 for 2–4 players; all 32 for 5–8)
@@ -17,7 +17,7 @@ In Love Letter Premium, you are a suitor competing in a larger royal court. Your
 - **25 Tokens of Affection** (♥)
 - **1 Jester token**
 - Card sleeves & rulebook (as included in the box)
-
+<!-- rule-section: setup-2-4-players -->
 ## Setup (2–4 Players)
 
 ![2–4 play the 16-card classic; 5–8 use all 32](/images/rules/love-letter-premium/player-counts.svg)
@@ -39,26 +39,27 @@ Assemble this **16-card** deck (set the other 16 aside):
 3. **2 players only:** also set aside the next **3 cards face up** (unused this round, but visible).
 4. Deal each player **1 card**.
 5. Whoever was most recently on a date goes first (if tied, youngest wins the tie).
-
+<!-- rule-ui: tabs -->
+<!-- rule-section: how-to-play -->
 ## How to Play
 
 Played over several rounds (each round = one day).
-
+<!-- rule-section: your-turn -->
 ### Your Turn
 
 1. Draw the top card of the deck (you hold 2).
 2. Discard **one** of them face up in front of you and **apply its effect** (even if bad for you).
 3. Keep discards visible and overlapping in order.
 4. Turn passes to the left.
-
+<!-- rule-section: out-of-the-round -->
 ### Out of the Round
 
 Discard your remaining hand face up (**do not** apply its effect). Take no further turns this round. Effects tied to being knocked out (Constable, Jester) still apply.
-
+<!-- rule-section: choosing-a-player -->
 ### Choosing a Player
 
 If an effect requires choosing a player who cannot be chosen (Handmaid / Sycophant), discard your card **without effect**.
-
+<!-- rule-section: end-of-a-round -->
 ## End of a Round
 
 A round ends when:
@@ -69,7 +70,7 @@ A round ends when:
 2. **Only one player remains** — that player wins immediately.
 
 Winner(s) each gain **1 Token of Affection**. Reshuffle and set up the next round; previous winner goes first (if multiple winners, whoever among them was most recently on a date).
-
+<!-- rule-section: winning-2-4-players -->
 ## Winning (2–4 Players)
 
 | Players | Tokens to win |
@@ -77,19 +78,19 @@ Winner(s) each gain **1 Token of Affection**. Reshuffle and set up the next roun
 | 2 | 7 |
 | 3 | 5 |
 | 4 | 4 |
-
+<!-- rule-section: setup-play-5-8-players -->
 ## Setup & Play (5–8 Players)
 
 Use **all 32 cards**. Shuffle, remove **1 card** face down, deal 1 to each player. No face-up set-aside for 2-player (2-player uses the 16-card rules above).
 
 **Important:** When a card says **“Name a number”**, that number matches **all cards with that value**. Example: naming **4** with a Guard hits both **Handmaid** and **Sycophant**.
-
+<!-- rule-section: winning-5-8-players -->
 ### Winning (5–8 Players)
 
 First to **4 Tokens of Affection** wins.
 
 Tokens can be gained mid-round (Bishop, Constable, Jester, etc.), so a player can win **without** ever winning a round. If two or more players reach the target at the same time, they play **another round** as a tiebreaker.
-
+<!-- rule-section: classic-cards-2-4-5-8 -->
 ## Classic Cards (2–4 & 5–8)
 
 | Value | Card | Qty (2–4) | Effect |
@@ -102,7 +103,7 @@ Tokens can be gained mid-round (Bishop, Constable, Jester, etc.), so a player ca
 | 3 | **Baron** | 2 | Secretly compare with another player; **lower** is out. Tie → nothing. |
 | 2 | **Priest** | 2 | Secretly look at another player's hand. |
 | 1 | **Guard** | 5 | Choose a player and name a **number other than 1**. If they hold that number, they are out. |
-
+<!-- rule-section: expansion-cards-5-8-only -->
 ## Expansion Cards (5–8 Only)
 
 ![Classic cards for all counts; expansion cards only at 5–8](/images/rules/love-letter-premium/classic-vs-expansion.svg)
@@ -118,7 +119,7 @@ Tokens can be gained mid-round (Bishop, Constable, Jester, etc.), so a player ca
 | 1 | **Guard** (+3) | 8 total | Same Guard effect (name a number ≠ 1). Three extra Guards in the 32-card deck. |
 | 0 | **Jester** | 1 | Choose another player (place the Jester token as a reminder). If they **win the round**, you also gain **1 ♥** (can win immediately). |
 | 0 | **Assassin** | 1 | While in hand: if targeted by a Guard (any named number, even 0), reveal Assassin → the **Guard player** is out, you are not. Then discard Assassin and redraw (empty deck → set-aside card). |
-
+<!-- rule-section: notes-vs-full-game-2025 -->
 ## Notes vs Full Game (2025)
 
 | | Premium | Full Game (site base) |
@@ -128,3 +129,651 @@ Tokens can be gained mid-round (Bishop, Constable, Jester, etc.), so a player ca
 | Extra roles | Bishop, Assassin, Jester, … | Spy, Chancellor |
 | Guard guess | **Number** | Card name |
 | Round-end tie | Discard sum → all tied win | All tied win (no discard sum) |
+<!-- rule-section: topic-guide -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **Premium Edition** — standalone, **2–8 players**.
+  
+  ### 2–4 Players (16 cards)
+  Princess **8**, Countess 7, King 6, Prince×2, Handmaid×2, Baron×2, Priest×2, Guard×5.
+  
+  1. Shuffle 16; set aside top card **face down**.
+  2. **2 players:** also set aside next **3 face up**.
+  3. Deal 1 each. Most recent date goes first (tie → youngest).
+  
+  ### 5–8 Players (32 cards)
+  Use **all** cards. Shuffle; set aside 1 face down; deal 1 each.
+  
+  | Players | ♥ to win |
+  |:-------:|:--------:|
+  | 2 | 7 |
+  | 3 | 5 |
+  | 4 | 4 |
+  | 5–8 | 4 |
+
+  ![2–4 play the 16-card classic; 5–8 use all 32](/images/rules/love-letter-premium/player-counts.svg)
+
+  Related topics: 
+  - [Your Turn](#flow-turn)
+  - [Classic Cards](#flow-classic)
+  - [5–8 Expansion Cards](#flow-expansion)
+
+- <!-- rule-item: flow-turn -->
+  **Your Turn**
+
+  1. **Draw** 1 card (hold 2).
+  2. **Discard** 1 face up and **resolve** its effect — even if it hurts you.
+  3. Keep discards visible in order. Play passes left.
+  
+  **Out?** Discard remaining hand face up (**no** effect). Constable / Jester knock-out effects still apply.
+  
+  **Can't choose** a required target (Handmaid / Sycophant)? Card is discarded with **no effect**.
+  
+  **5–8 tip:** “Name a **number**” hits **every** card of that value (e.g. 4 = Handmaid **and** Sycophant).
+
+  Related topics: 
+  - [Classic Cards](#flow-classic)
+  - [5–8 Expansion Cards](#flow-expansion)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-classic -->
+  **Classic Cards**
+
+  | # | Card | Effect |
+  |:-:|------|--------|
+  | 8 | **Princess** | Play/discard → out; no Prince redraw if she was forced |
+  | 7 | **Countess** | Must play if holding King/Prince |
+  | 6 | **King** | Trade hands |
+  | 5 | **Prince** | Target discards & redraws |
+  | 4 | **Handmaid** | Immune until start of your next turn |
+  | 3 | **Baron** | Compare; lower out |
+  | 2 | **Priest** | Peek one hand |
+  | 1 | **Guard** | Name a **number** ≠ 1; match → out |
+
+  ![Classic cards for all counts; expansion cards only at 5–8](/images/rules/love-letter-premium/classic-vs-expansion.svg)
+
+  Related topics: 
+  - [5–8 Expansion Cards](#flow-expansion)
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-expansion -->
+  **Expansion Overview (5–8)**
+
+  Added when using all **32** cards:
+  
+  | # | Card | Qty | Summary |
+  |:-:|------|:---:|--------|
+  | 9 | **Bishop** | 1 | Guess number → +1 ♥; Princess still wins reveal |
+  | 7 | **Dowager Queen** | 1 | Compare; **higher** out |
+  | 6 | **Constable** | 1 | Knocked out with this in discard → +1 ♥ |
+  | 5 | **Count** | 2 | Each in discard: +1 to hand at reveal |
+  | 4 | **Sycophant** | 2 | Next chooser must include your pick |
+  | 3 | **Baroness** | 2 | Peek 1 or 2 hands |
+  | 2 | **Cardinal** | 2 | Swap 2 hands; peek one |
+  | 1 | **Guard** | +3 | Same Guard (8 total) |
+  | 0 | **Jester** | 1 | If pick wins round → you +1 ♥ |
+  | 0 | **Assassin** | 1 | Vs Guard: Guard player out; then redraw |
+
+  Related topics: 
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Sycophant → Assassin](#flow-low-exp)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-high-exp -->
+  **Bishop · Dowager · Constable · Count**
+
+  ### Bishop (9)
+  Name a number + player. Hit → **+1 ♥** (instant win if enough). Target may discard & redraw (Princess still outs). At **reveal**, Princess beats Bishop.
+  
+  ### Dowager Queen (7)
+  Compare; **higher** value is out. Tie → nothing.
+  
+  ### Constable (6)
+  If knocked out with Constable in your **discard pile** → **+1 ♥** (instant win if enough).
+  
+  ### Count (5) ×2
+  At reveal, +1 hand value per Count in your discard (two → +2). A boosted 7 can beat Princess. Remaining ties use discard sums.
+
+  Related topics: 
+  - [Sycophant → Assassin](#flow-low-exp)
+  - [Expansion Overview](#flow-expansion)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-low-exp -->
+  **Sycophant · Baroness · Cardinal · Jester · Assassin**
+
+  ### Sycophant (4) ×2
+  Choose a player (incl. you). The **next** card that chooses players must include them.
+  
+  ### Baroness (3) ×2
+  Secretly look at **1 or 2** other hands.
+  
+  ### Cardinal (2) ×2
+  Choose **exactly 2** still-in players (may include you); they swap. Then peek **one** of those hands. <2 legal targets → no effect.
+  
+  ### Jester (0)
+  Pick another player (Jester token). If they **win the round**, you also get **1 ♥**.
+  
+  ### Assassin (0)
+  In hand vs Guard: reveal → **Guard player** is out; you are not. Then discard Assassin and redraw (empty deck → set-aside).
+
+  Related topics: 
+  - [Round End](#flow-round-end)
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-round-end -->
+  **Round End & Winning**
+
+  ### Round ends when
+  1. **Deck empty** — highest hand wins. Tie → highest **discard sum**; still tied → **all** tied win.
+  2. **One player left** — that player wins.
+  
+  Winner(s) each get **1 ♥**. Next round: previous winner first.
+  
+  ### Win the game
+  | Players | ♥ |
+  |:-------:|:-:|
+  | 2 | 7 |
+  | 3 | 5 |
+  | 4 | 4 |
+  | 5–8 | 4 |
+  
+  **5–8:** Mid-round ♥ (Bishop / Constable / Jester) can finish the game. Simultaneous winners → **tiebreaker round**.
+
+  Related topics: 
+  - [Setup](#flow-setup)
+  - [Your Turn](#flow-turn)
+  - [5–8 Expansion Cards](#flow-expansion)
+<!-- rule-section: topic-guide-2 -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **Premium Edition** — standalone, **2–8 players**.
+  
+  ### 2–4 Players (16 cards)
+  Princess **8**, Countess 7, King 6, Prince×2, Handmaid×2, Baron×2, Priest×2, Guard×5.
+  
+  1. Shuffle 16; set aside top card **face down**.
+  2. **2 players:** also set aside next **3 face up**.
+  3. Deal 1 each. Most recent date goes first (tie → youngest).
+  
+  ### 5–8 Players (32 cards)
+  Use **all** cards. Shuffle; set aside 1 face down; deal 1 each.
+  
+  | Players | ♥ to win |
+  |:-------:|:--------:|
+  | 2 | 7 |
+  | 3 | 5 |
+  | 4 | 4 |
+  | 5–8 | 4 |
+
+  ![2–4 play the 16-card classic; 5–8 use all 32](/images/rules/love-letter-premium/player-counts.svg)
+
+  Related topics: 
+  - [Your Turn](#flow-turn)
+  - [Classic Cards](#flow-classic)
+  - [5–8 Expansion Cards](#flow-expansion)
+
+- <!-- rule-item: flow-turn -->
+  **Your Turn**
+
+  1. **Draw** 1 card (hold 2).
+  2. **Discard** 1 face up and **resolve** its effect — even if it hurts you.
+  3. Keep discards visible in order. Play passes left.
+  
+  **Out?** Discard remaining hand face up (**no** effect). Constable / Jester knock-out effects still apply.
+  
+  **Can't choose** a required target (Handmaid / Sycophant)? Card is discarded with **no effect**.
+  
+  **5–8 tip:** “Name a **number**” hits **every** card of that value (e.g. 4 = Handmaid **and** Sycophant).
+
+  Related topics: 
+  - [Classic Cards](#flow-classic)
+  - [5–8 Expansion Cards](#flow-expansion)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-classic -->
+  **Classic Cards**
+
+  | # | Card | Effect |
+  |:-:|------|--------|
+  | 8 | **Princess** | Play/discard → out; no Prince redraw if she was forced |
+  | 7 | **Countess** | Must play if holding King/Prince |
+  | 6 | **King** | Trade hands |
+  | 5 | **Prince** | Target discards & redraws |
+  | 4 | **Handmaid** | Immune until start of your next turn |
+  | 3 | **Baron** | Compare; lower out |
+  | 2 | **Priest** | Peek one hand |
+  | 1 | **Guard** | Name a **number** ≠ 1; match → out |
+
+  ![Classic cards for all counts; expansion cards only at 5–8](/images/rules/love-letter-premium/classic-vs-expansion.svg)
+
+  Related topics: 
+  - [5–8 Expansion Cards](#flow-expansion)
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-expansion -->
+  **Expansion Overview (5–8)**
+
+  Added when using all **32** cards:
+  
+  | # | Card | Qty | Summary |
+  |:-:|------|:---:|--------|
+  | 9 | **Bishop** | 1 | Guess number → +1 ♥; Princess still wins reveal |
+  | 7 | **Dowager Queen** | 1 | Compare; **higher** out |
+  | 6 | **Constable** | 1 | Knocked out with this in discard → +1 ♥ |
+  | 5 | **Count** | 2 | Each in discard: +1 to hand at reveal |
+  | 4 | **Sycophant** | 2 | Next chooser must include your pick |
+  | 3 | **Baroness** | 2 | Peek 1 or 2 hands |
+  | 2 | **Cardinal** | 2 | Swap 2 hands; peek one |
+  | 1 | **Guard** | +3 | Same Guard (8 total) |
+  | 0 | **Jester** | 1 | If pick wins round → you +1 ♥ |
+  | 0 | **Assassin** | 1 | Vs Guard: Guard player out; then redraw |
+
+  Related topics: 
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Sycophant → Assassin](#flow-low-exp)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-high-exp -->
+  **Bishop · Dowager · Constable · Count**
+
+  ### Bishop (9)
+  Name a number + player. Hit → **+1 ♥** (instant win if enough). Target may discard & redraw (Princess still outs). At **reveal**, Princess beats Bishop.
+  
+  ### Dowager Queen (7)
+  Compare; **higher** value is out. Tie → nothing.
+  
+  ### Constable (6)
+  If knocked out with Constable in your **discard pile** → **+1 ♥** (instant win if enough).
+  
+  ### Count (5) ×2
+  At reveal, +1 hand value per Count in your discard (two → +2). A boosted 7 can beat Princess. Remaining ties use discard sums.
+
+  Related topics: 
+  - [Sycophant → Assassin](#flow-low-exp)
+  - [Expansion Overview](#flow-expansion)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-low-exp -->
+  **Sycophant · Baroness · Cardinal · Jester · Assassin**
+
+  ### Sycophant (4) ×2
+  Choose a player (incl. you). The **next** card that chooses players must include them.
+  
+  ### Baroness (3) ×2
+  Secretly look at **1 or 2** other hands.
+  
+  ### Cardinal (2) ×2
+  Choose **exactly 2** still-in players (may include you); they swap. Then peek **one** of those hands. <2 legal targets → no effect.
+  
+  ### Jester (0)
+  Pick another player (Jester token). If they **win the round**, you also get **1 ♥**.
+  
+  ### Assassin (0)
+  In hand vs Guard: reveal → **Guard player** is out; you are not. Then discard Assassin and redraw (empty deck → set-aside).
+
+  Related topics: 
+  - [Round End](#flow-round-end)
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-round-end -->
+  **Round End & Winning**
+
+  ### Round ends when
+  1. **Deck empty** — highest hand wins. Tie → highest **discard sum**; still tied → **all** tied win.
+  2. **One player left** — that player wins.
+  
+  Winner(s) each get **1 ♥**. Next round: previous winner first.
+  
+  ### Win the game
+  | Players | ♥ |
+  |:-------:|:-:|
+  | 2 | 7 |
+  | 3 | 5 |
+  | 4 | 4 |
+  | 5–8 | 4 |
+  
+  **5–8:** Mid-round ♥ (Bishop / Constable / Jester) can finish the game. Simultaneous winners → **tiebreaker round**.
+
+  Related topics: 
+  - [Setup](#flow-setup)
+  - [Your Turn](#flow-turn)
+  - [5–8 Expansion Cards](#flow-expansion)
+<!-- rule-section: topic-guide-3 -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **Premium Edition** — standalone, **2–8 players**.
+  
+  ### 2–4 Players (16 cards)
+  Princess **8**, Countess 7, King 6, Prince×2, Handmaid×2, Baron×2, Priest×2, Guard×5.
+  
+  1. Shuffle 16; set aside top card **face down**.
+  2. **2 players:** also set aside next **3 face up**.
+  3. Deal 1 each. Most recent date goes first (tie → youngest).
+  
+  ### 5–8 Players (32 cards)
+  Use **all** cards. Shuffle; set aside 1 face down; deal 1 each.
+  
+  | Players | ♥ to win |
+  |:-------:|:--------:|
+  | 2 | 7 |
+  | 3 | 5 |
+  | 4 | 4 |
+  | 5–8 | 4 |
+
+  ![2–4 play the 16-card classic; 5–8 use all 32](/images/rules/love-letter-premium/player-counts.svg)
+
+  Related topics: 
+  - [Your Turn](#flow-turn)
+  - [Classic Cards](#flow-classic)
+  - [5–8 Expansion Cards](#flow-expansion)
+
+- <!-- rule-item: flow-turn -->
+  **Your Turn**
+
+  1. **Draw** 1 card (hold 2).
+  2. **Discard** 1 face up and **resolve** its effect — even if it hurts you.
+  3. Keep discards visible in order. Play passes left.
+  
+  **Out?** Discard remaining hand face up (**no** effect). Constable / Jester knock-out effects still apply.
+  
+  **Can't choose** a required target (Handmaid / Sycophant)? Card is discarded with **no effect**.
+  
+  **5–8 tip:** “Name a **number**” hits **every** card of that value (e.g. 4 = Handmaid **and** Sycophant).
+
+  Related topics: 
+  - [Classic Cards](#flow-classic)
+  - [5–8 Expansion Cards](#flow-expansion)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-classic -->
+  **Classic Cards**
+
+  | # | Card | Effect |
+  |:-:|------|--------|
+  | 8 | **Princess** | Play/discard → out; no Prince redraw if she was forced |
+  | 7 | **Countess** | Must play if holding King/Prince |
+  | 6 | **King** | Trade hands |
+  | 5 | **Prince** | Target discards & redraws |
+  | 4 | **Handmaid** | Immune until start of your next turn |
+  | 3 | **Baron** | Compare; lower out |
+  | 2 | **Priest** | Peek one hand |
+  | 1 | **Guard** | Name a **number** ≠ 1; match → out |
+
+  ![Classic cards for all counts; expansion cards only at 5–8](/images/rules/love-letter-premium/classic-vs-expansion.svg)
+
+  Related topics: 
+  - [5–8 Expansion Cards](#flow-expansion)
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-expansion -->
+  **Expansion Overview (5–8)**
+
+  Added when using all **32** cards:
+  
+  | # | Card | Qty | Summary |
+  |:-:|------|:---:|--------|
+  | 9 | **Bishop** | 1 | Guess number → +1 ♥; Princess still wins reveal |
+  | 7 | **Dowager Queen** | 1 | Compare; **higher** out |
+  | 6 | **Constable** | 1 | Knocked out with this in discard → +1 ♥ |
+  | 5 | **Count** | 2 | Each in discard: +1 to hand at reveal |
+  | 4 | **Sycophant** | 2 | Next chooser must include your pick |
+  | 3 | **Baroness** | 2 | Peek 1 or 2 hands |
+  | 2 | **Cardinal** | 2 | Swap 2 hands; peek one |
+  | 1 | **Guard** | +3 | Same Guard (8 total) |
+  | 0 | **Jester** | 1 | If pick wins round → you +1 ♥ |
+  | 0 | **Assassin** | 1 | Vs Guard: Guard player out; then redraw |
+
+  Related topics: 
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Sycophant → Assassin](#flow-low-exp)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-high-exp -->
+  **Bishop · Dowager · Constable · Count**
+
+  ### Bishop (9)
+  Name a number + player. Hit → **+1 ♥** (instant win if enough). Target may discard & redraw (Princess still outs). At **reveal**, Princess beats Bishop.
+  
+  ### Dowager Queen (7)
+  Compare; **higher** value is out. Tie → nothing.
+  
+  ### Constable (6)
+  If knocked out with Constable in your **discard pile** → **+1 ♥** (instant win if enough).
+  
+  ### Count (5) ×2
+  At reveal, +1 hand value per Count in your discard (two → +2). A boosted 7 can beat Princess. Remaining ties use discard sums.
+
+  Related topics: 
+  - [Sycophant → Assassin](#flow-low-exp)
+  - [Expansion Overview](#flow-expansion)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-low-exp -->
+  **Sycophant · Baroness · Cardinal · Jester · Assassin**
+
+  ### Sycophant (4) ×2
+  Choose a player (incl. you). The **next** card that chooses players must include them.
+  
+  ### Baroness (3) ×2
+  Secretly look at **1 or 2** other hands.
+  
+  ### Cardinal (2) ×2
+  Choose **exactly 2** still-in players (may include you); they swap. Then peek **one** of those hands. <2 legal targets → no effect.
+  
+  ### Jester (0)
+  Pick another player (Jester token). If they **win the round**, you also get **1 ♥**.
+  
+  ### Assassin (0)
+  In hand vs Guard: reveal → **Guard player** is out; you are not. Then discard Assassin and redraw (empty deck → set-aside).
+
+  Related topics: 
+  - [Round End](#flow-round-end)
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-round-end -->
+  **Round End & Winning**
+
+  ### Round ends when
+  1. **Deck empty** — highest hand wins. Tie → highest **discard sum**; still tied → **all** tied win.
+  2. **One player left** — that player wins.
+  
+  Winner(s) each get **1 ♥**. Next round: previous winner first.
+  
+  ### Win the game
+  | Players | ♥ |
+  |:-------:|:-:|
+  | 2 | 7 |
+  | 3 | 5 |
+  | 4 | 4 |
+  | 5–8 | 4 |
+  
+  **5–8:** Mid-round ♥ (Bishop / Constable / Jester) can finish the game. Simultaneous winners → **tiebreaker round**.
+
+  Related topics: 
+  - [Setup](#flow-setup)
+  - [Your Turn](#flow-turn)
+  - [5–8 Expansion Cards](#flow-expansion)
+
+<!-- rule-section: topic-guide-4 -->
+## Quick reference
+<!-- rule-ui: sidebar -->
+
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **Premium Edition** — standalone, **2–8 players**.
+  
+  ### 2–4 Players (16 cards)
+  Princess **8**, Countess 7, King 6, Prince×2, Handmaid×2, Baron×2, Priest×2, Guard×5.
+  
+  1. Shuffle 16; set aside top card **face down**.
+  2. **2 players:** also set aside next **3 face up**.
+  3. Deal 1 each. Most recent date goes first (tie → youngest).
+  
+  ### 5–8 Players (32 cards)
+  Use **all** cards. Shuffle; set aside 1 face down; deal 1 each.
+  
+  | Players | ♥ to win |
+  |:-------:|:--------:|
+  | 2 | 7 |
+  | 3 | 5 |
+  | 4 | 4 |
+  | 5–8 | 4 |
+
+  ![2–4 play the 16-card classic; 5–8 use all 32](/images/rules/love-letter-premium/player-counts.svg)
+
+  Related topics: 
+  - [Your Turn](#flow-turn)
+  - [Classic Cards](#flow-classic)
+  - [5–8 Expansion Cards](#flow-expansion)
+
+- <!-- rule-item: flow-turn -->
+  **Your Turn**
+
+  1. **Draw** 1 card (hold 2).
+  2. **Discard** 1 face up and **resolve** its effect — even if it hurts you.
+  3. Keep discards visible in order. Play passes left.
+  
+  **Out?** Discard remaining hand face up (**no** effect). Constable / Jester knock-out effects still apply.
+  
+  **Can't choose** a required target (Handmaid / Sycophant)? Card is discarded with **no effect**.
+  
+  **5–8 tip:** “Name a **number**” hits **every** card of that value (e.g. 4 = Handmaid **and** Sycophant).
+
+  Related topics: 
+  - [Classic Cards](#flow-classic)
+  - [5–8 Expansion Cards](#flow-expansion)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-classic -->
+  **Classic Cards**
+
+  | # | Card | Effect |
+  |:-:|------|--------|
+  | 8 | **Princess** | Play/discard → out; no Prince redraw if she was forced |
+  | 7 | **Countess** | Must play if holding King/Prince |
+  | 6 | **King** | Trade hands |
+  | 5 | **Prince** | Target discards & redraws |
+  | 4 | **Handmaid** | Immune until start of your next turn |
+  | 3 | **Baron** | Compare; lower out |
+  | 2 | **Priest** | Peek one hand |
+  | 1 | **Guard** | Name a **number** ≠ 1; match → out |
+
+  ![Classic cards for all counts; expansion cards only at 5–8](/images/rules/love-letter-premium/classic-vs-expansion.svg)
+
+  Related topics: 
+  - [5–8 Expansion Cards](#flow-expansion)
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-expansion -->
+  **Expansion Overview (5–8)**
+
+  Added when using all **32** cards:
+  
+  | # | Card | Qty | Summary |
+  |:-:|------|:---:|--------|
+  | 9 | **Bishop** | 1 | Guess number → +1 ♥; Princess still wins reveal |
+  | 7 | **Dowager Queen** | 1 | Compare; **higher** out |
+  | 6 | **Constable** | 1 | Knocked out with this in discard → +1 ♥ |
+  | 5 | **Count** | 2 | Each in discard: +1 to hand at reveal |
+  | 4 | **Sycophant** | 2 | Next chooser must include your pick |
+  | 3 | **Baroness** | 2 | Peek 1 or 2 hands |
+  | 2 | **Cardinal** | 2 | Swap 2 hands; peek one |
+  | 1 | **Guard** | +3 | Same Guard (8 total) |
+  | 0 | **Jester** | 1 | If pick wins round → you +1 ♥ |
+  | 0 | **Assassin** | 1 | Vs Guard: Guard player out; then redraw |
+
+  Related topics: 
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Sycophant → Assassin](#flow-low-exp)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-high-exp -->
+  **Bishop · Dowager · Constable · Count**
+
+  ### Bishop (9)
+  Name a number + player. Hit → **+1 ♥** (instant win if enough). Target may discard & redraw (Princess still outs). At **reveal**, Princess beats Bishop.
+  
+  ### Dowager Queen (7)
+  Compare; **higher** value is out. Tie → nothing.
+  
+  ### Constable (6)
+  If knocked out with Constable in your **discard pile** → **+1 ♥** (instant win if enough).
+  
+  ### Count (5) ×2
+  At reveal, +1 hand value per Count in your discard (two → +2). A boosted 7 can beat Princess. Remaining ties use discard sums.
+
+  Related topics: 
+  - [Sycophant → Assassin](#flow-low-exp)
+  - [Expansion Overview](#flow-expansion)
+  - [Round End](#flow-round-end)
+
+- <!-- rule-item: flow-low-exp -->
+  **Sycophant · Baroness · Cardinal · Jester · Assassin**
+
+  ### Sycophant (4) ×2
+  Choose a player (incl. you). The **next** card that chooses players must include them.
+  
+  ### Baroness (3) ×2
+  Secretly look at **1 or 2** other hands.
+  
+  ### Cardinal (2) ×2
+  Choose **exactly 2** still-in players (may include you); they swap. Then peek **one** of those hands. <2 legal targets → no effect.
+  
+  ### Jester (0)
+  Pick another player (Jester token). If they **win the round**, you also get **1 ♥**.
+  
+  ### Assassin (0)
+  In hand vs Guard: reveal → **Guard player** is out; you are not. Then discard Assassin and redraw (empty deck → set-aside).
+
+  Related topics: 
+  - [Round End](#flow-round-end)
+  - [Bishop · Queen · Constable · Count](#flow-high-exp)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-round-end -->
+  **Round End & Winning**
+
+  ### Round ends when
+  1. **Deck empty** — highest hand wins. Tie → highest **discard sum**; still tied → **all** tied win.
+  2. **One player left** — that player wins.
+  
+  Winner(s) each get **1 ♥**. Next round: previous winner first.
+  
+  ### Win the game
+  | Players | ♥ |
+  |:-------:|:-:|
+  | 2 | 7 |
+  | 3 | 5 |
+  | 4 | 4 |
+  | 5–8 | 4 |
+  
+  **5–8:** Mid-round ♥ (Bishop / Constable / Jester) can finish the game. Simultaneous winners → **tiebreaker round**.
+
+  Related topics: 
+  - [Setup](#flow-setup)
+  - [Your Turn](#flow-turn)
+  - [5–8 Expansion Cards](#flow-expansion)
+

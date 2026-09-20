@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 export interface TocItem {
   id: string;
   text: string;
-  level: 2 | 3;
+  level: 2 | 3 | 4;
 }
 
 function slugify(text: string): string {
@@ -16,25 +16,35 @@ function slugify(text: string): string {
     .replace(/^-|-$/g, "");
 }
 
-/** Extract h2/h3 headings from markdown for TOC. */
+/** Extract marked h2-h4 headings from markdown for TOC. */
 export function extractToc(markdown: string): TocItem[] {
   const items: TocItem[] = [];
   const seen = new Map<string, number>();
   const lines = markdown.split(/\r?\n/);
+  let pendingId: string | null = null;
 
   for (const line of lines) {
-    const match = /^(#{2,3})\s+(.+)$/.exec(line);
-    if (!match) continue;
-    const level = match[1].length as 2 | 3;
+    const marker = /^\s*<!--\s*rule-section:\s*([a-z0-9][a-z0-9-]*)\s*-->\s*$/i.exec(line);
+    if (marker) {
+      pendingId = marker[1];
+      continue;
+    }
+    const match = /^(#{2,4})\s+(.+)$/.exec(line);
+    if (!match) {
+      if (line.trim()) pendingId = null;
+      continue;
+    }
+    const level = match[1].length as 2 | 3 | 4;
     const text = match[2].replace(/#+\s*$/, "").replace(/[*_`]/g, "").trim();
     if (!text) continue;
 
-    let id = slugify(text) || `section-${items.length + 1}`;
+    let id = pendingId ? `rule-${pendingId}` : slugify(text) || `section-${items.length + 1}`;
     const count = seen.get(id) ?? 0;
     seen.set(id, count + 1);
     if (count > 0) id = `${id}-${count + 1}`;
 
     items.push({ id, text, level });
+    pendingId = null;
   }
 
   return items;

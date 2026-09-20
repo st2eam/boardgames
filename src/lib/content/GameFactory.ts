@@ -1,18 +1,16 @@
 import type { Game, GameSummary } from "@/types/game";
 import { GameRepository } from "./GameRepository";
+import { parseRuleDocument } from "./ruleDocument";
 
 export class GameFactory {
   static async createGame(slug: string, locale: string): Promise<Game> {
     const meta = await GameRepository.getGameMeta(slug);
     const rules = await GameRepository.getGameRules(slug, locale);
-    const flow = await GameRepository.getFlowData(slug, locale);
-    const guide = await GameRepository.getGuideConfig(slug);
-    return { meta, rules, flow, guide };
+    return { meta, rules, ruleDocument: parseRuleDocument(rules) };
   }
 
   static async createGameSummary(slug: string): Promise<GameSummary> {
     const meta = await GameRepository.getGameMeta(slug);
-    const hasFlow = GameRepository.hasFlowData(slug);
     const hasScore = GameRepository.hasScoreConfig(slug);
     const hasTrainer = GameRepository.hasTrainerConfig(slug);
     const hasCalculator = GameRepository.hasCalculatorConfig(slug);
@@ -26,7 +24,6 @@ export class GameFactory {
       difficulty: meta.difficulty,
       tags: meta.tags,
       category: meta.category,
-      hasFlow,
       hasScore,
       hasTrainer,
       hasCalculator,

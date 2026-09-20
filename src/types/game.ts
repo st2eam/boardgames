@@ -16,89 +16,51 @@ export interface GameMeta {
   bggRank?: number;
 }
 
-export interface FlowOption {
-  label: Record<"en" | "zh", string>;
-  next: string;
+export interface RuleChoice {
+  labelMd: string;
+  targetId: string;
 }
 
-export interface FlowIllustration {
-  /** Reuses the matching key-mechanic SVG from the rules document. */
-  src: string;
-  /** Localized accessible caption, shown beneath the image. */
-  alt: Record<"en" | "zh", string>;
-}
-
-export interface FlowNode {
-  title: Record<"en" | "zh", string>;
-  content: Record<"en" | "zh", string>;
-  options: FlowOption[];
-  illustration?: FlowIllustration;
-}
-
-export interface FlowData {
-  startNode: string;
-  nodes: Record<string, FlowNode>;
-}
-
-export type RulesGuideCollectionType =
-  | "steps"
-  | "phases"
-  | "categories"
-  | "ranking"
-  | "faq";
-
-export interface RulesGuideFactsModule {
+export interface RuleListItem {
   id: string;
-  type: "facts";
-  sectionIds: string[];
+  labelMd: string;
+  contentMd: string;
 }
 
-export interface RulesGuideCollectionModule {
-  id: string;
-  type: RulesGuideCollectionType;
-  introSectionId?: string;
-  itemSectionIds: string[];
-  defaultItemId?: string;
+export interface RuleSidebar {
+  ordered: boolean;
+  defaultId?: string;
+  items: RuleListItem[];
 }
 
-export interface RulesGuideContentModule {
-  id: string;
-  type: "reference" | "prose";
-  sectionIds?: string[];
-  groups?: RulesGuideContentGroup[];
+export interface RuleTabs {
+  type: "tabs";
+  defaultId?: string;
 }
 
-export interface RulesGuideContentGroup {
-  id: string;
-  label: Record<"en" | "zh", string>;
-  sectionIds: string[];
-  defaultItemId?: string;
-}
-
-export interface RulesGuideDecisionModule {
-  id: string;
+export interface RuleDecision {
   type: "decision";
-  introSectionId?: string;
-  startNode?: string;
+  startId: string;
 }
 
-export type RulesGuideModule =
-  | RulesGuideFactsModule
-  | RulesGuideCollectionModule
-  | RulesGuideContentModule
-  | RulesGuideDecisionModule;
+export type RuleSectionUi = RuleTabs | RuleDecision;
 
-export interface RulesGuideConfig {
-  version: 1;
-  modules: RulesGuideModule[];
-}
-
-export interface ParsedRuleSection {
+export interface RuleSection {
   id: string;
   heading: string;
-  level: 2 | 3;
-  summaryMd: string;
-  detailMd: string | null;
+  level: 2 | 3 | 4;
+  contentMd: string;
+  children: RuleSection[];
+  ui?: RuleSectionUi;
+  sidebar?: RuleSidebar;
+  choices?: RuleChoice[];
+}
+
+export interface RuleDocument {
+  version: 1;
+  title: string;
+  introMd: string;
+  sections: RuleSection[];
 }
 
 // --- Score Tracker Types ---
@@ -146,8 +108,7 @@ export interface CalculatorConfig {
 export interface Game {
   meta: GameMeta;
   rules: string; // raw markdown
-  flow: FlowData | null;
-  guide: RulesGuideConfig | null;
+  ruleDocument: RuleDocument;
 }
 
 export interface PlayEdition {
@@ -174,7 +135,6 @@ export interface GameSummary {
   difficulty: "easy" | "medium" | "hard";
   tags: string[];
   category: string;
-  hasFlow: boolean;
   hasScore: boolean;
   hasTrainer: boolean;
   hasCalculator: boolean;

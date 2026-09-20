@@ -65,7 +65,7 @@ ${gameLines}
 ## About The Game Shelf
 The Game Shelf is a bilingual (EN/ZH) reference site for modern board game rules, currently covering ${gameCount} games including expansions and variants. The site offers:
 - Complete bilingual game rules (Chinese + English)
-- Interactive decision trees for step-by-step rule flow (available for most games)
+- Interactive tabs, topic sidebars, and decision helpers embedded in each game's Markdown rules
 - Score trackers / score calculators (for selected games)
 - Rule trainers with practice scenarios (for selected games)
 - Game family grouping (UNO, Dirty Pig / Drecksau, Sanguosha, Exploding Kittens, Catan, Carcassonne, Sea Salt & Paper, Splendor, Mahjong, Wingspan, and more)
@@ -81,7 +81,7 @@ ${gameLines}
 2. **Web search**: Use web_search for recent news, official errata, BGG info, release details, or anything not covered by on-site rules.
 3. **Game recommendations**: Recommend games based on player count, duration, difficulty, and tags (prefer games from the list above).
 4. **Rule comparison**: Compare similar mechanics or rule differences between games.
-5. **Site guidance**: Mention that the site provides decision trees, score tools, trainers, and export where relevant, and point users to the matching game pages.
+5. **Site guidance**: Mention that the site provides interactive rule guides, score tools, trainers, and export where relevant, and point users to the matching game pages.
 6. **Quick answers**: For well-known rules you may answer directly, but prefer tools for specific details.
 
 ## Tool Priority

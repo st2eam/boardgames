@@ -5,7 +5,7 @@ Do not add a pattern unless it isolates a real variation point. Template: proble
 ## Repository + Factory
 
 - **Problem:** Pages need game meta/rules/feature flags from disk at build time.
-- **Variation:** New slugs, optional `flow.json` / `score.json` / etc.
+- **Variation:** New slugs, localized Markdown, optional score/trainer/play configs.
 - **Boundary:** [`src/lib/content/GameRepository.ts`](../src/lib/content/GameRepository.ts) (IO) + [`GameFactory.ts`](../src/lib/content/GameFactory.ts) (assemble `Game` / `GameSummary`).
 - **Extend:** New optional file → repository `hasX` / `getX`, factory field, page `generateStaticParams`.
 - **Test:** Build emits the new route; do not mock a second filesystem API.
@@ -46,7 +46,7 @@ Do not add a pattern unless it isolates a real variation point. Template: proble
 
 | From | To | Why |
 |------|----|-----|
-| `flow` | `rules` (`MarkdownRenderer`) | Tree nodes render markdown |
+| `rules` | `rules` (`RuleDocumentExperience`) | Markdown AST sections render interactive rule containers |
 | `rules` | `trainer` (`InlineTile`) | Mahjong tiles in rules markdown |
 | `calculator` | `trainer` (`MahjongTile`) | Same tile chrome |
 | `trainer` / pages | `chat` (`ChatToggle`) | FAB on those screens |

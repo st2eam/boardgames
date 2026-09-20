@@ -1,27 +1,34 @@
 # Citadels (2016) Rules
-
+<!-- rule-section: overview -->
 ## Overview
 
 **Citadels** (Bruno Faidutti, Windrider / Fantasy Flight, 2016) is a bluffing city-builder for **2–8** players. Each round you secretly draft a character, take gold or cards, and build districts. The game ends after the round in which someone completes a city (**7** districts with 4–8 players; **8** with 2–3). Highest score becomes Master Builder.
 
 This 2016 box is the deluxe edition: original characters, *The Dark City*, plus 9 new characters and 12 new unique districts (**27** characters, **30** unique districts). First games should use the classic eight characters.
-
+<!-- rule-section: game-objective -->
 ## Game Objective
 
 In Citadels, you are a city builder secretly choosing influential characters. Your goal is to use each role well, complete your city, and finish with the highest score.
-
+<!-- rule-section: components -->
 ## Components
-
-- **54** basic districts: 12 noble (yellow), 11 religious (blue), 20 trade (green), 11 military (red)
-- **30** unique (purple) districts
-- **27** character cards and **27** character tokens
-- **30** gold coins (bank is unlimited — substitute if needed)
-- **1** plastic crown
-- **3** warrant markers and **2** threat markers
-- **6** reference cards
+<!-- rule-ui: sidebar -->
+- <!-- rule-item: components-item-1 -->
+  **54** basic districts: 12 noble (yellow), 11 religious (blue), 20 trade (green), 11 military (red)
+- <!-- rule-item: components-item-2 -->
+  **30** unique (purple) districts
+- <!-- rule-item: components-item-3 -->
+  **27** character cards and **27** character tokens
+- <!-- rule-item: components-item-4 -->
+  **30** gold coins (bank is unlimited — substitute if needed)
+- <!-- rule-item: components-item-5 -->
+  **1** plastic crown
+- <!-- rule-item: components-item-6 -->
+  **3** warrant markers and **2** threat markers
+- <!-- rule-item: components-item-7 -->
+  **6** reference cards
 
 Gold in a stash and cards in hand are **open information**. No hand-size limit.
-
+<!-- rule-section: first-game-setup -->
 ## First-Game Setup
 
 Set aside all other characters and unique districts. Use:
@@ -37,13 +44,14 @@ Set aside all other characters and unique districts. Use:
 5. The **oldest** player takes the crown (crowned player).
 
 3- or 8-player games **must** use a rank 9 character (see customization).
-
+<!-- rule-ui: tabs -->
+<!-- rule-section: how-to-play -->
 ## How to Play
 
 ![Roles 1–8 are called; act when yours is named](/images/rules/citadels/turn-flow.svg)
 
 Each round: **selection phase**, then **turn phase**.
-
+<!-- rule-section: selection-phase-4-8-players-8-characters -->
 ### Selection Phase (4–8 players, 8 characters)
 
 The crowned player shuffles the character deck, discards some **faceup** and **one facedown**. Rank **4** (King / Emperor / Patrician) **cannot** be among the faceup discards — if it is, replace it and shuffle it back.
@@ -58,7 +66,7 @@ The crowned player shuffles the character deck, discards some **faceup** and **o
 Then the crowned player secretly keeps one card and passes the rest **left**. Continue until everyone has a character. The last leftover card is discarded **facedown**.
 
 \* **7 players:** the seventh player also receives the facedown discard from the start of the round, chooses one of the two, and discards the other facedown.
-
+<!-- rule-section: selection-with-9-characters -->
 ### Selection with 9 characters
 
 Required for **3** and **8** players; optional for 4–7. The Queen cannot be used with fewer than **5** players.
@@ -72,7 +80,7 @@ Required for **3** and **8** players; optional for 4–7. The Queen cannot be us
 | 8 | 0 | 1* |
 
 \* The **last** player (8th, or 7th in a 7-player 8-character game) also takes the facedown discard, then chooses.
-
+<!-- rule-section: turn-phase -->
 ### Turn Phase
 
 The crowned player calls ranks **1 → 8 (or 9)**. If you have that character, reveal it and take your turn. Turns are **not** clockwise.
@@ -84,7 +92,7 @@ On your turn:
 3. **Character ability:** once per turn, at the printed time (or anytime if unspecified). Income from district types can be taken before or after building.
 
 Then the next rank is called. After all ranks, a new round begins; the crowned player gathers the character cards.
-
+<!-- rule-section: game-end-scoring -->
 ## Game End & Scoring
 
 ![A city completes at 7 districts; finish the round then score gold plus bonuses](/images/rules/citadels/game-end.svg)
@@ -98,7 +106,7 @@ A city is **completed** at **7** districts (4–8 players) or **8** (2–3 playe
 - Extra points from unique districts
 
 Highest total wins. Tie → the tied player who revealed the **highest rank** in the last round wins.
-
+<!-- rule-section: 2-player -->
 ## 2-Player
 
 Each player has **two characters** (one stash, one city; abilities apply only on that character’s turn). Emperor cannot be used.
@@ -106,7 +114,7 @@ Each player has **two characters** (one stash, one city; abilities apply only on
 **Selection:** discard 1 facedown. Crown keeps 1, passes 6. After that, each choice is: keep 1, discard 1 facedown, pass the rest, until none remain.
 
 Game ends at **8** districts.
-
+<!-- rule-section: 3-player -->
 ## 3-Player
 
 Use ranks **1–9**. Each player has two characters.
@@ -114,12 +122,13 @@ Use ranks **1–9**. Each player has two characters.
 **Selection:** discard 1 facedown. Each player drafts one. Then the third player discards 1 of the remaining 5 facedown and passes 4 to the crown. Draft a second character; last card facedown.
 
 Game ends at **8** districts.
-
+<!-- rule-ui: tabs -->
+<!-- rule-section: character-abilities -->
 ## Character Abilities
 
 ![The king calls 1 through 8](/images/rules/citadels/call-order.svg)
 Abilities are optional unless the rules say **must** / **cannot**. Once per turn.
-
+<!-- rule-section: rank-1 -->
 ### Rank 1
 
 | Character | Ability |
@@ -127,7 +136,7 @@ Abilities are optional unless the rules say **must** / **cannot**. Once per turn
 | **Assassin** | Name a character. That character stays silent and **skips** the entire turn (does not reveal). |
 | **Witch** | **Must** gather, then name a character, then pause. You cannot build yet. The bewitched player only gathers, then you resume **as that character** (your hand, gold, and city). If that character is not in play, you do not resume. King/Patrician still take the crown; Emperor: you assign the crown and take the resource. |
 | **Magistrate** | Assign 3 warrant markers facedown to 3 character tokens (one is **signed**). If the signed player pays to build, you may reveal it and **confiscate** that first district into your city for free; they get gold back. You cannot take a copy of a district you already have. |
-
+<!-- rule-section: rank-2 -->
 ### Rank 2
 
 | Character | Ability |
@@ -135,7 +144,7 @@ Abilities are optional unless the rules say **must** / **cannot**. Once per turn
 | **Thief** | Name a character. When they reveal, take **all** their gold. Cannot rob rank 1, the killed, or the bewitched. |
 | **Spy** | Name a type and look at another player’s hand. For **each** matching card, take 1 of their gold and gain 1 card (you still gain cards even if they run out of gold). |
 | **Blackmailer** | Assign 2 threat markers facedown to 2 tokens (one has the **flower**). A threatened player must gather, then may bribe **half gold rounded down** (1 gold → 0) to remove the marker unrevealed. If they don’t, you may reveal; the flower takes **all** their gold. Cannot threaten rank 1, killed, or bewitched. |
-
+<!-- rule-section: rank-3 -->
 ### Rank 3
 
 | Character | Ability |
@@ -143,7 +152,7 @@ Abilities are optional unless the rules say **must** / **cannot**. Once per turn
 | **Magician** | Exchange your **entire** hand with another player, **or** discard any number to the bottom and draw that many. |
 | **Wizard** | Look at a hand, take 1 card: pay to **build it now** (does **not** count toward the limit) or add to hand. This turn you **may** build identical districts. |
 | **Seer** | Take 1 random card from each other hand, then give 1 card back to each of those players. Building limit **2**. |
-
+<!-- rule-section: rank-4-always-take-or-assign-the-crown -->
 ### Rank 4 (always take or assign the crown)
 
 If discarded **faceup** at selection, replace and shuffle back.
@@ -153,7 +162,7 @@ If discarded **faceup** at selection, replace and shuffle back.
 | **King** | **Must** take the crown. +1 gold per noble. If killed, reveal at round end and still take the crown. |
 | **Emperor** | **Must** give the crown to **another** player (not you) and take 1 gold **or** 1 random card from them. +1 gold per noble. Not used in **2-player**. If killed: assign crown at round end, no resource. |
 | **Patrician** | **Must** take the crown. +1 **card** per noble. Heir rule like the King if killed. |
-
+<!-- rule-section: rank-5 -->
 ### Rank 5
 
 | Character | Ability |
@@ -161,7 +170,7 @@ If discarded **faceup** at selection, replace and shuffle back.
 | **Bishop** | Rank 8 cannot target your districts this round (unless you are killed). +1 gold per religious. |
 | **Abbot** | If you are not sole richest, the richest player (you choose if tied) gives you 1 gold. For each religious: 1 gold **or** 1 card (any mix, declared first). |
 | **Cardinal** | If short of gold to build, take gold from one player (1 card from your hand per gold). Then you **must** build that district. +1 **card** per religious. |
-
+<!-- rule-section: rank-6 -->
 ### Rank 6
 
 | Character | Ability |
@@ -169,7 +178,7 @@ If discarded **faceup** at selection, replace and shuffle back.
 | **Merchant** | +1 extra gold (even if you drew cards). +1 gold per trade. |
 | **Alchemist** | After your turn, refund all gold **paid to build** this turn (not Smithy / tax). You cannot spend more than you have. |
 | **Trader** | Trade districts do **not** count toward your building limit. +1 gold per trade. |
-
+<!-- rule-section: rank-7 -->
 ### Rank 7
 
 | Character | Ability |
@@ -177,7 +186,7 @@ If discarded **faceup** at selection, replace and shuffle back.
 | **Architect** | Gain 2 extra cards. Building limit **3**. |
 | **Navigator** | Gain 4 gold **or** 4 cards. You **cannot** build anything this turn. |
 | **Scholar** | Draw 7, keep 1, shuffle 6 back into the deck. Building limit **2**. |
-
+<!-- rule-section: rank-8 -->
 ### Rank 8
 
 Cannot target a **completed** city (except you may still use Diplomat/Warlord on **your** completed city as printed).
@@ -187,7 +196,7 @@ Cannot target a **completed** city (except you may still use Diplomat/Warlord on
 | **Warlord** | Pay **cost − 1** to destroy a district (1-cost is free). May destroy your own. +1 gold per military. |
 | **Diplomat** | Swap one of your districts with another player’s. If theirs costs more, pay them the difference; they never pay you. No identical copies either way. +1 gold per military. |
 | **Marshal** | Seize a cost **≤ 3** district by paying its **full** cost to the owner. No copies, no completed cities. +1 gold per military. |
-
+<!-- rule-section: rank-9 -->
 ### Rank 9
 
 | Character | Ability |
@@ -195,7 +204,7 @@ Cannot target a **completed** city (except you may still use Diplomat/Warlord on
 | **Queen** | If you sit next to the revealed rank 4, gain **3 gold** (also if that rank 4 was killed and is revealed at round end). Not used with fewer than **5** players. |
 | **Artist** | Beautify up to **2** of your districts: put 1 gold on each. Cost (and VP) permanently **+1**. Once per district. |
 | **Tax Collector** | Whenever **anyone** (except you) builds, they put 1 gold on this token if they have gold left — even free builds. Take all gold from the token on your turn. Tax still happens if you were not chosen or were killed; leftover gold carries over. Magistrate pays tax on a confiscated district. |
-
+<!-- rule-section: first-game-unique-districts -->
 ## First-Game Unique Districts
 
 Effects are optional unless they say **must** / **cannot**.
@@ -218,7 +227,639 @@ Effects are optional unless they say **must** / **cannot**.
 | **Wishing Well** | +1 point per unique district in your city (**including** this). |
 
 Other unique districts are printed on the cards. Notes: **Capitol** scores its bonus only once; **Museum** cards stay with it if seized; **Theater** swaps characters blindly; **Great Wall** does not apply to the Diplomat’s outgoing district; **Stables** still allow another build if confiscated.
-
+<!-- rule-section: customization -->
 ## Customization
 
 Before play, pick **one character per rank 1–8** (and rank 9 if needed) and **14** unique districts of mixed costs. Mix them with the 54 basic districts. The rulebook lists themed casts (Ambitious Aristocrats, Cunning Agents, etc.).
+<!-- rule-section: topic-guide -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **First game:** Assassin–Warlord (ranks 1–8) plus 14 unique districts (Dragon Gate, Factory, Haunted Quarter, Imperial Treasury, Keep, Laboratory, Library, Map Room, Quarry, School of Magic, Smithy, Statue, Thieves’ Den, Wishing Well).
+  
+  1. Character tokens in rank order.
+  2. Shuffle uniques with 54 basic districts; deal **4** each.
+  3. Deck + gold bank. Each player **2 gold**.
+  4. Oldest player takes the **crown**.
+  
+  3 or 8 players **must** include a rank 9 character.
+
+  Related topics: 
+  - [Selection Phase](#flow-selection)
+  - [Your Turn](#flow-turn)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-selection -->
+  **Selection Phase**
+
+  Crowned player shuffles, discards some **faceup** and **one facedown**. Rank **4** cannot be faceup-discarded.
+  
+  **8 characters:** 4p 2/1 · 5p 1/1 · 6–7p 0/1
+  **9 characters:** 4p 3/1 · 5p 2/1 · 6p 1/1 · 7–8p 0/1
+  
+  Draft left from the crown. Last leftover card facedown.
+  
+  **Last player** in 7p (8 chars) or 8p (9 chars) also gets the facedown discard and picks one of two.
+
+  Related topics: 
+  - [Your Turn](#flow-turn)
+  - [Characters 1–3](#flow-chars-13)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-turn -->
+  **On Your Turn**
+
+  Crowned player calls ranks **1 → 8/9**. Reveal if you have that character.
+  
+  1. **Gather:** 2 gold **or** draw 2, keep 1, rest to bottom.
+  2. **Build** up to your limit (default 1). No duplicate names unless a card allows it.
+  3. Use your character ability **once** (before or after building if it is type income).
+  
+  Gold and hand size are public. Bank never runs out.
+
+  Related topics: 
+  - [Characters 1–3](#flow-chars-13)
+  - [Characters 4–6](#flow-chars-46)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-chars-13 -->
+  **Characters 1–3**
+
+  **1 Assassin:** name a character → they skip and stay hidden.
+  **1 Witch:** gather, bewitch, pause; they only gather, then you play as them.
+  **1 Magistrate:** 3 warrants (1 signed); confiscate their first paid build, refund gold.
+  
+  **2 Thief:** take all gold when they reveal (not rank 1 / killed / bewitched).
+  **2 Spy:** name a type, peek a hand; 1 gold + 1 card per match.
+  **2 Blackmailer:** 2 threats (1 flower); bribe half gold or you may reveal the flower for all gold.
+  
+  **3 Magician:** swap hands or mill-and-draw.
+  **3 Wizard:** take 1 from a hand; may build it extra and may build duplicates.
+  **3 Seer:** take 1 random from each, give 1 back; build up to 2.
+
+  ![The king calls 1 through 8](/images/rules/citadels/call-order.svg)
+
+  Related topics: 
+  - [Characters 4–6](#flow-chars-46)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-chars-46 -->
+  **Characters 4–6**
+
+  **4 King / Patrician:** must take the crown. Gold (King) or cards (Patrician) per noble. If killed, still take crown at round end.
+  **4 Emperor:** give crown to someone else; take 1 gold or 1 card. No 2-player. Rank 4 cannot be faceup-discarded.
+  
+  **5 Bishop:** rank 8 cannot target you. +1 gold per religious.
+  **5 Abbot:** richest gives you 1 gold; mix gold/cards per religious.
+  **5 Cardinal:** trade hand cards 1:1 for someone’s gold to finish a build. +1 card per religious.
+  
+  **6 Merchant:** +1 gold plus per trade.
+  **6 Alchemist:** refund gold spent **building** this turn.
+  **6 Trader:** unlimited trade builds; +1 gold per trade.
+
+  Related topics: 
+  - [Characters 7–9](#flow-chars-79)
+  - [Characters 1–3](#flow-chars-13)
+
+- <!-- rule-item: flow-chars-79 -->
+  **Characters 7–9**
+
+  **7 Architect:** +2 cards; build up to 3.
+  **7 Navigator:** +4 gold or +4 cards; **cannot** build.
+  **7 Scholar:** draw 7 keep 1, shuffle rest; build up to 2.
+  
+  **8 Warlord:** destroy for cost−1. **8 Diplomat:** swap (pay difference up). **8 Marshal:** buy a cost ≤3 district from another city. All: +1 gold per military. No completed-city targets.
+  
+  **9 Queen:** +3 gold if next to revealed rank 4 (min 5 players).
+  **9 Artist:** beautify up to 2 districts (+1 cost/VP each).
+  **9 Tax Collector:** builders pay 1 gold to the token; you take the pile.
+
+  Related topics: 
+  - [Unique Districts](#flow-uniques)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-uniques -->
+  **Unique Districts**
+
+  First-game set:
+  
+  - **Dragon Gate** +2 VP · **Wishing Well** +1 VP per unique
+  - **Map Room** +1 VP per card in hand · **Imperial Treasury** +1 VP per gold · **Statue** +5 if you have the crown
+  - **Library** keep all drawn · **Laboratory** discard 1 → 2 gold · **Smithy** 2 gold → 3 cards
+  - **Factory** other uniques −1 cost · **Quarry** may build duplicates
+  - **Keep** immune to rank 8 · **School of Magic** chosen type for income
+  - **Haunted Quarter** any type at game end · **Thieves’ Den** pay with cards
+
+  Related topics: 
+  - [Game End](#flow-game-end)
+  - [Characters 7–9](#flow-chars-79)
+
+- <!-- rule-item: flow-game-end -->
+  **Game End**
+
+  Complete at **7** districts (4–8p) or **8** (2–3p). Finish the round.
+  
+  Score: district costs + **3** for all five types + **4** first complete / **2** other complete + unique extras.
+  
+  Tie → highest rank revealed last round.
+  
+  Beautify gold sits on the card and counts as cost.
+
+  ![A city completes at 7 districts; finish the round then score gold plus bonuses](/images/rules/citadels/game-end.svg)
+
+  Related topics: 
+  - [Setup](#flow-setup)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-two-three -->
+  **2–3 Players**
+
+  Each player drafts **two** characters (one city, one stash).
+  
+  **2p:** ranks 1–8, no Emperor. Discard 1 down; then keep/discard/pass until gone. End at **8** districts.
+  
+  **3p:** ranks 1–9. Discard 1 down; draft one each; third player discards 1 more down; draft seconds. End at **8** districts.
+
+  ![Roles 1–8 are called; act when yours is named](/images/rules/citadels/turn-flow.svg)
+
+  Related topics: 
+  - [Selection Phase](#flow-selection)
+  - [Game End](#flow-game-end)
+<!-- rule-section: topic-guide-2 -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **First game:** Assassin–Warlord (ranks 1–8) plus 14 unique districts (Dragon Gate, Factory, Haunted Quarter, Imperial Treasury, Keep, Laboratory, Library, Map Room, Quarry, School of Magic, Smithy, Statue, Thieves’ Den, Wishing Well).
+  
+  1. Character tokens in rank order.
+  2. Shuffle uniques with 54 basic districts; deal **4** each.
+  3. Deck + gold bank. Each player **2 gold**.
+  4. Oldest player takes the **crown**.
+  
+  3 or 8 players **must** include a rank 9 character.
+
+  Related topics: 
+  - [Selection Phase](#flow-selection)
+  - [Your Turn](#flow-turn)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-selection -->
+  **Selection Phase**
+
+  Crowned player shuffles, discards some **faceup** and **one facedown**. Rank **4** cannot be faceup-discarded.
+  
+  **8 characters:** 4p 2/1 · 5p 1/1 · 6–7p 0/1
+  **9 characters:** 4p 3/1 · 5p 2/1 · 6p 1/1 · 7–8p 0/1
+  
+  Draft left from the crown. Last leftover card facedown.
+  
+  **Last player** in 7p (8 chars) or 8p (9 chars) also gets the facedown discard and picks one of two.
+
+  Related topics: 
+  - [Your Turn](#flow-turn)
+  - [Characters 1–3](#flow-chars-13)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-turn -->
+  **On Your Turn**
+
+  Crowned player calls ranks **1 → 8/9**. Reveal if you have that character.
+  
+  1. **Gather:** 2 gold **or** draw 2, keep 1, rest to bottom.
+  2. **Build** up to your limit (default 1). No duplicate names unless a card allows it.
+  3. Use your character ability **once** (before or after building if it is type income).
+  
+  Gold and hand size are public. Bank never runs out.
+
+  Related topics: 
+  - [Characters 1–3](#flow-chars-13)
+  - [Characters 4–6](#flow-chars-46)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-chars-13 -->
+  **Characters 1–3**
+
+  **1 Assassin:** name a character → they skip and stay hidden.
+  **1 Witch:** gather, bewitch, pause; they only gather, then you play as them.
+  **1 Magistrate:** 3 warrants (1 signed); confiscate their first paid build, refund gold.
+  
+  **2 Thief:** take all gold when they reveal (not rank 1 / killed / bewitched).
+  **2 Spy:** name a type, peek a hand; 1 gold + 1 card per match.
+  **2 Blackmailer:** 2 threats (1 flower); bribe half gold or you may reveal the flower for all gold.
+  
+  **3 Magician:** swap hands or mill-and-draw.
+  **3 Wizard:** take 1 from a hand; may build it extra and may build duplicates.
+  **3 Seer:** take 1 random from each, give 1 back; build up to 2.
+
+  ![The king calls 1 through 8](/images/rules/citadels/call-order.svg)
+
+  Related topics: 
+  - [Characters 4–6](#flow-chars-46)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-chars-46 -->
+  **Characters 4–6**
+
+  **4 King / Patrician:** must take the crown. Gold (King) or cards (Patrician) per noble. If killed, still take crown at round end.
+  **4 Emperor:** give crown to someone else; take 1 gold or 1 card. No 2-player. Rank 4 cannot be faceup-discarded.
+  
+  **5 Bishop:** rank 8 cannot target you. +1 gold per religious.
+  **5 Abbot:** richest gives you 1 gold; mix gold/cards per religious.
+  **5 Cardinal:** trade hand cards 1:1 for someone’s gold to finish a build. +1 card per religious.
+  
+  **6 Merchant:** +1 gold plus per trade.
+  **6 Alchemist:** refund gold spent **building** this turn.
+  **6 Trader:** unlimited trade builds; +1 gold per trade.
+
+  Related topics: 
+  - [Characters 7–9](#flow-chars-79)
+  - [Characters 1–3](#flow-chars-13)
+
+- <!-- rule-item: flow-chars-79 -->
+  **Characters 7–9**
+
+  **7 Architect:** +2 cards; build up to 3.
+  **7 Navigator:** +4 gold or +4 cards; **cannot** build.
+  **7 Scholar:** draw 7 keep 1, shuffle rest; build up to 2.
+  
+  **8 Warlord:** destroy for cost−1. **8 Diplomat:** swap (pay difference up). **8 Marshal:** buy a cost ≤3 district from another city. All: +1 gold per military. No completed-city targets.
+  
+  **9 Queen:** +3 gold if next to revealed rank 4 (min 5 players).
+  **9 Artist:** beautify up to 2 districts (+1 cost/VP each).
+  **9 Tax Collector:** builders pay 1 gold to the token; you take the pile.
+
+  Related topics: 
+  - [Unique Districts](#flow-uniques)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-uniques -->
+  **Unique Districts**
+
+  First-game set:
+  
+  - **Dragon Gate** +2 VP · **Wishing Well** +1 VP per unique
+  - **Map Room** +1 VP per card in hand · **Imperial Treasury** +1 VP per gold · **Statue** +5 if you have the crown
+  - **Library** keep all drawn · **Laboratory** discard 1 → 2 gold · **Smithy** 2 gold → 3 cards
+  - **Factory** other uniques −1 cost · **Quarry** may build duplicates
+  - **Keep** immune to rank 8 · **School of Magic** chosen type for income
+  - **Haunted Quarter** any type at game end · **Thieves’ Den** pay with cards
+
+  Related topics: 
+  - [Game End](#flow-game-end)
+  - [Characters 7–9](#flow-chars-79)
+
+- <!-- rule-item: flow-game-end -->
+  **Game End**
+
+  Complete at **7** districts (4–8p) or **8** (2–3p). Finish the round.
+  
+  Score: district costs + **3** for all five types + **4** first complete / **2** other complete + unique extras.
+  
+  Tie → highest rank revealed last round.
+  
+  Beautify gold sits on the card and counts as cost.
+
+  ![A city completes at 7 districts; finish the round then score gold plus bonuses](/images/rules/citadels/game-end.svg)
+
+  Related topics: 
+  - [Setup](#flow-setup)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-two-three -->
+  **2–3 Players**
+
+  Each player drafts **two** characters (one city, one stash).
+  
+  **2p:** ranks 1–8, no Emperor. Discard 1 down; then keep/discard/pass until gone. End at **8** districts.
+  
+  **3p:** ranks 1–9. Discard 1 down; draft one each; third player discards 1 more down; draft seconds. End at **8** districts.
+
+  ![Roles 1–8 are called; act when yours is named](/images/rules/citadels/turn-flow.svg)
+
+  Related topics: 
+  - [Selection Phase](#flow-selection)
+  - [Game End](#flow-game-end)
+<!-- rule-section: topic-guide-3 -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **First game:** Assassin–Warlord (ranks 1–8) plus 14 unique districts (Dragon Gate, Factory, Haunted Quarter, Imperial Treasury, Keep, Laboratory, Library, Map Room, Quarry, School of Magic, Smithy, Statue, Thieves’ Den, Wishing Well).
+  
+  1. Character tokens in rank order.
+  2. Shuffle uniques with 54 basic districts; deal **4** each.
+  3. Deck + gold bank. Each player **2 gold**.
+  4. Oldest player takes the **crown**.
+  
+  3 or 8 players **must** include a rank 9 character.
+
+  Related topics: 
+  - [Selection Phase](#flow-selection)
+  - [Your Turn](#flow-turn)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-selection -->
+  **Selection Phase**
+
+  Crowned player shuffles, discards some **faceup** and **one facedown**. Rank **4** cannot be faceup-discarded.
+  
+  **8 characters:** 4p 2/1 · 5p 1/1 · 6–7p 0/1
+  **9 characters:** 4p 3/1 · 5p 2/1 · 6p 1/1 · 7–8p 0/1
+  
+  Draft left from the crown. Last leftover card facedown.
+  
+  **Last player** in 7p (8 chars) or 8p (9 chars) also gets the facedown discard and picks one of two.
+
+  Related topics: 
+  - [Your Turn](#flow-turn)
+  - [Characters 1–3](#flow-chars-13)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-turn -->
+  **On Your Turn**
+
+  Crowned player calls ranks **1 → 8/9**. Reveal if you have that character.
+  
+  1. **Gather:** 2 gold **or** draw 2, keep 1, rest to bottom.
+  2. **Build** up to your limit (default 1). No duplicate names unless a card allows it.
+  3. Use your character ability **once** (before or after building if it is type income).
+  
+  Gold and hand size are public. Bank never runs out.
+
+  Related topics: 
+  - [Characters 1–3](#flow-chars-13)
+  - [Characters 4–6](#flow-chars-46)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-chars-13 -->
+  **Characters 1–3**
+
+  **1 Assassin:** name a character → they skip and stay hidden.
+  **1 Witch:** gather, bewitch, pause; they only gather, then you play as them.
+  **1 Magistrate:** 3 warrants (1 signed); confiscate their first paid build, refund gold.
+  
+  **2 Thief:** take all gold when they reveal (not rank 1 / killed / bewitched).
+  **2 Spy:** name a type, peek a hand; 1 gold + 1 card per match.
+  **2 Blackmailer:** 2 threats (1 flower); bribe half gold or you may reveal the flower for all gold.
+  
+  **3 Magician:** swap hands or mill-and-draw.
+  **3 Wizard:** take 1 from a hand; may build it extra and may build duplicates.
+  **3 Seer:** take 1 random from each, give 1 back; build up to 2.
+
+  ![The king calls 1 through 8](/images/rules/citadels/call-order.svg)
+
+  Related topics: 
+  - [Characters 4–6](#flow-chars-46)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-chars-46 -->
+  **Characters 4–6**
+
+  **4 King / Patrician:** must take the crown. Gold (King) or cards (Patrician) per noble. If killed, still take crown at round end.
+  **4 Emperor:** give crown to someone else; take 1 gold or 1 card. No 2-player. Rank 4 cannot be faceup-discarded.
+  
+  **5 Bishop:** rank 8 cannot target you. +1 gold per religious.
+  **5 Abbot:** richest gives you 1 gold; mix gold/cards per religious.
+  **5 Cardinal:** trade hand cards 1:1 for someone’s gold to finish a build. +1 card per religious.
+  
+  **6 Merchant:** +1 gold plus per trade.
+  **6 Alchemist:** refund gold spent **building** this turn.
+  **6 Trader:** unlimited trade builds; +1 gold per trade.
+
+  Related topics: 
+  - [Characters 7–9](#flow-chars-79)
+  - [Characters 1–3](#flow-chars-13)
+
+- <!-- rule-item: flow-chars-79 -->
+  **Characters 7–9**
+
+  **7 Architect:** +2 cards; build up to 3.
+  **7 Navigator:** +4 gold or +4 cards; **cannot** build.
+  **7 Scholar:** draw 7 keep 1, shuffle rest; build up to 2.
+  
+  **8 Warlord:** destroy for cost−1. **8 Diplomat:** swap (pay difference up). **8 Marshal:** buy a cost ≤3 district from another city. All: +1 gold per military. No completed-city targets.
+  
+  **9 Queen:** +3 gold if next to revealed rank 4 (min 5 players).
+  **9 Artist:** beautify up to 2 districts (+1 cost/VP each).
+  **9 Tax Collector:** builders pay 1 gold to the token; you take the pile.
+
+  Related topics: 
+  - [Unique Districts](#flow-uniques)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-uniques -->
+  **Unique Districts**
+
+  First-game set:
+  
+  - **Dragon Gate** +2 VP · **Wishing Well** +1 VP per unique
+  - **Map Room** +1 VP per card in hand · **Imperial Treasury** +1 VP per gold · **Statue** +5 if you have the crown
+  - **Library** keep all drawn · **Laboratory** discard 1 → 2 gold · **Smithy** 2 gold → 3 cards
+  - **Factory** other uniques −1 cost · **Quarry** may build duplicates
+  - **Keep** immune to rank 8 · **School of Magic** chosen type for income
+  - **Haunted Quarter** any type at game end · **Thieves’ Den** pay with cards
+
+  Related topics: 
+  - [Game End](#flow-game-end)
+  - [Characters 7–9](#flow-chars-79)
+
+- <!-- rule-item: flow-game-end -->
+  **Game End**
+
+  Complete at **7** districts (4–8p) or **8** (2–3p). Finish the round.
+  
+  Score: district costs + **3** for all five types + **4** first complete / **2** other complete + unique extras.
+  
+  Tie → highest rank revealed last round.
+  
+  Beautify gold sits on the card and counts as cost.
+
+  ![A city completes at 7 districts; finish the round then score gold plus bonuses](/images/rules/citadels/game-end.svg)
+
+  Related topics: 
+  - [Setup](#flow-setup)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-two-three -->
+  **2–3 Players**
+
+  Each player drafts **two** characters (one city, one stash).
+  
+  **2p:** ranks 1–8, no Emperor. Discard 1 down; then keep/discard/pass until gone. End at **8** districts.
+  
+  **3p:** ranks 1–9. Discard 1 down; draft one each; third player discards 1 more down; draft seconds. End at **8** districts.
+
+  ![Roles 1–8 are called; act when yours is named](/images/rules/citadels/turn-flow.svg)
+
+  Related topics: 
+  - [Selection Phase](#flow-selection)
+  - [Game End](#flow-game-end)
+
+<!-- rule-section: topic-guide-4 -->
+## Quick reference
+<!-- rule-ui: sidebar -->
+
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **First game:** Assassin–Warlord (ranks 1–8) plus 14 unique districts (Dragon Gate, Factory, Haunted Quarter, Imperial Treasury, Keep, Laboratory, Library, Map Room, Quarry, School of Magic, Smithy, Statue, Thieves’ Den, Wishing Well).
+  
+  1. Character tokens in rank order.
+  2. Shuffle uniques with 54 basic districts; deal **4** each.
+  3. Deck + gold bank. Each player **2 gold**.
+  4. Oldest player takes the **crown**.
+  
+  3 or 8 players **must** include a rank 9 character.
+
+  Related topics: 
+  - [Selection Phase](#flow-selection)
+  - [Your Turn](#flow-turn)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-selection -->
+  **Selection Phase**
+
+  Crowned player shuffles, discards some **faceup** and **one facedown**. Rank **4** cannot be faceup-discarded.
+  
+  **8 characters:** 4p 2/1 · 5p 1/1 · 6–7p 0/1
+  **9 characters:** 4p 3/1 · 5p 2/1 · 6p 1/1 · 7–8p 0/1
+  
+  Draft left from the crown. Last leftover card facedown.
+  
+  **Last player** in 7p (8 chars) or 8p (9 chars) also gets the facedown discard and picks one of two.
+
+  Related topics: 
+  - [Your Turn](#flow-turn)
+  - [Characters 1–3](#flow-chars-13)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-turn -->
+  **On Your Turn**
+
+  Crowned player calls ranks **1 → 8/9**. Reveal if you have that character.
+  
+  1. **Gather:** 2 gold **or** draw 2, keep 1, rest to bottom.
+  2. **Build** up to your limit (default 1). No duplicate names unless a card allows it.
+  3. Use your character ability **once** (before or after building if it is type income).
+  
+  Gold and hand size are public. Bank never runs out.
+
+  Related topics: 
+  - [Characters 1–3](#flow-chars-13)
+  - [Characters 4–6](#flow-chars-46)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-chars-13 -->
+  **Characters 1–3**
+
+  **1 Assassin:** name a character → they skip and stay hidden.
+  **1 Witch:** gather, bewitch, pause; they only gather, then you play as them.
+  **1 Magistrate:** 3 warrants (1 signed); confiscate their first paid build, refund gold.
+  
+  **2 Thief:** take all gold when they reveal (not rank 1 / killed / bewitched).
+  **2 Spy:** name a type, peek a hand; 1 gold + 1 card per match.
+  **2 Blackmailer:** 2 threats (1 flower); bribe half gold or you may reveal the flower for all gold.
+  
+  **3 Magician:** swap hands or mill-and-draw.
+  **3 Wizard:** take 1 from a hand; may build it extra and may build duplicates.
+  **3 Seer:** take 1 random from each, give 1 back; build up to 2.
+
+  ![The king calls 1 through 8](/images/rules/citadels/call-order.svg)
+
+  Related topics: 
+  - [Characters 4–6](#flow-chars-46)
+  - [Your Turn](#flow-turn)
+
+- <!-- rule-item: flow-chars-46 -->
+  **Characters 4–6**
+
+  **4 King / Patrician:** must take the crown. Gold (King) or cards (Patrician) per noble. If killed, still take crown at round end.
+  **4 Emperor:** give crown to someone else; take 1 gold or 1 card. No 2-player. Rank 4 cannot be faceup-discarded.
+  
+  **5 Bishop:** rank 8 cannot target you. +1 gold per religious.
+  **5 Abbot:** richest gives you 1 gold; mix gold/cards per religious.
+  **5 Cardinal:** trade hand cards 1:1 for someone’s gold to finish a build. +1 card per religious.
+  
+  **6 Merchant:** +1 gold plus per trade.
+  **6 Alchemist:** refund gold spent **building** this turn.
+  **6 Trader:** unlimited trade builds; +1 gold per trade.
+
+  Related topics: 
+  - [Characters 7–9](#flow-chars-79)
+  - [Characters 1–3](#flow-chars-13)
+
+- <!-- rule-item: flow-chars-79 -->
+  **Characters 7–9**
+
+  **7 Architect:** +2 cards; build up to 3.
+  **7 Navigator:** +4 gold or +4 cards; **cannot** build.
+  **7 Scholar:** draw 7 keep 1, shuffle rest; build up to 2.
+  
+  **8 Warlord:** destroy for cost−1. **8 Diplomat:** swap (pay difference up). **8 Marshal:** buy a cost ≤3 district from another city. All: +1 gold per military. No completed-city targets.
+  
+  **9 Queen:** +3 gold if next to revealed rank 4 (min 5 players).
+  **9 Artist:** beautify up to 2 districts (+1 cost/VP each).
+  **9 Tax Collector:** builders pay 1 gold to the token; you take the pile.
+
+  Related topics: 
+  - [Unique Districts](#flow-uniques)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-uniques -->
+  **Unique Districts**
+
+  First-game set:
+  
+  - **Dragon Gate** +2 VP · **Wishing Well** +1 VP per unique
+  - **Map Room** +1 VP per card in hand · **Imperial Treasury** +1 VP per gold · **Statue** +5 if you have the crown
+  - **Library** keep all drawn · **Laboratory** discard 1 → 2 gold · **Smithy** 2 gold → 3 cards
+  - **Factory** other uniques −1 cost · **Quarry** may build duplicates
+  - **Keep** immune to rank 8 · **School of Magic** chosen type for income
+  - **Haunted Quarter** any type at game end · **Thieves’ Den** pay with cards
+
+  Related topics: 
+  - [Game End](#flow-game-end)
+  - [Characters 7–9](#flow-chars-79)
+
+- <!-- rule-item: flow-game-end -->
+  **Game End**
+
+  Complete at **7** districts (4–8p) or **8** (2–3p). Finish the round.
+  
+  Score: district costs + **3** for all five types + **4** first complete / **2** other complete + unique extras.
+  
+  Tie → highest rank revealed last round.
+  
+  Beautify gold sits on the card and counts as cost.
+
+  ![A city completes at 7 districts; finish the round then score gold plus bonuses](/images/rules/citadels/game-end.svg)
+
+  Related topics: 
+  - [Setup](#flow-setup)
+  - [2–3 Players](#flow-two-three)
+
+- <!-- rule-item: flow-two-three -->
+  **2–3 Players**
+
+  Each player drafts **two** characters (one city, one stash).
+  
+  **2p:** ranks 1–8, no Emperor. Discard 1 down; then keep/discard/pass until gone. End at **8** districts.
+  
+  **3p:** ranks 1–9. Discard 1 down; draft one each; third player discards 1 more down; draft seconds. End at **8** districts.
+
+  ![Roles 1–8 are called; act when yours is named](/images/rules/citadels/turn-flow.svg)
+
+  Related topics: 
+  - [Selection Phase](#flow-selection)
+  - [Game End](#flow-game-end)
+

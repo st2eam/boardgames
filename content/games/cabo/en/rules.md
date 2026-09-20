@@ -1,13 +1,13 @@
 # CABO Rules
-
+<!-- rule-section: overview -->
 ## Overview
 
 Race to get as close to Cabo as possible and find the legendary unicorn. The numbers on cards represent your distance from it. The player closest to Cabo (lowest total score) at game end wins.
-
+<!-- rule-section: game-objective -->
 ## Game Objective
 
 In CABO, you are searching for the unicorn Cabo while managing four hidden cards. Your goal is to finish the round with the lowest total distance from Cabo.
-
+<!-- rule-section: components -->
 ## Components
 
 - 52 number cards (0-13)
@@ -16,34 +16,35 @@ In CABO, you are searching for the unicorn Cabo while managing four hidden cards
 - Numbers 7-8: Peek ability
 - Numbers 9-10: Spy ability
 - Numbers 11-12: Swap ability
-
+<!-- rule-section: setup -->
 ## Setup
 
 1. Shuffle all cards. Deal **4 cards face down** to each player, arranged in a row.
 2. Place remaining cards face down in the center as the **Draw Pile**. Flip the top card face up to form the **Discard Pile**.
 3. All players **secretly peek** at any **2** of their own cards and memorize them (this is the last free peek).
 4. Players may not change card order. Choose a starting player randomly.
-
+<!-- rule-ui: tabs -->
+<!-- rule-section: how-to-play -->
 ## How to Play
 
 ![Peek the two outer cards; the middle two stay blind](/images/rules/cabo/turn-flow.svg)
 Play proceeds clockwise. On your turn, choose **one** action:
-
+<!-- rule-section: 1-draw-from-draw-pile -->
 ### 1. Draw from Draw Pile
 
 Draw the top card and secretly look at it. Then choose:
 
 - **Discard** — Place face up on Discard Pile. If it has a special ability, you may choose to activate it.
 - **Swap** — Replace 1 or more of your face-down cards (see "Multi-Card Swap"). Replaced cards go face up to the Discard Pile.
-
+<!-- rule-section: 2-draw-from-discard-pile -->
 ### 2. Draw from Discard Pile
 
 Take the top card of the Discard Pile. You **must** use it to replace 1 or more of your face-down cards. Replaced cards go face up to the Discard Pile.
-
+<!-- rule-section: 3-call-cabo -->
 ### 3. Call CABO
 
 Skip your action. All other players each take **one more turn**, then the round ends.
-
+<!-- rule-section: multi-card-swap -->
 ## Multi-Card Swap
 
 When swapping a drawn card with 2+ of your cards, the selected cards **must have the same value**:
@@ -54,7 +55,7 @@ When swapping a drawn card with 2+ of your cards, the selected cards **must have
    - Revealed cards return to their positions (now face up)
    - The drawn card is also added to your tableau
    - If 3+ cards were attempted, draw 1 additional card face down from the Draw Pile
-
+<!-- rule-section: card-special-abilities -->
 ## Card Special Abilities
 
 ![7–8 peek yourself, 9–10 spy, 11–12 blind swap](/images/rules/cabo/abilities.svg)
@@ -67,7 +68,7 @@ When you draw from the Draw Pile and choose to discard, these numbers grant abil
 | **11-12** | Swap | Exchange 1 of your cards with 1 of another player's (no peeking, don't change positions) |
 
 > Special abilities only trigger when discarding a card drawn from the Draw Pile. Cards taken from the Discard Pile do not trigger abilities.
-
+<!-- rule-section: end-of-round -->
 ## End of Round
 
 ![After CABO, others take one last turn, then reveal and sum](/images/rules/cabo/cabo-call.svg)
@@ -76,24 +77,700 @@ A round ends when either:
 - The **Draw Pile is depleted**
 
 All players reveal their cards and sum the values.
-
+<!-- rule-section: scoring -->
 ## Scoring
 
 - Your round score = **sum of all card values** in front of you
 - If you called CABO:
   - You have the lowest (or tied lowest) total → you score **0 points**
   - Someone else has a lower total → your score is **your total + 10 penalty**
-
+<!-- rule-section: kamikaze -->
 ## Kamikaze
 
 After CABO is called, if any player has exactly **2× thirteen + 2× twelve** (and no other cards), that player scores **0 points** and all other players score **50 points**.
 
 > Since there are only 2 copies of 13 in the entire deck, pulling off Kamikaze requires that neither 13 has been discarded.
-
+<!-- rule-section: game-end -->
 ## Game End
 
 Record each round's score and add to cumulative totals. When any player reaches **100 points or more**, the game ends. The player with the **lowest cumulative score** wins. If tied, the player with the lower score in the final round wins.
-
+<!-- rule-section: score-reset -->
 ### Score Reset
 
 If a player's cumulative score lands on **exactly 100**, it resets to **50**. Each player can only trigger this once per game.
+<!-- rule-section: topic-guide -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **52 cards** (0–13): 0 and 13 have **2 copies** each; 1–12 have **4 copies** each.
+  
+  1. Shuffle all cards. Deal **4 cards face down** to each player, arranged in a row.
+  2. Place remaining cards face down in the center as the **Draw Pile**; flip the top card face up to start the **Discard Pile**.
+  3. All players **secretly peek** at any **2** of their own cards and memorize them (this is the last free peek).
+  4. Players may not change card order. Choose a starting player randomly.
+  
+  **Goal:** Get the **lowest total** card value by the end of the round.
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-turn -->
+  **Turn Structure**
+
+  On your turn, choose **one** action:
+  
+  ### 1. Draw from Draw Pile
+  Draw the top card and secretly look at it. Then choose:
+  - **Discard** — Place face up on the Discard Pile. If it has a special ability (7–12), you may choose to activate it.
+  - **Swap** — Replace 1 or more of your face-down cards (see **Multi-Card Swap**). Replaced cards go face up to the Discard Pile.
+  
+  ### 2. Draw from Discard Pile
+  Take the top card of the Discard Pile. You **must** use it to replace 1 or more of your face-down cards. Replaced cards go face up to the Discard Pile.
+  
+  ### 3. Call CABO
+  Skip your action. All other players each take **one more turn**, then the round ends.
+  
+  > **Note:** Special abilities only trigger when discarding a card drawn from the Draw Pile. Cards taken from the Discard Pile do not trigger abilities.
+  
+  **Tip:** Track what others discard — it reveals what they don't want.
+
+  Related topics: 
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Multi-Card Swap](#flow-multi-card-swap)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Scoring](#flow-scoring)
+
+- <!-- rule-item: flow-peek-swap-spy -->
+  **Special Abilities (Peek, Swap & Spy)**
+
+  When you draw from the **Draw Pile** and choose to **discard**, these numbers grant special abilities:
+  
+  | Number | Ability | Effect |
+  |--------|---------|--------|
+  | **7 or 8** | **Peek** | Look at 1 of your own face-down cards |
+  | **9 or 10** | **Spy** | Look at 1 of another player's face-down cards |
+  | **11 or 12** | **Swap** | Exchange 1 of your cards with 1 of another player's cards (no peeking, don't change positions) |
+  
+  **Important:**
+  - Abilities **only** trigger when discarding a card drawn from the **Draw Pile**. Cards taken from the Discard Pile do **not** trigger abilities.
+  - You may peek at cards you already memorized to confirm.
+  - Swap is powerful late-game — use it when you're confident about opponent positions.
+
+  ![Peek the two outer cards; the middle two stay blind](/images/rules/cabo/turn-flow.svg)
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Multi-Card Swap](#flow-multi-card-swap)
+  - [Calling CABO](#flow-calling-cabo)
+
+- <!-- rule-item: flow-multi-card-swap -->
+  **Multi-Card Swap**
+
+  When swapping a drawn card with 2 or more of your cards, the selected cards **must have the same value**:
+  
+  1. Reveal the face-down cards you want to swap.
+  2. If all revealed cards have the **same value** → swap succeeds; old cards all go to the Discard Pile.
+  3. If values **don't match** → swap fails:
+     - Revealed cards return to their original positions (now face up)
+     - The drawn card is also added to your tableau
+     - If 3+ cards were attempted, draw 1 additional card face down from the Draw Pile
+  
+  **Example:** You have two 8s among your cards and draw a 5. You can declare swapping both 8s for this 5 — flip them over, and if both are indeed 8s, success! Two high cards (16 pts) replaced by one low card (5 pts).
+  
+  **Risk:** Failed multi-card swaps leave your cards face up (visible to opponents) and may increase your hand size.
+
+  ![7–8 peek yourself, 9–10 spy, 11–12 blind swap](/images/rules/cabo/abilities.svg)
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Scoring](#flow-scoring)
+
+- <!-- rule-item: flow-calling-cabo -->
+  **Calling CABO**
+
+  Any player may call **"CABO!"** instead of taking a normal turn when they believe they have the lowest hand.
+  
+  **What happens next:**
+  1. Every **other** player gets **one final turn**.
+  2. After all final turns, all players **reveal** their cards.
+  3. Sum card values to determine the round scores.
+  
+  **A round also ends when:**
+  - The **Draw Pile is depleted** — all players reveal cards immediately.
+  
+  **When to call:**
+  - You have low cards (especially 0s) and believe opponents haven't improved.
+  - Calling too early gives opponents one more chance to swap away high cards.
+  - Calling with a mediocre hand risks the **+10 penalty**.
+
+  ![After CABO, others take one last turn, then reveal and sum](/images/rules/cabo/cabo-call.svg)
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Kamikaze](#flow-kamikaze)
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+
+- <!-- rule-item: flow-scoring -->
+  **Scoring**
+
+  Sum the values of all cards in front of you. Each card is worth its **face value** (0 through 13).
+  
+  ### CABO Caller Scoring
+  - Caller has the **lowest or tied lowest** total → scores **0 points**
+  - Someone else has a **lower** total → caller scores **their total + 10 penalty**
+  
+  Non-callers simply score their card total.
+  
+  Record cumulative scores across rounds. **Lowest cumulative score wins** the game.
+
+  Related topics: 
+  - [Kamikaze](#flow-kamikaze)
+  - [Game End](#flow-game-end)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Turn Structure](#flow-turn)
+
+- <!-- rule-item: flow-kamikaze -->
+  **Kamikaze**
+
+  After CABO is called, if any player has exactly **2 thirteens (13) + 2 twelves (12)** and no other cards, that player scores **0 points** and all other players score **50 points**.
+  
+  This is an extremely rare but devastating play — if you manage to collect the right cards, it can completely turn the game around.
+  
+  > Since there are only **2 copies of 13** in the entire deck, pulling off Kamikaze requires that neither 13 has been discarded.
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Game End](#flow-game-end)
+  - [Calling CABO](#flow-calling-cabo)
+
+- <!-- rule-item: flow-game-end -->
+  **Game End**
+
+  Record each round's score and add to cumulative totals. When any player reaches **100 points or more**, the game ends.
+  
+  The player with the **lowest cumulative score** wins. If tied, the player with the lower score in the final round wins.
+  
+  ### Score Reset
+  If a player's cumulative score lands on **exactly 100**, it resets to **50**. Each player can only trigger this **once** per game.
+  
+  **Strategy:** Being at exactly 100 lets you survive one more round — but you can only use this lifeline once!
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Back to Setup](#flow-setup)
+<!-- rule-section: topic-guide-2 -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **52 cards** (0–13): 0 and 13 have **2 copies** each; 1–12 have **4 copies** each.
+  
+  1. Shuffle all cards. Deal **4 cards face down** to each player, arranged in a row.
+  2. Place remaining cards face down in the center as the **Draw Pile**; flip the top card face up to start the **Discard Pile**.
+  3. All players **secretly peek** at any **2** of their own cards and memorize them (this is the last free peek).
+  4. Players may not change card order. Choose a starting player randomly.
+  
+  **Goal:** Get the **lowest total** card value by the end of the round.
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-turn -->
+  **Turn Structure**
+
+  On your turn, choose **one** action:
+  
+  ### 1. Draw from Draw Pile
+  Draw the top card and secretly look at it. Then choose:
+  - **Discard** — Place face up on the Discard Pile. If it has a special ability (7–12), you may choose to activate it.
+  - **Swap** — Replace 1 or more of your face-down cards (see **Multi-Card Swap**). Replaced cards go face up to the Discard Pile.
+  
+  ### 2. Draw from Discard Pile
+  Take the top card of the Discard Pile. You **must** use it to replace 1 or more of your face-down cards. Replaced cards go face up to the Discard Pile.
+  
+  ### 3. Call CABO
+  Skip your action. All other players each take **one more turn**, then the round ends.
+  
+  > **Note:** Special abilities only trigger when discarding a card drawn from the Draw Pile. Cards taken from the Discard Pile do not trigger abilities.
+  
+  **Tip:** Track what others discard — it reveals what they don't want.
+
+  Related topics: 
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Multi-Card Swap](#flow-multi-card-swap)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Scoring](#flow-scoring)
+
+- <!-- rule-item: flow-peek-swap-spy -->
+  **Special Abilities (Peek, Swap & Spy)**
+
+  When you draw from the **Draw Pile** and choose to **discard**, these numbers grant special abilities:
+  
+  | Number | Ability | Effect |
+  |--------|---------|--------|
+  | **7 or 8** | **Peek** | Look at 1 of your own face-down cards |
+  | **9 or 10** | **Spy** | Look at 1 of another player's face-down cards |
+  | **11 or 12** | **Swap** | Exchange 1 of your cards with 1 of another player's cards (no peeking, don't change positions) |
+  
+  **Important:**
+  - Abilities **only** trigger when discarding a card drawn from the **Draw Pile**. Cards taken from the Discard Pile do **not** trigger abilities.
+  - You may peek at cards you already memorized to confirm.
+  - Swap is powerful late-game — use it when you're confident about opponent positions.
+
+  ![Peek the two outer cards; the middle two stay blind](/images/rules/cabo/turn-flow.svg)
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Multi-Card Swap](#flow-multi-card-swap)
+  - [Calling CABO](#flow-calling-cabo)
+
+- <!-- rule-item: flow-multi-card-swap -->
+  **Multi-Card Swap**
+
+  When swapping a drawn card with 2 or more of your cards, the selected cards **must have the same value**:
+  
+  1. Reveal the face-down cards you want to swap.
+  2. If all revealed cards have the **same value** → swap succeeds; old cards all go to the Discard Pile.
+  3. If values **don't match** → swap fails:
+     - Revealed cards return to their original positions (now face up)
+     - The drawn card is also added to your tableau
+     - If 3+ cards were attempted, draw 1 additional card face down from the Draw Pile
+  
+  **Example:** You have two 8s among your cards and draw a 5. You can declare swapping both 8s for this 5 — flip them over, and if both are indeed 8s, success! Two high cards (16 pts) replaced by one low card (5 pts).
+  
+  **Risk:** Failed multi-card swaps leave your cards face up (visible to opponents) and may increase your hand size.
+
+  ![7–8 peek yourself, 9–10 spy, 11–12 blind swap](/images/rules/cabo/abilities.svg)
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Scoring](#flow-scoring)
+
+- <!-- rule-item: flow-calling-cabo -->
+  **Calling CABO**
+
+  Any player may call **"CABO!"** instead of taking a normal turn when they believe they have the lowest hand.
+  
+  **What happens next:**
+  1. Every **other** player gets **one final turn**.
+  2. After all final turns, all players **reveal** their cards.
+  3. Sum card values to determine the round scores.
+  
+  **A round also ends when:**
+  - The **Draw Pile is depleted** — all players reveal cards immediately.
+  
+  **When to call:**
+  - You have low cards (especially 0s) and believe opponents haven't improved.
+  - Calling too early gives opponents one more chance to swap away high cards.
+  - Calling with a mediocre hand risks the **+10 penalty**.
+
+  ![After CABO, others take one last turn, then reveal and sum](/images/rules/cabo/cabo-call.svg)
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Kamikaze](#flow-kamikaze)
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+
+- <!-- rule-item: flow-scoring -->
+  **Scoring**
+
+  Sum the values of all cards in front of you. Each card is worth its **face value** (0 through 13).
+  
+  ### CABO Caller Scoring
+  - Caller has the **lowest or tied lowest** total → scores **0 points**
+  - Someone else has a **lower** total → caller scores **their total + 10 penalty**
+  
+  Non-callers simply score their card total.
+  
+  Record cumulative scores across rounds. **Lowest cumulative score wins** the game.
+
+  Related topics: 
+  - [Kamikaze](#flow-kamikaze)
+  - [Game End](#flow-game-end)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Turn Structure](#flow-turn)
+
+- <!-- rule-item: flow-kamikaze -->
+  **Kamikaze**
+
+  After CABO is called, if any player has exactly **2 thirteens (13) + 2 twelves (12)** and no other cards, that player scores **0 points** and all other players score **50 points**.
+  
+  This is an extremely rare but devastating play — if you manage to collect the right cards, it can completely turn the game around.
+  
+  > Since there are only **2 copies of 13** in the entire deck, pulling off Kamikaze requires that neither 13 has been discarded.
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Game End](#flow-game-end)
+  - [Calling CABO](#flow-calling-cabo)
+
+- <!-- rule-item: flow-game-end -->
+  **Game End**
+
+  Record each round's score and add to cumulative totals. When any player reaches **100 points or more**, the game ends.
+  
+  The player with the **lowest cumulative score** wins. If tied, the player with the lower score in the final round wins.
+  
+  ### Score Reset
+  If a player's cumulative score lands on **exactly 100**, it resets to **50**. Each player can only trigger this **once** per game.
+  
+  **Strategy:** Being at exactly 100 lets you survive one more round — but you can only use this lifeline once!
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Back to Setup](#flow-setup)
+<!-- rule-section: topic-guide-3 -->
+## Quick reference
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **52 cards** (0–13): 0 and 13 have **2 copies** each; 1–12 have **4 copies** each.
+  
+  1. Shuffle all cards. Deal **4 cards face down** to each player, arranged in a row.
+  2. Place remaining cards face down in the center as the **Draw Pile**; flip the top card face up to start the **Discard Pile**.
+  3. All players **secretly peek** at any **2** of their own cards and memorize them (this is the last free peek).
+  4. Players may not change card order. Choose a starting player randomly.
+  
+  **Goal:** Get the **lowest total** card value by the end of the round.
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-turn -->
+  **Turn Structure**
+
+  On your turn, choose **one** action:
+  
+  ### 1. Draw from Draw Pile
+  Draw the top card and secretly look at it. Then choose:
+  - **Discard** — Place face up on the Discard Pile. If it has a special ability (7–12), you may choose to activate it.
+  - **Swap** — Replace 1 or more of your face-down cards (see **Multi-Card Swap**). Replaced cards go face up to the Discard Pile.
+  
+  ### 2. Draw from Discard Pile
+  Take the top card of the Discard Pile. You **must** use it to replace 1 or more of your face-down cards. Replaced cards go face up to the Discard Pile.
+  
+  ### 3. Call CABO
+  Skip your action. All other players each take **one more turn**, then the round ends.
+  
+  > **Note:** Special abilities only trigger when discarding a card drawn from the Draw Pile. Cards taken from the Discard Pile do not trigger abilities.
+  
+  **Tip:** Track what others discard — it reveals what they don't want.
+
+  Related topics: 
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Multi-Card Swap](#flow-multi-card-swap)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Scoring](#flow-scoring)
+
+- <!-- rule-item: flow-peek-swap-spy -->
+  **Special Abilities (Peek, Swap & Spy)**
+
+  When you draw from the **Draw Pile** and choose to **discard**, these numbers grant special abilities:
+  
+  | Number | Ability | Effect |
+  |--------|---------|--------|
+  | **7 or 8** | **Peek** | Look at 1 of your own face-down cards |
+  | **9 or 10** | **Spy** | Look at 1 of another player's face-down cards |
+  | **11 or 12** | **Swap** | Exchange 1 of your cards with 1 of another player's cards (no peeking, don't change positions) |
+  
+  **Important:**
+  - Abilities **only** trigger when discarding a card drawn from the **Draw Pile**. Cards taken from the Discard Pile do **not** trigger abilities.
+  - You may peek at cards you already memorized to confirm.
+  - Swap is powerful late-game — use it when you're confident about opponent positions.
+
+  ![Peek the two outer cards; the middle two stay blind](/images/rules/cabo/turn-flow.svg)
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Multi-Card Swap](#flow-multi-card-swap)
+  - [Calling CABO](#flow-calling-cabo)
+
+- <!-- rule-item: flow-multi-card-swap -->
+  **Multi-Card Swap**
+
+  When swapping a drawn card with 2 or more of your cards, the selected cards **must have the same value**:
+  
+  1. Reveal the face-down cards you want to swap.
+  2. If all revealed cards have the **same value** → swap succeeds; old cards all go to the Discard Pile.
+  3. If values **don't match** → swap fails:
+     - Revealed cards return to their original positions (now face up)
+     - The drawn card is also added to your tableau
+     - If 3+ cards were attempted, draw 1 additional card face down from the Draw Pile
+  
+  **Example:** You have two 8s among your cards and draw a 5. You can declare swapping both 8s for this 5 — flip them over, and if both are indeed 8s, success! Two high cards (16 pts) replaced by one low card (5 pts).
+  
+  **Risk:** Failed multi-card swaps leave your cards face up (visible to opponents) and may increase your hand size.
+
+  ![7–8 peek yourself, 9–10 spy, 11–12 blind swap](/images/rules/cabo/abilities.svg)
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Scoring](#flow-scoring)
+
+- <!-- rule-item: flow-calling-cabo -->
+  **Calling CABO**
+
+  Any player may call **"CABO!"** instead of taking a normal turn when they believe they have the lowest hand.
+  
+  **What happens next:**
+  1. Every **other** player gets **one final turn**.
+  2. After all final turns, all players **reveal** their cards.
+  3. Sum card values to determine the round scores.
+  
+  **A round also ends when:**
+  - The **Draw Pile is depleted** — all players reveal cards immediately.
+  
+  **When to call:**
+  - You have low cards (especially 0s) and believe opponents haven't improved.
+  - Calling too early gives opponents one more chance to swap away high cards.
+  - Calling with a mediocre hand risks the **+10 penalty**.
+
+  ![After CABO, others take one last turn, then reveal and sum](/images/rules/cabo/cabo-call.svg)
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Kamikaze](#flow-kamikaze)
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+
+- <!-- rule-item: flow-scoring -->
+  **Scoring**
+
+  Sum the values of all cards in front of you. Each card is worth its **face value** (0 through 13).
+  
+  ### CABO Caller Scoring
+  - Caller has the **lowest or tied lowest** total → scores **0 points**
+  - Someone else has a **lower** total → caller scores **their total + 10 penalty**
+  
+  Non-callers simply score their card total.
+  
+  Record cumulative scores across rounds. **Lowest cumulative score wins** the game.
+
+  Related topics: 
+  - [Kamikaze](#flow-kamikaze)
+  - [Game End](#flow-game-end)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Turn Structure](#flow-turn)
+
+- <!-- rule-item: flow-kamikaze -->
+  **Kamikaze**
+
+  After CABO is called, if any player has exactly **2 thirteens (13) + 2 twelves (12)** and no other cards, that player scores **0 points** and all other players score **50 points**.
+  
+  This is an extremely rare but devastating play — if you manage to collect the right cards, it can completely turn the game around.
+  
+  > Since there are only **2 copies of 13** in the entire deck, pulling off Kamikaze requires that neither 13 has been discarded.
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Game End](#flow-game-end)
+  - [Calling CABO](#flow-calling-cabo)
+
+- <!-- rule-item: flow-game-end -->
+  **Game End**
+
+  Record each round's score and add to cumulative totals. When any player reaches **100 points or more**, the game ends.
+  
+  The player with the **lowest cumulative score** wins. If tied, the player with the lower score in the final round wins.
+  
+  ### Score Reset
+  If a player's cumulative score lands on **exactly 100**, it resets to **50**. Each player can only trigger this **once** per game.
+  
+  **Strategy:** Being at exactly 100 lets you survive one more round — but you can only use this lifeline once!
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Back to Setup](#flow-setup)
+
+<!-- rule-section: topic-guide-4 -->
+## Quick reference
+<!-- rule-ui: sidebar -->
+
+Jump directly to the rule topic you need.
+
+- <!-- rule-item: flow-setup -->
+  **Setup**
+
+  **52 cards** (0–13): 0 and 13 have **2 copies** each; 1–12 have **4 copies** each.
+  
+  1. Shuffle all cards. Deal **4 cards face down** to each player, arranged in a row.
+  2. Place remaining cards face down in the center as the **Draw Pile**; flip the top card face up to start the **Discard Pile**.
+  3. All players **secretly peek** at any **2** of their own cards and memorize them (this is the last free peek).
+  4. Players may not change card order. Choose a starting player randomly.
+  
+  **Goal:** Get the **lowest total** card value by the end of the round.
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Game End](#flow-game-end)
+
+- <!-- rule-item: flow-turn -->
+  **Turn Structure**
+
+  On your turn, choose **one** action:
+  
+  ### 1. Draw from Draw Pile
+  Draw the top card and secretly look at it. Then choose:
+  - **Discard** — Place face up on the Discard Pile. If it has a special ability (7–12), you may choose to activate it.
+  - **Swap** — Replace 1 or more of your face-down cards (see **Multi-Card Swap**). Replaced cards go face up to the Discard Pile.
+  
+  ### 2. Draw from Discard Pile
+  Take the top card of the Discard Pile. You **must** use it to replace 1 or more of your face-down cards. Replaced cards go face up to the Discard Pile.
+  
+  ### 3. Call CABO
+  Skip your action. All other players each take **one more turn**, then the round ends.
+  
+  > **Note:** Special abilities only trigger when discarding a card drawn from the Draw Pile. Cards taken from the Discard Pile do not trigger abilities.
+  
+  **Tip:** Track what others discard — it reveals what they don't want.
+
+  Related topics: 
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Multi-Card Swap](#flow-multi-card-swap)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Scoring](#flow-scoring)
+
+- <!-- rule-item: flow-peek-swap-spy -->
+  **Special Abilities (Peek, Swap & Spy)**
+
+  When you draw from the **Draw Pile** and choose to **discard**, these numbers grant special abilities:
+  
+  | Number | Ability | Effect |
+  |--------|---------|--------|
+  | **7 or 8** | **Peek** | Look at 1 of your own face-down cards |
+  | **9 or 10** | **Spy** | Look at 1 of another player's face-down cards |
+  | **11 or 12** | **Swap** | Exchange 1 of your cards with 1 of another player's cards (no peeking, don't change positions) |
+  
+  **Important:**
+  - Abilities **only** trigger when discarding a card drawn from the **Draw Pile**. Cards taken from the Discard Pile do **not** trigger abilities.
+  - You may peek at cards you already memorized to confirm.
+  - Swap is powerful late-game — use it when you're confident about opponent positions.
+
+  ![Peek the two outer cards; the middle two stay blind](/images/rules/cabo/turn-flow.svg)
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Multi-Card Swap](#flow-multi-card-swap)
+  - [Calling CABO](#flow-calling-cabo)
+
+- <!-- rule-item: flow-multi-card-swap -->
+  **Multi-Card Swap**
+
+  When swapping a drawn card with 2 or more of your cards, the selected cards **must have the same value**:
+  
+  1. Reveal the face-down cards you want to swap.
+  2. If all revealed cards have the **same value** → swap succeeds; old cards all go to the Discard Pile.
+  3. If values **don't match** → swap fails:
+     - Revealed cards return to their original positions (now face up)
+     - The drawn card is also added to your tableau
+     - If 3+ cards were attempted, draw 1 additional card face down from the Draw Pile
+  
+  **Example:** You have two 8s among your cards and draw a 5. You can declare swapping both 8s for this 5 — flip them over, and if both are indeed 8s, success! Two high cards (16 pts) replaced by one low card (5 pts).
+  
+  **Risk:** Failed multi-card swaps leave your cards face up (visible to opponents) and may increase your hand size.
+
+  ![7–8 peek yourself, 9–10 spy, 11–12 blind swap](/images/rules/cabo/abilities.svg)
+
+  Related topics: 
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+  - [Scoring](#flow-scoring)
+
+- <!-- rule-item: flow-calling-cabo -->
+  **Calling CABO**
+
+  Any player may call **"CABO!"** instead of taking a normal turn when they believe they have the lowest hand.
+  
+  **What happens next:**
+  1. Every **other** player gets **one final turn**.
+  2. After all final turns, all players **reveal** their cards.
+  3. Sum card values to determine the round scores.
+  
+  **A round also ends when:**
+  - The **Draw Pile is depleted** — all players reveal cards immediately.
+  
+  **When to call:**
+  - You have low cards (especially 0s) and believe opponents haven't improved.
+  - Calling too early gives opponents one more chance to swap away high cards.
+  - Calling with a mediocre hand risks the **+10 penalty**.
+
+  ![After CABO, others take one last turn, then reveal and sum](/images/rules/cabo/cabo-call.svg)
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Kamikaze](#flow-kamikaze)
+  - [Turn Structure](#flow-turn)
+  - [Special Abilities (7–12)](#flow-peek-swap-spy)
+
+- <!-- rule-item: flow-scoring -->
+  **Scoring**
+
+  Sum the values of all cards in front of you. Each card is worth its **face value** (0 through 13).
+  
+  ### CABO Caller Scoring
+  - Caller has the **lowest or tied lowest** total → scores **0 points**
+  - Someone else has a **lower** total → caller scores **their total + 10 penalty**
+  
+  Non-callers simply score their card total.
+  
+  Record cumulative scores across rounds. **Lowest cumulative score wins** the game.
+
+  Related topics: 
+  - [Kamikaze](#flow-kamikaze)
+  - [Game End](#flow-game-end)
+  - [Calling CABO](#flow-calling-cabo)
+  - [Turn Structure](#flow-turn)
+
+- <!-- rule-item: flow-kamikaze -->
+  **Kamikaze**
+
+  After CABO is called, if any player has exactly **2 thirteens (13) + 2 twelves (12)** and no other cards, that player scores **0 points** and all other players score **50 points**.
+  
+  This is an extremely rare but devastating play — if you manage to collect the right cards, it can completely turn the game around.
+  
+  > Since there are only **2 copies of 13** in the entire deck, pulling off Kamikaze requires that neither 13 has been discarded.
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Game End](#flow-game-end)
+  - [Calling CABO](#flow-calling-cabo)
+
+- <!-- rule-item: flow-game-end -->
+  **Game End**
+
+  Record each round's score and add to cumulative totals. When any player reaches **100 points or more**, the game ends.
+  
+  The player with the **lowest cumulative score** wins. If tied, the player with the lower score in the final round wins.
+  
+  ### Score Reset
+  If a player's cumulative score lands on **exactly 100**, it resets to **50**. Each player can only trigger this **once** per game.
+  
+  **Strategy:** Being at exactly 100 lets you survive one more round — but you can only use this lifeline once!
+
+  Related topics: 
+  - [Scoring](#flow-scoring)
+  - [Back to Setup](#flow-setup)
+

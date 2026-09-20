@@ -9,6 +9,7 @@
     "postbuild": "node scripts/generate-sw-precache.mjs && node scripts/generate-seo.mjs",
     "start": "next start",
     "lint": "eslint",
+    "test:rules": "vitest run --config vitest.rules.config.ts",
     "test:bbge": "vitest run --config bbge/vitest.config.ts",
     "test:bbge:watch": "vitest --config bbge/vitest.config.ts",
     "test:mobile": "playwright test"
@@ -28,7 +29,9 @@
     "react-dom": "19.2.4",
     "react-markdown": "^10.1.0",
     "recharts": "^3.9.0",
+    "remark-parse": "^11.0.0",
     "remark-gfm": "^4.0.1",
+    "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0",
     "zod": "^4.4.3"
   },

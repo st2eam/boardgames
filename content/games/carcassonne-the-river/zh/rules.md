@@ -1,20 +1,20 @@
 # 卡卡颂：河流 扩展规则
-
+<!-- rule-section: overview -->
 ## 概述
 
 「河流」是卡卡颂的第一个迷你扩展，包含 12 块带有河流的地形版图。这些版图替代基础游戏的起始版图，在游戏开始时铺设一条蜿蜒的河流，为地图创造更丰富多样的起始格局。
-
+<!-- rule-section: game-objective -->
 ## 游戏目标
 
 在《卡卡颂：河流》中，你先铺出开启地图的河流。你的目标是正确完成河流开局，再按本体计分争取最高分。
-
+<!-- rule-section: components -->
 ## 组件
 
 - **12 块河流版图**（深色背面）
   - 1 块源头版图（河流起点）
   - 1 块湖泊版图（河流终点）
   - 10 块中间河流版图
-
+<!-- rule-section: setup -->
 ## 准备
 
 ![收起起始板块；先放源头，洗河牌，湖泊放在牌堆底](/images/rules/carcassonne-the-river/river-setup.svg)
@@ -24,31 +24,32 @@
 3. 将剩余 10 块河流版图洗匀，面朝下堆放。
 4. 将**湖泊**版图放在河流牌堆最底部。
 5. 将**源头**版图正面朝上放在桌面中央，作为起始版图。
-
+<!-- rule-section: how-to-play -->
 ## 游戏流程
-
+<!-- rule-ui: tabs -->
+<!-- rule-section: river-phase -->
 ### 河流阶段
 
 游戏开始后，玩家**从河流牌堆**中抽取版图（而非普通牌堆），按轮次放置直到所有河流版图铺设完毕。
-
+<!-- rule-section: placement-rules -->
 #### 放置规则
 
 - 河流版图必须接续河流，使河流持续延伸。
 - 地形匹配规则与基础游戏相同（道路接道路、城墙接城墙、农田接农田）。
 - **禁止 U 型弯**：带有弯道的河流版图不能与上一块弯道版图朝同一方向弯曲，以防河流折回自身。
 - **不能在河流上放置米宝**：河流本身不是可占领的地形。但可以在河流版图上的其他地形（城市、道路、农田）上正常放置米宝。
-
+<!-- rule-section: completing-the-river -->
 #### 完成河流
 
 当湖泊版图被放置后，河流阶段结束。之后的游戏使用普通地形版图，按基础游戏规则继续进行。
-
+<!-- rule-section: scoring -->
 ## 计分
 
 河流扩展不引入新的计分规则。所有计分仍遵循基础游戏规则：
 
 - 河流两侧的农田视为独立区域（河流分割农田）。
 - 河流版图上的城市、道路、修道院按正常规则计分。
-
+<!-- rule-section: differences-from-base-game -->
 ## 与基础游戏的区别
 
 ![先放完 12 张河牌；禁止掉头；河流也会分割田野](/images/rules/carcassonne-the-river/differences.svg)
@@ -59,9 +60,145 @@
 | 开局阶段 | 直接抽取普通版图 | 先铺完 12 块河流版图 |
 | 农田分割 | 由城市和道路分割 | 河流也会分割农田 |
 | 其他规则 | — | 完全相同 |
-
+<!-- rule-section: tips -->
 ## 小贴士
 
 - 河流扩展为地图创造了天然的农田分界线，让农夫的计分更加有趣和多变。
 - 建议将河流版图单独存放，开局时方便取用。
 - 河流扩展可以与卡卡颂的其他扩展自由组合使用。
+<!-- rule-section: topic-guide -->
+## 快速查阅
+从这里快速跳到相关规则条目。
+
+- <!-- rule-item: flow-setup -->
+  **准备河流牌堆**
+
+  收起普通起始板块，将源头放在中央；洗混十块中段河流板块，并把湖泊放在牌堆最底部。
+
+  ![收起起始板块；先放源头，洗河牌，湖泊放在牌堆底](/images/rules/carcassonne-the-river/river-setup.svg)
+
+  相关主题：
+  - [铺设河流板块](#flow-river)
+  - [有哪些变化？](#flow-differences)
+
+- <!-- rule-item: flow-river -->
+  **先铺完河流再抽地形**
+
+  湖泊放下前，玩家只抽河流板块。河流必须接续，其他地形照常匹配；连续两张弯河不能同向形成掉头，且不能把米宝放到河流本身。
+
+  ![先放完 12 张河牌；禁止掉头；河流也会分割田野](/images/rules/carcassonne-the-river/differences.svg)
+
+  相关主题：
+  - [放下湖泊后](#flow-differences)
+  - [回到准备](#flow-setup)
+
+- <!-- rule-item: flow-differences -->
+  **回归基础卡卡颂**
+
+  十二块河流板块全部铺完后，改抽普通地形板块并按基础规则继续。河流会分割农田，但不增加额外计分规则。
+
+  相关主题：
+  - [重新准备河流](#flow-setup)
+<!-- rule-section: topic-guide-2 -->
+## 快速查阅
+从这里快速跳到相关规则条目。
+
+- <!-- rule-item: flow-setup -->
+  **准备河流牌堆**
+
+  收起普通起始板块，将源头放在中央；洗混十块中段河流板块，并把湖泊放在牌堆最底部。
+
+  ![收起起始板块；先放源头，洗河牌，湖泊放在牌堆底](/images/rules/carcassonne-the-river/river-setup.svg)
+
+  相关主题：
+  - [铺设河流板块](#flow-river)
+  - [有哪些变化？](#flow-differences)
+
+- <!-- rule-item: flow-river -->
+  **先铺完河流再抽地形**
+
+  湖泊放下前，玩家只抽河流板块。河流必须接续，其他地形照常匹配；连续两张弯河不能同向形成掉头，且不能把米宝放到河流本身。
+
+  ![先放完 12 张河牌；禁止掉头；河流也会分割田野](/images/rules/carcassonne-the-river/differences.svg)
+
+  相关主题：
+  - [放下湖泊后](#flow-differences)
+  - [回到准备](#flow-setup)
+
+- <!-- rule-item: flow-differences -->
+  **回归基础卡卡颂**
+
+  十二块河流板块全部铺完后，改抽普通地形板块并按基础规则继续。河流会分割农田，但不增加额外计分规则。
+
+  相关主题：
+  - [重新准备河流](#flow-setup)
+<!-- rule-section: topic-guide-3 -->
+## 快速查阅
+从这里快速跳到相关规则条目。
+
+- <!-- rule-item: flow-setup -->
+  **准备河流牌堆**
+
+  收起普通起始板块，将源头放在中央；洗混十块中段河流板块，并把湖泊放在牌堆最底部。
+
+  ![收起起始板块；先放源头，洗河牌，湖泊放在牌堆底](/images/rules/carcassonne-the-river/river-setup.svg)
+
+  相关主题：
+  - [铺设河流板块](#flow-river)
+  - [有哪些变化？](#flow-differences)
+
+- <!-- rule-item: flow-river -->
+  **先铺完河流再抽地形**
+
+  湖泊放下前，玩家只抽河流板块。河流必须接续，其他地形照常匹配；连续两张弯河不能同向形成掉头，且不能把米宝放到河流本身。
+
+  ![先放完 12 张河牌；禁止掉头；河流也会分割田野](/images/rules/carcassonne-the-river/differences.svg)
+
+  相关主题：
+  - [放下湖泊后](#flow-differences)
+  - [回到准备](#flow-setup)
+
+- <!-- rule-item: flow-differences -->
+  **回归基础卡卡颂**
+
+  十二块河流板块全部铺完后，改抽普通地形板块并按基础规则继续。河流会分割农田，但不增加额外计分规则。
+
+  相关主题：
+  - [重新准备河流](#flow-setup)
+
+<!-- rule-section: topic-guide-4 -->
+## 快速查阅
+<!-- rule-ui: sidebar -->
+
+从这里快速跳到相关规则条目。
+
+- <!-- rule-item: flow-setup -->
+  **准备河流牌堆**
+
+  收起普通起始板块，将源头放在中央；洗混十块中段河流板块，并把湖泊放在牌堆最底部。
+
+  ![收起起始板块；先放源头，洗河牌，湖泊放在牌堆底](/images/rules/carcassonne-the-river/river-setup.svg)
+
+  相关主题：
+  - [铺设河流板块](#flow-river)
+  - [有哪些变化？](#flow-differences)
+
+- <!-- rule-item: flow-river -->
+  **先铺完河流再抽地形**
+
+  湖泊放下前，玩家只抽河流板块。河流必须接续，其他地形照常匹配；连续两张弯河不能同向形成掉头，且不能把米宝放到河流本身。
+
+  ![先放完 12 张河牌；禁止掉头；河流也会分割田野](/images/rules/carcassonne-the-river/differences.svg)
+
+  相关主题：
+  - [放下湖泊后](#flow-differences)
+  - [回到准备](#flow-setup)
+
+- <!-- rule-item: flow-differences -->
+  **回归基础卡卡颂**
+
+  十二块河流板块全部铺完后，改抽普通地形板块并按基础规则继续。河流会分割农田，但不增加额外计分规则。
+
+  相关主题：
+  - [重新准备河流](#flow-setup)
+

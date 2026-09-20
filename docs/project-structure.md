@@ -3,10 +3,10 @@
 One-page map. Details: [`architecture.md`](architecture.md).
 
 ```
-content/games/          Source of truth (meta, rules.md, optional flow/score/trainer/calculator/play)
+content/games/          Source of truth (meta, bilingual rules.md, optional score/trainer/calculator/play)
 docs/                   Architecture, ADRs, BBGE game specs, score/trainer systems
 src/app/[locale]/       Routes only (RSC pages + layouts). No heavy UI here.
-src/features/           Feature UI (catalog, rules, flow, score, trainer, calculator, play, chat, costs)
+src/features/           Feature UI (catalog, rules, score, trainer, calculator, play, chat, costs)
 src/shared/layout/      Header, Footer, BackToTop
 src/lib/content/        GameRepository + GameFactory (only content warehouse)
 src/lib/<domain>/       Pure logic: mahjong, blackjack, texas-holdem, go, score, ai, chat helpers, bbge seats
@@ -28,7 +28,7 @@ Do not reverse: domain libs must not import `app/` or `features/`.
 |--------|------|
 | `features/catalog/` | Homepage grid, cards, sidebar, covers |
 | `features/rules/` | Game header, markdown, TOC, export, related, play start |
-| `features/flow/` | Decision tree + Sea Salt card reference |
+| `features/rules/` | Markdown renderer + tabs, sidebars, and decision guide |
 | `features/score/` | Dedicated multi-round trackers |
 | `features/trainer/` | Trainer UI + registry |
 | `features/calculator/` | Riichi han/fu calculator UI |

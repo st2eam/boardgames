@@ -327,7 +327,7 @@ export function RuleDocumentExperience({ locale, rulesMd, document }: { locale: 
   useEffect(() => {
     const inspect = () => {
       const hash = window.location.hash.slice(1);
-      setMode(hash === "rules-full" ? "full" : "guide");
+      if (hash === "rules-full") setMode("full");
       const id = canonicalHashId();
       setInvalidHash(Boolean(id && !knownIds.has(id)));
     };

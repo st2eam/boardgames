@@ -22,6 +22,19 @@ function loadMd(filePath) {
   return null;
 }
 
+function stripGuideMarkers(markdown) {
+  if (!/rule-section:|rule-details/.test(markdown)) return markdown;
+  return markdown
+    .replace(/^\s*<!--\s*rule-section:\s*[a-z0-9][a-z0-9-]*\s*-->\s*(?:\r?\n|$)/gim, "")
+    .replace(/^\s*<!--\s*rule-details\s*-->\s*(?:\r?\n|$)/gim, "");
+}
+
+function preserveRuleNewlines(markdown, previous) {
+  if (!previous) return markdown;
+  const newline = previous.includes("\r\n") ? "\r\n" : "\n";
+  return markdown.replace(/\r\n|\n/g, newline);
+}
+
 function main() {
   validateGameContent();
   fs.mkdirSync(PUBLIC, { recursive: true });
@@ -35,17 +48,22 @@ function main() {
     meta.slug = slug;
 
     const rulesByLocale = {};
+    const rulesFile = path.join(PUBLIC, "rules", `${slug}.json`);
+    const previousRules = fs.existsSync(rulesFile) ? loadJson(rulesFile) : null;
     for (const locale of locales) {
       const rules = loadMd(path.join(CONTENT, slug, locale, "rules.md"));
       if (rules) {
-        rulesByLocale[locale] = rules;
+        rulesByLocale[locale] = preserveRuleNewlines(
+          stripGuideMarkers(rules),
+          previousRules?.[locale]
+        );
       }
     }
 
     // Write per-game rules to separate file (for on-demand chat loading)
     if (Object.keys(rulesByLocale).length > 0) {
       fs.writeFileSync(
-        path.join(PUBLIC, "rules", `${slug}.json`),
+        rulesFile,
         JSON.stringify(rulesByLocale)
       );
     }

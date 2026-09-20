@@ -40,6 +40,59 @@ export interface FlowData {
   nodes: Record<string, FlowNode>;
 }
 
+export type RulesGuideCollectionType =
+  | "steps"
+  | "phases"
+  | "categories"
+  | "ranking"
+  | "faq";
+
+export interface RulesGuideFactsModule {
+  id: string;
+  type: "facts";
+  sectionIds: string[];
+}
+
+export interface RulesGuideCollectionModule {
+  id: string;
+  type: RulesGuideCollectionType;
+  introSectionId?: string;
+  itemSectionIds: string[];
+  defaultItemId?: string;
+}
+
+export interface RulesGuideContentModule {
+  id: string;
+  type: "reference" | "prose";
+  sectionIds: string[];
+}
+
+export interface RulesGuideDecisionModule {
+  id: string;
+  type: "decision";
+  introSectionId?: string;
+  startNode?: string;
+}
+
+export type RulesGuideModule =
+  | RulesGuideFactsModule
+  | RulesGuideCollectionModule
+  | RulesGuideContentModule
+  | RulesGuideDecisionModule;
+
+export interface RulesGuideConfig {
+  version: 1;
+  modules: RulesGuideModule[];
+}
+
+export interface ParsedRuleSection {
+  id: string;
+  heading: string;
+  level: 2 | 3;
+  summaryMd: string;
+  detailMd: string | null;
+}
+
 // --- Score Tracker Types ---
 // Dedicated multi-player, multi-round running totals only (no generic end-game calculators).
 
@@ -86,6 +139,7 @@ export interface Game {
   meta: GameMeta;
   rules: string; // raw markdown
   flow: FlowData | null;
+  guide: RulesGuideConfig | null;
 }
 
 export interface PlayEdition {

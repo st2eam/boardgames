@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "modules": [
+    {
+      "id": "quick-start",
+      "type": "facts",
+      "sectionIds": ["overview", "objective", "victory"]
+    },
+    {
+      "id": "components",
+      "type": "reference",
+      "sectionIds": ["components"]
+    },
+    {
+      "id": "setup",
+      "type": "steps",
+      "introSectionId": "setup-intro",
+      "itemSectionIds": [
+        "setup-frame",
+        "setup-terrain",
+        "setup-numbers",
+        "setup-robber",
+        "setup-components",
+        "setup-first-round",
+        "setup-second-round"
+      ],
+      "defaultItemId": "setup-frame"
+    },
+    {
+      "id": "turn",
+      "type": "phases",
+      "introSectionId": "turn-intro",
+      "itemSectionIds": ["roll", "trade", "build"],
+      "defaultItemId": "roll"
+    },
+    {
+      "id": "special-rules",
+      "type": "faq",
+      "introSectionId": "special-rules",
+      "itemSectionIds": ["robber"]
+    }
+  ]
+}

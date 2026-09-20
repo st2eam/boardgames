@@ -1,13 +1,16 @@
 # Catan Rules
 
+<!-- rule-section: overview -->
 ## Overview
 
 Catan (formerly The Settlers of Catan) is a multiplayer board game designed by Klaus Teuber. Players assume the roles of settlers, each attempting to build and develop holdings while trading and acquiring resources.
 
+<!-- rule-section: objective -->
 ## Game Objective
 
 In Catan, you are a settler developing a new island colony. Your goal is to trade resources, build settlements, cities, and roads, then be the first to reach 10 victory points.
 
+<!-- rule-section: components -->
 ## Components
 
 - 19 hexagonal terrain tiles
@@ -22,26 +25,60 @@ In Catan, you are a settler developing a new island colony. Your goal is to trad
 - 2 dice
 - 1 robber
 
+<!-- rule-section: setup-intro -->
 ## Setup
 
-1. Assemble the board frame using the 6 sea pieces.
-2. Place the 19 terrain tiles randomly inside the frame.
-3. Place the numbered tokens on the terrain tiles in alphabetical order (skip the desert).
-4. The desert gets no number token; place the robber on the desert.
-5. Each player chooses a color and takes 5 settlements, 4 cities, and 15 roads.
-6. Starting with the oldest player, each player places one settlement and one road. Then in reverse order, each player places a second settlement and one road.
-7. Each player receives starting resources: one resource card for each terrain hex adjacent to their second settlement.
+Complete these seven steps before the first turn.
 
+<!-- rule-section: setup-frame -->
+### Assemble the sea frame
+
+Assemble the board frame using the 6 sea pieces.
+
+<!-- rule-section: setup-terrain -->
+### Place the terrain
+
+Place the 19 terrain tiles randomly inside the frame.
+
+<!-- rule-section: setup-numbers -->
+### Place the number tokens
+
+Place the numbered tokens on the terrain tiles in alphabetical order (skip the desert).
+
+<!-- rule-section: setup-robber -->
+### Place the robber
+
+The desert gets no number token; place the robber on the desert.
+
+<!-- rule-section: setup-components -->
+### Give out player pieces
+
+Each player chooses a color and takes 5 settlements, 4 cities, and 15 roads.
+
+<!-- rule-section: setup-first-round -->
+### Place the first settlement
+
+Starting with the oldest player, each player places one settlement and one road.
+
+<!-- rule-section: setup-second-round -->
+### Place the second settlement and take resources
+
+Then in reverse order, each player places a second settlement and one road. Each player receives one resource card for each terrain hex adjacent to their second settlement.
+
+<!-- rule-section: turn-intro -->
 ## Turn Structure
 
 ![Roll 6: houses on the 6-hex take resources](/images/rules/catan/turn.svg)
 
+<!-- rule-section: roll -->
 ### 1. Roll the Dice
 Roll both dice. The sum determines which hexes produce resources. Any hex with that number produces one resource card for each adjacent settlement and two for each adjacent city. If a 7 is rolled, the Robber is activated.
 
+<!-- rule-section: trade -->
 ### 2. Trade
 You may trade resources with other players or use maritime trade (4:1 or better with harbors).
 
+<!-- rule-section: build -->
 ### 3. Build
 You may build roads, settlements, cities, or buy development cards:
 
@@ -50,6 +87,7 @@ You may build roads, settlements, cities, or buy development cards:
 - **City** (3 Ore + 2 Grain): Replace one of your settlements. Cities produce 2 resources instead of 1.
 - **Development Card** (Ore + Grain + Wool): Draw the top card of the development deck.
 
+<!-- rule-section: victory -->
 ## Ending the Game
 
 ![First to 10 victory points on your turn wins](/images/rules/catan/victory.svg)
@@ -61,8 +99,10 @@ The first player to reach 10 victory points (on their turn) wins. Victory points
 - Longest Road: 2 VP
 - Largest Army: 2 VP
 
+<!-- rule-section: special-rules -->
 ## Special Rules
 
+<!-- rule-section: robber -->
 ### The Robber
 On a roll of 7:
 - Any player with more than 7 resource cards discards half (rounded down).

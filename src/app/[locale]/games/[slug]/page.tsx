@@ -3,17 +3,18 @@ import { GameRepository } from "@/lib/content/GameRepository";
 import { GameHeader } from "@/features/rules/GameHeader";
 import { MarkdownRenderer } from "@/features/rules/MarkdownRenderer";
 import { RulesToc } from "@/features/rules/RulesToc";
+import { RulesGuideExperience } from "@/features/rules/RulesGuideExperience";
 import { RelatedGames } from "@/features/rules/RelatedGames";
 import { TrackRecentVisit } from "@/features/rules/TrackRecentVisit";
 import { DecisionTree } from "@/features/flow/DecisionTree";
 import { FakeArtistFlow } from "@/features/flow/a-fake-artist/FakeArtistFlow";
-import { HegemonyRulesFlow } from "@/features/flow/hegemony/HegemonyRulesFlow";
 import { ChatToggle } from "@/features/chat/ChatToggle";
 import { goTutorSuggestedPrompts } from "@/lib/go/boardContext";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { buildPageMetadata, getCoverImageUrl, absoluteUrl } from "@/lib/seo";
 import type { Metadata } from "next";
+import { parseRuleGuideSections } from "@/lib/content/ruleGuide";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -111,7 +112,20 @@ export default async function GamePage({ params }: Props) {
           />
         </div>
 
-        {slug === "a-fake-artist-goes-to-new-york" ? (
+        {game.guide ? (
+          <div className="min-w-0">
+            <RulesGuideExperience
+              locale={locale}
+              rulesMd={game.rules}
+              sections={parseRuleGuideSections(game.rules)}
+              guide={game.guide}
+              flow={game.flow}
+            />
+            {familyGames.length > 1 && (
+              <RelatedGames current={game.meta} related={familyGames} />
+            )}
+          </div>
+        ) : slug === "a-fake-artist-goes-to-new-york" ? (
           <div className="lg:grid lg:grid-cols-[minmax(0,48rem)_14rem] lg:justify-center lg:gap-10">
             <div className="min-w-0">
               <div className="lg:hidden">
@@ -125,23 +139,6 @@ export default async function GamePage({ params }: Props) {
             <div className="hidden lg:block">
               <RulesToc content={game.rules} variant="desktop" />
             </div>
-          </div>
-        ) : slug === "hegemony" ? (
-          <div className="min-w-0">
-            {game.flow ? (
-              <HegemonyRulesFlow
-                locale={locale}
-                rulesMd={game.rules}
-                flowData={game.flow}
-              />
-            ) : (
-              <div className="rounded-xl border border-border bg-white p-6 sm:p-8">
-                <MarkdownRenderer content={game.rules} />
-              </div>
-            )}
-            {familyGames.length > 1 && (
-              <RelatedGames current={game.meta} related={familyGames} />
-            )}
           </div>
         ) : (
           <>

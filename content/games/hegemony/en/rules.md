@@ -1,15 +1,18 @@
 # Hegemony: Lead Your Class to Victory
 
+<!-- rule-section: overview -->
 ## Overview
 
 **Hegemony: Lead Your Class to Victory** is a 2–4 player political-economy board game. You play the Working Class, the Middle Class, the Capitalist Class, or the State: some want a better life, some want to grow their companies, and some must keep public services and the budget running. Everyone shares the same markets — raising wages, buying resources, collecting taxes, or pushing a policy forces the other classes to adapt.
 
+<!-- rule-section: objective -->
 ## Game Objective
 
 Gain **victory points (VP)** through the scoring opportunities of your own class. After the fifth round ends, resolve loans first, then apply each class's end-game scoring; **the player with the most VP wins**.
 
 ---
 
+<!-- rule-section: classes -->
 ## The Four Classes
 
 ![Each class chases a different source of victory points](/images/rules/hegemony/class-roles.svg)
@@ -23,6 +26,7 @@ Gain **victory points (VP)** through the scoring opportunities of your own class
 
 ![Official overview of the four player boards](/images/rules/hegemony/official-player-boards.jpg)
 
+<!-- rule-section: shared-economy -->
 ## The Shared Economy
 
 | Area | Remember this |
@@ -38,18 +42,39 @@ Gain **victory points (VP)** through the scoring opportunities of your own class
 
 ---
 
+<!-- rule-section: setup-intro -->
 ## Setup
 
 > Pick classes by player count → place the board and policy starts → complete your own class setup list → keep your hand private.
 
+<!-- rule-section: setup-board -->
+### Place the board
+
 1. Place the main board, policy markers, round marker, voting bag, import/export areas, and public-company areas; put the policies at their official start positions.
+
+<!-- rule-section: setup-classes -->
+### Choose classes
+
 2. **2 players** use the Capitalist and Working classes, **3 players** add the Middle Class, **4 players** use all four classes. Unplayed classes still take part in the economy through the official automatic setup.
+
+<!-- rule-section: setup-player-assets -->
+### Prepare player assets
+
 3. Each player takes their player board, starting cards, money, companies, workers, influence, and Bill markers, then completes their class's setup list item by item.
+
+<!-- rule-section: setup-markets -->
+### Fill markets and public areas
+
 4. Set up starting companies, workers, public companies, the company market, export cards, immigration cards, events, and the political agenda for your player count. Staffing, wages, output, and prices are printed on the components.
+
+<!-- rule-section: setup-first-game -->
+### First game
+
 5. First time playing: read your own player aid first, then let someone who knows the game walk through round 1.
 
 ![Official setup reference: main board, markets, and class components](/images/rules/hegemony/official-setup.jpg)
 
+<!-- rule-section: starting-summary -->
 ### Starting Summary
 
 | Class | Starting assets |
@@ -63,6 +88,7 @@ Board side: Treasury starts at **120**; the voting bag holds **8** cubes of each
 
 ---
 
+<!-- rule-section: round -->
 ## The Round
 
 > **Round 1 skips Preparation.** Every later round: Preparation → Actions → Production → Elections (only if Bills exist) → Scoring.
@@ -81,9 +107,15 @@ The game lasts **five rounds**. After round 5's scoring, resolve loans first, th
 | **Elections** | Only if Bills exist | Refill the voting bag, then resolve the Bills one by one |
 | **Scoring** | — | Each class scores this round; the State first applies unresolved Event penalties |
 
+<!-- rule-section: preparation-phase -->
+### Preparation
+
+From round 2 onward, advance the round, pay interest, refill hands and markets, add workers, and reveal any scheduled Events. Round 1 skips this phase.
+
 ---
 
-## The Action Phase
+<!-- rule-section: action-phase -->
+### The Action Phase
 
 > **Free Action (optional) → play 1 card, or discard 1 card for a Basic Action → Free Action (optional)**
 >
@@ -97,8 +129,10 @@ The game lasts **five rounds**. After round 5's scoring, resolve loans first, th
 
 ---
 
-## The Production Phase
+<!-- rule-section: production-phase -->
+### The Production Phase
 
+<!-- rule-section: companies-workers -->
 ### Companies and Committed Workers
 
 1. Each operating company first pays the **whole company wage** printed on the card once, then takes all of its output.
@@ -111,6 +145,7 @@ The game lasts **five rounds**. After round 5's scoring, resolve loans first, th
 
 Public services store up to "total output of that kind of public company + 6"; private storage limits are printed on the player boards. If storage is full, the excess resources are lost.
 
+<!-- rule-section: food-imf-taxes -->
 ### Food, the IMF, and Taxes
 
 - **Working and Middle households must eat**: each eats Food equal to its **Population**. Eat your own first, then buy, then import; if a mandatory cost cannot be paid, you must take a Loan.
@@ -119,8 +154,10 @@ Public services store up to "total output of that kind of public company + 6"; p
 
 ---
 
-## Elections and Policies
+<!-- rule-section: elections-policies -->
+### Elections and Policies
 
+<!-- rule-section: how-to-vote -->
 ### How to Vote
 
 Refill the voting bag: Working adds "half its Population, rounded up"; Capitalist adds "half its operating companies"; Middle adds the higher of those two measures. With 2 players there is no Middle player, but still add **5** Middle cubes. The State adds no cubes; it gains Personal Influence equal to its lowest Legitimacy.
@@ -137,6 +174,7 @@ Each player has **3** Bill markers. To change a policy: choose a policy with no 
 
 > If everyone is on the same side, still draw 5 cubes; they are all discarded. If the bag runs out, refill it twice before drawing again; the State does not gain extra Influence from this.
 
+<!-- rule-section: seven-policies -->
 ### The Seven Policies
 
 ![Official politics table: seven policies and their A / B / C positions](/images/rules/hegemony/official-politics-table.jpg)
@@ -153,10 +191,17 @@ Each player has **3** Bill markers. To change a policy: choose a policy with no 
 
 When Fiscal Policy moves toward a larger public sector, the State must pay to add public companies; if the unemployment area holds enough matching workers to fill a new company, place them immediately and commit them. When the sector shrinks, the relevant public companies are flipped and sold and their workers return to unemployment. When a policy moves, immediately update illegal wages, Health and Education prices, tariffs, and the tax multiplier.
 
+<!-- rule-section: scoring-phase -->
+### Scoring
+
+After Elections, each class scores the current round. Apply unresolved State Event penalties first; after round 5, resolve loans before the end-game bonuses.
+
 ---
 
+<!-- rule-section: class-play -->
 ## How Each Class Plays
 
+<!-- rule-section: working-class -->
 ### The Working Class
 
 ![Official Working Class board and action reference](/images/rules/hegemony/official-working-class.jpg)
@@ -176,6 +221,7 @@ When Fiscal Policy moves toward a larger public sector, the State must pay to ad
 - **Demonstrate**: requires unemployment at least 2 higher than available worker slots. If the demonstration is not resolved by production: you gain 1 Influence, and the other players together lose VP equal to "unemployed workers + Unions" (capped at their empty company slots).
 - **Apply pressure**: add 3 of your cubes to the voting bag.
 
+<!-- rule-section: capitalist-class -->
 ### The Capitalist Class
 
 ![Official Capitalist Class board and action reference](/images/rules/hegemony/official-capitalist-class.jpg)
@@ -192,6 +238,7 @@ When Fiscal Policy moves toward a larger public sector, the State must pay to ad
 
 Standard storage: Food max 8, other resources max 12. Excess Food and Luxury may go to the free-trade area. Traded resources in normal storage pay tariffs and can be sold domestically; in the free-trade area they pay no tariff but can only be exported later.
 
+<!-- rule-section: middle-class -->
 ### The Middle Class
 
 ![Official Middle Class board and action reference](/images/rules/hegemony/official-middle-class.jpg)
@@ -209,6 +256,7 @@ Standard storage: Food max 8, other resources max 12. Excess Food and Luxury may
 - Income tax looks at "Labour Market × tax table × Middle workers in non-owned companies"; employment tax is "operating companies × tax multiplier".
 - A company with Working-Class employee slots only counts as staffed once those slots are really filled.
 
+<!-- rule-section: state-class -->
 ### The State
 
 ![Official State board and action reference](/images/rules/hegemony/official-state.jpg)
@@ -228,6 +276,7 @@ Addressing an Event requires completing everything the card demands. When an Eve
 
 ---
 
+<!-- rule-section: loans-imf -->
 ## Loans and the IMF
 
 > **Loans rescue emergencies only — never hoard money.** You may take a Loan (gaining `50`) only when a **mandatory** payment — wages, taxes, food, or a forced charge by another player — cannot be covered. Optional actions can never borrow ahead.
@@ -246,12 +295,14 @@ Even if the IMF changes the Labour Market, this round's Working and Middle incom
 
 ---
 
+<!-- rule-section: endgame -->
 ## Game End and Victory
 
 As soon as round 5's scoring finishes, resolve all loans first, then each class's end-game bonus. The player with the most VP wins.
 
 **Tie-break:** first count how often each tied player stands in their preferred column of policies 1–5 (Working looks at A, Middle at B, Capitalist at C, State at its public Agenda). If the State is among the tied players, the State wins; otherwise compare Voting cubes; if still tied, the victory is shared.
 
+<!-- rule-section: scoring -->
 ### Scoring Summary
 
 | Class | Each round | End game |
@@ -265,6 +316,7 @@ The Capitalist's per-round scoring order: pay wages and taxes → move all money
 
 ---
 
+<!-- rule-section: mistakes -->
 ## Common Mistakes
 
 - A company pays the card's total wage **once**, not per worker; but a regular company must still be fully staffed to produce.
@@ -275,6 +327,7 @@ The Capitalist's per-round scoring order: pay wages and taxes → move all money
 
 ---
 
+<!-- rule-section: components-quick -->
 ## Companies and Components Quick Reference
 
 Companies come in five industries: Agriculture (green), Luxury (blue), Health (red), Education (orange), and Media (purple). The card shows the build cost, required workers, three wage levels, output, and possible machine bonuses. Middle-Class companies come in two kinds: those employing only Middle workers, and those that may also employ Working-Class workers.
@@ -288,8 +341,10 @@ The base game has about 270 regular cards, plus Business Deal, immigration, and 
 
 ---
 
+<!-- rule-section: number-tables -->
 ## Number Tables
 
+<!-- rule-section: income-tax -->
 ### Income Tax per Population
 
 | Labour Market \ Taxation | 3A | 3B | 3C |
@@ -300,6 +355,7 @@ The base game has about 270 regular cards, plus Business Deal, immigration, and 
 
 The Middle Class also pays **employment tax**: operating companies × the current tax multiplier. The Capitalist pays the same way; staffed or fully automatic companies count as operating, regular unstaffed ones do not.
 
+<!-- rule-section: corporate-tax -->
 ### Capitalist Corporate Tax
 
 Pay employment tax first, then read the Revenue remaining:
@@ -318,10 +374,12 @@ Read the tax multiplier together with policies 3, 4, and 5: Tax A starts at 3 an
 
 ---
 
+<!-- rule-section: official-rulings -->
 ## Official Rulings
 
 ![Official rules FAQ: action cards, events, and edge cases](/images/rules/hegemony/official-rules-faq.jpg)
 
+<!-- rule-section: companies-workers-strikes -->
 ### Companies, Workers, and Strikes
 
 - As long as a struck company's workers are not committed, the Working Class may still move them away and the company may still be sold. If a struck company is no longer operating at resolution, only remove the marker; the workers gain no Influence.
@@ -331,12 +389,14 @@ Read the tax multiplier together with policies 3, 4, and 5: Tax A starts at 3 an
 - A forced wage increase from a policy change does not commit workers; only a Free-Action "change wage" increase does.
 - Prosperity can still be gained at the maximum; the marker does not move, but you score the top space's VP.
 
+<!-- rule-section: loans-storage-imf -->
 ### Loans, Storage, and the IMF
 
 - Selling resources to the State cannot exceed its storage capacity; if capacity is fine but the State has no money, the State must take a Loan to pay. With 2 players, Luxury sold to the State by the Capitalist returns to the supply.
 - When the IMF closes public companies and lowers a storage limit, excess resources are immediately discarded; if a Middle-Class public company closes, the Middle Class no longer pays employment tax for it this round's tax step.
 - The State cannot perform "Extra Tax" or a card effect that lowers Legitimacy if the corresponding track is already at 1.
 
+<!-- rule-section: action-cards-events -->
 ### Action Cards and Events
 
 - When a card tells you to "assign workers", the usual action rules still apply: the assigned workers become committed.

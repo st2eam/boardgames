@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "modules": [
+    {
+      "id": "quick-start",
+      "type": "facts",
+      "sectionIds": ["overview", "objective", "endgame"]
+    },
+    {
+      "id": "shared-economy",
+      "type": "categories",
+      "itemSectionIds": ["classes", "shared-economy"]
+    },
+    {
+      "id": "setup",
+      "type": "steps",
+      "introSectionId": "setup-intro",
+      "itemSectionIds": [
+        "setup-board",
+        "setup-classes",
+        "setup-player-assets",
+        "setup-markets",
+        "setup-first-game",
+        "starting-summary"
+      ],
+      "defaultItemId": "setup-board"
+    },
+    {
+      "id": "round",
+      "type": "phases",
+      "introSectionId": "round",
+      "itemSectionIds": [
+        "preparation-phase",
+        "action-phase",
+        "production-phase",
+        "elections-policies",
+        "scoring-phase"
+      ],
+      "defaultItemId": "preparation-phase"
+    },
+    {
+      "id": "classes-play",
+      "type": "categories",
+      "introSectionId": "class-play",
+      "itemSectionIds": ["working-class", "capitalist-class", "middle-class", "state-class"]
+    },
+    {
+      "id": "table-reference",
+      "type": "reference",
+      "sectionIds": [
+        "companies-workers",
+        "food-imf-taxes",
+        "how-to-vote",
+        "seven-policies",
+        "loans-imf",
+        "scoring",
+        "mistakes",
+        "components-quick",
+        "number-tables",
+        "income-tax",
+        "corporate-tax",
+        "official-rulings",
+        "companies-workers-strikes",
+        "loans-storage-imf",
+        "action-cards-events"
+      ]
+    }
+  ]
+}

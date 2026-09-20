@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { shortcodeToInlineHTML, replaceShortcodesText } from "@/lib/mahjong/shortcode";
+import { stripRuleGuideMarkers } from "@/lib/content/ruleGuide";
 
 const basePath = process.env.__NEXT_ROUTER_BASEPATH || "/boardgames";
 
@@ -38,7 +39,7 @@ export function ExportButton({ markdown, gameName, slug }: Props) {
 
   function downloadMarkdown() {
     const converted = rewriteMarkdownAssetLinks(
-      replaceShortcodesText(markdown)
+      replaceShortcodesText(stripRuleGuideMarkers(markdown))
     );
     const blob = new Blob([converted], { type: "text/markdown;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -86,7 +87,7 @@ export function ExportButton({ markdown, gameName, slug }: Props) {
     win.document.close();
 
     const container = win.document.getElementById("content")!;
-    renderMarkdownToHTML(markdown, container, win.document);
+    renderMarkdownToHTML(stripRuleGuideMarkers(markdown), container, win.document);
 
     const imgs = Array.from(container.querySelectorAll("img"));
     const ready =

@@ -9,7 +9,7 @@ test("rulebook images open in a zoomable lightbox and restore focus on close", a
 
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByRole("img")).toHaveAttribute("src", /official-components\.jpg$/);
+  await expect(dialog.getByRole("img")).toHaveAttribute("src", /class-roles\.svg$/);
 
   const zoomOut = dialog.getByRole("button", { name: "缩小" });
   await expect(zoomOut).toBeDisabled();
@@ -21,9 +21,9 @@ test("rulebook images open in a zoomable lightbox and restore focus on close", a
   await expect(trigger).toBeFocused();
 });
 
-test("interactive-flow JPGs and existing SVG diagrams use the same lightbox", async ({ page }) => {
-  await page.goto("/boardgames/zh/games/hegemony/flow/");
-  await page.getByRole("button", { name: /^查看大图/ }).first().click();
+test("guide JPGs and existing SVG diagrams use the same lightbox", async ({ page }) => {
+  await page.goto("/boardgames/zh/games/hegemony/");
+  await page.getByRole("button", { name: /官方设置/ }).click();
 
   const dialog = page.getByRole("dialog");
   await expect(dialog.getByRole("img")).toHaveAttribute("src", /official-setup\.jpg$/);

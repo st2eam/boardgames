@@ -6,7 +6,8 @@ export class GameFactory {
     const meta = await GameRepository.getGameMeta(slug);
     const rules = await GameRepository.getGameRules(slug, locale);
     const flow = await GameRepository.getFlowData(slug, locale);
-    return { meta, rules, flow };
+    const guide = await GameRepository.getGuideConfig(slug);
+    return { meta, rules, flow, guide };
   }
 
   static async createGameSummary(slug: string): Promise<GameSummary> {

@@ -1,4 +1,12 @@
-import type { GameMeta, FlowData, ScoreConfig, TrainerConfig, CalculatorConfig, PlayConfig } from "@/types/game";
+import type {
+  GameMeta,
+  FlowData,
+  ScoreConfig,
+  TrainerConfig,
+  CalculatorConfig,
+  PlayConfig,
+  RulesGuideConfig,
+} from "@/types/game";
 import { loadJson, loadMarkdown, fileExists } from "./markdown";
 
 const metaCache = new Map<string, GameMeta>();
@@ -54,6 +62,15 @@ export class GameRepository {
 
   static hasFlowData(slug: string): boolean {
     return fileExists(slug, "flow.json");
+  }
+
+  static async getGuideConfig(slug: string): Promise<RulesGuideConfig | null> {
+    if (!fileExists(slug, "guide.json")) return null;
+    return loadJson<RulesGuideConfig>(slug, "guide.json");
+  }
+
+  static hasGuideConfig(slug: string): boolean {
+    return fileExists(slug, "guide.json");
   }
 
   static async getCalculatorConfig(slug: string): Promise<CalculatorConfig | null> {

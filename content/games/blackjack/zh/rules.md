@@ -1,18 +1,22 @@
 # 21点规则
 
+<!-- rule-section: overview -->
 ## 概述
 
 21点（Blackjack）是一种赌场纸牌游戏，玩家与庄家对抗。目标是使手牌点数尽量接近21点而不超过。
 
+<!-- rule-section: objective -->
 ## 游戏目标
 
 在《21点》中，你是一名正和庄家对抗的赌场玩家。你的目标是在不爆牌的前提下尽量接近 21 点，并赢过庄家。
 
+<!-- rule-section: components -->
 ## 组件
 
 - 1-8 副标准52张扑克牌（赌场通常使用6-8副）
 - 筹码用于下注
 
+<!-- rule-section: card-values -->
 ## 牌面点数
 
 ![2–10 为面值，人头 10 点，A 为 1 或 11](/images/rules/blackjack/card-values.svg)
@@ -22,23 +26,28 @@
 | J、Q、K | 10 |
 | A | 1 或 11（取对手牌有利的值） |
 
+<!-- rule-section: flow-intro -->
 ## 游戏流程
 
 ![A+6 再要 3 变成 20](/images/rules/blackjack/player-actions.svg)
 
+<!-- rule-section: bet -->
 ### 1. 下注
 
 发牌前，玩家在各自位置下注。
 
+<!-- rule-section: deal -->
 ### 2. 初始发牌
 
 - 每位玩家获得2张明牌
 - 庄家获得1张明牌（门牌）和1张暗牌（底牌）
 
+<!-- rule-section: natural -->
 ### 3. 天然21点（Blackjack）
 
 如果玩家的前两张牌恰好为21点（A + 10点牌），称为"Blackjack"或"天然21点"，赔率为3:2（部分赌场为6:5）。若庄家也为Blackjack则为平局（Push）。
 
+<!-- rule-section: player-actions -->
 ### 4. 玩家操作
 
 玩家从左到右依次行动：
@@ -49,10 +58,12 @@
 - **分牌（Split）**：如前两张牌点数相同，可将其拆分为两手独立牌局，各下等额赌注。
 - **投降（Surrender）**（若可用）：放弃当前手牌，取回一半赌注。
 
+<!-- rule-section: bust -->
 ### 5. 爆牌
 
 如果手牌总点数超过21，称为"爆牌（Bust）"——该玩家立即输掉赌注，无论庄家结果如何。
 
+<!-- rule-section: dealer-turn -->
 ### 6. 庄家回合
 
 所有玩家行动完毕后：
@@ -61,6 +72,7 @@
 2. 庄家点数 ≤ 16时必须要牌
 3. 庄家点数 ≥ 17时必须停牌（部分规则：庄家在软17时要牌）
 
+<!-- rule-section: determine-winner -->
 ### 7. 判定胜负
 
 | 情况 | 结果 |
@@ -72,6 +84,7 @@
 | 玩家 < 庄家 | 玩家输 |
 | 玩家Blackjack | 赔率3:2 |
 
+<!-- rule-section: hard-soft -->
 ## 硬牌与软牌
 
 ![软 17 的 A 仍可当 11](/images/rules/blackjack/hard-vs-soft.svg)
@@ -79,10 +92,12 @@
 - **硬牌（Hard Hand）**：不含A的手牌，或A只能计为1的手牌（如 A+6+10 = 硬17）
 - **软牌（Soft Hand）**：含A且A计为11的手牌（如 A+6 = 软17）
 
+<!-- rule-section: insurance -->
 ## 保险
 
 当庄家明牌为A时，玩家可选择"保险"——额外下注最多为原始赌注的一半。若庄家为Blackjack，保险赔2:1；否则保险注输掉。
 
+<!-- rule-section: basic-strategy -->
 ## 基本策略概要
 
 基本策略通过数学最优决策最小化庄家优势，依据：

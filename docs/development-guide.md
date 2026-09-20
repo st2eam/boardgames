@@ -6,6 +6,11 @@ Read [`architecture.md`](architecture.md) and the matching skill before coding. 
 
 Use [`.cursor/skills/add-game/SKILL.md`](../.cursor/skills/add-game/SKILL.md). Source of truth is `content/games/<slug>/`, not `public/data/`.
 
+For a migrated unified rules page, add an optional `guide.json` presentation map
+and matching `rule-section` markers to both locale `rules.md` files. Keep all
+rule prose in Markdown; use `flow.json` only for genuine branching decisions.
+See [`rules-guide-system.md`](rules-guide-system.md) for the module contract.
+
 ## Add a page (route)
 
 Use [`.cursor/skills/page-development/SKILL.md`](../.cursor/skills/page-development/SKILL.md).

@@ -61,7 +61,7 @@ Stack ADRs: [no Vite SPA](decisions/ADR-001-next-static-export.md), [no Ant Desi
 
 | Feature | Content | Page | UI / dispatch | Domain |
 |---------|---------|------|---------------|--------|
-| Rules + interactive teaching | `en\|zh/rules.md` + root `flow.json` (`startNode`) | `games/[slug]/page.tsx` | `features/rules` + [`DecisionTree`](../src/features/flow/DecisionTree.tsx) | — |
+| Rules + interactive teaching | `en\|zh/rules.md` + optional `guide.json` / `flow.json` (`startNode`) | `games/[slug]/page.tsx` | `features/rules` + [`RulesGuideExperience`](../src/features/rules/RulesGuideExperience.tsx) / [`DecisionTree`](../src/features/flow/DecisionTree.tsx) | — |
 | Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/features/score/registry.tsx) ([gate](score-system.md)) | `src/lib/score/` |
 | Trainer | `trainer.json` | `…/trainer/page.tsx` | [`trainer/registry.tsx`](../src/features/trainer/registry.tsx) | `src/lib/<game>/` |
 | Calculator | `calculator.json` | `…/calculator/page.tsx` | `features/calculator` | `src/lib/mahjong/` |

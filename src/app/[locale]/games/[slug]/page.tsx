@@ -2,6 +2,7 @@ import { GameFactory } from "@/lib/content/GameFactory";
 import { GameRepository } from "@/lib/content/GameRepository";
 import { GameHeader } from "@/features/rules/GameHeader";
 import { RuleDocumentExperience } from "@/features/rules/RuleDocumentExperience";
+import { RulesToc } from "@/features/rules/RulesToc";
 import { RelatedGames } from "@/features/rules/RelatedGames";
 import { TrackRecentVisit } from "@/features/rules/TrackRecentVisit";
 import { ChatToggle } from "@/features/chat/ChatToggle";
@@ -107,11 +108,19 @@ export default async function GamePage({ params }: Props) {
           />
         </div>
 
-        <div className="min-w-0">
-          <RuleDocumentExperience locale={locale} rulesMd={game.rules} document={game.ruleDocument} />
-          {familyGames.length > 1 && (
-            <RelatedGames current={game.meta} related={familyGames} />
-          )}
+        <div className="lg:grid lg:grid-cols-[minmax(0,48rem)_14rem] lg:justify-center lg:gap-10">
+          <div className="min-w-0">
+            <div className="lg:hidden">
+              <RulesToc content={game.rules} variant="mobile" />
+            </div>
+            <RuleDocumentExperience locale={locale} rulesMd={game.rules} document={game.ruleDocument} />
+            {familyGames.length > 1 && (
+              <RelatedGames current={game.meta} related={familyGames} />
+            )}
+          </div>
+          <div className="hidden lg:block">
+            <RulesToc content={game.rules} variant="desktop" />
+          </div>
         </div>
       </div>
       <ChatToggle

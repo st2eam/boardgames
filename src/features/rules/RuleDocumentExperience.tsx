@@ -101,14 +101,14 @@ function RuleMarkdown({ content, lang }: { content: string; lang: Lang }) {
 function SidebarView({ sidebar, sectionId, lang }: { sidebar: RuleSidebar; sectionId: string; lang: Lang }) {
   const t = labels[lang];
   const ids = sidebar.items.map((item) => item.id);
-  const initial = canonicalHashId();
-  const [activeId, setActiveId] = useState(() => (initial && ids.includes(initial) ? initial : sidebar.defaultId ?? ids[0]));
+  const [activeId, setActiveId] = useState(sidebar.defaultId ?? ids[0]);
 
   useEffect(() => {
     const onHashChange = () => {
       const next = canonicalHashId();
       if (next && ids.includes(next)) setActiveId(next);
     };
+    onHashChange();
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, [ids]);
@@ -162,8 +162,7 @@ function SidebarView({ sidebar, sectionId, lang }: { sidebar: RuleSidebar; secti
 
 function TabsView({ section, lang }: { section: RuleSection; lang: Lang }) {
   const ids = section.children.map((child) => child.id);
-  const initial = canonicalHashId();
-  const [activeId, setActiveId] = useState(() => (initial && ids.includes(initial) ? initial : section.ui?.type === "tabs" ? section.ui.defaultId ?? ids[0] : ids[0]));
+  const [activeId, setActiveId] = useState(section.ui?.type === "tabs" ? section.ui.defaultId ?? ids[0] : ids[0]);
   const activeIndex = Math.max(0, ids.indexOf(activeId));
   const active = section.children[activeIndex];
 
@@ -172,6 +171,7 @@ function TabsView({ section, lang }: { section: RuleSection; lang: Lang }) {
       const next = canonicalHashId();
       if (next && ids.includes(next)) setActiveId(next);
     };
+    onHashChange();
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, [ids]);
@@ -180,7 +180,7 @@ function TabsView({ section, lang }: { section: RuleSection; lang: Lang }) {
     setActiveId(id);
     setRuleHash(id);
     if (focus) document.getElementById(`rule-tab-${id}`)?.focus();
-  }, []);
+  }, [setActiveId]);
 
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     const current = ids.indexOf(activeId);
@@ -226,11 +226,22 @@ function TabsView({ section, lang }: { section: RuleSection; lang: Lang }) {
 
 function DecisionView({ section, lang }: { section: RuleSection; lang: Lang }) {
   const t = labels[lang];
-  const nodes = new Map(section.children.map((child) => [child.id, child]));
+  const nodes = useMemo(() => new Map(section.children.map((child) => [child.id, child])), [section.children]);
   const startId = section.ui?.type === "decision" ? section.ui.startId : section.children[0]?.id;
-  const initial = canonicalHashId();
-  const [currentId, setCurrentId] = useState(() => (initial && nodes.has(initial) ? initial : startId));
+  const [currentId, setCurrentId] = useState(startId);
   const [history, setHistory] = useState<string[]>([]);
+
+  const syncHash = useCallback(() => {
+    const initial = canonicalHashId();
+    if (initial && nodes.has(initial)) setCurrentId(initial);
+  }, [nodes]);
+
+  useEffect(() => {
+    window.addEventListener("hashchange", syncHash);
+    window.dispatchEvent(new Event("hashchange"));
+    return () => window.removeEventListener("hashchange", syncHash);
+  }, [syncHash]);
+
   const node = nodes.get(currentId);
   if (!node) return null;
 
@@ -300,7 +311,7 @@ function SectionView({ section, lang }: { section: RuleSection; lang: Lang }) {
 export function RuleDocumentExperience({ locale, rulesMd, document }: { locale: string; rulesMd: string; document: RuleDocument }) {
   const lang = locale === "zh" ? "zh" : "en";
   const t = labels[lang];
-  const [mode, setMode] = useState<"guide" | "full">(() => (typeof window !== "undefined" && window.location.hash === "#rules-full" ? "full" : "guide"));
+  const [mode, setMode] = useState<"guide" | "full">("guide");
   const [invalidHash, setInvalidHash] = useState(false);
   const knownIds = useMemo(() => {
     const ids = new Set<string>();
@@ -342,7 +353,7 @@ export function RuleDocumentExperience({ locale, rulesMd, document }: { locale: 
       </div>
       {invalidHash ? <div role="alert" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-medium text-primary-dark"><span>{t.invalid}</span><button type="button" onClick={() => changeMode("guide")} className="min-h-11 rounded-lg border border-amber-300 bg-white px-3 py-2 font-semibold hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-accent/40">{t.returnToGuide}</button></div> : null}
       {mode === "full" ? (
-        <article id="rules-full" className="rounded-2xl border border-border bg-white p-5 shadow-card sm:p-8"><MarkdownRenderer content={stripRuleDocumentMarkers(rulesMd)} /></article>
+        <article id="rules-full" className="rounded-2xl border border-border bg-white p-5 shadow-card sm:p-8"><MarkdownRenderer content={stripRuleDocumentMarkers(rulesMd)} tocContent={rulesMd} /></article>
       ) : (
         <div className="rules-guide-experience max-w-3xl space-y-10">
           {document.introMd ? <div><MarkdownRenderer content={withoutH1(document.introMd)} /></div> : null}

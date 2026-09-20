@@ -8,10 +8,11 @@ import { RuleIllustration } from "./RuleIllustration";
 
 interface Props {
   content: string;
+  tocContent?: string;
 }
 
-export function MarkdownRenderer({ content }: Props) {
-  const toc = extractToc(content);
+export function MarkdownRenderer({ content, tocContent }: Props) {
+  const toc = extractToc(tocContent ?? content);
   const headingLines = content
     .split("\n")
     .map((line, index) => ({ line, number: index + 1 }))

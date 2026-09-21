@@ -66,6 +66,8 @@ npm run build   # 静态导出到 out/
 |------|------|
 | [`docs/architecture.md`](docs/architecture.md) | 分层、双平面、红线 |
 | [`docs/development-guide.md`](docs/development-guide.md) | 改动方式 |
+| [`docs/rules-guide-system.md`](docs/rules-guide-system.md) | 单 Markdown 交互规则协议 |
+| [`docs/rule-writing-style.md`](docs/rule-writing-style.md) | 双语规则与交互标记写法 |
 | [`AGENTS.md`](AGENTS.md) | Agent 入口 / skill 路由 |
 | [`.agents/skills/add-game`](.agents/skills/add-game/SKILL.md) | 新增游戏 |
 | [`docs/score-system.md`](docs/score-system.md) | 记分器准入（默认跳过） |

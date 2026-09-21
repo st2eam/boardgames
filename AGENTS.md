@@ -12,7 +12,7 @@ Read **[`docs/architecture.md`](docs/architecture.md)** before changing structur
 |------|------|
 | Add/edit a route | [`.agents/skills/page-development`](.agents/skills/page-development/SKILL.md) |
 | UI / layout / tokens | [`.agents/skills/component-development`](.agents/skills/component-development/SKILL.md) |
-| Merge rules + interactive flow | [`.agents/skills/hybrid-interactive-rules`](.agents/skills/hybrid-interactive-rules/SKILL.md) |
+| Unified rules + inline interactions | [`.agents/skills/hybrid-interactive-rules`](.agents/skills/hybrid-interactive-rules/SKILL.md) |
 | New game content | [`.agents/skills/add-game`](.agents/skills/add-game/SKILL.md) |
 | Score tracker | [`.agents/skills/add-score-tracker`](.agents/skills/add-score-tracker/SKILL.md) — default skip |
 | Trainer | [`.agents/skills/add-trainer`](.agents/skills/add-trainer/SKILL.md) |

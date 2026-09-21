@@ -48,7 +48,7 @@ npm run build
 | Styling | Tailwind CSS v4 | Utility-first, responsive-friendly |
 | i18n | next-intl (no middleware) | Incompatible with static export; `[locale]` routing |
 | Content | Markdown (free-form) | Flexible authoring |
-| Rendering | react-markdown + remark-gfm (RSC) | GFM tables; zero client JS for rules |
+| Rendering | remark AST + react-markdown + remark-gfm | One Markdown source; scoped client interaction with full/print/no-JS fallbacks |
 | Fonts | `next/font` (Fredoka / Nunito / Noto Sans SC) | Self-hosted, subset |
 | LLM | DeepSeek Anthropic Messages API (browser `fetch`, lazy) | Server `web_search` + client tools; no backend |
 | Chat storage | idb-keyval (IndexedDB) | API key + history stored locally |

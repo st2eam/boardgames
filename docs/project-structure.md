@@ -27,8 +27,7 @@ Do not reverse: domain libs must not import `app/` or `features/`.
 | Folder | Owns |
 |--------|------|
 | `features/catalog/` | Homepage grid, cards, sidebar, covers |
-| `features/rules/` | Game header, markdown, TOC, export, related, play start |
-| `features/rules/` | Markdown renderer + tabs, sidebars, and decision guide |
+| `features/rules/` | Game header, Markdown renderer, AST-driven tabs/sidebars/decisions, TOC, export, related games, and play start |
 | `features/score/` | Dedicated multi-round trackers |
 | `features/trainer/` | Trainer UI + registry |
 | `features/calculator/` | Riichi han/fu calculator UI |

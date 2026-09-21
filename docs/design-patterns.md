@@ -10,6 +10,20 @@ Do not add a pattern unless it isolates a real variation point. Template: proble
 - **Extend:** New optional file → repository `hasX` / `getX`, factory field, page `generateStaticParams`.
 - **Test:** Build emits the new route; do not mock a second filesystem API.
 
+## Markdown AST + progressive enhancement
+
+- **Problem:** A rules page must support continuous reading and fast table-side
+  lookup without keeping duplicate prose in JSON or React.
+- **Variation:** Ordered setup, parallel tabs, topic categories, optional
+  details, and state-based decisions.
+- **Boundary:** `parseRuleDocument()` produces `RuleDocument`;
+  `RuleDocumentExperience` renders the reusable interaction primitives.
+- **Extend:** Add a stable Markdown directive and shared parser/type/rendering
+  support only when the rule shape repeats across games. Keep `rules.md` as the
+  only source; never restore `flow.json`, `guide.json`, or a flow route.
+- **Test:** `node scripts/validate-game-content.mjs`, both locales, guide/full
+  modes, deep links, keyboard/mobile behavior, print, and no-JavaScript output.
+
 ## Strategy (dispatch by type)
 
 - **Problem:** Chat scope, score UI, and trainer UI each have a few mutually exclusive behaviors.

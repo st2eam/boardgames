@@ -205,6 +205,7 @@ function TabsView({ section, lang }: { section: RuleSection; lang: Lang }) {
             type="button"
             role="tab"
             aria-selected={child.id === active.id}
+            aria-controls={`rule-panel-${child.id}`}
             aria-current={child.id === active.id ? "step" : undefined}
             tabIndex={child.id === active.id ? 0 : -1}
             onClick={() => select(child.id)}

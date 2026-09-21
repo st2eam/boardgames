@@ -8,8 +8,18 @@ Use [`.agents/skills/add-game/SKILL.md`](../.agents/skills/add-game/SKILL.md). S
 
 Each game uses one `en/rules.md` and one `zh/rules.md`; keep prose and
 interactive structure in those files. Add explicit `rule-section`, `rule-ui`,
-`rule-item`, and `rule-choices` comments only when the intended UI is clear.
-See [`rules-guide-system.md`](rules-guide-system.md) for the protocol.
+`rule-item`, `rule-choices`, and `rule-details` comments only when the intended
+UI is clear. The build parses both locale files into `RuleDocument`; do not add
+`flow.json`, `guide.json`, or a second rule source. See
+[`rules-guide-system.md`](rules-guide-system.md) and
+[`.agents/skills/hybrid-interactive-rules`](../.agents/skills/hybrid-interactive-rules/SKILL.md)
+for the protocol and interaction decision guide.
+
+For an existing rule document, audit the visible summary before adding a
+disclosure: a player must be able to complete the current action without
+opening hidden detail. Use ordered sidebars for real sequences, unordered
+sidebars for lookup categories, tabs for parallel topics, and decisions only
+for state-based branches.
 
 ## Add a page (route)
 
@@ -19,6 +29,17 @@ Use [`.agents/skills/page-development/SKILL.md`](../.agents/skills/page-developm
 - Load via `GameRepository` / `GameFactory`.
 - Gated features: config file exists → `generateStaticParams` filters → page renders feature UI.
 - Links: `` `/${locale}/…/` `` with trailing slash.
+
+### Rule-page content changes
+
+1. Edit both `content/games/<slug>/en/rules.md` and `zh/rules.md`.
+2. Keep the `rule-section` ID sequence, heading levels, directives, defaults,
+   decision graph, numeric facts, and image order equivalent.
+3. Check the canonical page in guide and full modes, then test a representative
+   `#rule-<id>` deep link, keyboard navigation, mobile overflow, print, and the
+   no-JavaScript fallback.
+4. Run `node scripts/validate-game-content.mjs`, then `npm run lint` and
+   `npm run build`.
 
 ## Add UI
 

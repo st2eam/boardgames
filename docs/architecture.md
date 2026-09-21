@@ -40,7 +40,7 @@ Rules:
 
 | Path | Role |
 |------|------|
-| `content/games/` | Source of truth: `index.json`, per-game `meta.json`, bilingual `rules.md` (including interaction directives), optional `score.json` / `trainer.json` / `calculator.json` / `play.json` |
+| `content/games/` | Source of truth: `index.json`, per-game `meta.json`, bilingual `rules.md` (including interaction directives), optional `score.json` / `trainer.json` / `calculator.json` / `play.json`; no `flow.json` or `guide.json` |
 | `docs/games/<slug>.md` | Per-game **playable (BBGE)** design specs |
 | `src/app/[locale]/` | **Server Components** — load data, SEO, hand props to feature UI |
 | `src/features/` | Feature UI (`catalog`, `rules`, `score`, `trainer`, `calculator`, `play`, `chat`, `costs`) |
@@ -61,7 +61,7 @@ Stack ADRs: [no Vite SPA](decisions/ADR-001-next-static-export.md), [no Ant Desi
 
 | Feature | Content | Page | UI / dispatch | Domain |
 |---------|---------|------|---------------|--------|
-| Rules + interactive teaching | `en\|zh/rules.md` → AST `RuleDocument` | `games/[slug]/page.tsx` | `features/rules/RuleDocumentExperience.tsx` | — |
+| Rules + interactive teaching | `en\|zh/rules.md` → `parseRuleDocument()` → AST `RuleDocument` | `games/[slug]/page.tsx` | `features/rules/RuleDocumentExperience.tsx` | — |
 | Score | `score.json` | `…/score/page.tsx` | [`score/registry.tsx`](../src/features/score/registry.tsx) ([gate](score-system.md)) | `src/lib/score/` |
 | Trainer | `trainer.json` | `…/trainer/page.tsx` | [`trainer/registry.tsx`](../src/features/trainer/registry.tsx) | `src/lib/<game>/` |
 | Calculator | `calculator.json` | `…/calculator/page.tsx` | `features/calculator` | `src/lib/mahjong/` |

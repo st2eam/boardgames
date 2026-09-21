@@ -33,7 +33,7 @@ content/games/
     meta.json             # GameMeta (name, players, duration, difficulty, tags, category, family info)
     en/rules.md           # English rules (markdown)
     zh/rules.md           # Chinese rules (markdown)
-    score.json / trainer.json / calculator.json  # Optional feature configs
+    score.json / trainer.json / calculator.json / play.json  # Optional feature configs
 ```
 
 - `scripts/generate-game-data.mjs` runs at build time (`prebuild`) to write `public/data/games-meta.json`, per-game `rules/*.json`, and `cover-manifest.json`
@@ -69,10 +69,15 @@ Games can belong to a family (e.g., UNO, Exploding Kittens, Sanguosha, Dirty Pig
 ### Markdown rules and interaction protocol
 
 Every game locale has one `rules.md`. It contains the complete rule text plus
-explicit `rule-section`, `rule-ui`, `rule-item`, and `rule-choices` comments.
+explicit `rule-section`, `rule-ui`, `rule-item`, `rule-choices`, and
+`rule-details` comments. The two locales must keep the same stable IDs, heading
+levels, interaction structure, and factual coverage. Do not add `flow.json` or
+`guide.json`; those legacy sources were removed.
 The build parses it into `RuleDocument`; `RuleDocumentExperience` renders tabs,
-ordered/topic sidebars, and genuine decision helpers. See
-[`docs/rules-guide-system.md`](docs/rules-guide-system.md).
+ordered/topic sidebars, details, and genuine decision helpers. The canonical
+page opens in guide mode and also offers complete-rule, print, export, and
+no-JavaScript fallbacks. See [`docs/rules-guide-system.md`](docs/rules-guide-system.md)
+and [`.agents/skills/hybrid-interactive-rules`](.agents/skills/hybrid-interactive-rules/SKILL.md).
 
 ### Export Feature
 

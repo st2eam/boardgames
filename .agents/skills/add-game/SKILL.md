@@ -1,6 +1,6 @@
 ---
 name: add-game
-description: "Add new board games, DLCs, expansions, or variants to The Game Shelf project. Use when user asks to add a game, create game content, or set up a new game entry. Includes bilingual rules.md, flow.json, key-mechanic SVGs, and the required hybrid-interactive-rules pass. Score trackers: only multi-player running totals — see add-score-tracker."
+description: "Add new board games, DLCs, expansions, or variants to The Game Shelf project. Use when user asks to add a game, create game content, or set up a new game entry. Includes bilingual rules.md, key-mechanic SVGs, and the required hybrid-interactive-rules pass. Score trackers: only multi-player running totals — see add-score-tracker."
 ---
 
 # Adding Games to The Game Shelf
@@ -9,7 +9,7 @@ Complete guide for adding game content: standalone games, DLCs/expansions, and s
 
 ## Required companion skill
 
-Every new-game task **must also read and apply** [`hybrid-interactive-rules`](../hybrid-interactive-rules/SKILL.md), even when the user does not separately ask for page design. Its content audit and completion checks ensure the game's complete rules and interactive flow form one cohesive experience on the canonical game page.
+Every new-game task **must also read and apply** [`hybrid-interactive-rules`](../hybrid-interactive-rules/SKILL.md), even when the user does not separately ask for page design. Its content audit and completion checks ensure the game's complete rules and embedded interactions form one cohesive experience on the canonical game page.
 
 Applying the companion skill does not mean creating bespoke React code for every game. If the shared hybrid rule experience already supports the new game's rule shapes, configure and verify that path. Add reusable UI or content schema only when the new game exposes a genuine unsupported pattern.
 
@@ -40,7 +40,6 @@ If rules can't be found, leave `rules.md` with only the heading — don't guess.
 ```
 content/games/{slug}/
 ├── meta.json       # required
-├── flow.json       # required — bilingual teaching data rendered on the rule page
 ├── score.json      # only if multi-player running totals — see add-score-tracker
 ├── trainer.json    # if applicable — trainer config
 ├── calculator.json # if applicable — score calculator config (e.g., riichi fan/fu)
@@ -195,80 +194,27 @@ Add to `content/games/index.json`:
 
 The order in this file determines display order on the homepage (sorted alphabetically by English name at render time).
 
-### Step 6: Create flow.json (REQUIRED)
+### Step 6: Apply the hybrid interactive-rules pass (REQUIRED)
 
-Every game **must** have interactive teaching data rendered directly on its canonical rule page. `flow.json` is a **directed graph** — each node is a rule snippet with jump options, allowing players to quickly navigate rules during gameplay. It does not create or justify a separate `/flow/` page or an interactive-flow button.
+After both locale rules are drafted, apply [`hybrid-interactive-rules`](../hybrid-interactive-rules/SKILL.md):
 
-Place `flow.json` in the game's root directory (not inside locale folders):
-
-```
-content/games/{slug}/
-├── meta.json
-├── flow.json       # required — single bilingual file
-├── en/rules.md
-└── zh/rules.md
-```
-
-```json
-{
-  "startNode": "setup",
-  "nodes": {
-    "setup": {
-      "title": { "en": "Game Setup", "zh": "游戏准备" },
-      "content": {
-        "en": "**Markdown** content in English...",
-        "zh": "**Markdown** 中文内容..."
-      },
-      "options": [
-        {
-          "label": { "en": "Your Turn", "zh": "轮到你了" },
-          "next": "turn"
-        },
-        {
-          "label": { "en": "Scoring", "zh": "计分方式" },
-          "next": "scoring"
-        }
-      ]
-    },
-    "turn": {
-      "title": { "en": "On Your Turn", "zh": "你的回合" },
-      "content": {
-        "en": "Describe turn actions here...",
-        "zh": "在此描述回合操作..."
-      },
-      "options": []
-    }
-  }
-}
-```
-
-- Single `flow.json` per game at the root level (NOT per locale)
-- `title`, `content`, and `label` are all bilingual objects `{ "en": "...", "zh": "..." }`
-- Node keys are arbitrary strings (use descriptive names)
-- Content values support full GFM markdown (tables, lists, bold, etc.)
-- Keep each node focused on one topic — don't cram too much into one node
-
-#### Flow design guidelines
-
-A good flow typically covers these topics (adapt to the game):
-1. **Setup / 游戏准备** — how to set up the game (startNode)
-2. **Turn overview / 回合概览** — what happens on each turn
-3. **Actions / 行动选项** — one node per major action type
-4. **Special mechanics** — unique rules, special cards/tiles, etc.
-5. **Scoring / 计分** — how scoring works
-6. **Game end / 游戏结束** — win/loss conditions
-
-Aim for **5–15 nodes**. Fewer is better for simple games; complex games may need more. Every node should link to at least one other node (no dead ends except terminal nodes like "Game End").
-
-### Step 6a: Apply the hybrid interactive-rules pass (REQUIRED)
-
-After both locale rules and `flow.json` are drafted, apply [`hybrid-interactive-rules`](../hybrid-interactive-rules/SKILL.md):
-
-1. Audit the objective, setup, turn loop, branches, references, scoring, end conditions, and exceptions across `rules.md` and `flow.json`.
-2. Resolve factual or bilingual drift at the content source.
-3. Confirm the catalog card opens the canonical game page and that page immediately presents interactive teaching together with the complete readable rules.
-4. Select only the interaction patterns justified by this game. Prefer the shared renderer; do not add slug-specific UI merely to satisfy this step.
-5. Confirm no `/flow/` route, flow button, or catalog flow chip is added; include the companion skill's mobile, keyboard, accessibility, reduced-motion, export, TOC, metadata, and chat checks in final verification.
+1. Audit the objective, setup, turn loop, real branches, references, scoring,
+   end conditions, and exceptions in both `rules.md` files.
+2. Add stable `rule-section` markers to every H2–H4, then add only the
+   justified `rule-ui: tabs`, `rule-ui: sidebar`, `rule-ui: decision`,
+   `rule-item`, `rule-choices`, and `rule-details` directives.
+3. Keep the first actionable conclusion visible; put rare examples and
+   exceptions behind `rule-details` only when they are not required to act.
+4. Confirm English and Chinese IDs, heading levels, order, defaults, decision
+   graph, numbers, and image order are equivalent.
+5. Confirm the canonical game page immediately presents the embedded guide and
+   complete rules; do not add a `/flow/` route, flow button, `flow.json`, or
+   `guide.json`.
+6. Prefer `RuleDocumentExperience` and existing Markdown components. Add shared
+   parser/UI support only for a genuinely reusable rule shape, never a slug
+   check merely to satisfy this step.
+7. Include mobile, keyboard, accessibility, reduced-motion, export, TOC,
+   metadata, related games, and chat checks in final verification.
 
 ### Step 6b: Evaluate and create score.json (if applicable)
 
@@ -420,7 +366,7 @@ The `prebuild` script (`scripts/generate-game-data.mjs`) auto-generates `public/
 - [ ] New game appears on homepage
 - [ ] Clicking the card opens the correct rule page
 - [ ] Language switcher works on the rule page
-- [ ] Complete rules and the interactive flow coexist coherently on the canonical game page
+- [ ] Complete rules and embedded interactions coexist coherently on the canonical game page
 - [ ] No separate `/flow/` page, interactive-flow button, or catalog flow chip exists
 - [ ] Interactive setup / stages / branches / references load and navigate correctly where applicable
 - [ ] Hybrid rule interactions work on mobile and keyboard, including reduced motion
@@ -591,8 +537,8 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 - [ ] `en/rules.md` written with standard structure
 - [ ] `zh/rules.md` written (matching English content)
 - [ ] Key-mechanic SVG diagrams in `public/images/rules/{slug}/` (see `rule-svg-diagrams` skill)
-- [ ] `flow.json` created at game root with bilingual title/content/label (**required**)
-- [ ] `hybrid-interactive-rules` applied: content audited, canonical page integration confirmed, and no unnecessary game-specific UI added
+- [ ] Every H2–H4 has a valid `rule-section` marker in both locales
+- [ ] `hybrid-interactive-rules` applied: directives audited, canonical page integration confirmed, and no unnecessary game-specific UI added
 - [ ] Catalog entry opens the inline interactive teaching directly; no flow-only route or CTA was created
 - [ ] `score.json` evaluated — **default skip**; created only per add-score-tracker gate
 - [ ] `trainer.json` evaluated — created if game has trainable skills
@@ -612,17 +558,13 @@ If you're adding a DLC to a game that was previously standalone (no `family` fie
 
 Rule diagrams live in `public/images/rules/{slug}/`. Do **not** use the editor Write tool for SVG that contains CJK — write UTF-8 via Python and read the file back. Full spec: `.agents/skills/rule-svg-diagrams/SKILL.md`.
 
-### flow.json: Use `startNode` NOT `start`
+### Interaction markers: keep one Markdown source
 
-The `FlowData` type expects `startNode` as the field name. Using `"start"` will cause the DecisionTree component to show "node not found".
-
-```json
-// CORRECT
-{ "startNode": "welcome", "nodes": { ... } }
-
-// WRONG — will silently fail
-{ "start": "welcome", "nodes": { ... } }
-```
+Do not create `flow.json` or `guide.json` for a new game. Put the readable rule
+text and its interaction directives in both locale Markdown files. The parser
+builds the `RuleDocument` AST and the shared `RuleDocumentExperience` renders
+tabs, sidebars, details, and decisions. A second JSON copy will drift and is
+rejected by the content validator.
 
 ### winCheck: Dynamic set count for small hands
 

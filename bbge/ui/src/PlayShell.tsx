@@ -357,6 +357,10 @@ export function PlayShell({
     return () => window.clearTimeout(t);
   }, [joinNotice]);
   const sessionRef = useRef<HostSession | null>(null);
+  const maxSeatsRef = useRef(maxSeats);
+  maxSeatsRef.current = maxSeats;
+  const displayNameRef = useRef(displayName);
+  displayNameRef.current = displayName;
   const modRef = useRef<PluginPlayModule>(mod);
   const playLogRef = useRef<PlayLogEntry[]>([]);
   const aiRef = useRef<Map<string, AiSeat>>(new Map());
@@ -503,7 +507,7 @@ export function PlayShell({
         hostRoomRef.current = new HostRoomController({
           session,
           transport: host,
-          maxSeats,
+          maxSeats: () => maxSeatsRef.current,
           onLobbyChanged: () => {
             const names = session.getLobby().seats;
             const newest = names[names.length - 1];
@@ -666,7 +670,7 @@ export function PlayShell({
             }, 1_500);
           }
         });
-        guest.send(ctl.joinRequest(displayName || (locale === "zh" ? "玩家" : "Player")));
+        guest.send(ctl.joinRequest(displayNameRef.current || (locale === "zh" ? "玩家" : "Player")));
       } catch (e) {
         setGuestStatus("error");
         setError(
@@ -1127,6 +1131,13 @@ export function PlayShell({
     hostRoomRef.current?.publishState();
   };
 
+  const onHostDisplayNameCommit = () => {
+    if (!isHost) return;
+    const s = sessionRef.current;
+    if (!s || !s.setSeatName(hostId, displayName)) return;
+    broadcastLobby();
+  };
+
   const onStakesChange = (patch: {
     smallBlind?: number;
     bigBlind?: number;
@@ -1404,6 +1415,7 @@ export function PlayShell({
             roomReady={hostRoomReady}
             displayName={displayName}
             onDisplayName={setDisplayName}
+            onDisplayNameCommit={onHostDisplayNameCommit}
             onAddAi={onAddAi}
             onAddHotseat={onAddHotseat}
             onStart={() => void onStart()}
@@ -1504,7 +1516,12 @@ export function PlayShell({
                   : "Connection failed. Retry; pure P2P can fail on restrictive networks."
                 : zhUi
                   ? "已进入房间 · 等待房主开战…"
-                  : "In lobby · waiting for host to start…"}
+                : "In lobby · waiting for host to start…"}
+          </p>
+          <p className="mt-2 shrink-0 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs leading-relaxed text-emerald-900">
+            {zhUi
+              ? "本局由房主浏览器主持并同步状态；房主关闭页面后，房间也会结束。"
+              : "The host browser owns and syncs this match; the room ends when the host page closes."}
           </p>
           <label className="mt-3 block shrink-0">
             <span className="mb-1 block text-xs font-semibold text-stone-500">

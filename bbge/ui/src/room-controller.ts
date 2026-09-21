@@ -24,7 +24,8 @@ function token(prefix: string): string {
 export type HostRoomControllerOptions = {
   session: HostSession;
   transport: PeerRoomHost;
-  maxSeats: number;
+  /** Read on every join so a lobby edition change updates the room cap. */
+  maxSeats: number | (() => number);
   onLobbyChanged?: () => void;
   onActionAccepted?: (result: SubmitOk, playerId: PlayerId) => void;
   onChat?: (message: AiChatMessage) => void;
@@ -46,6 +47,12 @@ export class HostRoomController {
   constructor(private readonly opts: HostRoomControllerOptions) {
     opts.transport.onMessage((message, peerId) => this.onMessage(message, peerId));
     opts.transport.onPeerLeft((peerId) => this.onPeerLeft(peerId));
+  }
+
+  private maxSeats(): number {
+    return typeof this.opts.maxSeats === "function"
+      ? this.opts.maxSeats()
+      : this.opts.maxSeats;
   }
 
   private snapshot(playerId: PlayerId, events?: Event[]): RoomStateSync {
@@ -146,7 +153,7 @@ export class HostRoomController {
       this.reject(peerId, "match-in-progress", "The match has already started. Only its original players can reconnect.");
       return;
     }
-    if (this.opts.session.getLobby().seats.length >= this.opts.maxSeats) {
+    if (this.opts.session.getLobby().seats.length >= this.maxSeats()) {
       this.reject(peerId, "room-full", "The room is full.");
       return;
     }

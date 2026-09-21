@@ -15,6 +15,7 @@ interface Props {
   roomReady?: boolean;
   displayName: string;
   onDisplayName: (v: string) => void;
+  onDisplayNameCommit?: () => void;
   onAddAi: () => void;
   onAddHotseat: () => void;
   onStart: () => void;
@@ -136,6 +137,7 @@ export function LobbyView({
   roomReady = true,
   displayName,
   onDisplayName,
+  onDisplayNameCommit,
   onAddAi,
   onAddHotseat,
   onStart,
@@ -177,6 +179,27 @@ export function LobbyView({
               : ` · max ${maxSeats}`
             : ""}
         </p>
+      </div>
+
+      <div className="flex shrink-0 items-start gap-2 border-b border-emerald-200 bg-emerald-50 px-4 py-2.5 text-emerald-900">
+        <span
+          className={`mt-1 h-2 w-2 shrink-0 rounded-full ${roomReady ? "bg-emerald-500" : "animate-pulse bg-amber-500"}`}
+          aria-hidden="true"
+        />
+        <div className="min-w-0 text-xs leading-relaxed">
+          <p className="font-semibold">
+            {zh ? "房主浏览器主持本局" : "The host browser runs this match"}
+          </p>
+          <p className="text-emerald-800/80">
+            {roomReady
+              ? zh
+                ? "其他玩家通过邀请链接直连房主；房主关闭页面后房间会结束。"
+                : "Players join directly through the invite link; closing the host page ends the room."
+              : zh
+                ? "正在创建房间，完成后即可复制邀请链接。"
+                : "Creating the room; the invite link will be available when ready."}
+          </p>
+        </div>
       </div>
 
       <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,1fr)_minmax(0,1fr)] gap-3 overflow-hidden p-2.5 sm:gap-4 sm:p-4 lg:grid-cols-[minmax(0,1fr)_280px] lg:grid-rows-1">
@@ -303,6 +326,7 @@ export function LobbyView({
                 className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm"
                 value={displayName}
                 onChange={(e) => onDisplayName(e.target.value)}
+                onBlur={onDisplayNameCommit}
               />
             </label>
             <div>

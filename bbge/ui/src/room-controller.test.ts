@@ -69,4 +69,24 @@ describe("v2 room controller", () => {
     expect(guest.handle({ type: "stateSync", protocolVersion: ROOM_PROTOCOL_VERSION, payload: { revision: 2, phase: "lobby", lobby: {}, view: null } })).toBeNull();
     expect(guest.joinRequest("Player").payload.resumeToken).toBe("resume-1234567890");
   });
+
+  it("reads a changing seat cap when the host switches editions", () => {
+    const session = new HostSession(plugin, { seed: "test", hostPlayerId: "host" });
+    session.addHumanSeat("host", "Host");
+    session.setReady("host", true);
+    const fake = fakeHost();
+    let maxSeats = 2;
+    new HostRoomController({ session, transport: fake.transport, maxSeats: () => maxSeats });
+
+    fake.receive({ type: "joinRequest", protocolVersion: ROOM_PROTOCOL_VERSION, payload: { name: "Remote" } });
+    expect(fake.sent.some((item) => item.message.type === "joinAccepted")).toBe(true);
+    fake.sent.length = 0;
+    fake.receive({ type: "joinRequest", protocolVersion: ROOM_PROTOCOL_VERSION, payload: { name: "Too many" } }, "peer-b");
+    expect(fake.sent.some((item) => item.message.type === "joinRejected")).toBe(true);
+
+    maxSeats = 3;
+    fake.sent.length = 0;
+    fake.receive({ type: "joinRequest", protocolVersion: ROOM_PROTOCOL_VERSION, payload: { name: "New seat" } }, "peer-b");
+    expect(fake.sent.some((item) => item.message.type === "joinAccepted")).toBe(true);
+  });
 });

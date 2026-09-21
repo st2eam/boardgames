@@ -154,6 +154,17 @@ export class HostSession<TState = unknown, TAction extends Action = Action> {
     if (seat && seat.kind === "human") seat.ready = ready;
   }
 
+  /** Rename a lobby seat without allowing a player to mutate game state. */
+  setSeatName(id: PlayerId, name: string): boolean {
+    if (this.phase !== "lobby") return false;
+    const seat = this.lobby.seats.find((s) => s.id === id);
+    if (!seat) return false;
+    const next = name.trim().slice(0, 80);
+    if (!next || next === seat.name) return false;
+    seat.name = next;
+    return true;
+  }
+
   /** Update createGame extras (e.g. edition) while still in lobby. */
   setGameConfig(patch: Record<string, unknown>): void {
     if (this.phase !== "lobby") return;

@@ -74,6 +74,8 @@ Play four rounds of nine number cards each. Each round is simultaneous: one play
 
 When a row or column becomes complete, circle its icon so you do not claim it again. A single square can complete both a row and a column; circle and resolve both icons. If you unlock several bonuses, resolve them in any order.
 
+![A completed row grants a number bonus, which can complete another line and trigger a second bonus](/images/rules/super-mega-lucky-box/bonus-chain.svg)
+
 <!-- rule-ui: sidebar default=bonus-number -->
 - <!-- rule-item: bonus-number -->
   **Number**
@@ -90,6 +92,10 @@ When a row or column becomes complete, circle its icon so you do not claim it ag
 
   Take the number of Lightning tokens shown by the icon, usually 1 or 2. There is no holding limit. If the supply runs out, use another marker for each token owed.
 
+  When marking the square for a revealed Number card, spend one or more Lightning tokens to move that number up or down by 1 per token. Choose the direction for each step. Numbers loop from 9 to 1 and from 1 to 9: a revealed 9 can become a 1 for 1 token, or a 2 for 2 tokens. This changes only your number for this reveal, not anyone else's. Lightning cannot change a Number bonus.
+
+  ![Spend one Lightning token per step; numbers wrap from 9 to 1 and from 1 to 9](/images/rules/super-mega-lucky-box/lightning-loop.svg)
+
 - <!-- rule-item: bonus-star -->
   **Star**
 
@@ -100,14 +106,11 @@ When a row or column becomes complete, circle its icon so you do not claim it ag
 
   Take 1 Moon token. Moon tokens are scored at the end of the game.
 
-![A completed row grants a number bonus, which can complete another line and trigger a second bonus](/images/rules/super-mega-lucky-box/bonus-chain.svg)
+  3–6 players: The player or players with the most Moon tokens gain 6 points. The player or players with the fewest, including 0, lose 6 points. Tied players each gain or lose the full amount.
 
-<!-- rule-section: lightning-tokens -->
-## Using Lightning Tokens
+  2 players: Each player tied for the most Moon tokens gains 6 points. No one loses points.
 
-Spend one or more Lightning tokens when marking the square for a revealed Number card. Each token moves that number up or down by 1; choose the direction for each step. Numbers loop from 9 to 1 and from 1 to 9. For example, a revealed 9 can become a 1 for 1 token, or a 2 for 2 tokens. This changes only your number for this reveal, not anyone else's. Lightning cannot change a Number bonus.
-
-![Spend one Lightning token per step; numbers wrap from 9 to 1 and from 1 to 9](/images/rules/super-mega-lucky-box/lightning-loop.svg)
+  Solo: 0, 1, 2, 3, 4, 5, and 6 or more Moon tokens score −6, −2, 0, 1, 3, 6, and 10 points respectively.
 
 <!-- rule-section: round-end -->
 ## End of a Round
@@ -122,22 +125,15 @@ After the ninth Number card is resolved:
 <!-- rule-section: game-end -->
 ## Game End and Scoring
 
-The game ends after round 4. Add the points already recorded for completed cards and stars, then score your remaining incomplete cards and Moon tokens:
+The game ends after round 4. Add the points already recorded for completed cards and stars, then score your remaining incomplete cards. Score Moon tokens as explained in the Moon bonus reference:
 
 - **Incomplete cards:** score 1 point for every 2 crossed-off large squares across all incomplete cards; round down.
-- **Moon tokens:** in a game with 3–6 players, the player or players with the most Moon tokens gain 6 points. The player or players with the fewest, including 0, lose 6 points. Tied players each gain or lose the full amount.
-- **Two players:** each player tied for the most Moon tokens gains 6 points; no one loses points.
-
 The highest total wins. If players tie, the tied player with more Moon tokens wins.
 
 <!-- rule-section: solo-mode -->
 ## Solo Mode
 
-Play the four rounds and score as usual. Instead of comparing Moon tokens with opponents, score your Moon tokens using this table:
-
-| Moon tokens | 0 | 1 | 2 | 3 | 4 | 5 | 6 or more |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Points | −6 | −2 | 0 | 1 | 3 | 6 | 10 |
+Play the four rounds and score as usual. In solo play, score Moon tokens using the Solo row in the Moon bonus reference.
 
 <!-- rule-section: variants -->
 ## Variants

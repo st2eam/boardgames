@@ -2,11 +2,11 @@
 
 > [中文版 / Chinese version](README.md)
 
-A curated, bilingual reference website for modern board game rules — **74** games (including expansions/variants), Markdown-defined interactive rules, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
+A curated, bilingual reference website for modern board game rules — **75** games (including expansions/variants), Markdown-defined interactive rules, trainers, **BBGE online play**, LLM-powered Q&A, deployed as a pure static site to GitHub Pages.
 
 ## Features
 
-- **74 game rules**: web-verified, complete bilingual rules (EN/ZH)
+- **75 game rules**: web-verified, complete bilingual rules (EN/ZH)
 - **Interactive rules in one Markdown source**: tabs, ordered/topic sidebars, and explicit decision helpers with full-rule and print fallbacks
 - **4 multi-player score trackers**: CABO, Sea Salt & Paper, 6 nimmt!, Just Wild — running totals, localStorage
 - **5 trainers**: Mahjong/Riichi tenpai, Blackjack basic strategy, Texas Hold'em GTO preflop, Go tsumego
@@ -35,7 +35,7 @@ npm run dev
 npm run build
 ```
 
-> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `74` / `4` score / `5` trainer / `1` calculator / `8` BBGE play). Run `node scripts/print-project-stats.mjs` and `node scripts/validate-game-content.mjs` to verify. Sync game behavior in [`docs/games/<slug>.md`](docs/games/) and invitation behavior in [`docs/bbge-networking.md`](docs/bbge-networking.md).
+> **Maintenance**: after adding games, refresh the feature counts and game tables below (currently `75` / `4` score / `5` trainer / `1` calculator / `8` BBGE play). Run `node scripts/print-project-stats.mjs` and `node scripts/validate-game-content.mjs` to verify. Sync game behavior in [`docs/games/<slug>.md`](docs/games/) and invitation behavior in [`docs/bbge-networking.md`](docs/bbge-networking.md).
 
 ---
 

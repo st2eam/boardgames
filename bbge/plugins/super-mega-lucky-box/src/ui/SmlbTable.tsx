@@ -264,7 +264,7 @@ function BoxCard({
             </button>
           );
         })}
-        <div className="row-span-3 flex flex-col justify-around gap-1">
+        <div className="col-start-4 row-start-1 row-span-3 flex flex-col justify-around gap-1">
           {card.rows.map((reward, index) =>
             rewardButton(reward, index, "row", rowBonus(index)),
           )}

@@ -15,6 +15,7 @@ docs/games/<slug>.md
 | [cabo.md](cabo.md) | CABO — 2–4 memory card game | Shipped — multi-round cumulative + AI + battleLog |
 | [uno.md](uno.md) | UNO — classic / Flip / No Mercy | Shipped — shared plugin + editions + AI + battleLog |
 | [trio.md](trio.md) | TRIO — simple / spicy | Shipped — memory flips + card art + AI + battleLog |
+| [super-mega-lucky-box.md](super-mega-lucky-box.md) | Super Mega Lucky Box — four-round simultaneous number bingo | Shipped — fixed original 60-card deck + hotseat / invite / AI |
 
 Platform skill: [`.agents/skills/browser-board-game-engine/`](../../.agents/skills/browser-board-game-engine/SKILL.md).  
 Shelf feature map: [`docs/architecture.md`](../architecture.md).  

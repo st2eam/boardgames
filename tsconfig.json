@@ -34,7 +34,8 @@
       "@bbge/cabo": ["./bbge/plugins/cabo/src"],
       "@bbge/uno": ["./bbge/plugins/uno/src"],
       "@bbge/trio": ["./bbge/plugins/trio/src"],
-      "@bbge/rummikub": ["./bbge/plugins/rummikub/src"]
+      "@bbge/rummikub": ["./bbge/plugins/rummikub/src"],
+      "@bbge/super-mega-lucky-box": ["./bbge/plugins/super-mega-lucky-box/src"]
     }
   },
   "include": [

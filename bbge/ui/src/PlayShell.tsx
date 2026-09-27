@@ -26,6 +26,7 @@ import {
 import { LobbyView } from "./LobbyView";
 import { requirePlayModule } from "./registry";
 import type { PlayLogEntry, PluginPlayModule } from "./plugin-types";
+import { nextPendingLocalSeat } from "./hotseat";
 import {
   GuestRoomController,
   HostRoomController,
@@ -332,6 +333,7 @@ export function PlayShell({
   const [playLog, setPlayLog] = useState<PlayLogEntry[]>([]);
   const [myId, setMyId] = useState(hostId);
   const [controllingId, setControllingId] = useState(hostId);
+  const [hotseatHandoffId, setHotseatHandoffId] = useState<string | null>(null);
   const [displayName, setDisplayName] = useState(() =>
     roomIdFromUrl
       ? locale === "zh"
@@ -372,6 +374,7 @@ export function PlayShell({
   const aiRunning = useRef(false);
   const autoAdvanceRunning = useRef(false);
   const localSeatIdsRef = useRef<Set<string>>(new Set([hostId]));
+  const controllingIdRef = useRef(hostId);
 
   useEffect(() => {
     modRef.current = mod;
@@ -420,12 +423,51 @@ export function PlayShell({
     if (s.getPhase() !== "lobby") {
       const current = s.getCurrentPlayerId();
       const local = localSeatIdsRef.current;
+      if (isHost && modRef.current.plugin.metadata.pacing === "simultaneous") {
+        const candidates = s
+          .getLobby()
+          .seats.filter((seat) => seat.kind === "human" && local.has(seat.id))
+          .map((seat) => {
+            const actorView = s.getView(seat.id) as AiActorView;
+            return {
+              id: seat.id,
+              pending:
+                actorView.phase === "selecting" &&
+                actorView.you?.hasPlayed === false &&
+                Array.isArray(actorView.legal) &&
+                actorView.legal.length > 0,
+            };
+          });
+        const nextLocal = nextPendingLocalSeat(controllingIdRef.current, candidates);
+        if (nextLocal && nextLocal !== controllingIdRef.current) {
+          setHotseatHandoffId(nextLocal);
+          return;
+        }
+        if (nextLocal) {
+          setHotseatHandoffId(null);
+          controllingIdRef.current = nextLocal;
+          setControllingId(nextLocal);
+          setView(s.getView(nextLocal));
+          return;
+        }
+      }
+      setHotseatHandoffId(null);
       const viewer =
         isHost && current && local.has(current) ? current : myId;
+      controllingIdRef.current = viewer;
       setControllingId(viewer);
       setView(s.getView(viewer));
     }
   }, [myId, isHost]);
+
+  const acceptHotseatHandoff = () => {
+    const s = sessionRef.current;
+    if (!s || !hotseatHandoffId) return;
+    controllingIdRef.current = hotseatHandoffId;
+    setControllingId(hotseatHandoffId);
+    setHotseatHandoffId(null);
+    setView(s.getView(hotseatHandoffId));
+  };
 
   const publishChat = useCallback(
     (msg: AiChatMessage) => {
@@ -1496,6 +1538,7 @@ export function PlayShell({
             onStakesChange={isHoldem && isHost ? onStakesChange : undefined}
             maxSeats={maxSeats}
             onRemoveSeat={isHost ? onRemoveSeat : undefined}
+            lobbyNotice={mod.lobbyNotice?.[locale === "zh" ? "zh" : "en"]}
           />
         </div>
       )}
@@ -1523,6 +1566,11 @@ export function PlayShell({
               ? "本局由房主浏览器主持并同步状态；房主关闭页面后，房间也会结束。"
               : "The host browser owns and syncs this match; the room ends when the host page closes."}
           </p>
+          {mod.lobbyNotice && (
+            <p className="mt-2 shrink-0 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-950">
+              {mod.lobbyNotice[locale === "zh" ? "zh" : "en"]}
+            </p>
+          )}
           <label className="mt-3 block shrink-0">
             <span className="mb-1 block text-xs font-semibold text-stone-500">
               {zhUi ? "你的昵称（断线重连时使用）" : "Your name (used on reconnect)"}
@@ -1616,6 +1664,7 @@ export function PlayShell({
               view={view}
               myId={controllingId}
               disabled={
+                Boolean(hotseatHandoffId) ||
                 guestActionPending ||
                 thinkingIds.length > 0 &&
                 !(
@@ -1634,6 +1683,36 @@ export function PlayShell({
               nameOf={nameOf}
             />
           </ErrorBoundary>
+          {isHost && hotseatHandoffId && (
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="hotseat-handoff-title"
+              data-testid="hotseat-handoff"
+              className="absolute inset-0 z-30 flex items-center justify-center bg-primary-dark/80 p-4 backdrop-blur-sm"
+            >
+              <div className="w-full max-w-sm rounded-2xl border border-white/30 bg-surface p-5 text-center shadow-card">
+                <h2 id="hotseat-handoff-title" className="font-heading text-lg font-bold text-primary-dark">
+                  {locale === "zh" ? "轮到热座玩家" : "Hotseat handoff"}
+                </h2>
+                <p className="mt-2 text-sm text-stone-700">
+                  {locale === "zh" ? "请把设备交给" : "Pass the device to"}{" "}
+                  <strong>
+                    {lobby?.seats.find((seat) => seat.id === hotseatHandoffId)?.name ??
+                      hotseatHandoffId}
+                  </strong>
+                </p>
+                <button
+                  type="button"
+                  autoFocus
+                  onClick={acceptHotseatHandoff}
+                  className="mt-4 min-h-11 w-full rounded-xl bg-primary px-4 py-2.5 font-heading text-sm font-bold text-white hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                >
+                  {locale === "zh" ? "准备好了，继续" : "Ready, continue"}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       ) : null}
     </div>

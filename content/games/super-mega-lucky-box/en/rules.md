@@ -99,7 +99,7 @@ When a row or column becomes complete, circle its icon so you do not claim it ag
 - <!-- rule-item: bonus-star -->
   **Star**
 
-  Circle the next open star on your scorecard in the current round. At round end, your first, second, and third stars that round are worth 1, 4, and 9 points respectively. Ignore any further stars that round.
+  Circle the next open star on your scorecard in the current round. At round end, a total of 1, 2, or 3 stars that round scores 1, 4, or 9 points respectively. Stars beyond the third do not add points.
 
 - <!-- rule-item: bonus-moon -->
   **Moon**

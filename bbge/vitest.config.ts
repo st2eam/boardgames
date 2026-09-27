@@ -25,6 +25,10 @@ export default defineConfig({
       "@bbge/uno": path.resolve(__dirname, "plugins/uno/src"),
       "@bbge/trio": path.resolve(__dirname, "plugins/trio/src"),
       "@bbge/rummikub": path.resolve(__dirname, "plugins/rummikub/src"),
+      "@bbge/super-mega-lucky-box": path.resolve(
+        __dirname,
+        "plugins/super-mega-lucky-box/src",
+      ),
     },
   },
 });

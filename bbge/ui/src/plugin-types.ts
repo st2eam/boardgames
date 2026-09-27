@@ -43,6 +43,8 @@ export interface PluginPlayModule {
   id: string;
   plugin: GamePlugin;
   Table: ComponentType<PluginTableProps>;
+  /** Optional edition/game note shown in both host and guest lobbies. */
+  lobbyNotice?: { en: string; zh: string };
   formatEvents: (
     events: Event[],
     locale: string,

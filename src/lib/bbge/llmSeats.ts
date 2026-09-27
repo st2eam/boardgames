@@ -7,6 +7,7 @@ import { createDeepSeekCaboSeat } from "./DeepSeekCaboSeat";
 import { createDeepSeekUnoSeat } from "./DeepSeekUnoSeat";
 import { createDeepSeekTrioSeat } from "./DeepSeekTrioSeat";
 import { createDeepSeekRummikubSeat } from "./DeepSeekRummikubSeat";
+import { createDeepSeekSmlbSeat } from "./DeepSeekSmlbSeat";
 
 type SeatFactory = (
   id: string,
@@ -25,6 +26,7 @@ const factories: Record<string, SeatFactory> = {
   uno: createDeepSeekUnoSeat,
   trio: createDeepSeekTrioSeat,
   rummikub: createDeepSeekRummikubSeat,
+  "super-mega-lucky-box": createDeepSeekSmlbSeat,
 };
 
 /**

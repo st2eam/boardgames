@@ -36,6 +36,7 @@ interface Props {
   }) => void;
   maxSeats?: number;
   onRemoveSeat?: (id: string) => void;
+  lobbyNotice?: string;
 }
 
 function SeatCard({
@@ -151,6 +152,7 @@ export function LobbyView({
   onStakesChange,
   maxSeats,
   onRemoveSeat,
+  lobbyNotice,
 }: Props) {
   const zh = locale === "zh";
   const hostId = lobby?.hostPlayerId;
@@ -201,6 +203,11 @@ export function LobbyView({
           </p>
         </div>
       </div>
+      {lobbyNotice && (
+        <p className="shrink-0 border-b border-amber-200 bg-amber-50 px-4 py-2 text-xs leading-relaxed text-amber-950">
+          {lobbyNotice}
+        </p>
+      )}
 
       <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,1fr)_minmax(0,1fr)] gap-3 overflow-hidden p-2.5 sm:gap-4 sm:p-4 lg:grid-cols-[minmax(0,1fr)_280px] lg:grid-rows-1">
         <div className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-white/95 shadow-sm">

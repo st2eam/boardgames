@@ -7,6 +7,7 @@ import { caboPlayModule } from "@bbge/cabo";
 import { unoPlayModule } from "@bbge/uno";
 import { trioPlayModule } from "@bbge/trio";
 import { rummikubPlayModule } from "@bbge/rummikub";
+import { superMegaLuckyBoxPlayModule } from "@bbge/super-mega-lucky-box";
 
 let registered = false;
 
@@ -21,5 +22,6 @@ export function ensurePlayPluginsRegistered(): void {
   registerPlayModule(unoPlayModule);
   registerPlayModule(trioPlayModule);
   registerPlayModule(rummikubPlayModule);
+  registerPlayModule(superMegaLuckyBoxPlayModule);
   registered = true;
 }

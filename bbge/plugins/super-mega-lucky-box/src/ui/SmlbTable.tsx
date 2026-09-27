@@ -14,6 +14,7 @@ import {
   ThinkingStatusBanner,
 } from "@bbge/ui";
 import { soloScoreRating } from "../rules";
+import styles from "./SmlbTable.module.css";
 
 type Reward = {
   kind: "number" | "wild" | "lightning" | "star" | "moon";
@@ -126,18 +127,22 @@ function RewardMark({ reward }: { reward: Reward }) {
       </span>
     );
   }
-  return (
-    <span className="font-heading text-base font-black" aria-label={reward.kind}>
-      {reward.kind === "star" ? "★" : "☾"}
-    </span>
+  return reward.kind === "star" ? (
+    <svg aria-hidden="true" viewBox="0 0 32 32" className={styles.rewardIcon}>
+      <path d="m16 2 3.5 9.4L30 12l-8.2 6.6 2.8 10.2L16 23l-8.6 5.8 2.8-10.2L2 12l10.5-.6L16 2Z" />
+    </svg>
+  ) : (
+    <svg aria-hidden="true" viewBox="0 0 32 32" className={styles.rewardIcon}>
+      <path d="M20.5 2.5a13.5 13.5 0 1 0 9 22.3A13.8 13.8 0 0 1 20.5 2.5Z" />
+    </svg>
   );
 }
 
-function rewardLabel(reward: Reward): string {
-  if (reward.kind === "number") return "Number " + reward.value;
-  if (reward.kind === "wild") return "Wild reward";
-  if (reward.kind === "lightning") return "Lightning " + reward.count;
-  return reward.kind === "star" ? "Star" : "Moon";
+function rewardLabel(reward: Reward, zh: boolean): string {
+  if (reward.kind === "number") return (zh ? "数字 " : "Number ") + reward.value;
+  if (reward.kind === "wild") return zh ? "万能奖励" : "Wild reward";
+  if (reward.kind === "lightning") return (zh ? "闪电 " : "Lightning ") + reward.count;
+  return reward.kind === "star" ? (zh ? "星星" : "Star") : (zh ? "月亮" : "Moon");
 }
 
 function soloRatingLabel(score: number, zh: boolean): string {
@@ -156,6 +161,7 @@ function soloRatingLabel(score: number, zh: boolean): string {
 
 function BoxCard({
   card,
+  zh,
   canSelectCell,
   onSelectCell,
   pendingBonuses,
@@ -165,6 +171,7 @@ function BoxCard({
   compact = false,
 }: {
   card: SmlbCard;
+  zh: boolean;
   canSelectCell?: (cellIndex: number) => boolean;
   onSelectCell?: (cellIndex: number) => void;
   pendingBonuses?: PendingBonus[];
@@ -181,8 +188,6 @@ function BoxCard({
     pendingBonuses?.find(
       (bonus) => bonus.cardId === card.id && bonus.line === "column" && bonus.index === index,
     );
-  const size = compact ? "h-8 w-8 min-h-8 text-sm" : "h-11 w-11 min-h-11 text-lg";
-
   const rewardButton = (
     reward: Reward,
     index: number,
@@ -192,24 +197,18 @@ function BoxCard({
     const claimed =
       line === "row" ? card.claimedRows?.[index] : card.claimedColumns?.[index];
     const active = pending?.id === selectedBonusId;
-    const style = active
-      ? "border-amber-500 bg-amber-200 text-primary-dark ring-2 ring-amber-400/60"
-      : claimed
-        ? "border-amber-200 bg-amber-100 text-primary"
-        : "border-border bg-white/90 text-primary-dark";
     return (
       <button
         key={line + index}
         type="button"
-        aria-label={rewardLabel(reward)}
+        aria-label={rewardLabel(reward, zh)}
         aria-pressed={Boolean(pending && active)}
         disabled={disabled || !pending || !onSelectBonus}
         onClick={() => pending && onSelectBonus?.(pending)}
-        className={[
-          "flex min-h-9 min-w-9 items-center justify-center rounded-lg border px-1",
-          style,
-          "disabled:cursor-default disabled:opacity-75",
-        ].join(" ")}
+        className={styles.rewardButton}
+        data-kind={reward.kind}
+        data-claimed={Boolean(claimed)}
+        data-active={active}
       >
         <RewardMark reward={reward} />
       </button>
@@ -217,46 +216,41 @@ function BoxCard({
   };
 
   return (
-    <div className="min-w-fit rounded-xl border border-border bg-[#fffdf7] p-2 shadow-sm sm:p-2.5">
-      <div className="mb-1 flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-stone-500">
+    <div className={`${styles.boxCard} ${compact ? styles.boxCardCompact : ""}`}>
+      <div className={styles.boxCardHeader}>
+        <span className={styles.boxCardId}>
           {card.id}
         </span>
         {card.completed && (
-          <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[9px] font-bold text-emerald-800">
-            ✓
+          <span className={styles.completedStamp}>
+            ✓ <span>{zh ? "已完成" : "COMPLETE"}</span>
           </span>
         )}
       </div>
-      <div className="grid grid-cols-[repeat(3,minmax(2.75rem,1fr))_2.5rem] gap-1">
+      <div className={styles.boxGrid}>
         {card.grid.map((value, cellIndex) => {
           const marked = Boolean(card.marked?.[cellIndex]);
           const available = canSelectCell?.(cellIndex) ?? false;
-          const style = marked
-            ? "border-primary/15 bg-primary/10 text-primary/60 line-through"
-            : available
-              ? "cursor-pointer border-accent bg-amber-100 text-primary-dark hover:bg-amber-200"
-              : "border-stone-200 bg-white text-stone-700";
           return (
             <button
               key={cellIndex}
               type="button"
-              aria-label={"Box " + card.id + ", square " + (cellIndex + 1) + ": " + value}
+              aria-label={zh
+                ? `盒子 ${card.id}，第 ${cellIndex + 1} 格：${value}`
+                : `Box ${card.id}, square ${cellIndex + 1}: ${value}`}
               aria-pressed={marked}
               disabled={disabled || marked || !available || !onSelectCell}
               onClick={() => onSelectCell?.(cellIndex)}
-              className={[
-                "relative touch-manipulation rounded-lg border font-heading font-black transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
-                size,
-                style,
-                "disabled:cursor-default",
-              ].join(" ")}
+              className={styles.numberCell}
+              data-tone={value <= 3 ? "low" : value <= 6 ? "mid" : "high"}
+              data-marked={marked}
+              data-available={available && !disabled}
             >
               {value}
               {marked && (
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 flex items-center justify-center text-xl text-primary/60"
+                  className={styles.crossMark}
                 >
                   ×
                 </span>
@@ -264,13 +258,13 @@ function BoxCard({
             </button>
           );
         })}
-        <div className="col-start-4 row-start-1 row-span-3 flex flex-col justify-around gap-1">
+        <div className={styles.rowRewards}>
           {card.rows.map((reward, index) =>
             rewardButton(reward, index, "row", rowBonus(index)),
           )}
         </div>
       </div>
-      <div className="mt-1 grid grid-cols-[repeat(3,minmax(2.75rem,1fr))_2.5rem] gap-1">
+      <div className={styles.columnRewards}>
         {card.columns.map((reward, index) =>
           rewardButton(reward, index, "column", columnBonus(index)),
         )}
@@ -292,11 +286,98 @@ function StatsChip({
   return (
     <div
       title={title}
-      className="flex min-h-10 shrink-0 items-center gap-1.5 rounded-lg border border-white/25 bg-white/10 px-2.5 text-amber-50"
+      className="flex min-h-10 shrink-0 items-center gap-1.5 rounded-lg border border-primary/15 bg-white/80 px-2.5 text-primary-dark"
     >
       <span className="font-heading text-base font-black">{value}</span>
-      <span className="text-[10px] font-semibold text-amber-100/80">{label}</span>
+      <span className="text-[10px] font-semibold text-primary/75">{label}</span>
     </div>
+  );
+}
+
+const ROUND_CARD_POINTS = [15, 12, 10, 8] as const;
+
+function ScoreSheet({
+  player,
+  round,
+  finished,
+  zh,
+}: {
+  player: SmlbView["players"][number];
+  round: number;
+  finished: boolean;
+  zh: boolean;
+}) {
+  const roundTotal = player.roundScores.reduce((sum, points) => sum + points, 0);
+  const starCount = Math.min(3, player.starsThisRound);
+  return (
+    <section
+      className={styles.scoreSheet}
+      aria-label={zh ? "幸运盒计分板" : "Lucky Box score sheet"}
+    >
+      <div className={styles.scoreHeading}>
+        <h3>{zh ? "幸运盒计分板" : "LUCKY BOX SCORE"}</h3>
+        <span>{zh ? "每轮完整盒子 + 星星" : "Full boxes + stars each round"}</span>
+      </div>
+      <div className={styles.scoreLayout}>
+        <div className={styles.roundRows}>
+          {ROUND_CARD_POINTS.map((multiplier, index) => {
+            const settled = finished || index < round - 1;
+            const current = !finished && index === round - 1;
+            return (
+              <div className={styles.roundRow} data-current={current} key={multiplier}>
+                <span className={styles.roundNumber}>
+                  <small>{zh ? "轮" : "ROUND"}</small>
+                  {index + 1}
+                </span>
+                <div className={styles.roundBox}>
+                  <span className={styles.roundMultiplier}>{multiplier}<small>×</small></span>
+                  <span
+                    className={styles.roundScore}
+                    aria-label={
+                      zh
+                        ? `第 ${index + 1} 轮得分：${settled ? player.roundScores[index] : "待结算"}`
+                        : `Round ${index + 1} score: ${settled ? player.roundScores[index] : "pending"}`
+                    }
+                  >
+                    {settled ? player.roundScores[index] : "—"}
+                  </span>
+                </div>
+                <div className={styles.starPanel}>
+                  <div className={styles.starIcons} aria-hidden="true">
+                    {[1, 2, 3].map((star) => (
+                      <span key={star} data-earned={current && star <= starCount}>
+                        <RewardMark reward={{ kind: "star" }} />
+                      </span>
+                    ))}
+                  </div>
+                  <span className={styles.starLegend}>1 / 4 / 9</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className={styles.endScores}>
+          <div className={`${styles.endTile} ${styles.endTilePink}`}>
+            <span className={styles.endTileLabel}>{zh ? "四轮合计" : "GAME END"}</span>
+            <span className={styles.endTileValue}>{roundTotal}</span>
+          </div>
+          <div className={`${styles.endTile} ${styles.endTileYellow}`}>
+            <span className={styles.endTileLabel}>{zh ? "未完成格" : "INCOMPLETE"}<small>2 × = 1</small></span>
+            <span className={styles.endTileValue}>{finished ? `+${player.incompletePoints}` : "—"}</span>
+          </div>
+          <div className={`${styles.endTile} ${styles.endTileBlue}`}>
+            <span className={styles.endTileLabel}>{zh ? "月亮" : "MOONS"}<small>↑ +6 / ↓ −6</small></span>
+            <span className={styles.endTileValue}>
+              {finished ? `${player.moonPoints >= 0 ? "+" : ""}${player.moonPoints}` : "—"}
+            </span>
+          </div>
+          <div className={styles.megaTotal}>
+            <span>{finished ? "MEGA TOTAL" : zh ? "当前积分" : "LIVE SCORE"}</span>
+            <strong>{finished ? player.finalScore : player.score}</strong>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -330,6 +411,7 @@ export function SmlbTable({
     ids: [],
   });
   const you = view.you;
+  const ownPlayer = view.players.find((player) => player.id === you?.id);
   const ownCards = you?.cards ?? [];
   const pending = you?.pendingBonuses ?? [];
   const phaseKey = [
@@ -595,7 +677,7 @@ export function SmlbTable({
                     : "border-border bg-white";
                   return (
                     <div key={card.id} className={"rounded-xl border p-2 " + cardStyle}>
-                      <BoxCard card={card} compact disabled />
+                      <BoxCard card={card} zh={zh} compact disabled />
                       <button
                         type="button"
                         aria-pressed={picked}
@@ -624,7 +706,7 @@ export function SmlbTable({
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
                 {you.roundOffers.map((card) => (
                   <div key={card.id} className="rounded-xl border border-border bg-white p-2">
-                    <BoxCard card={card} compact disabled />
+                    <BoxCard card={card} zh={zh} compact disabled />
                     <button
                       type="button"
                       disabled={disabled}
@@ -644,7 +726,7 @@ export function SmlbTable({
                 onRematch={onRematch}
                 label={zh ? "再玩一局" : "Play again"}
               />
-              <div className="grid gap-2 sm:grid-cols-2">
+              <div className="grid gap-3">
                 {view.players
                   .slice()
                   .sort((a, b) => b.finalScore - a.finalScore)
@@ -666,13 +748,9 @@ export function SmlbTable({
                           {player.finalScore}
                         </strong>
                       </div>
-                      <p className="mt-1 text-xs text-stone-600">
-                        {zh ? "四轮得分" : "Round scores"}: {player.roundScores.join(" · ")}
-                        {" · "}
-                        {zh ? "未完成格" : "Incomplete"}: +{player.incompletePoints}
-                        {" · "}
-                        {zh ? "月亮" : "Moons"}: {player.moons} ({player.moonPoints >= 0 ? "+" : ""}{player.moonPoints})
-                      </p>
+                      <div className="mt-2">
+                        <ScoreSheet player={player} round={view.round} finished zh={zh} />
+                      </div>
                       {view.players.length === 1 && (
                         <p className="mt-2 rounded-lg bg-primary/5 px-2 py-1.5 text-xs font-bold text-primary-dark">
                           {zh ? "单人评价：" : "Solo rating: "}
@@ -796,6 +874,7 @@ export function SmlbTable({
                       <BoxCard
                         key={card.id}
                         card={card}
+                        zh={zh}
                         pendingBonuses={pending}
                         selectedBonusId={selectedBonusId}
                         onSelectBonus={selectBonus}
@@ -823,6 +902,17 @@ export function SmlbTable({
                 </p>
               )}
 
+              {ownPlayer && (
+                <div className="mt-3">
+                  <ScoreSheet
+                    player={ownPlayer}
+                    round={view.round}
+                    finished={false}
+                    zh={zh}
+                  />
+                </div>
+              )}
+
               {view.players.some((player) => player.id !== myId && player.cards.length > 0) && (
                 <div className="mt-2 space-y-2">
                   <h2 className="font-heading text-xs font-bold uppercase tracking-wide text-stone-500">
@@ -847,7 +937,7 @@ export function SmlbTable({
                           className="px-2 pb-2"
                         >
                           {player.cards.map((card) => (
-                            <BoxCard key={card.id} card={card} disabled />
+                            <BoxCard key={card.id} card={card} zh={zh} disabled />
                           ))}
                         </PlayHorizontalRail>
                       </details>

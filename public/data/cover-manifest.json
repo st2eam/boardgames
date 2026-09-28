@@ -53,6 +53,7 @@
   "splendor": "webp",
   "spots": "webp",
   "startups": "webp",
+  "super-mega-lucky-box": "png",
   "texas-hold-em": "png",
   "the-21st-constellation": "png",
   "the-gang": "webp",
@@ -66,6 +67,5 @@
   "wingspan-asia": "webp",
   "wingspan-europe": "webp",
   "wingspan-oceania": "webp",
-  "wingspan": "webp",
-  "super-mega-lucky-box": "png"
+  "wingspan": "webp"
 }

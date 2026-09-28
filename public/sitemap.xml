@@ -431,6 +431,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://st2eam.github.io/boardgames/en/games/bloody-poker/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://st2eam.github.io/boardgames/en/games/super-mega-lucky-box/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -862,6 +867,11 @@
   </url>
   <url>
     <loc>https://st2eam.github.io/boardgames/zh/games/dune-imperium-uprising/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://st2eam.github.io/boardgames/zh/games/bloody-poker/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

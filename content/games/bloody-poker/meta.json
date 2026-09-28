@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Bloody Poker",
+    "zh": "血色牌局"
+  },
+  "players": "2-4",
+  "duration": "20 min",
+  "difficulty": "medium",
+  "tags": ["card", "poker", "deck-building"],
+  "category": "card"
+}

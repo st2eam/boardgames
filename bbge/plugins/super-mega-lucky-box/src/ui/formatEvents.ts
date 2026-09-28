@@ -61,7 +61,9 @@ export function formatSmlbEvents(
       });
     } else if (event.type === "smlb/lineCompleted") {
       const reward = payload.reward as { kind?: string; value?: number; count?: number };
-      const label = reward?.kind === "number"
+      const label = reward?.kind === "none"
+        ? null
+        : reward?.kind === "number"
         ? String(reward.value)
         : reward?.kind === "lightning"
           ? (zh ? "闪电 ×" + reward.count : "Lightning ×" + reward.count)
@@ -74,8 +76,8 @@ export function formatSmlbEvents(
         id: "smlb-line-" + at + "-" + result.length,
         at,
         text: zh
-          ? who + " 完成" + (payload.line === "row" ? "横行" : "竖列") + "，解锁 " + label
-          : who + " completes a " + payload.line + " and unlocks " + label,
+          ? who + " 完成" + (payload.line === "row" ? "横行" : "竖列") + (label ? "，解锁 " + label : "")
+          : who + " completes a " + payload.line + (label ? " and unlocks " + label : ""),
       });
     } else if (event.type === "smlb/bonusResolved") {
       const reward = payload.reward as { kind?: string };

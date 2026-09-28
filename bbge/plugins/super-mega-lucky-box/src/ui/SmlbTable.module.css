@@ -142,6 +142,13 @@
 
 .columnRewards { margin-top: 0.35rem; }
 
+.emptyReward {
+  display: block;
+  min-height: var(--reward-size);
+  background: var(--smlb-yellow);
+}
+.rowRewards .emptyReward { flex: 1 1 0; min-height: 0; }
+
 .rewardButton {
   position: relative;
   display: flex;

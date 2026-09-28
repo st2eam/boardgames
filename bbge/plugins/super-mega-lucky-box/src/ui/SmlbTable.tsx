@@ -17,7 +17,7 @@ import { soloScoreRating } from "../rules";
 import styles from "./SmlbTable.module.css";
 
 type Reward = {
-  kind: "number" | "wild" | "lightning" | "star" | "moon";
+  kind: "number" | "wild" | "lightning" | "star" | "moon" | "none";
   value?: number;
   count?: number;
 };
@@ -111,6 +111,7 @@ function distance(a: number, b: number): number {
 }
 
 function RewardMark({ reward }: { reward: Reward }) {
+  if (reward.kind === "none") return null;
   if (reward.kind === "number") {
     return <span className="font-heading text-sm font-black">{reward.value}</span>;
   }
@@ -139,6 +140,7 @@ function RewardMark({ reward }: { reward: Reward }) {
 }
 
 function rewardLabel(reward: Reward, zh: boolean): string {
+  if (reward.kind === "none") return zh ? "无奖励" : "No reward";
   if (reward.kind === "number") return (zh ? "数字 " : "Number ") + reward.value;
   if (reward.kind === "wild") return zh ? "万能奖励" : "Wild reward";
   if (reward.kind === "lightning") return (zh ? "闪电 " : "Lightning ") + reward.count;
@@ -194,6 +196,9 @@ function BoxCard({
     line: "row" | "column",
     pending?: PendingBonus,
   ) => {
+    if (reward.kind === "none") {
+      return <span key={line + index} className={styles.emptyReward} aria-hidden="true" />;
+    }
     const claimed =
       line === "row" ? card.claimedRows?.[index] : card.claimedColumns?.[index];
     const active = pending?.id === selectedBonusId;

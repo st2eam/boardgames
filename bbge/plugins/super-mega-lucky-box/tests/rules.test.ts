@@ -70,8 +70,8 @@ function cellWith(cardId: string, value: number): number {
   return LUCKY_BOX_CARDS.find((card) => card.id === cardId)!.grid.indexOf(value);
 }
 
-describe("fixed original Lucky Box deck", () => {
-  it("contains 60 unique, balanced faces with the required six rewards", () => {
+describe("numbered physical Lucky Box deck", () => {
+  it("contains 60 unique faces with balanced printed numbers", () => {
     expect(validateLuckyBoxDeck()).toEqual([]);
     expect(new Set(LUCKY_BOX_CARDS.map((card) => card.id)).size).toBe(60);
     expect(
@@ -81,6 +81,24 @@ describe("fixed original Lucky Box deck", () => {
         ),
       ).size,
     ).toBe(60);
+  });
+
+  it("matches the five supplied physical cards, including blank bonus positions", () => {
+    const signature = (id: string) => {
+      const card = LUCKY_BOX_CARDS.find((item) => item.id === id)!;
+      const reward = (item: typeof card.rows[number]) =>
+        item.kind === "number" ? String(item.value)
+          : item.kind === "wild" ? "?"
+            : item.kind === "lightning" ? item.count === 1 ? "L" : "D"
+              : item.kind === "star" ? "S"
+                : item.kind === "moon" ? "M" : "-";
+      return [card.grid.join(""), card.rows.map(reward).join(""), card.columns.map(reward).join("")].join("|");
+    };
+    expect(signature("box-37")).toBe("123231456|?-?|LLS");
+    expect(signature("box-52")).toBe("123231789|456|DMM");
+    expect(signature("box-54")).toBe("456789897|123|MDM");
+    expect(signature("box-58")).toBe("123789897|456|DMM");
+    expect(signature("box-09")).toBe("456654789|321|M97");
   });
 });
 
@@ -238,33 +256,35 @@ describe("number selection and Lightning", () => {
 });
 
 describe("bonus chains", () => {
+  it("claims a printed blank line without queuing a reward", () => {
+    const state = numberState("box-37", 1);
+    state.players[0]!.cards[0]!.marked = [false, false, false, true, true, false, false, false, false];
+    const next = act(state, {
+      type: "markNumber",
+      playerId: "p0",
+      payload: { cardId: "box-37", cellIndex: 5, adjustments: [] },
+    });
+    expect(next.players[0]!.cards[0]!.claimedRows[1]).toBe(true);
+    expect(next.players[0]!.pendingBonuses).toEqual([]);
+  });
+
   it("queues both lines from one square and allows the player to choose order", () => {
-    const card = LUCKY_BOX_CARDS.find((item) => {
-      const number = item.rows[0];
-      return (
-        number?.kind === "number" &&
-        [4, 5].some((cell) => item.grid[cell] === number.value) &&
-        item.columns[0]?.kind !== "number" &&
-        item.columns[0]?.kind !== "wild"
-      );
-    })!;
-    const firstRowReward = card.rows[0];
-    if (!firstRowReward || firstRowReward.kind !== "number") {
-      throw new Error("expected a row number reward");
-    }
-    const targetCell = [4, 5].find(
-      (cell) => card.grid[cell] === firstRowReward.value,
-    )!;
-    const companion = targetCell === 4 ? 5 : 4;
-    const marked = Array(9).fill(false);
-    for (const index of [1, 2, 3, 6, companion]) marked[index] = true;
-    const state = numberState(card.id, card.grid[0]!);
-    state.players[0]!.cards = [boardCard(card.id, marked)];
+    const first = LUCKY_BOX_CARDS[0]!;
+    const second = LUCKY_BOX_CARDS[2]!;
+    const firstMarked = Array(9).fill(false);
+    for (const index of [1, 2, 3, 6]) firstMarked[index] = true;
+    const secondMarked = Array(9).fill(false);
+    for (const index of [7, 8]) secondMarked[index] = true;
+    const state = numberState(first.id, first.grid[0]!);
+    state.players[0]!.cards = [
+      boardCard(first.id, firstMarked),
+      boardCard(second.id, secondMarked),
+    ];
 
     let next = act(state, {
       type: "markNumber",
       playerId: "p0",
-      payload: { cardId: card.id, cellIndex: 0, adjustments: [] },
+      payload: { cardId: first.id, cellIndex: 0, adjustments: [] },
     });
     expect(next.players[0]!.pendingBonuses.map((bonus) => bonus.line)).toEqual([
       "row",
@@ -292,14 +312,14 @@ describe("bonus chains", () => {
       playerId: "p0",
       payload: {
         bonusId: numberBonus.id,
-        cardId: card.id,
-        cellIndex: targetCell,
+        cardId: second.id,
+        cellIndex: 6,
       },
     });
-    expect(next.players[0]!.cards[0]!.marked[targetCell]).toBe(true);
+    expect(next.players[0]!.cards[1]!.marked[6]).toBe(true);
     expect(
       next.players[0]!.pendingBonuses.some(
-        (bonus) => bonus.line === "row" && bonus.index === 1,
+        (bonus) => bonus.cardId === second.id && bonus.line === "row" && bonus.index === 2,
       ),
     ).toBe(true);
   });

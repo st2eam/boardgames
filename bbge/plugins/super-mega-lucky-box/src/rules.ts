@@ -163,7 +163,7 @@ function queueNewlyCompletedLines(
     ) {
       boardCard.claimedRows[row] = true;
       const bonus = pendingBonus(face, "row", row);
-      player.pendingBonuses.push(bonus);
+      if (bonus.reward.kind !== "none") player.pendingBonuses.push(bonus);
       events.push({
         type: "smlb/lineCompleted",
         payload: {
@@ -185,7 +185,7 @@ function queueNewlyCompletedLines(
     ) {
       boardCard.claimedColumns[col] = true;
       const bonus = pendingBonus(face, "column", col);
-      player.pendingBonuses.push(bonus);
+      if (bonus.reward.kind !== "none") player.pendingBonuses.push(bonus);
       events.push({
         type: "smlb/lineCompleted",
         payload: {

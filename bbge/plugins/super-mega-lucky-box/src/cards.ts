@@ -5,7 +5,8 @@ export type Reward =
   | { kind: "wild" }
   | { kind: "lightning"; count: 1 | 2 }
   | { kind: "star" }
-  | { kind: "moon" };
+  | { kind: "moon" }
+  | { kind: "none" };
 
 export interface LuckyBoxCard {
   id: string;
@@ -15,7 +16,7 @@ export interface LuckyBoxCard {
   columns: Reward[];
 }
 
-/** Fixed original card faces. Runtime games only shuffle this committed data. */
+/** Physical card faces numbered 1–60. Runtime games only shuffle this fixed deck. */
 export const LUCKY_BOX_CARDS = rawCards as LuckyBoxCard[];
 
 export function validateLuckyBoxDeck(cards = LUCKY_BOX_CARDS): string[] {
@@ -25,17 +26,12 @@ export function validateLuckyBoxDeck(cards = LUCKY_BOX_CARDS): string[] {
   const faces = new Set<string>();
   const gridCounts = Array(10).fill(0) as number[];
   const numberRewardCounts = Array(10).fill(0) as number[];
-  const lightningCounts = { 1: 0, 2: 0 };
-  const positions: Record<string, number[]> = {
-    row0: Array(5).fill(0),
-    row1: Array(5).fill(0),
-    row2: Array(5).fill(0),
-    col0: Array(5).fill(0),
-    col1: Array(5).fill(0),
-    col2: Array(5).fill(0),
-  };
+  let emptyRewards = 0;
 
-  for (const card of cards) {
+  for (const [index, card] of cards.entries()) {
+    if (card.id !== `box-${String(index + 1).padStart(2, "0")}`) {
+      issues.push("unexpected physical card number: " + card.id);
+    }
     if (ids.has(card.id)) issues.push("duplicate card id: " + card.id);
     ids.add(card.id);
     if (
@@ -45,22 +41,19 @@ export function validateLuckyBoxDeck(cards = LUCKY_BOX_CARDS): string[] {
       issues.push("invalid grid: " + card.id);
     } else {
       for (const n of card.grid) gridCounts[n] += 1;
+      for (let row = 0; row < 3; row++) {
+        const band = card.grid.slice(row * 3, row * 3 + 3).sort().join("");
+        if (!["123", "456", "789"].includes(band)) {
+          issues.push("invalid physical number row: " + card.id);
+        }
+      }
     }
     if (card.rows.length !== 3 || card.columns.length !== 3) {
-      issues.push("each card needs three row and column rewards: " + card.id);
+      issues.push("each card needs three row and column positions: " + card.id);
       continue;
     }
 
-    const bonuses = [...card.rows, ...card.columns];
-    const kindCounts = {
-      number: 0,
-      wild: 0,
-      lightning: 0,
-      star: 0,
-      moon: 0,
-    };
-    for (const reward of bonuses) {
-      kindCounts[reward.kind] += 1;
+    for (const reward of [...card.rows, ...card.columns]) {
       if (reward.kind === "number") {
         if (!Number.isInteger(reward.value) || reward.value < 1 || reward.value > 9) {
           issues.push("invalid number reward: " + card.id);
@@ -68,50 +61,28 @@ export function validateLuckyBoxDeck(cards = LUCKY_BOX_CARDS): string[] {
           numberRewardCounts[reward.value] += 1;
         }
       } else if (reward.kind === "lightning") {
-        lightningCounts[reward.count] += 1;
+        if (reward.count !== 1 && reward.count !== 2) {
+          issues.push("invalid lightning reward: " + card.id);
+        }
+      } else if (reward.kind === "none") {
+        emptyRewards += 1;
+      } else if (reward.kind !== "wild" && reward.kind !== "star" && reward.kind !== "moon") {
+        issues.push("invalid reward kind: " + card.id);
       }
-    }
-    if (
-      kindCounts.number !== 2 ||
-      kindCounts.wild !== 1 ||
-      kindCounts.lightning !== 1 ||
-      kindCounts.star !== 1 ||
-      kindCounts.moon !== 1
-    ) {
-      issues.push("invalid reward mix: " + card.id);
     }
     const face = JSON.stringify([card.grid, card.rows, card.columns]);
     if (faces.has(face)) issues.push("duplicate card face: " + card.id);
     faces.add(face);
-    [...card.rows, ...card.columns].forEach((reward, i) => {
-      positions[["row0", "row1", "row2", "col0", "col1", "col2"][i]!]![
-        reward.kind === "number"
-          ? 0
-          : reward.kind === "wild"
-            ? 1
-            : reward.kind === "lightning"
-              ? 2
-              : reward.kind === "star"
-                ? 3
-                : 4
-      ] += 1;
-    });
   }
 
-  if (new Set(gridCounts.slice(1)).size !== 1) {
-    issues.push("grid values must be balanced across the deck");
+  if (gridCounts.slice(1).some((count) => count !== 60)) {
+    issues.push("each grid value must appear 60 times across the physical deck");
   }
-  if (Math.max(...numberRewardCounts.slice(1)) - Math.min(...numberRewardCounts.slice(1)) > 1) {
-    issues.push("number rewards must be balanced across the deck");
+  if (numberRewardCounts.slice(1).some((count) => count !== 17)) {
+    issues.push("each number reward must appear 17 times across the physical deck");
   }
-  if (lightningCounts[1] !== 30 || lightningCounts[2] !== 30) {
-    issues.push("one- and two-lightning rewards must each appear 30 times");
-  }
-  for (const counts of Object.values(positions)) {
-    if (counts[0] !== 20 || counts.slice(1).some((count) => count !== 10)) {
-      issues.push("reward kinds must be balanced across line positions");
-      break;
-    }
+  if (emptyRewards !== 8) {
+    issues.push("the physical deck must have eight empty reward positions");
   }
   return issues;
 }

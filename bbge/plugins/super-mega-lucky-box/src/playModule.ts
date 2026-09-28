@@ -16,8 +16,8 @@ export const superMegaLuckyBoxPlayModule: PluginPlayModule = {
   plugin: superMegaLuckyBoxPlugin as PluginPlayModule["plugin"],
   Table: SmlbTable,
   lobbyNotice: {
-    zh: "在线版使用 60 张原创幸运盒牌面，便于网页游玩；牌面不是实体盒子的复刻。",
-    en: "Online play uses 60 original Lucky Box card faces for the browser; these are not reproductions of the physical deck.",
+    zh: "使用按实体版编号录入的 60 张固定盒子牌；每局只随机洗牌，不随机生成牌面。",
+    en: "Uses 60 fixed Lucky Box faces transcribed by physical card number. Only the deck order is shuffled.",
   },
   formatEvents: formatSmlbEvents,
   createMockSeat: createMockSmlbSeat,
